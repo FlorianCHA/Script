@@ -6,7 +6,7 @@
 """
 	The ABYSS_launch script
 	=======================
-	author: Charriat test Florian\n
+	author: Charriat Florian\n
 	contact: florian.charriat@inra.fr\n
 	date: 9/03/2018\n
 	version: 0.1
