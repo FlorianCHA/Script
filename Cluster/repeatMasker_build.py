@@ -1,5 +1,5 @@
-#!/usr/bin/python2.7
-#-*- coding: utf-8 -*-
+#!/usr/local/bioinfo/python/3.4.3_build2/bin/python
+# -*- coding: utf-8 -*-
 # @package repeatMasker_build.py
 # @author Florian Charriat
 

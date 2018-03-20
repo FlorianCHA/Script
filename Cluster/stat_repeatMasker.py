@@ -1,5 +1,5 @@
-#!/usr/bin/python2.7
-#-*- coding: utf-8 -*-ss
+#!/usr/local/bioinfo/python/3.4.3_build2/bin/python
+# -*- coding: utf-8 -*-
 # @package ABYSS_launch.py
 # @author Florian Charriat
 
