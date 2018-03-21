@@ -98,7 +98,7 @@ if __name__ == "__main__":
 	directory = verifDir(directory)
 	ref = verifDir(ref)
 	outDir = verifDir(outDir)
-	bash = outDir+'scirpt_bash/'
+	bash = outDir+'script_bash/'
 	name_directory = [outDir, bash,outDir+'error/',outDir+'output/']
 	for folder in name_directory: 
 		createDir(folder)
