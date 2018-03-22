@@ -47,6 +47,7 @@
 ########## Module ###############
 import argparse
 import os
+import sys
 
 
 ####### FUNCTION ################
@@ -99,7 +100,8 @@ if __name__ == "__main__":
 	ref = verifDir(ref)
 	outDir = verifDir(outDir)
 	bash = outDir+'script_bash/'
-	name_directory = [outDir, bash,outDir+'error/',outDir+'output/']
+	braker = outDir+'bamForBraker/'
+	name_directory = [outDir, bash,outDir+'error/',outDir+'output/',braker]
 	for folder in name_directory: 
 		createDir(folder)
 
@@ -130,7 +132,8 @@ if __name__ == "__main__":
 		# Permet d'utiliser l'outils bam2hints pour formater les données pour l'annotation avec Augustus ou braker
 		files.write('bam2hints --minintronlen=10 --maxintronlen=1000 --maxgaplen=9 --source=M --in='+sortfile+' --out=hints_'+IDgenome+'.raw.bam;\n')
 		# Permet de selectionner seulement un set de read minimum requis pour un intron avec un script R
-		
+		files.write(sys.path[0]+'/filterHints.r -s '+IDgenome+' -p '+resultMapping)
+		files.write('cp -s '+resultMapping+'/hints_BR0032.filtered.gff '+braker+IDgenome)
 		files.close()
 		os.system('chmod 755 '+nameFile)
 		run = open(outDir+'run_job_mapping.sh','a')
@@ -139,6 +142,7 @@ if __name__ == "__main__":
 
 	
 		
+
 
 
 
