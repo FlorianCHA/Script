@@ -133,7 +133,8 @@ if __name__ == "__main__":
 		files.write('bam2hints --minintronlen=10 --maxintronlen=1000 --maxgaplen=9 --source=M --in='+sortfile+' --out=hints_'+IDgenome+'.raw.bam;\n')
 		# Permet de selectionner seulement un set de read minimum requis pour un intron avec un script R
 		files.write(sys.path[0]+'/filterHints.r -s '+IDgenome+' -p '+resultMapping+'\n')
-		files.write('cp -s '+resultMapping+'/hints_BR0032.filtered.gff '+braker+IDgenome)
+		createDir(braker+IDgenome)
+		files.write('cp -s '+resultMapping+'/hints_BR0032.filtered.gff '+braker+IDgenome+'/')
 		files.close()
 		os.system('chmod 755 '+nameFile)
 		run = open(outDir+'run_job_mapping.sh','a')
