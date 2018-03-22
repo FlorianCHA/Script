@@ -116,7 +116,7 @@ if __name__ == "__main__":
 		#Permet de géré les sortie de sge 
 		files.write('#$ -o '+outDir+'output/'+IDgenome+'.out\n#$ -e '+outDir+'error/'+IDgenome+'.err\n')
 		# Permet de charger puis lancer Toogle pour un alignement
-		files.write('module load bioinfo/braker/1.9 bioinfo/exonerate/2.4.7 bioinfo/TOGGLE/dev bioinfo/R/3.2.2\n')
+		files.write('module load bioinfo/braker/1.9\nbioinfo/exonerate/2.4.7\nmodule load bioinfo/TOGGLE/0.3.6\n')
 		files.write('toggleGenerator.pl -d '+directory+' -r '+ref+genome+' -c '+config+' -o '+genomeOutDir+' -nocheck;\n')
 		# Permet de récupérer tous les hits accepté pour ensuite les merger
 		files.write('cd '+resultMapping+';\nls *.accepted_hits.bam > bamList;\n')
