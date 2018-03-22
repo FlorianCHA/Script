@@ -117,6 +117,7 @@ if __name__ == "__main__":
 		files.write('#$ -o '+outDir+'output/'+IDgenome+'.out\n#$ -e '+outDir+'error/'+IDgenome+'.err\n')
 		# Permet de charger puis lancer Toogle pour un alignement
 		files.write('module load bioinfo/braker/1.9\nbioinfo/exonerate/2.4.7\nmodule load bioinfo/TOGGLE/0.3.6\n')
+		files.write('rm -r '+genomeOutDir+'\n')
 		files.write('toggleGenerator.pl -d '+directory+' -r '+ref+genome+' -c '+config+' -o '+genomeOutDir+' -nocheck;\n')
 		# Permet de récupérer tous les hits accepté pour ensuite les merger
 		files.write('cd '+resultMapping+';\nls *.accepted_hits.bam > bamList;\n')
@@ -128,6 +129,8 @@ if __name__ == "__main__":
 		files.write('java -jar /usr/local/bioinfo/picard-tools/2.7.0//picard.jar SortSam I='+mergefile+' O='+sortfile+' SORT_ORDER=coordinate;\n')
 		# Permet d'utiliser l'outils bam2hints pour formater les données pour l'annotation avec Augustus ou braker
 		files.write('bam2hints --minintronlen=10 --maxintronlen=1000 --maxgaplen=9 --source=M --in='+sortfile+' --out=hints_'+IDgenome+'.raw.bam;\n')
+		# Permet de selectionner seulement un set de read minimum requis pour un intron avec un script R
+		
 		files.close()
 		os.system('chmod 755 '+nameFile)
 		run = open(outDir+'run_job_mapping.sh','a')
