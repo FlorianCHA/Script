@@ -113,7 +113,7 @@ if __name__ == "__main__":
 	# Permet de charger puis lancer Toogle pour un alignement
 	files.write('module load bioinfo/TOGGLE/0.3.6\n')
 	files.write('rm -rf '+genomeOutDir+'\n') # permet de suprimer le fichier output de TOGGLE pour éviter tous problèmes
-	files.write('toggleGenerator.pl -d '+directory+' -r '+genome+' -c '+config+' -o '+genomeOutDir+' -nocheck;\n')
+	files.write('toggleGenerator.pl -d '+directory[:-1]+' -r '+genome+' -c '+config+' -o '+genomeOutDir+' -nocheck;\n')
 	files.close()	
 	os.system("qsub -N "+IDgenome+"_mapping -V -q normal.q '"+nameFile+"'\n")
 
