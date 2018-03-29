@@ -130,7 +130,7 @@ if __name__ == "__main__":
 					SeqIO.write(record,output_handle, "fasta")
 					#SeqIO.write(sequence,output_handle, "fasta")
 					count += 1
-			elif keep == 'none' : 
+			elif k == 'none' : 
 					record = SeqRecord(sequence.seq,id=seqName,name=seqName, description=descrip)
 					SeqIO.write(record,output_handle, "fasta")
 					#SeqIO.write(sequence,output_handle, "fasta")

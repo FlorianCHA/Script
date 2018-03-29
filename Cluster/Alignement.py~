@@ -1,6 +1,6 @@
 #!/usr/local/bioinfo/python/3.4.3_build2/bin/python
 # -*- coding: utf-8 -*-
-# @package Alignement.py
+# @package ABYSS_launch.py
 # @author Florian Charriat
 
 """
@@ -22,7 +22,7 @@
 
 	>>> Alignement.py -d /homedir/user/work/RNAseq -o /homedir/user/work/result -c /homedir/user/work/config.txt -r /homedir/user/work/RNAseq/assembly
 	
-	>>> Alignement.py -d /homedir/user/work/RNAseq -o /homedir/user/work/result -c /homedir/user/work/config.txt -r /homedir/user/work/RNAseq/assembly -f file.fasta
+	>>> Alignement.py -d /homedir/user/work/data -o /homedir/user/work/result
 	
 
 	Help Programm
@@ -51,12 +51,29 @@
 
 
 ########## Module ###############
-## Python modules
-import argparse, os, sys
+import argparse
+import os
+import sys
 
-#Import MODULES_SEB
-from module_Flo import verifDir, createDir
 
+####### FUNCTION ################
+def createDir(directory):
+	''' Permet de vérifier si un dossier existe, si ce n'est pas le cas, 
+	le dossier sera crée
+	'''
+	if not os.path.exists(directory):
+		 	os.makedirs(directory)
+	return
+
+def verifDir(directory):
+	'''
+	Permet de mettre en forme le chemin du dossier pour être utilisé dans un script, 
+	la fonction vérifie si il y a bien un '/' à la fin du chemin, sinon il le rajoute
+	'''
+	if directory.endswith('/') == False :
+		directory = directory +'/'
+
+	return directory
 
 
 if __name__ == "__main__":
@@ -84,12 +101,13 @@ if __name__ == "__main__":
 	ref = args.refDir
 	config = args.configFile
 	outDir= args.outDirPath
-	assembly = args.file
+
 
 ########### Gestion directory ##############
 	directory = verifDir(directory)
 	ref = verifDir(ref)
 	outDir = verifDir(outDir)
+	assembly = args.file
 	bash = outDir+'script_bash/'
 	braker = outDir+'bamForBraker/'
 	name_directory = [outDir, bash,outDir+'error/',outDir+'output/',braker]
@@ -102,8 +120,7 @@ if __name__ == "__main__":
 	run.close()
 	for genome in os.listdir(ref) :
 		if assembly in genome :
-			IDgenome = genome.replace('_scaffold.fasta','')
-			IDgenome = IDgenome.replace('.fa','')
+			IDgenome = genome.replace('.fasta','')
 			genomeOutDir = outDir+IDgenome
 			resultMapping =	genomeOutDir+'/finalResults'
 			nameFile = bash+IDgenome+'_mapping.sh'
@@ -127,7 +144,7 @@ if __name__ == "__main__":
 			# Permet de selectionner seulement un set de read minimum requis pour un intron avec un script R
 			files.write(sys.path[0]+'/filterHints.r -s '+IDgenome+' -p '+resultMapping+'\n')
 			createDir(braker+IDgenome)
-			files.write('cp -s '+resultMapping+'/hints_'+IDgenome+'.filtered.gff '+braker+IDgenome+'/')
+			files.write('cp -s '+resultMapping+'/hints_BR0032.filtered.gff '+braker+IDgenome+'/')
 			files.close()
 			os.system('chmod 755 '+nameFile)
 			run = open(outDir+'run_job_mapping.sh','a')

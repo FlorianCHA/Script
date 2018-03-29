@@ -39,29 +39,12 @@
 
 
 ########## Module ###############
-import argparse
-import os
+## Python modules
+import argparse, os, sys
 
-####### FUNCTION ################
-def createDir(directory):
-	''' Permet de vérifier si un dossier existe, si ce n'est pas le cas, 
-	le dossier sera crée
-	'''
-	if not os.path.exists(directory):
-		 	os.makedirs(directory)
-	return
+#Import MODULES_SEB
+from module_Flo import verifDir, createDir
 
-def verifDir(directory):
-	'''
-	Permet de mettre en forme le chemin du dossier pour être utilisé dans un script, 
-	la fonction vérifie si il y a bien un '/' à la fin du chemin, sinon il le rajoute
-	'''
-	if directory.endswith('/') == False :
-		directory = directory +'/'
-
-	return directory
-
-if __name__ == "__main__":
 
 ########### Gestion directory #############
 	directory = '/homedir/charriat/work/repeatMasker/result_repeatMasker/'

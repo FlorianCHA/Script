@@ -39,28 +39,11 @@
 
 
 ########## Module ###############
+## Python modules
+import argparse, os, sys
 
-import argparse
-import os
-
-######## Fonction ###############
-def createDir(directory):
-	''' Permet de vérifier si un dossier existe, si ce n'est pas le cas, 
-	le dossier sera crée
-	'''
-	if not os.path.exists(directory):
-		 	os.makedirs(directory)
-	return
-
-def verifDir(directory):
-	'''
-	Permet de mettre en forme le chemin du dossier pour être utilisé dans un script, 
-	la fonction vérifie si il y a bien un '/' à la fin du chemin, sinon il le rajoute
-	'''
-	if directory.endswith('/') == False :
-		directory = directory +'/'
-
-	return directory
+#Import MODULES_SEB
+from module_Flo import verifDir, createDir
 
 
 
