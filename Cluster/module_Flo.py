@@ -3,9 +3,10 @@
 # @package module_Flo.py
 # @author Florian Charriat
 #__docformat__ = "restructuredtext en"
+
 """
 	The module_Flo module
-	======================
+	=====================
 
 	author: CHARRIAT Florian
 	contact: florian.charriat@inra.fr
