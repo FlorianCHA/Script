@@ -7,9 +7,9 @@
 	The Alignement script
 	=====================
 
-	author: CHARRIAT Florian
-	contact: florian.charriat@inra.fr
-	date: 9/03/2018
+	author: CHARRIAT Florian\n
+	contact: florian.charriat@inra.fr\n
+	date: 9/03/2018\n
 	version: 0.1
 
 	Script description

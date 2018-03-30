@@ -6,6 +6,7 @@
 """
 	The module_Flo module
 	======================
+
 	author: CHARRIAT Florian
 	contact: florian.charriat@inra.fr
 	date: 21/03/2018
@@ -15,12 +16,8 @@
 
 	Example:
 
-	>>> from MODULES_SEB import dict2txt
-	>>> dico = {"key1":"value1","key2":"value2","key3":"value3"}
-	>>> dict2txt(dico)
-	key1	value1
-	key2	value2
-	key3	value3
+	>>> from module_Flor import createDir
+	>>> createDir('resultat')
 	
 """
 ##################################################
