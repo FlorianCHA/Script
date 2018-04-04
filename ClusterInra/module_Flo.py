@@ -8,10 +8,11 @@
 	The module_Flo module
 	=====================
 
-	author: CHARRIAT Florian
-	contact: florian.charriat@inra.fr
-	date: 21/03/2018
-	version: 0.1
+	author: CHARRIAT Florian\n
+	contact: florian.charriat@inra.fr\n
+	date: 21/03/2018\n
+	version: 0.1\n
+
 
 	Use it to import very handy functions.
 
