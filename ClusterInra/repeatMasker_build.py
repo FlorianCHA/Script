@@ -1,4 +1,4 @@
-#!/usr/local/bioinfo/python/3.4.3_build2/bin/python
+#!/bin/env python
 # -*- coding: utf-8 -*-
 # @package repeatMasker_build.py
 # @author Florian Charriat

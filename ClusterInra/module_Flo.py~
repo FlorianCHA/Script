@@ -1,4 +1,4 @@
-#!/bin/env python
+#!/usr/local/bioinfo/python/3.4.3_build2/bin/python
 # -*- coding: utf-8 -*-
 # @package module_Flo.py
 # @author Florian Charriat
