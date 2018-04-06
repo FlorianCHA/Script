@@ -44,7 +44,7 @@
 import argparse, os, sys
 
 #Import MODULES_SEB
-from module_Flo import verifDir, createDir
+from module_Flo import verifDir, createDir, form
 
 
 
@@ -59,7 +59,7 @@ if __name__ == "__main__":
 
 
 	filesreq = parser.add_argument_group('Input mandatory infos for running')
-	filesreq.add_argument('-d', '--directory',type = str, required=True, dest = 'dirPath', help = 'path of directory that contains all the fasta files which must be assembled')
+	filesreq.add_argument('-d', '--directory',type = str, required=True, dest = 'dirPath', help = 'path of directory that contains all the fasta assembled files')
 	filesreq.add_argument('-o', '--outDir',type = str, required=True, dest = 'outDirPath', help = 'Path of the output directory')
 
 	
@@ -94,13 +94,18 @@ if __name__ == "__main__":
 	directory = verifDir(directory,True)
 	outDir = verifDir(outDir)
 
-	name_directory = [outDir,outDir+'error_files', outDir+'out_files',outDir+'script_bash',outDir+'result']
+	name_directory = [outDir]
 	for folder in name_directory: 
 		createDir(folder)
 
+############### start message ########################
+
+	print(form("\n\t---------------------------------------------------------",'yellow','bold'))
+	print("\t"+form("|",'yellow','bold')+form("        Welcome in ABYSS_launch (Version " + version + ")          ",type='bold')+form("|",'yellow','bold'))
+	print(form("\t---------------------------------------------------------",'yellow','bold')+'\n')
 
 ############# Main #########################
-	quality = open(outDir+"QualityAssembly","w")
+	quality = open(outDir+"QualityAssembly.csv","w")
 	quality.close()
 	listeID = []
 	qualityR = quality = open(outDir+"QualityR","w")
@@ -114,9 +119,11 @@ if __name__ == "__main__":
 		listeID.append(ID)
 	listeID.sort()
 	a = 0 
-	for isolate in listeID : 
+	nbAssemblage = 0
+	for isolate in listeID : 	
+		print("Recuperation des données Qualité de l'assemblage : " +isolate)
 		if a == 0 :
-			quality = open(outDir+"QualityAssembly","a")
+			quality = open(outDir+"QualityAssembly.csv","a")
 			quality.write("\nn\tn:500\tL50\tmin\tN80\tN50\tN20\tE-size\tmax\tsum\tname\t\n")
 			quality.close()
 		else : 
@@ -125,6 +132,7 @@ if __name__ == "__main__":
 			Exclus.close()
 		a = 0
 		for kmers in [20,30,40,50,60,70,80,90]:
+			nbAssemblage += 1
 			for file in os.listdir(directory+isolate+"/abyss_assembly_"+isolate+"_"+str(kmers)):	
 				if file.endswith('-stats.tab')==True :
 					stat = open(directory+isolate+"/abyss_assembly_"+isolate+"_"+str(kmers)+"/"+file,"r")
@@ -147,7 +155,7 @@ if __name__ == "__main__":
 						qualityR.write(stats[3])
 						qualityR.close()
 						break
-					quality = open(outDir+"QualityAssembly","a")
+					quality = open(outDir+"QualityAssembly.csv","a")
 					quality.write(stats[3])
 					qualityR = open(outDir+"QualityR","a")
 					qualityR.write(stats[3])
@@ -157,9 +165,22 @@ if __name__ == "__main__":
 
 
 
+############## summary message #######################
+	print(form('\n-------------------------------------------------------------------------------------------------------------------------','red','bold'))
+	print(form('Execution summary:\n','green',['bold','underline']))
+	print('- Quality a récupérées les données qualité des '+str(nbAssemblage)+' assemblages')
+	print('- Les fichiers de sorties sont :\n')
+	print('\t- QualityAssembly.csv : Fichier qui donne les statistiques des assemblages par souche')
+	print('\t- Exclus_Assembly : Fichier qui donne les statistiques des assemblages exclus à cause de leur mauvaise qualité')
+	print('\t- QualityR : Fichier contenant toutes les statistiques, ce fichier peut etre utilisé facilement avec R')
+	print(form('-------------------------------------------------------------------------------------------------------------------------','red','bold'))
 
 
+############## end message ###########################
 
+	print(form("\n\t---------------------------------------------------------",'yellow','bold'))
+	print("\t"+form("|",'yellow','bold')+form("                    End of execution                   ",type='bold')+form("|",'yellow','bold'))
+	print(form("\t---------------------------------------------------------",'yellow','bold'))
 
 
 

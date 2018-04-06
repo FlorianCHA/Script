@@ -74,17 +74,24 @@ if __name__ == "__main__":
 
 ########### Gestion directory #############
 	directory = verifDir(directory,True)
-	database = database
 	outDir = verifDir(outDir)
 	verifFichier(database)
 	name_directory = [outDir, outDir+'script_bash', outDir+'result_repeatMasker', outDir+'sge_output',outDir+'sge_error']
 	for folder in name_directory: 
 		createDir(folder)
+		
+############### start message ########################
 
+	print(form("\n\t---------------------------------------------------------",'yellow','bold'))
+	print("\t"+form("|",'yellow','bold')+form("       Welcome in repeatMasker_build (Version " + version + ")     ",type='bold')+form("|",'yellow','bold'))
+	print(form("\t---------------------------------------------------------",'yellow','bold')+'\n')
+	
 ########## main script ######################
+	nbScript = 0
 	runJob = open(outDir+"run_repeatMAskerJob.sh","w")
 	for files in os.listdir(directory):
 		if files.endswith('.fasta')==True or files.endswith('.fa')==True :
+			nbScript += 1
 			filesName = files.replace('.fa','')
 			filesName = filesName.replace('.fasta','')
 			createDir(outDir +"result_repeatMasker/"+filesName)
@@ -93,8 +100,29 @@ if __name__ == "__main__":
 			SCRIPT.write("RepeatMasker -pa 4 -s -no_is -nolow "+directory+files+" -lib "+database+" -e ncbi -dir "+ outDir +"result_repeatMasker/"+filesName+";\n")
 			SCRIPT.close()
 			os.system("chmod 755 "+outDir+'script_bash/'+filesName+ "_repeatMasker.sh")
-			runJob = open("run_repeatMAskerJob.sh","a")
+			runJob = open(outDir+"run_repeatMAskerJob.sh","a")
 			runJob.write("qsub -N "+filesName+"_repeatmasker -V -q long.q -pe parallel_smp 4 "+ outDir+'script_bash/'+filesName+ "_repeatMasker.sh\n")
 			runJob.close()
 			print(files +'\t done')		
+			
+
+############## summary message #######################
+
+	print(form('\n-------------------------------------------------------------------------------------------------------------------------','red','bold'))
+	print(form('Execution summary:\n','green',['bold','underline']))
+	print('- Tous les script bash crées se trouvent dans le dossier script_bash')
+	print('- Le script repeatMasker_build a créés un fichier bash contenant les '+str(nbScript)+" jobs")
+	print('- Si vous souhaité lancer tous les fichiers bash veuillez taper la commande : ')
+	print(form('\n\t\t\t\tbash '+outDir+'run_job_mapping.sh\n','green','bold'))
+	print(form('-------------------------------------------------------------------------------------------------------------------------','red','bold'))
+
+	
+
+			
+############## end message ###########################
+
+	print(form("\n\t---------------------------------------------------------",'yellow','bold'))
+	print("\t"+form("|",'yellow','bold')+form("                    End of execution                   ",type='bold')+form("|",'yellow','bold'))
+	print(form("\t---------------------------------------------------------",'yellow','bold'))
+
 

@@ -150,7 +150,7 @@ if __name__ == "__main__":
 	print(form('Execution summary:\n','green',['bold','underline']))
 	print('- Tous les script bash crées se trouvent dans le dossier script_bash')
 	print('- Le script Alignement a créés un fichier bash contenant les '+str(nbScript)+" jobs de mapping pour chaque assemblage")
-	print('- Si vous souhaité lancer tous le fichier bash veuillez taper la commande : ')
+	print('- Si vous souhaité lancer tous les fichiers bash veuillez taper la commande : ')
 	print(form('\n\t\t\t\tbash '+outDir+'run_job_mapping.sh\n','green','bold'))
 	print(form('-------------------------------------------------------------------------------------------------------------------','red','bold'))
 	
