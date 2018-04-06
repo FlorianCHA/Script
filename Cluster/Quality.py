@@ -91,7 +91,7 @@ if __name__ == "__main__":
 
 
 ########### Gestion directory ##############
-	directory = verifDir(directory)
+	directory = verifDir(directory,True)
 	outDir = verifDir(outDir)
 
 	name_directory = [outDir,outDir+'error_files', outDir+'out_files',outDir+'script_bash',outDir+'result']

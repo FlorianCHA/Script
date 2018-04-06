@@ -42,8 +42,8 @@
 ## Python modules
 import argparse, os, sys
 
-#Import MODULES_SEB
-from module_Flo import verifDir, createDir
+#Import module_Flo
+from module_Flo import verifDir, createDir , form
 
 
 
@@ -69,24 +69,53 @@ if __name__ == "__main__":
 
 
 ########### Gestion directory ##############
-	directory = verifDir(directory)
+	directory = verifDir(directory,True)
 	outDir = verifDir(outDir)
 
 	name_directory = [outDir,outDir+'error_files', outDir+'out_files',outDir+'script_bash',outDir+'result']
 	for folder in name_directory: 
 		createDir(folder)
 
+############### start message ########################
+
+	print(form("\n\t---------------------------------------------------------",'yellow','bold'))
+	print("\t"+form("|",'yellow','bold')+form("        Welcome in ABYSS_launch (Version " + version + ")          ",type='bold')+form("|",'yellow','bold'))
+	print(form("\t---------------------------------------------------------",'yellow','bold')+'\n')
+
 ############# Main #########################
+	nbJob = 0
+	nbGenome = 0
 	for file in os.listdir(directory):
 		if file.endswith('_R1.fastq.gz')==True :
+			nbGenome += 1
 			isolate=file.replace('_R1.fastq.gz','')
-			print(isolate)
+			print(form('\nLancement des jobs pour : '+isolate+'\n','green',['bold','underline']))
 			for kmers in [20,30,40,50,60,70,80,90]:
-				SCRIPT=open(outDir+'script_bash/abyss_assembly_'+isolate+'_'+str(kmers)+'.sh','w')
+				nameScript =outDir+'script_bash/abyss_assembly_'+isolate+'_'+str(kmers)+'.sh'
+				SCRIPT=open(nameScript,'w')
 				SCRIPT.write('#$ -o '+outDir+'out_files/abyss_assembly_'+isolate+'_'+str(kmers)+'.out\n#$ -e '+outDir+'error_files/abyss_assembly_'+isolate+'_'+str(kmers)+'.err\nmodule load bioinfo/abyss/1.9.0;\n')
 				SCRIPT.write('mkdir -p '+outDir+'result/'+isolate+'/abyss_assembly_'+isolate+'_'+str(kmers)+';\n')
 				SCRIPT.write('cd '+outDir+'result/'+isolate+'/abyss_assembly_'+isolate+'_'+str(kmers)+';\n')
 				SCRIPT.write("/usr/local/bioinfo/abyss/1.9.0/bin/abyss-pe name="+isolate+"_"+str(kmers)+" k="+str(kmers)+" in='"+directory+file+" "+directory+file.replace('_R1','_R2')+"' -o abyss_assembly_"+isolate+"_"+str(kmers)+".fasta;\n")
 				SCRIPT.close()
-				os.system('qsub -l mem_free=50G -l h_vmem=60G -q normal.q '+outDir+'script_bash/abyss_assembly_'+isolate+'_'+str(kmers)+'.sh')
+				print('qsub -l mem_free=50G -l h_vmem=60G -q normal.q '+nameScript)
+				nbJob += 1
+
+
+############## summary message #######################
+	print(form('\n---------------------------------------------------------------------------------','red','bold'))
+	print(form('Execution summary:\n','green',['bold','underline']))
+	print('- Abyss_launch a lancés '+str(nbJob)+" jobs pour l'assemblage des "+str(nbGenome)+' genomes')
+	print('- Tous les script bash lancés se trouvent dans le dossier script_bash')
+	print('- Une fois les jobs finis les résulat seront disponible dans le dossier result')
+	print(form('---------------------------------------------------------------------------------','red','bold'))
+
+############## end message ###########################
+
+	print(form("\n\t---------------------------------------------------------",'yellow','bold'))
+	print("\t"+form("|",'yellow','bold')+form("                    End of execution                   ",type='bold')+form("|",'yellow','bold'))
+	print(form("\t---------------------------------------------------------",'yellow','bold'))
+
+
+
 

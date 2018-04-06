@@ -51,7 +51,7 @@ if __name__ == "__main__":
 ########### Gestion directory #############
 	directory = '/homedir/charriat/work/repeatMasker/result_repeatMasker/'
 	outDir = '/homedir/charriat/work/repeatMasker/'
-	directory = verifDir(directory)
+	directory = verifDir(directory,True)
 	outDir = verifDir(outDir)
 
 ########## main script ######################

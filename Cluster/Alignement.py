@@ -54,8 +54,8 @@
 ## Python modules
 import argparse, os, sys
 
-#Import MODULES_SEB
-from module_Flo import verifDir, createDir
+#Import module_Flo
+from module_Flo import verifDir, createDir , form , verifFichier
 
 
 
@@ -87,8 +87,9 @@ if __name__ == "__main__":
 	assembly = args.file
 
 ########### Gestion directory ##############
-	directory = verifDir(directory)
-	ref = verifDir(ref)
+	directory = verifDir(directory,True)
+	ref = verifDir(ref,True)
+	verifFichier(config)
 	outDir = verifDir(outDir)
 	bash = outDir+'script_bash/'
 	braker = outDir+'bamForBraker/'
@@ -96,14 +97,22 @@ if __name__ == "__main__":
 	for folder in name_directory: 
 		createDir(folder)
 
+############### start message ########################
+
+	print(form("\n\t---------------------------------------------------------",'yellow','bold'))
+	print("\t"+form("|",'yellow','bold')+form("         Welcome in Alignement (Version " + version + ")           ",type='bold')+form("|",'yellow','bold'))
+	print(form("\t---------------------------------------------------------",'yellow','bold')+'\n')
 
 ########## Main ############################
+	nbScript = 0
 	run = open(outDir+'run_job_mapping.sh','w')
 	run.close()
 	for genome in os.listdir(ref) :
-		if assembly in genome :
+		if assembly in genome and (genome.endswith('.fasta') or genome.endswith('.fa') ):
+			nbScript += 1
 			IDgenome = genome.replace('_scaffold.fasta','')
 			IDgenome = IDgenome.replace('.fa','')
+			print('\nCréation du script de mapping pour : ' + IDgenome)
 			genomeOutDir = outDir+IDgenome
 			resultMapping =	genomeOutDir+'/finalResults'
 			nameFile = bash+IDgenome+'_mapping.sh'
@@ -134,10 +143,24 @@ if __name__ == "__main__":
 			run.write("qsub -N "+IDgenome+"_mapping -V -q long.q '"+nameFile+"'\n")
 			run.close()
 
+
+
+############## summary message #######################
+	print(form('\n-------------------------------------------------------------------------------------------------------------------','red','bold'))
+	print(form('Execution summary:\n','green',['bold','underline']))
+	print('- Tous les script bash crées se trouvent dans le dossier script_bash')
+	print('- Le script Alignement a créés un fichier bash contenant les '+str(nbScript)+" jobs de mapping pour chaque assemblage")
+	print('- Si vous souhaité lancer tous le fichier bash veuillez taper la commande : ')
+	print(form('\n\t\t\t\tbash '+outDir+'run_job_mapping.sh\n','green','bold'))
+	print(form('-------------------------------------------------------------------------------------------------------------------','red','bold'))
 	
 		
 
+############## end message ###########################
 
+	print(form("\n\t---------------------------------------------------------",'yellow','bold'))
+	print("\t"+form("|",'yellow','bold')+form("                    End of execution                   ",type='bold')+form("|",'yellow','bold'))
+	print(form("\t---------------------------------------------------------",'yellow','bold'))
 
 
 

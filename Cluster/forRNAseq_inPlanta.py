@@ -48,8 +48,9 @@
 ## Python modules
 import argparse, os, sys
 
-#Import MODULES_SEB
-from module_Flo import verifDir, createDir
+#Import module_Flo
+from module_Flo import verifDir, createDir , form , verifFichier
+
 
 
 if __name__ == "__main__":
@@ -78,16 +79,28 @@ if __name__ == "__main__":
 
 
 ########### Gestion directory ##############
-	directory = verifDir(directory)
+	directory = verifDir(directory,True)
 	outDir = verifDir(outDir)
+	verifFichier(config)
 	bash = outDir+'script_bash/'
 	name_directory = [outDir, bash,outDir+'error/',outDir+'output/']
 	for folder in name_directory: 
 		createDir(folder)
 
+############### start message ########################
+
+	print(form("\n\t---------------------------------------------------------",'yellow','bold'))
+	print("\t"+form("|",'yellow','bold')+form("        Welcome in ABYSS_launch (Version " + version + ")          ",type='bold')+form("|",'yellow','bold'))
+	print(form("\t---------------------------------------------------------",'yellow','bold')+'\n')
+
 ########## Main ############################
+	nbRNAseq = 0
+	for data in os.listdir(directory) :
+		if data.endswith('.fastq') or data.endswith('.fq') or data.endswith('.fastq.gz') or data.endswith('.fq.gz'):
+			nbRNAseq += 1
 	IDgenome = genome.split('/')
 	IDgenome = IDgenome[-1].replace('.fasta','')
+	IDgenome = IDgenome.replace('.fa','')
 	genomeOutDir = outDir+IDgenome
 	nameFile = bash+IDgenome+'_mapping.sh'
 	files = open(nameFile,'w')
@@ -101,6 +114,19 @@ if __name__ == "__main__":
 	os.system("qsub -N "+IDgenome+"_mapping -V -q normal.q '"+nameFile+"'\n")
 
 
+############## summary message #######################
+	print(form('\n---------------------------------------------------------------------------------------------------------------------------','red','bold'))
+	print(form('Execution summary:\n','green',['bold','underline']))
+	print('- Abyss_launch a lancés le job de mapping des '+str(nbRNAseq)+' données de RNAseq InPlanta sur le genome de reférence ('+IDgenome+')')
+	print('- Le Script bash créé est disponible dans le dossier script_bash')
+	print('- Une fois le job fini les résulat seront disponible dans le dossier '+IDgenome)
+	print(form('----------------------------------------------------------------------------------------------------------------------------','red','bold'))
+
+############## end message ###########################
+
+	print(form("\n\t---------------------------------------------------------",'yellow','bold'))
+	print("\t"+form("|",'yellow','bold')+form("                    End of execution                   ",type='bold')+form("|",'yellow','bold'))
+	print(form("\t---------------------------------------------------------",'yellow','bold'))
 
 
 

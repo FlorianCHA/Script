@@ -45,7 +45,7 @@
 import argparse, os, sys
 
 #Import MODULES_SEB
-from module_Flo import verifDir, createDir
+from module_Flo import verifDir, createDir, form , verifFichier
 
 
 
@@ -73,10 +73,10 @@ if __name__ == "__main__":
 
 
 ########### Gestion directory #############
-	directory = verifDir(directory)
+	directory = verifDir(directory,True)
 	database = database
 	outDir = verifDir(outDir)
-
+	verifFichier(database)
 	name_directory = [outDir, outDir+'script_bash', outDir+'result_repeatMasker', outDir+'sge_output',outDir+'sge_error']
 	for folder in name_directory: 
 		createDir(folder)
