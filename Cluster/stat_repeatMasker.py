@@ -64,13 +64,12 @@ if __name__ == "__main__":
 ######### Recuperation arguments ###########
 	args = parser.parse_args()
 	directory = os.path.abspath(args.dirPath)
-	outDir= os.path.abspath( args.outdirPath)
+	outDir= os.path.abspath(args.outdirPath)
 
 
 ########### Gestion directory ##############
 	directory = verifDir(directory,True)
 	outDir = verifDir(outDir)
-	bash = outDir+'script_bash'
 	name_directory = [outDir]
 	createDir(name_directory)
 
