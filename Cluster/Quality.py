@@ -7,10 +7,10 @@
 	The Quality script
 	==================
 
-	author: CHARRIAT Florian\n
-	contact: florian.charriat@inra.fr\n
-	date: 9/03/2018\n
-	version: 0.1
+	:author: CHARRIAT Florian\n
+	:contact: florian.charriat@inra.fr\n
+	:date: 9/03/2018\n
+	:version: 0.1
 
 	Script description
 	------------------

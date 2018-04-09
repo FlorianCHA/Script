@@ -6,10 +6,10 @@
 """
 	The ToggleJobArray.py script
 	============================
-	author: Florian CHARRIAT\n
-	contact: florian.charriatl@inra.fr\n
-	date: 06/04/2018\n
-	version: 0.1
+	:author: Florian CHARRIAT
+	:contact: florian.charriatl@inra.fr
+	:date: 06/04/2018
+	:version: 0.1
 
 	Script description
 	------------------

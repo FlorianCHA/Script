@@ -51,8 +51,6 @@ from module_Flo import verifDir, createDir , form
 
 if __name__ == "__main__":
 
-############### Variables Globales #############################""""
-	##Variables Globales
 	version="0.1" 
 	
 ############ Argparse #####################

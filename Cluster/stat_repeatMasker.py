@@ -6,10 +6,10 @@
 """
 	The stat_repeatMasker script
 	============================
-	author: Charriat Florian\n
-	contact: florian.charriat@inra.fr\n
-	date: 13/03/2018\n
-	version: 0.1
+	:author: Charriat Florian\n
+	:contact: florian.charriat@inra.fr\n
+	:date: 13/03/2018\n
+	:version: 0.1
 
 	Script description
 	------------------
