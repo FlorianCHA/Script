@@ -122,7 +122,7 @@ def form(text,col = 'white' ,type = 'none') :
 	text : La chaine de caractère a transformer
 	col : La couleur souhaité entre les couleurs red, green,yellow,orange,blue et purple
 	type : formatage du texte souhaité entre les formats bold, underline, blind et highligth.
-	 Si plusieurs type sont souhaité il est possible de faire une liste (exemple, type = ['bold','underline'])
+	Si plusieurs type sont souhaité il est possible de faire une liste (exemple, type = ['bold','underline'])
 	'''
 	W  = '\033[0'  # white (normal)
 	R  = '\033[31' # red

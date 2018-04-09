@@ -3,7 +3,7 @@
           "DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
-  <title>forRNAseq_inPlanta</title>
+  <title>ToggleJobArray</title>
   <link rel="stylesheet" href="epydoc.css" type="text/css" />
   <script type="text/javascript" src="epydoc.js"></script>
 </head>
@@ -34,7 +34,7 @@
   <tr valign="top">
     <td width="100%">
       <span class="breadcrumbs">
-        Module&nbsp;forRNAseq_inPlanta
+        Module&nbsp;ToggleJobArray
       </span>
     </td>
     <td>
@@ -44,25 +44,25 @@
     onclick="toggle_private();">hide&nbsp;private</a>]</span></td></tr>
         <tr><td align="right"><span class="options"
             >[<a href="frames.html" target="_top">frames</a
-            >]&nbsp;|&nbsp;<a href="forRNAseq_inPlanta-module.html"
+            >]&nbsp;|&nbsp;<a href="ToggleJobArray-module.html"
             target="_top">no&nbsp;frames</a>]</span></td></tr>
       </table>
     </td>
   </tr>
 </table>
 <!-- ==================== MODULE DESCRIPTION ==================== -->
-<h1 class="epydoc">Module forRNAseq_inPlanta</h1><p class="nomargin-top"><span class="codelink"><a href="forRNAseq_inPlanta-pysrc.html">source&nbsp;code</a></span></p>
-<h1 class="heading">The forRNAseq_inPlanta script</h1>
-    <p>author: CHARRIAT Florian</p>
-    <p>contact: florian.charriat@inra.fr</p>
-    <p>date: 21/03/2018</p>
+<h1 class="epydoc">Module ToggleJobArray</h1><p class="nomargin-top"><span class="codelink"><a href="ToggleJobArray-pysrc.html">source&nbsp;code</a></span></p>
+<h1 class="heading">The ToggleJobArray.py script</h1>
+    <p>author: Florian CHARRIAT</p>
+    <p>contact: florian.charriatl@inra.fr</p>
+    <p>date: 06/04/2018</p>
     <p>version: 0.1</p>
     <h2 class="heading">Script description</h2>
-      <p>This program is used to align multiple RNA-seq on a host genome 
-      for kept only RNA-seq of interest</p>
+      <p>This program launches the tool toogle in job array to be able to 
+      launch little by little the job</p>
     <h2 class="heading">Example</h2>
 <pre class="py-doctest">
-<span class="py-prompt">&gt;&gt;&gt; </span>forRNAseq_inPlanta .py -d /homedir/user/work/dataRNAseq -o /homedir/user/work/result -r /homedir/user/work/genome.fasta -c /homedir/user/work/configfile.txt</pre>
+<span class="py-prompt">&gt;&gt;&gt; </span>ToggleJobArray.py -d fasta/ -o resultDir -j 100</pre>
     <h2 class="heading">Help Programm</h2>
       <p>optional arguments:</p>
       <ul>
@@ -70,7 +70,7 @@
           \-h, --help show this help message and exit
         </li>
         <li>
-          \-v, --version display ABYSS_launch.py version number and exit
+          \-v, --version display scriptName.py version number and exit
         </li>
       </ul>
       <p>Input mandatory infos for running:</p>
@@ -78,12 +78,12 @@
         <li>
           \-d &lt;path/to/directory&gt;, --directory 
           &lt;path/to/directory&gt; path of directory that contains all the
-          RNA-seq in planta
+          RNA-seq
         </li>
         <li>
-          \-r &lt;path/to/file/reference/&gt;, 
+          \-r &lt;path/to/reference/directory&gt;, 
           --refDir&lt;path/to/reference/directory&gt; path of directory 
-          that contains the host genome
+          that contains all the genome assembled
         </li>
         <li>
           \-c &lt;path/to/configFile&gt;, --configFile 
@@ -92,6 +92,13 @@
         <li>
           \-o &lt;path/to/output/directory&gt;, --outDirPath 
           &lt;path/to/output/directory&gt; Path of the output directory
+        </li>
+      </ul>
+      <p>Input infos for running with default values:</p>
+      <ul>
+        <li>
+          \-j &lt;int&gt;, --nbjob &lt;int&gt; Number of job array lunch 
+          (default = 100)
         </li>
       </ul>
 
@@ -116,7 +123,21 @@
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a name="__package__"></a><span class="summary-name">__package__</span> = <code title="None">None</code>
+        <a name="current_dir"></a><span class="summary-name">current_dir</span> = <code title="os.path.dirname(os.path.abspath(__file__))+ &quot;/&quot;">os.path.dirname(os.path.abspath(__file__))+ &quot;/&quot;</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="version"></a><span class="summary-name">version</span> = <code title="&quot;0.1&quot;">&quot;0.1&quot;</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="VERSION_DATE"></a><span class="summary-name">VERSION_DATE</span> = <code title="'06/04/2018'">'06/04/2018'</code>
     </td>
   </tr>
 </table>
