@@ -60,9 +60,9 @@
 <a name="L6"></a><tt class="py-lineno">  6</tt>  <tt class="py-line"><tt class="py-docstring">"""</tt> </tt>
 <a name="L7"></a><tt class="py-lineno">  7</tt>  <tt class="py-line"><tt class="py-docstring">        The stat_repeatMasker script</tt> </tt>
 <a name="L8"></a><tt class="py-lineno">  8</tt>  <tt class="py-line"><tt class="py-docstring">        ============================</tt> </tt>
-<a name="L9"></a><tt class="py-lineno">  9</tt>  <tt class="py-line"><tt class="py-docstring">        :author: Charriat Florian\n</tt> </tt>
-<a name="L10"></a><tt class="py-lineno"> 10</tt>  <tt class="py-line"><tt class="py-docstring">        :contact: florian.charriat@inra.fr\n</tt> </tt>
-<a name="L11"></a><tt class="py-lineno"> 11</tt>  <tt class="py-line"><tt class="py-docstring">        :date: 13/03/2018\n</tt> </tt>
+<a name="L9"></a><tt class="py-lineno">  9</tt>  <tt class="py-line"><tt class="py-docstring">        :author: Charriat Florian</tt> </tt>
+<a name="L10"></a><tt class="py-lineno"> 10</tt>  <tt class="py-line"><tt class="py-docstring">        :contact: florian.charriat@inra.fr</tt> </tt>
+<a name="L11"></a><tt class="py-lineno"> 11</tt>  <tt class="py-line"><tt class="py-docstring">        :date: 13/03/2018</tt> </tt>
 <a name="L12"></a><tt class="py-lineno"> 12</tt>  <tt class="py-line"><tt class="py-docstring">        :version: 0.1</tt> </tt>
 <a name="L13"></a><tt class="py-lineno"> 13</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
 <a name="L14"></a><tt class="py-lineno"> 14</tt>  <tt class="py-line"><tt class="py-docstring">        Script description</tt> </tt>
@@ -85,7 +85,7 @@
 <a name="L31"></a><tt class="py-lineno"> 31</tt>  <tt class="py-line"><tt class="py-docstring">                                                display stat_repeatMasker.py version number and exit</tt> </tt>
 <a name="L32"></a><tt class="py-lineno"> 32</tt>  <tt class="py-line"><tt class="py-docstring">        Input mandatory infos for running:</tt> </tt>
 <a name="L33"></a><tt class="py-lineno"> 33</tt>  <tt class="py-line"><tt class="py-docstring">                - \-d &lt;path/to/directory&gt;, --directory &lt;path/to/directory&gt;</tt> </tt>
-<a name="L34"></a><tt class="py-lineno"> 34</tt>  <tt class="py-line"><tt class="py-docstring">                                                path of directory that contains all the result of the repeatMasker_build.py (output + repeatMasker_result</tt> </tt>
+<a name="L34"></a><tt class="py-lineno"> 34</tt>  <tt class="py-line"><tt class="py-docstring">                                                path of directory that contains all the result of the repeatMasker_build.py (output + repeatMasker_result)</tt> </tt>
 <a name="L35"></a><tt class="py-lineno"> 35</tt>  <tt class="py-line"><tt class="py-docstring">                - \-o &lt;path/to/output/directory&gt;, --outdirPath &lt;path/to/output/directory&gt;</tt> </tt>
 <a name="L36"></a><tt class="py-lineno"> 36</tt>  <tt class="py-line"><tt class="py-docstring">                                                Path of the output directory</tt> </tt>
 <a name="L37"></a><tt class="py-lineno"> 37</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
@@ -110,7 +110,7 @@ formatFastaName.version" class="py-name" href="#" onclick="return doclink('link-
 <a name="L55"></a><tt class="py-lineno"> 55</tt>  <tt class="py-line">        <tt class="py-name">parser</tt><tt class="py-op">.</tt><tt class="py-name">add_argument</tt><tt class="py-op">(</tt><tt class="py-string">'-v'</tt><tt class="py-op">,</tt> <tt class="py-string">'--version'</tt><tt class="py-op">,</tt> <tt class="py-name">action</tt><tt class="py-op">=</tt><tt class="py-string">'version'</tt><tt class="py-op">,</tt> <tt id="link-6" class="py-name"><a title="ToggleJobArray.version
 formatFastaName.version" class="py-name" href="#" onclick="return doclink('link-6', 'version', 'link-5');">version</a></tt><tt class="py-op">=</tt><tt class="py-string">'You are using %(prog)s version: '</tt> <tt class="py-op">+</tt> <tt id="link-7" class="py-name"><a title="ToggleJobArray.version
 formatFastaName.version" class="py-name" href="#" onclick="return doclink('link-7', 'version', 'link-5');">version</a></tt><tt class="py-op">,</tt> <tt class="py-name">help</tt><tt class="py-op">=</tt>\ </tt>
-<a name="L56"></a><tt class="py-lineno"> 56</tt>  <tt class="py-line"><tt class="py-string">'display '</tt><tt class="py-op">+</tt><tt class="py-name">__file__</tt><tt class="py-op">+</tt><tt class="py-string">' version number and exit'</tt><tt class="py-op">)</tt> </tt>
+<a name="L56"></a><tt class="py-lineno"> 56</tt>  <tt class="py-line"><tt class="py-string">'display stat_repeatMasker.py version number and exit'</tt><tt class="py-op">)</tt> </tt>
 <a name="L57"></a><tt class="py-lineno"> 57</tt>  <tt class="py-line"> </tt>
 <a name="L58"></a><tt class="py-lineno"> 58</tt>  <tt class="py-line"> </tt>
 <a name="L59"></a><tt class="py-lineno"> 59</tt>  <tt class="py-line">        <tt class="py-name">filesreq</tt> <tt class="py-op">=</tt> <tt class="py-name">parser</tt><tt class="py-op">.</tt><tt class="py-name">add_argument_group</tt><tt class="py-op">(</tt><tt class="py-string">'Input mandatory infos for running'</tt><tt class="py-op">)</tt> </tt>
@@ -225,7 +225,7 @@ expandto(location.href);
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0.1 on Mon Apr  9 14:27:12 2018
+    Generated by Epydoc 3.0.1 on Mon Apr  9 14:38:54 2018
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"
