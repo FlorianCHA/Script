@@ -83,24 +83,23 @@ if __name__ == "__main__":
 	print("\t"+form("|",'yellow','bold')+form("        Welcome in ABYSS_launch (Version " + version + ")          ",type='bold')+form("|",'yellow','bold'))
 	print(form("\t---------------------------------------------------------",'yellow','bold')+'\n')
 
+
 ############# Main #########################
-	nbJob = 0
-	nbGenome = 0
 	for file in os.listdir(directory):
 		if file.endswith('_R1.fastq.gz')==True :
-			nbGenome += 1
 			isolate=file.replace('_R1.fastq.gz','')
 			print(form('\nLancement des jobs pour : '+isolate+'\n','green',['bold','underline']))
 			for kmers in [20,30,40,50,60,70,80,90]:
-				nameScript =bash+'/abyss_assembly_'+isolate+'_'+str(kmers)+'.sh'
-				SCRIPT=open(nameScript,'w')
-				SCRIPT.write('#$ -o '+outDir+'out_files/abyss_assembly_'+isolate+'_'+str(kmers)+'.out\n#$ -e '+outDir+'error_files/abyss_assembly_'+isolate+'_'+str(kmers)+'.err\nmodule load bioinfo/abyss/1.9.0;\n')
+				SCRIPT=open(outDir+'script_bash/abyss_assembly_'+isolate+'_'+str(kmers)+'.sh','w')
+				SCRIPT.write('# !/bin/bash\n#$ -o '+outDir+'out_files/abyss_assembly_'+isolate+'_'+str(kmers)+'.out\n#$ -e '+outDir+'error_files/abyss_assembly_'+isolate+'_'+str(kmers)+'.err\n#$ -N '+isolate+'_'+str(kmers)+'\n#$ -l h_vmem=36G\n#$ -l mem=32G\n')
 				SCRIPT.write('mkdir -p '+outDir+'result/'+isolate+'/abyss_assembly_'+isolate+'_'+str(kmers)+';\n')
 				SCRIPT.write('cd '+outDir+'result/'+isolate+'/abyss_assembly_'+isolate+'_'+str(kmers)+';\n')
-				SCRIPT.write("/usr/local/bioinfo/abyss/1.9.0/bin/abyss-pe name="+isolate+"_"+str(kmers)+" k="+str(kmers)+" in='"+directory+file+" "+directory+file.replace('_R1','_R2')+"' -o abyss_assembly_"+isolate+"_"+str(kmers)+".fasta;\n")
+				SCRIPT.write("/usr/local/bioinfo/src/abyss/abyss-2.0.0/bin/abyss-pe name="+isolate+"_"+str(kmers)+" k="+str(kmers)+" in='"+directory+file+" "+directory+file.replace('_R1','_R2')+"' -o abyss_assembly_"+isolate+"_"+str(kmers)+".fasta;\n")
 				SCRIPT.close()
-				os.system('qsub -l mem_free=50G -l h_vmem=60G -q normal.q '+nameScript)
-				nbJob += 1
+				os.system('chmod 755 '+outDir+'script_bash/abyss_assembly_'+isolate+'_'+str(kmers)+'.sh')
+				os.system('qsub "'+outDir+'script_bash/abyss_assembly_'+isolate+'_'+str(kmers)+'.sh"')
+
+
 
 
 ############## summary message #######################
