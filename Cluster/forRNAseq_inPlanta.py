@@ -49,7 +49,7 @@
 import argparse, os, sys
 
 #Import module_Flo
-from module_Flo import verifDir, createDir , form , verifFichier
+from module_Flo import verifDir, createDir , form , verifFichier , isFastq , recupId
 
 
 
@@ -72,10 +72,10 @@ if __name__ == "__main__":
 	
 ######### Recuperation arguments ###########
 	args = parser.parse_args()
-	directory = args.dirPath
-	genome = args.refDir
+	directory = os.path.abspath(args.dirPath)
+	genome = os.path.abspath(args.refDir)
 	config = args.configFile
-	outDir= args.outDirPath
+	outDir= os.path.abspath(args.outDirPath)
 
 
 ########### Gestion directory ##############
@@ -90,17 +90,16 @@ if __name__ == "__main__":
 ############### start message ########################
 
 	print(form("\n\t---------------------------------------------------------",'yellow','bold'))
-	print("\t"+form("|",'yellow','bold')+form("        Welcome in ABYSS_launch (Version " + version + ")          ",type='bold')+form("|",'yellow','bold'))
+	print("\t"+form("|",'yellow','bold')+form("     Welcome in forRNAseq_inPlanta (Version " + version + ")       ",type='bold')+form("|",'yellow','bold'))
 	print(form("\t---------------------------------------------------------",'yellow','bold')+'\n')
 
 ########## Main ############################
 	nbRNAseq = 0
 	for data in os.listdir(directory) :
-		if data.endswith('.fastq') or data.endswith('.fq') or data.endswith('.fastq.gz') or data.endswith('.fq.gz'):
+		if isFastq(data):
 			nbRNAseq += 1
 	IDgenome = genome.split('/')
-	IDgenome = IDgenome[-1].replace('.fasta','')
-	IDgenome = IDgenome.replace('.fa','')
+	IDgenome = recupId(IDgenome[-1])
 	genomeOutDir = outDir+IDgenome
 	nameFile = bash+IDgenome+'_mapping.sh'
 	files = open(nameFile,'w')
@@ -117,9 +116,22 @@ if __name__ == "__main__":
 ############## summary message #######################
 	print(form('\n---------------------------------------------------------------------------------------------------------------------------','red','bold'))
 	print(form('Execution summary:\n','green',['bold','underline']))
-	print('- Abyss_launch a lancés le job de mapping des '+str(nbRNAseq)+' données de RNAseq InPlanta sur le genome de reférence ('+IDgenome+')')
-	print('- Le Script bash créé est disponible dans le dossier script_bash')
-	print('- Une fois le job fini les résulat seront disponible dans le dossier '+IDgenome)
+	
+	print('\tInput :')
+	print('\t\t- Donnée RNAseq : '+directory[:-1])
+	print('\t\t- Repertoire génome : '+genome)
+	print('\t\t- Fichier config : '+config)
+	
+	print('\n\tOutput :')
+	print('\t\t- script bash : '+bash)
+	print('\t\t- Resultat du Job : '+ genomeOutDir)	
+	
+	
+	
+	
+	
+	print('\n forRNAseq_inPlanta a lancés le job de mapping des '+str(nbRNAseq)+' données de RNAseq InPlanta sur le genome de reférence ('+IDgenome+')\n')
+
 	print(form('----------------------------------------------------------------------------------------------------------------------------','red','bold'))
 
 ############## end message ###########################

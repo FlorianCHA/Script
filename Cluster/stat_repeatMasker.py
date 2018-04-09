@@ -42,11 +42,13 @@
 ## Python modules
 import argparse, os, sys
 
-#Import MODULES_SEB
-from module_Flo import verifDir, createDir
+#Import module_Flo
+from module_Flo import verifDir, createDir , form , verifFichier
 
 
 if __name__ == "__main__":
+
+	version = '0.1'
 
 ########### Gestion directory #############
 	directory = '/homedir/charriat/work/repeatMasker/result_repeatMasker/'
@@ -54,15 +56,29 @@ if __name__ == "__main__":
 	directory = verifDir(directory,True)
 	outDir = verifDir(outDir)
 
+
+
+
+############### start message ########################
+
+	print(form("\n\t---------------------------------------------------------",'yellow','bold'))
+	print("\t"+form("|",'yellow','bold')+form("      Welcome in stat_repeatMasker (Version " + version + ")       ",type='bold')+form("|",'yellow','bold'))
+	print(form("\t---------------------------------------------------------",'yellow','bold')+'\n')
+	
+	
+	
 ########## main script ######################
 	listeID = []
 	for ID in os.listdir(directory) :
 		listeID.append(ID)
 	listeID.sort()
+	nbAssemblage = 0
 	statAll = open(outDir+'stat_repeatMasker','w')
 	statAll.write('Id souche'+'\t'+'Nombre séquence'+'\t'+'Longueur total'+'\t'+'Taux GC'+'\t'+'longueur bases masquée'+'\t'+ 'Pourcentage bases masquées'+'\n')
 	statAll.close()
 	for isolate in listeID :
+		nbAssemblage += 1
+		print(form("Récupération des statistique de l'assemblage : "+isolate,'green'))
 		for files in os.listdir(directory+isolate):	
 			if files.endswith('.fa.tbl')==True :
 				filePath = directory+isolate+'/'+files
@@ -81,6 +97,19 @@ if __name__ == "__main__":
 
 
 
+############## summary message #######################
+	print(form('\n-------------------------------------------------------------------------------------------------------------------------','red','bold'))
+	print(form('Execution summary:\n','green',['bold','underline']))
+	print('- stat_repeatMasker a récupérées les données qualité des '+str(nbAssemblage)+' assemblages')
+	print(form('-------------------------------------------------------------------------------------------------------------------------','red','bold'))
+
+
+
+############## end message ###########################
+
+	print(form("\n\t---------------------------------------------------------",'yellow','bold'))
+	print("\t"+form("|",'yellow','bold')+form("                    End of execution                   ",type='bold')+form("|",'yellow','bold'))
+	print(form("\t---------------------------------------------------------",'yellow','bold'))
 
 
 

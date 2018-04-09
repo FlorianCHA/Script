@@ -43,8 +43,8 @@
 ## Python modules
 import argparse, os, sys
 
-#Import MODULES_SEB
-from module_Flo import verifDir, createDir, form
+#Import module_Flo
+from module_Flo import verifDir, createDir , form , verifFichier
 
 
 
@@ -65,8 +65,8 @@ if __name__ == "__main__":
 	
 ######### Recuperation arguments ###########
 	args = parser.parse_args()
-	directory = args.dirPath
-	outDir= args.outDirPath
+	directory = os.path.abspath(args.dirPath)
+	outDir= os.path.abspath(args.outDirPath)
 
 
 if __name__ == "__main__":
@@ -95,13 +95,12 @@ if __name__ == "__main__":
 	outDir = verifDir(outDir)
 
 	name_directory = [outDir]
-	for folder in name_directory: 
-		createDir(folder)
+	createDir(outDir)
 
 ############### start message ########################
 
 	print(form("\n\t---------------------------------------------------------",'yellow','bold'))
-	print("\t"+form("|",'yellow','bold')+form("        Welcome in ABYSS_launch (Version " + version + ")          ",type='bold')+form("|",'yellow','bold'))
+	print("\t"+form("|",'yellow','bold')+form("        Welcome in    Quality   (Version " + version + ")          ",type='bold')+form("|",'yellow','bold'))
 	print(form("\t---------------------------------------------------------",'yellow','bold')+'\n')
 
 ############# Main #########################
@@ -121,7 +120,7 @@ if __name__ == "__main__":
 	a = 0 
 	nbAssemblage = 0
 	for isolate in listeID : 	
-		print("Recuperation des données Qualité de l'assemblage : " +isolate)
+		print("Recuperation des données Qualité des assemblages de " +isolate)
 		if a == 0 :
 			quality = open(outDir+"QualityAssembly.csv","a")
 			quality.write("\nn\tn:500\tL50\tmin\tN80\tN50\tN20\tE-size\tmax\tsum\tname\t\n")
@@ -168,11 +167,17 @@ if __name__ == "__main__":
 ############## summary message #######################
 	print(form('\n-------------------------------------------------------------------------------------------------------------------------','red','bold'))
 	print(form('Execution summary:\n','green',['bold','underline']))
-	print('- Quality a récupérées les données qualité des '+str(nbAssemblage)+' assemblages')
-	print('- Les fichiers de sorties sont :\n')
-	print('\t- QualityAssembly.csv : Fichier qui donne les statistiques des assemblages par souche')
-	print('\t- Exclus_Assembly : Fichier qui donne les statistiques des assemblages exclus à cause de leur mauvaise qualité')
-	print('\t- QualityR : Fichier contenant toutes les statistiques, ce fichier peut etre utilisé facilement avec R')
+
+	print('\tInput :')
+	print('\t\t- Repertoire des assemblages : '+directory[:-1])	
+	print('\n\tOutput :')
+	print('\t\t- Résultat : '+outDir[:-1])
+	print('\n\tFichier de sortie :')
+	print('\t\t- QualityAssembly.csv : Fichier qui donne les statistiques des assemblages par souche')
+	print('\t\t- Exclus_Assembly : Fichier qui donne les statistiques des assemblages exclus à cause de leur mauvaise qualité')	
+	print('\t\t- QualityR : Fichier contenant toutes les statistiques, ce fichier peut etre utilisé facilement avec R')	
+	print('\n Quality a récupérées les données qualité des '+str(nbAssemblage)+' assemblages\n')
+
 	print(form('-------------------------------------------------------------------------------------------------------------------------','red','bold'))
 
 

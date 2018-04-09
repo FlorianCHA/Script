@@ -64,17 +64,16 @@ if __name__ == "__main__":
 	
 ######### Recuperation arguments ###########
 	args = parser.parse_args()
-	directory = args.dirPath
-	outDir= args.outdirPath
+	directory = os.path.abspath(args.dirPath)
+	outDir= os.path.abspath( args.outdirPath)
 
 
 ########### Gestion directory ##############
 	directory = verifDir(directory,True)
 	outDir = verifDir(outDir)
-
-	name_directory = [outDir,outDir+'error_files', outDir+'out_files',outDir+'script_bash',outDir+'result']
-	for folder in name_directory: 
-		createDir(folder)
+	bash = outDir+'script_bash'
+	name_directory = [outDir,outDir+'error_files', outDir+'out_files',bash,outDir+'result']
+	createDir(name_directory)
 
 ############### start message ########################
 
@@ -91,23 +90,25 @@ if __name__ == "__main__":
 			isolate=file.replace('_R1.fastq.gz','')
 			print(form('\nLancement des jobs pour : '+isolate+'\n','green',['bold','underline']))
 			for kmers in [20,30,40,50,60,70,80,90]:
-				nameScript =outDir+'script_bash/abyss_assembly_'+isolate+'_'+str(kmers)+'.sh'
+				nameScript =bash+'/abyss_assembly_'+isolate+'_'+str(kmers)+'.sh'
 				SCRIPT=open(nameScript,'w')
 				SCRIPT.write('#$ -o '+outDir+'out_files/abyss_assembly_'+isolate+'_'+str(kmers)+'.out\n#$ -e '+outDir+'error_files/abyss_assembly_'+isolate+'_'+str(kmers)+'.err\nmodule load bioinfo/abyss/1.9.0;\n')
 				SCRIPT.write('mkdir -p '+outDir+'result/'+isolate+'/abyss_assembly_'+isolate+'_'+str(kmers)+';\n')
 				SCRIPT.write('cd '+outDir+'result/'+isolate+'/abyss_assembly_'+isolate+'_'+str(kmers)+';\n')
 				SCRIPT.write("/usr/local/bioinfo/abyss/1.9.0/bin/abyss-pe name="+isolate+"_"+str(kmers)+" k="+str(kmers)+" in='"+directory+file+" "+directory+file.replace('_R1','_R2')+"' -o abyss_assembly_"+isolate+"_"+str(kmers)+".fasta;\n")
 				SCRIPT.close()
-				print('qsub -l mem_free=50G -l h_vmem=60G -q normal.q '+nameScript)
+				os.system('qsub -l mem_free=50G -l h_vmem=60G -q normal.q '+nameScript)
 				nbJob += 1
 
 
 ############## summary message #######################
 	print(form('\n---------------------------------------------------------------------------------','red','bold'))
 	print(form('Execution summary:\n','green',['bold','underline']))
-	print('- Abyss_launch a lancés '+str(nbJob)+" jobs pour l'assemblage des "+str(nbGenome)+' genomes')
-	print('- Tous les script bash lancés se trouvent dans le dossier script_bash')
-	print('- Une fois les jobs finis les résulat seront disponible dans le dossier result')
+	print('\n\tInput : \n\t\t- '+ directory[:-1])
+	print('\n\tOutput :')
+	print('\t\t - script bash créé : ' +bash)
+	print('\t\t - Résultat des assemblages : '+outDir+'result')
+	print('\n\tAbyss_launch a lancés '+str(nbJob)+" jobs pour l'assemblage des "+str(nbGenome)+' souches\n')
 	print(form('---------------------------------------------------------------------------------','red','bold'))
 
 ############## end message ###########################

@@ -31,28 +31,23 @@ import argparse, os
 
 ####### FUNCTION ################
 
-def createDir(directory):
-	''' Permet de vérifier si un dossier existe, si ce n'est pas le cas, 
-	le dossier sera crée
+################################ Fonction repertoire ##################################################"
+
+def createDir(Listedirectory):
+	'''Permet de vérifier si un dossier existe, si ce n'est pas le cas, 
+	le dossier sera crée.
+	Listedirectory : liste de repertoire à créer
 	'''
-	if not os.path.exists(directory):
-		 	os.makedirs(directory)
-	return
-
-
-def verifFichier(fichier):
-	''' Permet de vérifier si un fichier existe
+	if type(Listedirectory) != list:
+		if not os.path.exists(Listedirectory):
+			os.makedirs(Listedirectory)
 	
-	'''
-	if os.path.exists(fichier):
-		return
 	else :
-		raise ValueError("ERROR the file '%s' doesn't exist, please check if your files exists" % fichier)	
-
-
-
-
-
+		for directory in Listedirectory:
+			if not os.path.exists(directory):
+				 	os.makedirs(directory)
+	return
+	
 
 
 def verifDir(directory,check = False):
@@ -66,9 +61,60 @@ def verifDir(directory,check = False):
 		if os.path.isdir(directory):
 			return directory
 		else :
-			raise ValueError("ERROR the directory'%s' is not valid path, please check if your directory exists" % directory)
+			raise ValueError(form("ERROR the directory '%s' is not valid path, please check if your directory exists" % directory,'red','bold'))
 	else :
 		return directory
+		
+################################## Fonction fichier ############################################"
+
+def verifFichier(fichier):
+	'''Permet de vérifier si un fichier existe
+	
+	'''
+	if os.path.exists(fichier):
+		return
+	else :
+		raise ValueError(form("ERROR the file '%s' doesn't exist, please check if your files exists" % fichier,'red','bold'))
+		
+##################################### Fonction fichier fasta/fastq #################################################"
+
+def isFasta(fichier):
+	'''Permet de vérifier si un fichier est au format fasta	
+	'''
+	if fichier.endswith('.fasta') or fichier.endswith('.fa') or fichier.endswith('.fasta.gz') or fichier.endswith('.fa.gz'):
+		return True
+	else :
+		return False
+		
+
+def isFastq(fichier):
+	'''Permet de vérifier si un fichier est au format fastq	
+	'''
+	if fichier.endswith('.fastq') or fichier.endswith('.fq') or fichier.endswith('.fastq.gz') or fichier.endswith('.fq.gz'):
+		return True
+	else :
+		return False
+		
+def recupId(fichier):
+	'''Permet de récupéré le nom du fichier sans l'extension fasta ou fastq
+	'''
+	# Traitement pour fichier fasta
+	fichier = fichier.replace('.fasta.gz','')
+	fichier = fichier.replace('.fa.gz','')
+	fichier = fichier.replace('.fasta','')
+	fichier = fichier.replace('.fa','')
+	
+	# Traitement pour fichier fastq
+	fichier = fichier.replace('.fastq.gz','')
+	fichier = fichier.replace('.fq.gz','')
+	fichier = fichier.replace('.fastq','')
+	fichier = fichier.replace('.fq','')
+	
+	return fichier 
+	
+	
+	
+#################################### Fontion formatage texte ################################################"
 
 def form(text,col = 'white' ,type = 'none') :
 	'''

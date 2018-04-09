@@ -55,7 +55,7 @@
 import argparse, os, sys
 
 #Import module_Flo
-from module_Flo import verifDir, createDir , form , verifFichier
+from module_Flo import verifDir, createDir , form , verifFichier , isFasta, isFastq ,  recupId
 
 
 
@@ -80,10 +80,10 @@ if __name__ == "__main__":
 	
 ######### Recuperation arguments ###########
 	args = parser.parse_args()
-	directory = args.dirPath
-	ref = args.refDir
-	config = args.configFile
-	outDir= args.outDirPath
+	directory = os.path.abspath(args.dirPath)
+	ref = os.path.abspath(args.refDir)
+	config = os.path.abspath(args.configFile)
+	outDir= os.path.abspath(args.outDirPath)
 	assembly = args.file
 
 ########### Gestion directory ##############
@@ -108,31 +108,37 @@ if __name__ == "__main__":
 	run = open(outDir+'run_job_mapping.sh','w')
 	run.close()
 	for genome in os.listdir(ref) :
-		if assembly in genome and (genome.endswith('.fasta') or genome.endswith('.fa') ):
+		if assembly in genome and isFasta(genome):
 			nbScript += 1
-			IDgenome = genome.replace('_scaffold.fasta','')
-			IDgenome = IDgenome.replace('.fa','')
+			IDgenome = genome.replace('_scaffold','')
+			IDgenome = recupId(IDgenome)
 			print('\nCréation du script de mapping pour : ' + IDgenome)
 			genomeOutDir = outDir+IDgenome
 			resultMapping =	genomeOutDir+'/finalResults'
 			nameFile = bash+IDgenome+'_mapping.sh'
 			files = open(nameFile,'w')
+			
 			#Permet de géré les sortie de sge 
 			files.write('#$ -o '+outDir+'output/'+IDgenome+'.out\n#$ -e '+outDir+'error/'+IDgenome+'.err\n')
+			
 			# Permet de charger puis lancer Toogle pour un alignement
 			files.write('module load bioinfo/braker/1.9\nbioinfo/exonerate/2.4.7\nmodule load bioinfo/TOGGLE/0.3.6\n')
 			files.write('rm -r '+genomeOutDir+'\n')
 			files.write('toggleGenerator.pl -d '+directory+' -r '+ref+genome+' -c '+config+' -o '+genomeOutDir+' -nocheck;\n')
 			# Permet de récupérer tous les hits accepté pour ensuite les merger
 			files.write('cd '+resultMapping+';\nls *.accepted_hits.bam > bamList;\n')
+			
 			# Permet de merger les différents hits récupérés précédement
 			mergefile = 'merged_'+IDgenome+'.accepted_hits.bam'
 			files.write('samtools merge -b bamList -c '+mergefile+';\n')
+			
 			# Permet de triée les données du fichier bam contenant tous les mapping
 			sortfile  = 'merged_'+IDgenome+'.accepted_hits_sort.bam'
 			files.write('java -jar /usr/local/bioinfo/picard-tools/2.7.0//picard.jar SortSam I='+mergefile+' O='+sortfile+' SORT_ORDER=coordinate;\n')
+			
 			# Permet d'utiliser l'outils bam2hints pour formater les données pour l'annotation avec Augustus ou braker
 			files.write('bam2hints --minintronlen=10 --maxintronlen=1000 --maxgaplen=9 --source=M --in='+sortfile+' --out=hints_'+IDgenome+'.raw.bam;\n')
+			
 			# Permet de selectionner seulement un set de read minimum requis pour un intron avec un script R
 			files.write(sys.path[0]+'/filterHints.r -s '+IDgenome+' -p '+resultMapping+'\n')
 			createDir(braker+IDgenome)
@@ -148,9 +154,19 @@ if __name__ == "__main__":
 ############## summary message #######################
 	print(form('\n-------------------------------------------------------------------------------------------------------------------','red','bold'))
 	print(form('Execution summary:\n','green',['bold','underline']))
-	print('- Tous les script bash crées se trouvent dans le dossier script_bash')
-	print('- Le script Alignement a créés un fichier bash contenant les '+str(nbScript)+" jobs de mapping pour chaque assemblage")
-	print('- Si vous souhaité lancer tous les fichiers bash veuillez taper la commande : ')
+	print('\tInput :')
+	print('\t\t- Donnée RNAseq : '+directory[:-1])
+	print('\t\t- Repertoire génome : '+ref[:-1])
+	if assembly != '' :
+		print('\t\t- Génome : '+assembly)
+	print('\t\t- Fichier config : '+config)
+	
+	print('\n\tOutput :')
+	print('\t\t- script bash : '+bash[:-1])
+	print('\t\t- fichier a lancer : '+outDir+'run_job_mapping.sh')	
+	print('\t\t- Resultat des Jobs : '+braker[:-1])	
+	
+	print('\nSi vous souhaité lancer tous les '+str(nbScript)+' jobs de mapping veuillez taper la commande : ')
 	print(form('\n\t\t\t\tbash '+outDir+'run_job_mapping.sh\n','green','bold'))
 	print(form('-------------------------------------------------------------------------------------------------------------------','red','bold'))
 	

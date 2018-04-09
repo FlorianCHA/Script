@@ -44,8 +44,8 @@
 ## Python modules
 import argparse, os, sys
 
-#Import MODULES_SEB
-from module_Flo import verifDir, createDir, form , verifFichier
+#Import module_Flo
+from module_Flo import verifDir, createDir , form , verifFichier , isFasta , recupId
 
 
 
@@ -61,22 +61,23 @@ if __name__ == "__main__":
 
 	filesreq = parser.add_argument_group('Input mandatory infos for running')
 	filesreq.add_argument('-d', '--directory',type = str, required=True, dest = 'dirPath', help = 'path of directory that contains all the fasta files that repeatMasker should use')
-	filesreq.add_argument('-b', '--database',type = str, required=True, dest = 'database', help = 'path of database file', default = '/gs7k1/projects/BGPI/becphy/pangenome2017/fungi_refTE70-15.fasta')
+	filesreq.add_argument('-b', '--database',type = str, required=True, dest = 'database', help = 'path of database file')
 	filesreq.add_argument('-o', '--outdir',type = str, required=True, dest = 'outdirPath', help = 'Path of the output directory')
 
 	
 ######### Recuperation arguments ###########
 	args = parser.parse_args()
-	directory = args.dirPath
-	database=  args.database
-	outDir= args.outdirPath
+	directory = os.path.abspath(args.dirPath)
+	database=  os.path.abspath(args.database)
+	outDir= os.path.abspath(args.outdirPath)
 
 
 ########### Gestion directory #############
 	directory = verifDir(directory,True)
 	outDir = verifDir(outDir)
 	verifFichier(database)
-	name_directory = [outDir, outDir+'script_bash', outDir+'result_repeatMasker', outDir+'sge_output',outDir+'sge_error']
+	bash = outDir+'script_bash'
+	name_directory = [outDir, bash, outDir+'result_repeatMasker', outDir+'sge_output',outDir+'sge_error']
 	for folder in name_directory: 
 		createDir(folder)
 		
@@ -90,12 +91,11 @@ if __name__ == "__main__":
 	nbScript = 0
 	runJob = open(outDir+"run_repeatMAskerJob.sh","w")
 	for files in os.listdir(directory):
-		if files.endswith('.fasta')==True or files.endswith('.fa')==True :
+		if isFasta(files) :
 			nbScript += 1
-			filesName = files.replace('.fa','')
-			filesName = filesName.replace('.fasta','')
+			filesName = recupId(files)
 			createDir(outDir +"result_repeatMasker/"+filesName)
-			SCRIPT = open(outDir+'script_bash/'+filesName+ "_repeatMasker.sh","w")
+			SCRIPT = open(bash+'/'+filesName+ "_repeatMasker.sh","w")
 			SCRIPT.write('#$ -o '+outDir+'sge_output/'+filesName+'.out\n#$ -e '+outDir+'sge_error/'+filesName+'.err\nmodule load bioinfo/RepeatMasker/4.0.7;\n')
 			SCRIPT.write("RepeatMasker -pa 4 -s -no_is -nolow "+directory+files+" -lib "+database+" -e ncbi -dir "+ outDir +"result_repeatMasker/"+filesName+";\n")
 			SCRIPT.close()
@@ -103,16 +103,23 @@ if __name__ == "__main__":
 			runJob = open(outDir+"run_repeatMAskerJob.sh","a")
 			runJob.write("qsub -N "+filesName+"_repeatmasker -V -q long.q -pe parallel_smp 4 "+ outDir+'script_bash/'+filesName+ "_repeatMasker.sh\n")
 			runJob.close()
-			print(files +'\t done')		
+			print(filesName +'\t done')		
 			
 
 ############## summary message #######################
 
 	print(form('\n-------------------------------------------------------------------------------------------------------------------------','red','bold'))
 	print(form('Execution summary:\n','green',['bold','underline']))
-	print('- Tous les script bash crées se trouvent dans le dossier script_bash')
-	print('- Le script repeatMasker_build a créés un fichier bash contenant les '+str(nbScript)+" jobs")
-	print('- Si vous souhaité lancer tous les fichiers bash veuillez taper la commande : ')
+	print('\tInput :')
+	print('\t\t- Repertoire assemblage : '+directory[:-1])
+	print('\t\t- Database : '+database)
+	
+	print('\n\tOutput :')
+	print('\t\t- script bash : '+bash)
+	print('\t\t- fichier a lancer : '+outDir+"run_repeatMAskerJob.sh")	
+	print('\t\t- Resultat des Jobs : '+outDir +'result_repeatMasker')	
+	
+	print('\n Si vous souhaité lancer les '+str(nbScript)+' jobs veuillez taper la commande : ')
 	print(form('\n\t\t\t\tbash '+outDir+'run_job_mapping.sh\n','green','bold'))
 	print(form('-------------------------------------------------------------------------------------------------------------------------','red','bold'))
 
