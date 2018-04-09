@@ -52,13 +52,12 @@
 </table>
 <!-- ==================== MODULE DESCRIPTION ==================== -->
 <h1 class="epydoc">Module module_Flo</h1><p class="nomargin-top"><span class="codelink"><a href="module_Flo-pysrc.html">source&nbsp;code</a></span></p>
-<h1 class="heading">The module_Flo module</h1>
-    <p>author: CHARRIAT Florian</p>
-    <p>contact: florian.charriat@inra.fr</p>
-    <p>date: 21/03/2018</p>
-    <p>version: 0.1</p>
-    <p>Use it to import very handy functions.</p>
-    <p>Example:</p>
+<p>author: CHARRIAT Florian</p>
+<p>contact: <a class="rst-reference external" href="mailto:florian.charriat&#64;inra.fr" target="_top">florian.charriat&#64;inra.fr</a></p>
+<p>date: 21/03/2018</p>
+<p>version: 0.1</p>
+<p>Use it to import very handy functions.</p>
+<p>Example:</p>
 <pre class="py-doctest">
 <span class="py-prompt">&gt;&gt;&gt; </span><span class="py-keyword">from</span> module_Flor <span class="py-keyword">import</span> createDir
 <span class="py-prompt">&gt;&gt;&gt; </span>createDir(<span class="py-string">'resultat'</span>)</pre>
@@ -86,9 +85,10 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a href="module_Flo-module.html#createDir" class="summary-sig-name">createDir</a>(<span class="summary-sig-arg">Listedirectory</span>)</span><br />
-      Permet de v&#233;rifier si un dossier existe, si ce n'est pas le cas, le 
-      dossier sera cr&#233;e.</td>
+          <td><span class="summary-sig"><a name="createDir"></a><span class="summary-sig-name">createDir</span>(<span class="summary-sig-arg">Listedirectory</span>)</span><br />
+      Permet de v&#233;rifier si un dossier existe, si ce n'est pas le cas,
+le dossier sera cr&#233;e.
+Listedirectory : liste de repertoire &#224; cr&#233;er</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="module_Flo-pysrc.html#createDir">source&nbsp;code</a></span>
             
@@ -106,9 +106,8 @@
         <tr>
           <td><span class="summary-sig"><a name="verifDir"></a><span class="summary-sig-name">verifDir</span>(<span class="summary-sig-arg">directory</span>,
         <span class="summary-sig-arg">check</span>=<span class="summary-sig-default">False</span>)</span><br />
-      Permet de mettre en forme le chemin du dossier pour &#234;tre utilis&#233; dans
-      un script, la fonction v&#233;rifie si il y a bien un '/' &#224; la fin du 
-      chemin, sinon il le rajoute</td>
+      Permet de mettre en forme le chemin du dossier pour &#234;tre utilis&#233; dans un script,
+la fonction v&#233;rifie si il y a bien un '/' &#224; la fin du chemin, sinon il le rajoute</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="module_Flo-pysrc.html#verifDir">source&nbsp;code</a></span>
             
@@ -192,14 +191,14 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a href="module_Flo-module.html#form" class="summary-sig-name">form</a>(<span class="summary-sig-arg">text</span>,
+          <td><span class="summary-sig"><a name="form"></a><span class="summary-sig-name">form</span>(<span class="summary-sig-arg">text</span>,
         <span class="summary-sig-arg">col</span>=<span class="summary-sig-default"><code class="variable-quote">'</code><code class="variable-string">white</code><code class="variable-quote">'</code></span>,
         <span class="summary-sig-arg">type</span>=<span class="summary-sig-default"><code class="variable-quote">'</code><code class="variable-string">none</code><code class="variable-quote">'</code></span>)</span><br />
-      Permet de mettre en forme les textes afficher sur le terminale, text 
-      : La chaine de caract&#232;re a transformer col : La couleur souhait&#233; 
-      entre les couleurs red, green,yellow,orange,blue et purple type : 
-      formatage du texte souhait&#233; entre les formats bold, underline, blind 
-      et highligth.</td>
+      Permet de mettre en forme les textes afficher sur le terminale,
+text : La chaine de caract&#232;re a transformer
+col : La couleur souhait&#233; entre les couleurs red, green,yellow,orange,blue et purple
+type : formatage du texte souhait&#233; entre les formats bold, underline, blind et highligth.
+Si plusieurs type sont souhait&#233; il est possible de faire une liste (exemple, type = ['bold','underline'])</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="module_Flo-pysrc.html#form">source&nbsp;code</a></span>
             
@@ -235,71 +234,6 @@
     </td>
   </tr>
 </table>
-<!-- ==================== FUNCTION DETAILS ==================== -->
-<a name="section-FunctionDetails"></a>
-<table class="details" border="1" cellpadding="3"
-       cellspacing="0" width="100%" bgcolor="white">
-<tr bgcolor="#70b0f0" class="table-header">
-  <td colspan="2" class="table-header">
-    <table border="0" cellpadding="0" cellspacing="0" width="100%">
-      <tr valign="top">
-        <td align="left"><span class="table-header">Function Details</span></td>
-        <td align="right" valign="top"
-         ><span class="options">[<a href="#section-FunctionDetails"
-         class="privatelink" onclick="toggle_private();"
-         >hide private</a>]</span></td>
-      </tr>
-    </table>
-  </td>
-</tr>
-</table>
-<a name="createDir"></a>
-<div>
-<table class="details" border="1" cellpadding="3"
-       cellspacing="0" width="100%" bgcolor="white">
-<tr><td>
-  <table width="100%" cellpadding="0" cellspacing="0" border="0">
-  <tr valign="top"><td>
-  <h3 class="epydoc"><span class="sig"><span class="sig-name">createDir</span>(<span class="sig-arg">Listedirectory</span>)</span>
-  </h3>
-  </td><td align="right" valign="top"
-    ><span class="codelink"><a href="module_Flo-pysrc.html#createDir">source&nbsp;code</a></span>&nbsp;
-    </td>
-  </tr></table>
-  
-  <p>Permet de v&#233;rifier si un dossier existe, si ce n'est pas le cas, le 
-  dossier sera cr&#233;e. Listedirectory : liste de repertoire &#224; cr&#233;er</p>
-  <dl class="fields">
-  </dl>
-</td></tr></table>
-</div>
-<a name="form"></a>
-<div>
-<table class="details" border="1" cellpadding="3"
-       cellspacing="0" width="100%" bgcolor="white">
-<tr><td>
-  <table width="100%" cellpadding="0" cellspacing="0" border="0">
-  <tr valign="top"><td>
-  <h3 class="epydoc"><span class="sig"><span class="sig-name">form</span>(<span class="sig-arg">text</span>,
-        <span class="sig-arg">col</span>=<span class="sig-default"><code class="variable-quote">'</code><code class="variable-string">white</code><code class="variable-quote">'</code></span>,
-        <span class="sig-arg">type</span>=<span class="sig-default"><code class="variable-quote">'</code><code class="variable-string">none</code><code class="variable-quote">'</code></span>)</span>
-  </h3>
-  </td><td align="right" valign="top"
-    ><span class="codelink"><a href="module_Flo-pysrc.html#form">source&nbsp;code</a></span>&nbsp;
-    </td>
-  </tr></table>
-  
-  <p>Permet de mettre en forme les textes afficher sur le terminale, text :
-  La chaine de caract&#232;re a transformer col : La couleur souhait&#233; entre les 
-  couleurs red, green,yellow,orange,blue et purple type : formatage du 
-  texte souhait&#233; entre les formats bold, underline, blind et highligth. Si 
-  plusieurs type sont souhait&#233; il est possible de faire une liste (exemple,
-  type = ['bold','underline'])</p>
-  <dl class="fields">
-  </dl>
-</td></tr></table>
-</div>
-<br />
 <!-- ==================== NAVIGATION BAR ==================== -->
 <table class="navbar" border="0" width="100%" cellpadding="0"
        bgcolor="#a0c0ff" cellspacing="0">
@@ -323,7 +257,7 @@
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0.1 on Mon Apr  9 12:35:37 2018
+    Generated by Epydoc 3.0.1 on Mon Apr  9 14:22:23 2018
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"

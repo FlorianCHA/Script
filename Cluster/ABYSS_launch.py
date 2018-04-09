@@ -6,10 +6,10 @@
 """
 	The ABYSS_launch script
 	=======================
-	author: Charriat Florian\n
-	contact: florian.charriat@inra.fr\n
-	date: 9/03/2018\n
-	version: 0.1
+	:author: Charriat Florian
+	:contact: florian.charriat@inra.fr
+	:date: 9/03/2018
+	:version: 0.1
 
 	Script description
 	------------------
@@ -26,12 +26,14 @@
 
 	optional arguments:
 		- \-h, --help
-						show this help message and exit
+						show this help 	message and exit
 		- \-v, --version
 						display ABYSS_launch.py version number and exit
+						
 	Input mandatory infos for running:
 		- \-d <path/to/directory>, --directory <path/to/directory>
 						path of directory that contains all the fasta files which must be assembled
+						
 		- \-o <path/to/output/directory>, --outdirPath <path/to/output/directory>
 						Path of the output directory
 
