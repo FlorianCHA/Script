@@ -14,12 +14,12 @@
 	Script description
 	------------------
 
-	his program is used to retrieve stat of all the data done by the script repeatMasker_build.py
+	This program is used to retrieve the statistique of result from repeatMasker_build.py script
 
 	Example
 	-------
 
-	>>> stat_repeatMasker.py -d /homedir/user/work/data -o /homedir/user/work/result
+	>>> stat_repeatMasker.py -d /homedir/user/work/repeatMasker_result/ -o /homedir/user/work/stat_repeatMasker
 
 	Help Programm
 	-------------
@@ -31,7 +31,7 @@
 						display stat_repeatMasker.py version number and exit
 	Input mandatory infos for running:
 		- \-d <path/to/directory>, --directory <path/to/directory>
-						path of directory that contains all the result of the repeatMasker_build.py
+						path of directory that contains all the result of the repeatMasker_build.py (output + repeatMasker_result
 		- \-o <path/to/output/directory>, --outdirPath <path/to/output/directory>
 						Path of the output directory
 
@@ -49,14 +49,30 @@ from module_Flo import verifDir, createDir , form , verifFichier
 if __name__ == "__main__":
 
 	version = '0.1'
+	
+############ Argparse #####################
+	parser = argparse.ArgumentParser(prog=__file__, description='''TThis program is used to retrieve the statistique of result from repeatMasker_build.py script''')
+	parser.add_argument('-v', '--version', action='version', version='You are using %(prog)s version: ' + version, help=\
+'display '+__file__+' version number and exit')
 
-########### Gestion directory #############
-	directory = '/homedir/charriat/work/repeatMasker/result_repeatMasker/'
-	outDir = '/homedir/charriat/work/repeatMasker/'
+
+	filesreq = parser.add_argument_group('Input mandatory infos for running')
+	filesreq.add_argument('-d', '--directory',type = str, required=True, dest = 'dirPath', help = 'path of directory that contains all the result of the repeatMasker_build.py (output + repeatMasker_result')
+	filesreq.add_argument('-o', '--outdir',type = str, required=True, dest = 'outdirPath', help = 'Path of the output directory')
+
+	
+######### Recuperation arguments ###########
+	args = parser.parse_args()
+	directory = os.path.abspath(args.dirPath)
+	outDir= os.path.abspath( args.outdirPath)
+
+
+########### Gestion directory ##############
 	directory = verifDir(directory,True)
 	outDir = verifDir(outDir)
-
-
+	bash = outDir+'script_bash'
+	name_directory = [outDir]
+	createDir(name_directory)
 
 
 ############### start message ########################
@@ -73,7 +89,7 @@ if __name__ == "__main__":
 		listeID.append(ID)
 	listeID.sort()
 	nbAssemblage = 0
-	statAll = open(outDir+'stat_repeatMasker','w')
+	statAll = open(outDir+'stat_repeatMasker.txt','w')
 	statAll.write('Id souche'+'\t'+'Nombre séquence'+'\t'+'Longueur total'+'\t'+'Taux GC'+'\t'+'longueur bases masquée'+'\t'+ 'Pourcentage bases masquées'+'\n')
 	statAll.close()
 	for isolate in listeID :
@@ -98,9 +114,21 @@ if __name__ == "__main__":
 
 
 ############## summary message #######################
+
 	print(form('\n-------------------------------------------------------------------------------------------------------------------------','red','bold'))
 	print(form('Execution summary:\n','green',['bold','underline']))
-	print('- stat_repeatMasker a récupérées les données qualité des '+str(nbAssemblage)+' assemblages')
+
+	print('\tInput :')
+	print('\t\t- Repertoire des resultats de repeatMasker_build : '+directory[:-1])	
+	
+	print('\n\tOutput :')
+	print('\t\t- Résultat : '+outDir[:-1])
+	
+	print('\n\tFichier de sortie :')
+	print("\t\t- stat_repeatMasker.txt : Fichier qui donne les statistiques de l'outils repeatMasker des"+str(nbAssemblage)+' assemblages\n')
+	
+	print('\n Quality a récupérées les données qualité des '+str(nbAssemblage)+' assemblages\n')
+
 	print(form('-------------------------------------------------------------------------------------------------------------------------','red','bold'))
 
 

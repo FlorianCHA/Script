@@ -20,7 +20,7 @@
 	Example
 	-------
 
-	>>> Quality.py -d /homedir/user/work/data -o /homedir/user/work/result
+	>>> Quality.py -d /homedir/user/work/data/result/ -o /homedir/user/work/quality
 
 	Help Programm
 	-------------
@@ -29,7 +29,7 @@
 		- \-h, --help
 						show this help message and exit
 		- \-v, --version
-						display ABYSS_launch.py version number and exit
+						display Quality.py version number and exit
 	Input mandatory infos for running:
 		- \-d <path/to/directory>, --directory <path/to/directory>
 						path of directory that contains all the result of the ABYSS_launch.py
@@ -53,13 +53,13 @@ if __name__ == "__main__":
 	version = '0.1'
 	
 ############ Argparse #####################
-	parser = argparse.ArgumentParser(prog=__file__, description='''This program is used to assemble all fasta files in a directory using the ABYSS tool. The assembly will be done with different lengths of kmère (20, 30, 40, 50, 60, 70, 80 and 90) ''')
+	parser = argparse.ArgumentParser(prog=__file__, description='''This program is used to retrieve the quality data of the assembly done by the ABYSS_launch script''')
 	parser.add_argument('-v', '--version', action='version', version='You are using %(prog)s version: ' + version, help=\
 'display '+__file__+' version number and exit')
 
 
 	filesreq = parser.add_argument_group('Input mandatory infos for running')
-	filesreq.add_argument('-d', '--directory',type = str, required=True, dest = 'dirPath', help = 'path of directory that contains all the fasta assembled files')
+	filesreq.add_argument('-d', '--directory',type = str, required=True, dest = 'dirPath', help = 'path of directory that contains all the fasta assembled by ABYSS_launch (output + result)')
 	filesreq.add_argument('-o', '--outDir',type = str, required=True, dest = 'outDirPath', help = 'Path of the output directory')
 
 	
@@ -74,13 +74,13 @@ if __name__ == "__main__":
 	version = '0.1'
 	
 ############ Argparse #####################
-	parser = argparse.ArgumentParser(prog=__file__, description='''This program is used to assemble all fasta files in a directory using the ABYSS tool. The assembly will be done with different lengths of kmère (20, 30, 40, 50, 60, 70, 80 and 90) ''')
+	parser = argparse.ArgumentParser(prog=__file__, description='''This program is used to retrieve the quality data of the assembly done by the ABYSS_launch script''')
 	parser.add_argument('-v', '--version', action='version', version='You are using %(prog)s version: ' + version, help=\
 'display '+__file__+' version number and exit')
 
 
 	filesreq = parser.add_argument_group('Input mandatory infos for running')
-	filesreq.add_argument('-d', '--directory',type = str, required=True, dest = 'dirPath', help = 'path of directory that contains all the fasta files which must be assembled')
+	filesreq.add_argument('-d', '--directory',type = str, required=True, dest = 'dirPath', help = 'path of directory that contains all the assembly files which assembled')
 	filesreq.add_argument('-o', '--outDir',type = str, required=True, dest = 'outDirPath', help = 'Path of the output directory')
 
 	
@@ -170,12 +170,15 @@ if __name__ == "__main__":
 
 	print('\tInput :')
 	print('\t\t- Repertoire des assemblages : '+directory[:-1])	
+	
 	print('\n\tOutput :')
 	print('\t\t- Résultat : '+outDir[:-1])
+	
 	print('\n\tFichier de sortie :')
 	print('\t\t- QualityAssembly.csv : Fichier qui donne les statistiques des assemblages par souche')
 	print('\t\t- Exclus_Assembly : Fichier qui donne les statistiques des assemblages exclus à cause de leur mauvaise qualité')	
-	print('\t\t- QualityR : Fichier contenant toutes les statistiques, ce fichier peut etre utilisé facilement avec R')	
+	print('\t\t- QualityR : Fichier contenant toutes les statistiques, ce fichier peut etre utilisé facilement avec R')
+		
 	print('\n Quality a récupérées les données qualité des '+str(nbAssemblage)+' assemblages\n')
 
 	print(form('-------------------------------------------------------------------------------------------------------------------------','red','bold'))
