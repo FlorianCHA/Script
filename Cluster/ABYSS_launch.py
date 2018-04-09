@@ -56,7 +56,7 @@ if __name__ == "__main__":
 ############ Argparse #####################
 	parser = argparse.ArgumentParser(prog=__file__, description='''This program is used to assemble all fasta files in a directory using the ABYSS tool. The assembly will be done with different lengths of kmère (20, 30, 40, 50, 60, 70, 80 and 90) ''')
 	parser.add_argument('-v', '--version', action='version', version='You are using %(prog)s version: ' + version, help=\
-'display '+__file__+' version number and exit')
+'display ABYSS_launch version number and exit')
 
 
 	filesreq = parser.add_argument_group('Input mandatory infos for running')

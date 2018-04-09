@@ -15,7 +15,7 @@
 	Script description
 	------------------
 
-	This program is used to align multiple RNA-seq on a host genome for kept only RNA-seq of interest
+	This program is used to align multiple RNA-seq on a host genome for eliminate inPlanta RNA
 
 	Example
 	-------
@@ -29,7 +29,7 @@
 		- \-h, --help
 						show this help message and exit
 		- \-v, --version
-						display ABYSS_launch.py version number and exit
+						display forRNAseq_inPlanta.py version number and exit
 	Input mandatory infos for running:
 		- \-d <path/to/directory>, --directory <path/to/directory>
 						path of directory that contains all the RNA-seq in planta
@@ -58,7 +58,7 @@ if __name__ == "__main__":
 	version = '0.1'
 	
 ############ Argparse #####################
-	parser = argparse.ArgumentParser(prog=__file__, description='''This program is used to align multiple RNA-seq on a genome and merge the different alignments into a file''')
+	parser = argparse.ArgumentParser(prog=__file__, description='''This program is used to align multiple RNA-seq on a host genome for eliminate inPlanta RNA''')
 	parser.add_argument('-v', '--version', action='version', version='You are using %(prog)s version: ' + version, help=\
 'display '+__file__+' version number and exit')
 

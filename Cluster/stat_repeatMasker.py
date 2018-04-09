@@ -6,9 +6,9 @@
 """
 	The stat_repeatMasker script
 	============================
-	:author: Charriat Florian\n
-	:contact: florian.charriat@inra.fr\n
-	:date: 13/03/2018\n
+	:author: Charriat Florian
+	:contact: florian.charriat@inra.fr
+	:date: 13/03/2018
 	:version: 0.1
 
 	Script description
@@ -31,7 +31,7 @@
 						display stat_repeatMasker.py version number and exit
 	Input mandatory infos for running:
 		- \-d <path/to/directory>, --directory <path/to/directory>
-						path of directory that contains all the result of the repeatMasker_build.py (output + repeatMasker_result
+						path of directory that contains all the result of the repeatMasker_build.py (output + repeatMasker_result)
 		- \-o <path/to/output/directory>, --outdirPath <path/to/output/directory>
 						Path of the output directory
 
@@ -53,7 +53,7 @@ if __name__ == "__main__":
 ############ Argparse #####################
 	parser = argparse.ArgumentParser(prog=__file__, description='''TThis program is used to retrieve the statistique of result from repeatMasker_build.py script''')
 	parser.add_argument('-v', '--version', action='version', version='You are using %(prog)s version: ' + version, help=\
-'display '+__file__+' version number and exit')
+'display stat_repeatMasker.py version number and exit')
 
 
 	filesreq = parser.add_argument_group('Input mandatory infos for running')

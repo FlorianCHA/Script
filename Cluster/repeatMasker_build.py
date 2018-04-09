@@ -56,7 +56,7 @@ if __name__ == "__main__":
 ############ Argparse #####################
 	parser = argparse.ArgumentParser(prog=__file__, description='''This program is used to create a bash file that can launch jobs on the cluster that uses repeatMasker on all the fasta files in a directory. ''')
 	parser.add_argument('-v', '--version', action='version', version='You are using %(prog)s version: ' + version, help=\
-'display '+__file__+' version number and exit')
+'display repeatMasker_build.py version number and exit')
 
 
 	filesreq = parser.add_argument_group('Input mandatory infos for running')

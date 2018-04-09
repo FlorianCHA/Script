@@ -32,7 +32,7 @@
 		- \-h, --help
 						show this help message and exit
 		- \-v, --version
-						display ABYSS_launch.py version number and exit
+						display Alignement.py version number and exit
 	Input mandatory infos for running:
 		- \-d <path/to/directory>, --directory <path/to/directory>
 						path of directory that contains all the RNA-seq
@@ -42,6 +42,7 @@
 						path of the config file for toogle
 		- \-o <path/to/output/directory>, --outDirPath <path/to/output/directory>
 						Path of the output directory
+	Input infos for running only one genome:
 		- \-f <Name/file>, --file <Name/file>
 						Input infos for running only one genome
 
@@ -66,7 +67,7 @@ if __name__ == "__main__":
 ############ Argparse #####################
 	parser = argparse.ArgumentParser(prog=__file__, description='''This program is used to align multiple RNA-seq on a genome and merge the different alignments into a file''')
 	parser.add_argument('-v', '--version', action='version', version='You are using %(prog)s version: ' + version, help=\
-'display '+__file__+' version number and exit')
+'display Alignement.py version number and exit')
 
 
 	filesreq = parser.add_argument_group('Input mandatory infos for running')
@@ -75,7 +76,7 @@ if __name__ == "__main__":
 	filesreq.add_argument('-c', '--configFile',type = str, required=True, dest = 'configFile', help = 'Path of the config file for toogle')
 	filesreq.add_argument('-o', '--outDir',type = str, required=True, dest = 'outDirPath', help = 'Path of the output directory')
 	files = parser.add_argument_group('Input infos for running only one genome')
-	files.add_argument('-f', '--file', type=str, required=False, dest = 'file', default ='', help = 'name file if the user only wants to process only one file')
+	files.add_argument('-f', '--file', type=str, required=False, dest = 'file', default ='', help = 'name file genome if the user only wants to process only one genome')
 	
 	
 ######### Recuperation arguments ###########
