@@ -56,9 +56,8 @@ def createDir(Listedirectory):
 
 def verifDir(directory,check = False):
 	'''
-	Permet de mettre en forme le chemin du dossier pour être utilisé dans un script, 
-	la fonction vérifie si il y a bien un '/' à la fin du chemin, sinon il le rajoute. 
-	La fonction peut aussi verifier qu'un repertoire existe.
+	Permet de mettre en forme le chemin du dossier pour être utilisé dans un script,la fonction vérifie si il y a bien un '/' à la fin du chemin, sinon il le rajoute. La fonction peut aussi verifier qu'un repertoire existe.
+	
 	:Parameters:
 	     directory
 		Path du dossier
@@ -79,7 +78,8 @@ def verifDir(directory,check = False):
 ################################## Fonction fichier ############################################"
 
 def verifFichier(fichier):
-	'''Permet de vérifier si un fichier existe
+	'''Permet de vérifier si un fichier existe.
+	
 	:Parameters:
 	     fichier
 		Path du fichier
@@ -94,6 +94,7 @@ def verifFichier(fichier):
 
 def isFasta(fichier):
 	'''Permet de vérifier si un fichier est au format fasta	
+	
 	:Parameters:
 	     fichier
 		Path du fichier	
@@ -106,6 +107,7 @@ def isFasta(fichier):
 
 def isFastq(fichier):
 	'''Permet de vérifier si un fichier est au format fastq	
+	
 	:Parameters:
 	     fichier
 		Path du fichier
@@ -117,6 +119,7 @@ def isFastq(fichier):
 		
 def recupId(fichier):
 	'''Permet de récupéré le nom du fichier sans l'extension fasta ou fastq
+	
 	:Parameters:
 	     fichier
 		Path du fichier
@@ -141,11 +144,8 @@ def recupId(fichier):
 
 def form(text,col = 'white' ,type = 'none') :
 	'''
-	Permet de mettre en forme les textes afficher sur le terminale,
-	text : La chaine de caractère a transformer
-	col : La couleur souhaité entre les couleurs red, green,yellow,orange,blue et purple
-	type : formatage du texte souhaité entre les formats bold, underline, blind et highligth.
-	Si plusieurs type sont souhaité il est possible de faire une liste (exemple, type = ['bold','underline'])
+	Permet de mettre en forme les textes afficher sur le terminale.
+		
 	:Parameters:
 	     text: str
 		Le texte à transformer

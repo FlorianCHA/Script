@@ -119,8 +119,7 @@ le dossier sera cr&#233;e.</td>
         <tr>
           <td><span class="summary-sig"><a href="module_Flo-module.html#verifDir" class="summary-sig-name">verifDir</a>(<span class="summary-sig-arg">directory</span>,
         <span class="summary-sig-arg">check</span>=<span class="summary-sig-default">False</span>)</span><br />
-      Permet de mettre en forme le chemin du dossier pour &#234;tre utilis&#233; dans un script, 
-la fonction v&#233;rifie si il y a bien un '/' &#224; la fin du chemin, sinon il le rajoute.</td>
+      Permet de mettre en forme le chemin du dossier pour &#234;tre utilis&#233; dans un script,la fonction v&#233;rifie si il y a bien un '/' &#224; la fin du chemin, sinon il le rajoute. La fonction peut aussi verifier qu'un repertoire existe.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="module_Flo-pysrc.html#verifDir">source&nbsp;code</a></span>
             
@@ -137,7 +136,7 @@ la fonction v&#233;rifie si il y a bien un '/' &#224; la fin du chemin, sinon il
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td><span class="summary-sig"><a href="module_Flo-module.html#verifFichier" class="summary-sig-name">verifFichier</a>(<span class="summary-sig-arg">fichier</span>)</span><br />
-      Permet de v&#233;rifier si un fichier existe...</td>
+      Permet de v&#233;rifier si un fichier existe.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="module_Flo-pysrc.html#verifFichier">source&nbsp;code</a></span>
             
@@ -154,7 +153,7 @@ la fonction v&#233;rifie si il y a bien un '/' &#224; la fin du chemin, sinon il
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td><span class="summary-sig"><a href="module_Flo-module.html#isFasta" class="summary-sig-name">isFasta</a>(<span class="summary-sig-arg">fichier</span>)</span><br />
-      Permet de v&#233;rifier si un fichier est au format fasta    ...</td>
+      Permet de v&#233;rifier si un fichier est au format fasta</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="module_Flo-pysrc.html#isFasta">source&nbsp;code</a></span>
             
@@ -171,7 +170,7 @@ la fonction v&#233;rifie si il y a bien un '/' &#224; la fin du chemin, sinon il
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td><span class="summary-sig"><a href="module_Flo-module.html#isFastq" class="summary-sig-name">isFastq</a>(<span class="summary-sig-arg">fichier</span>)</span><br />
-      Permet de v&#233;rifier si un fichier est au format fastq    ...</td>
+      Permet de v&#233;rifier si un fichier est au format fastq</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="module_Flo-pysrc.html#isFastq">source&nbsp;code</a></span>
             
@@ -188,7 +187,7 @@ la fonction v&#233;rifie si il y a bien un '/' &#224; la fin du chemin, sinon il
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td><span class="summary-sig"><a href="module_Flo-module.html#recupId" class="summary-sig-name">recupId</a>(<span class="summary-sig-arg">fichier</span>)</span><br />
-      Permet de r&#233;cup&#233;r&#233; le nom du fichier sans l'extension fasta ou fastq...</td>
+      Permet de r&#233;cup&#233;r&#233; le nom du fichier sans l'extension fasta ou fastq</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="module_Flo-pysrc.html#recupId">source&nbsp;code</a></span>
             
@@ -207,10 +206,7 @@ la fonction v&#233;rifie si il y a bien un '/' &#224; la fin du chemin, sinon il
           <td><span class="summary-sig"><a href="module_Flo-module.html#form" class="summary-sig-name">form</a>(<span class="summary-sig-arg">text</span>,
         <span class="summary-sig-arg">col</span>=<span class="summary-sig-default"><code class="variable-quote">'</code><code class="variable-string">white</code><code class="variable-quote">'</code></span>,
         <span class="summary-sig-arg">type</span>=<span class="summary-sig-default"><code class="variable-quote">'</code><code class="variable-string">none</code><code class="variable-quote">'</code></span>)</span><br />
-      Permet de mettre en forme les textes afficher sur le terminale,
-text : La chaine de caract&#232;re a transformer
-col : La couleur souhait&#233; entre les couleurs red, green,yellow,orange,blue et purple
-type : formatage du texte souhait&#233; entre les formats bold, underline, blind et highligth.</td>
+      Permet de mettre en forme les textes afficher sur le terminale.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="module_Flo-pysrc.html#form">source&nbsp;code</a></span>
             
@@ -303,20 +299,13 @@ le dossier sera cr&#233;e.
     </td>
   </tr></table>
   
-  <pre class="literalblock">
-
-Permet de mettre en forme le chemin du dossier pour &#234;tre utilis&#233; dans un script, 
-la fonction v&#233;rifie si il y a bien un '/' &#224; la fin du chemin, sinon il le rajoute. 
-La fonction peut aussi verifier qu'un repertoire existe.
-:Parameters:
-     directory
-        Path du dossier
-     check : bool
-        Si check = True, la fonction va aussi verifier que le repertoire existe
-        
-
-</pre>
+  Permet de mettre en forme le chemin du dossier pour &#234;tre utilis&#233; dans un script,la fonction v&#233;rifie si il y a bien un '/' &#224; la fin du chemin, sinon il le rajoute. La fonction peut aussi verifier qu'un repertoire existe.
   <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>directory</code></strong> - Path du dossier</li>
+        <li><strong class="pname"><code>check</code></strong> (bool) - Si check = True, la fonction va aussi verifier que le repertoire existe</li>
+    </ul></dd>
   </dl>
 </td></tr></table>
 </div>
@@ -334,15 +323,12 @@ La fonction peut aussi verifier qu'un repertoire existe.
     </td>
   </tr></table>
   
-  <pre class="literalblock">
-Permet de v&#233;rifier si un fichier existe
-:Parameters:
-     fichier
-        Path du fichier
-    
-
-</pre>
+  Permet de v&#233;rifier si un fichier existe.
   <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>fichier</code></strong> - Path du fichier</li>
+    </ul></dd>
   </dl>
 </td></tr></table>
 </div>
@@ -360,14 +346,12 @@ Permet de v&#233;rifier si un fichier existe
     </td>
   </tr></table>
   
-  <pre class="literalblock">
-Permet de v&#233;rifier si un fichier est au format fasta    
-:Parameters:
-     fichier
-        Path du fichier 
-
-</pre>
+  Permet de v&#233;rifier si un fichier est au format fasta
   <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>fichier</code></strong> - Path du fichier</li>
+    </ul></dd>
   </dl>
 </td></tr></table>
 </div>
@@ -385,14 +369,12 @@ Permet de v&#233;rifier si un fichier est au format fasta
     </td>
   </tr></table>
   
-  <pre class="literalblock">
-Permet de v&#233;rifier si un fichier est au format fastq    
-:Parameters:
-     fichier
-        Path du fichier
-
-</pre>
+  Permet de v&#233;rifier si un fichier est au format fastq
   <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>fichier</code></strong> - Path du fichier</li>
+    </ul></dd>
   </dl>
 </td></tr></table>
 </div>
@@ -410,14 +392,12 @@ Permet de v&#233;rifier si un fichier est au format fastq
     </td>
   </tr></table>
   
-  <pre class="literalblock">
-Permet de r&#233;cup&#233;r&#233; le nom du fichier sans l'extension fasta ou fastq
-:Parameters:
-     fichier
-        Path du fichier
-
-</pre>
+  Permet de r&#233;cup&#233;r&#233; le nom du fichier sans l'extension fasta ou fastq
   <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>fichier</code></strong> - Path du fichier</li>
+    </ul></dd>
   </dl>
 </td></tr></table>
 </div>
@@ -437,23 +417,14 @@ Permet de r&#233;cup&#233;r&#233; le nom du fichier sans l'extension fasta ou fa
     </td>
   </tr></table>
   
-  <pre class="literalblock">
-
-Permet de mettre en forme les textes afficher sur le terminale,
-text : La chaine de caract&#232;re a transformer
-col : La couleur souhait&#233; entre les couleurs red, green,yellow,orange,blue et purple
-type : formatage du texte souhait&#233; entre les formats bold, underline, blind et highligth.
-Si plusieurs type sont souhait&#233; il est possible de faire une liste (exemple, type = ['bold','underline'])
-:Parameters:
-     text: str
-        Le texte &#224; transformer
-     col: str
-        La couleur souhait&#233; entre les couleurs red, green,yellow,orange,blue et purple
-     text: str
-         str ou liste de str du format &#224; appliquer (bold, underline, blind et highligth)
-
-</pre>
+  Permet de mettre en forme les textes afficher sur le terminale.
   <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>text</code></strong>, <strong class="pname"><code>str</code></strong> - Le texte &#224; transformer</li>
+        <li><strong class="pname"><code>col</code></strong>, <strong class="pname"><code>str</code></strong> - La couleur souhait&#233; entre les couleurs red, green,yellow,orange,blue et purple</li>
+        <li><strong class="pname"><code>text</code></strong>, <strong class="pname"><code>str</code></strong> - str ou liste de str du format &#224; appliquer (bold, underline, blind et highligth)</li>
+    </ul></dd>
   </dl>
 </td></tr></table>
 </div>
@@ -486,7 +457,7 @@ Si plusieurs type sont souhait&#233; il est possible de faire une liste (exemple
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0.1 on Thu Apr 12 10:17:29 2018
+    Generated by Epydoc 3.0.1 on Thu Apr 12 10:19:19 2018
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"
