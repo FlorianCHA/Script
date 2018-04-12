@@ -57,7 +57,14 @@ def createDir(Listedirectory):
 def verifDir(directory,check = False):
 	'''
 	Permet de mettre en forme le chemin du dossier pour être utilisé dans un script, 
-	la fonction vérifie si il y a bien un '/' à la fin du chemin, sinon il le rajoute
+	la fonction vérifie si il y a bien un '/' à la fin du chemin, sinon il le rajoute. 
+	La fonction peut aussi verifier qu'un repertoire existe.
+	:Parameters:
+	     directory
+		Path du dossier
+	     check : bool
+	     	Si check = True, la fonction va aussi verifier que le repertoire existe
+	     	
 	'''
 	if directory.endswith('/') == False :
 		directory = directory +'/'
@@ -73,7 +80,10 @@ def verifDir(directory,check = False):
 
 def verifFichier(fichier):
 	'''Permet de vérifier si un fichier existe
-	
+	:Parameters:
+	     fichier
+		Path du fichier
+	    
 	'''
 	if os.path.exists(fichier):
 		return
@@ -84,6 +94,9 @@ def verifFichier(fichier):
 
 def isFasta(fichier):
 	'''Permet de vérifier si un fichier est au format fasta	
+	:Parameters:
+	     fichier
+		Path du fichier	
 	'''
 	if fichier.endswith('.fasta') or fichier.endswith('.fa') or fichier.endswith('.fasta.gz') or fichier.endswith('.fa.gz'):
 		return True
@@ -93,6 +106,9 @@ def isFasta(fichier):
 
 def isFastq(fichier):
 	'''Permet de vérifier si un fichier est au format fastq	
+	:Parameters:
+	     fichier
+		Path du fichier
 	'''
 	if fichier.endswith('.fastq') or fichier.endswith('.fq') or fichier.endswith('.fastq.gz') or fichier.endswith('.fq.gz'):
 		return True
@@ -101,6 +117,9 @@ def isFastq(fichier):
 		
 def recupId(fichier):
 	'''Permet de récupéré le nom du fichier sans l'extension fasta ou fastq
+	:Parameters:
+	     fichier
+		Path du fichier
 	'''
 	# Traitement pour fichier fasta
 	fichier = fichier.replace('.fasta.gz','')
@@ -127,6 +146,13 @@ def form(text,col = 'white' ,type = 'none') :
 	col : La couleur souhaité entre les couleurs red, green,yellow,orange,blue et purple
 	type : formatage du texte souhaité entre les formats bold, underline, blind et highligth.
 	Si plusieurs type sont souhaité il est possible de faire une liste (exemple, type = ['bold','underline'])
+	:Parameters:
+	     text: str
+		Le texte à transformer
+	     col: str
+		La couleur souhaité entre les couleurs red, green,yellow,orange,blue et purple
+	     text: str
+		 str ou liste de str du format à appliquer (bold, underline, blind et highligth)
 	'''
 	W  = '\033[0'  # white (normal)
 	R  = '\033[31' # red
