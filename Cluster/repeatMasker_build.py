@@ -35,7 +35,7 @@
 		- \-b <path/to/database>, --database <path/to/database>
 						path of database file
 		- \-o <path/to/output/directory>, --outdirPath <path/to/output/directory>
-						Path of the output directory
+						path of the output directory
 
 """
 
@@ -60,8 +60,8 @@ if __name__ == "__main__":
 
 
 	filesreq = parser.add_argument_group('Input mandatory infos for running')
-	filesreq.add_argument('-d', '--directory',type = str, required=True, dest = 'dirPath', help = 'path of directory that contains all the fasta files that repeatMasker should use')
-	filesreq.add_argument('-b', '--database',type = str, required=True, dest = 'database', help = 'path of database file')
+	filesreq.add_argument('-d', '--directory',type = str, required=True, dest = 'dirPath', help = 'Path of directory that contains all the fasta files that repeatMasker should use')
+	filesreq.add_argument('-b', '--database',type = str, required=True, dest = 'database', help = 'Path of database file')
 	filesreq.add_argument('-o', '--outdir',type = str, required=True, dest = 'outdirPath', help = 'Path of the output directory')
 
 	

@@ -35,7 +35,7 @@
 						path of directory that contains all the fasta files which must be assembled
 						
 		- \-o <path/to/output/directory>, --outdirPath <path/to/output/directory>
-						Path of the output directory
+						path of the output directory
 
 """
 
@@ -60,7 +60,7 @@ if __name__ == "__main__":
 
 
 	filesreq = parser.add_argument_group('Input mandatory infos for running')
-	filesreq.add_argument('-d', '--directory',type = str, required=True, dest = 'dirPath', help = 'path of directory that contains all the fasta files which must be assembled')
+	filesreq.add_argument('-d', '--directory',type = str, required=True, dest = 'dirPath', help = 'Path of directory that contains all the fasta files which must be assembled')
 	filesreq.add_argument('-o', '--outdir',type = str, required=True, dest = 'outdirPath', help = 'Path of the output directory')
 
 	

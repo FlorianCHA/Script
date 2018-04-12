@@ -17,7 +17,7 @@
 
 	Example:
 
-	>>> from module_Flor import createDir
+	>>> from module_Flo import createDir
 	>>> createDir('resultat')
 	
 """

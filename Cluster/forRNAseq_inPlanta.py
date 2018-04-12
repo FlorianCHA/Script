@@ -38,7 +38,7 @@
 		- \-c <path/to/configFile>, --configFile <path/to/>configfile>
 						path of the config file for toogle
 		- \-o <path/to/output/directory>, --outDirPath <path/to/output/directory>
-						Path of the output directory
+						path of the output directory
 
 
 """
@@ -64,9 +64,9 @@ if __name__ == "__main__":
 
 
 	filesreq = parser.add_argument_group('Input mandatory infos for running')
-	filesreq.add_argument('-d', '--directory',type = str, required=True, dest = 'dirPath', help = 'path of directory that contains all the RNA-seq')
-	filesreq.add_argument('-r', '--refDir',type = str, required=True, dest = 'refDir', help = 'path of directory that contains  the host genome ')
-	filesreq.add_argument('-c', '--configFile',type = str, required=True, dest = 'configFile', help = 'Ppath of the config file for toogle')
+	filesreq.add_argument('-d', '--directory',type = str, required=True, dest = 'dirPath', help = 'Path of directory that contains all the RNA-seq')
+	filesreq.add_argument('-r', '--refDir',type = str, required=True, dest = 'refDir', help = 'Path of directory that contains  the host genome ')
+	filesreq.add_argument('-c', '--configFile',type = str, required=True, dest = 'configFile', help = 'Path of the config file for toogle')
 	filesreq.add_argument('-o', '--outDir',type = str, required=True, dest = 'outDirPath', help = 'Path of the output directory')
 
 	

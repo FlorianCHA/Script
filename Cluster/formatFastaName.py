@@ -39,7 +39,7 @@
 		- \-l <int>, --len <int>
 						lensize cutoff
 		- \-o <filename>, --out <filename>
-						Name of output file
+						name of output file
 		- \-k <g/greater/l/lower>, --keep <g/greater/l/lower>
 						choice keep sequences size greater than -l (g/greater) or keep lower (l/lower)
 
@@ -85,13 +85,13 @@ if __name__ == "__main__":
 
 
 	filesreq = parser.add_argument_group('Input mandatory infos for running')
-	filesreq.add_argument('-f', '--fasta', metavar="<filename>",type=existant_file, required=True, dest = 'fastaFile', help = 'fasta files')
+	filesreq.add_argument('-f', '--fasta', metavar="<filename>",type=existant_file, required=True, dest = 'fastaFile', help = 'Fasta files')
 	filesreq.add_argument('-o', '--out', metavar="<filename>", required=True, dest = 'paramoutfile', help = 'Name of output')
 
 
 	files = parser.add_argument_group('Input infos for running with default values')
-	files.add_argument('-k', '--keep', metavar="<g/greater/l/lower>",type=str, required=False, dest = 'keep', default ='None', help = 'choice keep sequences size greater than -l (g/greater) or keep lower (l/lower)')
-	files.add_argument('-l', '--len', metavar="<int>",type=int, required=False, dest = 'lenSize',default = 500, help = 'lensize cutoff')
+	files.add_argument('-k', '--keep', metavar="<g/greater/l/lower>",type=str, required=False, dest = 'keep', default ='None', help = 'Choice keep sequences size greater than -l (g/greater) or keep lower (l/lower)')
+	files.add_argument('-l', '--len', metavar="<int>",type=int, required=False, dest = 'lenSize',default = 500, help = 'Lensize cutoff')
 	# Check parameters
 	args = parser.parse_args()
 

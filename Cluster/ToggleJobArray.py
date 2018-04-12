@@ -37,10 +37,10 @@
 		- \-c <path/to/configFile>, --configFile <path/to/>configfile>
 						path of the config file for toogle
 		- \-o <path/to/output/directory>, --outDirPath <path/to/output/directory>
-						Path of the output directory
+						path of the output directory
 	Input infos for running with default values:
 		- \-j <int>, --nbjob <int>
-						Number of job array lunch (default = 100)
+						number of job array lunch (default = 100)
 """
 
 ##################################################
@@ -82,8 +82,8 @@ if __name__ == "__main__":
 	parser.add_argument('-dd', '--debug', action='store_true', dest='debug', help='enter verbose/debug mode')
 
 	filesreq = parser.add_argument_group('Input mandatory infos for running')
-	filesreq.add_argument('-d', '--directory',type = str, required=True, dest = 'dirPath', help = 'path of directory that contains all the RNA-seq')
-	filesreq.add_argument('-r', '--refDir',type = directory, required=True, dest = 'refDir', help = 'path of directory that contains all the genome assembled')
+	filesreq.add_argument('-d', '--directory',type = str, required=True, dest = 'dirPath', help = 'Path of directory that contains all the RNA-seq')
+	filesreq.add_argument('-r', '--refDir',type = directory, required=True, dest = 'refDir', help = 'Path of directory that contains all the genome assembled')
 	filesreq.add_argument('-c', '--configFile',type = str, required=True, dest = 'configFile', help = 'Path of the config file for toogle')
 	filesreq.add_argument('-o', '--outDir',type = directory, required=True, dest = 'outDirPath', help = 'Path of the output directory')
 

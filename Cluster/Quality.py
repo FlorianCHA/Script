@@ -34,7 +34,7 @@
 		- \-d <path/to/directory>, --directory <path/to/directory>
 						path of directory that contains all the fasta assembled by ABYSS_launch (output + result)
 		- \-o <path/to/output/directory>, --outDirPath <path/to/output/directory>
-						Path of the output directory
+						path of the output directory
 
 """
 
@@ -59,7 +59,7 @@ if __name__ == "__main__":
 
 
 	filesreq = parser.add_argument_group('Input mandatory infos for running')
-	filesreq.add_argument('-d', '--directory',type = str, required=True, dest = 'dirPath', help = 'path of directory that contains all the fasta assembled by ABYSS_launch (output + result)')
+	filesreq.add_argument('-d', '--directory',type = str, required=True, dest = 'dirPath', help = 'Path of directory that contains all the fasta assembled by ABYSS_launch (output + result)')
 	filesreq.add_argument('-o', '--outDir',type = str, required=True, dest = 'outDirPath', help = 'Path of the output directory')
 
 	
