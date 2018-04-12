@@ -150,7 +150,7 @@ def form(text,col = 'white' ,type = 'none') :
 	     text 
 		Le texte à transformer
 	     col 
-		La couleur souhaité entre les couleurs red, green,yellow,orange,blue et purple
+		La couleur souhaité entre les couleurs red, green, yellow, orange, blue et purple
 	     text
 		 str ou liste de str du format à appliquer (bold, underline, blind et highligth)
 	'''
