@@ -147,7 +147,7 @@ def form(text,col = 'white' ,type = 'none') :
 	Permet de mettre en forme les textes afficher sur le terminale.
 		
 	:Parameters:
-	     text: str
+	     text: string
 		Le texte à transformer
 	     col: str
 		La couleur souhaité entre les couleurs red, green,yellow,orange,blue et purple
