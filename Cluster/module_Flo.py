@@ -36,8 +36,12 @@ import argparse, os
 def createDir(Listedirectory):
 	'''Permet de vérifier si un dossier existe, si ce n'est pas le cas, 
 	le dossier sera crée.
-	Listedirectory : liste de repertoire à créer
+	
+	:Parameters:
+	     Listedirectory
+		liste de repertoire à créer
 	'''
+	
 	if type(Listedirectory) != list:
 		if not os.path.exists(Listedirectory):
 			os.makedirs(Listedirectory)
