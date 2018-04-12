@@ -147,11 +147,11 @@ def form(text,col = 'white' ,type = 'none') :
 	Permet de mettre en forme les textes afficher sur le terminale.
 		
 	:Parameters:
-	     text: string
+	     text: 
 		Le texte à transformer
-	     col: str
+	     col: 
 		La couleur souhaité entre les couleurs red, green,yellow,orange,blue et purple
-	     text: str
+	     text:
 		 str ou liste de str du format à appliquer (bold, underline, blind et highligth)
 	'''
 	W  = '\033[0'  # white (normal)
