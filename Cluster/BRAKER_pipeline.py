@@ -120,7 +120,7 @@ if __name__ == "__main__":
 
 ########## Main ############################
 	nbScript = 0
-	run = open(outDir+'run_job_mapping.sh','w')
+	run = open(outDir+'run_job_braker.sh','w')
 	run.close()
 	for genome in os.listdir(ref) :
 		if assembly in genome and isFasta(genome):
@@ -140,7 +140,7 @@ if __name__ == "__main__":
 			files.write('#$ -o '+outDir+'output/'+IDgenome+'.out\n#$ -e '+outDir+'error/'+IDgenome+'.err\n\n')
 			
 			# Permet de charger puis lancer Toogle pour un alignement
-			files.write('module load bioinfo/braker/1.9\nmodule load bioinfo/exonerate/2.4.7\nmodule load module load bioinfo/TOGGLE/0.3.6\n')
+			files.write('module load bioinfo/braker/1.9\nmodule load bioinfo/exonerate/2.4.7\nmodule load bioinfo/TOGGLE/0.3.6\n')
 			files.write('\n################ Alignement tophat + création hints ###################\n\n')
 			#files.write('rm -r '+genomeOutDir+'\n')
 			#files.write('toggleGenerator.pl -d '+directory+' -r '+ref+genome+' -c '+config+' -o '+genomeOutDir+' -nocheck;\n')
@@ -150,14 +150,14 @@ if __name__ == "__main__":
 			
 			# Permet de merger les différents hits récupérés précédement
 			mergefile = 'merged_'+IDgenome+'.accepted_hits.bam'
-			files.write('samtools merge -b bamList -c '+mergefile+';\n')
+			files.write('samtools merge -f -b bamList -c '+mergefile+';\necho "samtools merge done";\n\n')
 			
 			# Permet de triée les données du fichier bam contenant tous les mapping
 			sortfile  = 'merged_'+IDgenome+'.accepted_hits_sort.bam'
-			files.write('java -jar /usr/local/bioinfo/picard-tools/2.7.0//picard.jar SortSam I='+mergefile+' O='+sortfile+' SORT_ORDER=coordinate;\n')
+			files.write('java -jar /usr/local/bioinfo/picard-tools/2.7.0//picard.jar SortSam I='+mergefile+' O='+sortfile+' SORT_ORDER=coordinate;\necho "picard-tools SortSam done";\n\n')
 			
 			# Permet d'utiliser l'outils bam2hints pour formater les données pour l'annotation avec Augustus ou braker
-			files.write('bam2hints --minintronlen=10 --maxintronlen=1000 --maxgaplen=9 --source=M --in='+sortfile+' --out=hints_'+IDgenome+'.raw.bam;\n')
+			files.write('bam2hints --minintronlen=10 --maxintronlen=1000 --maxgaplen=9 --source=M --in='+sortfile+' --out=hints_'+IDgenome+'.raw.bam;\n\necho "bam2hints done";\n')
 		
 			# Permet de selectionner seulement un set de read minimum requis pour un intron avec un script R
 			files.write(sys.path[0]+'/filterHints.r -s '+IDgenome+' -p '+resultMapping+'\n')
@@ -169,8 +169,8 @@ if __name__ == "__main__":
 
 			nameOut = protein+"exonarate_"+IDgenome
 			files.write('\n######################################## Exonerate #######################################\n\n')
-			files.write('# Run Exonerate\nexonerate --model protein2genome --percent 95 --showtargetgff T %s %s > %s.gff3\n'%(prot,ref+genome,nameOut))
-			files.write('# Create hints\nexonerate2hints.pl --source=M --minintronlen=10 --maxintronlen=1000 --in=%s.gff3 --out=%s.hints.gff3\n'%(nameOut,nameOut))
+			files.write('# Run Exonerate\nexonerate --model protein2genome --percent 95 --showtargetgff T %s %s > %s.gff3;\necho "exonerate done";\n\n'%(prot,ref+genome,nameOut))
+			files.write('# Create hints\nexonerate2hints.pl --source=M --minintronlen=10 --maxintronlen=1000 --in=%s.gff3 --out=%s.hints.gff3;\necho "exonerate2hints done";\n\n'%(nameOut,nameOut))
 			
 			
 			
@@ -179,10 +179,10 @@ if __name__ == "__main__":
 			rnaHints = '%shints_%s.filtered.gff'%(rna,IDgenome)
 			proteinHints ='%s.hints.gff3'%(nameOut)
 			files.write('cat %s %s  > %sRNAseq_protein.hints_%s.gff\n'%(rnaHints,proteinHints,dirHints,IDgenome))
-			files.write("awk '/intron/' %sRNAseq_protein.hints_%s.gff > %sRNAseq_protein.hints.intron_%s.gff\n"%(braker,IDgenome,braker,IDgenome))
+			files.write("awk '/intron/' %sRNAseq_protein.hints_%s.gff > %sRNAseq_protein.hints.intron_%s.gff;\n"%(braker,IDgenome,braker,IDgenome))
 			hints= "%sRNAseq_protein.hints.intron_%s.gff"%(dirHints,IDgenome)
 			os.system('mkdir '+braker+IDgenome) 
-			files.write('braker.pl --cores 24 --fungus --gff3 --species=magnaporthe_oryzae --useexisting --genome=%s --hints=%s --overwrite --alternatives-from-evidence=false --workingdir=%s'%(directory+IDgenome,hints,braker+IDgenome))
+			files.write('\necho "Launch Braker";\nbraker.pl --cores 24 --fungus --gff3 --species=magnaporthe_oryzae --useexisting --genome=%s --hints=%s --overwrite --alternatives-from-evidence=false --workingdir=%s'%(directory+IDgenome,hints,braker+IDgenome))
 			
 
 			files.close()
