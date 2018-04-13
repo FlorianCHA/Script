@@ -16,11 +16,11 @@
 	------------------
 
 	This program is used to annotate with BRAKER. This script use :
-	*Toogle for align multiple RNA-seq on a genome and merge the different alignments into a file. 
-	*Samtools for file is sort  
-	*Bam2hints for edit at hint format for braker
-	*exonerate for align genome with annoted genome protein
-	*Braker with HINTS option qhich use Hint of RNAseq and exonerate
+	- Toogle for align multiple RNA-seq on a genome and merge the different alignments into a file. 
+	- Samtools for file is sort  
+	- Bam2hints for edit at hint format for braker
+	- exonerate for align genome with annoted genome protein
+	- Braker with HINTS option qhich use Hint of RNAseq and exonerate
 
 	Example
 	-------
