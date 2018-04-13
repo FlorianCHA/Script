@@ -12,6 +12,15 @@ Alignement.isFasta	module_Flo-module.html#isFasta
 Alignement.isFastq	module_Flo-module.html#isFastq
 Alignement.recupId	module_Flo-module.html#recupId
 Alignement.verifFichier	module_Flo-module.html#verifFichier
+BRAKER_pipeline	BRAKER_pipeline-module.html
+BRAKER_pipeline.createDir	module_Flo-module.html#createDir
+BRAKER_pipeline.form	module_Flo-module.html#form
+BRAKER_pipeline.verifDir	module_Flo-module.html#verifDir
+BRAKER_pipeline.__package__	BRAKER_pipeline-module.html#__package__
+BRAKER_pipeline.isFasta	module_Flo-module.html#isFasta
+BRAKER_pipeline.isFastq	module_Flo-module.html#isFastq
+BRAKER_pipeline.recupId	module_Flo-module.html#recupId
+BRAKER_pipeline.verifFichier	module_Flo-module.html#verifFichier
 Quality	Quality-module.html
 Quality.createDir	module_Flo-module.html#createDir
 Quality.form	module_Flo-module.html#form
