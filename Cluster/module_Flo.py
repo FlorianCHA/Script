@@ -93,7 +93,7 @@ def verifFichier(fichier):
 ##################################### Fonction fichier fasta/fastq #################################################"
 
 def isFasta(fichier):
-	'''Permet de vérifier si un fichier est au format fasta	
+	'''Permet de vérifier si un fichier est au format fasta, renvoie True si le fichier est au format fasta.
 	
 	:Parameters:
 	     fichier
@@ -106,7 +106,7 @@ def isFasta(fichier):
 		
 
 def isFastq(fichier):
-	'''Permet de vérifier si un fichier est au format fastq	
+	'''Permet de vérifier si un fichier est au format fastq, renvoie True si le fichier est au format fastq.
 	
 	:Parameters:
 	     fichier
