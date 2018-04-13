@@ -187,8 +187,8 @@ if __name__ == "__main__":
 
 			files.close()
 			os.system('chmod 755 '+nameFile)
-			run = open(outDir+'run_job_mapping.sh','a')
-			run.write("qsub -N "+IDgenome+"_mapping -V -q long.q '"+nameFile+"'\n")
+			run = open(outDir+'run_job_braker.sh','a')
+			run.write("qsub -N "+IDgenome+"_braker -V -q long.q '"+nameFile+"'\n")
 			run.close()
 
 
@@ -205,11 +205,11 @@ if __name__ == "__main__":
 	
 	print('\n\tOutput :')
 	print('\t\t- script bash : '+bash[:-1])
-	print('\t\t- fichier a lancer : '+outDir+'run_job_mapping.sh')	
+	print('\t\t- fichier a lancer : '+outDir+'run_job_braker.sh')	
 	print('\t\t- Resultat des Jobs : '+ outDir[:-1])	
 	
 	print('\nSi vous souhaité lancer tous les '+str(nbScript)+' jobs de mapping veuillez taper la commande : ')
-	print(form('\n\t\t\t\tbash '+outDir+'run_job_mapping.sh\n','green','bold'))
+	print(form('\n\t\t\t\tbash '+outDir+'run_job_braker.sh\n','green','bold'))
 	print(form('-------------------------------------------------------------------------------------------------------------------','red','bold'))
 	
 		
