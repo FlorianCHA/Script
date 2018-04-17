@@ -25,7 +25,7 @@
 ## Modules
 ##################################################
 ## Python modules
-import argparse, os
+import argparse, os , glob
 
 
 
@@ -189,6 +189,90 @@ def form(text,col = 'white' ,type = 'none') :
 		return B+text+end
 	elif col == 'purple' : 
 		return P+text+end
+		
+		
+################ Class directory #################
+
+class directory(str):
+	'''
+	Class which derives from string.
+	Checks that the string is and path to valid directory and not empty
+	'''
+	def __init__(self, path = None):
+		'''
+		Initialise les variables
+		'''
+		self.listFiles = []
+		self.listDir = []
+		
+		#Change le chemin en chemin absolu
+		self.path = os.path.abspath(path)
+		
+		#Appel fonction pour avoir les informations voulu
+		self.exist() # Permet de verifier si le repertoire existe
+		self.verif() # Permet de verifier si le chemin est correctement ecrit
+		self.listAll() # Permet de récupérer tous ce qui se trouve dans le répertoire
+		self.type() # Permet de crée les deux listes, celle contenant que les fichiers et l'autre contenant que les dossiers
+		
+	
+	def __str__(self):
+		"""Fonction qui permet de formater le text de sortie lors du print"""
+		return """
+\033[32;1mpathDirectory\033[0m : %s\n
+\033[32;1mlistPath\033[0m : %s\n
+\033[32;1mlistDir\033[0m : %s\n
+\033[32;1mlistFiles\033[0m : %s\n
+""" % (self.path, str(self.listAll), str(self.listDir), str(self.listFiles))
+
+	def exist(self):
+		'''
+		Fonction qui vérifie que le repertoire existe
+		'''
+		if os.path.isdir(self.path) != True :
+			raise ValueError(form("ERROR the path '%s' is not valid path, please check if your directory exists" % self.path,'red','bold'))
+								
+	def verif(self):
+		'''
+		Permet de mettre en forme le chemin du dossier pour être utilisé dans un script,la fonction vérifie si il y a bien un '/' à la fin du chemin, sinon il le rajoute. La fonction peut aussi verifier qu'un repertoire existe.     	
+		'''
+		if self.path.endswith('/') == False :
+			self.path = self.path +'/'
+		
+	def listAll(self):
+		'''
+		liste tous ce qui se trouve dans le repertoire
+		'''
+		self.listAll = glob.glob(self.path+"*")
+	def type(self):
+		'''
+		Créé une liste de fichier et une liste de répertoire
+		'''
+		for elt in self.listAll :
+			if os.path.isdir(elt) == True :
+				self.listDir.append(elt)
+			elif os.path.exists(elt) == True :
+				self.listFiles.append(elt)
+			else :
+				print(form('Attention, le repertoire ne contients pas que des fichiers et des sous-repertoires','red','bold'))
+	
+	def listExt(self,extension):
+		'''
+		Permet de créer une liste de fichier d'extension donnée
+		:Parameters:
+	   	     extension
+	   	     	extension des fichiers à lister
+	   	'''
+		listeExt = []
+		for elt in self.listAll :
+			split = elt.split('/')
+			if '.' in split[-1] :
+				extensionElt = split[-1].split('.')[-1]
+			else :
+				extensionElt = 'directory'
+			if extensionElt in extension :
+				listeExt.append(elt)
+		return listeExt
+			
 
 
 
