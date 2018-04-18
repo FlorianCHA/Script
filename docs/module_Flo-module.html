@@ -57,26 +57,56 @@
 </table>
 <!-- ==================== MODULE DESCRIPTION ==================== -->
 <h1 class="epydoc">Module module_Flo</h1><p class="nomargin-top"><span class="codelink"><a href="module_Flo-pysrc.html">source&nbsp;code</a></span></p>
-<p>Use it to import very handy functions.</p>
-<p>Example:</p>
-<pre class="py-doctest">
-<span class="py-prompt">&gt;&gt;&gt; </span><span class="py-keyword">from</span> module_Flo <span class="py-keyword">import</span> createDir
-<span class="py-prompt">&gt;&gt;&gt; </span>createDir(<span class="py-string">'resultat'</span>)</pre>
+<pre class="literalblock">
 
-<hr />
-<div class="fields">      <p><strong>Author:</strong>
-        CHARRIAT Florian
-      </p>
-      <p><strong>Contact:</strong>
-        <a class="rst-reference external" href="mailto:florian.charriat&#64;inra.fr" target="_top">florian.charriat&#64;inra.fr</a>
-      </p>
-      <p><strong>Date:</strong>
-        21/03/2018
-      </p>
-      <p><strong>Version:</strong>
-        0.1
-      </p>
-</div><!-- ==================== FUNCTIONS ==================== -->
+The module_Flo module
+=====================
+
+:author: CHARRIAT Florian
+
+:contact: florian.charriat@inra.fr
+
+:date: 21/03/2018
+
+:version: 0.1
+
+
+Use it to import very handy functions.
+
+Example:
+
+&gt;&gt;&gt; from module_Flo import createDir
+&gt;&gt;&gt; createDir('resultat')
+
+</pre>
+
+<!-- ==================== CLASSES ==================== -->
+<a name="section-Classes"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Classes</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-Classes"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="module_Flo.directory-class.html" class="summary-name">directory</a><br />
+      Class which derives from string.
+    </td>
+  </tr>
+</table>
+<!-- ==================== FUNCTIONS ==================== -->
 <a name="section-Functions"></a>
 <table class="summary" border="1" cellpadding="3"
        cellspacing="0" width="100%" bgcolor="white">
@@ -100,7 +130,7 @@
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td><span class="summary-sig"><a href="module_Flo-module.html#createDir" class="summary-sig-name">createDir</a>(<span class="summary-sig-arg">Listedirectory</span>)</span><br />
-      Permet de v&#233;rifier si un dossier existe, si ce n'est pas le cas,
+      Permet de v&#233;rifier si un dossier existe, si ce n'est pas le cas, 
 le dossier sera cr&#233;e.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="module_Flo-pysrc.html#createDir">source&nbsp;code</a></span>
@@ -119,7 +149,7 @@ le dossier sera cr&#233;e.</td>
         <tr>
           <td><span class="summary-sig"><a href="module_Flo-module.html#verifDir" class="summary-sig-name">verifDir</a>(<span class="summary-sig-arg">directory</span>,
         <span class="summary-sig-arg">check</span>=<span class="summary-sig-default">False</span>)</span><br />
-      Permet de mettre en forme le chemin du dossier pour &#234;tre utilis&#233; dans un script,la fonction v&#233;rifie si il y a bien un '/' &#224; la fin du chemin, sinon il le rajoute. La fonction peut aussi verifier qu'un repertoire existe.</td>
+      Permet de mettre en forme le chemin du dossier pour &#234;tre utilis&#233; dans un script,la fonction v&#233;rifie si il y a bien un '/' &#224; la fin du chemin, sinon il le rajoute.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="module_Flo-pysrc.html#verifDir">source&nbsp;code</a></span>
             
@@ -274,13 +304,16 @@ le dossier sera cr&#233;e.</td>
     </td>
   </tr></table>
   
-  Permet de v&#233;rifier si un dossier existe, si ce n'est pas le cas,
+  <pre class="literalblock">
+Permet de v&#233;rifier si un dossier existe, si ce n'est pas le cas, 
 le dossier sera cr&#233;e.
+
+:Parameters:
+     Listedirectory
+        liste de repertoire &#224; cr&#233;er
+
+</pre>
   <dl class="fields">
-    <dt>Parameters:</dt>
-    <dd><ul class="nomargin-top">
-        <li><strong class="pname"><code>Listedirectory</code></strong> - liste de repertoire &#224; cr&#233;er</li>
-    </ul></dd>
   </dl>
 </td></tr></table>
 </div>
@@ -299,13 +332,19 @@ le dossier sera cr&#233;e.
     </td>
   </tr></table>
   
-  Permet de mettre en forme le chemin du dossier pour &#234;tre utilis&#233; dans un script,la fonction v&#233;rifie si il y a bien un '/' &#224; la fin du chemin, sinon il le rajoute. La fonction peut aussi verifier qu'un repertoire existe.
+  <pre class="literalblock">
+
+Permet de mettre en forme le chemin du dossier pour &#234;tre utilis&#233; dans un script,la fonction v&#233;rifie si il y a bien un '/' &#224; la fin du chemin, sinon il le rajoute. La fonction peut aussi verifier qu'un repertoire existe.
+
+:Parameters:
+     directory
+        Path du dossier
+     check : bool
+        Si check = True, la fonction va aussi verifier que le repertoire existe
+        
+
+</pre>
   <dl class="fields">
-    <dt>Parameters:</dt>
-    <dd><ul class="nomargin-top">
-        <li><strong class="pname"><code>directory</code></strong> - Path du dossier</li>
-        <li><strong class="pname"><code>check</code></strong> (bool) - Si check = True, la fonction va aussi verifier que le repertoire existe</li>
-    </ul></dd>
   </dl>
 </td></tr></table>
 </div>
@@ -323,12 +362,16 @@ le dossier sera cr&#233;e.
     </td>
   </tr></table>
   
-  Permet de v&#233;rifier si un fichier existe.
+  <pre class="literalblock">
+Permet de v&#233;rifier si un fichier existe.
+
+:Parameters:
+     fichier
+        Path du fichier
+    
+
+</pre>
   <dl class="fields">
-    <dt>Parameters:</dt>
-    <dd><ul class="nomargin-top">
-        <li><strong class="pname"><code>fichier</code></strong> - Path du fichier</li>
-    </ul></dd>
   </dl>
 </td></tr></table>
 </div>
@@ -346,12 +389,15 @@ le dossier sera cr&#233;e.
     </td>
   </tr></table>
   
-  Permet de v&#233;rifier si un fichier est au format fasta, renvoie True si le fichier est au format fasta.
+  <pre class="literalblock">
+Permet de v&#233;rifier si un fichier est au format fasta, renvoie True si le fichier est au format fasta.
+
+:Parameters:
+     fichier
+        Path du fichier 
+
+</pre>
   <dl class="fields">
-    <dt>Parameters:</dt>
-    <dd><ul class="nomargin-top">
-        <li><strong class="pname"><code>fichier</code></strong> - Path du fichier</li>
-    </ul></dd>
   </dl>
 </td></tr></table>
 </div>
@@ -369,12 +415,15 @@ le dossier sera cr&#233;e.
     </td>
   </tr></table>
   
-  Permet de v&#233;rifier si un fichier est au format fastq, renvoie True si le fichier est au format fastq.
+  <pre class="literalblock">
+Permet de v&#233;rifier si un fichier est au format fastq, renvoie True si le fichier est au format fastq.
+
+:Parameters:
+     fichier
+        Path du fichier
+
+</pre>
   <dl class="fields">
-    <dt>Parameters:</dt>
-    <dd><ul class="nomargin-top">
-        <li><strong class="pname"><code>fichier</code></strong> - Path du fichier</li>
-    </ul></dd>
   </dl>
 </td></tr></table>
 </div>
@@ -392,12 +441,15 @@ le dossier sera cr&#233;e.
     </td>
   </tr></table>
   
-  Permet de r&#233;cup&#233;r&#233; le nom du fichier sans l'extension fasta ou fastq
+  <pre class="literalblock">
+Permet de r&#233;cup&#233;r&#233; le nom du fichier sans l'extension fasta ou fastq
+
+:Parameters:
+     fichier
+        Path du fichier
+
+</pre>
   <dl class="fields">
-    <dt>Parameters:</dt>
-    <dd><ul class="nomargin-top">
-        <li><strong class="pname"><code>fichier</code></strong> - Path du fichier</li>
-    </ul></dd>
   </dl>
 </td></tr></table>
 </div>
@@ -417,14 +469,20 @@ le dossier sera cr&#233;e.
     </td>
   </tr></table>
   
-  Permet de mettre en forme les textes afficher sur le terminale.
+  <pre class="literalblock">
+
+Permet de mettre en forme les textes afficher sur le terminale.
+        
+:Parameters:
+     text 
+        Le texte &#224; transformer
+     col 
+        La couleur souhait&#233; entre les couleurs red, green, yellow, orange, blue et purple
+     text
+         str ou liste de str du format &#224; appliquer (bold, underline, blind et highligth)
+
+</pre>
   <dl class="fields">
-    <dt>Parameters:</dt>
-    <dd><ul class="nomargin-top">
-        <li><strong class="pname"><code>text</code></strong> - Le texte &#224; transformer</li>
-        <li><strong class="pname"><code>col</code></strong> - La couleur souhait&#233; entre les couleurs red, green, yellow, orange, blue et purple</li>
-        <li><strong class="pname"><code>text</code></strong> - str ou liste de str du format &#224; appliquer (bold, underline, blind et highligth)</li>
-    </ul></dd>
   </dl>
 </td></tr></table>
 </div>
@@ -457,7 +515,7 @@ le dossier sera cr&#233;e.
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0.1 on Fri Apr 13 15:08:46 2018
+    Generated by Epydoc 3.0.1 on Wed Apr 18 11:57:00 2018
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"

@@ -6,10 +6,10 @@
 """
 	The repeatMasker_build script
 	=============================
-	:author: CHARRIAT Florian\n
-	:contact: florian.charriat@inra.fr\n
-	:date: 15/03/2018\n
-	:version: 0.1\n
+	:author: CHARRIAT Florian
+	:contact: florian.charriat@inra.fr
+	:date: 15/03/2018
+	:version: 0.1
 
 	Script description
 	------------------
