@@ -27,6 +27,8 @@ Quality.form	module_Flo-module.html#form
 Quality.verifDir	module_Flo-module.html#verifDir
 Quality.__package__	Quality-module.html#__package__
 Quality.verifFichier	module_Flo-module.html#verifFichier
+Test_module	Test_module-module.html
+Test_module.directory	Test_module-module.html#directory
 ToggleJobArray	ToggleJobArray-module.html
 ToggleJobArray.version	ToggleJobArray-module.html#version
 ToggleJobArray.VERSION_DATE	ToggleJobArray-module.html#VERSION_DATE
@@ -67,3 +69,11 @@ stat_repeatMasker.form	module_Flo-module.html#form
 stat_repeatMasker.verifDir	module_Flo-module.html#verifDir
 stat_repeatMasker.__package__	stat_repeatMasker-module.html#__package__
 stat_repeatMasker.verifFichier	module_Flo-module.html#verifFichier
+module_Flo.directory	module_Flo.directory-class.html
+module_Flo.directory.__str__	module_Flo.directory-class.html#__str__
+module_Flo.directory.exist	module_Flo.directory-class.html#exist
+module_Flo.directory.__init__	module_Flo.directory-class.html#__init__
+module_Flo.directory.type	module_Flo.directory-class.html#type
+module_Flo.directory.listExt	module_Flo.directory-class.html#listExt
+module_Flo.directory.verif	module_Flo.directory-class.html#verif
+module_Flo.directory.listAll	module_Flo.directory-class.html#listAll

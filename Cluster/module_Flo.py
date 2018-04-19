@@ -262,6 +262,14 @@ class directory(str):
 	   	     extension
 	   	     	extension des fichiers à lister
 	   	'''
+		if extension == 'fasta':
+			extension = ('fasta','fa')
+		if extension == 'fastq':
+			extension = ('fq','fastq')
+		if extension == 'allfasta':
+			extension = ('fasta','fa','fasta.gz','fa.gz')
+		if extension == 'allfastq':
+			extension = ('fq','fastq','fastq.gz','fq.gz')
 		listeExt = []
 		for elt in self.listAll :
 			split = elt.split('/')
@@ -271,9 +279,10 @@ class directory(str):
 				extensionElt = 'directory'
 			if extensionElt in extension :
 				listeExt.append(elt)
+		if len(listeExt) == 0 :
+			raise ValueError(form("ERROR, the path '%s' doen't contain %s files , please check if your directory exists" % (self.path,extension),'red','bold'))
 		return listeExt
 			
-
 
 
 

@@ -1,0 +1,476 @@
+<?xml version="1.0" encoding="ascii"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>module_Flo.directory</title>
+  <link rel="stylesheet" href="epydoc.css" type="text/css" />
+  <script type="text/javascript" src="epydoc.js"></script>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="#204080"
+      alink="#204080">
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Project homepage -->
+      <th class="navbar" align="right" width="100%">
+        <table border="0" cellpadding="0" cellspacing="0">
+          <tr><th class="navbar" align="center"
+            ><a href="https://floriancha.github.io/stage/" target="_blank">Retour au Site</a></th>
+          </tr></table></th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <span class="breadcrumbs">
+        <a href="module_Flo-module.html">Module&nbsp;module_Flo</a> ::
+        Class&nbsp;directory
+      </span>
+    </td>
+    <td>
+      <table cellpadding="0" cellspacing="0">
+        <!-- hide/show private -->
+        <tr><td align="right"><span class="options">[<a href="javascript:void(0);" class="privatelink"
+    onclick="toggle_private();">hide&nbsp;private</a>]</span></td></tr>
+        <tr><td align="right"><span class="options"
+            >[<a href="frames.html" target="_top">frames</a
+            >]&nbsp;|&nbsp;<a href="module_Flo.directory-class.html"
+            target="_top">no&nbsp;frames</a>]</span></td></tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<!-- ==================== CLASS DESCRIPTION ==================== -->
+<h1 class="epydoc">Class directory</h1><p class="nomargin-top"><span class="codelink"><a href="module_Flo-pysrc.html#directory">source&nbsp;code</a></span></p>
+<center>
+<center>  <map id="uml_class_diagram_for_module_f" name="uml_class_diagram_for_module_f">
+<area shape="rect" id="node1_21" href="module_Flo.directory-class.html#__init__" title="Initialise les variables" alt="" coords="25,457,177,477"/>
+<area shape="rect" id="node1_22" href="module_Flo.directory-class.html#__str__" title="Fonction qui permet de formater le text de sortie lors du print" alt="" coords="25,477,177,497"/>
+<area shape="rect" id="node1_23" href="module_Flo.directory-class.html#exist" title="Fonction qui v&#233;rifie que le repertoire existe" alt="" coords="25,497,177,517"/>
+<area shape="rect" id="node1_24" href="module_Flo.directory-class.html#verif" title="Permet de mettre en forme le chemin du dossier pour &#234;tre utilis&#233; dans un script,la fonction v&#233;rifie si il y a bien un &#39;/&#39; &#224; la fin du chemin, sinon il le rajoute. La fonction peut aussi verifier qu&#39;un repertoire existe." alt="" coords="25,517,177,537"/>
+<area shape="rect" id="node1_25" href="module_Flo.directory-class.html#listAll" title="liste tous ce qui se trouve dans le repertoire" alt="" coords="25,537,177,557"/>
+<area shape="rect" id="node1_26" href="module_Flo.directory-class.html#type" title="Cr&#233;&#233; une liste de fichier et une liste de r&#233;pertoire" alt="" coords="25,557,177,577"/>
+<area shape="rect" id="node1_27" href="module_Flo.directory-class.html#listExt" title="Permet de cr&#233;er une liste de fichier d&#39;extension donn&#233;e..." alt="" coords="25,577,177,597"/>
+<area shape="rect" id="node1" href="module_Flo.directory-class.html" title="Class which derives from string. Checks that the string is and path to valid directory and not empty" alt="" coords="13,425,189,604"/>
+<area shape="rect" id="node2_28" href="javascript:void(0);" title="x+y" alt="" coords="17,100,185,120"/>
+<area shape="rect" id="node2_29" href="javascript:void(0);" title="y in x" alt="" coords="17,120,185,140"/>
+<area shape="rect" id="node2_30" href="javascript:void(0);" title="x==y" alt="" coords="17,140,185,160"/>
+<area shape="rect" id="node2_31" href="javascript:void(0);" title="Return a formatted version of S as described by format_spec." alt="" coords="17,160,185,180"/>
+<area shape="rect" id="node2_32" href="javascript:void(0);" title="x&gt;=y" alt="" coords="17,180,185,200"/>
+<area shape="rect" id="node2_33" href="javascript:void(0);" title="x.__getattribute__(&#39;name&#39;) &lt;==&gt; x.name" alt="" coords="17,200,185,220"/>
+<area shape="rect" id="node2_34" href="javascript:void(0);" title="x[y]" alt="" coords="17,220,185,240"/>
+<area shape="rect" id="node2_35" href="javascript:void(0);" title="str.__getnewargs__" alt="" coords="17,240,185,260"/>
+<area shape="rect" id="node2_36" href="javascript:void(0);" title="x[i:j]" alt="" coords="17,260,185,280"/>
+<area shape="rect" id="node2_37" href="javascript:void(0);" title="x&gt;y" alt="" coords="17,280,185,300"/>
+<area shape="rect" id="node2_38" href="javascript:void(0);" title="hash(x)" alt="" coords="17,300,185,320"/>
+<area shape="rect" id="node2_39" href="javascript:void(0);" title="x&lt;=y" alt="" coords="17,320,185,340"/>
+<area shape="rect" id="node2_40" href="javascript:void(0);" title="len(x)" alt="" coords="17,340,185,360"/>
+<area shape="rect" id="node2_41" href="javascript:void(0);" title="Pad a numeric string S with zeros on the left, to fill a field of the specified width. &#160;The string S is never truncated." alt="" coords="17,380,185,400"/>
+<area shape="rect" id="node2" href="javascript:void(0);" title="str(object=&#39;&#39;) &#45;&gt; string" alt="" coords="5,68,197,407"/>
+<area shape="rect" id="node3" href="javascript:void(0);" title="Type basestring cannot be instantiated; it is the base for str and unicode." alt="" coords="59,5,144,49"/>
+</map>
+  <img src="uml_class_diagram_for_module_f.gif" alt='' usemap="#uml_class_diagram_for_module_f" ismap="ismap" class="graph-without-title" />
+</center>
+</center>
+<hr />
+Class which derives from string.
+Checks that the string is and path to valid directory and not empty
+
+<!-- ==================== INSTANCE METHODS ==================== -->
+<a name="section-InstanceMethods"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Instance Methods</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-InstanceMethods"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="module_Flo.directory-class.html#__init__" class="summary-sig-name">__init__</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">path</span>=<span class="summary-sig-default">None</span>)</span><br />
+      Initialise les variables</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="module_Flo-pysrc.html#directory.__init__">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="module_Flo.directory-class.html#__str__" class="summary-sig-name">__str__</a>(<span class="summary-sig-arg">self</span>)</span><br />
+      Fonction qui permet de formater le text de sortie lors du print</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="module_Flo-pysrc.html#directory.__str__">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="exist"></a><span class="summary-sig-name">exist</span>(<span class="summary-sig-arg">self</span>)</span><br />
+      Fonction qui v&#233;rifie que le repertoire existe</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="module_Flo-pysrc.html#directory.exist">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="verif"></a><span class="summary-sig-name">verif</span>(<span class="summary-sig-arg">self</span>)</span><br />
+      Permet de mettre en forme le chemin du dossier pour &#234;tre utilis&#233; dans un script,la fonction v&#233;rifie si il y a bien un '/' &#224; la fin du chemin, sinon il le rajoute. La fonction peut aussi verifier qu'un repertoire existe.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="module_Flo-pysrc.html#directory.verif">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="listAll"></a><span class="summary-sig-name">listAll</span>(<span class="summary-sig-arg">self</span>)</span><br />
+      liste tous ce qui se trouve dans le repertoire</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="module_Flo-pysrc.html#directory.listAll">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="type"></a><span class="summary-sig-name">type</span>(<span class="summary-sig-arg">self</span>)</span><br />
+      Cr&#233;&#233; une liste de fichier et une liste de r&#233;pertoire</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="module_Flo-pysrc.html#directory.type">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="module_Flo.directory-class.html#listExt" class="summary-sig-name">listExt</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">extension</span>)</span><br />
+      Permet de cr&#233;er une liste de fichier d'extension donn&#233;e...</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="module_Flo-pysrc.html#directory.listExt">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2" class="summary">
+    <p class="indent-wrapped-lines"><b>Inherited from <code>str</code></b>:
+      <code>__add__</code>,
+      <code>__contains__</code>,
+      <code>__eq__</code>,
+      <code>__format__</code>,
+      <code>__ge__</code>,
+      <code>__getattribute__</code>,
+      <code>__getitem__</code>,
+      <code>__getnewargs__</code>,
+      <code>__getslice__</code>,
+      <code>__gt__</code>,
+      <code>__hash__</code>,
+      <code>__le__</code>,
+      <code>__len__</code>,
+      <code>__lt__</code>,
+      <code>__mod__</code>,
+      <code>__mul__</code>,
+      <code>__ne__</code>,
+      <code>__new__</code>,
+      <code>__repr__</code>,
+      <code>__rmod__</code>,
+      <code>__rmul__</code>,
+      <code>__sizeof__</code>,
+      <code>capitalize</code>,
+      <code>center</code>,
+      <code>count</code>,
+      <code>decode</code>,
+      <code>encode</code>,
+      <code>endswith</code>,
+      <code>expandtabs</code>,
+      <code>find</code>,
+      <code>format</code>,
+      <code>index</code>,
+      <code>isalnum</code>,
+      <code>isalpha</code>,
+      <code>isdigit</code>,
+      <code>islower</code>,
+      <code>isspace</code>,
+      <code>istitle</code>,
+      <code>isupper</code>,
+      <code>join</code>,
+      <code>ljust</code>,
+      <code>lower</code>,
+      <code>lstrip</code>,
+      <code>partition</code>,
+      <code>replace</code>,
+      <code>rfind</code>,
+      <code>rindex</code>,
+      <code>rjust</code>,
+      <code>rpartition</code>,
+      <code>rsplit</code>,
+      <code>rstrip</code>,
+      <code>split</code>,
+      <code>splitlines</code>,
+      <code>startswith</code>,
+      <code>strip</code>,
+      <code>swapcase</code>,
+      <code>title</code>,
+      <code>translate</code>,
+      <code>upper</code>,
+      <code>zfill</code>
+      </p>
+    <div class="private">    <p class="indent-wrapped-lines"><b>Inherited from <code>str</code></b> (private):
+      <code>_formatter_field_name_split</code>,
+      <code>_formatter_parser</code>
+      </p></div>
+    <p class="indent-wrapped-lines"><b>Inherited from <code>object</code></b>:
+      <code>__delattr__</code>,
+      <code>__reduce__</code>,
+      <code>__reduce_ex__</code>,
+      <code>__setattr__</code>,
+      <code>__subclasshook__</code>
+      </p>
+    </td>
+  </tr>
+</table>
+<!-- ==================== PROPERTIES ==================== -->
+<a name="section-Properties"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Properties</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-Properties"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+  <tr>
+    <td colspan="2" class="summary">
+    <p class="indent-wrapped-lines"><b>Inherited from <code>object</code></b>:
+      <code>__class__</code>
+      </p>
+    </td>
+  </tr>
+</table>
+<!-- ==================== METHOD DETAILS ==================== -->
+<a name="section-MethodDetails"></a>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Method Details</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-MethodDetails"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+</table>
+<a name="__init__"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">__init__</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">path</span>=<span class="sig-default">None</span>)</span>
+    <br /><em class="fname">(Constructor)</em>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="module_Flo-pysrc.html#directory.__init__">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  Initialise les variables
+  <dl class="fields">
+    <dt>Overrides:
+        object.__init__
+    </dt>
+  </dl>
+</td></tr></table>
+</div>
+<a name="__str__"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">__str__</span>(<span class="sig-arg">self</span>)</span>
+    <br /><em class="fname">(Informal representation operator)</em>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="module_Flo-pysrc.html#directory.__str__">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  Fonction qui permet de formater le text de sortie lors du print
+  <dl class="fields">
+    <dt>Overrides:
+        object.__str__
+    </dt>
+  </dl>
+</td></tr></table>
+</div>
+<a name="listExt"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">listExt</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">extension</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="module_Flo-pysrc.html#directory.listExt">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+
+Permet de cr&#233;er une liste de fichier d'extension donn&#233;e
+:Parameters:
+     extension
+        extension des fichiers &#224; lister
+
+</pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<br />
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Project homepage -->
+      <th class="navbar" align="right" width="100%">
+        <table border="0" cellpadding="0" cellspacing="0">
+          <tr><th class="navbar" align="center"
+            ><a href="https://floriancha.github.io/stage/" target="_blank">Retour au Site</a></th>
+          </tr></table></th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%%">
+  <tr>
+    <td align="left" class="footer">
+    Generated by Epydoc 3.0.1 on Thu Apr 19 10:12:50 2018
+    </td>
+    <td align="right" class="footer">
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
+    </td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+  <!--
+  // Private objects are initially displayed (because if
+  // javascript is turned off then we want them to be
+  // visible); but by default, we want to hide them.  So hide
+  // them unless we have a cookie that says to show them.
+  checkCookie();
+  // -->
+</script>
+</body>
+</html>

@@ -3,7 +3,7 @@
           "DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
-  <title>Module Hierarchy</title>
+  <title>Class Hierarchy</title>
   <link rel="stylesheet" href="epydoc.css" type="text/css" />
   <script type="text/javascript" src="epydoc.js"></script>
 </head>
@@ -45,7 +45,7 @@
     onclick="toggle_private();">hide&nbsp;private</a>]</span></td></tr>
         <tr><td align="right"><span class="options"
             >[<a href="frames.html" target="_top">frames</a
-            >]&nbsp;|&nbsp;<a href="module-tree.html"
+            >]&nbsp;|&nbsp;<a href="class-tree.html"
             target="_top">no&nbsp;frames</a>]</span></td></tr>
       </table>
     </td>
@@ -55,19 +55,27 @@
  [ <a href="module-tree.html">Module Hierarchy</a>
  | <a href="class-tree.html">Class Hierarchy</a> ]
 </b></center><br />
-<h1 class="epydoc">Module Hierarchy</h1>
+<h1 class="epydoc">Class Hierarchy</h1>
 <ul class="nomargin-top">
-    <li> <strong class="uidlink"><a href="ABYSS_launch-module.html">ABYSS_launch</a></strong>: <em class="summary">This program is used to assemble all fasta files in a directory using the ABYSS tool. The assembly will be done with different lengths of km&#232;re (20, 30, 40, 50, 60, 70, 80 and 90)</em>    </li>
-    <li> <strong class="uidlink"><a href="Alignement-module.html">Alignement</a></strong>: <em class="summary">This program is used to align multiple RNA-seq on a genome and merge the different alignments into a file</em>    </li>
-    <li> <strong class="uidlink"><a href="BRAKER_pipeline-module.html">BRAKER_pipeline</a></strong>: <em class="summary">This program is used to annotate with BRAKER. This script use :</em>    </li>
-    <li> <strong class="uidlink"><a href="Quality-module.html">Quality</a></strong>: <em class="summary">This program is used to retrieve quality data of all the assemblies done by the script ABYSS_launch</em>    </li>
-    <li> <strong class="uidlink"><a href="Test_module-module.html">Test_module</a></strong>    </li>
-    <li> <strong class="uidlink"><a href="ToggleJobArray-module.html">ToggleJobArray</a></strong>: <em class="summary">This program launches the tool toogle in job array to be able to launch little by little the job</em>    </li>
-    <li> <strong class="uidlink"><a href="forRNAseq_inPlanta-module.html">forRNAseq_inPlanta</a></strong>: <em class="summary">This program is used to align multiple RNA-seq on a host genome for eliminate inPlanta RNA</em>    </li>
-    <li> <strong class="uidlink"><a href="formatFastaName-module.html">formatFastaName</a></strong>: <em class="summary">This Programme filter sequences by length</em>    </li>
-    <li> <strong class="uidlink"><a href="module_Flo-module.html">module_Flo</a></strong>: <em class="summary">Use it to import very handy functions.</em>    </li>
-    <li> <strong class="uidlink"><a href="repeatMasker_build-module.html">repeatMasker_build</a></strong>: <em class="summary">This program is used to create a bash file that can launch jobs on the cluster that uses repeatMasker on all the fasta files in a directory.</em>    </li>
-    <li> <strong class="uidlink"><a href="stat_repeatMasker-module.html">stat_repeatMasker</a></strong>: <em class="summary">This program is used to retrieve the statistique of result from repeatMasker_build.py script</em>    </li>
+    <li> <strong class="uidlink">object</strong>:
+      <em class="summary">The most base type</em>
+    <ul>
+    <li> <strong class="uidlink">basestring</strong>:
+      <em class="summary">Type basestring cannot be instantiated; it is the base for str and unicode.</em>
+    <ul>
+    <li> <strong class="uidlink">str</strong>:
+      <em class="summary">str(object='') -&gt; string</em>
+    <ul>
+    <li> <strong class="uidlink"><a href="module_Flo.directory-class.html">module_Flo.directory</a></strong>:
+      <em class="summary">Class which derives from string.
+Checks that the string is and path to valid directory and not empty</em>
+    </li>
+    </ul>
+    </li>
+    </ul>
+    </li>
+    </ul>
+    </li>
 </ul>
 <!-- ==================== NAVIGATION BAR ==================== -->
 <table class="navbar" border="0" width="100%" cellpadding="0"
