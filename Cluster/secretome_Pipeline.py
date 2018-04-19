@@ -5,7 +5,7 @@
 
 """
 	The secretome_Pipeline script
-	=======================
+	=============================
 	:author: Charriat Florian
 	:contact: florian.charriat@inra.fr
 	:date: 18/04/2018
