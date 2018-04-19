@@ -104,11 +104,11 @@ if __name__ == "__main__":
 	verifFichier(prot)
 	outDir = verifDir(outDir)
 	bash = outDir+'script_bash/'
-	rna = outDir+'rnaseqHints/'
-	protein = outDir+'proteinHints/'
-	dirHints = outDir+'allHints/'
+	rna = outDir+'hints/rnaseqHints/'
+	protein = outDir+'hints/proteinHints/'
+	dirHints = outDir+'hints/allHints/'
 	braker = outDir+'Braker/'
-	name_directory = [outDir, bash,outDir+'error/',outDir+'output/',rna,protein,braker]
+	name_directory = [outDir, bash,outDir+'error/',outDir+'output/',rna,protein,braker,dirHints]
 	for folder in name_directory: 
 		createDir(folder)
 
@@ -179,12 +179,12 @@ if __name__ == "__main__":
 			rnaHints = '%shints_%s.filtered.gff'%(rna,IDgenome)
 			proteinHints ='%s.hints.gff3'%(nameOut)
 			files.write('cat %s %s  > %sRNAseq_protein.hints_%s.gff\n'%(rnaHints,proteinHints,dirHints,IDgenome))
-			files.write("awk '/intron/' %sRNAseq_protein.hints_%s.gff > %sRNAseq_protein.hints.intron_%s.gff;\n"%(braker,IDgenome,braker,IDgenome))
+			files.write("awk '/intron/' %sRNAseq_protein.hints_%s.gff > %sRNAseq_protein.hints.intron_%s.gff;\n"%(dirHints,IDgenome,dirHints,IDgenome))
 			hints= "%sRNAseq_protein.hints.intron_%s.gff"%(dirHints,IDgenome)
 			os.system('mkdir '+braker+IDgenome) 
-			files.write('\ndate;\necho "Launch Braker";\nbraker.pl --cores 24 --fungus --gff3 --species=magnaporthe_oryzae --useexisting --genome=%s --hints=%s --overwrite --alternatives-from-evidence=false --workingdir=%s'%(directory+IDgenome,hints,braker+IDgenome))
+			files.write('\ndate;\necho "Launch Braker";\nbraker.pl --cores 24 --fungus --gff3 --species=magnaporthe_oryzae --useexisting --genome=%s --hints=%s --overwrite --alternatives-from-evidence=false --workingdir=%s\n\ndate;\necho "Job finish"'%(ref+genome,hints,braker+IDgenome))
 			
-
+ 
 			files.close()
 			os.system('chmod 755 '+nameFile)
 			run = open(outDir+'run_job_braker.sh','a')
