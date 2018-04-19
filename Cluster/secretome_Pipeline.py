@@ -128,7 +128,7 @@ if __name__ == "__main__":
 			
 		
 			f = open('%s/%s.sh'%(bash,recupId(files)),'w')
-			f.write('#$ -o %s\n#$ -o %s\n#$ -N %s_secretome\n module load bioinfo/signalp/4.1\n'% (outDir+'error_files', outDir+'out_files',recupId(files)))
+			f.write('#$ -e %s\n#$ -o %s\n#$ -N %s_secretome\n module load bioinfo/signalp/4.1\n'% (outDir+'error_files', outDir+'out_files',recupId(files)))
 			f.write('\n########### Lancement targetP sur les fichiers fasta de 400 séquences ###################\n\n')
 			for elt in listeTargetp :
 				f.write(elt)
