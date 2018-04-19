@@ -20,9 +20,9 @@
 	- Samtools for file is sort\n\t  
 	- Bam2hints for edit at hint format for braker\n\t
 	- exonerate for align genome with annoted genome protein\n\t
-	- Braker with HINTS option qhich use Hint of RNAseq and exonerate\n\t
+	- Braker with HINTS option which use Hint of RNAseq and exonerate\n\t
 	
-	Attention, veuillez noter que ce script necessite que le fichier filterHints.r soit dans le même repertoire que ce script
+	Be careful, please note that this script requires that filterHints.r file must be in the same directory
 
 	Example
 	-------
