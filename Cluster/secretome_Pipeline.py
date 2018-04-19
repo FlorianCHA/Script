@@ -36,7 +36,8 @@
 						
 		- \-o <path/to/output/directory>, --outdirPath <path/to/output/directory>
 						path of the output directory
-
+		- \-f                             --force
+						force the script to remove the old output data
 """
 
 
@@ -61,7 +62,7 @@ if __name__ == "__main__":
 	filesreq = parser.add_argument_group('Input mandatory infos for running')
 	filesreq.add_argument('-d', '--directory',type = str, required=True, dest = 'dirPath', help = 'Path of directory that contains all the fasta files')
 	filesreq.add_argument('-o', '--outdir',type = str, required=True, dest = 'outdirPath', help = 'Path of the output directory')
-	filesreq.add_argument('-f', '--force', action='store_true', dest = 'force', help = 'Path of the output directory')
+	filesreq.add_argument('-f', '--force', action='store_true', dest = 'force', help = 'force the script to remove output data')
 
 	
 ######### Recuperation arguments ###########
