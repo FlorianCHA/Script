@@ -61,23 +61,22 @@ if __name__ == "__main__":
 	filesreq = parser.add_argument_group('Input mandatory infos for running')
 	filesreq.add_argument('-d', '--directory',type = str, required=True, dest = 'dirPath', help = 'Path of directory that contains all the fasta files')
 	filesreq.add_argument('-o', '--outdir',type = str, required=True, dest = 'outdirPath', help = 'Path of the output directory')
+	filesreq.add_argument('-f', '--force', action='store_true', dest = 'force', help = 'Path of the output directory')
 
 	
 ######### Recuperation arguments ###########
 	args = parser.parse_args()
 	directory = os.path.abspath(args.dirPath)
-	outDir= os.path.abspath( args.outdirPath)
-
+	outDir= os.path.abspath(args.outdirPath)
+	force = args.force
 
 ########### Gestion directory ##############
 	directory = verifDir(directory,True)
 	outDir = verifDir(outDir)
 	bash = outDir+'script_bash'
-	dirSignalP = outDir+'SignalP'
-	dirTargetP = outDir+'TargetP'
-	dirPhobius = outDir+'Phobius'
-	name_directory = [outDir,outDir+'error_files', outDir+'out_files',bash,outDir+'result',dirSignalP,dirTargetP,dirPhobius]
+	name_directory = [outDir,outDir+'error_files', outDir+'out_files',bash]
 	createDir(name_directory)
+
 
 ############### start message ########################
 
@@ -94,39 +93,42 @@ if __name__ == "__main__":
 			fasta.close()
 			nb = 0
 			part = 1
-			createDir([directory+recupId(files)])
-			if len(os.listdir(directory+recupId(files))) != 0 :
-				os.system('rm %s/%s/%s_part*.fasta'%(directory,recupId(files),recupId(files)))
-			if 'CH1857_targetP.txt' in os.listdir(outDir):
-				os.system('rm '+outDir+'CH1857_targetP.txt')
-			os.system('touch '+outDir+'CH1857_targetP.txt CH1857_phobius.txt')
+			outTargetP = '%s%s/%s_targetP.txt'%(outDir,recupId(files),recupId(files))
+			outputPhobius = '%s%s/%s_phobius.txt'%(outDir,recupId(files),recupId(files))
+			if os.path.exists('%s%s'%(outDir,recupId(files))) == True and force == False:
+				raise ValueError(form("Le dossier output : '%s' existe deja, veuillez le supprimer ou utilisé la commande --force pour passer outre et supprimer les dossiers automatiquement"%(outDir+recupId(files)),"red","bold"))
+			if os.path.exists('%s%s'%(outDir,recupId(files))) != 0 and force == True :
+				os.system('rm -r %s%s'%(outDir,recupId(files)))
+			createDir([outDir+recupId(files)+'/fasta_files',outDir+recupId(files)])
+			os.system('touch %s %s' % (outTargetP,outputPhobius))
 			listeTargetp = []
 			listePhobius = []
+	
 			for line in lines: 
 				if nb == 400 and line[0] == '>' :
-					listePhobius.append('phobius.pl -short %s/%s/%s_part%s.fasta  >> %s/%s_phobius.txt;\n'%(directory,recupId(files),recupId(files),str(part),outDir,recupId(files)))
-					listeTargetp.append('targetp -N %s/%s/%s_part%s.fasta >> %s/CH1857_targetP.txt;\n'%(directory,recupId(files),recupId(files),str(part),outDir))
+					listePhobius.append('phobius.pl -short %s%s/fasta_files/%s_part%s.fasta  >> %s;\n'%(outDir,recupId(files),recupId(files),str(part),outputPhobius))
+					listeTargetp.append('targetp -N %s%s/fasta_files/%s_part%s.fasta >> %s;\n'%(outDir,recupId(files),recupId(files),str(part),outTargetP))
 					nb = 1
 					part += 1
-					f = open('%s/%s/%s_part%s.fasta'%(directory,recupId(files),recupId(files),str(part)),'a')
+					f = open('%s%s/fasta_files/%s_part%s.fasta'%(outDir,recupId(files),recupId(files),str(part)),'a')
 					f.write(line)
 					f.close
 					
 				
 				elif line[0] == '>' :
 					nb +=1
-					f = open('%s/%s/%s_part%s.fasta'%(directory,recupId(files),recupId(files),str(part)),'a')
+					f = open('%s%s/fasta_files/%s_part%s.fasta'%(outDir,recupId(files),recupId(files),str(part)),'a')
 					f.write(line)
 					f.close
 				
 				else : 
-					f = open('%s/%s/%s_part%s.fasta'%(directory,recupId(files),recupId(files),str(part)),'a')
+					f = open('%s%s/fasta_files/%s_part%s.fasta'%(outDir,recupId(files),recupId(files),str(part)),'a')
 					f.write(line)
 					f.close
 			
 		
 			f = open('%s/%s.sh'%(bash,recupId(files)),'w')
-			f.write('module load bioinfo/signalp/4.1\n')
+			f.write('#$ -o %s\n#$ -o %s\n#$ -N %s_secretome\n module load bioinfo/signalp/4.1\n'% (outDir+'error_files', outDir+'out_files',recupId(files)))
 			f.write('\n########### Lancement targetP sur les fichiers fasta de 400 séquences ###################\n\n')
 			for elt in listeTargetp :
 				f.write(elt)

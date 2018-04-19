@@ -118,7 +118,7 @@ def isFastq(fichier):
 		return False
 		
 def recupId(fichier):
-	'''Permet de récupéré le nom du fichier sans l'extension fasta ou fastq
+	'''Permet de récupéré le nom du fichier sans l'extension fasta ou fastq ni se qu'il y a aprés le '_'
 	
 	:Parameters:
 	     fichier
@@ -136,6 +136,8 @@ def recupId(fichier):
 	fichier = fichier.replace('.fastq','')
 	fichier = fichier.replace('.fq','')
 	
+	#Si id avec '_' garde seulement le premier identifiant
+	fichier = fichier.split('_')[0]
 	return fichier 
 	
 	

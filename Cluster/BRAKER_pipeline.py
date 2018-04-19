@@ -21,6 +21,8 @@
 	- Bam2hints for edit at hint format for braker\n\t
 	- exonerate for align genome with annoted genome protein\n\t
 	- Braker with HINTS option qhich use Hint of RNAseq and exonerate\n\t
+	
+	Attention, veuillez noter que ce script necessite que le fichier filterHints.r soit dans le même repertoire que ce script
 
 	Example
 	-------
@@ -125,7 +127,6 @@ if __name__ == "__main__":
 	for genome in os.listdir(ref) :
 		if assembly in genome and isFasta(genome):
 			nbScript += 1
-			IDgenome = genome.replace('_scaffold','')
 			IDgenome = recupId(IDgenome)
 			print("\nCréation du script d'Annotation pour : " + IDgenome)
 			genomeOutDir = outDir+IDgenome
