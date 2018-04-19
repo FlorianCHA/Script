@@ -258,9 +258,10 @@ class directory(str):
 	def listExt(self,extension):
 		'''
 		Permet de créer une liste de fichier d'extension donnée
+		
 		:Parameters:
-	   	     extension
-	   	     	extension des fichiers à lister
+		     extension
+			extension des fichiers cherchés
 	   	'''
 		if extension == 'fasta':
 			extension = ('fasta','fa')
