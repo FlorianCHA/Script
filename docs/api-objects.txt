@@ -63,6 +63,13 @@ repeatMasker_build.__package__	repeatMasker_build-module.html#__package__
 repeatMasker_build.isFasta	module_Flo-module.html#isFasta
 repeatMasker_build.verifFichier	module_Flo-module.html#verifFichier
 repeatMasker_build.recupId	module_Flo-module.html#recupId
+secretome_Pipeline	secretome_Pipeline-module.html
+secretome_Pipeline.createDir	module_Flo-module.html#createDir
+secretome_Pipeline.form	module_Flo-module.html#form
+secretome_Pipeline.verifDir	module_Flo-module.html#verifDir
+secretome_Pipeline.__package__	secretome_Pipeline-module.html#__package__
+secretome_Pipeline.isFasta	module_Flo-module.html#isFasta
+secretome_Pipeline.recupId	module_Flo-module.html#recupId
 stat_repeatMasker	stat_repeatMasker-module.html
 stat_repeatMasker.createDir	module_Flo-module.html#createDir
 stat_repeatMasker.form	module_Flo-module.html#form
