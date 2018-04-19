@@ -63,11 +63,11 @@
 <area shape="rect" id="node1_21" href="module_Flo.directory-class.html#__init__" title="Initialise les variables" alt="" coords="25,457,177,477"/>
 <area shape="rect" id="node1_22" href="module_Flo.directory-class.html#__str__" title="Fonction qui permet de formater le text de sortie lors du print" alt="" coords="25,477,177,497"/>
 <area shape="rect" id="node1_23" href="module_Flo.directory-class.html#exist" title="Fonction qui v&#233;rifie que le repertoire existe" alt="" coords="25,497,177,517"/>
-<area shape="rect" id="node1_24" href="module_Flo.directory-class.html#verif" title="Permet de mettre en forme le chemin du dossier pour &#234;tre utilis&#233; dans un script,la fonction v&#233;rifie si il y a bien un &#39;/&#39; &#224; la fin du chemin, sinon il le rajoute." alt="" coords="25,517,177,537"/>
+<area shape="rect" id="node1_24" href="module_Flo.directory-class.html#verif" title="Permet de mettre en forme le chemin du dossier pour &#234;tre utilis&#233; dans un script,la fonction v&#233;rifie si il y a bien un &#39;/&#39; &#224; la fin du chemin, sinon il le rajoute. La fonction peut aussi verifier qu&#39;un repertoire existe." alt="" coords="25,517,177,537"/>
 <area shape="rect" id="node1_25" href="module_Flo.directory-class.html#listAll" title="liste tous ce qui se trouve dans le repertoire" alt="" coords="25,537,177,557"/>
 <area shape="rect" id="node1_26" href="module_Flo.directory-class.html#type" title="Cr&#233;&#233; une liste de fichier et une liste de r&#233;pertoire" alt="" coords="25,557,177,577"/>
 <area shape="rect" id="node1_27" href="module_Flo.directory-class.html#listExt" title="Permet de cr&#233;er une liste de fichier d&#39;extension donn&#233;e..." alt="" coords="25,577,177,597"/>
-<area shape="rect" id="node1" href="module_Flo.directory-class.html" title="Class which derives from string." alt="" coords="13,425,189,604"/>
+<area shape="rect" id="node1" href="module_Flo.directory-class.html" title="Class which derives from string. Checks that the string is and path to valid directory and not empty" alt="" coords="13,425,189,604"/>
 <area shape="rect" id="node2_28" href="javascript:void(0);" title="x+y" alt="" coords="17,100,185,120"/>
 <area shape="rect" id="node2_29" href="javascript:void(0);" title="y in x" alt="" coords="17,120,185,140"/>
 <area shape="rect" id="node2_30" href="javascript:void(0);" title="x==y" alt="" coords="17,140,185,160"/>
@@ -81,7 +81,7 @@
 <area shape="rect" id="node2_38" href="javascript:void(0);" title="hash(x)" alt="" coords="17,300,185,320"/>
 <area shape="rect" id="node2_39" href="javascript:void(0);" title="x&lt;=y" alt="" coords="17,320,185,340"/>
 <area shape="rect" id="node2_40" href="javascript:void(0);" title="len(x)" alt="" coords="17,340,185,360"/>
-<area shape="rect" id="node2_41" href="javascript:void(0);" title="Pad a numeric string S with zeros on the left, to fill a field of the specified width." alt="" coords="17,380,185,400"/>
+<area shape="rect" id="node2_41" href="javascript:void(0);" title="Pad a numeric string S with zeros on the left, to fill a field of the specified width. &#160;The string S is never truncated." alt="" coords="17,380,185,400"/>
 <area shape="rect" id="node2" href="javascript:void(0);" title="str(object=&#39;&#39;) &#45;&gt; string" alt="" coords="5,68,197,407"/>
 <area shape="rect" id="node3" href="javascript:void(0);" title="Type basestring cannot be instantiated; it is the base for str and unicode." alt="" coords="59,5,144,49"/>
 </map>
@@ -89,12 +89,8 @@
 </center>
 </center>
 <hr />
-<pre class="literalblock">
-
 Class which derives from string.
 Checks that the string is and path to valid directory and not empty
-
-</pre>
 
 <!-- ==================== INSTANCE METHODS ==================== -->
 <a name="section-InstanceMethods"></a>
@@ -171,8 +167,8 @@ Checks that the string is and path to valid directory and not empty
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a href="module_Flo.directory-class.html#verif" class="summary-sig-name">verif</a>(<span class="summary-sig-arg">self</span>)</span><br />
-      Permet de mettre en forme le chemin du dossier pour &#234;tre utilis&#233; dans un script,la fonction v&#233;rifie si il y a bien un '/' &#224; la fin du chemin, sinon il le rajoute.</td>
+          <td><span class="summary-sig"><a name="verif"></a><span class="summary-sig-name">verif</span>(<span class="summary-sig-arg">self</span>)</span><br />
+      Permet de mettre en forme le chemin du dossier pour &#234;tre utilis&#233; dans un script,la fonction v&#233;rifie si il y a bien un '/' &#224; la fin du chemin, sinon il le rajoute. La fonction peut aussi verifier qu'un repertoire existe.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="module_Flo-pysrc.html#directory.verif">source&nbsp;code</a></span>
             
@@ -371,11 +367,7 @@ Checks that the string is and path to valid directory and not empty
     </td>
   </tr></table>
   
-  <pre class="literalblock">
-
-Initialise les variables
-
-</pre>
+  Initialise les variables
   <dl class="fields">
     <dt>Overrides:
         object.__init__
@@ -398,37 +390,11 @@ Initialise les variables
     </td>
   </tr></table>
   
-  <pre class="literalblock">
-Fonction qui permet de formater le text de sortie lors du print
-
-</pre>
+  Fonction qui permet de formater le text de sortie lors du print
   <dl class="fields">
     <dt>Overrides:
         object.__str__
     </dt>
-  </dl>
-</td></tr></table>
-</div>
-<a name="verif"></a>
-<div>
-<table class="details" border="1" cellpadding="3"
-       cellspacing="0" width="100%" bgcolor="white">
-<tr><td>
-  <table width="100%" cellpadding="0" cellspacing="0" border="0">
-  <tr valign="top"><td>
-  <h3 class="epydoc"><span class="sig"><span class="sig-name">verif</span>(<span class="sig-arg">self</span>)</span>
-  </h3>
-  </td><td align="right" valign="top"
-    ><span class="codelink"><a href="module_Flo-pysrc.html#directory.verif">source&nbsp;code</a></span>&nbsp;
-    </td>
-  </tr></table>
-  
-  <pre class="literalblock">
-
-Permet de mettre en forme le chemin du dossier pour &#234;tre utilis&#233; dans un script,la fonction v&#233;rifie si il y a bien un '/' &#224; la fin du chemin, sinon il le rajoute. La fonction peut aussi verifier qu'un repertoire existe.             
-
-</pre>
-  <dl class="fields">
   </dl>
 </td></tr></table>
 </div>
@@ -488,7 +454,7 @@ Permet de cr&#233;er une liste de fichier d'extension donn&#233;e
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0.1 on Thu Apr 19 10:10:57 2018
+    Generated by Epydoc 3.0.1 on Thu Apr 19 10:12:50 2018
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"

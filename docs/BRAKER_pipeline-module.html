@@ -57,66 +57,104 @@
 </table>
 <!-- ==================== MODULE DESCRIPTION ==================== -->
 <h1 class="epydoc">Module BRAKER_pipeline</h1><p class="nomargin-top"><span class="codelink"><a href="BRAKER_pipeline-pysrc.html">source&nbsp;code</a></span></p>
-<pre class="literalblock">
+<div class="rst-section" id="rst-script-description">
+<h1 class="heading">Script description</h1>
+<p>This program is used to annotate with BRAKER. This script use :</p>
+<ul class="rst-simple">
+<li>Toogle for align multiple RNA-seq on a genome and merge the different alignments into a file</li>
+<li>Samtools for file is sort</li>
+<li>Bam2hints for edit at hint format for braker</li>
+<li>exonerate for align genome with annoted genome protein</li>
+<li>Braker with HINTS option qhich use Hint of RNAseq and exonerate</li>
+</ul>
+</div>
+<div class="rst-section" id="rst-example">
+<h1 class="heading">Example</h1>
+<pre class="py-doctest">
+<span class="py-prompt">&gt;&gt;&gt; </span>Alignement.py -d /homedir/user/work/RNAseq -o /homedir/user/work/result -c /homedir/user/work/config.txt -r /homedir/user/work/RNAseq/assembly -p homedir/user/work/annotated_genome_protein.fasta</pre>
+<pre class="py-doctest">
+<span class="py-prompt">&gt;&gt;&gt; </span>Alignement.py -d /homedir/user/work/RNAseq -o /homedir/user/work/result -c /homedir/user/work/config.txt -r /homedir/user/work/RNAseq/assembly p homedir/user/work/annotated_genome_protein.fasta -f file.fasta</pre>
+</div>
+<div class="rst-section" id="rst-help-programm">
+<h1 class="heading">Help Programm</h1>
+<dl class="rst-docutils">
+<dt>optional arguments:</dt>
+<dd><ul class="rst-first rst-last">
+<li><dl class="rst-first rst-docutils">
+<dt>-h, --help</dt>
+<dd><p class="rst-first rst-last">show this help message and exit</p>
+</dd>
+</dl>
+</li>
+<li><dl class="rst-first rst-docutils">
+<dt>-v, --version</dt>
+<dd><p class="rst-first rst-last">display Alignement.py version number and exit</p>
+</dd>
+</dl>
+</li>
+</ul>
+</dd>
+<dt>Input mandatory infos for running:</dt>
+<dd><ul class="rst-first rst-last">
+<li><dl class="rst-first rst-docutils">
+<dt>-d &lt;path/to/directory&gt;, --directory &lt;path/to/directory&gt;</dt>
+<dd><p class="rst-first rst-last">path of directory that contains all the RNA-seq</p>
+</dd>
+</dl>
+</li>
+<li><dl class="rst-first rst-docutils">
+<dt>-r &lt;path/to/reference/directory&gt;, --refDir&lt;path/to/reference/directory&gt;</dt>
+<dd><p class="rst-first rst-last">path of directory that contains all the genome assembled</p>
+</dd>
+</dl>
+</li>
+<li><dl class="rst-first rst-docutils">
+<dt>-c &lt;path/to/configFile&gt;, --configFile &lt;path/to/&gt;configfile&gt;</dt>
+<dd><p class="rst-first rst-last">path of the config file for toogle</p>
+</dd>
+</dl>
+</li>
+<li><dl class="rst-first rst-docutils">
+<dt>-p &lt;path/to/configFile&gt;, --proteinPath &lt;path/to/&gt;annotated_genome_protein.fasta&gt;</dt>
+<dd><p class="rst-first rst-last">Path of annotated genome protein fasta file</p>
+</dd>
+</dl>
+</li>
+<li><dl class="rst-first rst-docutils">
+<dt>-o &lt;path/to/output/directory&gt;, --outDirPath &lt;path/to/output/directory&gt;</dt>
+<dd><p class="rst-first rst-last">path of the output directory</p>
+</dd>
+</dl>
+</li>
+</ul>
+</dd>
+<dt>Input infos for running only one genome:</dt>
+<dd><ul class="rst-first rst-last">
+<li><dl class="rst-first rst-docutils">
+<dt>-f &lt;Name/file&gt;, --file &lt;Name/file&gt;</dt>
+<dd><p class="rst-first rst-last">name file genome if the user only wants to process only one genome</p>
+</dd>
+</dl>
+</li>
+</ul>
+</dd>
+</dl>
+</div>
 
-The BRAKER_pipeline script
-==========================
-
-:author: CHARRIAT Florian
-:contact: florian.charriat@inra.fr
-:date: 9/03/2018
-:version: 0.1
-
-Script description
-------------------
-
-This program is used to annotate with BRAKER. This script use :
-
-- Toogle for align multiple RNA-seq on a genome and merge the different alignments into a file
-
-- Samtools for file is sort
-  
-- Bam2hints for edit at hint format for braker
-
-- exonerate for align genome with annoted genome protein
-
-- Braker with HINTS option qhich use Hint of RNAseq and exonerate
-
-
-Example
--------
-
-&gt;&gt;&gt; Alignement.py -d /homedir/user/work/RNAseq -o /homedir/user/work/result -c /homedir/user/work/config.txt -r /homedir/user/work/RNAseq/assembly -p homedir/user/work/annotated_genome_protein.fasta
-
-&gt;&gt;&gt; Alignement.py -d /homedir/user/work/RNAseq -o /homedir/user/work/result -c /homedir/user/work/config.txt -r /homedir/user/work/RNAseq/assembly p homedir/user/work/annotated_genome_protein.fasta -f file.fasta
-
-
-Help Programm
--------------
-
-optional arguments:
-        - \-h, --help
-                                        show this help message and exit
-        - \-v, --version
-                                        display Alignement.py version number and exit
-Input mandatory infos for running:
-        - \-d &lt;path/to/directory&gt;, --directory &lt;path/to/directory&gt;
-                                        path of directory that contains all the RNA-seq
-        - \-r &lt;path/to/reference/directory&gt;, --refDir&lt;path/to/reference/directory&gt;
-                                        path of directory that contains all the genome assembled
-        - \-c &lt;path/to/configFile&gt;, --configFile &lt;path/to/&gt;configfile&gt;
-                                        path of the config file for toogle
-        - \-p &lt;path/to/configFile&gt;, --proteinPath &lt;path/to/&gt;annotated_genome_protein.fasta&gt;
-                                        Path of annotated genome protein fasta file
-        - \-o &lt;path/to/output/directory&gt;, --outDirPath &lt;path/to/output/directory&gt;
-                                        path of the output directory
-Input infos for running only one genome:
-        - \-f &lt;Name/file&gt;, --file &lt;Name/file&gt;
-                                        name file genome if the user only wants to process only one genome
-
-</pre>
-
-<!-- ==================== VARIABLES ==================== -->
+<hr />
+<div class="fields">      <p><strong>Author:</strong>
+        CHARRIAT Florian
+      </p>
+      <p><strong>Contact:</strong>
+        <a class="rst-reference external" href="mailto:florian.charriat&#64;inra.fr" target="_top">florian.charriat&#64;inra.fr</a>
+      </p>
+      <p><strong>Date:</strong>
+        9/03/2018
+      </p>
+      <p><strong>Version:</strong>
+        0.1
+      </p>
+</div><!-- ==================== VARIABLES ==================== -->
 <a name="section-Variables"></a>
 <table class="summary" border="1" cellpadding="3"
        cellspacing="0" width="100%" bgcolor="white">
@@ -169,7 +207,7 @@ Input infos for running only one genome:
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0.1 on Thu Apr 19 10:10:57 2018
+    Generated by Epydoc 3.0.1 on Thu Apr 19 10:12:50 2018
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"
