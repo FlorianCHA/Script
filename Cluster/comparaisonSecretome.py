@@ -231,9 +231,18 @@ if __name__ == "__main__":
 
 
 
-	print('Total transcrit : %s\nGene predit par signalp %s\nGene predit par targetp %s\nGene predit par phobius %s'%(len(dico),len(listesignalp),len(listetargetp),len(listephobius)))
+	print
 	
 	
+############## summary message #######################
+
+	print(form('\n-----------------------------------------------------------------------------------------------------------------------','red','bold'))
+	print(form('Execution summary:\n','green',['bold','underline']))
+	print('\n\tInput : \n\t\t- '+ directory[:-1])
+	print('\n\tOutput :')
+	print('\t\t - Résultat des prédictions des secretomes : '+outDir)
+	print('\nTotal transcrit : %s\nGene predit par signalp %s\nGene predit par targetp %s\nGene predit par phobius %s'%(len(dico),len(listesignalp),len(listetargetp),len(listephobius)))
+	print(form('----------------------------------------------------------------------------------------------------------------------','red','bold'))
 
 		
 	
