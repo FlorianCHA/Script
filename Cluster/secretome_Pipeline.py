@@ -14,12 +14,12 @@
 	Script description
 	------------------
 
-	This program is used to predict secretome with SignalP, TagetP and Phobius
+	This program is used to predict secretome with SignalP, TagetP and Phobius. This program uses the comparaisonSecretome script to retrieve and compare information from the secretome prediction tools. Please make sure that this script is present in the directory.
 	
 	Example
 	-------
 
-	>>> ABYSS_launch.py -d /homedir/user/work/data -o /homedir/user/work/result
+	>>> secretome_Pipeline.py -d /homedir/user/work/data -o /homedir/user/work/result
 
 	Help Programm
 	-------------
@@ -92,10 +92,12 @@ if __name__ == "__main__":
 			fasta = open(directory+files,'r')
 			lines = fasta.readlines()
 			fasta.close()
-			nb = 0
-			part = 1
+			nb = 0 # Permet d'initialiser une variable qui servira a séparer le fichier fasta en plusieurs fichier fasta
+			nbSeq = 0 # Permet de savoir le nombre de séquence presente dans le fichier fasta
+			part = 1 # Permet de nomer les fichiers avec un numero part morceau de sequence
 			outTargetP = '%s%s/%s_targetP.txt'%(outDir,recupId(files),recupId(files))
 			outputPhobius = '%s%s/%s_phobius.txt'%(outDir,recupId(files),recupId(files))
+			outputSignalP = '%s%s/%s_signalP.txt'%(outDir,recupId(files),recupId(files))
 			if os.path.exists('%s%s'%(outDir,recupId(files))) == True and force == False:
 				raise ValueError(form("Le dossier output : '%s' existe deja, veuillez le supprimer ou utilisé la commande --force pour passer outre et supprimer les dossiers automatiquement"%(outDir+recupId(files)),"red","bold"))
 			if os.path.exists('%s%s'%(outDir,recupId(files))) != 0 and force == True :
@@ -104,13 +106,16 @@ if __name__ == "__main__":
 			os.system('touch %s %s' % (outTargetP,outputPhobius))
 			listeTargetp = []
 			listePhobius = []
+			listeSignalP = []
 	
 			for line in lines: 
 				if nb == 400 and line[0] == '>' :
 					listePhobius.append('phobius.pl -short %s%s/fasta_files/%s_part%s.fasta  >> %s;\n'%(outDir,recupId(files),recupId(files),str(part),outputPhobius))
 					listeTargetp.append('targetp -N %s%s/fasta_files/%s_part%s.fasta >> %s;\n'%(outDir,recupId(files),recupId(files),str(part),outTargetP))
+					listeSignalP.append('signalp -u 0.34 -U 0.34 %s%s/fasta_files/%s_part%s.fasta >> %s;\n'%(outDir,recupId(files),recupId(files),str(part),outputSignalP))
 					nb = 1
-					part += 1
+					nbSeq +=1
+					part +=1
 					f = open('%s%s/fasta_files/%s_part%s.fasta'%(outDir,recupId(files),recupId(files),str(part)),'a')
 					f.write(line)
 					f.close
@@ -118,6 +123,7 @@ if __name__ == "__main__":
 				
 				elif line[0] == '>' :
 					nb +=1
+					nbSeq +=1
 					f = open('%s%s/fasta_files/%s_part%s.fasta'%(outDir,recupId(files),recupId(files),str(part)),'a')
 					f.write(line)
 					f.close
@@ -126,16 +132,26 @@ if __name__ == "__main__":
 					f = open('%s%s/fasta_files/%s_part%s.fasta'%(outDir,recupId(files),recupId(files),str(part)),'a')
 					f.write(line)
 					f.close
+					outputSignalP
+					
+			# Les deux prechaines lignes permet de traiter le dernier fichier qui fait moint de 400 sequences
+			if nbSeq%400 != 0 :
+				listePhobius.append('phobius.pl -short %s%s/fasta_files/%s_part%s.fasta  >> %s;\n'%(outDir,recupId(files),recupId(files),str(part),outputPhobius))
+				listeTargetp.append('targetp -N %s%s/fasta_files/%s_part%s.fasta >> %s;\n'%(outDir,recupId(files),recupId(files),str(part),outTargetP))
+				listeSignalP.append('signalp -u 0.34 -U 0.34 %s%s/fasta_files/%s_part%s.fasta >> %s;\n'%(outDir,recupId(files),recupId(files),str(part),outputSignalP))
+					
 			
-		
 			f = open('%s/%s.sh'%(bash,recupId(files)),'w')
 			f.write('#$ -e %s\n#$ -o %s\n#$ -N %s_secretome\n module load bioinfo/signalp/4.1\n'% (outDir+'error_files', outDir+'out_files',recupId(files)))
-			f.write('\n########### Lancement targetP sur les fichiers fasta de 400 séquences ###################\n\n')
-			for elt in listeTargetp :
+			f.write('\n########### Lancement listeSignalP sur les fichiers fasta de 400 séquences ###################\n\n')
+			for elt in listeSignalP :
 				f.write(elt)
-			f.write('\n########### Lancement Phobius sur les fichiers fasta de 400 séquences ###################\n\n')
-			for elt in listePhobius :
-				f.write(elt)
+			#f.write('\n########### Lancement targetP sur les fichiers fasta de 400 séquences ###################\n\n')
+			#for elt in listeTargetp :
+			#	f.write(elt)
+			#f.write('\n########### Lancement Phobius sur les fichiers fasta de 400 séquences ###################\n\n')
+			#for elt in listePhobius :
+			#	f.write(elt)
 			f.close()
 
 

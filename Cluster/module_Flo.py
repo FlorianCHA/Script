@@ -25,7 +25,11 @@
 ## Modules
 ##################################################
 ## Python modules
-import argparse, os , glob
+import argparse, os , glob, re
+## BioPython
+from Bio import SeqIO
+from Bio.SeqRecord import SeqRecord
+from Bio.Seq import Seq
 
 
 
@@ -141,8 +145,29 @@ def recupId(fichier):
 	return fichier 
 	
 	
+
+def fasta2dict(filename):
+	"""
+	Function that take a file name (fasta), and return a dictionnary of sequence
+
+	"""
+	with open(filename, "rU") as fastaFile:
+		return SeqIO.to_dict(SeqIO.parse(fastaFile, "fasta"))
 	
-#################################### Fontion formatage texte ################################################"
+	
+#################################### Fontion formatage texte ################################################
+
+def sort_human(s, _nsre=re.compile('([0-9]+)')):
+	""" Sort the list in the way that humans expect, use list.sort(key=sort_human) or sorted(list, key=sort_human)).
+	"""
+	try:
+		return [ int(text) if text.isdigit() else text.lower() for text in re.split(_nsre, s)]
+	except TypeError:
+		if not isinstance(s,int):
+			print("WARNNING MODULES_SEB::sort_human : List %s value not understand so don't sort \n" % s)
+			
+	return s
+
 
 def form(text,col = 'white' ,type = 'none') :
 	'''
