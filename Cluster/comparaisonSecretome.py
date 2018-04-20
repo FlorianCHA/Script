@@ -4,7 +4,7 @@
 # @author Florian Charriat
 
 """
-	The comparaisonSecretome script
+	comparaisonSecretome script
 	===============================
 	:author: Charriat Florian
 	:contact: florian.charriat@inra.fr
