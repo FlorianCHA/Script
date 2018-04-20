@@ -44,7 +44,7 @@
 		- \-f <path/to/output/phobius/file>, --fasta <path/to/fasta/file>
 						path of the phobius output file		
 		- \-r <int>, --rank <int>
-						rank mini by default rank = 3, here rank 1 = protein secreted detect by all tools rank2 = protein secreted detect by two tools, rank 3 : protein secreted detect by one tool.	
+						rank mini by default rank = 3, here rank 1 = protein secreted detect by all tools, rank2 = protein secreted detect by two tools, rank 3 : protein secreted detect by one tool.	
 		- \-o <path/to/output/directory>, --outdirPath <path/to/output/directory>
 						path of the output directory
 
