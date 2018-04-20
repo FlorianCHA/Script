@@ -103,7 +103,7 @@ if __name__ == "__main__":
 			if os.path.exists('%s%s'%(outDir,recupId(files))) != 0 and force == True :
 				os.system('rm -r %s%s'%(outDir,recupId(files)))
 			createDir([outDir+recupId(files)+'/fasta_files',outDir+recupId(files)])
-			os.system('touch %s %s' % (outTargetP,outputPhobius))
+			os.system('touch %s %s %s' % (outTargetP,outputPhobius,outputSignalP))
 			listeTargetp = []
 			listePhobius = []
 			listeSignalP = []
@@ -141,18 +141,22 @@ if __name__ == "__main__":
 				listeSignalP.append('signalp -u 0.34 -U 0.34 %s%s/fasta_files/%s_part%s.fasta >> %s;\n'%(outDir,recupId(files),recupId(files),str(part),outputSignalP))
 					
 			
-			f = open('%s/%s.sh'%(bash,recupId(files)),'w')
-			f.write('#$ -e %s\n#$ -o %s\n#$ -N %s_secretome\n module load bioinfo/signalp/4.1\n'% (outDir+'error_files', outDir+'out_files',recupId(files)))
+			f = open('%s/%s_secretomeTools.sh'%(bash,recupId(files)),'w')
+
 			f.write('\n########### Lancement listeSignalP sur les fichiers fasta de 400 séquences ###################\n\n')
 			for elt in listeSignalP :
 				f.write(elt)
-			#f.write('\n########### Lancement targetP sur les fichiers fasta de 400 séquences ###################\n\n')
-			#for elt in listeTargetp :
-			#	f.write(elt)
-			#f.write('\n########### Lancement Phobius sur les fichiers fasta de 400 séquences ###################\n\n')
-			#for elt in listePhobius :
-			#	f.write(elt)
+			f.write('\n########### Lancement targetP sur les fichiers fasta de 400 séquences ###################\n\n')
+			for elt in listeTargetp :
+				f.write(elt)
+			f.write('\n########### Lancement Phobius sur les fichiers fasta de 400 séquences ###################\n\n')
+			for elt in listePhobius :
+				f.write(elt)
 			f.close()
+			f = open('%s/%s.sh'%(bash,recupId(files)),'w')
+			f.write('#$ -e %s\n#$ -o %s\n#$ -N %s_secretome\n module load bioinfo/signalp/4.1\n\n'% (outDir+'error_files', outDir+'out_files',recupId(files)))
+			f.write('bash %s/%s_secretomeTools.sh\n\n'%(bash,recupId(files)))
+			f.write('comparaisonSecretome.py -o %s%s --phobius %s --targetp %s --signalp %s --rank 2'%(outDir,recupId(files),outputPhobius,outTargetP,outputSignalP))
 
 
 
