@@ -30,7 +30,10 @@ import argparse, os , glob, re
 from Bio import SeqIO
 from Bio.SeqRecord import SeqRecord
 from Bio.Seq import Seq
-
+## for parse
+from collections import namedtuple
+import gzip
+import urllib
 
 
 ####### FUNCTION ################
@@ -154,6 +157,68 @@ def fasta2dict(filename):
 	with open(filename, "rU") as fastaFile:
 		return SeqIO.to_dict(SeqIO.parse(fastaFile, "fasta"))
 	
+	
+class parseGFF():
+	"""
+	Parser of GFF3 file write in python.
+	return an object iterable containt GFFRecord()
+	line in GFF3 return:
+	Example:
+		>>> objGFF = parseGFF(gffFile)
+		>>> for record in objGFF.parseGFF3():
+		>>> 	print(record.seqid)
+		>>> 	if record.type == "mRNA" :
+		>>> 		transcriptID = record.attributes["transcriptId"]
+	"""
+
+	def __init__(self, filename):
+		#Initialized GeneInfo named tuple. Note: namedtuple is immutable
+		self.filename = filename
+		self.gffInfoFields = ["seqid", "source", "type", "start", "end", "score", "strand", "phase", "attributes", "seq", "len"]
+		self.GFFRecord = namedtuple("GFFRecord", self.gffInfoFields)
+
+	def parseGFFAttributes(self, attributeString):
+		"""Parse the GFF3 attribute column and return a dict"""
+		if attributeString == ".": return {}
+		ret = {}
+		for attribute in attributeString.split(";"):
+			if len(attribute.split("=")) == 2 :
+				key, value = attribute.split("=")
+				ret[urllib.parse.unquote(key)] = urllib.parse.unquote(value)
+
+		return ret
+
+	def parseGFF3(self):
+		"""
+		A minimalistic GFF3 format parser.
+		Yields objects that contain info about a single GFF3 feature.
+		Supports transparent gzip decompression.
+		"""
+		#Parse with transparent decompression
+		openFunc = gzip.open if self.filename.endswith(".gz") else open
+		with openFunc(self.filename) as infile:
+			for line in infile:
+				if line.startswith("#"): continue
+				parts = line.strip().split("\t")
+				#If this fails, the file format is not standard-compatible
+				assert len(parts) == len(self.gffInfoFields)-2
+				#Normalize data
+				normalizedInfo = {
+					"seqid": "." if parts[0] == "." else urllib.parse.unquote(parts[0]),
+					"source":"." if parts[1] == "." else urllib.parse.unquote(parts[1]),
+					"type": "." if parts[2] == "." else urllib.parse.unquote(parts[2]),
+					"start": "." if parts[3] == "." else int(parts[3]),
+					"end": "." if parts[4] == "." else int(parts[4]),
+					"len": "." if parts[4] == "."  and parts[3] == "." else int(parts[4])-int(parts[3]),
+					"score": "." if parts[5] == "." else float(parts[5]),
+					"strand": "." if parts[6] == "." else urllib.parse.unquote(parts[6]),
+					"phase": "." if parts[7] == "." else urllib.parse.unquote(parts[7]),
+					"seq": None,
+					"attributes": self.parseGFFAttributes(parts[8])
+				}
+				#Alternatively, you can emit the dictionary here, if you need mutability:
+				#	yield normalizedInfo
+				yield self.GFFRecord(**normalizedInfo)
 	
 #################################### Fontion formatage texte ################################################
 

@@ -122,19 +122,16 @@ if __name__ == "__main__":
 
 		seqName = "Scaffold_{}".format(count)
 		descrip = "length={}".format(lenSeq)
-		
-		if sequence.seq.count('N') < (lenSeq - 10) :
-
-			if keep == 'g' and lenSeq >= lenSize or (keep == 'l' and lenSeq <= lenSize):
-					record = SeqRecord(sequence.seq,id=seqName,name=seqName, description=descrip)
-					SeqIO.write(record,output_handle, "fasta")
-					#SeqIO.write(sequence,output_handle, "fasta")
-					count += 1
-			elif keep == 'none' : 
-					record = SeqRecord(sequence.seq,id=seqName,name=seqName, description=descrip)
-					SeqIO.write(record,output_handle, "fasta")
-					#SeqIO.write(sequence,output_handle, "fasta")
-					count += 1
+		if keep == 'g' and lenSeq >= lenSize or (keep == 'l' and lenSeq <= lenSize):
+				record = SeqRecord(sequence.seq,id=seqName,name=seqName, description=descrip)
+				SeqIO.write(record,output_handle, "fasta")
+				#SeqIO.write(sequence,output_handle, "fasta")
+				count += 1
+		elif keep == 'None' : 
+				record = SeqRecord(sequence.seq,id=seqName,name=seqName, description=descrip)
+				SeqIO.write(record,output_handle, "fasta")
+				#SeqIO.write(sequence,output_handle, "fasta")
+				count += 1
 			
 		
 	print("\n\nExecution summary:")

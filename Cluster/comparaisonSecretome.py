@@ -183,6 +183,14 @@ if __name__ == "__main__":
 					
 ######################## Mise en place du dico finale ##########################""
 
+	# Initialise les variables qui vont permet de connaire le nombre de protéines secrété prédite par les 3 outil ou seulement deux ou un seul
+	nbAllPredict = 0 
+	nbPhTar = 0 
+	nbPhSign = 0 
+	nbSignTar = 0 
+	nbSign = 0 
+	nbTar = 0 
+	nbPh = 0 
 	for elt in dico.keys() :
 	
 		if elt in listesignalp:
@@ -196,9 +204,34 @@ if __name__ == "__main__":
 		if elt in listephobius:
 			dico[elt][3] = 'Yes'
 			dico[elt][0] = dico[elt][0] - 1
+		if  dico[elt][1] == 'Yes' and dico[elt][2] == 'Yes' and dico[elt][3] == 'Yes' :
+			nbAllPredict += 1
+		elif  dico[elt][2] == 'Yes' and dico[elt][3] == 'Yes':
+			nbPhTar += 1 
+		elif  dico[elt][1] == 'Yes' and dico[elt][3] == 'Yes':
+			nbPhSign +=1
+		elif  dico[elt][1] == 'Yes' and dico[elt][2] == 'Yes':
+			nbSignTar += 1
+		elif  dico[elt][1] == 'Yes' :
+			nbSign += 1
+		elif  dico[elt][2] == 'Yes' :
+			nbTar += 1
+		elif  dico[elt][3] == 'Yes' :
+			nbPh += 1
 
 			
-
+	nbRank1 = 0
+	nbRank2 = 0
+	nbRank3 = 0
+	for elt in dico.keys():
+		if dico[elt][1] != 'No' or  dico[elt][2] != 'No' or dico[elt][3] != 'No' :
+			if dico[elt][0] == 1 :
+				nbRank1 += 1
+			if dico[elt][0] == 2 :
+				nbRank2 += 1
+			if dico[elt][0] == 3 :
+				nbRank3 += 1
+				
 ######################### Création fichier ########################################
 
 	f = open('%s%s_compare.txt'%(outDir,Id),'w')
@@ -209,6 +242,10 @@ if __name__ == "__main__":
 	if phobius == 'None':
 		f.write('There is no output file for Phobius by default the Phobius column contains only "No"\n')
 	f.write('Rank : Reliability class, from 1 to 3, where 1 indicates the strongest prediction.\n\n')
+	
+	
+	f.write('Info prediction :\n\t- Total transcrit : %s\n\t- Gene prédit par signalp %s\n\t -Gene prédit par targetp %s\n\t -Gene prédit par phobius %s\n\nInfo prédiction :\n\t- Nombre de transcrit rank1 (prédit par les trois outils) : %s\n\n\t- Nombre de transcrit rank2 (prédit par deux outils) : %s\n\t\t- Nombre de protéine secrétée prédit par signalP et targetP : %s\n\t\t- Nombre de protéine secrétée prédit par signalP et phobius : %s\n\t\t- Nombre de protéine secrétée prédit par targetP et phobius : %s\n\n\t- Nombre de transcrit rank3 (prédit par un seul outil) : %s\nn\t\t- Nombre de protéine secrétée prédit par signalP seulement : %s\n\t\t- Nombre de protéine secrétée prédit par targetP seulement : %s\n\t\t- Nombre de protéine secrétée prédit par phobius seulement: %s\n\n'%(len(dico),len(listesignalp),len(listetargetp),len(listephobius),nbRank1,nbRank2,nbSignTar,nbPhSign,nbPhTar,nbRank3,nbSign,nbTar,nbPh))	
+
 	f.write(' -%-12s---%5s---%7s---%7s---%7s- \n'%("-"*12,"-"*5,"-"*7,"-"*7,"-"*7))
 	f.write('| %-12s | %5s | %7s | %7s | %7s |\n'%("Gene_id","Rank".center(5),"SignalP","TargetP","Phobius"))
 	f.write('| %-12s---%5s---%7s---%7s---%7s |\n'%("-"*12,"-"*5,"-"*7,"-"*7,"-"*7))
@@ -228,20 +265,17 @@ if __name__ == "__main__":
 				SeqIO.write(record,f, "fasta")
 	f.close()
 
-
-
-
-	print
 	
 	
 ############## summary message #######################
 
 	print(form('\n-----------------------------------------------------------------------------------------------------------------------','red','bold'))
 	print(form('Execution summary:\n','green',['bold','underline']))
-	print('\n\tInput : \n\t\t- '+ directory[:-1])
+	print('\n\tInput : \n\t\t- '+ fasta+'\n\t\t-'+signalp+'\n\t\t-'+targetp+'\n\t\t-'+phobius)
 	print('\n\tOutput :')
 	print('\t\t - Résultat des prédictions des secretomes : '+outDir)
-	print('\nTotal transcrit : %s\nGene predit par signalp %s\nGene predit par targetp %s\nGene predit par phobius %s'%(len(dico),len(listesignalp),len(listetargetp),len(listephobius)))
+	print('\n\tRank mini : %s\n'%rankMini)
+	print('\tInfo prediction :\n\t\t- Total transcrit : %s\n\t\t- Gene predit par signalp %s\n\t\t -Gene predit par targetp %s\n\t\t -Gene predit par phobius %s\n\n\tInfo prediction :\n\t\t- Nombre de transcrit rank1 : %s\n\t\t- Nombre de transcrit rank2 : %s\n\t\t- Nombre de transcrit rank3 : %s'%(len(dico),len(listesignalp),len(listetargetp),len(listephobius),nbRank1,nbRank2,nbRank3))
 	print(form('----------------------------------------------------------------------------------------------------------------------','red','bold'))
 
 		

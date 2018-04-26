@@ -158,7 +158,7 @@ if __name__ == "__main__":
 			f = open('%s/%s.sh'%(bash,idFile),'w')
 			f.write('#$ -e %s\n#$ -o %s\n#$ -N %s_secretome\n module load bioinfo/signalp/4.1\n\n'% (outDir+'error_files', outDir+'out_files',idFile))
 			f.write('bash %s/%s_secretomeTools.sh\n\n'%(bash,idFile))
-			f.write('comparaisonSecretome.py -o %s%s --phobius %s --targetp %s --signalp %s --rank 2'%(outDir,idFile,outputPhobius,outTargetP,outputSignalP))
+			f.write('comparaisonSecretome.py -o %s%s --phobius %s --targetp %s --signalp %s --rank 2 --fasta %s%s'%(outDir,idFile,outputPhobius,outTargetP,outputSignalP,directory,files))
 
 			print(form('Script créé pour %s\n'%idFile,'green','bold'))
 ############## summary message #######################
