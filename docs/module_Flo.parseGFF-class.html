@@ -3,7 +3,7 @@
           "DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
-  <title>Test_module</title>
+  <title>module_Flo.parseGFF</title>
   <link rel="stylesheet" href="epydoc.css" type="text/css" />
   <script type="text/javascript" src="epydoc.js"></script>
 </head>
@@ -39,7 +39,8 @@
   <tr valign="top">
     <td width="100%">
       <span class="breadcrumbs">
-        Module&nbsp;Test_module
+        <a href="module_Flo-module.html">Module&nbsp;module_Flo</a> ::
+        Class&nbsp;parseGFF
       </span>
     </td>
     <td>
@@ -49,25 +50,39 @@
     onclick="toggle_private();">hide&nbsp;private</a>]</span></td></tr>
         <tr><td align="right"><span class="options"
             >[<a href="frames.html" target="_top">frames</a
-            >]&nbsp;|&nbsp;<a href="Test_module-module.html"
+            >]&nbsp;|&nbsp;<a href="module_Flo.parseGFF-class.html"
             target="_top">no&nbsp;frames</a>]</span></td></tr>
       </table>
     </td>
   </tr>
 </table>
-<!-- ==================== MODULE DESCRIPTION ==================== -->
-<h1 class="epydoc">Module Test_module</h1><p class="nomargin-top"><span class="codelink"><a href="Test_module-pysrc.html">source&nbsp;code</a></span></p>
-<!-- ==================== VARIABLES ==================== -->
-<a name="section-Variables"></a>
+<!-- ==================== CLASS DESCRIPTION ==================== -->
+<h1 class="epydoc">Class parseGFF</h1><p class="nomargin-top"><span class="codelink"><a href="module_Flo-pysrc.html#parseGFF">source&nbsp;code</a></span></p>
+<pre class="literalblock">
+
+Parser of GFF3 file write in python.
+return an object iterable containt GFFRecord()
+line in GFF3 return:
+Example:
+        &gt;&gt;&gt; objGFF = parseGFF(gffFile)
+        &gt;&gt;&gt; for record in objGFF.parseGFF3():
+        &gt;&gt;&gt;     print(record.seqid)
+        &gt;&gt;&gt;     if record.type == &quot;mRNA&quot; :
+        &gt;&gt;&gt;             transcriptID = record.attributes[&quot;transcriptId&quot;]
+
+</pre>
+
+<!-- ==================== INSTANCE METHODS ==================== -->
+<a name="section-InstanceMethods"></a>
 <table class="summary" border="1" cellpadding="3"
        cellspacing="0" width="100%" bgcolor="white">
 <tr bgcolor="#70b0f0" class="table-header">
   <td colspan="2" class="table-header">
     <table border="0" cellpadding="0" cellspacing="0" width="100%">
       <tr valign="top">
-        <td align="left"><span class="table-header">Variables</span></td>
+        <td align="left"><span class="table-header">Instance Methods</span></td>
         <td align="right" valign="top"
-         ><span class="options">[<a href="#section-Variables"
+         ><span class="options">[<a href="#section-InstanceMethods"
          class="privatelink" onclick="toggle_private();"
          >hide private</a>]</span></td>
       </tr>
@@ -78,7 +93,54 @@
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a name="directory"></a><span class="summary-name">directory</span> = <code title="directory(&quot;/home/charriat/Documents/Script&quot;)">directory(&quot;/home/charriat/Documents/Script&quot;)</code>
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="__init__"></a><span class="summary-sig-name">__init__</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">filename</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="module_Flo-pysrc.html#parseGFF.__init__">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="parseGFFAttributes"></a><span class="summary-sig-name">parseGFFAttributes</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">attributeString</span>)</span><br />
+      Parse the GFF3 attribute column and return a dict</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="module_Flo-pysrc.html#parseGFF.parseGFFAttributes">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="parseGFF3"></a><span class="summary-sig-name">parseGFF3</span>(<span class="summary-sig-arg">self</span>)</span><br />
+      A minimalistic GFF3 format parser.
+Yields objects that contain info about a single GFF3 feature.
+Supports transparent gzip decompression.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="module_Flo-pysrc.html#parseGFF.parseGFF3">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
     </td>
   </tr>
 </table>
