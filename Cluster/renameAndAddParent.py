@@ -106,7 +106,7 @@ if __name__ == "__main__":
 							outFileGff.write(polyLine.replace("AUGUSTUS","braker_BGPI"))
 
 						geneNumero = tabLine[8].split(";")[0].replace("ID=","").replace("g","")
-						geneNumeroReformat = geneNumero.zfill(6)
+						geneNumeroReformat = geneNumero.zfill(4)
 						geneName = tabLine[8].split(";")[0].replace("g"+geneNumero,"Mo_"+strainName+"_braker_"+geneNumeroReformat).replace("ID=","")
 
 						#print(geneNumero)

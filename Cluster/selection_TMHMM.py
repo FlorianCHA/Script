@@ -118,14 +118,12 @@ if __name__ == "__main__":
 		elif lineSplit[4] == 'PredHel=1' :
 			FirstTH_s = int(lineSplit[5].split('=')[1].split('-')[0].replace('o','').replace('i',''))
 			FirstTH_e = int(lineSplit[5].split('=')[1].split('-')[1].replace('o','').replace('i',''))
-			if  FirstTH_s < 60 and FirstTH_e < 60 :
+			if  FirstTH_s < 40 and FirstTH_e < 40 :
 				nbSecretome += 1
 				text = text + line
 				listeID.append(lineSplit[0])
-			elif FirstTH_s < 60 and FirstTH_e > 60 :
+			elif FirstTH_s < 40 and FirstTH_e > 40 :
 				nbMoyen +=1 
-				text = text + line
-				listeID.append(lineSplit[0])
 		else :
 			nbFaux += 1
 	

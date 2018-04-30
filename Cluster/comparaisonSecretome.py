@@ -261,7 +261,7 @@ if __name__ == "__main__":
 	for idSeq in sorted(dico.keys(), key=sort_human):
 			if dico[idSeq][0] <= rankMini :
 				seqObj = dico_fasta[idSeq].seq
-				record = SeqRecord(seqObj,id=idSeq,name=idSeq, description= dico_fasta[idseq].description + '| rank_'+str(dico[idSeq][0]))
+				record = SeqRecord(seqObj,id=idSeq,name=idSeq, description= dico_fasta[idSeq].description + ' | rank_'+str(dico[idSeq][0]))
 				SeqIO.write(record,f, "fasta")
 	f.close()
 
