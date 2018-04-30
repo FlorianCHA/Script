@@ -31,6 +31,7 @@ renameAndAddParent.VERSION_DATE	renameAndAddParent-module.html#VERSION_DATE
 renameAndAddParent.current_dir	renameAndAddParent-module.html#current_dir
 repeatMasker_build	repeatMasker_build-module.html
 secretome_Pipeline	secretome_Pipeline-module.html
+selection_TMHMM	selection_TMHMM-module.html
 stat_repeatMasker	stat_repeatMasker-module.html
 test	test-module.html
 test.files	test-module.html#files
