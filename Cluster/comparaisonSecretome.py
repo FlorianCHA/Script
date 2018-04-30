@@ -14,7 +14,7 @@
 	Script description
 	------------------
 
-	This program is used to retrieve and compare information from the output of secretome prediction tools (signalP, targetP and Phobius). 
+	This program is used to retrieve and compare information from the output of secretome prediction tools (signalP, targetP and Phobius). This program is used by secretome_Pipeline
 	
 	Example
 	-------
@@ -256,12 +256,12 @@ if __name__ == "__main__":
 	f.close()
 	
 	dico_fasta = fasta2dict(fasta)
-	f = open('%s%s_secreted.fasta'%(outDir,Id),'w')
+	f = open('%s%s_secreted_1.fasta'%(outDir,Id),'w')
 	
 	for idSeq in sorted(dico.keys(), key=sort_human):
 			if dico[idSeq][0] <= rankMini :
 				seqObj = dico_fasta[idSeq].seq
-				record = SeqRecord(seqObj,id=idSeq,name=idSeq, description='rank_'+str(dico[idSeq][0]))
+				record = SeqRecord(seqObj,id=idSeq,name=idSeq, description= dico_fasta[idseq].description + '| rank_'+str(dico[idSeq][0]))
 				SeqIO.write(record,f, "fasta")
 	f.close()
 

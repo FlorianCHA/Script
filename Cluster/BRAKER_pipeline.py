@@ -127,7 +127,7 @@ if __name__ == "__main__":
 	for genome in os.listdir(ref) :
 		if assembly in genome and isFasta(genome):
 			nbScript += 1
-			IDgenome = recupId(IDgenome)
+			IDgenome = recupId(genome)
 			print("\nCréation du script d'Annotation pour : " + IDgenome)
 			genomeOutDir = outDir+IDgenome
 			resultMapping =	genomeOutDir+'/finalResults'
@@ -146,7 +146,7 @@ if __name__ == "__main__":
 			#files.write('rm -r '+genomeOutDir+'\n')
 			#files.write('toggleGenerator.pl -d '+directory+' -r '+ref+genome+' -c '+config+' -o '+genomeOutDir+' -nocheck;\n')
 			# Permet de récupérer tous les hits accepté pour ensuite les merger
-			resultMapping = '/homedir/charriat/work/Annotation/align/bamAlign/scriptRes/%s/finalResults/'%(recupId(genome)) # utilisé car les alignement ont été lancé avec le script TOGGLE_ARRAY.py
+			resultMapping = '/homedir/charriat/work/Annotation/align/bamMbio_rename/scriptRes/%s/finalResults/'%(recupId(genome)) # utilisé car les alignement ont été lancé avec le script TOGGLE_ARRAY.py
 			files.write('cd '+resultMapping+';\nls *.accepted_hits.bam > bamList;\n')
 			
 			# Permet de merger les différents hits récupérés précédement

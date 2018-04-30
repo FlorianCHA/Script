@@ -97,15 +97,24 @@ if __name__ == "__main__":
 			nb = 0 # Permet d'initialiser une variable qui servira a séparer le fichier fasta en plusieurs fichier fasta
 			nbSeq = 0 # Permet de savoir le nombre de séquence presente dans le fichier fasta
 			part = 1 # Permet de nomer les fichiers avec un numero part morceau de sequence
-			outTargetP = '%s%s/%s_targetP.txt'%(outDir,idFile,idFile)
-			outputPhobius = '%s%s/%s_phobius.txt'%(outDir,idFile,idFile)
-			outputSignalP = '%s%s/%s_signalP.txt'%(outDir,idFile,idFile)
+			
+			########## Création dossier de résultat ############
 			if os.path.exists('%s%s'%(outDir,idFile)) == True and force == False:
 				raise ValueError(form("Le dossier output : '%s' existe deja, veuillez le supprimer ou utilisé la commande --force pour passer outre et supprimer les dossiers automatiquement"%(outDir+idFile),"red","bold"))
 			if os.path.exists('%s%s'%(outDir,idFile)) != 0 and force == True :
 				os.system('rm -r %s%s'%(outDir,idFile))
-			createDir([outDir+idFile+'/fasta_files',outDir+idFile])
+			outDirFasta = outDir+idFile+'/fasta_files'
+			outDir_comparaison = outDir+idFile+'/1_predicted/'
+			outDir_selectTMHMM = outDir+idFile+'/2_selectTMHMM/'
+			name_directory = [outDir+idFile,outDirFasta,outDir_comparaison,outDir_selectTMHMM]
+			createDir(name_directory)
+			
+			######### Création de fichier de résultat ##########
+			outTargetP = '%s%s_targetP.txt'%(outDir_comparaison,idFile)
+			outputPhobius = '%s%s_phobius.txt'%(outDir_comparaison,idFile)
+			outputSignalP = '%s%s_signalP.txt'%(outDir_comparaison,idFile)
 			os.system('touch %s %s %s' % (outTargetP,outputPhobius,outputSignalP))
+
 			listeTargetp = []
 			listePhobius = []
 			listeSignalP = []
@@ -156,10 +165,15 @@ if __name__ == "__main__":
 				f.write(elt)
 			f.close()
 			f = open('%s/%s.sh'%(bash,idFile),'w')
-			f.write('#$ -e %s\n#$ -o %s\n#$ -N %s_secretome\n module load bioinfo/signalp/4.1\n\n'% (outDir+'error_files', outDir+'out_files',idFile))
+			f.write('#$ -e %s\n#$ -o %s\n#$ -N %s_secretome\n#$ -q normal.q\n#$ -V\n\nmodule load bioinfo/signalp/4.1\n\n'% (outDir+'error_files', outDir+'out_files',idFile))
+			f.write('\n\n%s Lancement des trois outils de prédiction %s\n\n'%("#"*10,"#"*10))
 			f.write('bash %s/%s_secretomeTools.sh\n\n'%(bash,idFile))
-			f.write('comparaisonSecretome.py -o %s%s --phobius %s --targetp %s --signalp %s --rank 2 --fasta %s%s'%(outDir,idFile,outputPhobius,outTargetP,outputSignalP,directory,files))
-
+			f.write('%s Comparaison des 3 outils de prédiction %s\n\n'%("#"*10,"#"*10))
+			f.write('comparaisonSecretome.py -o %s --phobius %s --targetp %s --signalp %s --rank 2 --fasta %s%s\n'%(outDir_comparaison,outputPhobius,outTargetP,outputSignalP,directory,files))
+			f.write('\n\n%s Lancement TMHMM %s\n\n'%("#"*10,"#"*10))
+			f.write('tmhmm -short %s%s_secreted_1.fasta > %s%s_TMHMM.txt\n'%(outDir_comparaison,idFile,outDir_selectTMHMM,idFile))
+			f.write('\n\n%s Selection des proteines en fonction du TMHMM %s\n\n'%("#"*10,"#"*10))
+			f.write('selection_TMHMM.py -t %s%s_TMHMM.txt -f  %s%s_secreted_1.fasta -o %s\n'%(outDir_selectTMHMM,idFile,outDir_comparaison,idFile,outDir_selectTMHMM))
 			print(form('Script créé pour %s\n'%idFile,'green','bold'))
 ############## summary message #######################
 
@@ -169,7 +183,7 @@ if __name__ == "__main__":
 	print('\n\tOutput :')
 	print('\t\t - script bash créé : ' +bash)
 	print('\t\t - Résultat des prédictions des secretomes : '+outDir)
-	print('\nThe secretome_Pipeline a traité les '+str(nbfile)+' fichiers fasta, veuillez taper la commande suivante pour lancer les scripts crés :\n\n\t\t\t\t'+form('bash %s/%s.sh\n'%(bash,idFile),'green','bold'))
+	print('\nThe secretome_Pipeline a traité les '+str(nbfile)+' fichiers fasta, veuillez taper la commande suivante pour lancer les scripts crés :\n\n\t\t\t\t'+form('qsub %s/%s.sh\n'%(bash,idFile),'green','bold'))
 	print(form('----------------------------------------------------------------------------------------------------------------------','red','bold'))
 
 
