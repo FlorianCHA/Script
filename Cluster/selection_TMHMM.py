@@ -35,6 +35,8 @@
 								
 		- \-t <path/to/TMHMM/output/file>, --file <path/to/TMHMM/output/file>
 						path of the TMHMM output file
+		- \-f <path/to/fasta/file>, --file <path/to/fasta/file>
+						Path of the fasta file which TMHMM has been proceed
 		- \-o <path/to/output/file>, --outdirPath <path/to/output/file>
 						path and name of the output file
 
@@ -68,7 +70,7 @@ if __name__ == "__main__":
 
 	filesreq = parser.add_argument_group('Input mandatory infos for running')
 	filesreq.add_argument('-t', '--TMHMM',type = str, default = 'None', dest = 'TMHMM', help = 'Path of the TMHMM output file')
-	filesreq.add_argument('-f', '--fasta',type = str,  required=True, dest = 'fasta', help = 'path of the phobius output file')
+	filesreq.add_argument('-f', '--fasta',type = str,  required=True, dest = 'fasta', help = 'Path of the fasta file which TMHMM has been proceed')
 	filesreq.add_argument('-o', '--outdir',type = str, required=True, dest = 'outdir', help = 'Path of the output file')
 
 	
@@ -140,6 +142,24 @@ if __name__ == "__main__":
 			record = SeqRecord(seqObj,id=idSeq,name=idSeq, description=dico_fasta[idSeq].description)
 			SeqIO.write(record,f, "fasta")
 
+############## summary message #######################
+
+
+	print(form('\n-----------------------------------------------------------------------------------------------------------------------','red','bold'))
+	print(form('Execution summary:\n','green',['bold','underline']))
+	print('\n\tInput : \n\t\t- '+ fasta+'\n\t\t-'+TMHMM)
+	print('\n\tOutput :')
+	print('\t\t - Résultat des prédictions des secretomes : '+outDir)
+	print('%s\n\t%s%s%s\n\t%s\n\n\tTotal processed sequence : %s\n\tNumber of protein with a single TH in the first 60 aa : %s\n\tNumber of protein with a single TH not only the first 60 aa : %s\n\tEliminer : %s\n'%('#'*38,'#'*10,' Protein selected ','#'*10,'#'*38,nbFaux+nbMoyen+nbSecretome,nbSecretome,nbMoyen,nbFaux))
+	print(form('----------------------------------------------------------------------------------------------------------------------','red','bold'))
+
+		
+
+############## end message ###########################
+
+	print(form("\n\t---------------------------------------------------------",'yellow','bold'))
+	print("\t"+form("|",'yellow','bold')+form("                    End of execution                   ",type='bold')+form("|",'yellow','bold'))
+	print(form("\t---------------------------------------------------------",'yellow','bold'))
 
 
 

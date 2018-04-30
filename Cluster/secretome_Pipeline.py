@@ -14,7 +14,7 @@
 	Script description
 	------------------
 
-	This program is used to predict secretome with SignalP, TagetP and Phobius. This program uses the comparaisonSecretome script to retrieve and compare information from the secretome prediction tools. Please make sure that this script is present in the directory.
+	This program is used to predict secretome with SignalP, TagetP, Phobius. This program uses the comparaisonSecretome script to retrieve and compare information from the secretome prediction tools. This program uses also the selection_TMHMM script to select from TMHMM ouput only protein with no TH domain or only one TH in 60 first aa. Please make sure that this script is present in the directory.
 	
 	Example
 	-------
