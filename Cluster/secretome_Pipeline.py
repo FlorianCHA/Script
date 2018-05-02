@@ -16,7 +16,8 @@
 
 	This program is used to predict secretome with SignalP, TagetP, Phobius.\n
 	This program uses the comparaisonSecretome script to retrieve and compare information from the secretome prediction tools.\n
-	This program uses also the selection_TMHMM script to select, from TMHMM ouput, only protein with no TH domain or only one TH in 60 first aa.\n
+	And the selection_TMHMM script to select, from TMHMM ouput, only protein with no TH domain or only one TH in 60 first aa.\n
+	This program uses also the eliminateREmotif script to eliminate, from ps_scan ouput, the protein with a RE retention motif.\n
 	Please make sure that this script is present in the directory.
 	
 	Example
@@ -60,7 +61,15 @@ if __name__ == "__main__":
 	version="0.1" 
 	
 ############ Argparse #####################
-	parser = argparse.ArgumentParser(prog=__file__, description='''This program is used to predict secretome with SignalP, TagetP and Phobius''')
+	parser = argparse.ArgumentParser(prog=__file__, description='''This program is used to predict secretome with SignalP, TagetP, Phobius.
+	
+	This program uses the comparaisonSecretome script to retrieve and compare information from the secretome prediction tools.
+	
+	And the selection_TMHMM script to select, from TMHMM ouput, only protein with no TH domain or only one TH in 60 first aa.
+	
+	This program uses also the eliminateREmotif script to eliminate, from ps_scan ouput, the protein with a RE retention motif.
+	
+	Please make sure that this script is present in the directory.''')
 	parser.add_argument('-v', '--version', action='version', version='You are using %(prog)s version: ' + version, help=\
 'display secretome_Pipeline version number and exit')
 
@@ -113,8 +122,8 @@ if __name__ == "__main__":
 				os.system('rm -r %s%s'%(outDir,idFile))
 			outDirFasta = outDir+idFile+'/0_fasta-files'
 			outDir_comparaison = outDir+idFile+'/1_predicted/'
-			outDir_selectTMHMM = outDir+idFile+'/2_selectTMHMM/'
-			outDir_PS_scan = outDir+idFile+'/3_PS_scan_Select/'
+			outDir_selectTMHMM = outDir+idFile+'/2_TMHMM/'
+			outDir_PS_scan = outDir+idFile+'/3_PS-scan/'
 			name_directory = [outDir+idFile,outDirFasta,outDir_comparaison,outDir_selectTMHMM,outDir_PS_scan]
 			createDir(name_directory)
 			
@@ -200,7 +209,7 @@ if __name__ == "__main__":
 	print('\n\tOutput :')
 	print('\t\t - script bash créé : ' +bash)
 	print('\t\t - Résultat des prédictions des secretomes : '+outDir)
-	print('\nThe secretome_Pipeline a traité les '+str(nbfile)+' fichiers fasta, veuillez taper la commande suivante pour lancer les scripts crés :\n\n\t\t\t\t'+form('qsub %s/%s.sh\n'%(bash,idFile),'green','bold'))
+	print('\nThe secretome_Pipeline a traité les '+str(nbfile)+' fichiers fasta, veuillez taper la commande suivante pour lancer les scripts créés :\n\n\t\t\t\t'+form('qsub %s/%s.sh\n'%(bash,idFile),'green','bold'))
 	print(form('----------------------------------------------------------------------------------------------------------------------','red','bold'))
 
 
