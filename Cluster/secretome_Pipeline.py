@@ -116,15 +116,16 @@ if __name__ == "__main__":
 			part = 1 # Permet de nomer les fichiers avec un numero part morceau de sequence
 			
 			########## Création dossier de résultat ############
-			if os.path.exists('%s%s'%(outDir,idFile)) == True and force == False:
-				raise ValueError(form("Le dossier output : '%s' existe deja, veuillez le supprimer ou utilisé la commande --force pour passer outre et supprimer les dossiers automatiquement"%(outDir+idFile),"red","bold"))
+			if os.path.exists(outDir+'Result/'+idFile) == True and force == False:
+				raise ValueError(form("Le dossier output : '%s' existe deja, veuillez le supprimer ou utilisé la commande --force pour passer outre et supprimer les dossiers automatiquement"%(outDir+'Result/'+idFile),"red","bold"))
 			if os.path.exists('%s%s'%(outDir,idFile)) != 0 and force == True :
 				os.system('rm -r %s%s'%(outDir,idFile))
-			outDirFasta = outDir+idFile+'/0_fasta-files'
-			outDir_comparaison = outDir+idFile+'/1_predicted/'
-			outDir_selectTMHMM = outDir+idFile+'/2_TMHMM/'
-			outDir_PS_scan = outDir+idFile+'/3_PS-scan/'
-			name_directory = [outDir+idFile,outDirFasta,outDir_comparaison,outDir_selectTMHMM,outDir_PS_scan]
+			outDir_result = outDir+'Result/'+idFile
+			outDirFasta = outDir_result+'/0_fasta-files'
+			outDir_comparaison =outDir_result+'/1_predicted/'
+			outDir_selectTMHMM = outDir_result+'/2_TMHMM/'
+			outDir_PS_scan = outDir_result+'/3_PS-scan/'
+			name_directory = [outDir+'Result',outDirFasta,outDir_comparaison,outDir_selectTMHMM,outDir_PS_scan]
 			createDir(name_directory)
 			
 			######### Création de fichier de résultat ##########
@@ -145,7 +146,7 @@ if __name__ == "__main__":
 					nb = 1
 					nbSeq +=1
 					part +=1
-					f = open('%s%s/0_fasta-files/%s_part%s.fasta'%(outDir,idFile,idFile,str(part)),'a')
+					f = open('%s/%s_part%s.fasta'%(outDirFasta,idFile,str(part)),'a')
 					f.write(line)
 					f.close
 					
@@ -153,21 +154,21 @@ if __name__ == "__main__":
 				elif line[0] == '>' :
 					nb +=1
 					nbSeq +=1
-					f = open('%s%s/0_fasta-files/%s_part%s.fasta'%(outDir,idFile,idFile,str(part)),'a')
+					f = open('%s/%s_part%s.fasta'%(outDirFasta,idFile,str(part)),'a')
 					f.write(line)
 					f.close
 				
 				else : 
-					f = open('%s%s/0_fasta-files/%s_part%s.fasta'%(outDir,idFile,idFile,str(part)),'a')
+					f = open('%s/%s_part%s.fasta'%(outDirFasta,idFile,str(part)),'a')
 					f.write(line)
 					f.close
 					outputSignalP
 					
 			# Les deux prechaines lignes permet de traiter le dernier fichier qui fait moint de 400 sequences
 			if nbSeq%400 != 0 :
-				listePhobius.append('phobius.pl -short %s%s/0_fasta-files/%s_part%s.fasta  >> %s;\n'%(outDir,idFile,idFile,str(part),outputPhobius))
-				listeTargetp.append('targetp -N %s%s/0_fasta-files/%s_part%s.fasta >> %s;\n'%(outDir,idFile,idFile,str(part),outTargetP))
-				listeSignalP.append('signalp -u 0.34 -U 0.34 %s%s/0_fasta-files/%s_part%s.fasta >> %s;\n'%(outDir,idFile,idFile,str(part),outputSignalP))
+				listePhobius.append('phobius.pl -short %s/%s_part%s.fasta  >> %s;\n'%(outDirFasta,idFile,str(part),outputPhobius))
+				listeTargetp.append('targetp -N %s/%s_part%s.fasta >> %s;\n'%(outDirFasta,idFile,str(part),outTargetP))
+				listeSignalP.append('signalp -u 0.34 -U 0.34 %s/%s_part%s.fasta >> %s;\n'%(outDirFasta,idFile,str(part),outputSignalP))
 					
 			
 			f = open('%s/%s_secretomeTools.sh'%(bash,idFile),'w')
@@ -208,7 +209,7 @@ if __name__ == "__main__":
 	print('\n\tInput : \n\t\t- '+ directory[:-1])
 	print('\n\tOutput :')
 	print('\t\t - script bash créé : ' +bash)
-	print('\t\t - Résultat des prédictions des secretomes : '+outDir)
+	print('\t\t - Résultat des prédictions des secretomes : '+outDir_result)
 	print('\nThe secretome_Pipeline a traité les '+str(nbfile)+' fichiers fasta, veuillez taper la commande suivante pour lancer les scripts créés :\n\n\t\t\t\t'+form('qsub %s/%s.sh\n'%(bash,idFile),'green','bold'))
 	print(form('----------------------------------------------------------------------------------------------------------------------','red','bold'))
 
