@@ -5,7 +5,7 @@
 
 """
 	The recupSeqFromGFF script
-	=======================
+	==========================
 	:author: Charriat Florian
 	:contact: florian.charriat@inra.fr
 	:date: 9/03/2018
