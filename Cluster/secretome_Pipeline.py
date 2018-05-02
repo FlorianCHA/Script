@@ -36,9 +36,10 @@
 	Input mandatory infos for running:
 		- \-d <path/to/directory>, --directory <path/to/directory>
 						path of directory that contains all the fasta files
-						
+		- \-p <path/to/prosite.dat/file>, --outdirPath <path/to/prosite.dat/file>
+						path of the output directory						
 		- \-o <path/to/output/directory>, --outdirPath <path/to/output/directory>
-						path of the output directory
+						Path of prosite.dat file. You can upload the file at ftp://ftp.expasy.org/databases/prosite/prosite.dat
 		- \-f                             --force
 						force the script to remove the old output data
 """
@@ -49,8 +50,10 @@
 import argparse, os, sys
 
 #Import module_Flo
-from module_Flo import verifDir, createDir , form, isFasta, recupId
+from module_Flo import verifDir, createDir , form, isFasta, recupId, verifFichier
 
+#Prosite file 
+#PathPrositeFile = '/homedir/charriat/BioInfo_Tools/ps_scan/prosite.dat'
 
 if __name__ == "__main__":
 
@@ -65,6 +68,7 @@ if __name__ == "__main__":
 	filesreq = parser.add_argument_group('Input mandatory infos for running')
 	filesreq.add_argument('-d', '--directory',type = str, required=True, dest = 'dirPath', help = 'Path of directory that contains all the fasta files')
 	filesreq.add_argument('-o', '--outdir',type = str, required=True, dest = 'outdirPath', help = 'Path of the output directory')
+	filesreq.add_argument('-p', '--prosite',type = str, required=True, dest = 'prositePath', help = 'Path of prosite.dat file. You can upload the file at ftp://ftp.expasy.org/databases/prosite/prosite.dat')
 	filesreq.add_argument('-f', '--force', action='store_true', dest = 'force', help = 'force the script to remove output data')
 
 	
@@ -73,7 +77,8 @@ if __name__ == "__main__":
 	directory = os.path.abspath(args.dirPath)
 	outDir= os.path.abspath(args.outdirPath)
 	force = args.force
-
+	prosite_dat =  os.path.abspath(args.prositePath)
+	verifFichier(prosite_dat)
 ########### Gestion directory ##############
 	directory = verifDir(directory,True)
 	outDir = verifDir(outDir)
@@ -106,10 +111,11 @@ if __name__ == "__main__":
 				raise ValueError(form("Le dossier output : '%s' existe deja, veuillez le supprimer ou utilisé la commande --force pour passer outre et supprimer les dossiers automatiquement"%(outDir+idFile),"red","bold"))
 			if os.path.exists('%s%s'%(outDir,idFile)) != 0 and force == True :
 				os.system('rm -r %s%s'%(outDir,idFile))
-			outDirFasta = outDir+idFile+'/fasta_files'
+			outDirFasta = outDir+idFile+'/0_fasta-files'
 			outDir_comparaison = outDir+idFile+'/1_predicted/'
 			outDir_selectTMHMM = outDir+idFile+'/2_selectTMHMM/'
-			name_directory = [outDir+idFile,outDirFasta,outDir_comparaison,outDir_selectTMHMM]
+			outDir_PS_scan = outDir+idFile+'/3_PS_scan_Select/'
+			name_directory = [outDir+idFile,outDirFasta,outDir_comparaison,outDir_selectTMHMM,outDir_PS_scan]
 			createDir(name_directory)
 			
 			######### Création de fichier de résultat ##########
@@ -124,13 +130,13 @@ if __name__ == "__main__":
 	
 			for line in lines: 
 				if nb == 400 and line[0] == '>' :
-					listePhobius.append('phobius.pl -short %s%s/fasta_files/%s_part%s.fasta  >> %s;\n'%(outDir,idFile,idFile,str(part),outputPhobius))
-					listeTargetp.append('targetp -N %s%s/fasta_files/%s_part%s.fasta >> %s;\n'%(outDir,idFile,idFile,str(part),outTargetP))
-					listeSignalP.append('signalp -u 0.34 -U 0.34 %s%s/fasta_files/%s_part%s.fasta >> %s;\n'%(outDir,idFile,idFile,str(part),outputSignalP))
+					listePhobius.append('phobius.pl -short %s%s/0_fasta-files/%s_part%s.fasta  >> %s;\n'%(outDir,idFile,idFile,str(part),outputPhobius))
+					listeTargetp.append('targetp -N %s%s/0_fasta-files/%s_part%s.fasta >> %s;\n'%(outDir,idFile,idFile,str(part),outTargetP))
+					listeSignalP.append('signalp -u 0.34 -U 0.34 %s%s/0_fasta-files/%s_part%s.fasta >> %s;\n'%(outDir,idFile,idFile,str(part),outputSignalP))
 					nb = 1
 					nbSeq +=1
 					part +=1
-					f = open('%s%s/fasta_files/%s_part%s.fasta'%(outDir,idFile,idFile,str(part)),'a')
+					f = open('%s%s/0_fasta-files/%s_part%s.fasta'%(outDir,idFile,idFile,str(part)),'a')
 					f.write(line)
 					f.close
 					
@@ -138,21 +144,21 @@ if __name__ == "__main__":
 				elif line[0] == '>' :
 					nb +=1
 					nbSeq +=1
-					f = open('%s%s/fasta_files/%s_part%s.fasta'%(outDir,idFile,idFile,str(part)),'a')
+					f = open('%s%s/0_fasta-files/%s_part%s.fasta'%(outDir,idFile,idFile,str(part)),'a')
 					f.write(line)
 					f.close
 				
 				else : 
-					f = open('%s%s/fasta_files/%s_part%s.fasta'%(outDir,idFile,idFile,str(part)),'a')
+					f = open('%s%s/0_fasta-files/%s_part%s.fasta'%(outDir,idFile,idFile,str(part)),'a')
 					f.write(line)
 					f.close
 					outputSignalP
 					
 			# Les deux prechaines lignes permet de traiter le dernier fichier qui fait moint de 400 sequences
 			if nbSeq%400 != 0 :
-				listePhobius.append('phobius.pl -short %s%s/fasta_files/%s_part%s.fasta  >> %s;\n'%(outDir,idFile,idFile,str(part),outputPhobius))
-				listeTargetp.append('targetp -N %s%s/fasta_files/%s_part%s.fasta >> %s;\n'%(outDir,idFile,idFile,str(part),outTargetP))
-				listeSignalP.append('signalp -u 0.34 -U 0.34 %s%s/fasta_files/%s_part%s.fasta >> %s;\n'%(outDir,idFile,idFile,str(part),outputSignalP))
+				listePhobius.append('phobius.pl -short %s%s/0_fasta-files/%s_part%s.fasta  >> %s;\n'%(outDir,idFile,idFile,str(part),outputPhobius))
+				listeTargetp.append('targetp -N %s%s/0_fasta-files/%s_part%s.fasta >> %s;\n'%(outDir,idFile,idFile,str(part),outTargetP))
+				listeSignalP.append('signalp -u 0.34 -U 0.34 %s%s/0_fasta-files/%s_part%s.fasta >> %s;\n'%(outDir,idFile,idFile,str(part),outputSignalP))
 					
 			
 			f = open('%s/%s_secretomeTools.sh'%(bash,idFile),'w')
@@ -173,11 +179,19 @@ if __name__ == "__main__":
 			f.write('bash %s/%s_secretomeTools.sh\n\n'%(bash,idFile))
 			f.write('%s Comparaison des 3 outils de prédiction %s\n\n'%("#"*10,"#"*10))
 			f.write('comparaisonSecretome.py -o %s --phobius %s --targetp %s --signalp %s --rank 2 --fasta %s%s\n'%(outDir_comparaison,outputPhobius,outTargetP,outputSignalP,directory,files))
+
+################################### TMHMM ##########################################
 			f.write('\n\n%s Lancement TMHMM %s\n\n'%("#"*10,"#"*10))
 			f.write('tmhmm -short %s%s_secreted_1.fasta > %s%s_TMHMM.txt\n'%(outDir_comparaison,idFile,outDir_selectTMHMM,idFile))
 			f.write('\n\n%s Selection des proteines en fonction du TMHMM %s\n\n'%("#"*10,"#"*10))
 			f.write('selection_TMHMM.py -t %s%s_TMHMM.txt -f  %s%s_secreted_1.fasta -o %s\n'%(outDir_selectTMHMM,idFile,outDir_comparaison,idFile,outDir_selectTMHMM))
+			
+############################ PS_scan for RE retention motif ##########################
+			f.write('\n\n%s Selection des proteines en fonction du motif de retention dans le RE avec PS-scan %s\n\n'%("#"*10,"#"*10))
+			f.write('ps_scan.pl -o pff -p PS00014 -d %s %s%s_secreted_2.fasta > %s%s_ps_scan.txt\n'%(prosite_dat,outDir_selectTMHMM,idFile,outDir_PS_scan,idFile))
+			f.write('elimateREmotif.py -p %s%s_ps_scan.txt -f %s%s_secreted_2.fasta -o %s\n'%(outDir_PS_scan,idFile,outDir_selectTMHMM,idFile,outDir_PS_scan))
 			print(form('Script créé pour %s\n'%idFile,'green','bold'))
+			f.close()
 ############## summary message #######################
 
 	print(form('\n-----------------------------------------------------------------------------------------------------------------------','red','bold'))

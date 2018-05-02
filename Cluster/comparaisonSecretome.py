@@ -130,7 +130,10 @@ if __name__ == "__main__":
 	listephobius = []
 	dico = {}
 	listeFinal = []
-
+	GeneSignalP = []
+	GeneTargetP = []
+	GenePhobius  = []
+	
 ######################### Analyse fichier signalp ################
 	if signalp != "None" :
 		print(form("- Le fichier output de signalp (%s) est analysé.\n"%signalp,"green","bold"))
@@ -143,6 +146,9 @@ if __name__ == "__main__":
 				line = line.split()
 				if line[9] == 'Y':
 					listesignalp.append(line[0])
+					gene = line[0].split('.t')[0]
+					if gene not in GeneSignalP:
+						GeneSignalP.append(gene)
 ######################### Analyse fichier targetP ################
 
 	if targetp != "None" :
@@ -161,6 +167,9 @@ if __name__ == "__main__":
 				line = line[:-1].split()
 				if line[5] == 'S':
 					listetargetp.append(line[0])
+					gene = line[0].split('.t')[0]
+					if gene not in GeneTargetP:
+						GeneTargetP.append(gene)
 
 
 	
@@ -180,19 +189,32 @@ if __name__ == "__main__":
 				dico[line[0]] = [4,'No','No','No']
 				if line[2] == 'Y' :
 					listephobius.append(line[0])
+					gene = line[0].split('.t')[0]
+					if gene not in GenePhobius:
+						GenePhobius.append(gene)
 					
 ######################## Mise en place du dico finale ##########################""
 
 	# Initialise les variables qui vont permet de connaire le nombre de protéines secrété prédite par les 3 outil ou seulement deux ou un seul
-	nbAllPredict = 0 
-	nbPhTar = 0 
+	listeGene = []
+	listeRank1 = []
+	nbRank1 = 0
+	listePhTar = [] 
+	nbPhTar = 0
+	listePhSign = []
 	nbPhSign = 0 
+	listeSignTar = []
 	nbSignTar = 0 
-	nbSign = 0 
+	listeTar = [] 
 	nbTar = 0 
+	listePh = []
 	nbPh = 0 
+	listeSign = []
+	nbSign = 0
 	for elt in dico.keys() :
-	
+		gene = elt.split('.t')[0]
+		if gene not in listeGene :
+			listeGene.append(gene)
 		if elt in listesignalp:
 			dico[elt][1] = 'Yes'
 			dico[elt][0] = dico[elt][0] - 1
@@ -205,18 +227,32 @@ if __name__ == "__main__":
 			dico[elt][3] = 'Yes'
 			dico[elt][0] = dico[elt][0] - 1
 		if  dico[elt][1] == 'Yes' and dico[elt][2] == 'Yes' and dico[elt][3] == 'Yes' :
-			nbAllPredict += 1
+			if gene not in listeRank1 :
+				listeRank1.append(gene)
+			nbRank1 += 1
 		elif  dico[elt][2] == 'Yes' and dico[elt][3] == 'Yes':
-			nbPhTar += 1 
+			if gene not in listePhTar :
+				listePhTar.append(gene)
+			nbPhTar += 2
 		elif  dico[elt][1] == 'Yes' and dico[elt][3] == 'Yes':
-			nbPhSign +=1
+			if gene not in listePhSign :
+				listePhSign.append(gene)
+			nbPhSign += 1
 		elif  dico[elt][1] == 'Yes' and dico[elt][2] == 'Yes':
+			if gene not in listeSignTar :
+				listeSignTar.append(gene)
 			nbSignTar += 1
 		elif  dico[elt][1] == 'Yes' :
-			nbSign += 1
+			if gene not in listeSign :
+				listeSign.append(gene)
+			nbSign += 1	
 		elif  dico[elt][2] == 'Yes' :
+			if gene not in listeTar :
+				listeTar.append(gene)
 			nbTar += 1
 		elif  dico[elt][3] == 'Yes' :
+			if gene not in listePh :
+				listePh.append(gene)
 			nbPh += 1
 
 			
@@ -244,12 +280,13 @@ if __name__ == "__main__":
 	f.write('Rank : Reliability class, from 1 to 3, where 1 indicates the strongest prediction.\n\n')
 	
 	
-	f.write('Info prediction :\n\t- Total transcrit : %s\n\t- Gene prédit par signalp %s\n\t -Gene prédit par targetp %s\n\t -Gene prédit par phobius %s\n\nInfo prédiction :\n\t- Nombre de transcrit rank1 (prédit par les trois outils) : %s\n\n\t- Nombre de transcrit rank2 (prédit par deux outils) : %s\n\t\t- Nombre de protéine secrétée prédit par signalP et targetP : %s\n\t\t- Nombre de protéine secrétée prédit par signalP et phobius : %s\n\t\t- Nombre de protéine secrétée prédit par targetP et phobius : %s\n\n\t- Nombre de transcrit rank3 (prédit par un seul outil) : %s\nn\t\t- Nombre de protéine secrétée prédit par signalP seulement : %s\n\t\t- Nombre de protéine secrétée prédit par targetP seulement : %s\n\t\t- Nombre de protéine secrétée prédit par phobius seulement: %s\n\n'%(len(dico),len(listesignalp),len(listetargetp),len(listephobius),nbRank1,nbRank2,nbSignTar,nbPhSign,nbPhTar,nbRank3,nbSign,nbTar,nbPh))	
+	f.write('Info prediction :\n\t- Total : %s gènes (%s transcrits)\n\t- Prédit par signalp : %s gènes (%s transcrits)\n\t- Prédit par targetp %s gènes (%s transcrits)\n\t- Prédit par phobius : %s gènes (%s transcrits)\n\nInfo prédiction :\n\t- Nombre de  rank1 (prédit par les trois outils) : %s gènes (%s transcrits)\n\n\t- Nombre de rank2 (prédit par deux outils) : %s gènes (%s transcrits)\n\t\t- Prédiction par signalP et targetP : %s gènes (%s transcrits)\n\t\t- Prédiction par signalP et phobius : %s gènes (%s transcrits)\n\t\t- Prédiction par targetP et phobius : %s gènes (%s transcrits)\n\n\t- Nombre de rank3 (prédit par un seul outil) : %s gènes (%s transcrits)\nn\t\t- Prédiction par signalP seulement : %s gènes (%s transcrits)\n\t\t- Prédiction par targetP seulement : %s gènes (%s transcrits)\n\t\t- Prédiction par phobius seulement: %s gènes (%s transcrits)\n\n'%(len(listeGene),len(dico),len(GeneSignalP),len(listesignalp),len(GeneTargetP),len(listetargetp),len(GenePhobius),len(listephobius),len(listeRank1),nbRank1,len(listePhTar)+len(listePhSign)+len(listeSignTar),nbRank2,len(listeSignTar),nbSignTar,len(listePhSign),nbPhSign,len(listePhTar),nbPhTar,len(listePh)+len(listeSign)+len(listeTar),nbRank3,len(listeSign),nbSign,len(listeTar),nbTar,len(listePh),nbPh))	
 
+	
 	f.write(' -%-12s---%5s---%7s---%7s---%7s- \n'%("-"*12,"-"*5,"-"*7,"-"*7,"-"*7))
 	f.write('| %-12s | %5s | %7s | %7s | %7s |\n'%("Gene_id","Rank".center(5),"SignalP","TargetP","Phobius"))
 	f.write('| %-12s---%5s---%7s---%7s---%7s |\n'%("-"*12,"-"*5,"-"*7,"-"*7,"-"*7))
-	for elt in dico.keys():
+	for elt  in sorted(dico.keys(), key=sort_human):
 		if dico[elt][1] != 'No' or  dico[elt][2] != 'No' or dico[elt][3] != 'No' :
 			f.write('| %-12s | %5s | %7s | %7s | %7s |\n'%(elt,str(dico[elt][0]).center(5) ,dico[elt][1].center(7),dico[elt][2].center(7),dico[elt][3].center(7)))
 			listeFinal.append([dico[elt][0],dico[elt][1]])

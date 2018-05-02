@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/local/bioinfo/python/3.4.3_build2/bin/python
 # -*- coding: utf-8 -*-
 # @package renameAndAddParent.py
 # @author Sebastien Ravel

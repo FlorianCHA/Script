@@ -19,7 +19,7 @@
 	Example
 	-------
 
-	>>> selection_TMHMM.py  -f /homedir/user/work/data/TMHMM_result.txt -o /homedir/user/work/result/
+	>>> selection_TMHMM.py  -f /homedir/user/work/data/TMHMM_result.txt -o /homedir/user/work/result/ -f /homedir/user/work/file.fasta
 
 
 	Help Programm
@@ -37,8 +37,8 @@
 						path of the TMHMM output file
 		- \-f <path/to/fasta/file>, --file <path/to/fasta/file>
 						Path of the fasta file which TMHMM has been proceed
-		- \-o <path/to/output/file>, --outdirPath <path/to/output/file>
-						path and name of the output file
+		- \-o <path/to/output/directory>, --outdirPath <path/to/output/directory>
+						path and name of the output directory
 
 """
 
@@ -54,7 +54,7 @@ from Bio.SeqRecord import SeqRecord
 from Bio.Seq import Seq
 
 #Import module_Flo
-from module_Flo import verifDir, createDir , form, isFasta, recupId ,verifFichier,fasta2dict,sort_human
+from module_Flo import verifDir, createDir , form, isFasta, recupId ,verifFichier,fasta2dict,sort_human,
 
 
 if __name__ == "__main__":
@@ -71,7 +71,7 @@ if __name__ == "__main__":
 	filesreq = parser.add_argument_group('Input mandatory infos for running')
 	filesreq.add_argument('-t', '--TMHMM',type = str, default = 'None', dest = 'TMHMM', help = 'Path of the TMHMM output file')
 	filesreq.add_argument('-f', '--fasta',type = str,  required=True, dest = 'fasta', help = 'Path of the fasta file which TMHMM has been proceed')
-	filesreq.add_argument('-o', '--outdir',type = str, required=True, dest = 'outdir', help = 'Path of the output file')
+	filesreq.add_argument('-o', '--outdir',type = str, required=True, dest = 'outdir', help = 'Path of the output directory')
 
 	
 ######### Recuperation arguments ###########
@@ -103,6 +103,9 @@ if __name__ == "__main__":
 
 	inputFile = open(TMHMM,'r')
 	lines = inputFile.readlines()
+	inputFile.close()
+	listeFaux = []
+	listeSecretome = []
 	nbFaux = 0
 	nbSecretome = 0
 	nbMoyen = 0
@@ -111,8 +114,11 @@ if __name__ == "__main__":
 
 	for line in lines :
 		lineSplit = line.split('\t')
+		gene = lineSplit[0].split('.t')[0]
 		if lineSplit[4] == 'PredHel=0' :
 			nbSecretome += 1
+			if gene not in listeSecretome:
+					listeSecretome.append(gene)
 			text = text + line
 			listeID.append(lineSplit[0])
 		elif lineSplit[4] == 'PredHel=1' :
@@ -122,13 +128,17 @@ if __name__ == "__main__":
 				nbSecretome += 1
 				text = text + line
 				listeID.append(lineSplit[0])
+				if gene not in listeSecretome:
+					listeSecretome.append(gene)
 			elif FirstTH_s < 40 and FirstTH_e > 40 :
 				nbMoyen +=1 
 		else :
+			if gene not in listeFaux:
+				listeFaux.append(gene)
 			nbFaux += 1
 	
 	f = open('%s%s_selectTMHMM.txt'%(outDir,Id),'w')
-	f.write('%s\n%s%s%s\n%s\n\nTotal processed sequence : %s\nNumber of protein with a single TH in the first 60 aa : %s\nnNumber of protein with a single TH not only the first 60 aa : %s\nEliminer : %s\n\n'%('#'*38,'#'*10,' Protein selected ','#'*10,'#'*38,nbFaux+nbMoyen+nbSecretome,nbSecretome,nbMoyen,nbFaux))
+	f.write('%s\n%s%s%s\n%s\n\nTotal processed sequence : %s\nNumber of protein with a single TH in the first 40 aa : %s (%s gènes)\nNumber of protein with a single TH not only in the first 40 aa : %s\nEliminer : %s (%s gènes)\n\n'%('#'*38,'#'*10,' Protein selected ','#'*10,'#'*38,nbFaux+nbMoyen+nbSecretome,nbSecretome,len(listeSecretome),nbMoyen,nbFaux,len(listeFaux)))
 	f.write(text)
 	f.close()
 	
