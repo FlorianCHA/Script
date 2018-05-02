@@ -3,7 +3,7 @@
           "DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
-  <title>renameAndAddParent</title>
+  <title>elimateREmotif</title>
   <link rel="stylesheet" href="epydoc.css" type="text/css" />
   <script type="text/javascript" src="epydoc.js"></script>
 </head>
@@ -39,7 +39,7 @@
   <tr valign="top">
     <td width="100%">
       <span class="breadcrumbs">
-        Module&nbsp;renameAndAddParent
+        Module&nbsp;elimateREmotif
       </span>
     </td>
     <td>
@@ -49,54 +49,82 @@
     onclick="toggle_private();">hide&nbsp;private</a>]</span></td></tr>
         <tr><td align="right"><span class="options"
             >[<a href="frames.html" target="_top">frames</a
-            >]&nbsp;|&nbsp;<a href="renameAndAddParent-module.html"
+            >]&nbsp;|&nbsp;<a href="elimateREmotif-module.html"
             target="_top">no&nbsp;frames</a>]</span></td></tr>
       </table>
     </td>
   </tr>
 </table>
 <!-- ==================== MODULE DESCRIPTION ==================== -->
-<h1 class="epydoc">Module renameAndAddParent</h1><p class="nomargin-top"><span class="codelink"><a href="renameAndAddParent-pysrc.html">source&nbsp;code</a></span></p>
-<!-- ==================== VARIABLES ==================== -->
-<a name="section-Variables"></a>
-<table class="summary" border="1" cellpadding="3"
-       cellspacing="0" width="100%" bgcolor="white">
-<tr bgcolor="#70b0f0" class="table-header">
-  <td colspan="2" class="table-header">
-    <table border="0" cellpadding="0" cellspacing="0" width="100%">
-      <tr valign="top">
-        <td align="left"><span class="table-header">Variables</span></td>
-        <td align="right" valign="top"
-         ><span class="options">[<a href="#section-Variables"
-         class="privatelink" onclick="toggle_private();"
-         >hide private</a>]</span></td>
-      </tr>
-    </table>
-  </td>
-</tr>
-<tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
-        <a name="current_dir"></a><span class="summary-name">current_dir</span> = <code title="os.path.dirname(os.path.abspath(__file__))+ &quot;/&quot;">os.path.dirname(os.path.abspath(__file__))+ &quot;/&quot;</code>
-    </td>
-  </tr>
-<tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
-        <a name="version"></a><span class="summary-name">version</span> = <code title="&quot;0.1&quot;">&quot;0.1&quot;</code>
-    </td>
-  </tr>
-<tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
-        <a name="VERSION_DATE"></a><span class="summary-name">VERSION_DATE</span> = <code title="'26/06/2017'">'26/06/2017'</code>
-    </td>
-  </tr>
-</table>
-<!-- ==================== NAVIGATION BAR ==================== -->
+<h1 class="epydoc">Module elimateREmotif</h1><p class="nomargin-top"><span class="codelink"><a href="elimateREmotif-pysrc.html">source&nbsp;code</a></span></p>
+<div class="rst-section" id="rst-script-description">
+<h1 class="heading">Script description</h1>
+<p>This program is used to eliminate the result of PS-scan with PS00014 pattern (RE target Motif). This program is used by secretome_Pipeline.</p>
+</div>
+<div class="rst-section" id="rst-example">
+<h1 class="heading">Example</h1>
+<pre class="py-doctest">
+<span class="py-prompt">&gt;&gt;&gt; </span>eliminateREmotif.py  -f /homedir/user/work/data/TMHMM_result.txt -o /homedir/user/work/result/</pre>
+</div>
+<div class="rst-section" id="rst-help-programm">
+<h1 class="heading">Help Programm</h1>
+<dl class="rst-docutils">
+<dt>optional arguments:</dt>
+<dd><ul class="rst-first rst-last">
+<li><dl class="rst-first rst-docutils">
+<dt>-h, --help</dt>
+<dd><p class="rst-first rst-last">show this help  message and exit</p>
+</dd>
+</dl>
+</li>
+<li><dl class="rst-first rst-docutils">
+<dt>-v, --version</dt>
+<dd><p class="rst-first rst-last">display selection_TMHMM.py version number and exit</p>
+</dd>
+</dl>
+</li>
+</ul>
+</dd>
+</dl>
+<p>Input mandatory infos for running:</p>
+<blockquote>
+<ul>
+<li><dl class="rst-first rst-docutils">
+<dt>-p &lt;path/to/ps_scan/output/file&gt;, --ps_scan &lt;path/to/ps_scan/output/file&gt;</dt>
+<dd><p class="rst-first rst-last">path of the ps_scan output file</p>
+</dd>
+</dl>
+</li>
+<li><dl class="rst-first rst-docutils">
+<dt>-f &lt;path/to/fasta/file&gt;, --file &lt;path/to/fasta/file&gt;</dt>
+<dd><p class="rst-first rst-last">Path of the fasta file which ps_scan has been proceed</p>
+</dd>
+</dl>
+</li>
+<li><dl class="rst-first rst-docutils">
+<dt>-o &lt;path/to/output/directory&gt;, --outdirPath &lt;path/to/output/directory&gt;</dt>
+<dd><p class="rst-first rst-last">path and name of the output directory</p>
+</dd>
+</dl>
+</li>
+</ul>
+</blockquote>
+</div>
+
+<hr />
+<div class="fields">      <p><strong>Author:</strong>
+        Charriat Florian
+      </p>
+      <p><strong>Contact:</strong>
+        <a class="rst-reference external" href="mailto:florian.charriat&#64;inra.fr" target="_top">florian.charriat&#64;inra.fr</a>
+      </p>
+      <p><strong>Date:</strong>
+        18/04/2018
+      </p>
+      <p><strong>Version:</strong>
+        0.1
+      </p>
+</div><!-- ==================== NAVIGATION BAR ==================== -->
 <table class="navbar" border="0" width="100%" cellpadding="0"
        bgcolor="#a0c0ff" cellspacing="0">
   <tr valign="middle">

@@ -9,6 +9,7 @@ ToggleJobArray.version	ToggleJobArray-module.html#version
 ToggleJobArray.VERSION_DATE	ToggleJobArray-module.html#VERSION_DATE
 ToggleJobArray.current_dir	ToggleJobArray-module.html#current_dir
 comparaisonSecretome	comparaisonSecretome-module.html
+elimateREmotif	elimateREmotif-module.html
 forRNAseq_inPlanta	forRNAseq_inPlanta-module.html
 formatFastaName	formatFastaName-module.html
 formatFastaName.VERSION_DATE	formatFastaName-module.html#VERSION_DATE
@@ -25,6 +26,14 @@ module_Flo.verifFichier	module_Flo-module.html#verifFichier
 module_Flo.form	module_Flo-module.html#form
 module_Flo.isFastq	module_Flo-module.html#isFastq
 module_Flo.recupId	module_Flo-module.html#recupId
+recupSeqFromGFF	recupSeqFromGFF-module.html
+recupSeqFromGFF.lines	recupSeqFromGFF-module.html#lines
+recupSeqFromGFF.idGenome	recupSeqFromGFF-module.html#idGenome
+recupSeqFromGFF.fastaProt	recupSeqFromGFF-module.html#fastaProt
+recupSeqFromGFF.annotation	recupSeqFromGFF-module.html#annotation
+recupSeqFromGFF.adn	recupSeqFromGFF-module.html#adn
+recupSeqFromGFF.fastaAdn	recupSeqFromGFF-module.html#fastaAdn
+recupSeqFromGFF.protein	recupSeqFromGFF-module.html#protein
 renameAndAddParent	renameAndAddParent-module.html
 renameAndAddParent.version	renameAndAddParent-module.html#version
 renameAndAddParent.VERSION_DATE	renameAndAddParent-module.html#VERSION_DATE
