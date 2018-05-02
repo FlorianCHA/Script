@@ -14,7 +14,7 @@
 	Script description
 	------------------
 
-	This program is used to selected the proteins having no transmembrane domain or only one in the 60 first amino acid. The program take in input the output of TMHMM Tools. This program is used by secretome_Pipeline.
+	This program is used to selected the proteins having no transmembrane domain or only one in the 40 first amino acid. The program take in input the output of TMHMM Tools. This program is used by secretome_Pipeline.
 	
 	Example
 	-------
@@ -54,7 +54,7 @@ from Bio.SeqRecord import SeqRecord
 from Bio.Seq import Seq
 
 #Import module_Flo
-from module_Flo import verifDir, createDir , form, isFasta, recupId ,verifFichier,fasta2dict,sort_human,
+from module_Flo import verifDir, createDir , form, isFasta, recupId ,verifFichier,fasta2dict,sort_human
 
 
 if __name__ == "__main__":
@@ -158,7 +158,7 @@ if __name__ == "__main__":
 	print('\n\tInput : \n\t\t- '+ fasta+'\n\t\t-'+TMHMM)
 	print('\n\tOutput :')
 	print('\t\t - Résultat des prédictions des secretomes : '+outDir)
-	print('%s\n\t%s%s%s\n\t%s\n\n\tTotal processed sequence : %s\n\tNumber of protein with a single TH in the first 60 aa : %s\n\tNumber of protein with a single TH not only the first 60 aa : %s\n\tEliminer : %s\n'%('#'*38,'#'*10,' Protein selected ','#'*10,'#'*38,nbFaux+nbMoyen+nbSecretome,nbSecretome,nbMoyen,nbFaux))
+	print('%s\n\t%s%s%s\n\t%s\n\n\tTotal processed sequence : %s\n\tNumber of protein with a single TH in the first 60 aa : %s\n\tNumber of protein with a single TH not only the first 40 aa : %s\n\tEliminer : %s\n'%('#'*38,'#'*10,' Protein selected ','#'*10,'#'*38,nbFaux+nbMoyen+nbSecretome,nbSecretome,nbMoyen,nbFaux))
 	print(form('----------------------------------------------------------------------------------------------------------------------','red','bold'))
 
 		

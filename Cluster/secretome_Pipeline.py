@@ -118,8 +118,8 @@ if __name__ == "__main__":
 			########## Création dossier de résultat ############
 			if os.path.exists(outDir+'Result/'+idFile) == True and force == False:
 				raise ValueError(form("Le dossier output : '%s' existe deja, veuillez le supprimer ou utilisé la commande --force pour passer outre et supprimer les dossiers automatiquement"%(outDir+'Result/'+idFile),"red","bold"))
-			if os.path.exists('%s%s'%(outDir,idFile)) != 0 and force == True :
-				os.system('rm -r %s%s'%(outDir,idFile))
+			if os.path.exists(outDir+'Result/'+idFile) != 0 and force == True :
+				os.system('rm -r %s'%(outDir+'Result/'+idFile))
 			outDir_result = outDir+'Result/'+idFile
 			outDirFasta = outDir_result+'/0_fasta-files'
 			outDir_comparaison =outDir_result+'/1_predicted/'
@@ -140,9 +140,9 @@ if __name__ == "__main__":
 	
 			for line in lines: 
 				if nb == 400 and line[0] == '>' :
-					listePhobius.append('phobius.pl -short %s%s/0_fasta-files/%s_part%s.fasta  >> %s;\n'%(outDir,idFile,idFile,str(part),outputPhobius))
-					listeTargetp.append('targetp -N %s%s/0_fasta-files/%s_part%s.fasta >> %s;\n'%(outDir,idFile,idFile,str(part),outTargetP))
-					listeSignalP.append('signalp -u 0.34 -U 0.34 %s%s/0_fasta-files/%s_part%s.fasta >> %s;\n'%(outDir,idFile,idFile,str(part),outputSignalP))
+					listePhobius.append('phobius.pl -short %s/%s_part%s.fasta  >> %s;\n'%(outDirFasta,idFile,str(part),outputPhobius))
+					listeTargetp.append('targetp -N %s/%s_part%s.fasta >> %s;\n'%(outDirFasta,idFile,str(part),outTargetP))
+					listeSignalP.append('signalp -u 0.34 -U 0.34 %s/%s_part%s.fasta >> %s;\n'%(outDirFasta,idFile,str(part),outputSignalP))
 					nb = 1
 					nbSeq +=1
 					part +=1
