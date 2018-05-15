@@ -106,8 +106,8 @@ if __name__ == "__main__":
 							outFileGff.write(polyLine.replace("AUGUSTUS","braker_BGPI"))
 
 						geneNumero = tabLine[8].split(";")[0].replace("ID=","").replace("g","")
-						geneNumeroReformat = geneNumero.zfill(4)
-						geneName = tabLine[8].split(";")[0].replace("g"+geneNumero,"Mo_"+strainName+"_braker_"+geneNumeroReformat).replace("ID=","")
+						geneNumeroReformat = str(geneNumero.zfill(5)) +'0'
+						geneName = tabLine[8].split(";")[0].replace("g"+geneNumero,"Mo_"+strainName+"_v1_"+geneNumeroReformat).replace("ID=","")
 
 						#print(geneNumero)
 						#print(geneNumeroReformat)
@@ -118,7 +118,7 @@ if __name__ == "__main__":
 
 					# transcript => mRNA
 					elif typeSeq == "mRNA":
-						mRNAName = tabLine[8].split(";")[0].replace("g"+geneNumero,"Mo_"+strainName+"_braker_"+geneNumeroReformat).replace("ID=","")
+						mRNAName = tabLine[8].split(";")[0].replace("g"+geneNumero,"Mo_"+strainName+"_v1_"+geneNumeroReformat).replace("ID=","")
 						newline = "{0}\tID={1};Parent={2}\n".format("\t".join(tabLine[:8]), mRNAName, geneName)
 						outFileGff.write(newline.replace("transcript","mRNA").replace("AUGUSTUS","braker_BGPI"))
 

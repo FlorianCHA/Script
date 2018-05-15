@@ -201,7 +201,7 @@ if __name__ == "__main__":
 		f.write('\n\n%s Selection des proteines en fonction du motif de retention dans le RE avec PS-scan %s\n\n'%("#"*10,"#"*10))
 		f.write('ps_scan.pl -o pff -p PS00014 -d %s %s%s_secreted_2.fasta > %s%s_ps_scan.txt\n'%(prosite_dat,outDir_selectTMHMM,idFile,outDir_PS_scan,idFile))
 		f.write('elimateREmotif.py -p %s%s_ps_scan.txt -f %s%s_secreted_2.fasta -o %s\n'%(outDir_PS_scan,idFile,outDir_selectTMHMM,idFile,outDir_PS_scan))
-		f.write('cp %s/%s_secreted_3.fasta %s/%s_secreted.fasta'%(outDir_PS_scan,idFile,outDir_data_final,idFile))
+		f.write('cp %s%s_secreted_3.fasta %s%s_secreted.fasta'%(outDir_PS_scan,idFile,outDir_data_final,idFile))
 		print(form('Script créé pour %s\n'%idFile,'green','bold'))
 		f.close()
 ############## summary message #######################

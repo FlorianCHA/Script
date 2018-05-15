@@ -101,8 +101,8 @@ for line in lines :
 	if 'AUGUSTUS\ttranscript\t' in line :
 		ids = '%s'%line.split('\t')[8][:-1]
 		numeroGene = ids.split('.t')[0].replace('g','')
-		ids = ids.replace('g'+numeroGene,"Mo_"+strain+"_v1_"+numeroGene.zfill(4))
-		des = '| pos=%s:%s-%s | '%(line.split('\t')[0],line.split('\t')[3],line.split('\t')[4])
+		ids = ids.replace('g'+numeroGene,"Mo_"+strain+"_v1_"+str(numeroGene.zfill(5))+'0')
+		des = '| pos=%s:%s-%s | braker_BGPI |'%(line.split('\t')[0],line.split('\t')[3],line.split('\t')[4])
 		start_gene = False
 	elif '# Evidence for and against' in line :
 		record = SeqRecord(Seq(seq[:-1]),id=ids,name=ids, description='%slength=%s'%(des,len(seq[:-1])))
