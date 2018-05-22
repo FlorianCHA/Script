@@ -126,7 +126,8 @@ if __name__ == "__main__":
 		outDir_selectTMHMM = outDir_result+'/2_TMHMM/'
 		outDir_PS_scan = outDir_result+'/3_PS-scan/'
 		outDir_data_final = outDir_result+'/4_data-final/'
-		name_directory = [outDir+'Result',outDirFasta,outDir_comparaison,outDir_selectTMHMM,outDir_PS_scan,outDir_data_final]
+		outDir_effectorP = outDir_result+'/5_effectorP/'
+		name_directory = [outDir+'Result',outDirFasta,outDir_comparaison,outDir_selectTMHMM,outDir_PS_scan,outDir_data_final,outDir_effectorP]
 		createDir(name_directory)
 			
 		######### Création de fichier de résultat ##########
@@ -185,7 +186,7 @@ if __name__ == "__main__":
 			f.write(elt)
 		f.close()
 		f = open('%s/%s.sh'%(bash,idFile),'w')
-		f.write('#$ -e %s\n#$ -o %s\n#$ -N %s_secretome\n#$ -q normal.q\n#$ -V\n\nmodule load bioinfo/signalp/4.1\n\n'% (outDir+'error_files', outDir+'out_files',idFile))
+		f.write('#$ -e %s\n#$ -o %s\n#$ -l mem_free=30G\n#$ -N P_%s_secretome\n#$ -q normal.q\n#$ -V\n\nmodule load bioinfo/signalp/4.1\n		module load system/java/jre8\n\n'% (outDir+'error_files', outDir+'out_files',idFile))
 		f.write('\n\n%s Lancement des trois outils de prédiction %s\n\n'%("#"*10,"#"*10))
 		f.write('bash %s/%s_secretomeTools.sh\n\n'%(bash,idFile))
 		f.write('%s Comparaison des 3 outils de prédiction %s\n\n'%("#"*10,"#"*10))
@@ -201,9 +202,14 @@ if __name__ == "__main__":
 		f.write('\n\n%s Selection des proteines en fonction du motif de retention dans le RE avec PS-scan %s\n\n'%("#"*10,"#"*10))
 		f.write('ps_scan.pl -o pff -p PS00014 -d %s %s%s_secreted_2.fasta > %s%s_ps_scan.txt\n'%(prosite_dat,outDir_selectTMHMM,idFile,outDir_PS_scan,idFile))
 		f.write('elimateREmotif.py -p %s%s_ps_scan.txt -f %s%s_secreted_2.fasta -o %s\n'%(outDir_PS_scan,idFile,outDir_selectTMHMM,idFile,outDir_PS_scan))
-		f.write('cp %s%s_secreted_3.fasta %s%s_secreted.fasta'%(outDir_PS_scan,idFile,outDir_data_final,idFile))
+		f.write('cp %s%s_secreted_3.fasta %s%s_secreted.fasta\n'%(outDir_PS_scan,idFile,outDir_data_final,idFile))
 		print(form('Script créé pour %s\n'%idFile,'green','bold'))
+		
+		
+########################### Lancement EffectoP #############################
+		f.write('EffectorP.py -o %s%s_stat.txt -E %s%s.fasta -i %s%s_secreted.fasta'%(outDir_effectorP,idFile,outDir_effectorP,idFile,outDir_data_final,idFile))
 		f.close()
+		
 ############## summary message #######################
 
 	print(form('\n-----------------------------------------------------------------------------------------------------------------------','red','bold'))

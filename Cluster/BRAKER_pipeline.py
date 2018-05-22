@@ -130,7 +130,7 @@ if __name__ == "__main__":
 			IDgenome = recupId(genome)
 			print("\nCréation du script d'Annotation pour : " + IDgenome)
 			genomeOutDir = outDir+IDgenome
-			resultMapping =	genomeOutDir+'/finalResults'
+			resultMapping =	genomeOutDir+'/finalResults/'
 			nameFile = bash+IDgenome+'_braker.sh'
 			files = open(nameFile,'w')
 			

@@ -67,7 +67,7 @@ if __name__ == "__main__":
 	# resume value to user
 	print(" - Intput Info:")
 	print("\t - GFF file is : %s" % gffFileIn)
-	print("\t - Strain Name is : %s" % ouputDir+strainName)
+	print("\t - Strain Name is : %s" % strainName)
 
 	#print(" - Output Info:")
 	#print("\t - Output fasta with align is:  %s\n\n" % outFile)
@@ -118,32 +118,21 @@ if __name__ == "__main__":
 
 					# transcript => mRNA
 					elif typeSeq == "mRNA":
-						mRNAName = tabLine[8].split(";")[0].replace("g"+geneNumero,"Mo_"+strainName+"_v1_"+geneNumeroReformat).replace("ID=","")
+						numT = str(tabLine[8].split(";")[0].split('.t')[-1])
+						NewnumT = str(int(numT)-1)
+						mRNAName = tabLine[8].split(";")[0].replace("g"+geneNumero,"Mo_"+strainName+"_v1_"+geneNumeroReformat).replace("ID=","").replace('.t%s'%numT,'T%s'%NewnumT)
 						newline = "{0}\tID={1};Parent={2}\n".format("\t".join(tabLine[:8]), mRNAName, geneName)
 						outFileGff.write(newline.replace("transcript","mRNA").replace("AUGUSTUS","braker_BGPI"))
 
-					# First CDS add polypeptide start ID=g1.t1.CDS1;Parent=g1.t1
-					elif typeSeq == "CDS" and firstCDS == 0:
-						#ID=g1.t1.CDS1;Parent=g1.t1
-						firstCDS = 1
-						polyName = mRNAName.replace("t","p")
-						startPoly = tabLine[3]
+					# CDS
+					elif typeSeq == "CDS" :
 						stopPoly = tabLine[4]
-						CDSName = tabLine[8].split(";")[0].replace("g"+geneNumero,"Mo_"+strainName+"_v1_"+geneNumeroReformat).replace("ID=","")
-						CDSLine = "%s\tID=%s;Parent=%s\n" % ("\t".join(tabLine[:8]), CDSName, mRNAName)
-						outFileGff.write(CDSLine.replace("AUGUSTUS","braker_BGPI"))
-
-					# other CDS
-					elif typeSeq == "CDS" and firstCDS == 1:
-						stopPoly = tabLine[4]
-						CDSName = tabLine[8].split(";")[0].replace("g"+geneNumero,"Mo_"+strainName+"_v1_"+geneNumeroReformat).replace("ID=","")
-						CDSLine = "%s\tID=%s;Parent=%s\n" % ("\t".join(tabLine[:8]), CDSName, mRNAName)
+						CDSLine = "%s\tParent=%s\n" % ("\t".join(tabLine[:8]), mRNAName)
 						outFileGff.write(CDSLine.replace("AUGUSTUS","braker_BGPI"))
 
 					# exon ID=g1.t1.exon2;Parent=g1.t1;
 					elif typeSeq == "exon":
-						exonName = tabLine[8].split(";")[0].replace("g"+geneNumero,"Mo_"+strainName+"_v1_"+geneNumeroReformat).replace("ID=","")
-						exonLine = "%s\tID=%s;Parent=%s\n" % ("\t".join(tabLine[:8]), exonName, mRNAName)
+						exonLine = "%s\tParent=%s\n" % ("\t".join(tabLine[:8]),mRNAName)
 						outFileGff.write(exonLine.replace("AUGUSTUS","braker_BGPI"))
 
 					# intron start_codon stop_codon
@@ -152,7 +141,6 @@ if __name__ == "__main__":
 						outFileGff.write(intronLine.replace("AUGUSTUS","braker_BGPI"))
 
 					elif typeSeq == "start_codon" or typeSeq == "stop_codon":
-						Name = tabLine[8].split(";")[0].replace("g"+geneNumero,"Mo_"+strainName+"_v1_"+geneNumeroReformat).replace("Parent=","")
 						Line = "%s\tParent=%s\n" % ("\t".join(tabLine[:8]), mRNAName)
 						outFileGff.write(Line.replace("AUGUSTUS","braker_BGPI"))
 

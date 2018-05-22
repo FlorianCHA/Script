@@ -101,13 +101,19 @@ for line in lines :
 	if 'AUGUSTUS\ttranscript\t' in line :
 		ids = '%s'%line.split('\t')[8][:-1]
 		numeroGene = ids.split('.t')[0].replace('g','')
-		ids = ids.replace('g'+numeroGene,"Mo_"+strain+"_v1_"+str(numeroGene.zfill(5))+'0')
+		numT = str(line.split('\t')[8].split('.t')[-1]).replace('\n','')
+		NewnumT = str(int(numT)-1)
+		idsT = ids.replace('g'+numeroGene,"Mo_"+strain+"_v1_"+str(numeroGene.zfill(5))+'0')
+		idsT = idsT.replace('.t'+numT,'T'+NewnumT)
+		idsP = ids.replace('g'+numeroGene,"Mo_"+strain+"_v1_"+str(numeroGene.zfill(5))+'0')
+		idsP = idsP.replace('.t'+numT,'P'+NewnumT)
+
 		des = '| pos=%s:%s-%s | braker_BGPI |'%(line.split('\t')[0],line.split('\t')[3],line.split('\t')[4])
 		start_gene = False
 	elif '# Evidence for and against' in line :
-		record = SeqRecord(Seq(seq[:-1]),id=ids,name=ids, description='%slength=%s'%(des,len(seq[:-1])))
+		record = SeqRecord(Seq(seq[:-1]),id=idsT,name=idsT, description='%slength=%s'%(des,len(seq[:-1])))
 		SeqIO.write(record,fastaAdn, "fasta")
-		recordP = SeqRecord(Seq(prot[:-1]),id=ids,name=ids, description='%slength=%s'%(des,len(prot[:-1])))
+		recordP = SeqRecord(Seq(prot[:-1]),id=idsP,name=idsP, description='%slength=%s'%(des,len(prot[:-1])))
 		SeqIO.write(recordP,fastaProt, "fasta")
 		protein = False 
 	elif '# protein sequence' in line :
