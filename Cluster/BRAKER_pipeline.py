@@ -144,7 +144,7 @@ if __name__ == "__main__":
 			files.write('module load bioinfo/braker/1.9\nmodule load bioinfo/exonerate/2.4.7\nmodule load bioinfo/TOGGLE/0.3.6\n')
 			files.write('\ndate;\necho "Lancement script";\n\n################ Alignement tophat + création hints ###################\n\n')
 			files.write('rm -r '+genomeOutDir+'\n')
-			files.write('toggleGenerator.pl -d '+directory+' -r '+ref+genome+' -c '+config+' -o '+genomeOutDir+' -nocheck;\n')
+			files.write('toggleGenerator.pl -d '+directory+' -r '+ref+genome+' -c '+config+' -o '+genomeOutDir+';\n')
 			# Permet de récupérer tous les hits accepté pour ensuite les merger
 			#resultMapping = '/homedir/charriat/work/Annotation/1_tmp/align/bamMbio_rename/scriptRes/%s/finalResults/'%(recupId(genome)) # utilisé car les alignement ont été lancé avec le script TOGGLE_ARRAY.py
 			files.write('cd '+resultMapping+';\nls *.accepted_hits.bam > bamList;\n')

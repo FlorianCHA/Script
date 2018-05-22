@@ -290,7 +290,7 @@ if __name__ == "__main__":
 	
 	f.write(' -%-12s---%5s---%7s---%7s---%7s- \n'%("-".center(lenID,'-'),"-"*5,"-"*7,"-"*7,"-"*7))
 	f.write('| %s | %5s | %7s | %7s | %7s |\n'%("Gene_id".center(lenID),"Rank".center(5),"SignalP","TargetP","Phobius"))
-	f.write('| %-12s---%5s---%7s---%7s---%7s |\n'%(("-".center(lenID,'-'),"-"*5,"-"*7,"-"*7,"-"*7))
+	f.write('| %-12s---%5s---%7s---%7s---%7s |\n'%("-".center(lenID,'-'),"-"*5,"-"*7,"-"*7,"-"*7))
 	for elt  in sorted(dico.keys(), key=sort_human):
 		if dico[elt][1] != 'No' or  dico[elt][2] != 'No' or dico[elt][3] != 'No' :
 			f.write('| %s | %5s | %7s | %7s | %7s |\n'%(elt.center(lenID),str(dico[elt][0]).center(5) ,dico[elt][1].center(7),dico[elt][2].center(7),dico[elt][3].center(7)))
