@@ -8,7 +8,6 @@ ToggleJobArray	ToggleJobArray-module.html
 ToggleJobArray.version	ToggleJobArray-module.html#version
 ToggleJobArray.VERSION_DATE	ToggleJobArray-module.html#VERSION_DATE
 ToggleJobArray.current_dir	ToggleJobArray-module.html#current_dir
-comparaisonSecretome	comparaisonSecretome-module.html
 elimateREmotif	elimateREmotif-module.html
 forRNAseq_inPlanta	forRNAseq_inPlanta-module.html
 formatFastaName	formatFastaName-module.html
