@@ -110,7 +110,7 @@ if __name__ == "__main__":
 	protein = outDir+'hints/proteinHints/'
 	dirHints = outDir+'hints/allHints/'
 	braker = outDir+'Braker/'
-	name_directory = [outDir, bash,outDir+'error/',outDir+'output/',rna,protein,braker,dirHints]
+	name_directory = [outDir, bash,outDir+'error/',outDir+'output/',braker,rna,protein,dirHints]
 	for folder in name_directory: 
 		createDir(folder)
 
@@ -146,7 +146,7 @@ if __name__ == "__main__":
 			files.write('rm -r '+genomeOutDir+'\n')
 			files.write('toggleGenerator.pl -d '+directory+' -r '+ref+genome+' -c '+config+' -o '+genomeOutDir+';\n')
 			# Permet de récupérer tous les hits accepté pour ensuite les merger
-			#resultMapping = '/homedir/charriat/work/Annotation/1_tmp/align/bamMbio_rename/scriptRes/%s/finalResults/'%(recupId(genome)) # utilisé car les alignement ont été lancé avec le script TOGGLE_ARRAY.py
+			resultMapping = '/homedir/charriat/work/Annotation/1_tmp/align/bamMbio/scriptRes/%s/finalResults/'%(recupId(genome)) # utilisé car les alignement ont été lancé avec le script TOGGLE_ARRAY.py
 			files.write('cd '+resultMapping+';\nls *.accepted_hits.bam > bamList;\n')
 			
 			# Permet de merger les différents hits récupérés précédement
