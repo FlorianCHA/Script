@@ -110,12 +110,14 @@
 <a name="L51"></a><tt class="py-lineno"> 51</tt>  <tt class="py-line"><tt class="py-comment">##################################################</tt> </tt>
 <a name="L52"></a><tt class="py-lineno"> 52</tt>  <tt class="py-line"><tt class="py-comment">#Import MODULES_SEB</tt> </tt>
 <a name="L53"></a><tt class="py-lineno"> 53</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt class="py-name">sys</tt><tt class="py-op">,</tt> <tt class="py-name">os</tt> </tt>
-<a name="L54"></a><tt class="py-lineno"> 54</tt>  <tt class="py-line"><tt id="link-0" class="py-name" targets="Variable ToggleJobArray.current_dir=ToggleJobArray-module.html#current_dir,Variable formatFastaName.current_dir=formatFastaName-module.html#current_dir,Variable renameAndAddParent.current_dir=renameAndAddParent-module.html#current_dir"><a title="ToggleJobArray.current_dir
+<a name="L54"></a><tt class="py-lineno"> 54</tt>  <tt class="py-line"><tt id="link-0" class="py-name" targets="Variable ToggleJobArray.current_dir=ToggleJobArray-module.html#current_dir,Variable formatFastaName.current_dir=formatFastaName-module.html#current_dir,Variable renameAndAddParent.current_dir=renameAndAddParent-module.html#current_dir,Variable renameGFF.current_dir=renameGFF-module.html#current_dir"><a title="ToggleJobArray.current_dir
 formatFastaName.current_dir
-renameAndAddParent.current_dir" class="py-name" href="#" onclick="return doclink('link-0', 'current_dir', 'link-0');">current_dir</a></tt> <tt class="py-op">=</tt> <tt class="py-name">os</tt><tt class="py-op">.</tt><tt class="py-name">path</tt><tt class="py-op">.</tt><tt class="py-name">dirname</tt><tt class="py-op">(</tt><tt class="py-name">os</tt><tt class="py-op">.</tt><tt class="py-name">path</tt><tt class="py-op">.</tt><tt class="py-name">abspath</tt><tt class="py-op">(</tt><tt class="py-name">__file__</tt><tt class="py-op">)</tt><tt class="py-op">)</tt><tt class="py-op">+</tt><tt class="py-string">"/"</tt> </tt>
+renameAndAddParent.current_dir
+renameGFF.current_dir" class="py-name" href="#" onclick="return doclink('link-0', 'current_dir', 'link-0');">current_dir</a></tt> <tt class="py-op">=</tt> <tt class="py-name">os</tt><tt class="py-op">.</tt><tt class="py-name">path</tt><tt class="py-op">.</tt><tt class="py-name">dirname</tt><tt class="py-op">(</tt><tt class="py-name">os</tt><tt class="py-op">.</tt><tt class="py-name">path</tt><tt class="py-op">.</tt><tt class="py-name">abspath</tt><tt class="py-op">(</tt><tt class="py-name">__file__</tt><tt class="py-op">)</tt><tt class="py-op">)</tt><tt class="py-op">+</tt><tt class="py-string">"/"</tt> </tt>
 <a name="L55"></a><tt class="py-lineno"> 55</tt>  <tt class="py-line"><tt class="py-name">sys</tt><tt class="py-op">.</tt><tt class="py-name">path</tt><tt class="py-op">.</tt><tt class="py-name">insert</tt><tt class="py-op">(</tt><tt class="py-number">1</tt><tt class="py-op">,</tt><tt id="link-1" class="py-name"><a title="ToggleJobArray.current_dir
 formatFastaName.current_dir
-renameAndAddParent.current_dir" class="py-name" href="#" onclick="return doclink('link-1', 'current_dir', 'link-0');">current_dir</a></tt><tt class="py-op">+</tt><tt class="py-string">'../modules/'</tt><tt class="py-op">)</tt> </tt>
+renameAndAddParent.current_dir
+renameGFF.current_dir" class="py-name" href="#" onclick="return doclink('link-1', 'current_dir', 'link-0');">current_dir</a></tt><tt class="py-op">+</tt><tt class="py-string">'../modules/'</tt><tt class="py-op">)</tt> </tt>
 <a name="L56"></a><tt class="py-lineno"> 56</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt class="py-name">MODULES_SEB</tt> <tt class="py-keyword">import</tt> <tt id="link-2" class="py-name" targets="Function module_Flo.fasta2dict()=module_Flo-module.html#fasta2dict"><a title="module_Flo.fasta2dict" class="py-name" href="#" onclick="return doclink('link-2', 'fasta2dict', 'link-2');">fasta2dict</a></tt><tt class="py-op">,</tt> <tt class="py-name">lenSeq2dict</tt><tt class="py-op">,</tt> <tt class="py-name">relativeToAbsolutePath</tt><tt class="py-op">,</tt> <tt id="link-3" class="py-name" targets="Function module_Flo.sort_human()=module_Flo-module.html#sort_human"><a title="module_Flo.sort_human" class="py-name" href="#" onclick="return doclink('link-3', 'sort_human', 'link-3');">sort_human</a></tt><tt class="py-op">,</tt><tt class="py-name">existant_file</tt> </tt>
 <a name="L57"></a><tt class="py-lineno"> 57</tt>  <tt class="py-line"> </tt>
 <a name="L58"></a><tt class="py-lineno"> 58</tt>  <tt class="py-line"><tt class="py-comment">## Python modules</tt> </tt>
@@ -128,12 +130,14 @@ renameAndAddParent.current_dir" class="py-name" href="#" onclick="return doclink
 <a name="L65"></a><tt class="py-lineno"> 65</tt>  <tt class="py-line"> </tt>
 <a name="L66"></a><tt class="py-lineno"> 66</tt>  <tt class="py-line"><tt class="py-comment">##################################################</tt> </tt>
 <a name="L67"></a><tt class="py-lineno"> 67</tt>  <tt class="py-line"><tt class="py-comment">## Variables Globales</tt> </tt>
-<a name="L68"></a><tt class="py-lineno"> 68</tt>  <tt class="py-line"><tt id="link-4" class="py-name" targets="Variable ToggleJobArray.version=ToggleJobArray-module.html#version,Variable formatFastaName.version=formatFastaName-module.html#version,Variable renameAndAddParent.version=renameAndAddParent-module.html#version"><a title="ToggleJobArray.version
+<a name="L68"></a><tt class="py-lineno"> 68</tt>  <tt class="py-line"><tt id="link-4" class="py-name" targets="Variable ToggleJobArray.version=ToggleJobArray-module.html#version,Variable formatFastaName.version=formatFastaName-module.html#version,Variable renameAndAddParent.version=renameAndAddParent-module.html#version,Variable renameGFF.version=renameGFF-module.html#version"><a title="ToggleJobArray.version
 formatFastaName.version
-renameAndAddParent.version" class="py-name" href="#" onclick="return doclink('link-4', 'version', 'link-4');">version</a></tt><tt class="py-op">=</tt><tt class="py-string">"0.1"</tt> </tt>
-<a name="L69"></a><tt class="py-lineno"> 69</tt>  <tt class="py-line"><tt id="link-5" class="py-name" targets="Variable ToggleJobArray.VERSION_DATE=ToggleJobArray-module.html#VERSION_DATE,Variable formatFastaName.VERSION_DATE=formatFastaName-module.html#VERSION_DATE,Variable renameAndAddParent.VERSION_DATE=renameAndAddParent-module.html#VERSION_DATE"><a title="ToggleJobArray.VERSION_DATE
+renameAndAddParent.version
+renameGFF.version" class="py-name" href="#" onclick="return doclink('link-4', 'version', 'link-4');">version</a></tt><tt class="py-op">=</tt><tt class="py-string">"0.1"</tt> </tt>
+<a name="L69"></a><tt class="py-lineno"> 69</tt>  <tt class="py-line"><tt id="link-5" class="py-name" targets="Variable ToggleJobArray.VERSION_DATE=ToggleJobArray-module.html#VERSION_DATE,Variable formatFastaName.VERSION_DATE=formatFastaName-module.html#VERSION_DATE,Variable renameAndAddParent.VERSION_DATE=renameAndAddParent-module.html#VERSION_DATE,Variable renameGFF.VERSION_DATE=renameGFF-module.html#VERSION_DATE"><a title="ToggleJobArray.VERSION_DATE
 formatFastaName.VERSION_DATE
-renameAndAddParent.VERSION_DATE" class="py-name" href="#" onclick="return doclink('link-5', 'VERSION_DATE', 'link-5');">VERSION_DATE</a></tt><tt class="py-op">=</tt><tt class="py-string">'31/03/2015'</tt> </tt>
+renameAndAddParent.VERSION_DATE
+renameGFF.VERSION_DATE" class="py-name" href="#" onclick="return doclink('link-5', 'VERSION_DATE', 'link-5');">VERSION_DATE</a></tt><tt class="py-op">=</tt><tt class="py-string">'31/03/2015'</tt> </tt>
 <a name="L70"></a><tt class="py-lineno"> 70</tt>  <tt class="py-line"><tt id="link-6" class="py-name" targets="Variable formatFastaName.debug=formatFastaName-module.html#debug"><a title="formatFastaName.debug" class="py-name" href="#" onclick="return doclink('link-6', 'debug', 'link-6');">debug</a></tt><tt class="py-op">=</tt><tt class="py-string">"False"</tt> </tt>
 <a name="L71"></a><tt class="py-lineno"> 71</tt>  <tt class="py-line"><tt class="py-comment">#debug="True"</tt> </tt>
 <a name="L72"></a><tt class="py-lineno"> 72</tt>  <tt class="py-line"> </tt>
@@ -149,9 +153,11 @@ renameAndAddParent.VERSION_DATE" class="py-name" href="#" onclick="return doclin
 <a name="L82"></a><tt class="py-lineno"> 82</tt>  <tt class="py-line">        <tt class="py-name">parser</tt> <tt class="py-op">=</tt> <tt class="py-name">argparse</tt><tt class="py-op">.</tt><tt class="py-name">ArgumentParser</tt><tt class="py-op">(</tt><tt class="py-name">prog</tt><tt class="py-op">=</tt><tt class="py-string">'extractSeqFastaFromLen.py'</tt><tt class="py-op">,</tt> <tt class="py-name">description</tt><tt class="py-op">=</tt><tt class="py-string">'''This Programme filter sequences by length'''</tt><tt class="py-op">)</tt> </tt>
 <a name="L83"></a><tt class="py-lineno"> 83</tt>  <tt class="py-line">        <tt class="py-name">parser</tt><tt class="py-op">.</tt><tt class="py-name">add_argument</tt><tt class="py-op">(</tt><tt class="py-string">'-v'</tt><tt class="py-op">,</tt> <tt class="py-string">'--version'</tt><tt class="py-op">,</tt> <tt class="py-name">action</tt><tt class="py-op">=</tt><tt class="py-string">'version'</tt><tt class="py-op">,</tt> <tt id="link-7" class="py-name"><a title="ToggleJobArray.version
 formatFastaName.version
-renameAndAddParent.version" class="py-name" href="#" onclick="return doclink('link-7', 'version', 'link-4');">version</a></tt><tt class="py-op">=</tt><tt class="py-string">'You are using %(prog)s version: '</tt> <tt class="py-op">+</tt> <tt id="link-8" class="py-name"><a title="ToggleJobArray.version
+renameAndAddParent.version
+renameGFF.version" class="py-name" href="#" onclick="return doclink('link-7', 'version', 'link-4');">version</a></tt><tt class="py-op">=</tt><tt class="py-string">'You are using %(prog)s version: '</tt> <tt class="py-op">+</tt> <tt id="link-8" class="py-name"><a title="ToggleJobArray.version
 formatFastaName.version
-renameAndAddParent.version" class="py-name" href="#" onclick="return doclink('link-8', 'version', 'link-4');">version</a></tt><tt class="py-op">,</tt> <tt class="py-name">help</tt><tt class="py-op">=</tt>\ </tt>
+renameAndAddParent.version
+renameGFF.version" class="py-name" href="#" onclick="return doclink('link-8', 'version', 'link-4');">version</a></tt><tt class="py-op">,</tt> <tt class="py-name">help</tt><tt class="py-op">=</tt>\ </tt>
 <a name="L84"></a><tt class="py-lineno"> 84</tt>  <tt class="py-line">                                                <tt class="py-string">'display extractSeqFastaFromLen.py version number and exit'</tt><tt class="py-op">)</tt> </tt>
 <a name="L85"></a><tt class="py-lineno"> 85</tt>  <tt class="py-line"> </tt>
 <a name="L86"></a><tt class="py-lineno"> 86</tt>  <tt class="py-line"> </tt>
@@ -170,7 +176,8 @@ renameAndAddParent.version" class="py-name" href="#" onclick="return doclink('li
 <a name="L99"></a><tt class="py-lineno"> 99</tt>  <tt class="py-line">        <tt class="py-keyword">print</tt><tt class="py-op">(</tt><tt class="py-string">"#################################################################"</tt><tt class="py-op">)</tt> </tt>
 <a name="L100"></a><tt class="py-lineno">100</tt>  <tt class="py-line">        <tt class="py-keyword">print</tt><tt class="py-op">(</tt><tt class="py-string">"#        Welcome in extractSeqFastaFromLen (Version "</tt> <tt class="py-op">+</tt> <tt id="link-15" class="py-name"><a title="ToggleJobArray.version
 formatFastaName.version
-renameAndAddParent.version" class="py-name" href="#" onclick="return doclink('link-15', 'version', 'link-4');">version</a></tt> <tt class="py-op">+</tt> <tt class="py-string">")          #"</tt><tt class="py-op">)</tt> </tt>
+renameAndAddParent.version
+renameGFF.version" class="py-name" href="#" onclick="return doclink('link-15', 'version', 'link-4');">version</a></tt> <tt class="py-op">+</tt> <tt class="py-string">")          #"</tt><tt class="py-op">)</tt> </tt>
 <a name="L101"></a><tt class="py-lineno">101</tt>  <tt class="py-line">        <tt class="py-keyword">print</tt><tt class="py-op">(</tt><tt class="py-string">"#################################################################"</tt><tt class="py-op">)</tt> </tt>
 <a name="L102"></a><tt class="py-lineno">102</tt>  <tt class="py-line">        <tt class="py-keyword">print</tt><tt class="py-op">(</tt><tt class="py-string">'Start time: '</tt><tt class="py-op">,</tt> <tt class="py-name">start_time</tt><tt class="py-op">,</tt><tt class="py-string">'\n'</tt><tt class="py-op">)</tt> </tt>
 <a name="L103"></a><tt class="py-lineno">103</tt>  <tt class="py-line"> </tt>
@@ -251,7 +258,7 @@ expandto(location.href);
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0.1 on Tue May 15 16:24:15 2018
+    Generated by Epydoc 3.0.1 on Thu May 24 11:28:09 2018
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"

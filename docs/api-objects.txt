@@ -2,12 +2,14 @@ ABYSS_launch	ABYSS_launch-module.html
 Alignement	Alignement-module.html
 BRAKER_pipeline	BRAKER_pipeline-module.html
 Quality	Quality-module.html
+QualityAssemblage	QualityAssemblage-module.html
 Test_module	Test_module-module.html
 Test_module.directory	Test_module-module.html#directory
 ToggleJobArray	ToggleJobArray-module.html
 ToggleJobArray.version	ToggleJobArray-module.html#version
 ToggleJobArray.VERSION_DATE	ToggleJobArray-module.html#VERSION_DATE
 ToggleJobArray.current_dir	ToggleJobArray-module.html#current_dir
+comparaisonSecretome	comparaisonSecretome-module.html
 elimateREmotif	elimateREmotif-module.html
 forRNAseq_inPlanta	forRNAseq_inPlanta-module.html
 formatFastaName	formatFastaName-module.html
@@ -37,6 +39,10 @@ renameAndAddParent	renameAndAddParent-module.html
 renameAndAddParent.version	renameAndAddParent-module.html#version
 renameAndAddParent.VERSION_DATE	renameAndAddParent-module.html#VERSION_DATE
 renameAndAddParent.current_dir	renameAndAddParent-module.html#current_dir
+renameGFF	renameGFF-module.html
+renameGFF.version	renameGFF-module.html#version
+renameGFF.VERSION_DATE	renameGFF-module.html#VERSION_DATE
+renameGFF.current_dir	renameGFF-module.html#current_dir
 repeatMasker_build	repeatMasker_build-module.html
 secretome_Pipeline	secretome_Pipeline-module.html
 selection_TMHMM	selection_TMHMM-module.html
