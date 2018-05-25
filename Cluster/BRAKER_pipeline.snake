@@ -24,10 +24,6 @@ pathScript = sys.path[0]+'/'
 
 SAMPLES, = glob_wildcards(datadir+"{smp}"+suffixFile)
 
-for smp in SAMPLES:
-  	print("Sample " + smp + " will be processed")
-
-
 rule final:
 	input: 
 		expand(OutDir+'2_Braker/{smp}/', smp = SAMPLES)
