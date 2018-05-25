@@ -1,0 +1,3 @@
+
+	echo 'module load bioinfo/TOGGLE/0.3.6'
+	echo 'toggleGenerator.pl -d /homedir/charriat/work/Annotation/0_rawdata/rnaseq/ -r /homedir/charriat/work/Annotation/0_rawdata/assembly/TN0050_scaffold.fasta -c /homedir/charriat/work/Annotation/1_tmp/ToogleConfig/tophatMapping.config.txt -o /homedir/charriat/work/Annotation/test/0_bamAlignement/TN0050/' 
