@@ -59,7 +59,7 @@ rule sortBam :
 	"""
 
 rule bam2hints :
-	threads : 1
+	threads : 2
 	input : file = OutDir+'0_bamAlignement/{smp}/merged_{smp}.accepted_hits_sort.bam', script =pathScript+'filterHints.r', path = OutDir+'0_bamAlignement/{smp}/'
 	output : bam2hints = OutDir+'0_bamAlignement/{smp}/hints_{smp}.raw.bam',
 	 filtre= OutDir+'1_hints/RNAseqHints/hints_{smp}.filtered.gff'
