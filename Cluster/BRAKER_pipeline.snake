@@ -44,8 +44,9 @@ rule mergeBam :
 	output : OutDir+'0_bamAlignement/{smp}/merged_{smp}.accepted_hits.bam'
 	shell :"""
 	module load bioinfo/samtools/1.3
-	ls {input}finalResults/*.accepted_hits.bam > {input}finalResults/bamList
-	samtools merge -f -b {input}bamList -c {output}
+	cd {input}finalResults
+	ls *.accepted_hits.bam > bamList
+	samtools merge -f -b bamList -c {output}
 	"""
 
 rule sortBam :
