@@ -51,6 +51,8 @@ rule mergeBam :
 
 rule sortBam :
 	threads : 2
+	ressources :
+		mem_free=30G
 	input : OutDir+'0_bamAlignement/{smp}/merged_{smp}.accepted_hits.bam'
 	output : OutDir+'0_bamAlignement/{smp}/merged_{smp}.accepted_hits_sort.bam'
 	shell:"""
