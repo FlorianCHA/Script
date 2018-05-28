@@ -109,7 +109,7 @@ if __name__ == "__main__":
 	print('\n\tInput : \n\t\t- '+ directory[:-1])
 	print('\n\tOutput :')
 	print('\t\t - script bash créé : ' +bash)
-	print('\t\t - Résultat des assemblages : '+outDir+'result')
+	print('\t\t - Résultats des assemblages : '+outDir+'result')
 	print('\n\tAbyss_launch a lancés '+str(nbJob)+" jobs pour l'assemblage des "+str(nbGenome)+' souches\n')
 	print(form('---------------------------------------------------------------------------------','red','bold'))
 
