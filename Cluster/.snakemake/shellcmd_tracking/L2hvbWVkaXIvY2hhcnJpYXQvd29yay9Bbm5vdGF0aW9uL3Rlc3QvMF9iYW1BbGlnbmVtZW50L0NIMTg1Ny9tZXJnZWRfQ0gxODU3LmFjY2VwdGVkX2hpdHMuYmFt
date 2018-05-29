@@ -1,0 +1,6 @@
+
+	module load bioinfo/samtools/1.3
+	cd /homedir/charriat/work/Annotation/test/0_bamAlignement/CH1857/finalResults
+	ls *.accepted_hits.bam > bamList
+	samtools merge -f -b bamList -c /homedir/charriat/work/Annotation/test/0_bamAlignement/CH1857/merged_CH1857.accepted_hits.bam
+	
