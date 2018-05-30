@@ -8,7 +8,9 @@ library("stringr")
 ## define options
 option_list = list(
   make_option(c("-s", "--specie"), type="character", default=NULL, help="input species name", metavar="filename"),
-  make_option(c("-p", "--path"), type="character", default=NULL, help="path of working dir", metavar="path")
+  make_option(c("-p", "--path"), type="character", default=NULL, help="path of working dir", metavar="path"),
+  make_option(c("-o", "--out"), type="character", default=NULL, help="path of output directory", metavar="output")
+  
 );
 
 opt_parser = OptionParser(option_list=option_list);
@@ -22,9 +24,14 @@ if (is.null(opt$path)){
   print_help(opt_parser)
   stop("At least one argument must be supplied path.\n", call.=FALSE)
 }
+if (is.null(opt$out)){
+  print_help(opt_parser)
+  stop("At least one argument must be supplied output.\n", call.=FALSE)
+}
 
 path = opt$path
 name = opt$specie
+output = opt$out
 
 setwd(path)
 
@@ -39,4 +46,4 @@ min.reads <- 20
 hints.eval.mult <- as.numeric(gsub("mult=","",hints.eval$V1))
 hints.filtered <- hints.raw[hints.eval.mult >= min.reads,]
 
-write.table(hints.filtered, paste("hints_",name,".filtered.gff", sep = ""), sep="\t", quote=F, row.names=F, col.names=F)
+write.table(hints.filtered, output, sep="\t", quote=F, row.names=F, col.names=F)

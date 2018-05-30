@@ -19,8 +19,8 @@ protRef = '/homedir/charriat/BGPI/becphy/pangenome2017/test70-15/exonerate/70-15
 # file termination
 suffixFile = '_scaffold.fasta'
 
+braker.pl --cores 24 --fungus --gff3 --species=magnaporthe_oryzae --useexisting --genome='/homedir/charriat/work/Annotation/test_input/CH1857_scaffold.fasta' ----hints='/homedir/charriat/work/Annotation/test/1_hints/MergeHints/RNAseq_protein.hints.intron_CH1857.gff' --overwrite --alternatives-from-evidence=false --workingdir='/homedir/charriat/work/Annotation/test/2_Braker/CH1857/'
 ################################################################################
-pathScript = sys.path[0]+'/'
 
 SAMPLES, = glob_wildcards(datadir+"{smp}"+suffixFile)
 
@@ -28,49 +28,55 @@ rule final:
 	input: 
 		expand(OutDir+'2_Braker/{smp}/', smp = SAMPLES)
 		
-rule bamAlignement :
-	threads : 2
-	input: fasta = datadir+"{smp}"+suffixFile, RNAseq = RnaSeqDir, config = configFile
-	output: OutDir+'0_bamAlignement/{smp}/'
-	shell :"""
-	module load bioinfo/TOGGLE/0.3.6
-	toggleGenerator.pl -d {input.RNAseq} -r {input.fasta} -c {input.config} -o {output} 
-	"""
+
+#rule bamAlignement :
+#	threads : 2
+#	input: fasta = datadir+"{smp}"+suffixFile, RNAseq = RnaSeqDir, config = configFile
+#	output: OutDir+'0_bamAlignement/{smp}/'
+#	shell :"""
+#	module load bioinfo/TOGGLE/0.3.6
+#	toggleGenerator.pl -d {input.RNAseq} -r {input.fasta} -c {input.config} -o {output} 
+#	"""
+
+
+#rule mergeBam :
+#	threads : 2
+#	input :  OutDir+'0_bamAlignement/{smp}/'
+#	output : OutDir+'0_bamAlignement/{smp}/finalResults/merged_{smp}.accepted_hits.bam'
+#	shell :"""
+#	module load bioinfo/samtools/1.3
+#	cd {input}finalResults
+#	ls *.accepted_hits.bam > bamList
+#	samtools merge -f -b bamList -c {output}
+#	"""
+
+#rule sortBam :
+#	threads : 2
+#	input : OutDir+'0_bamAlignement/{smp}/finalResults/merged_{smp}.accepted_hits.bam'
+#	output : OutDir+'0_bamAlignement/{smp}/finalResults/merged_{smp}.accepted_hits_sort.bam'
+#	shell:"""
+#	module load bioinfo/picard-tools/2.7.0
+#	java -jar /usr/local/bioinfo/picard-tools/2.7.0/picard.jar SortSam I={input} O={output} SORT_ORDER=coordinate
+#	"""
 	
-
-rule mergeBam :
+#rule bam2hints :
+#	threads : 2
+#	input : OutDir+'0_bamAlignement/{smp}/finalResults/merged_{smp}.accepted_hits_sort.bam'
+#	output : bam2hints = OutDir+'0_bamAlignement/{smp}/finalResults/hints_{smp}.raw.bam'
+#	shell:"""
+#	module load bioinfo/braker/1.9
+#	bam2hints --minintronlen=10 --maxintronlen=1000 --maxgaplen=9 --source=M --in={input} --out={output}
+#	"""
+	
+rule bam2hintsFilter :
 	threads : 2
-	input :  OutDir+'0_bamAlignement/{smp}/'
-	output : OutDir+'0_bamAlignement/{smp}/merged_{smp}.accepted_hits.bam'
-	shell :"""
-	module load bioinfo/samtools/1.3
-	cd {input}finalResults
-	ls *.accepted_hits.bam > bamList
-	samtools merge -f -b bamList -c {output}
-	"""
-
-rule sortBam :
-	threads : 2
-	ressources :
-		mem_free=30G
-	input : OutDir+'0_bamAlignement/{smp}/merged_{smp}.accepted_hits.bam'
-	output : OutDir+'0_bamAlignement/{smp}/merged_{smp}.accepted_hits_sort.bam'
-	shell:"""
-	module load bioinfo/picard-tools/2.7.0
-	java -jar /usr/local/bioinfo/picard-tools/2.7.0/picard.jar SortSam I={input} O={output} SORT_ORDER=coordinate
-	"""
-
-rule bam2hints :
-	threads : 2
-	input : file = OutDir+'0_bamAlignement/{smp}/merged_{smp}.accepted_hits_sort.bam', script =pathScript+'filterHints.r', path = OutDir+'0_bamAlignement/{smp}/'
-	output : bam2hints = OutDir+'0_bamAlignement/{smp}/hints_{smp}.raw.bam',
-	 filtre= OutDir+'1_hints/RNAseqHints/hints_{smp}.filtered.gff'
+	input : file = OutDir+'0_bamAlignement/{smp}/finalResults/hints_{smp}.raw.bam', path = OutDir+'0_bamAlignement/{smp}/finalResults/'
+	output : OutDir+'1_hints/RNAseqHints/hints_{smp}.filtered.gff'
 	shell:"""
 	module load bioinfo/braker/1.9
-	bam2hints --minintronlen=10 --maxintronlen=1000 --maxgaplen=9 --source=M --in={input.file} --out={output.bam2hints}
-	{input.script} -s {wildcards.smp} -p '+resultMapping
-	"""
-	
+	cd {input.path}
+	filterHintsSnake.r -s {wildcards.smp} -p {input.path} -o {output}
+	"""	
 
 rule exonerate :
 	threads : 4
@@ -96,11 +102,12 @@ rule BRAKER :
 	input : genome = datadir+"{smp}"+suffixFile, hints = OutDir+'1_hints/MergeHints/RNAseq_protein.hints.intron_{smp}.gff'
 	output : OutDir+'2_Braker/{smp}/'
 	shell :"""
+	module load bioinfo/braker/1.9
 	braker.pl --cores 24 --fungus --gff3 --species=magnaporthe_oryzae --useexisting --genome={input.genome} --hints={input.hints} --overwrite --alternatives-from-evidence=false --workingdir={output}
 	"""
 	
 	
-	
+
 	
 	
 	
