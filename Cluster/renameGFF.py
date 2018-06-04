@@ -48,7 +48,7 @@ if __name__ == "__main__":
 	filesreq = parser.add_argument_group('Input mandatory infos for running')
 	filesreq.add_argument('-g', '--gff', metavar="<path/to/gff>", type=existant_file, required=True, dest = 'gffFileIn', help = 'path to gff file')
 	filesreq.add_argument('-s', '--strain', metavar="<str>", type=str, required=True, dest = 'strainName', help = 'Name of strain')
-	filesreq.add_argument('-o', '--out', metavar="<path/to/output/directory>", required=True, dest = 'outDir', help = 'Name of output file')
+	filesreq.add_argument('-o', '--out', metavar="<path/to/output/file>", required=True, dest = 'outDir', help = 'Path of output file')
 
 
 	# Check parameters
@@ -88,7 +88,7 @@ if __name__ == "__main__":
 	#Chromosome_8.1	AUGUSTUS	exon	3632	4965	.	-	.	ID=g1.t1.exon4;Parent=g1.t1;
 	#Chromosome_8.1	AUGUSTUS	start_codon	4963	4965	.	-	0	Parent=g1.t1;
 	startPoly=0
-	with open(gffFileIn, "r") as gffFile, open(ouputDir+strainName+"_braker.gff3","w") as outFileGff:
+	with open(gffFileIn, "r") as gffFile, open(ouputDir,"w") as outFileGff:
 		outFileGff.write("##gff-version 3\n")
 		for line in gffFile:
 			if line[0] != "#":

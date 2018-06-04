@@ -26,7 +26,7 @@ SAMPLES, = glob_wildcards(datadir+"{smp}"+suffixFile)
 rule final:
 	input: 
 		expand( OutDir+'3_final-data/{smp}/{smp}_braker.gff3', smp = SAMPLES),
-		expand(OutDir+'3_final-data/{smp}/{smp}_protein.fasta', smp = SAMPLES)
+		expand(OutDir+'3_final-data/{smp}/', smp = SAMPLES)
 		
 
 
@@ -42,10 +42,10 @@ rule AnnotationGFF3 :
 rule RecupFasta :
 	threads : 1
 	input :  OutDir+'2_Braker/{smp}/'
-	output : transcript = OutDir+'3_final-data/{smp}/{smp}_transcript.fasta', prot = OutDir+'3_final-data/{smp}/{smp}_protein.fasta', path = OutDir+'3_final-data/{smp}/'
-	message: 'Recovers fasta file form gff for {wildcards.smp}\nInput : {input}braker/magnaporthe_oryzae/augustus.gff\nOutput :\n\t\t-transcript : {output.transcript}\n\t\t-protein : {output.prot}\nThreads : {threads}\n'+'#'*108
+	output : OutDir+'3_final-data/{smp}/'
+	message: 'Recovers fasta file form gff for {wildcards.smp}\nInput : {input}braker/magnaporthe_oryzae/augustus.gff\nOutput :\n\t\t-transcript : {output}{wildcards.smp}_transcript.fasta\n\t\t-protein :{output}{wildcards.smp}_protein.fasta\nThreads : {threads}\n'+'#'*108
 	shell :'''
-	recupSeqFromGFF.py -g {input}braker/magnaporthe_oryzae/augustus.gff -s {wildcards.smp} -o {output.path}
+	recupSeqFromGFF.py -g {input}braker/magnaporthe_oryzae/augustus.gff -s {wildcards.smp} -o {output}
 	'''
 
 rule BRAKER :
