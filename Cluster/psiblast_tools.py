@@ -46,6 +46,8 @@
 						path of the output fasta directory
 		- \-n <str>, --name <str>
 						name of output file (default = 'psiblast')
+		- \-eval <str>, --evalue <float>
+						Expect E-value for saving hits (default = 10). For exemple you can put 1e-4 for 10^-4.
 
 """
 
@@ -79,7 +81,7 @@ if __name__ == "__main__":
 	filesreq.add_argument('-opt', '--option',type = str, choices=['A','G','C'] ,required=True, dest = 'option', help = 'Option for fasta file : \n- A : aligned sequences \n- G : aligned sequences with Gap \n- C : complete sequence')
 	filesreq.add_argument('-o', '--outDir',type = str, required=True, dest = 'outDir', help = 'Path of the output directory')
 	filesreq.add_argument('-n', '--name',type = str, required=False,default = 'psiblast', dest = 'name', help = '\nName of output file (default = psiblast)\n ')
-	filesreq.add_argument('-eval', '--evalue',type = float, required=False,default = 10, dest = 'evalue', help = '\nExpect value (E) for saving hits (default = 10)\n ')
+	filesreq.add_argument('-eval', '--evalue',type = float, required=False,default = 10, dest = 'evalue', help = 'Expect E-value for saving hits (default = 10). For exemple you can put 1e-4 for 10^-4.\n ')
 
 
 	
@@ -114,10 +116,11 @@ if __name__ == "__main__":
 	print(form('Lancement de psiblast','green','bold'))
 	print(form("-"*len('Lancement de psiblast'),'yellow','bold'))
 	print(form('\nParamètres utilisés :',type='bold'))
-	print('\n\t- db : %s'%db)
-	print('\t- query : %s'%query)
+	print('\n\t- Database : %s'%db)
+	print('\t- Query : %s'%query)
+	print('\t- Number of iteration : %s'%nbIteration)
 	print('\t- Evalue min : %s'%evalue)
-	print('\t- output : %s\n\n'%alignementFile)
+	print('\t- Output : %s\n\n'%alignementFile)
 ############### Fin message ################################
 
 	os.system('psiblast -query %s -db %s -num_iterations %s -outfmt "6 qseqid sseqid evalue sseq" -evalue %s -out %s'%(query,db,nbIteration,evalue,alignementFile))
@@ -146,7 +149,7 @@ if __name__ == "__main__":
 			fastaFile = open('%s_%s.fasta'%(outDir+fileName,line.split('\t')[0]),"w")
 		elif line.split('\t')[0] != idQuery :
 			fastaFile.close()
-			print('\t -%s_%s.fasta'%(fileName,line.split('\t')[0]))
+			print('\t- %s_%s.fasta'%(fileName,line.split('\t')[0]))
 			fastaFile = open('%s_%s.fasta'%(outDir+fileName,line.split('\t')[0]),"w")
 		idQuery = line.split('\t')[0]
 		idMatch = line.split('\t')[1]
@@ -168,7 +171,7 @@ if __name__ == "__main__":
 
 	print(form("\n\t---------------------------------------------------------",'yellow','bold'))
 	print("\t"+form("|",'yellow','bold')+form("                    End of execution                   ",type='bold')+form("|",'yellow','bold'))
-	print(form("\t---------------------------------------------------------",'yellow','bold'))
+	print(form("\t---------------------------------------------------------\n",'yellow','bold'))
 		
 	
 
