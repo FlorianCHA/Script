@@ -1,5 +1,4 @@
 
 	module load bioinfo/braker/1.9
-	cd /homedir/charriat/work/Annotation/test/0_bamAlignement/AG0004/finalResults/
 	filterHintsSnake.r -s AG0004 -p /homedir/charriat/work/Annotation/test/0_bamAlignement/AG0004/finalResults/ -o /homedir/charriat/work/Annotation/test/1_hints/RNAseqHints/hints_AG0004.filtered.gff
 	

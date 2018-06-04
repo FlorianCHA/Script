@@ -1,5 +1,0 @@
-
-	module load bioinfo/braker/1.9
-	bam2hints --minintronlen=10 --maxintronlen=1000 --maxgaplen=9 --source=M --in=/homedir/charriat/work/Annotation/test1/0_bamAlignement/AG0004/finalResults/merged_AG0004.accepted_hits_sort.bam --out=/homedir/charriat/work/Annotation/test1/0_bamAlignement/AG0004/hints_AG0004.raw.bam
-	filterHints.r -s AG0004 -p '+resultMapping
-	

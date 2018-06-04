@@ -1,6 +1,0 @@
-
-	module load bioinfo/exonerate/2.4.7
-	module load bioinfo/braker/1.9
-	exonerate --model protein2genome --percent 95 --showtargetgff T /homedir/charriat/BGPI/becphy/pangenome2017/test70-15/exonerate/70-15_annotated_protein.fa /homedir/charriat/work/Annotation/test_input/AG0004_scaffold.fasta > /homedir/charriat/work/Annotation/test1/1_hints/ProtHints/exonarate_AG0004.gff3
-	exonerate2hints.pl --source=M --minintronlen=10 --maxintronlen=1000 --in=/homedir/charriat/work/Annotation/test1/1_hints/ProtHints/exonarate_AG0004.gff3 --out=/homedir/charriat/work/Annotation/test1/1_hints/ProtHints/exonarate_AG0004.hints.gff3
-	

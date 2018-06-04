@@ -57,7 +57,7 @@ if __name__ == "__main__":
 
 	#Welcome message
 	print("#################################################################")
-	print("#              Welcome in renameAndAddParent (Version " + version + ")               #")
+	print("#              Welcome in renameGFF (Version " + version + ")               #")
 	print("#################################################################\n\n")
 
 
@@ -107,7 +107,7 @@ if __name__ == "__main__":
 
 						geneNumero = tabLine[8].split(";")[0].replace("ID=","").replace("g","")
 						geneNumeroReformat = str(geneNumero.zfill(5)) +'0'
-						geneName = tabLine[8].split(";")[0].replace("g"+geneNumero,"Mo_"+strainName+"_v1_"+geneNumeroReformat).replace("ID=","")
+						geneName = tabLine[8].split(";")[0].replace("g"+geneNumero,"Mo_"+strainName+"_"+geneNumeroReformat).replace("ID=","")
 
 						#print(geneNumero)
 						#print(geneNumeroReformat)
@@ -120,7 +120,7 @@ if __name__ == "__main__":
 					elif typeSeq == "mRNA":
 						numT = str(tabLine[8].split(";")[0].split('.t')[-1])
 						NewnumT = str(int(numT)-1)
-						mRNAName = tabLine[8].split(";")[0].replace("g"+geneNumero,"Mo_"+strainName+"_v1_"+geneNumeroReformat).replace("ID=","").replace('.t%s'%numT,'T%s'%NewnumT)
+						mRNAName = tabLine[8].split(";")[0].replace("g"+geneNumero,"Mo_"+strainName+"_"+geneNumeroReformat).replace("ID=","").replace('.t%s'%numT,'T%s'%NewnumT)
 						newline = "{0}\tID={1};Parent={2}\n".format("\t".join(tabLine[:8]), mRNAName, geneName)
 						outFileGff.write(newline.replace("transcript","mRNA").replace("AUGUSTUS","braker_BGPI"))
 
