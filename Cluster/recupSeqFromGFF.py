@@ -131,4 +131,8 @@ for line in lines :
 fastaAdn.close()
 fastaProt.close()
 
+############## end message ###########################
 
+	print(form("\n\t---------------------------------------------------------",'yellow','bold'))
+	print("\t"+form("|",'yellow','bold')+form("                    End of execution                   ",type='bold')+form("|",'yellow','bold'))
+	print(form("\t---------------------------------------------------------",'yellow','bold'))
