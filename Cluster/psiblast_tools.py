@@ -123,7 +123,7 @@ if __name__ == "__main__":
 	print('\t- Output : %s\n\n'%alignementFile)
 ############### Fin message ################################
 
-	os.system('psiblast -query %s -db %s -num_iterations %s -outfmt "6 qseqid sseqid evalue sseq" -evalue %s -out %s'%(query,db,nbIteration,evalue,alignementFile))
+	os.system('psiblast -query %s -db %s -num_iterations %s -outfmt "6 qseqid sseqid pident evalue sseq" -evalue %s -out %s'%(query,db,nbIteration,evalue,alignementFile))
 	f = open(alignementFile,'r')
 	lines = f.readlines()
 	f.close()
@@ -153,8 +153,9 @@ if __name__ == "__main__":
 			fastaFile = open('%s_%s.fasta'%(outDir+fileName,line.split('\t')[0]),"w")
 		idQuery = line.split('\t')[0]
 		idMatch = line.split('\t')[1]
-		Evalue = line.split('\t')[2]
-		seqAlign = line.split('\t')[3]
+		IndentityPer = line.split('\t')[2]
+		Evalue = line.split('\t')[3]
+		seqAlign = line.split('\t')[4]
 		if opt == 'A':
 			seq = seqAlign.replace('-','')[:-1]
 			length = len(seq)
@@ -164,7 +165,7 @@ if __name__ == "__main__":
 		if opt == 'C':
 			seq = str(dico[idMatch].seq)
 			length = len(seq)
-		record = SeqRecord(Seq(seq),id=idMatch,name=idMatch, description=' | evalue = %s | length = %s'%(Evalue,length)) 
+		record = SeqRecord(Seq(seq),id=idMatch,name=idMatch, description=' | evalue = %s | Percent_Identity = %s length = %s'%(Evalue,IndentityPer,length)) 
 		SeqIO.write(record,fastaFile, "fasta")
 		
 ############## end message ###########################

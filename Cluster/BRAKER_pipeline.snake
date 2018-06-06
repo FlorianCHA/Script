@@ -13,11 +13,12 @@ OutDir = '/homedir/charriat/work/Annotation/test/'
 # RNAseq directory
 RnaSeqDir='/homedir/charriat/work/Annotation/0_rawdata/rnaseq/'
 # Config file for TOOGLE
-configFile = '/homedir/charriat/work/Annotation/1_tmp/ToogleConfig/tophatMapping.config.txt'
+configFile = '/homedir/charriat/work/Annotation/1_tmp/ToogleConfig/tophatMapping.config.txt' # A mettre dans l'outils
 # Path to protein annotation file 
-protRef = '/homedir/charriat/BGPI/becphy/pangenome2017/test70-15/exonerate/70-15_annotated_protein.fa'
+protRef = '/homedir/charriat/BGPI/becphy/pangenome2017/test70-15/exonerate/70-15_annotated_protein.fa' # A mettre dans l'outils
 # file termination
 suffixFile = '_scaffold.fasta'
+
 ################################################################################
 
 SAMPLES, = glob_wildcards(datadir+"{smp}"+suffixFile)
