@@ -26,28 +26,44 @@ SAMPLES, = glob_wildcards(datadir+"{smp}"+suffixFile)
 	
 rule final:
 	input: 
-		expand( OutDir+'3_final-data/{smp}/{smp}_braker.gff3', smp = SAMPLES),
-		expand(OutDir+'3_final-data/{smp}/', smp = SAMPLES)
+		expand( OutDir+'4_mergeGFF/{smp}_merge.gff3', smp = SAMPLES)
 		
 
 
-rule AnnotationGFF3 :
-	threads : 1
-	input :  OutDir+'2_Braker/{smp}/'
-	output : OutDir+'3_final-data/{smp}/{smp}_braker.gff3'
-	message: 'Rename the Braket output for {wildcards.smp}\nInput : {input}braker/magnaporthe_oryzae/augustus.gff3\nOutput : {output}\nThreads : {threads}\n'+'#'*108
-	shell :'''
-	renameGFF.py -g {input}braker/magnaporthe_oryzae/augustus.gff3 -s {wildcards.smp} -o {output}
-	'''
+#rule AnnotationGFF3 :
+#	threads : 1
+#	input :  OutDir+'2_Braker/{smp}/'
+#	output : OutDir+'3_final-data/{smp}/{smp}_braker.gff3'
+#	message: 'Rename the Braket output for {wildcards.smp}\nInput : {input}braker/magnaporthe_oryzae/augustus.gff3\nOutput : {output}\nThreads : {threads}\n'+'#'*108
+#	shell :'''
+#	renameGFF.py -g {input}braker/magnaporthe_oryzae/augustus.gff3 -s {wildcards.smp} -o {output}
+#	'''
 
-rule RecupFasta :
-	threads : 1
-	input :  OutDir+'2_Braker/{smp}/'
-	output : OutDir+'3_final-data/{smp}/'
-	message: 'Recovers fasta file form gff for {wildcards.smp}\nInput : {input}braker/magnaporthe_oryzae/augustus.gff\nOutput :\n\t\t-transcript : {output}{wildcards.smp}_transcript.fasta\n\t\t-protein :{output}{wildcards.smp}_protein.fasta\nThreads : {threads}\n'+'#'*108
-	shell :'''
-	recupSeqFromGFF.py -g {input}braker/magnaporthe_oryzae/augustus.gff -s {wildcards.smp} -o {output}
-	'''
+#rule RecupFasta :
+#	threads : 1
+#	input :  OutDir+'2_Braker/{smp}/'
+#	output : OutDir+'3_final-data/{smp}/'
+#"	message: 'Recovers fasta file form gff for {wildcards.smp}\nInput : {input}braker/magnaporthe_oryzae/augustus.gff\nOutput :\n\t\t-transcript : {output}{wildcards.smp}_transcript.fasta\n\t\t-protein :{output}{wildcards.smp}_protein.fasta\nThreads : {threads}\n'+'#'*108
+#	shell :'''
+#	recupSeqFromGFF.py -g {input}braker/magnaporthe_oryzae/augustus.gff -s {wildcards.smp} -o {output}
+#	'''
+
+rule mergeGFF:
+	input : augustus = OutDir+'3_augustus/{smp}_augustus.gff3', braker = OutDir+'2_Braker/{smp}/'
+	output : OutDir+'4_mergeGFF/{smp}_merge.gff3'
+	message: 'Merge and rename Braker and Augustus output {wildcards.smp}.\nInput:\n\t\t-augustus : {input.augustus}\n\t\t-braker : {input.braker}\nOutput :{output}\nThreads : {threads}\n'+'#'*108
+	shell : """
+	mergeBraker_augustus.py  --augustus {input.augustus} --braker {input.braker} -outDir {output}
+	"""
+
+rule augustus :
+	threads : 2
+	input :  hints = OutDir+'1_hints/MergeHints/RNAseq_protein.hints_{smp}.gff' , assembly = datadir+"{smp}"+suffixFile
+	output : OutDir+'3_augustus/{smp}_augustus.gff3'
+	message: 'Execute augustus for {wildcards.smp}.\nInput:\n\t\t-Genome : {input.assembly}\n\t\t-Hints file : {input.hints}\nOutput :{output}\nThreads : {threads}\n'+'#'*108
+	shell : """
+	augustus --hintsfile={input.hints} --species=magnaporthe_grisea {input.assembly} --gff3=on --outfile={output}
+	"""
 
 rule BRAKER :
 	threads : 4

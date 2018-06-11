@@ -93,7 +93,8 @@ if __name__ == "__main__":
 	#Chromosome_8.1	AUGUSTUS	start_codon	4963	4965	.	-	0	Parent=g1.t1;
 	startPoly=0
 	with open(gffFileIn, "r") as gffFile, open(ouputDir,"w") as outFileGff:
-		outFileGff.write("##gff-version 3\n")
+		if num ==0 :
+			outFileGff.write("##gff-version 3\n")
 		for line in gffFile:
 			if line[0] != "#":
 
@@ -110,8 +111,10 @@ if __name__ == "__main__":
 							outFileGff.write(polyLine.replace("AUGUSTUS",tools+'_BGPI'))
 
 						geneNumero = tabLine[8].split(";")[0].replace("ID=","").replace("g","")
-						geneNumero = int(geneNumero)+num
-						geneNumeroReformat = str(geneNumero.zfill(5)) +'0'
+						if num != 0 :
+							num = num +1
+							geneNumeroReformat = num
+						geneNumeroReformat = str(geneNumeroReformat.zfill(5)) +'0'
 						geneName = tabLine[8].split(";")[0].replace("g"+geneNumero,"Mo_"+strainName+"_"+geneNumeroReformat).replace("ID=","")
 
 						#print(geneNumero)
@@ -122,7 +125,7 @@ if __name__ == "__main__":
 						outFileGff.write(newline.replace("AUGUSTUS",tools+'_BGPI'))
 
 					# transcript => mRNA
-					elif typeSeq == "mRNA":
+					elif typeSeq == "mRNA" or typeSeq == 'transcript':
 						numT = str(tabLine[8].split(";")[0].split('.t')[-1])
 						NewnumT = str(int(numT)-1)
 						mRNAName = tabLine[8].split(";")[0].replace("g"+geneNumero,"Mo_"+strainName+"_"+geneNumeroReformat).replace("ID=","").replace('.t%s'%numT,'T%s'%NewnumT)
