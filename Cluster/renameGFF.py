@@ -111,9 +111,10 @@ if __name__ == "__main__":
 							outFileGff.write(polyLine.replace("AUGUSTUS",tools+'_BGPI'))
 
 						geneNumero = tabLine[8].split(";")[0].replace("ID=","").replace("g","")
+						geneNumeroReformat = geneNumero
 						if num != 0 :
 							num = num +1
-							geneNumeroReformat = num
+							geneNumeroReformat = str(num)
 						geneNumeroReformat = str(geneNumeroReformat.zfill(5)) +'0'
 						geneName = tabLine[8].split(";")[0].replace("g"+geneNumero,"Mo_"+strainName+"_"+geneNumeroReformat).replace("ID=","")
 
