@@ -119,8 +119,8 @@ if __name__ == "__main__":
 		lenSeq = dicoSize[ID]
 	
 		sequence = dicoFasta[ID]
-
-		seqName = "Scaffold_{}".format(count)
+		strain = outputfilename.split('/')[-1].split('_')[0].replace('.fasta','')
+		seqName = strain+"_Scaffold_{}".format(count)
 		descrip = "length={}".format(lenSeq)
 		if keep == 'g' and lenSeq >= lenSize or (keep == 'l' and lenSeq <= lenSize):
 				record = SeqRecord(sequence.seq,id=seqName,name=seqName, description=descrip)
