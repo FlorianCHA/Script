@@ -45,10 +45,12 @@ if __name__ == "__main__":
 						'display '+__file__+' version number and exit')
 	#parser.add_argument('-dd', '--debug',choices=("False","True"), dest='debug', help='enter verbose/debug mode', default = "False")
 
-	filesreq = parser.add_argument_group('Input mandatory infos for running')
+	filesreq = parser.add_argument_group('Input  infos for running')
 	filesreq.add_argument('-g', '--gff', metavar="<path/to/gff>", type=existant_file, required=True, dest = 'gffFileIn', help = 'path to gff file')
 	filesreq.add_argument('-s', '--strain', metavar="<str>", type=str, required=True, dest = 'strainName', help = 'Name of strain')
 	filesreq.add_argument('-o', '--out', metavar="<path/to/output/file>", required=True, dest = 'outDir', help = 'Path of output file')
+	filesreq.add_argument('-n', '--numero', metavar="<int>", type=int, required=False,default=0 ,dest = 'num', help = 'path to gff file')
+	filesreq.add_argument('-t', '--tools', metavar="<str>", type=str, required=False,default='Braker', dest = 'tools', help = 'path to gff file')
 
 
 	# Check parameters
@@ -64,6 +66,8 @@ if __name__ == "__main__":
 	gffFileIn = args.gffFileIn
 	strainName = args.strainName
 	ouputDir = args.outDir
+	num =args.num
+	tools = args.tools
 	# resume value to user
 	print(" - Intput Info:")
 	print("\t - GFF file is : %s" % gffFileIn)
@@ -103,9 +107,10 @@ if __name__ == "__main__":
 						# new gene so write polyInfo
 						if startPoly != 0:
 							polyLine = "{0}\tpolypeptide\t{1}\t{2}\t{3}\tID={4};Derives_from={5};Name={4}\n".format("\t".join(tabLine[:2]),startPoly, stopPoly, "\t".join(tabLine[5:8]), polyName, mRNAName)
-							outFileGff.write(polyLine.replace("AUGUSTUS","braker_BGPI"))
+							outFileGff.write(polyLine.replace("AUGUSTUS",tools+'_BGPI'))
 
 						geneNumero = tabLine[8].split(";")[0].replace("ID=","").replace("g","")
+						geneNumero = int(geneNumero)+num
 						geneNumeroReformat = str(geneNumero.zfill(5)) +'0'
 						geneName = tabLine[8].split(";")[0].replace("g"+geneNumero,"Mo_"+strainName+"_"+geneNumeroReformat).replace("ID=","")
 
@@ -114,7 +119,7 @@ if __name__ == "__main__":
 						#print(geneName)
 
 						newline = "{0}\tID={1};Name={1}\n".format("\t".join(tabLine[:8]), geneName)
-						outFileGff.write(newline.replace("AUGUSTUS","braker_BGPI"))
+						outFileGff.write(newline.replace("AUGUSTUS",tools+'_BGPI'))
 
 					# transcript => mRNA
 					elif typeSeq == "mRNA":
@@ -122,30 +127,30 @@ if __name__ == "__main__":
 						NewnumT = str(int(numT)-1)
 						mRNAName = tabLine[8].split(";")[0].replace("g"+geneNumero,"Mo_"+strainName+"_"+geneNumeroReformat).replace("ID=","").replace('.t%s'%numT,'T%s'%NewnumT)
 						newline = "{0}\tID={1};Parent={2}\n".format("\t".join(tabLine[:8]), mRNAName, geneName)
-						outFileGff.write(newline.replace("transcript","mRNA").replace("AUGUSTUS","braker_BGPI"))
+						outFileGff.write(newline.replace("transcript","mRNA").replace("AUGUSTUS",tools+'_BGPI'))
 
 					# CDS
 					elif typeSeq == "CDS" :
 						stopPoly = tabLine[4]
 						CDSLine = "%s\tParent=%s\n" % ("\t".join(tabLine[:8]), mRNAName)
-						outFileGff.write(CDSLine.replace("AUGUSTUS","braker_BGPI"))
+						outFileGff.write(CDSLine.replace("AUGUSTUS",tools+'_BGPI'))
 
 					# exon ID=g1.t1.exon2;Parent=g1.t1;
 					elif typeSeq == "exon":
 						exonLine = "%s\tParent=%s\n" % ("\t".join(tabLine[:8]),mRNAName)
-						outFileGff.write(exonLine.replace("AUGUSTUS","braker_BGPI"))
+						outFileGff.write(exonLine.replace("AUGUSTUS",tools+'_BGPI'))
 
 					# intron start_codon stop_codon
 					elif typeSeq == "intron":
 						intronLine = "%s\tParent=%s\n" % ("\t".join(tabLine[:8]), mRNAName)
-						outFileGff.write(intronLine.replace("AUGUSTUS","braker_BGPI"))
+						outFileGff.write(intronLine.replace("AUGUSTUS",tools+'_BGPI'))
 
 					elif typeSeq == "start_codon" or typeSeq == "stop_codon":
 						Line = "%s\tParent=%s\n" % ("\t".join(tabLine[:8]), mRNAName)
-						outFileGff.write(Line.replace("AUGUSTUS","braker_BGPI"))
+						outFileGff.write(Line.replace("AUGUSTUS",tools+'_BGPI'))
 
 				else:
-					outFileGff.write(line.replace("AUGUSTUS","braker_BGPI"))
+					outFileGff.write(line.replace("AUGUSTUS",tools+'_BGPI'))
 			else:
-				outFile.write(line.replace("AUGUSTUS","braker_BGPI"))
+				outFile.write(line.replace("AUGUSTUS",tools+'_BGPI'))
 
