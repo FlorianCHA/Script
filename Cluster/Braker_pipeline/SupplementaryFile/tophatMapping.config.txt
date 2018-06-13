@@ -1,0 +1,41 @@
+$order
+1=tophat2
+
+
+$merge
+1
+
+
+#PUT YOUR OWN SGE CONFIGURATION HERE
+$sge
+-q long.q
+-b Y
+-V
+-l mem_free==40G
+
+
+
+$samtoolsview
+-h
+
+$tophat2
+--min-intron-length=10
+--max-intron-length=8000
+-a=8
+-m=1
+--no-coverage-search
+-g=10
+--bowtie-n
+--library-type=fr-unstranded
+--microexon-search
+-p 4
+
+$picardToolsSortSam
+SORT_ORDER=coordinate
+VALIDATION_STRINGENCY=SILENT
+CREATE_INDEX=TRUE
+
+
+
+#--mate-std-dev 40
+#--mate-inner-dist 180

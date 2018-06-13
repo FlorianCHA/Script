@@ -12,13 +12,17 @@ datadir="/homedir/charriat/work/Annotation/test_input/"
 OutDir = '/homedir/charriat/work/Annotation/test/'
 # RNAseq directory
 RnaSeqDir='/homedir/charriat/work/Annotation/0_rawdata/rnaseq/'
-# Config file for TOOGLE
-configFile = '/homedir/charriat/work/Annotation/1_tmp/ToogleConfig/tophatMapping.config.txt' # A mettre dans l'outils
-# Path to protein annotation file 
-protRef = '/homedir/charriat/BGPI/becphy/pangenome2017/test70-15/exonerate/70-15_annotated_protein.fa' # A mettre dans l'outils
 # file termination
 suffixFile = '_scaffold.fasta'
+################################################################################
 
+
+
+################################################################################
+# Config file for TOOGLE
+configFile = './SupplementaryFile/tophatMapping.config.txt' # A mettre dans l'outils
+# Path to protein annotation file 
+protRef = './SupplementaryFile/70-15_annotated_protein.fa' # A mettre dans l'outils
 ################################################################################
 
 SAMPLES, = glob_wildcards(datadir+"{smp}"+suffixFile)
@@ -53,7 +57,7 @@ rule mergeGFF:
 	output : OutDir+'4_mergeGFF/{smp}_merge.gff3'
 	message: 'Merge and rename Braker and Augustus output {wildcards.smp}.\nInput:\n\t\t-augustus : {input.augustus}\n\t\t-braker : {input.braker}\nOutput :{output}\nThreads : {threads}\n'+'#'*108
 	shell : """
-	mergeBraker_augustus.py  --augustus {input.augustus} --braker {input.braker} -outDir {output}
+	./script/mergeBraker_augustus.py  --augustus {input.augustus} --braker {input.braker} -outDir {output}
 	"""
 
 rule augustus :
@@ -106,7 +110,7 @@ rule bam2hintsFilter :
 	message: 'Filtre hint file outcome of bam file for {wildcards.smp}.\nInput: {input.file}\nOutput : {output}\nThreads : {threads}\n'+'#'*108
 	shell:"""
 	module load bioinfo/braker/1.9
-	filterHintsSnake.r -s {wildcards.smp} -p {input.path}/finalResults/ -o {output}
+	./script/filterHintsSnake.r -s {wildcards.smp} -p {input.path}/finalResults/ -o {output}
 	"""	
 	
 rule bam2hints :
