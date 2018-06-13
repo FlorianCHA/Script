@@ -20,9 +20,9 @@ suffixFile = '.fasta'
 
 ################################################################################
 # Config file for TOOGLE
-configFile = '/homedir/charriat/work/Annotation/1_tmp/ToogleConfig/tophatMapping.config.txt' # A mettre dans l'outils
+configFile = './SupplementaryFile/tophatMapping.config.txt' # A mettre dans l'outils
 # Path to protein annotation file 
-protRef = '/homedir/charriat/BGPI/becphy/pangenome2017/test70-15/exonerate/70-15_annotated_protein.fa' # A mettre dans l'outils
+protRef = './SupplementaryFile/70-15_annotated_protein.fa' # A mettre dans l'outils
 ################################################################################
 
 SAMPLES, = glob_wildcards(datadir+"{smp}"+suffixFile)
