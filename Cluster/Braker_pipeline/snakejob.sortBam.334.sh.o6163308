@@ -1,0 +1,15 @@
+[Tue Jun 26 16:45:04 CEST 2018] picard.sam.SortSam INPUT=/work/gladieux/magMax_project/2_Annotation/5_soucheToulouse/0_bamAlignement/BR29/finalResults/merged_BR29.accepted_hits.bam OUTPUT=/work/gladieux/magMax_project/2_Annotation/5_soucheToulouse/0_bamAlignement/BR29/finalResults/merged_BR29.accepted_hits_sort.bam SORT_ORDER=coordinate    VERBOSITY=INFO QUIET=false VALIDATION_STRINGENCY=STRICT COMPRESSION_LEVEL=5 MAX_RECORDS_IN_RAM=500000 CREATE_INDEX=false CREATE_MD5_FILE=false GA4GH_CLIENT_SECRETS=client_secrets.json
+[Tue Jun 26 16:45:04 CEST 2018] Executing as gladieux@cc2-n12 on Linux 2.6.32-504.16.2.el6.x86_64 amd64; Java HotSpot(TM) 64-Bit Server VM 1.8.0_31-b13; Picard version: 2.7.0-SNAPSHOT
+INFO	2018-06-26 16:45:52	SortSam	Read    10,000,000 records.  Elapsed time: 00:00:48s.  Time for last 10,000,000:   48s.  Last read position: Scaffold_101:851
+INFO	2018-06-26 16:46:34	SortSam	Read    20,000,000 records.  Elapsed time: 00:01:30s.  Time for last 10,000,000:   42s.  Last read position: Scaffold_101:16,133
+INFO	2018-06-26 16:47:16	SortSam	Read    30,000,000 records.  Elapsed time: 00:02:12s.  Time for last 10,000,000:   42s.  Last read position: Scaffold_15:628,416
+INFO	2018-06-26 16:48:02	SortSam	Read    40,000,000 records.  Elapsed time: 00:02:58s.  Time for last 10,000,000:   45s.  Last read position: Scaffold_35:240,006
+INFO	2018-06-26 16:48:44	SortSam	Read    50,000,000 records.  Elapsed time: 00:03:39s.  Time for last 10,000,000:   41s.  Last read position: Scaffold_7:1,073,945
+INFO	2018-06-26 16:48:58	SortSam	Finished reading inputs, merging and writing to output now.
+INFO	2018-06-26 16:49:52	SortSam	Wrote    10,000,000 records from a sorting collection.  Elapsed time: 00:04:48s.  Time for last 10,000,000:   53s.  Last read position: Scaffold_101:851
+INFO	2018-06-26 16:50:44	SortSam	Wrote    20,000,000 records from a sorting collection.  Elapsed time: 00:05:40s.  Time for last 10,000,000:   51s.  Last read position: Scaffold_101:16,133
+INFO	2018-06-26 16:51:44	SortSam	Wrote    30,000,000 records from a sorting collection.  Elapsed time: 00:06:39s.  Time for last 10,000,000:   59s.  Last read position: Scaffold_15:628,416
+INFO	2018-06-26 16:52:50	SortSam	Wrote    40,000,000 records from a sorting collection.  Elapsed time: 00:07:45s.  Time for last 10,000,000:   66s.  Last read position: Scaffold_35:240,006
+INFO	2018-06-26 16:53:51	SortSam	Wrote    50,000,000 records from a sorting collection.  Elapsed time: 00:08:46s.  Time for last 10,000,000:   60s.  Last read position: Scaffold_7:1,073,945
+[Tue Jun 26 16:54:13 CEST 2018] picard.sam.SortSam done. Elapsed time: 9.16 minutes.
+Runtime.totalMemory()=10061611008

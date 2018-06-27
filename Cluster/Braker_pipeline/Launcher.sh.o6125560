@@ -1,0 +1,502 @@
+Provided cluster nodes: 25
+Job counts:
+	count	jobs
+	41	BRAKER
+	41	augustus
+	41	bam2hints
+	41	bam2hintsFilter
+	41	bamAlignement
+	41	exonerate
+	1	final
+	41	mergeBam
+	41	mergeGFF
+	41	mergeHint
+	41	sortBam
+	411
+
+Job 259: Executing Tophat2 alignement for IN0054.
+Input:
+		-Genome : /work/gladieux/magMax_project/2_Annotation/0_rawdata/assembly_Toulouse/IN0054.fasta
+		-RNAseq : /work/gladieux/magMax_project/2_Annotation/0_rawdata/rnaseq
+Output : /work/gladieux/magMax_project/2_Annotation/5_soucheToulouse/0_bamAlignement/IN0054/
+Threads : 2
+############################################################################################################
+
+
+Job 279: Executing Tophat2 alignement for TN0090.
+Input:
+		-Genome : /work/gladieux/magMax_project/2_Annotation/0_rawdata/assembly_Toulouse/TN0090.fasta
+		-RNAseq : /work/gladieux/magMax_project/2_Annotation/0_rawdata/rnaseq
+Output : /work/gladieux/magMax_project/2_Annotation/5_soucheToulouse/0_bamAlignement/TN0090/
+Threads : 2
+############################################################################################################
+
+
+Job 291: Executing Tophat2 alignement for VT0030.
+Input:
+		-Genome : /work/gladieux/magMax_project/2_Annotation/0_rawdata/assembly_Toulouse/VT0030.fasta
+		-RNAseq : /work/gladieux/magMax_project/2_Annotation/0_rawdata/rnaseq
+Output : /work/gladieux/magMax_project/2_Annotation/5_soucheToulouse/0_bamAlignement/VT0030/
+Threads : 2
+############################################################################################################
+
+
+Job 289: Executing Tophat2 alignement for TN0001.
+Input:
+		-Genome : /work/gladieux/magMax_project/2_Annotation/0_rawdata/assembly_Toulouse/TN0001.fasta
+		-RNAseq : /work/gladieux/magMax_project/2_Annotation/0_rawdata/rnaseq
+Output : /work/gladieux/magMax_project/2_Annotation/5_soucheToulouse/0_bamAlignement/TN0001/
+Threads : 2
+############################################################################################################
+
+
+Job 299: Executing Tophat2 alignement for CH1189-canu2.
+Input:
+		-Genome : /work/gladieux/magMax_project/2_Annotation/0_rawdata/assembly_Toulouse/CH1189-canu2.fasta
+		-RNAseq : /work/gladieux/magMax_project/2_Annotation/0_rawdata/rnaseq
+Output : /work/gladieux/magMax_project/2_Annotation/5_soucheToulouse/0_bamAlignement/CH1189-canu2/
+Threads : 2
+############################################################################################################
+
+
+Job 251: Executing Tophat2 alignement for BN0019.
+Input:
+		-Genome : /work/gladieux/magMax_project/2_Annotation/0_rawdata/assembly_Toulouse/BN0019.fasta
+		-RNAseq : /work/gladieux/magMax_project/2_Annotation/0_rawdata/rnaseq
+Output : /work/gladieux/magMax_project/2_Annotation/5_soucheToulouse/0_bamAlignement/BN0019/
+Threads : 2
+############################################################################################################
+
+
+Job 307: Executing Tophat2 alignement for CD0142.
+Input:
+		-Genome : /work/gladieux/magMax_project/2_Annotation/0_rawdata/assembly_Toulouse/CD0142.fasta
+		-RNAseq : /work/gladieux/magMax_project/2_Annotation/0_rawdata/rnaseq
+Output : /work/gladieux/magMax_project/2_Annotation/5_soucheToulouse/0_bamAlignement/CD0142/
+Threads : 2
+############################################################################################################
+
+
+Job 283: Executing Tophat2 alignement for CH0533.
+Input:
+		-Genome : /work/gladieux/magMax_project/2_Annotation/0_rawdata/assembly_Toulouse/CH0533.fasta
+		-RNAseq : /work/gladieux/magMax_project/2_Annotation/0_rawdata/rnaseq
+Output : /work/gladieux/magMax_project/2_Annotation/5_soucheToulouse/0_bamAlignement/CH0533/
+Threads : 2
+############################################################################################################
+
+
+Job 276: Executing Tophat2 alignement for CD0065.
+Input:
+		-Genome : /work/gladieux/magMax_project/2_Annotation/0_rawdata/assembly_Toulouse/CD0065.fasta
+		-RNAseq : /work/gladieux/magMax_project/2_Annotation/0_rawdata/rnaseq
+Output : /work/gladieux/magMax_project/2_Annotation/5_soucheToulouse/0_bamAlignement/CD0065/
+Threads : 2
+############################################################################################################
+
+
+Job 293: Executing Tophat2 alignement for BN0123.
+Input:
+		-Genome : /work/gladieux/magMax_project/2_Annotation/0_rawdata/assembly_Toulouse/BN0123.fasta
+		-RNAseq : /work/gladieux/magMax_project/2_Annotation/0_rawdata/rnaseq
+Output : /work/gladieux/magMax_project/2_Annotation/5_soucheToulouse/0_bamAlignement/BN0123/
+Threads : 2
+############################################################################################################
+
+
+Job 311: Executing Tophat2 alignement for TN0065.
+Input:
+		-Genome : /work/gladieux/magMax_project/2_Annotation/0_rawdata/assembly_Toulouse/TN0065.fasta
+		-RNAseq : /work/gladieux/magMax_project/2_Annotation/0_rawdata/rnaseq
+Output : /work/gladieux/magMax_project/2_Annotation/5_soucheToulouse/0_bamAlignement/TN0065/
+Threads : 2
+############################################################################################################
+
+
+Job 272: Executing Tophat2 alignement for US0041.
+Input:
+		-Genome : /work/gladieux/magMax_project/2_Annotation/0_rawdata/assembly_Toulouse/US0041.fasta
+		-RNAseq : /work/gladieux/magMax_project/2_Annotation/0_rawdata/rnaseq
+Output : /work/gladieux/magMax_project/2_Annotation/5_soucheToulouse/0_bamAlignement/US0041/
+Threads : 2
+############################################################################################################
+
+
+Job 287: Executing Tophat2 alignement for PH0014-canu2.
+Input:
+		-Genome : /work/gladieux/magMax_project/2_Annotation/0_rawdata/assembly_Toulouse/PH0014-canu2.fasta
+		-RNAseq : /work/gladieux/magMax_project/2_Annotation/0_rawdata/rnaseq
+Output : /work/gladieux/magMax_project/2_Annotation/5_soucheToulouse/0_bamAlignement/PH0014-canu2/
+Threads : 2
+############################################################################################################
+
+
+Job 255: Executing Tophat2 alignement for TN0002.
+Input:
+		-Genome : /work/gladieux/magMax_project/2_Annotation/0_rawdata/assembly_Toulouse/TN0002.fasta
+		-RNAseq : /work/gladieux/magMax_project/2_Annotation/0_rawdata/rnaseq
+Output : /work/gladieux/magMax_project/2_Annotation/5_soucheToulouse/0_bamAlignement/TN0002/
+Threads : 2
+############################################################################################################
+
+
+Job 249: Executing Tophat2 alignement for VT0027.
+Input:
+		-Genome : /work/gladieux/magMax_project/2_Annotation/0_rawdata/assembly_Toulouse/VT0027.fasta
+		-RNAseq : /work/gladieux/magMax_project/2_Annotation/0_rawdata/rnaseq
+Output : /work/gladieux/magMax_project/2_Annotation/5_soucheToulouse/0_bamAlignement/VT0027/
+Threads : 2
+############################################################################################################
+
+
+Job 278: Executing Tophat2 alignement for IN0116.
+Input:
+		-Genome : /work/gladieux/magMax_project/2_Annotation/0_rawdata/assembly_Toulouse/IN0116.fasta
+		-RNAseq : /work/gladieux/magMax_project/2_Annotation/0_rawdata/rnaseq
+Output : /work/gladieux/magMax_project/2_Annotation/5_soucheToulouse/0_bamAlignement/IN0116/
+Threads : 2
+############################################################################################################
+
+
+Job 281: Executing Tophat2 alignement for IN0115.
+Input:
+		-Genome : /work/gladieux/magMax_project/2_Annotation/0_rawdata/assembly_Toulouse/IN0115.fasta
+		-RNAseq : /work/gladieux/magMax_project/2_Annotation/0_rawdata/rnaseq
+Output : /work/gladieux/magMax_project/2_Annotation/5_soucheToulouse/0_bamAlignement/IN0115/
+Threads : 2
+############################################################################################################
+
+
+Job 274: Executing Tophat2 alignement for IN0082-canu2.
+Input:
+		-Genome : /work/gladieux/magMax_project/2_Annotation/0_rawdata/assembly_Toulouse/IN0082-canu2.fasta
+		-RNAseq : /work/gladieux/magMax_project/2_Annotation/0_rawdata/rnaseq
+Output : /work/gladieux/magMax_project/2_Annotation/5_soucheToulouse/0_bamAlignement/IN0082-canu2/
+Threads : 2
+############################################################################################################
+
+
+Job 261: Executing Tophat2 alignement for IN0017.
+Input:
+		-Genome : /work/gladieux/magMax_project/2_Annotation/0_rawdata/assembly_Toulouse/IN0017.fasta
+		-RNAseq : /work/gladieux/magMax_project/2_Annotation/0_rawdata/rnaseq
+Output : /work/gladieux/magMax_project/2_Annotation/5_soucheToulouse/0_bamAlignement/IN0017/
+Threads : 2
+############################################################################################################
+
+
+Job 304: Executing Tophat2 alignement for BN0202.
+Input:
+		-Genome : /work/gladieux/magMax_project/2_Annotation/0_rawdata/assembly_Toulouse/BN0202.fasta
+		-RNAseq : /work/gladieux/magMax_project/2_Annotation/0_rawdata/rnaseq
+Output : /work/gladieux/magMax_project/2_Annotation/5_soucheToulouse/0_bamAlignement/BN0202/
+Threads : 2
+############################################################################################################
+
+
+Job 268: Executing Tophat2 alignement for CH1205-canu2.
+Input:
+		-Genome : /work/gladieux/magMax_project/2_Annotation/0_rawdata/assembly_Toulouse/CH1205-canu2.fasta
+		-RNAseq : /work/gladieux/magMax_project/2_Annotation/0_rawdata/rnaseq
+Output : /work/gladieux/magMax_project/2_Annotation/5_soucheToulouse/0_bamAlignement/CH1205-canu2/
+Threads : 2
+############################################################################################################
+
+
+Job 320: Executing Tophat2 alignement for CH0043.
+Input:
+		-Genome : /work/gladieux/magMax_project/2_Annotation/0_rawdata/assembly_Toulouse/CH0043.fasta
+		-RNAseq : /work/gladieux/magMax_project/2_Annotation/0_rawdata/rnaseq
+Output : /work/gladieux/magMax_project/2_Annotation/5_soucheToulouse/0_bamAlignement/CH0043/
+Threads : 2
+############################################################################################################
+
+
+Job 305: Executing Tophat2 alignement for Magnaporthe-Wheatblast-12-1-205.
+Input:
+		-Genome : /work/gladieux/magMax_project/2_Annotation/0_rawdata/assembly_Toulouse/Magnaporthe-Wheatblast-12-1-205.fasta
+		-RNAseq : /work/gladieux/magMax_project/2_Annotation/0_rawdata/rnaseq
+Output : /work/gladieux/magMax_project/2_Annotation/5_soucheToulouse/0_bamAlignement/Magnaporthe-Wheatblast-12-1-205/
+Threads : 2
+############################################################################################################
+
+
+Job 325: Executing Tophat2 alignement for ML0062.
+Input:
+		-Genome : /work/gladieux/magMax_project/2_Annotation/0_rawdata/assembly_Toulouse/ML0062.fasta
+		-RNAseq : /work/gladieux/magMax_project/2_Annotation/0_rawdata/rnaseq
+Output : /work/gladieux/magMax_project/2_Annotation/5_soucheToulouse/0_bamAlignement/ML0062/
+Threads : 2
+############################################################################################################
+
+
+Job 324: Executing Tophat2 alignement for BR29.
+Input:
+		-Genome : /work/gladieux/magMax_project/2_Annotation/0_rawdata/assembly_Toulouse/BR29.fasta
+		-RNAseq : /work/gladieux/magMax_project/2_Annotation/0_rawdata/rnaseq
+Output : /work/gladieux/magMax_project/2_Annotation/5_soucheToulouse/0_bamAlignement/BR29/
+Threads : 2
+############################################################################################################
+
+Finished job 276.
+1 of 411 steps (0.24%) done
+
+Job 295: Executing Tophat2 alignement for TN0057.
+Input:
+		-Genome : /work/gladieux/magMax_project/2_Annotation/0_rawdata/assembly_Toulouse/TN0057.fasta
+		-RNAseq : /work/gladieux/magMax_project/2_Annotation/0_rawdata/rnaseq
+Output : /work/gladieux/magMax_project/2_Annotation/5_soucheToulouse/0_bamAlignement/TN0057/
+Threads : 2
+############################################################################################################
+
+Finished job 307.
+2 of 411 steps (0.49%) done
+
+Job 316: Executing Tophat2 alignement for TG0032.
+Input:
+		-Genome : /work/gladieux/magMax_project/2_Annotation/0_rawdata/assembly_Toulouse/TG0032.fasta
+		-RNAseq : /work/gladieux/magMax_project/2_Annotation/0_rawdata/rnaseq
+Output : /work/gladieux/magMax_project/2_Annotation/5_soucheToulouse/0_bamAlignement/TG0032/
+Threads : 2
+############################################################################################################
+Finished job 283.
+
+3 of 411 steps (0.73%) done
+
+Job 266: Executing Tophat2 alignement for BN0252.
+Input:
+		-Genome : /work/gladieux/magMax_project/2_Annotation/0_rawdata/assembly_Toulouse/BN0252.fasta
+		-RNAseq : /work/gladieux/magMax_project/2_Annotation/0_rawdata/rnaseq
+Output : /work/gladieux/magMax_project/2_Annotation/5_soucheToulouse/0_bamAlignement/BN0252/
+Threads : 2
+############################################################################################################
+
+Finished job 255.
+4 of 411 steps (0.97%) done
+
+Job 270: Executing Tophat2 alignement for CH1103.
+Input:
+		-Genome : /work/gladieux/magMax_project/2_Annotation/0_rawdata/assembly_Toulouse/CH1103.fasta
+		-RNAseq : /work/gladieux/magMax_project/2_Annotation/0_rawdata/rnaseq
+Output : /work/gladieux/magMax_project/2_Annotation/5_soucheToulouse/0_bamAlignement/CH1103/
+Threads : 2
+############################################################################################################
+
+Finished job 249.
+5 of 411 steps (1%) done
+
+Job 321: Executing Tophat2 alignement for BF0072.
+Input:
+		-Genome : /work/gladieux/magMax_project/2_Annotation/0_rawdata/assembly_Toulouse/BF0072.fasta
+		-RNAseq : /work/gladieux/magMax_project/2_Annotation/0_rawdata/rnaseq
+Output : /work/gladieux/magMax_project/2_Annotation/5_soucheToulouse/0_bamAlignement/BF0072/
+Threads : 2
+############################################################################################################
+
+Finished job 259.
+6 of 411 steps (1%) done
+
+Job 327: Executing Tophat2 alignement for BN0119.
+Input:
+		-Genome : /work/gladieux/magMax_project/2_Annotation/0_rawdata/assembly_Toulouse/BN0119.fasta
+		-RNAseq : /work/gladieux/magMax_project/2_Annotation/0_rawdata/rnaseq
+Output : /work/gladieux/magMax_project/2_Annotation/5_soucheToulouse/0_bamAlignement/BN0119/
+Threads : 2
+############################################################################################################
+
+Finished job 279.
+7 of 411 steps (2%) done
+
+Job 313: Executing Tophat2 alignement for CH0072.
+Input:
+		-Genome : /work/gladieux/magMax_project/2_Annotation/0_rawdata/assembly_Toulouse/CH0072.fasta
+		-RNAseq : /work/gladieux/magMax_project/2_Annotation/0_rawdata/rnaseq
+Output : /work/gladieux/magMax_project/2_Annotation/5_soucheToulouse/0_bamAlignement/CH0072/
+Threads : 2
+############################################################################################################
+
+Finished job 281.
+8 of 411 steps (2%) done
+
+Job 253: Executing Tophat2 alignement for IN0059.
+Input:
+		-Genome : /work/gladieux/magMax_project/2_Annotation/0_rawdata/assembly_Toulouse/IN0059.fasta
+		-RNAseq : /work/gladieux/magMax_project/2_Annotation/0_rawdata/rnaseq
+Output : /work/gladieux/magMax_project/2_Annotation/5_soucheToulouse/0_bamAlignement/IN0059/
+Threads : 2
+############################################################################################################
+
+Finished job 274.
+9 of 411 steps (2%) done
+
+Job 297: Executing Tophat2 alignement for NG0012.
+Input:
+		-Genome : /work/gladieux/magMax_project/2_Annotation/0_rawdata/assembly_Toulouse/NG0012.fasta
+		-RNAseq : /work/gladieux/magMax_project/2_Annotation/0_rawdata/rnaseq
+Output : /work/gladieux/magMax_project/2_Annotation/5_soucheToulouse/0_bamAlignement/NG0012/
+Threads : 2
+############################################################################################################
+
+Finished job 251.
+10 of 411 steps (2%) done
+
+Job 301: Executing Tophat2 alignement for CH0452.
+Input:
+		-Genome : /work/gladieux/magMax_project/2_Annotation/0_rawdata/assembly_Toulouse/CH0452.fasta
+		-RNAseq : /work/gladieux/magMax_project/2_Annotation/0_rawdata/rnaseq
+Output : /work/gladieux/magMax_project/2_Annotation/5_soucheToulouse/0_bamAlignement/CH0452/
+Threads : 2
+############################################################################################################
+
+Finished job 320.
+11 of 411 steps (3%) done
+
+Job 285: Executing Tophat2 alignement for IN0114.
+Input:
+		-Genome : /work/gladieux/magMax_project/2_Annotation/0_rawdata/assembly_Toulouse/IN0114.fasta
+		-RNAseq : /work/gladieux/magMax_project/2_Annotation/0_rawdata/rnaseq
+Output : /work/gladieux/magMax_project/2_Annotation/5_soucheToulouse/0_bamAlignement/IN0114/
+Threads : 2
+############################################################################################################
+
+Finished job 305.
+12 of 411 steps (3%) done
+
+Job 317: Executing Tophat2 alignement for NG0054.
+Input:
+		-Genome : /work/gladieux/magMax_project/2_Annotation/0_rawdata/assembly_Toulouse/NG0054.fasta
+		-RNAseq : /work/gladieux/magMax_project/2_Annotation/0_rawdata/rnaseq
+Output : /work/gladieux/magMax_project/2_Annotation/5_soucheToulouse/0_bamAlignement/NG0054/
+Threads : 2
+############################################################################################################
+
+Finished job 327.
+13 of 411 steps (3%) done
+
+Job 248: Executing Tophat2 alignement for CH0461.
+Input:
+		-Genome : /work/gladieux/magMax_project/2_Annotation/0_rawdata/assembly_Toulouse/CH0461.fasta
+		-RNAseq : /work/gladieux/magMax_project/2_Annotation/0_rawdata/rnaseq
+Output : /work/gladieux/magMax_project/2_Annotation/5_soucheToulouse/0_bamAlignement/CH0461/
+Threads : 2
+############################################################################################################
+
+Finished job 304.
+14 of 411 steps (3%) done
+
+Job 309: Executing Tophat2 alignement for TG0004.
+Input:
+		-Genome : /work/gladieux/magMax_project/2_Annotation/0_rawdata/assembly_Toulouse/TG0004.fasta
+		-RNAseq : /work/gladieux/magMax_project/2_Annotation/0_rawdata/rnaseq
+Output : /work/gladieux/magMax_project/2_Annotation/5_soucheToulouse/0_bamAlignement/TG0004/
+Threads : 2
+############################################################################################################
+
+Finished job 261.
+15 of 411 steps (4%) done
+
+Job 258: Executing Tophat2 alignement for NP0058.
+Input:
+		-Genome : /work/gladieux/magMax_project/2_Annotation/0_rawdata/assembly_Toulouse/NP0058.fasta
+		-RNAseq : /work/gladieux/magMax_project/2_Annotation/0_rawdata/rnaseq
+Output : /work/gladieux/magMax_project/2_Annotation/5_soucheToulouse/0_bamAlignement/NP0058/
+Threads : 2
+############################################################################################################
+
+Finished job 295.
+16 of 411 steps (4%) done
+
+Job 264: Executing Tophat2 alignement for CH1164.
+Input:
+		-Genome : /work/gladieux/magMax_project/2_Annotation/0_rawdata/assembly_Toulouse/CH1164.fasta
+		-RNAseq : /work/gladieux/magMax_project/2_Annotation/0_rawdata/rnaseq
+Output : /work/gladieux/magMax_project/2_Annotation/5_soucheToulouse/0_bamAlignement/CH1164/
+Threads : 2
+############################################################################################################
+
+Finished job 313.
+17 of 411 steps (4%) done
+
+Job 388: Merge all bam file of CH0533.
+Input:/work/gladieux/magMax_project/2_Annotation/5_soucheToulouse/0_bamAlignement/CH0533/
+Output : /work/gladieux/magMax_project/2_Annotation/5_soucheToulouse/0_bamAlignement/CH0533/finalResults/merged_CH0533.accepted_hits.bam
+Threads : 2
+############################################################################################################
+
+Error in job mergeBam while creating output file /work/gladieux/magMax_project/2_Annotation/5_soucheToulouse/0_bamAlignement/CH0533/finalResults/merged_CH0533.accepted_hits.bam.
+ClusterJobException in line 138 of /work/gladieux/Script/Cluster/Braker_pipeline/BRAKER_pipeline.snake:
+Error executing rule mergeBam on cluster (jobid: 388, external: Your job 6126217 ("snakejob.mergeBam.388.sh") has been submitted, jobscript: /work/gladieux/Script/Cluster/Braker_pipeline/.snakemake/tmp.e_n9na1t/snakejob.mergeBam.388.sh). For detailed error see the cluster log.
+Will exit after finishing currently running jobs.
+Finished job 321.
+18 of 411 steps (4%) done
+Will exit after finishing currently running jobs.
+Finished job 316.
+19 of 411 steps (5%) done
+Will exit after finishing currently running jobs.
+Finished job 270.
+20 of 411 steps (5%) done
+Will exit after finishing currently running jobs.
+Finished job 301.
+21 of 411 steps (5%) done
+Will exit after finishing currently running jobs.
+Finished job 287.
+22 of 411 steps (5%) done
+Will exit after finishing currently running jobs.
+Finished job 272.
+23 of 411 steps (6%) done
+Will exit after finishing currently running jobs.
+Finished job 285.
+24 of 411 steps (6%) done
+Will exit after finishing currently running jobs.
+Finished job 278.
+25 of 411 steps (6%) done
+Will exit after finishing currently running jobs.
+Finished job 248.
+26 of 411 steps (6%) done
+Will exit after finishing currently running jobs.
+Finished job 317.
+27 of 411 steps (7%) done
+Will exit after finishing currently running jobs.
+Finished job 253.
+28 of 411 steps (7%) done
+Will exit after finishing currently running jobs.
+Finished job 289.
+29 of 411 steps (7%) done
+Will exit after finishing currently running jobs.
+Finished job 291.
+30 of 411 steps (7%) done
+Will exit after finishing currently running jobs.
+Finished job 264.
+31 of 411 steps (8%) done
+Will exit after finishing currently running jobs.
+Finished job 293.
+32 of 411 steps (8%) done
+Will exit after finishing currently running jobs.
+Finished job 311.
+33 of 411 steps (8%) done
+Will exit after finishing currently running jobs.
+Finished job 266.
+34 of 411 steps (8%) done
+Will exit after finishing currently running jobs.
+Finished job 297.
+35 of 411 steps (9%) done
+Will exit after finishing currently running jobs.
+Finished job 258.
+36 of 411 steps (9%) done
+Will exit after finishing currently running jobs.
+Finished job 309.
+37 of 411 steps (9%) done
+Will exit after finishing currently running jobs.
+Finished job 325.
+38 of 411 steps (9%) done
+Will exit after finishing currently running jobs.
+Finished job 299.
+39 of 411 steps (9%) done
+Will exit after finishing currently running jobs.
+Finished job 268.
+40 of 411 steps (10%) done
+Will exit after finishing currently running jobs.
+Finished job 324.
+41 of 411 steps (10%) done
+Will exit after finishing currently running jobs.
+Exiting because a job execution failed. Look above for error message

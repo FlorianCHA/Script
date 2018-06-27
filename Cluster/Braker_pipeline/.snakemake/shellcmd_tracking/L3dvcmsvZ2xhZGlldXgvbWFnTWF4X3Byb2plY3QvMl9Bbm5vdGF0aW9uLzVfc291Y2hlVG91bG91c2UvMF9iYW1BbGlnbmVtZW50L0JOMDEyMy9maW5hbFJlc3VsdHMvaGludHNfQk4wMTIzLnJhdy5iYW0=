@@ -1,0 +1,4 @@
+
+	module load bioinfo/braker/1.9
+	bam2hints --minintronlen=10 --maxintronlen=1000 --maxgaplen=9 --source=M --in=/work/gladieux/magMax_project/2_Annotation/5_soucheToulouse/0_bamAlignement/BN0123/finalResults/merged_BN0123.accepted_hits_sort.bam --out=/work/gladieux/magMax_project/2_Annotation/5_soucheToulouse/0_bamAlignement/BN0123/finalResults/hints_BN0123.raw.bam
+	

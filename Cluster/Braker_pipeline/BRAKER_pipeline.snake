@@ -7,11 +7,11 @@ from os.path import join
 # Adapt here so you can get all read pairs and ref:
 
 # directory contained fasta files
-datadir="/work/gladieux/magMax_project/2_Annotation/0_rawdata/assembly_Toulouse/"
+datadir="/work/gladieux/magMax_project/2_Annotation/0_rawdata/AssemblyToulouse/"
 # Out directory
 OutDir = '/work/gladieux/magMax_project/2_Annotation/5_soucheToulouse/'
 # RNAseq directory
-RnaSeqDir='/homedir/charriat/work/Annotation/0_rawdata/rnaseq/'
+RnaSeqDir='/work/gladieux/magMax_project/2_Annotation/0_rawdata/rnaseq'
 # file termination
 suffixFile = '.fasta'
 ################################################################################
@@ -20,9 +20,9 @@ suffixFile = '.fasta'
 
 ################################################################################
 # Config file for TOOGLE
-configFile = './SupplementaryFile/tophatMapping.config.txt' # A mettre dans l'outils
+configFile = 'SupplementaryFile/tophatMapping.config.txt' # A mettre dans l'outils
 # Path to protein annotation file 
-protRef = './SupplementaryFile/70-15_annotated_protein.fa' # A mettre dans l'outils
+protRef = 'SupplementaryFile/70-15_annotated_protein.fa' # A mettre dans l'outils
 ################################################################################
 
 SAMPLES, = glob_wildcards(datadir+"{smp}"+suffixFile)
@@ -137,7 +137,7 @@ rule sortBam :
 	
 rule mergeBam :
 	threads : 2
-	input :  bam = OutDir+'0_bamAlignement/{smp}/', file = OutDir+'0_bamAlignement/{smp}/finalResults/bamList' 	
+	input :  bam = OutDir+'0_bamAlignement/{smp}/'
 	output : OutDir+'0_bamAlignement/{smp}/finalResults/merged_{smp}.accepted_hits.bam'
 	message: 'Merge all bam file of {wildcards.smp}.\nInput:{input}\nOutput : {output}\nThreads : {threads}\n'+'#'*108
 	shell :"""
@@ -150,13 +150,12 @@ rule mergeBam :
 rule bamAlignement :
 	threads : 2
 	input: fasta = datadir+"{smp}"+suffixFile, RNAseq = RnaSeqDir, config = configFile
-	output: bam = OutDir+'0_bamAlignement/{smp}/', list = OutDir+'0_bamAlignement/{smp}/finalResults/bamList'
+	output: bam = OutDir+'0_bamAlignement/{smp}/'
 	message: 'Executing Tophat2 alignement for {wildcards.smp}.\nInput:\n\t\t-Genome : {input.fasta}\n\t\t-RNAseq : {input.RNAseq}\nOutput : {output}\nThreads : {threads}\n'+'#'*108
 	log : 'log/bamAlignement_{wildcards.smp}.out'
 	shell :"""
 	module load bioinfo/TOGGLE/0.3.6
 	toggleGenerator.pl -d {input.RNAseq} -r {input.fasta} -c {input.config} -o {output.bam} 
-	touch {output.list}
 	"""
 
 rule clean:
