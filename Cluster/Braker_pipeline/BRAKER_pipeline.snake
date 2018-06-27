@@ -150,12 +150,12 @@ rule mergeBam :
 rule bamAlignement :
 	threads : 2
 	input: fasta = datadir+"{smp}"+suffixFile, RNAseq = RnaSeqDir, config = configFile
-	output: bam = OutDir+'0_bamAlignement/{smp}/', list = OutDir+'0_bamAlignement/{smp}/finalResults/bamList'
+	output: bam = OutDir+'0_bamAlignement, list = OutDir+'0_bamAlignement/{smp}/finalResults/bamList'
 	message: 'Executing Tophat2 alignement for {wildcards.smp}.\nInput:\n\t\t-Genome : {input.fasta}\n\t\t-RNAseq : {input.RNAseq}\nOutput : {output}\nThreads : {threads}\n'+'#'*108
 	log : 'log/bamAlignement_{wildcards.smp}.out'
 	shell :"""
 	module load bioinfo/TOGGLE/0.3.6
-	toggleGenerator.pl -d {input.RNAseq} -r {input.fasta} -c {input.config} -o {output.bam} 
+	toggleGenerator.pl -d {input.RNAseq} -r {input.fasta} -c {input.config} -o {output.bam}/{smp}/
 	touch {output.list}
 	"""
 
