@@ -22,7 +22,7 @@ suffixFile = '.fasta'
 # Config file for TOOGLE
 configFile = 'SupplementaryFile/tophatMapping.config.txt' # A mettre dans l'outils
 # Path to protein annotation file 
-protRef = 'SupplementaryFile/70-15_annotated_protein.fa' # A mettre dans l'outils
+protRef = 'SupplementaryFile/70-15_proteinAndAVR.fasta' # A mettre dans l'outils
 ################################################################################
 
 SAMPLES, = glob_wildcards(datadir+"{smp}"+suffixFile)
@@ -71,7 +71,7 @@ rule augustus :
 	"""
 
 rule BRAKER :
-	threads : 4
+	threads : 2
 	input : genome = datadir+"{smp}"+suffixFile, hints = OutDir+'1_hints/MergeHints/RNAseq_protein.hints.intron_{smp}.gff'
 	output : OutDir+'2_Braker/{smp}/'
 	message: 'Execute BRAKER for {wildcards.smp}.\nInput:\n\t\t-Genome : {input.genome}\n\t\t-Hints file : {input.hints}\nOutput :{output}\nThreads : {threads}\n'+'#'*108
@@ -93,7 +93,7 @@ rule mergeHint:
 	"""
 	
 rule exonerate :
-	threads : 4
+	threads : 2
 	input : protRef = protRef, file = datadir+"{smp}"+suffixFile
 	output: exonerate = OutDir+'1_hints/ProtHints/exonarate_{smp}.gff3', hints =OutDir+'1_hints/ProtHints/exonarate_{smp}.hints.gff3'
 	message: 'Executing exonerate alignement and convert alignement into hints file for {wildcards.smp}.\nInput:\n\t\t-Reference file : {input.protRef}\n\t\t-Genome : {input.file}\nOutput :\n\t\t-Alignement {output.exonerate}\n\t\t-hints file : {output.hints}\nThreads : {threads}\n'+'#'*108

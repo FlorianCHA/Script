@@ -122,7 +122,6 @@ if __name__ == "__main__":
 	print('\t- Evalue min : %s'%evalue)
 	print('\t- Output : %s\n\n'%alignementFile)
 ############### Fin message ################################
-
 	os.system('psiblast -query %s -db %s -num_iterations %s -outfmt "6 qseqid sseqid pident evalue sseq" -evalue %s -out %s'%(query,db,nbIteration,evalue,alignementFile))
 	f = open(alignementFile,'r')
 	lines = f.readlines()
