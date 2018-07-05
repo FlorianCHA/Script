@@ -120,18 +120,21 @@ if __name__ == "__main__":
 	
 		sequence = dicoFasta[ID]
 		strain = outputfilename.split('/')[-1].split('_')[0].replace('.fasta','')
-		seqName = strain+"_Scaffold_{}".format(count)
+		seqName = "Scaffold_{}".format(count)
 		descrip = "length={}".format(lenSeq)
-		if keep == 'g' and lenSeq >= lenSize or (keep == 'l' and lenSeq <= lenSize):
-				record = SeqRecord(sequence.seq,id=seqName,name=seqName, description=descrip)
-				SeqIO.write(record,output_handle, "fasta")
-				#SeqIO.write(sequence,output_handle, "fasta")
-				count += 1
-		elif keep == 'None' : 
-				record = SeqRecord(sequence.seq,id=seqName,name=seqName, description=descrip)
-				SeqIO.write(record,output_handle, "fasta")
-				#SeqIO.write(sequence,output_handle, "fasta")
-				count += 1
+		if str(sequence.seq).count('N') < (len(str(sequence.seq)) - 20) :
+			if keep == 'g' and lenSeq >= lenSize or (keep == 'l' and lenSeq <= lenSize):
+					record = SeqRecord(sequence.seq,id=seqName,name=seqName, description=descrip)
+					SeqIO.write(record,output_handle, "fasta")
+					#SeqIO.write(sequence,output_handle, "fasta")
+					count += 1
+			elif keep == 'None' : 
+					record = SeqRecord(sequence.seq,id=seqName,name=seqName, description=descrip)
+					SeqIO.write(record,output_handle, "fasta")
+					#SeqIO.write(sequence,output_handle, "fasta")
+					count += 1
+		else :
+			print(ID +' contains only N, so this scaffolds is removed')
 			
 		
 	print("\n\nExecution summary:")

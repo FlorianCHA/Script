@@ -144,7 +144,7 @@ if __name__ == "__main__":
 			if nb == 400 and line[0] == '>' :
 				listePhobius.append('phobius.pl -short %s/%s_part%s.fasta  >> %s;\n'%(outDirFasta,idFile,str(part),outputPhobius))
 				listeTargetp.append('targetp -N %s/%s_part%s.fasta >> %s;\n'%(outDirFasta,idFile,str(part),outTargetP))
-				listeSignalP.append('signalp -u 0.34 -U 0.34 %s/%s_part%s.fasta >> %s;\n'%(outDirFasta,idFile,str(part),outputSignalP))
+				listeSignalP.append('signalp -u 0.24 -U 0.24 %s/%s_part%s.fasta >> %s;\n'%(outDirFasta,idFile,str(part),outputSignalP))
 				nb = 1
 				nbSeq +=1
 				part +=1
