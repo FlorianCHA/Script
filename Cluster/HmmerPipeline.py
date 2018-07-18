@@ -47,10 +47,10 @@
 import argparse, os, sys
 
 #Import module_Flo
-from module_Flo import verifDir, createDir , form
+from module_Flo import verifDir, createDir , form, fasta2dict
 
 ############# Fonction ####################
-def filtreHit(files):
+def filtreHit(files,dico_DB):
 	"""
 	"""
 	nb = 0
@@ -74,12 +74,12 @@ def filtreHit(files):
 
 		else :
 			name = line.split()[0]
-			alignement = line.split()[1]
+			seq = dico_DB[name.split('/')[0]]
 			index = 0
 			goodAlignement = False
-			for aa in alignement :
+			for aa in seq :
 				if aa == 'C' :
-					zone = alignement[index+33:index+49]
+					zone = seq[index+33:index+49]
 					if 'C' in zone :		
 						f.write(line)
 						goodAlignement = True
@@ -136,7 +136,9 @@ if __name__ == "__main__":
 	os.system('hmmbuild --amino %s %s > trash '%(profilZero,alignement))
 	AlignementZero = '%salignement_0'%outDir
 	os.system('hmmsearch -A %s --max --nonull2 %s %s > trash'%(AlignementZero,profilZero,db))
-	filtreHit(AlignementZero)
+	dico_fasta = fasta2dict(db)
+	nb = filtreHit(AlignementZero,dico_fasta)
+	print('Alignement_0 : %s hits retirés'%(nb)) 
 	newAlignement = AlignementZero
 	i = 0
 	while True:
@@ -147,8 +149,8 @@ if __name__ == "__main__":
 		linesOldAlignement = f.readlines()
 		f.close()
 		newAlignement = '%salignement_%s'%(outDir,str(i))
-		os.system('hmmsearch -A %s --max -E 1e-6 --nonull2 %s %s > trash'%(newAlignement,profil,db))
-		nb = filtreHit(newAlignement)
+		os.system('hmmsearch -A %s --max --nonull2 -E 1e-3 %s %s > trash'%(newAlignement,profil,db))
+		nb = filtreHit(newAlignement,dico_fasta)
 		f = open(newAlignement+'_filtred','r')
 		linesNewAlignement =  f.readlines()
 		f.close()

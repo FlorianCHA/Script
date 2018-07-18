@@ -86,6 +86,7 @@ if __name__ == "__main__":
 	f = open(outFile,'w')
 	f.write('n\tn:500\tL50\tmin\tN80\tN50\tN20\tE-size\tmax\tsum\tname\n')
 	for files in os.listdir(directory):
+		print(files+ ' in process')
 
 		Pathfile = directory+files
 		isFasta(Pathfile)
@@ -141,6 +142,7 @@ if __name__ == "__main__":
 		Esize = int(Esize/lengthGenome)
 
 		f.write('%s\t%s\t%s\t500\t%s\t%s\t%s\t%s\t%s\t%s\t%s\n'%(nbScaffold,n500,L50,N80,N50,N20,Esize,maxs,lengthGenome,strain))
+		print(files+' done')
 
 	f.close()
 

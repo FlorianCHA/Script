@@ -12,7 +12,6 @@
 import sys, os
 current_dir = os.path.dirname(os.path.abspath(__file__))+"/"
 sys.path.insert(1,current_dir+'../modules/')
-from MODULES_SEB import dict2txt, loadInList, dictDict2txt, existant_file,fasta2dict, sort_human
 
 ## Python modules
 import argparse
@@ -46,7 +45,7 @@ if __name__ == "__main__":
 	#parser.add_argument('-dd', '--debug',choices=("False","True"), dest='debug', help='enter verbose/debug mode', default = "False")
 
 	filesreq = parser.add_argument_group('Input  infos for running')
-	filesreq.add_argument('-g', '--gff', metavar="<path/to/gff>", type=existant_file, required=True, dest = 'gffFileIn', help = 'path to gff file')
+	filesreq.add_argument('-g', '--gff', metavar="<path/to/gff>", type=str, required=True, dest = 'gffFileIn', help = 'path to gff file')
 	filesreq.add_argument('-s', '--strain', metavar="<str>", type=str, required=True, dest = 'strainName', help = 'Name of strain')
 	filesreq.add_argument('-o', '--out', metavar="<path/to/output/file>", required=True, dest = 'outDir', help = 'Path of output file')
 	filesreq.add_argument('-n', '--numero', metavar="<int>", type=int, required=False,default=0 ,dest = 'num', help = 'path to gff file')

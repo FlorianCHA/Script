@@ -19,7 +19,7 @@
 	Example
 	-------
 
-	>>> mergeBraker_augustus.py  -a /work/augustus.gff3 -b /work/braker.gff3 -outDir /work/result/
+	>>> mergeBraker_augustus.py  -a /work/augustus.gff3 -b /work/braker.gff3 -outFile /work/result
 
 
 	Help Programm
@@ -37,7 +37,7 @@
 						path of the augustus output file
 		- \-b <path/to/braker/output/file>, --file <path/to/braker/output/file>
 						path of the braker output file
-		- \-o <path/to/output/directory>, --outdirPath <path/to/output/directory>
+		- \-o <path/to/output/directory>, --outFile <path/to/output/directory>
 						path and name of the output directory
 
 """
@@ -71,7 +71,7 @@ if __name__ == "__main__":
 	filesreq = parser.add_argument_group('Input mandatory infos for running')
 	filesreq.add_argument('-a', '--augustus',type = str, default = 'None', dest = 'augustus', help = 'Path of the augustus output file')
 	filesreq.add_argument('-b', '--braker',type = str,  required=True, dest = 'braker', help = 'Path of the braker output file')
-	filesreq.add_argument('-o', '--outdir',type = str, required=True, dest = 'outdir', help = 'Path of the output directory')
+	filesreq.add_argument('-o', '--outFile',type = str, required=True, dest = 'outFile', help = 'Path of the output directory')
 
 	
 ######### Recuperation arguments ###########
@@ -79,14 +79,12 @@ if __name__ == "__main__":
 	args = parser.parse_args()
 	brakerFile = os.path.abspath(args.braker)
 	augustusFile = os.path.abspath(args.augustus)
-	outDir= os.path.abspath(args.outdir)	
+	outFile= os.path.abspath(args.outFile)	
 ########### Gestion directory ##############
 
-	name_directory = [outDir]
-	createDir(name_directory)
-	outDir = verifDir(outDir)
 	name = augustusFile.split('/')[-1].replace('.gff3','')
-	
+	brakerPath = brakerFile.replace(brakerFile.split('/')[-1],'')
+	augustusPath = augustusFile.replace(augustusFile.split('/')[-1],'')
 
 
 ############### start message ########################
@@ -141,18 +139,18 @@ if __name__ == "__main__":
 						break
 	numberGeneBraker = brakerlines[-1].split('=g')[-1].split('.t')[0]
 	print('Comparaison done')
-	os.system('./renameGFF.py -g %s -s %s -o %s%s_braker.gff3'%(brakerFile,name,outDir,name))
+	os.system(sys.path[0]+'/renameGFF.py -g %s -s %s -o %s%s_braker.gff3'%(brakerFile,name,brakerPath,name))
 	print('rename Braker file done')								
 	print('Nombre de genes a ajouter : '+ str(len(liste1)))
-	f = open(outDir+name+'_prov.gff3','w')
+	f = open(augustusPath+name+'_prov.gff3','w')
 	for elt in liste1:
 		for sousElt in elt :
 			f.write(sousElt)
 	f.close()
 	print('Write new gff3 for augustus : Done')
-	os.system('./renameGFF.py -g %s -s %s -o %s%s_augustus.gff3 -n %s -t augustus'%(outDir+name+'_prov.gff3',name,outDir,name,numberGeneBraker))
-	os.system('rm %s'%(outDir+name+'_prov.gff3'))
-	os.system('cat %s%s_braker.gff3 %s%s_augustus.gff3 > %s%s_merge.gff3'%(outDir,name,outDir,name,outDir,name))
+	os.system(sys.path[0]+'/renameGFF.py -g %s -s %s -o %s%s_augustus.gff3 -n %s -t augustus'%(augustusPath+name+'_prov.gff3',name,augustusPath,name,numberGeneBraker))
+	os.system('rm %s'%(augustusPath+name+'_prov.gff3'))
+	os.system('cat %s%s_braker.gff3 %s%s_augustus.gff3 > %s'%(brakerPath,name,augustusPath,name,outFile))
 			
 				
 ############## end message ###########################

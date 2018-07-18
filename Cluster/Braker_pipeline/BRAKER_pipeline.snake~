@@ -22,7 +22,7 @@ suffixFile = '.fasta'
 # Config file for TOOGLE
 configFile = 'SupplementaryFile/tophatMapping.config.txt' # A mettre dans l'outils
 # Path to protein annotation file 
-protRef = 'SupplementaryFile/70-15_annotated_protein.fa' # A mettre dans l'outils
+protRef = 'SupplementaryFile/70-15_proteinAndAVR.fasta' # A mettre dans l'outils
 ################################################################################
 
 SAMPLES, = glob_wildcards(datadir+"{smp}"+suffixFile)
@@ -71,7 +71,7 @@ rule augustus :
 	"""
 
 rule BRAKER :
-	threads : 4
+	threads : 2
 	input : genome = datadir+"{smp}"+suffixFile, hints = OutDir+'1_hints/MergeHints/RNAseq_protein.hints.intron_{smp}.gff'
 	output : OutDir+'2_Braker/{smp}/'
 	message: 'Execute BRAKER for {wildcards.smp}.\nInput:\n\t\t-Genome : {input.genome}\n\t\t-Hints file : {input.hints}\nOutput :{output}\nThreads : {threads}\n'+'#'*108
@@ -93,7 +93,7 @@ rule mergeHint:
 	"""
 	
 rule exonerate :
-	threads : 4
+	threads : 2
 	input : protRef = protRef, file = datadir+"{smp}"+suffixFile
 	output: exonerate = OutDir+'1_hints/ProtHints/exonarate_{smp}.gff3', hints =OutDir+'1_hints/ProtHints/exonarate_{smp}.hints.gff3'
 	message: 'Executing exonerate alignement and convert alignement into hints file for {wildcards.smp}.\nInput:\n\t\t-Reference file : {input.protRef}\n\t\t-Genome : {input.file}\nOutput :\n\t\t-Alignement {output.exonerate}\n\t\t-hints file : {output.hints}\nThreads : {threads}\n'+'#'*108
@@ -131,7 +131,7 @@ rule sortBam :
 	message: 'Sort the merged bam file of {wildcards.smp}.\nInput:{input}\nOutput : {output}\nThreads : {threads}\n'+'#'*108
 	shell:"""
 	module load bioinfo/picard-tools/2.7.0
-	java -jar /usr/local/bioinfo/picard-tools/assemblyToulouse2.7.0/picard.jar SortSam I={input} O={output} SORT_ORDER=coordinate
+	java -jar /usr/local/bioinfo/picard-tools/2.7.0/picard.jar SortSam I={input} O={output} SORT_ORDER=coordinate
 	"""
 	
 	
@@ -150,12 +150,21 @@ rule mergeBam :
 rule bamAlignement :
 	threads : 2
 	input: fasta = datadir+"{smp}"+suffixFile, RNAseq = RnaSeqDir, config = configFile
+<<<<<<< HEAD
 	output: bam = OutDir+'0_bamAlignement/{smp}/'
+=======
+	output: bam = OutDir+'0_bamAlignement, list = OutDir+'0_bamAlignement/{smp}/finalResults/bamList'
+>>>>>>> f90f426f491af5764e3bc97793f5310e51dd003b
 	message: 'Executing Tophat2 alignement for {wildcards.smp}.\nInput:\n\t\t-Genome : {input.fasta}\n\t\t-RNAseq : {input.RNAseq}\nOutput : {output}\nThreads : {threads}\n'+'#'*108
 	log : 'log/bamAlignement_{wildcards.smp}.out'
 	shell :"""
 	module load bioinfo/TOGGLE/0.3.6
+<<<<<<< HEAD
 	toggleGenerator.pl -d {input.RNAseq} -r {input.fasta} -c {input.config} -o {output.bam} 
+=======
+	toggleGenerator.pl -d {input.RNAseq} -r {input.fasta} -c {input.config} -o {output.bam}/{smp}/
+	touch {output.list}
+>>>>>>> f90f426f491af5764e3bc97793f5310e51dd003b
 	"""
 
 rule clean:

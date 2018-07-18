@@ -150,11 +150,8 @@ rule mergeBam :
 rule bamAlignement :
 	threads : 2
 	input: fasta = datadir+"{smp}"+suffixFile, RNAseq = RnaSeqDir, config = configFile
-<<<<<<< HEAD
 	output: bam = OutDir+'0_bamAlignement/{smp}/'
-=======
-	output: bam = OutDir+'0_bamAlignement, list = OutDir+'0_bamAlignement/{smp}/finalResults/bamList'
->>>>>>> f90f426f491af5764e3bc97793f5310e51dd003b
+	output: bam = OutDir+'0_bamAlignement', list = OutDir+'0_bamAlignement/{smp}/finalResults/bamList'
 	message: 'Executing Tophat2 alignement for {wildcards.smp}.\nInput:\n\t\t-Genome : {input.fasta}\n\t\t-RNAseq : {input.RNAseq}\nOutput : {output}\nThreads : {threads}\n'+'#'*108
 	log : 'log/bamAlignement_{wildcards.smp}.out'
 	shell :"""
