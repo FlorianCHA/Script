@@ -104,16 +104,6 @@ if __name__ == "__main__":
 				nbJob += 1
 
 
-############## summary message #######################
-	print(form('\n---------------------------------------------------------------------------------','red','bold'))
-	print(form('Execution summary:\n','green',['bold','underline']))
-	print('\n\tInput : \n\t\t- '+ directory[:-1])
-	print('\n\tOutput :')
-	print('\t\t - script bash créé : ' +bash)
-	print('\t\t - Résultats des assemblages : '+outDir+'result')
-	print('\n\tAbyss_launch a lancés '+str(nbJob)+" jobs pour l'assemblage des "+str(nbGenome)+' souches\n')
-	print(form('---------------------------------------------------------------------------------','red','bold'))
-
 ############## end message ###########################
 
 	print(form("\n\t---------------------------------------------------------",'yellow','bold'))

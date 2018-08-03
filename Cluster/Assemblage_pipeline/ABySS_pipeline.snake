@@ -1,0 +1,78 @@
+import glob
+import re
+import sys
+from os.path import join 
+
+###############################################################################
+###############################################################################
+# Adapt here so you can get all read pairs and ref:
+#--------------------------------------------------
+
+# directory contained sequencing data files
+datadir="/homedir/gladieux/work/magMax_project/0_Assembly/3_test/"
+
+# Out directory
+OutDir = '/homedir/gladieux/work/magMax_project/0_Assembly/4_test_result/'
+
+
+# file termination
+suffixFileR1 = '_R1.fastq.gz'
+suffixFileR2 = '_R2.fastq.gz'
+
+################################################################################
+################################################################################
+
+SAMPLES, = glob_wildcards(datadir+"{smp}"+suffixFileR1)
+	
+	
+rule final:
+	input: 
+		expand( OutDir + '3_report/report.html'),
+		expand( OutDir + '2_data-final/')
+		
+		
+
+
+rule select_assemblage :
+	threads : 1 
+	input : file = OutDir + '3_report/data_report/select.csv'
+	output : OutDir + '2_data-final/'
+	run : 
+		directory = '/'.join(input.file[0:-3])+'1_ABySS'
+		f = open(input.file,'r')
+		lines = f.readlines()
+		f.close()
+		for line in lines : 
+			select = line.split('\t')[0]
+			path_old = '%s/abyss_assembly_%s/%s-8.fa'%(directory + select,select,select)
+			path_New = '%s.fasta'%(output+select)
+			os.sysem('mv %s %s'%(path_old,path_New))
+	
+	
+rule report:
+	threads : 1 
+	input : OutDir + '3_report/data_report/Quality.txt'
+	output : report = OutDir + '3_report/report.html', select = OutDir + '3_report/data_report/select.csv'
+	shell : """
+	module load bioinfo/R/3.4.3
+	Rscript -e 'rmarkdown::render("script/report.Rmd", output_file="{output}", quiet=TRUE, params = list(quality = "{input}"))'
+	"""
+		
+rule recup_stat :
+	threads : 1  
+	input :  lien = expand(OutDir + '1_ABySS/{smp}/', smp = SAMPLES)
+	output : OutDir + '3_report/data_report/Quality.txt'
+	shell : """
+	script/Quality.py -d {wildcards.OutDir}1_ABySS/ -o {output}
+	"""	
+
+rule ABySS_Launch:
+	threads : 1 
+	input: R1 = datadir + '{smp}' + suffixFileR1, R2 = datadir + '{smp}' + suffixFileR2
+	params : suffix = suffixFileR1
+	output: OutDir + '1_ABySS/{smp}/'
+	shell :"""
+	module load bioinfo/abyss/1.9.0
+	script/ABYSS_launch.py -r1 {input.R1} -r2 {input.R2} -s {params.suffix} -o {output}
+	"""
+		

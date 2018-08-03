@@ -38,9 +38,9 @@
 		- \-f <path/to/fasta/file>, --file <path/to/fasta/file>
 						path of fasta files that contains all the protien of strain
 		- \-p <path/to/prosite.dat/file>, --outdirPath <path/to/prosite.dat/file>
-						path of the output directory						
+						Path of prosite.dat file. You can upload the file at ftp://ftp.expasy.org/databases/prosite/prosite.dat						
 		- \-o <path/to/output/directory>, --outdirPath <path/to/output/directory>
-						Path of prosite.dat file. You can upload the file at ftp://ftp.expasy.org/databases/prosite/prosite.dat
+						Path of the output directory
 		- \-fo                             --force
 						force the script to remove the old output data
 """
@@ -76,8 +76,8 @@ if __name__ == "__main__":
 
 	filesreq = parser.add_argument_group('Input mandatory infos for running')
 	filesreq.add_argument('-f', '--file',type = str, required=True, dest = 'dirPath', help = 'path of fasta files that contains all the protien of strain')
-	filesreq.add_argument('-o', '--outdir',type = str, required=True, dest = 'outdirPath', help = 'Path of the output directory')
-	filesreq.add_argument('-p', '--prosite',type = str, required=True, dest = 'prositePath', help = 'Path of prosite.dat file. You can upload the file at ftp://ftp.expasy.org/databases/prosite/prosite.dat')
+	filesreq.add_argument('-o', '--outdir',type = str, required=True, dest = 'outdirPath', help = 'Path of prosite.dat file. You can upload the file at ftp://ftp.expasy.org/databases/prosite/prosite.dat')
+	filesreq.add_argument('-p', '--prosite',type = str, required=True, dest = 'prositePath', help = 'Path of the output directory')
 	filesreq.add_argument('-fo', '--force', action='store_true', dest = 'force', help = 'force the script to remove output data')
 
 	

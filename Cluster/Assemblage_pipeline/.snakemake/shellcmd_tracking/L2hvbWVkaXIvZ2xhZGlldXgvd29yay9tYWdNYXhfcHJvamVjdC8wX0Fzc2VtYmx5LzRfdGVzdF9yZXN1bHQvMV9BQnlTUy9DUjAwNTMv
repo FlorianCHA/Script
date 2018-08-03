@@ -1,0 +1,4 @@
+
+	module load bioinfo/abyss/1.9.0
+	script/ABYSS_launch.py -r1 /homedir/gladieux/work/magMax_project/0_Assembly/3_test/CR0053_R1.fastq.gz -r2 /homedir/gladieux/work/magMax_project/0_Assembly/3_test/CR0053_R2.fastq.gz -s _R1.fastq.gz -o /homedir/gladieux/work/magMax_project/0_Assembly/4_test_result/1_ABySS/CR0053/
+	

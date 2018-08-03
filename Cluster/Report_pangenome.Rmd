@@ -1,0 +1,157 @@
+---
+title: "Report"
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+params:
+   data: "None"
+   dataH: "None"
+output:
+  html_document:
+    fig_caption: yes
+    highlight: zenburn
+    theme: cerulean
+---
+
+```{r setup, include=FALSE, warning=FALSE, message=FALSE}
+knitr::opts_chunk$set(echo = FALSE, warning=FALSE, message=FALSE)
+```
+
+
+```{r data, echo = FALSE, warning=FALSE,tidy=TRUE, comment = NA}
+library('DT')
+minGroupe <- 5
+data <- read.table(params$data,head = T,sep = '\t')
+rownames(data) <- data$Groupe
+Groupe <- data$Groupe
+data <- data [2:ncol(data)]
+correction <- data == '1*'
+data[correction] <- 1
+for (colonne in colnames(data))
+{
+  data[,colonne] <- as.character(data[,colonne])
+}
+abs <- data == '0'
+data[abs] <- 'Absent'
+pres <- data !=  'Absent' 
+data[pres] <- 'Présent'
+data <- cbind(Groupe,data)
+
+dataHote <- read.table(params$dataH,sep = '\t')
+rownames(dataHote) <- dataHote$V1
+dataHote <- data.frame(t(dataHote))
+dataH <- c()
+dataname<- c()
+for (elt in colnames(data))
+{
+  if (elt != 'Groupe')
+  {
+    dataname <- c(dataname,elt)
+  }
+  dataH <- c(dataH,as.character(dataHote[2,elt]))
+}
+dataH <- data.frame(t(dataH))
+colnames(dataH) <- dataname
+rownames(dataH) <- 'Phenotype'
+rownames(data) <- data$Groupe
+data <- data[,2:ncol(data)]
+data <- rbind(data,dataH)
+data <-  data.frame(t(data))
+phenotype <- unique(data$Phenotype)
+NombrePhenotypeUtilisée = 0
+for ( elt in phenotype)
+{
+  select <- data$Phenotype == elt
+  nbPheno <- as.numeric(table(select)[2])
+  if (nbPheno >= minGroupe)
+  {
+    NombrePhenotypeUtilisée = NombrePhenotypeUtilisée+1
+  }
+  
+}
+
+
+```
+
+&nbsp;
+
+##Summary
+
+&nbsp;
+
+Summary             |       Nombre                                                             
+------------ | --------------------------------------------------------------------------
+Groupe d'orthologue d'effecteur MAX  | `r ncol(data)-1` 
+Taille minimale d'un groupe          | `r minGroupe` 
+Nombre de phenotypes traités         | `r NombrePhenotypeUtilisée` 
+Correction effectuer par le script   | `r table(correction)[2]` 
+Tests statistiques effectués         | `r (ncol(data)-1)*NombrePhenotypeUtilisée`
+
+---- 
+
+##Analyse statistique (Chi2)
+
+&nbsp;
+
+
+```{r table, echo = FALSE, warning=FALSE,tidy=TRUE, comment = NA}
+
+test_association_Pheno_Effecteur <- function(data,minGroupe,print)
+{
+  
+  names <- c('Groupe','Hote','p-value','Présent_hote','Absent_Hote','Present_Other','Absent_Other')
+  tableData <- data.frame(names, row.names = names)
+  phenotype <- unique(data$Phenotype)
+  for ( elt in phenotype)
+  {
+    select <- data$Phenotype == elt
+    nbPheno <- as.numeric(table(select)[2])
+    if (nbPheno >= minGroupe) 
+    {
+      newPheno <- rep("Z-Other",nrow(data))
+      newPheno[select] <- elt
+      dataElt <- data
+      dataElt$Phenotype <- newPheno
+      for (groupe in colnames(data))
+      {
+        if (groupe != 'Phenotype')
+        {
+          table <- table(dataElt[,groupe],dataElt$Phenotype)  
+          test <- chisq.test(table)
+          if (length(table) == 2)
+          {
+             score <- c(groupe,elt,as.numeric(formatC(test$p.value,format='e',digits = 1)),table[1],0,table[2],0)
+          }
+          else
+          {
+            score <- c(groupe,elt,as.numeric(formatC(test$p.value,format='e',digits = 1)),table[2],table[1],table[4],table[3]) 
+          }
+          tableData <- data.frame(tableData,score,row.names = c('Groupe','Hote','p-value','Présent_hote','Absent_Hote','Present_Other','Absent_Other'))
+          if (print == TRUE)
+          {
+          print(paste('Groupe : ',groupe))
+          print(paste('Phenotype : ',elt))
+          print(test)
+          print(table)
+          print('-------------------------------------------------------------------------', quote = F, type="html")
+          }
+        }
+      }
+    }
+  } 
+  return(tableData)
+}
+
+tableData <- test_association_Pheno_Effecteur(data,minGroupe,FALSE)
+rownames(tableData) <- tableData$names
+tableData <-  data.frame(t(tableData[,2:ncol(tableData)]))
+datatable(tableData,extensions = 'Buttons',rownames = NA,options = list(dom = 'Blfrtip',buttons = c('copy', 'csv', 'excel', 'pdf', 'print')))
+```
+
+
+----
+
+
+
+```{r stat, echo = FALSE, warning=FALSE,tidy=TRUE, comment = NA}
+tableData <- test_association_Pheno_Effecteur(data,minGroupe,TRUE)
+```
+
