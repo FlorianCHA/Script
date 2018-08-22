@@ -1,8 +1,52 @@
 #!/usr/local/bioinfo/python/3.4.3_build2/bin/python
 # -*- coding: utf-8 -*-
-# @package renameAndAddParent.py
-# @author Sebastien Ravel
+# @package renameGFF.py
+# @author Charriat Florian
+"""
+	The renameGFF script
+	=======================
+	:author: Charriat Florian
+	:contact: florian.charriat@inra.fr
+	:date: 9/03/2018
+	:version: 0.1
 
+	Script description
+	------------------
+
+	This Programme rename genes name in GFF file. The name of every gene will be : Mo_+NumGene+T+Numtranscript
+
+	Example
+	-------
+
+	>>> renameGFF.py -d /homedir/user/work/data/MO.gff -s MO -t Braker -o /homedir/user/work/result/MO_new.gff
+
+	Help Programm
+	-------------
+
+	optional arguments:
+		- \-h, --help
+						show this help 	message and exit
+		- \-v, --version
+						display renameGFF.py version number and exit
+						
+	Input infos for running:
+		- \-g <path/to/file>, --gff <path/to/gff/file>
+						path to gff file
+		- \-s <str>, --strain <str>
+						Name of strain
+						
+		- \-t <path/to/file>, --tools <path/to/file>
+						name of the annotation tools which create the file
+						
+		- \-o <path/to/output/file>, --outdirPath <path/to/output/file>
+						path of the output file
+
+"""
+	filesreq.add_argument('-g', '--gff', metavar="<path/to/gff>", type=existant_file, required=True, dest = 'gffFileIn', help = 'path to gff file')
+	filesreq.add_argument('-s', '--strain', metavar="<str>", type=str, required=True, dest = 'strainName', help = 'Name of strain')
+	filesreq.add_argument('-o', '--out', metavar="<path/to/output/file>", required=True, dest = 'outDir', help = 'Path of output file')
+	filesreq.add_argument('-n', '--numero', metavar="<int>", type=int, required=False,default=0 ,dest = 'num', help = 'path to gff file')
+	filesreq.add_argument('-t', '--tools', metavar="<str>", type=str, required=False,default='Braker', dest = 'tools', help = 'name of the annotation tools which create the file')
 
 
 ##################################################
@@ -29,6 +73,7 @@ version="0.1"
 VERSION_DATE='26/06/2017'
 
 
+
 ##################################################
 
 ##################################################
@@ -40,7 +85,7 @@ if __name__ == "__main__":
 	start_time = strftime("%d-%m-%Y_%H:%M:%S", localtime())
 
 	# Parameters recovery
-	parser = argparse.ArgumentParser(prog=__file__, description='''This Programme rename genes name''')
+	parser = argparse.ArgumentParser(prog=__file__, description='''This Programme rename genes name in GFF file. The name of every gene will be : Mo_+NumGene+T+Numtranscript''')
 	parser.add_argument('-v', '--version', action='version', version='You are using %(prog)s version: ' + version, help=\
 						'display '+__file__+' version number and exit')
 	#parser.add_argument('-dd', '--debug',choices=("False","True"), dest='debug', help='enter verbose/debug mode', default = "False")
@@ -49,8 +94,8 @@ if __name__ == "__main__":
 	filesreq.add_argument('-g', '--gff', metavar="<path/to/gff>", type=existant_file, required=True, dest = 'gffFileIn', help = 'path to gff file')
 	filesreq.add_argument('-s', '--strain', metavar="<str>", type=str, required=True, dest = 'strainName', help = 'Name of strain')
 	filesreq.add_argument('-o', '--out', metavar="<path/to/output/file>", required=True, dest = 'outDir', help = 'Path of output file')
-	filesreq.add_argument('-n', '--numero', metavar="<int>", type=int, required=False,default=0 ,dest = 'num', help = 'path to gff file')
-	filesreq.add_argument('-t', '--tools', metavar="<str>", type=str, required=False,default='Braker', dest = 'tools', help = 'path to gff file')
+	filesreq.add_argument('-n', '--numero', metavar="<int>", type=int, required=False,default=0 ,dest = 'num', help = 'usefull for add Augustus gene')
+	filesreq.add_argument('-t', '--tools', metavar="<str>", type=str, required=False,default='Braker', dest = 'tools', help = 'name of the annotation tools which create the file')
 
 
 	# Check parameters

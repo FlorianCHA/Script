@@ -1,3 +1,0 @@
-
-	recupSeqFromGFF.py -g /homedir/charriat/work/Annotation/test/2_Braker/CH1857/braker/magnaporthe_oryzae/augustus.gff -s CH1857 -o /homedir/charriat/work/Annotation/test/3_final-data/CH1857/
-	

@@ -5,7 +5,7 @@
 
 """
 	The psiblast_tools script
-	=======================
+	=========================
 	:author: Charriat Florian
 	:contact: florian.charriat@inra.fr
 	:date: 4/06/2018
@@ -37,7 +37,7 @@
 						path of database which we must be used for alignement
 		- \-i <int>, --num_iteration <int>
 						number of iteration for psiblast
-		 \-opt <str>, --option <str>
+		- \-opt <str>, --option <str>
 						option for fasta file :
 							\- A : aligned sequences
 							\- G : aligned sequences with Gap

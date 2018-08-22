@@ -1,0 +1,288 @@
+<?xml version="1.0" encoding="ascii"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>MODULES_SEB.parseGFF</title>
+  <link rel="stylesheet" href="epydoc.css" type="text/css" />
+  <script type="text/javascript" src="epydoc.js"></script>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="#204080"
+      alink="#204080">
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Project homepage -->
+      <th class="navbar" align="right" width="100%">
+        <table border="0" cellpadding="0" cellspacing="0">
+          <tr><th class="navbar" align="center"
+            ><a href="https://floriancha.github.io/stage/" target="_blank">Retour au Site</a></th>
+          </tr></table></th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <span class="breadcrumbs">
+        <a href="MODULES_SEB-module.html">Module&nbsp;MODULES_SEB</a> ::
+        Class&nbsp;parseGFF
+      </span>
+    </td>
+    <td>
+      <table cellpadding="0" cellspacing="0">
+        <!-- hide/show private -->
+        <tr><td align="right"><span class="options">[<a href="javascript:void(0);" class="privatelink"
+    onclick="toggle_private();">hide&nbsp;private</a>]</span></td></tr>
+        <tr><td align="right"><span class="options"
+            >[<a href="frames.html" target="_top">frames</a
+            >]&nbsp;|&nbsp;<a href="MODULES_SEB.parseGFF-class.html"
+            target="_top">no&nbsp;frames</a>]</span></td></tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<!-- ==================== CLASS DESCRIPTION ==================== -->
+<h1 class="epydoc">Class parseGFF</h1><p class="nomargin-top"><span class="codelink"><a href="MODULES_SEB-pysrc.html#parseGFF">source&nbsp;code</a></span></p>
+<p>Parser of GFF3 file write in python.
+return an object iterable containt GFFRecord()</p>
+<p>line in GFF3 return:</p>
+<dl class="rst-docutils">
+<dt>Example:</dt>
+<dd><pre class="py-doctest">
+<span class="py-prompt">&gt;&gt;&gt; </span>scaffold_44     prediction      gene    46      6942    0       +       .       ID=gene_1;Name=jgi.p|Mycfi2|180833;portal_id=Mycfi2;proteinId=180833;transcriptId=180833
+<span class="py-prompt">&gt;&gt;&gt; </span>GFFRecord(seqid=<span class="py-string">'scaffold_44'</span>, source=<span class="py-string">'prediction'</span>, type=<span class="py-string">'gene'</span>, start=46, end=6942, score=0.0, strand=<span class="py-string">'+'</span>, phase=None,
+<span class="py-prompt">&gt;&gt;&gt; </span>            attributes={<span class="py-string">'portal_id'</span>: <span class="py-string">'Mycfi2'</span>, <span class="py-string">'transcriptId'</span>: <span class="py-string">'180833'</span>, <span class="py-string">'proteinId'</span>: <span class="py-string">'180833'</span>, <span class="py-string">'Name'</span>: <span class="py-string">'jgi.p|Mycfi2|180833'</span>, <span class="py-string">'ID'</span>: <span class="py-string">'gene_1'</span>}, seq=None, len=6896)</pre>
+</dd>
+</dl>
+<p>GFFRecord has attributes can acces with record.value (ex: record.seqid):</p>
+<table border="1" class="rst-docutils">
+<colgroup>
+<col width="14%" />
+<col width="86%" />
+</colgroup>
+<thead valign="bottom">
+<tr><th class="rst-head">attribut</th>
+<th class="rst-head">infos</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td>seqid</td>
+<td>first column of gff3</td>
+</tr>
+<tr><td>source</td>
+<td>second column of gff3</td>
+</tr>
+<tr><td>type</td>
+<td>third column of gff3 contain type</td>
+</tr>
+<tr><td>start</td>
+<td>start position</td>
+</tr>
+<tr><td>end</td>
+<td>end position</td>
+</tr>
+<tr><td>score</td>
+<td>score</td>
+</tr>
+<tr><td>strand</td>
+<td>DNA brin</td>
+</tr>
+<tr><td>phase</td>
+<td>phase</td>
+</tr>
+<tr><td>attributes</td>
+<td>dict() with key corresponding to GFFAttributes</td>
+</tr>
+<tr><td>seq</td>
+<td>if fasta load can add sequence but by default = None</td>
+</tr>
+<tr><td>len</td>
+<td>size of sequence</td>
+</tr>
+</tbody>
+</table>
+<dl class="rst-docutils">
+<dt>Example:</dt>
+<dd><pre class="py-doctest">
+<span class="py-prompt">&gt;&gt;&gt; </span>objGFF = parseGFF(gffFile)
+<span class="py-prompt">&gt;&gt;&gt; </span><span class="py-keyword">for</span> record <span class="py-keyword">in</span> objGFF.parseGFF3():
+<span class="py-prompt">&gt;&gt;&gt; </span>    <span class="py-keyword">print</span>(record.seqid)
+<span class="py-prompt">&gt;&gt;&gt; </span>    <span class="py-keyword">if</span> record.type == <span class="py-string">&quot;mRNA&quot;</span> :
+<span class="py-prompt">&gt;&gt;&gt; </span>            transcriptID = record.attributes[<span class="py-string">&quot;transcriptId&quot;</span>]</pre>
+</dd>
+</dl>
+
+<!-- ==================== INSTANCE METHODS ==================== -->
+<a name="section-InstanceMethods"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Instance Methods</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-InstanceMethods"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="__init__"></a><span class="summary-sig-name">__init__</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">filename</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="MODULES_SEB-pysrc.html#parseGFF.__init__">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="parseGFFAttributes"></a><span class="summary-sig-name">parseGFFAttributes</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">attributeString</span>)</span><br />
+      Parse the GFF3 attribute column and return a dict</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="MODULES_SEB-pysrc.html#parseGFF.parseGFFAttributes">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="MODULES_SEB.parseGFF-class.html#parseGFF3" class="summary-sig-name">parseGFF3</a>(<span class="summary-sig-arg">self</span>)</span><br />
+      A minimalistic GFF3 format parser.
+Yields objects that contain info about a single GFF3 feature.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="MODULES_SEB-pysrc.html#parseGFF.parseGFF3">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+</table>
+<!-- ==================== METHOD DETAILS ==================== -->
+<a name="section-MethodDetails"></a>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Method Details</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-MethodDetails"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+</table>
+<a name="parseGFF3"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">parseGFF3</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="MODULES_SEB-pysrc.html#parseGFF.parseGFF3">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>A minimalistic GFF3 format parser.
+Yields objects that contain info about a single GFF3 feature.</p>
+<p>Supports transparent gzip decompression.</p>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<br />
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Project homepage -->
+      <th class="navbar" align="right" width="100%">
+        <table border="0" cellpadding="0" cellspacing="0">
+          <tr><th class="navbar" align="center"
+            ><a href="https://floriancha.github.io/stage/" target="_blank">Retour au Site</a></th>
+          </tr></table></th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%%">
+  <tr>
+    <td align="left" class="footer">
+    Generated by Epydoc 3.0.1 on Wed Aug 22 14:33:20 2018
+    </td>
+    <td align="right" class="footer">
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
+    </td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+  <!--
+  // Private objects are initially displayed (because if
+  // javascript is turned off then we want them to be
+  // visible); but by default, we want to hide them.  So hide
+  // them unless we have a cookie that says to show them.
+  checkCookie();
+  // -->
+</script>
+</body>
+</html>

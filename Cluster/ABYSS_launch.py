@@ -14,7 +14,7 @@
 	Script description
 	------------------
 
-	This program is used to assemble all fasta files in a directory using the ABYSS tool. The assembly will be done with different lengths of kmère (20, 30, 40, 50, 60, 70, 80 and 90)
+	This program is used to assemble all fasta files in a directory using the ABYSS tool. The assembly will be done with different lengths of kmère (20, 30, 40, 50, 60, 70, 80 and 90). A new pipeline has been created, please watch the Assembly_pipeline in the same folder
 
 	Example
 	-------

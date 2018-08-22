@@ -1,7 +1,23 @@
 #!/usr/local/bioinfo/python/3.4.3_build2/bin/python
 # -*- coding: utf-8 -*-
-# @package comparaisonSecretome.py
+# @package correction_orthofinder.py
 # @author Florian Charriat
+
+"""
+	The correction_orthofinder script
+	=================================
+	:author: Charriat Florian
+	:contact: florian.charriat@inra.fr
+	:date: 15/08/2018
+	:version: 0.1
+
+	Script description
+	------------------
+
+	This program is used to correct the result of Orthofinder. They use a tblastn for search the OG sequence in the blast DB of all genome. Please, this script is working slowly and it's not finish, choose the correction_pipeline. 
+
+	
+"""
 
 
 ########## Module ###############

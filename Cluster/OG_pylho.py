@@ -1,6 +1,22 @@
 #!/usr/local/bioinfo/python/3.4.3_build2/bin/python
 # -*- coding: utf-8 -*-
+# @package OG_phylo.py
 # @author Florian Charriat
+
+"""
+	The ABYSS_launch script
+	=======================
+	:author: Charriat Florian
+	:contact: florian.charriat@inra.fr
+	:date: 21/08/2018
+	:version: 0.1
+
+	Script description
+	------------------
+
+	This script was created for a special case (phylogenetic OG). So they have no documentation. Please contact the author for more information
+"""
+
 
 ########## Module ###############
 ## Python modules

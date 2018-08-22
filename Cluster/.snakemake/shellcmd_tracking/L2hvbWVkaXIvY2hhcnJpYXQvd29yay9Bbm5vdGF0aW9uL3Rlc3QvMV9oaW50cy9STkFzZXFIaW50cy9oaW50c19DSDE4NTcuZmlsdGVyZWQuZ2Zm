@@ -1,4 +1,0 @@
-
-	module load bioinfo/braker/1.9
-	filterHintsSnake.r -s CH1857 -p /homedir/charriat/work/Annotation/test/0_bamAlignement/CH1857/finalResults/ -o /homedir/charriat/work/Annotation/test/1_hints/RNAseqHints/hints_CH1857.filtered.gff
-	

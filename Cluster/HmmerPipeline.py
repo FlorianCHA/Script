@@ -5,7 +5,7 @@
 
 """
 	The HmmerPiepline script
-	=======================
+	========================
 	:author: Charriat Florian
 	:contact: florian.charriat@inra.fr
 	:date: 27/06/2018

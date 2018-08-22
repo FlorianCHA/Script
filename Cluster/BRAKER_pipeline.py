@@ -27,9 +27,9 @@
 	Example
 	-------
 
-	>>> Alignement.py -d /homedir/user/work/RNAseq -o /homedir/user/work/result -c /homedir/user/work/config.txt -r /homedir/user/work/RNAseq/assembly -p homedir/user/work/annotated_genome_protein.fasta
+	>>> BRAKER_pipeline.py -d /homedir/user/work/RNAseq -o /homedir/user/work/result -c /homedir/user/work/config.txt -r /homedir/user/work/RNAseq/assembly -p homedir/user/work/annotated_genome_protein.fasta
 	
-	>>> Alignement.py -d /homedir/user/work/RNAseq -o /homedir/user/work/result -c /homedir/user/work/config.txt -r /homedir/user/work/RNAseq/assembly p homedir/user/work/annotated_genome_protein.fasta -f file.fasta
+	>>> BRAKER_pipeline.py -d /homedir/user/work/RNAseq -o /homedir/user/work/result -c /homedir/user/work/config.txt -r /homedir/user/work/RNAseq/assembly p homedir/user/work/annotated_genome_protein.fasta -f file.fasta
 	
 
 	Help Programm
