@@ -95,23 +95,14 @@ if __name__ == "__main__":
 				nameScript =bash+'/abyss_assembly_'+isolate+'_'+str(kmers)+'.sh'
 				SCRIPT=open(nameScript,'w')
 				SCRIPT.write('#$ -o '+outDir+'out_files/abyss_assembly_'+isolate+'_'+str(kmers)+'.out\n#$ -e '+outDir+'error_files/abyss_assembly_'+isolate+'_'+str(kmers)+'.err\nmodule load bioinfo/abyss/1.9.0;\n')
+				SCRIPT.write('echo $PATH\n')
 				SCRIPT.write('mkdir -p '+outDir+'result/'+isolate+'/abyss_assembly_'+isolate+'_'+str(kmers)+';\n')
 				SCRIPT.write('cd '+outDir+'result/'+isolate+'/abyss_assembly_'+isolate+'_'+str(kmers)+';\n')
 				SCRIPT.write("/usr/local/bioinfo/abyss/1.9.0/bin/abyss-pe name="+isolate+"_"+str(kmers)+" k="+str(kmers)+" in='"+directory+file+" "+directory+file.replace('_R1','_R2')+"' -o abyss_assembly_"+isolate+"_"+str(kmers)+".fasta;\n")
 				SCRIPT.close()
-				os.system('qsub -l mem_free=50G -l h_vmem=60G -q normal.q '+nameScript)
+				os.system('qsub -l mem_free=50G -l h_vmem=60G -q normal.q -V -cwd '+nameScript)
 				nbJob += 1
 
-
-############## summary message #######################
-	print(form('\n---------------------------------------------------------------------------------','red','bold'))
-	print(form('Execution summary:\n','green',['bold','underline']))
-	print('\n\tInput : \n\t\t- '+ directory[:-1])
-	print('\n\tOutput :')
-	print('\t\t - script bash créé : ' +bash)
-	print('\t\t - Résultats des assemblages : '+outDir+'result')
-	print('\n\tAbyss_launch a lancés '+str(nbJob)+" jobs pour l'assemblage des "+str(nbGenome)+' souches\n')
-	print(form('---------------------------------------------------------------------------------','red','bold'))
 
 ############## end message ###########################
 

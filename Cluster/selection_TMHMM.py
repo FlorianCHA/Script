@@ -149,7 +149,7 @@ if __name__ == "__main__":
 			seqObj = dico_fasta[idSeq].seq
 			record = SeqRecord(seqObj,id=idSeq,name=idSeq, description=dico_fasta[idSeq].description)
 			SeqIO.write(record,f, "fasta")
-
+	f.close()
 ############## summary message #######################
 
 

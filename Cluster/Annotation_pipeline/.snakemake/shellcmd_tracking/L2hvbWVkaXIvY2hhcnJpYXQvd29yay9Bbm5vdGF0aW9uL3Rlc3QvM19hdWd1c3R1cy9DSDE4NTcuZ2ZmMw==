@@ -1,0 +1,4 @@
+
+	module load bioinfo/augustus/3.3.1
+	augustus --hintsfile=/homedir/charriat/work/Annotation/test/1_hints/MergeHints/RNAseq_protein.hints_CH1857.gff --species=magnaporthe_grisea /homedir/charriat/work/Annotation/test_input/CH1857_scaffold.fasta --gff3=on --outfile=/homedir/charriat/work/Annotation/test/3_augustus/CH1857.gff3
+	

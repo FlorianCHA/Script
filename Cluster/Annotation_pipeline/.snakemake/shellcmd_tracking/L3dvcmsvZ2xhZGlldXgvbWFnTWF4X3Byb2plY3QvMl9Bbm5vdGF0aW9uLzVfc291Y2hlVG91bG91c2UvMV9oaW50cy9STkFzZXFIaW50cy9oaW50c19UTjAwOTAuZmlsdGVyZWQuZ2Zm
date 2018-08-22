@@ -1,0 +1,4 @@
+
+	module load bioinfo/braker/1.9
+	script/filterHintsSnake.r -s TN0090 -p /work/gladieux/magMax_project/2_Annotation/5_soucheToulouse/0_bamAlignement/TN0090//finalResults/ -o /work/gladieux/magMax_project/2_Annotation/5_soucheToulouse/1_hints/RNAseqHints/hints_TN0090.filtered.gff
+	

@@ -103,12 +103,12 @@ for line in lines :
 		numeroGene = ids.split('.t')[0].replace('g','')
 		numT = str(line.split('\t')[8].split('.t')[-1]).replace('\n','')
 		NewnumT = str(int(numT)-1)
-		idsT = ids.replace('g'+numeroGene,"Mo_"+strain+"_v1_"+str(numeroGene.zfill(5))+'0')
+		idsT = ids.replace('g'+numeroGene,"Mo_"+strain+"_"+str(numeroGene.zfill(5))+'0')
 		idsT = idsT.replace('.t'+numT,'T'+NewnumT)
-		idsP = ids.replace('g'+numeroGene,"Mo_"+strain+"_v1_"+str(numeroGene.zfill(5))+'0')
+		idsP = ids.replace('g'+numeroGene,"Mo_"+strain+"_"+str(numeroGene.zfill(5))+'0')
 		idsP = idsP.replace('.t'+numT,'P'+NewnumT)
 
-		des = '| pos=%s:%s-%s | braker_BGPI |'%(line.split('\t')[0],line.split('\t')[3],line.split('\t')[4])
+		des = '| pos=%s:%s-%s | braker_BGPI_v1 |'%(line.split('\t')[0],line.split('\t')[3],line.split('\t')[4])
 		start_gene = False
 	elif '# Evidence for and against' in line :
 		record = SeqRecord(Seq(seq[:-1]),id=idsT,name=idsT, description='%slength=%s'%(des,len(seq[:-1])))
@@ -131,4 +131,8 @@ for line in lines :
 fastaAdn.close()
 fastaProt.close()
 
+############## end message ###########################
 
+	print(form("\n\t---------------------------------------------------------",'yellow','bold'))
+	print("\t"+form("|",'yellow','bold')+form("                    End of execution                   ",type='bold')+form("|",'yellow','bold'))
+	print(form("\t---------------------------------------------------------",'yellow','bold'))

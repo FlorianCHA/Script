@@ -1,0 +1,3 @@
+
+	script/renameFasta.py -d /work/gladieux/magMax_project/2_Annotation/5_soucheToulouse/5_final_data/BN0252/ -s BN0252
+	

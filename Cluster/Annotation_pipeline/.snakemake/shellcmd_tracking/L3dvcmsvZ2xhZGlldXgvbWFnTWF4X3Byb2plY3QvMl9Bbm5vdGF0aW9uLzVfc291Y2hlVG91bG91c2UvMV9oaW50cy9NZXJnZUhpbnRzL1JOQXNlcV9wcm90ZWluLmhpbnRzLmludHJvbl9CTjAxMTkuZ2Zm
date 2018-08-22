@@ -1,0 +1,4 @@
+
+	cat /work/gladieux/magMax_project/2_Annotation/5_soucheToulouse/1_hints/RNAseqHints/hints_BN0119.filtered.gff /work/gladieux/magMax_project/2_Annotation/5_soucheToulouse/1_hints/ProtHints/exonarate_BN0119.hints.gff3  > /work/gladieux/magMax_project/2_Annotation/5_soucheToulouse/1_hints/MergeHints/RNAseq_protein.hints_BN0119.gff
+	awk '/intron/' /work/gladieux/magMax_project/2_Annotation/5_soucheToulouse/1_hints/MergeHints/RNAseq_protein.hints_BN0119.gff > /work/gladieux/magMax_project/2_Annotation/5_soucheToulouse/1_hints/MergeHints/RNAseq_protein.hints.intron_BN0119.gff
+	

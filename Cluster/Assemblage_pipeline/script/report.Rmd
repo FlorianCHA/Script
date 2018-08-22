@@ -1,0 +1,314 @@
+---
+title: "Report of Assembly with ABySS"
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+params:
+  quality: 'None'
+output:
+  html_document:
+    fig_caption: yes
+    highlight: zenburn
+    theme: cerulean
+    toc: yes
+    toc_depth: 5
+    toc_float: yes
+---
+```{r knitr setup, include=FALSE,  eval=TRUE, echo=FALSE, warning=FALSE}
+# knitr::opts_chunk$set(echo=TRUE, eval=TRUE, cache=TRUE, message=FALSE, warning=FALSE, comment="")
+
+library(knitr)
+options(width=300)
+knitr::opts_chunk$set(
+  fig.width = 10, 
+  fig.height = 5, 
+  fig.align = "center", 
+  size = "tiny", 
+  echo = FALSE, eval=TRUE, 
+  warning = FALSE, message = FALSE, 
+  results = TRUE, comment = "")
+# knitr::asis_output("\\footnotesize")
+
+```
+
+
+```{r Package, echo=FALSE}
+if(!require("knitr"))
+  {
+  install.packages('knitr')
+}
+if(!require("DT"))
+  {
+  install.packages('DT')
+}
+if(!require("ggplot2"))
+  {
+  install.packages('ggplot2')
+}
+if(!require("stringr"))
+  {
+  install.packages('stringr')
+}
+library('stringr')
+library('ggplot2')
+library('knitr')
+library('DT')
+```
+
+&nbsp;
+
+#Définition  
+
+&nbsp;
+
+Statistique             |       Définititon                                                             
+------------ | --------------------------------------------------------------------------
+N50          | Taille du scaffold à partir du quel tous les scaffolds de taille supérieure ou égale couvrent 50 % du génome
+L50          | Nombre minimum de scaffold qui permet de couvrir 50% du génome
+n:500        | Nombre de scaffold total de l'assemblage de longueur supérieur à 500 nucléotides
+max          | Taille maximale d'un scaffold dans l'assemblage
+
+&nbsp;
+
+#Résumé
+
+&nbsp;
+
+```{r Importation des données, echo=FALSE}
+dataQuality <-c()
+file <- strsplit(params$quality,'/')
+file <- file[[1]](length(file[[1]]))
+pathDir <- params$quality
+pathDir <- str_replace(pathDir,file,'')
+dataQ <- read.table(file=params$quality, sep="\t", header=TRUE)
+idS <- c()
+idSouche <- c()
+for (i in 1:nrow(dataQ))
+{
+  idS<- toString(dataQ[i,11])
+  idSouche <- c(idSouche,substr(idS,0,9))
+}
+
+dataQ[,11] <- idSouche
+dataQuality <-dataQ[,1:10]
+rownames(dataQuality) <- idSouche
+```
+
+```{r Traitement des données, echo=FALSE}
+kmère <- c(20,30,40,50,60,70,80,90)
+Id <- c()
+j <- 1
+N50 <- data.frame(matrix(NA,ncol=length(kmère),nrow = (nrow(dataQuality)/8)))
+for (i in 1:(nrow(dataQuality)/8))
+{
+  Ids <- rownames(dataQuality[i*8,])
+  Id <- c(Id,substr(Ids,0,6))
+  N50[i,] <- dataQuality[j:(i*8),6]
+  j <- i*8+1
+}
+rownames(N50) <- Id
+colnames(N50) <- kmère
+
+```
+
+Statistique             |       Définititon                                                             
+------------ | --------------------------------------------------------------------------
+Nombre de données assemblées    | `r nrow(N50)`
+Kmères utilisés                 | `r colnames(N50)`
+
+&nbsp;
+
+#1. Donnée Brut
+
+&nbsp;
+
+##1.1 Tableau
+
+&nbsp;
+
+
+```{R Visualisation des données brut, echo=FALSE}
+datatable(dataQuality, caption =" Tableau n°1: Tableau des statistiques de qualité de tous les assemblages",colnames = c('Id', colnames(dataQuality)),extensions = 'Buttons', options = list(dom = 'Blfrtip',buttons = c('copy', 'csv', 'excel', 'pdf', 'print'))) 
+```
+
+&nbsp;
+
+##1.2 Graphique
+
+
+```{r selection, echo=FALSE}
+selection <- data.frame(matrix(NA,ncol= ncol(dataQuality) ,nrow = (nrow(dataQuality)/8)))
+id.select <- c()
+for (i in 1:nrow(N50))
+{
+  bestKmer <- colnames(N50[i,])[which(N50[i,] == max(N50[i,]), arr.ind = TRUE)[2]]
+  newId <- paste(rownames(N50[i,]),toString(bestKmer),sep = '_')
+  id.select <- c(id.select,newId)
+  selection[i,] <-  dataQuality[rownames(dataQuality) ==newId,]
+}
+colnames(selection) <- colnames(dataQuality)
+rownames(selection) <- id.select
+
+
+#kable(selection, caption =" Tableau n°3: Données de qualité des meilleurs assemblages selectionnés en fonction de la longueur de kmère utilisée")
+#datatable(selection, caption =" Tableau n°3: Données de qualité des meilleurs assemblages selectionnés en fonction de la longueur de kmère utilisée", colnames = c('Id', colnames(selection)),extensions = 'Buttons', options = list(dom = 'Blfrtip',buttons = c('copy', 'csv', 'excel', 'pdf', 'print')))%>%
+  #formatStyle('N50',Color = styleInterval(25000, c('NA', 'black')),fontWeight= styleInterval(25000, c('NA', 'black')))
+data_export <- data.frame(selection$n.500,selection$N50,selection$L50)
+rownames(data_export) <- rownames(selection)
+colnames(data_export) <- c('Num','N50','L50')
+```
+
+&nbsp;
+
+###Graph N50
+```{r plot N50 avant selection kmere, echo=FALSE}
+x.kmère <- c()
+legend <- c()
+for (i in 1:(nrow(dataQ)/8))
+{
+  x.kmère <- c(x.kmère,rep(Id[i],8))
+}
+select.kmère <- c()
+for (i in 1:nrow(dataQuality))
+{
+  if (rownames(dataQuality[i,]) %in% id.select)
+  {
+    select.kmère <- c(select.kmère, TRUE)
+  }
+  else 
+  {
+    select.kmère <- c(select.kmère, FALSE)
+  }
+}
+
+colorData <- c()
+x <- x.kmère[select.kmère]
+N50.select <- as.numeric(dataQuality$N50[select.kmère])
+colorData <- data.frame(x)
+plotN50 <- ggplot(dataQuality, aes(x=x.kmère,y=N50))+geom_point(col='steelBlue')
+plotN50 <- plotN50+ geom_point(data = colorData,aes(x=x,y=N50.select),col='red4') + ggtitle('Graphique n°1 : Visualisation du N50 de tous les assemblages') + labs(x ='') 
+plotN50 + theme(axis.text.x = element_text(face="bold", size = 6, angle=90))
+  
+#plot(x = x.kmère, y = dataQuality$N50, ylab ='N50',xlab = 'souche', xaxt="n" , main ='Graphique n°1 : Assemblage de chaque souche en fonction du N50', cex = 0.3)
+#axis(side = 1,at = 1:length(Id), labels = Id, las =2, cex.axis = 0.6)
+#points(x = x.kmère[select.kmère], y = dataQuality$N50[select.kmère], cex = 0.4, col = 'red')
+```
+
+###Graph L50
+```{r plot L50 avant selection kmere, echo=FALSE}
+L50.select <- dataQuality$L50[select.kmère]
+plotL50 <- ggplot(dataQuality, aes(x=x.kmère,y=L50))+geom_point(col='steelBlue')
+plotL50 <-plotL50 + geom_point(data = colorData,aes(x=x,y=L50.select),col='red4') + ggtitle('Graphique n°2 : Visualisation du L50 de tous les assemblages') + labs(x ='') 
+plotL50 + theme(axis.text.x = element_text(face="bold", size = 6, angle=90))
+  
+#plot(x = x.kmère , y = dataQuality$L50, ylab ='L50', xlab = 'souche', xaxt="n" , main ='Graphique n°2 : Assemblage de chaque souche en fonction du L50', cex = 0.1)
+#axis(side = 1,at = 1:length(Id), labels = Id, las =2, cex.axis = 0.6)
+#points(x = x.kmère[select.kmère], y = dataQuality$L50[select.kmère], cex = 0.3, col = 'red')
+```
+
+###Graph E-size
+```{r plot E-size avant selection kmere, echo=FALSE}
+E.size.select <- dataQuality$E.size[select.kmère]
+plotE.size <- ggplot(dataQuality, aes(x=x.kmère,y=E.size))+geom_point(col='steelBlue')
+plotE.size <- plotE.size + geom_point(data = colorData,aes(x=x,y=E.size.select),col='red4') + ggtitle("Graphique n°3 : Visualisation de l'E-size de tous les assemblages")+ labs(x ='') 
+plotE.size + theme(axis.text.x = element_text(face="bold", size = 6, angle=90))
+  
+#plot(x = x.kmère, y = dataQuality$E.size,ylab ='E.size',xlab = 'souche',xaxt="n", main ="Graphique n°3 : Assemblage de chaque souche en fonction de l'E-size", cex = 0.3)
+#axis(side = 1,at = 1:length(Id), labels = Id, las =2, cex.axis = 0.6)
+#points(x = x.kmère[select.kmère], y = dataQuality$E.size[select.kmère], cex = 0.4, col = 'red')
+```
+
+###Graph Longueur max
+```{r plot longuer max du contigs aavant selection kmere, echo=FALSE}
+max.select <- dataQuality$max[select.kmère]
+plotmax <- ggplot(dataQuality, aes(x=x.kmère,y=max))+geom_point(col='steelBlue')
+plotmax <- plotmax + geom_point(data = colorData,aes(x=x,y=max.select),col='red4') + ggtitle('Graphique n°4 : Visualisation de la longueur max des contigs de tous les assemblages')+ labs(x ='') 
+plotmax + theme(axis.text.x = element_text(face="bold", size = 6, angle=90))
+  
+#plot(x = x.kmère, y = dataQuality$max,ylab ='max',xlab = 'souche', xaxt="n" , main ='Graphique n°4 : Assemblage de chaque souche en fonction de la longueur max des contigs', cex = 0.3)
+#axis(side = 1,at = 1:length(Id), labels = Id, las =2, cex.axis = 0.6)
+#points(x = x.kmère[select.kmère], y = dataQuality$max[select.kmère], cex = 0.4, col = 'red')
+
+```
+
+###Graph n:500
+```{r plot n500 avant selection kmere, echo=FALSE}
+n.500.select <- dataQuality$n.500[select.kmère]
+plotn.500 <- ggplot(dataQuality, aes(x=x.kmère,y=n.500))+geom_point(col='steelBlue')
+plotn.500 <- plotn.500 + geom_point(data = colorData,aes(x=x,y=n.500.select),col='red4') + ggtitle('Graphique n°5 : Visualisation nombre de contigs supérieur à 500pb de tous les assemblages')+ labs(x ='') 
+plotn.500 + theme(axis.text.x = element_text(face="bold", size = 6, angle=90))
+  
+#plot(x = x.kmère, y = dataQuality$n.500,ylab ='n.500',xlab = 'souche', xaxt="n" , main ='Graphique n°5 : Assemblage de chaque souche en fonction du nombre de contigs supérieur à 500', cex = 0.3)
+#axis(side = 1,at = 1:length(Id), labels = Id, las =2, cex.axis = 0.6)
+#points(x = x.kmère[select.kmère], y = dataQuality$n.500[select.kmère], cex = 0.4, col = 'red')
+
+```
+
+
+#2. Données filtré
+
+&nbsp;
+
+##2.1 Tableau
+
+&nbsp;
+
+
+```{r tableau donné filtré}
+write.table(selection, file = paste(pathDir,'data_report/select.csv',sep=''), append = FALSE, quote = FALSE, sep = "\t", na = "-",col.names = FALSE)
+red <- rgb(red=1,blue=0,green = 0, alpha = 0.5)
+datatable(selection, caption =" Tableau n°2: Données de qualité des meilleurs assemblages selectionnés", colnames = c('Id', colnames(selection)),extensions = 'Buttons', options = list(dom = 'Blfrtip',buttons = c('copy', 'csv', 'excel', 'pdf', 'print')))%>%
+  formatStyle(colnames(selection),'N50',backgroundColor = styleInterval(c(25000,50000), c('red', 'orange','green')),color= styleInterval(25000, c('white', 'white')))
+```
+
+&nbsp;
+
+##2.2 Graphique
+
+###Graph N50
+```{r plot N50, echo=FALSE}
+color <- c()
+id.plot <- rownames(selection)
+x <- Id
+N50min <- 25000 # En dessous de ce seuil les assemblages sont donnée comme de mauvaise qualité
+N50max <- 50000 # Minimum bonne qualité
+plotN50Select <- ggplot(selection ,aes(x=x ,y=N50)) + geom_point() +
+  annotate("rect", xmin=0, xmax=nrow(selection)+1, ymin=0, ymax=N50min, alpha=0.4, fill="red4") +
+   annotate("rect", xmin=0, xmax=nrow(selection)+1, ymin=N50min, ymax=N50max, alpha=0.4, fill="orange")+
+   annotate("rect", xmin=0, xmax=nrow(selection)+1, ymin=N50max, ymax=max(selection$N50)*1.1, alpha=0.4, fill="green")+ geom_point(col = "midnightblue")+
+  ggtitle('Graphique n°6 : Visualisation du N50 de tous les assemblages selectionnés') +
+  labs(x='')+  theme(axis.text.x = element_text(face="bold", size = 6, angle=90))
+plotN50Select
+
+
+```
+
+###Graph L50
+```{r plot L50, echo=FALSE}
+plotSelect <- ggplot(selection ,aes(x=x ,y=L50)) + geom_point(col = "midnightblue") +
+  ggtitle('Graphique n°7 : Visualisation du L50 de tous les assemblages séléctionnés')+
+  labs(x='')+  theme(axis.text.x = element_text(face="bold", size = 6, angle=90))
+plotSelect
+```
+
+###Graph E-size
+```{r plot E-size, echo=FALSE}
+plotSelect <- ggplot(selection ,aes(x=x ,y=E.size)) + geom_point(col = "midnightblue") +
+  ggtitle("Graphique n°8 : Visualisation de l'E-size de tous les assemblages séléctionnés")+
+  labs(x='')+  theme(axis.text.x = element_text(face="bold", size = 6, angle=90))
+plotSelect
+```
+
+###Graph Longueur max
+```{r plot longuer max du contigs, echo=FALSE}
+plotSelect <- ggplot(selection ,aes(x=x ,y=max)) + geom_point(col = "midnightblue") +
+  ggtitle("Graphique n°9 :Visualisation de la longueur max des contigs de tous les assemblages séléctionnés")+
+  labs(x='')+  theme(axis.text.x = element_text(face="bold", size = 6, angle=90))
+plotSelect
+```
+
+###Graph n:500
+```{r plot n500, echo=FALSE}
+plotSelect <- ggplot(selection ,aes(x=x ,y=n.500)) + geom_point(col = "midnightblue") +
+  ggtitle("Graphique n°10 : Visualisation nombre de contigs supérieur à 500pb de tous les assemblages séléctionnés")+
+  labs(x='')+  theme(axis.text.x = element_text(face="bold", size = 6, angle=90))
+plotSelect
+```

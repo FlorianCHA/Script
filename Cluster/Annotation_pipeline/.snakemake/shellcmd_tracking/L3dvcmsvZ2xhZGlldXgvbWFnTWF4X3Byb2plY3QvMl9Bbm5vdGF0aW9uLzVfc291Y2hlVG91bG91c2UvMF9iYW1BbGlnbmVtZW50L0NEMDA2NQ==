@@ -1,0 +1,4 @@
+
+	module load bioinfo/TOGGLE/0.3.6
+	toggleGenerator.pl -d /homedir/charriat/work/Annotation/0_rawdata/rnaseq/ -r /work/gladieux/magMax_project/2_Annotation/0_rawdata/assembly_Toulouse/CD0065.fasta -c /homedir/charriat/work/Annotation/1_tmp/ToogleConfig/tophatMapping.config.txt -o /work/gladieux/magMax_project/2_Annotation/5_soucheToulouse/0_bamAlignement/CD0065 
+	

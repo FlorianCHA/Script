@@ -95,7 +95,7 @@ if __name__ == "__main__":
 		nbAssemblage += 1
 		print(form("Récupération des statistique de l'assemblage : "+isolate,'green'))
 		for files in os.listdir(directory+isolate):	
-			if files.endswith('.fa.tbl')==True :
+			if files.endswith('.fasta.tbl')==True :
 				filePath = directory+isolate+'/'+files
 				stat = open(filePath,'r')
 				stat = stat.readlines()
@@ -105,8 +105,8 @@ if __name__ == "__main__":
 				GC_level = stat[4].split(':')
 				bases_masked = stat[5].split(':')
 				bases_masked = bases_masked[1].split('(')
-				statAll = open(outDir+'stat_repeatMasker','a')
-				statAll.write(files.replace('.fa.tbl','')+'\t'+ Nbseq[1].strip()+'\t'+total_length[0].strip()+'\t'+GC_level[1].strip()+'\t'+bases_masked[0].strip() +'\t'+bases_masked[1].replace(')','').strip()+'\n')
+				statAll = open(outDir+'stat_repeatMasker.txt','a')
+				statAll.write(files.replace('.fasta.tbl','')+'\t'+ Nbseq[1].strip()+'\t'+total_length[0].strip()+'\t'+GC_level[1].strip()+'\t'+bases_masked[0].strip() +'\t'+bases_masked[1].replace(')','').strip()+'\n')
 				statAll.close()
 
 
