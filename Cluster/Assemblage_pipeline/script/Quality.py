@@ -109,9 +109,9 @@ if __name__ == "__main__":
 	qualityR.write("n\tn:500\tL50\tmin\tN80\tN50\tN20\tE-size\tmax\tsum\tname\t\n")
 	for isolate in listeID : 	
 		for kmers in [20,30,40,50,60,70,80,90]:
-			for file in os.listdir(directory+isolate+"/abyss_assembly_"+isolate+"_"+str(kmers)):	
+			for file in os.listdir(directory+isolate+"/"+isolate+"_"+str(kmers)):	
 				if file.endswith('-stats.tab')==True :
-					stat = open(directory+isolate+"/abyss_assembly_"+isolate+"_"+str(kmers)+"/"+file,"r")
+					stat = open(directory+isolate+"/"+isolate+"_"+str(kmers)+"/"+file,"r")
 					stats = stat.readlines()
 					ligne = stats[3].split('\t')
 					qualityR.write(stats[3])

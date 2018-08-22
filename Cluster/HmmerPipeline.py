@@ -192,7 +192,7 @@ if __name__ == "__main__":
 		linesNewAlignement =  f.readlines()
 		f.close()
 		print(form('\t - %s : %s hits récupérés, %s hits retirés\n'%(newAlignement.split('/')[-1],nbG,nb),'white','bold'))	
-		if linesOldAlignement == linesNewAlignement or i == 20:
+		if linesOldAlignement == linesNewAlignement or i == 1:
 			print(i)
 			break
 		

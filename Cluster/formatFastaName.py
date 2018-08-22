@@ -121,6 +121,7 @@ if __name__ == "__main__":
 		sequence = dicoFasta[ID]
 		strain = outputfilename.split('/')[-1].split('_')[0].replace('.fasta','')
 		seqName = "Scaffold_{}".format(count)
+		seqName = '%s_%s'%(strain,seqName)
 		descrip = "length={}".format(lenSeq)
 		if str(sequence.seq).count('N') < (len(str(sequence.seq)) - 20) :
 			if keep == 'g' and lenSeq >= lenSize or (keep == 'l' and lenSeq <= lenSize):

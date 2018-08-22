@@ -87,16 +87,19 @@ Tests statistiques effectués         | `r (ncol(data)-1)*NombrePhenotypeUtilis�
 
 ---- 
 
-##Analyse statistique (Chi2)
+##Analyse statistique (Chi2){.tabset}
+
+###Tableau Récapitulatif
 
 &nbsp;
 
 
 ```{r table, echo = FALSE, warning=FALSE,tidy=TRUE, comment = NA}
 
-test_association_Pheno_Effecteur <- function(data,minGroupe,print)
+test_association_Pheno_Effecteur <- function(data,minGroupe,print,tableau)
 {
-  
+  groupe.table <- c()
+  groupe.done <- c()
   names <- c('Groupe','Hote','p-value','Présent_hote','Absent_Hote','Present_Other','Absent_Other')
   tableData <- data.frame(names, row.names = names)
   phenotype <- unique(data$Phenotype)
@@ -116,42 +119,113 @@ test_association_Pheno_Effecteur <- function(data,minGroupe,print)
         {
           table <- table(dataElt[,groupe],dataElt$Phenotype)  
           test <- chisq.test(table)
-          if (length(table) == 2)
+          #if (length(table) == 2)
+          #{
+           #  score <- c(groupe,elt,as.numeric(formatC(test$p.value,format='e',digits = 1)),table[1],0,table[2],0)
+         # }
+          if (length(table) == 4)
           {
-             score <- c(groupe,elt,as.numeric(formatC(test$p.value,format='e',digits = 1)),table[1],0,table[2],0)
-          }
-          else
-          {
-            score <- c(groupe,elt,as.numeric(formatC(test$p.value,format='e',digits = 1)),table[2],table[1],table[4],table[3]) 
+            pvalue <- as.numeric(formatC(test$p.value,format='e',digits = 1)) 
+            score <- c(groupe,elt,pvalue,table[2],table[1],table[4],table[3]) 
+            if (pvalue < 1e-5 && !(groupe %in% groupe.done))
+            {
+              tableAll <- table(data[,groupe],data$Phenotype)
+              Présent <- c()
+              Absent <- c()
+              for (IsolatName in colnames(tableAll))
+              {
+                select <- data[,"Phenotype"] == IsolatName
+                dataTest <- data[select,]
+                select <- dataTest[,groupe] == "Présent"
+                sample <- paste(rownames(dataTest)[select], collapse = ', ')
+                newhote <- paste(IsolatName,sample,sep = ' : ')
+                Présent <- c(Présent,newhote)
+                select <- dataTest[,groupe] == "Absent"
+                sample <- paste(rownames(dataTest)[select], collapse = ', ')
+                newhote <- paste(IsolatName,sample,sep = ' : ')
+                Absent <- c(Absent,newhote)
+              }
+              groupe.table <- rbind(groupe.table,c(groupe,'Présent',tableAll[2,],Présent),c(groupe,'Absent',tableAll[1,],Absent))
+              groupe.done <- c(groupe.done,groupe)
+            }
           }
           tableData <- data.frame(tableData,score,row.names = c('Groupe','Hote','p-value','Présent_hote','Absent_Hote','Present_Other','Absent_Other'))
           if (print == TRUE)
           {
-          print(paste('Groupe : ',groupe))
-          print(paste('Phenotype : ',elt))
-          print(test)
-          print(table)
-          print('-------------------------------------------------------------------------', quote = F, type="html")
+            print(paste('Groupe : ',groupe))
+            print(paste('Phenotype : ',elt))
+            print(test)
+            print(table)
+            print('-------------------------------------------------------------------------', quote = F, type="html")
           }
         }
       }
     }
   } 
-  return(tableData)
+  if (tableau == TRUE)
+  {
+    return(tableData)
+  }
+  if (tableau == FALSE)
+  {
+    groupe.table <- data.frame(groupe.table)
+    colnames(groupe.table) <- c("Orthogroups",'Statuts',colnames(groupe.table)[3:(ncol(groupe.table)-1)],'info')
+    return(groupe.table)
+  }
 }
 
-tableData <- test_association_Pheno_Effecteur(data,minGroupe,FALSE)
+tableData <- test_association_Pheno_Effecteur(data,minGroupe,FALSE,TRUE)
 rownames(tableData) <- tableData$names
 tableData <-  data.frame(t(tableData[,2:ncol(tableData)]))
 datatable(tableData,extensions = 'Buttons',rownames = NA,options = list(dom = 'Blfrtip',buttons = c('copy', 'csv', 'excel', 'pdf', 'print')))
 ```
 
 
-----
+-----
 
-
+###Résultats bruts
 
 ```{r stat, echo = FALSE, warning=FALSE,tidy=TRUE, comment = NA}
-tableData <- test_association_Pheno_Effecteur(data,minGroupe,TRUE)
+tableData <- test_association_Pheno_Effecteur(data,minGroupe,TRUE,TRUE)
 ```
 
+------
+
+&nbsp;
+
+## Données brutes
+
+&nbsp;
+
+```{r données Brutes, echo = FALSE, warning=FALSE,tidy=TRUE, comment = NA}
+
+
+groupe.table <- test_association_Pheno_Effecteur(data,minGroupe,FALSE,FALSE)
+
+datatable(cbind(' ' = '&oplus;',groupe.table), escape = -2,
+          options = list(
+            columnDefs = list(
+              list(visible = FALSE, targets = c(20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37)),
+      list(orderable = FALSE, className = 'details-control', targets = 1)
+    )
+  ),
+  callback = JS("
+  table.column(1).nodes().to$().css({cursor: 'pointer'});
+  var format = function(d) {
+    return '<div style=\"background-color:#eee; padding: .5em;\"> ' +
+            d[20] + '<br/>'+d[21] + '<br/>'+d[22] + '<br/>'+d[23] + '<br/>'+d[24] + '<br/>'+d[25] + '<br/>'+d[26] + '<br/>'+d[27] + '<br/>'+d[28] + '<br/>'+d[29] + '<br/>'+
+            d[30] + '<br/>'+d[31] + '<br/>'+d[32] + '<br/>'+d[33] + '<br/>'+d[34] + '<br/>'+d[35] + '</div>';
+  };
+  table.on('click', 'td.details-control', function() {
+    var td = $(this), row = table.row(td.closest('tr'));
+    if (row.child.isShown()) {
+      row.child.hide();
+      td.html('&oplus;');
+    } else {
+      row.child(format(row.data())).show();
+      td.html('&CircleMinus;');
+    }
+  });"
+))
+#datatable(groupe.table,extensions = 'Buttons',rownames = NA,options = list(dom = 'Blfrtip',buttons = c('copy', 'csv', 'excel', 'pdf', 'print')))
+```

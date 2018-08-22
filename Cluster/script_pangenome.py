@@ -124,20 +124,23 @@ if __name__ == "__main__":
 	#pathAlignement = '/homedir/gladieux/work/magMax_project/6_EffecteurMax/2_hmmer/v1/test_pipeline_on_Jerone_alignement/alignement_13_filtred'
 	pathSecretome = '/homedir/gladieux/work/magMax_project/6_EffecteurMax/2_hmmer/v1/secretome_DB.fasta'
 	#pathOrtho = '/homedir/gladieux/work/magMax_project/4_Orthologie/0_rawdata/Results_Jul10_1/Orthogroups.csv'
-	pathOrtho = '/homedir/gladieux/work/magMax_project/4_Orthologie/1_selectRawdata/Results_msa__Jul25/Orthogroups.csv'
-	pathFastaQuery = '/homedir/gladieux/work/magMax_project/4_Orthologie/2_test/tmp/'
-	DB_blast ='/homedir/gladieux/work/magMax_project/6_EffecteurMax/5_rechercheInGenome/DB/GenomeDB'
-	output_blast = '/homedir/gladieux/work/magMax_project/4_Orthologie/2_test/tmp/'
-	PathDataH = '/homedir/gladieux/work/magMax_project/4_Orthologie/2_test/hote_isolat.csv'
-	PathOutput = '/homedir/gladieux/work/magMax_project/4_Orthologie/2_test/data-final/'
+	#pathOrtho = '/homedir/gladieux/work/magMax_project/4_Orthologie/1_selectRawdata/Results_msa__Jul25/Orthogroups.csv'
+	pathOrtho = '/homedir/gladieux/work/magMax_project/4_Orthologie/4_test_MCL_2/0_rawdata/Results_MCL2_Jul30_1/Orthogroups_only_one_transcript_by_groups.txt'
+	pathFastaQuery = '/homedir/gladieux/work/magMax_project/4_Orthologie/6_effecteurMax_pangenome/tmp/'
+	DB_blast ='/homedir/gladieux/work/magMax_project/4_Orthologie/3_correction/0_DB/All_genome_isolat'
+	output_blast = '/homedir/gladieux/work/magMax_project/4_Orthologie/6_effecteurMax_pangenome/tmp/'
+	PathDataH = '/homedir/gladieux/work/magMax_project/4_Orthologie/6_effecteurMax_pangenome/hote_isolat.csv'
+	#PathDataH = '/homedir/gladieux/work/magMax_project/4_Orthologie/6_effecteurMax_pangenome/Lineage_isolat.csv'
+	PathOutput = '/homedir/gladieux/work/magMax_project/4_Orthologie/6_effecteurMax_pangenome/data-final/'
 	pathScript = sys.path[0]+'/Report_pangenome.Rmd'
 	#PathCount = '/homedir/gladieux/work/magMax_project/4_Orthologie/0_rawdata/Results_Jul10_1/Orthogroups.GeneCount.csv'
-	PathCount = '/homedir/gladieux/work/magMax_project/4_Orthologie/1_selectRawdata/Results_msa__Jul25/Orthogroups.GeneCount.csv'
+	#PathCount = '/homedir/gladieux/work/magMax_project/4_Orthologie/1_selectRawdata/Results_msa__Jul25/Orthogroups.GeneCount.csv'
+	PathCount = '/homedir/gladieux/work/magMax_project/4_Orthologie/4_test_MCL_2/0_rawdata/Results_MCL2_Jul30_1/Orthogroups.GeneCount_only_one_transcript_by_groups.csv'
 
 
 	
 	############### Création file sequence Groupe + file Alignement (effecteur MAX) ###############################
-	query = False # Si les fichiers sont déjà crée, query = True
+	query = True # Si les fichiers sont déjà crée, query = True
 
 	if query == True:
 		print(form("1.  Recherche des groupe d'othologue d'effecteur MAX",'green','bold')+' (Déja réalisé)\n')
@@ -160,7 +163,7 @@ if __name__ == "__main__":
 		f.close()
 		lines = lines[1:]
 		for line in lines :
-			groupe = line.split()[0]
+			groupe = line.split(':')[0]
 			count = line.split()[1:]
 			for elt in count :
 				if elt in effecteurMax :
@@ -263,6 +266,7 @@ if __name__ == "__main__":
 	max.close()	
 	print(form('4.  Création du  rapport\n','green','bold'))
 	os.system("Rscript -e 'rmarkdown::render(%s, output_file=%s, quiet=TRUE, params = list(data = %s, dataH = %s))'"%('"'+pathScript+'"','"'+PathOutput+'Report.html'+'"','"'+PathOutput+'MaxGenome.csv"','"'+PathDataH+'"'))
+	print("Rscript -e 'rmarkdown::render(%s, output_file=%s, quiet=TRUE, params = list(data = %s, dataH = %s))'"%('"'+pathScript+'"','"'+PathOutput+'Report.html'+'"','"'+PathOutput+'MaxGenome.csv"','"'+PathDataH+'"'))
 
 
 ############## end message ###########################
@@ -272,7 +276,7 @@ if __name__ == "__main__":
 	print(form("\t---------------------------------------------------------",'yellow','bold'))
 
 
-a = [ 'plage.txt','camion.txt','voiture.txt','saumon.txt']
+
 
 
 

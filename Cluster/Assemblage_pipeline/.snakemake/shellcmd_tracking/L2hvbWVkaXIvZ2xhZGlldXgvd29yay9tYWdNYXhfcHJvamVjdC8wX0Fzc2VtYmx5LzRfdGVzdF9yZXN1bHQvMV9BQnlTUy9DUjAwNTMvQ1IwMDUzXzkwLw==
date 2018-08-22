@@ -1,0 +1,5 @@
+
+	module load bioinfo/abyss/1.9.0
+	cd /homedir/gladieux/work/magMax_project/0_Assembly/4_test_result/1_ABySS/CR0053/CR0053_90/
+	/usr/local/bioinfo/abyss/1.9.0/bin/abyss-pe name=CR0053_90 k=90 in='/homedir/gladieux/work/magMax_project/0_Assembly/3_test/CR0053_R1.fastq.gz /homedir/gladieux/work/magMax_project/0_Assembly/3_test/CR0053_R2.fastq.gz' -o /homedir/gladieux/work/magMax_project/0_Assembly/4_test_result/1_ABySS/CR0053/CR0053_90/abyss_assembly_CR0053_90.fasta
+	

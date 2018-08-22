@@ -23,12 +23,13 @@ suffixFileR2 = '_R2.fastq.gz'
 ################################################################################
 
 SAMPLES, = glob_wildcards(datadir+"{smp}"+suffixFileR1)
-	
+kmere = [20,30,40,50,60,70,80,90]	
 	
 rule final:
 	input: 
 		expand( OutDir + '3_report/report.html'),
 		expand( OutDir + '2_data-final/')
+		
 		
 		
 
@@ -60,19 +61,20 @@ rule report:
 		
 rule recup_stat :
 	threads : 1  
-	input :  lien = expand(OutDir + '1_ABySS/{smp}/', smp = SAMPLES)
+	input :  lien = expand(OutDir + '1_ABySS/{smp}/{smp}_{km}/',smp = SAMPLES, km = kmere), outdir = OutDir
 	output : OutDir + '3_report/data_report/Quality.txt'
 	shell : """
-	script/Quality.py -d {wildcards.OutDir}1_ABySS/ -o {output}
+	script/Quality.py -d {input.outdir}1_ABySS/ -o {output}
 	"""	
 
 rule ABySS_Launch:
 	threads : 1 
 	input: R1 = datadir + '{smp}' + suffixFileR1, R2 = datadir + '{smp}' + suffixFileR2
 	params : suffix = suffixFileR1
-	output: OutDir + '1_ABySS/{smp}/'
+	output: OutDir + '1_ABySS/{smp}/{smp}_{km}/'
 	shell :"""
 	module load bioinfo/abyss/1.9.0
-	script/ABYSS_launch.py -r1 {input.R1} -r2 {input.R2} -s {params.suffix} -o {output}
+	cd {output}
+	/usr/local/bioinfo/abyss/1.9.0/bin/abyss-pe name={wildcards.smp}_{wildcards.km} k={wildcards.km} in='{input.R1} {input.R2}' -o {output}abyss_assembly_{wildcards.smp}_{wildcards.km}.fasta
 	"""
 		

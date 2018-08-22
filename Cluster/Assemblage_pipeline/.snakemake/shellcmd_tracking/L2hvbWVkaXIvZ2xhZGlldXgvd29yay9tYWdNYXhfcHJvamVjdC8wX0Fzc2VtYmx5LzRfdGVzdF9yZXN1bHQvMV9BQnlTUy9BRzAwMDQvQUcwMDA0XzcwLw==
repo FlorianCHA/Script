@@ -1,0 +1,5 @@
+
+	module load bioinfo/abyss/1.9.0
+	cd /homedir/gladieux/work/magMax_project/0_Assembly/4_test_result/1_ABySS/AG0004/AG0004_70/
+	/usr/local/bioinfo/abyss/1.9.0/bin/abyss-pe name=AG0004_70 k=70 in='/homedir/gladieux/work/magMax_project/0_Assembly/3_test/AG0004_R1.fastq.gz /homedir/gladieux/work/magMax_project/0_Assembly/3_test/AG0004_R2.fastq.gz' -o /homedir/gladieux/work/magMax_project/0_Assembly/4_test_result/1_ABySS/AG0004/AG0004_70/abyss_assembly_AG0004_70.fasta
+	
