@@ -3,103 +3,25 @@ import re
 import sys
 from os.path import join 
 from script.progress.bar import ChargingBar
-from script.module_Flo import indexDif, fasta2dict, createDir
+from script.module_Flo import indexDif, fasta2dict, createDir,dico_OG
 from Bio import SeqIO
 from Bio.SeqRecord import SeqRecord
 from Bio.Seq import Seq
 
 ###############################################################################
 ###############################################################################
-# Adapt here so you can get all read pairs and ref:
+# Adapt here :
 #--------------------------------------------------
 
-# directory contained sequencing data files
-pathFasta = '/homedir/gladieux/work/magMax_project/6_EffecteurMax/3_psiblastAllprot/DB/all_protein.fasta'
-pathDBGenome = '/homedir/gladieux/work/magMax_project/4_Orthologie/3_correction/0_DB/'
-nameDB = 'All_genome_isolat'
-pathOrthologue = '/homedir/gladieux/work/magMax_project/4_Orthologie/0_rawdata/Results_Jul10_1/'
+# Path of file contained count of Orthofinder Result (Orthogroups.GeneCount.csv)
+pathCount = '/homedir/gladieux/work/magMax_project/4_Orthologie/5_test_without_transcript/0_rawdata/Results_MCL2_T0_Aug06/OG_result/Orthogroups_5.GeneCount.csv'
 
 # Out directory
 OutDir = '/homedir/gladieux/work/magMax_project/4_Orthologie/3_correction/1_test_snakemake/'
 
 ################################################################################
 ################################################################################
-#Print('Récupération de la liste des Orthologues trouvés par Orthofinder')
 
-f = open(pathOrthologue+'/Orthogroups_1.GeneCount.csv','r')
-lines = f.readlines()
-f.close() 
-
-entete = lines[0]
-listeProtein = []
-print('')
-bar = ChargingBar('Récupération liste Isolat', max=len(lines), suffix='%(percent)d%%')
-for elt in entete.split('\t') :
-	if 'Total' not in elt :
-		listeProtein.append(elt.replace('_protein',''))	
-
-bar.next()
-
-
-
-OG_liste = lines[1:len(lines)]
-dico_OG = {}
-for line in OG_liste :
-	OG = line.split('\t')[0]
-	count = line.split('\t')[1:-1]
-	if '0' not in count :
-		dico_OG[OG] = listeProtein
-	else :
-		listeIndex = indexDif(count,'0')
-		listeCount = []
-		for i in listeIndex :
-			listeCount.append(listeProtein[i])
-		dico_OG[OG] = listeCount
-	bar.next()
-	
-bar.finish()	
-SAMPLES = []
-createDir(['%stmp/0_OG-fasta/'%OutDir])
-f = open(pathOrthologue+'/Orthogroups.txt','r')
-lines = f.readlines()
-f.close()
-lines = lines[1:len(lines)]
-print("\nCréation d'une banque fasta de toutes les protéines")
-dico_secretome = fasta2dict(pathFasta)
-dico_groupe = {}
-print('')
-bar = ChargingBar('Récupération liste OG', max=len(dico_OG.keys()), suffix='%(percent)d%%')	
-for line in lines :
-	listeLine = line.split()
-	OG = listeLine[0].replace(':','')
-	if OG not in dico_OG.keys() :
-		break
-	Idseq = listeLine[1].replace(' ','')
-	fasta_output = OutDir +'tmp/0_OG-fasta/'+ OG + '.fasta'
-	if len(dico_OG[OG]) != len(listeProtein):
-		dico_groupe[OG] = []
-		f = open(fasta_output,'w')
-		sequence = Seq(str(dico_secretome[Idseq].seq) + '*')
-		record = SeqRecord(sequence,id=str(OG),name=str(OG), description= 'length : '+ str(len(sequence)))
-		SeqIO.write(record,f, "fasta")
-		SAMPLES.append(OG)
-		f.close()
-	bar.next()
-bar.finish()
-
-print('')
-	
-rule final:
-	input: 
-		expand( OutDir + "tmp/1_tblastn-result/{smp}_blast.txt", smp = SAMPLES )
-		
-rule tblastn :
-	threads : 1
-	input :  query = OutDir + "tmp/0_OG-fasta/{smp}.fasta", Db = pathDBGenome
-	params : name = nameDB
-	output : OutDir + "tmp/1_tblastn-result/{smp}_blast.txt"
-	shell :"""
-	module load bioinfo/ncbi-blast/2.6.0
-	tblastn -query {input.query} -db {input.Db}{params.name} -evalue 1e-4 > {output}
-	"""
-
+rule OG_parse :
+	input : pathCount
+	ouput : 

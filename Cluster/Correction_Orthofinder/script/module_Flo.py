@@ -429,8 +429,33 @@ def indexDif(liste,cible):
 		if e != cible :
 			index.append(i)
 	return index
+	
+	
+def dico_OG(file):
+	f = open(file,'r')
+	lines = f.readlines()
+	f.close() 
+	entete = lines[0]
+	listeProtein = []
+	print('')
+	for elt in entete.split('\t') :
+		if 'Total' not in elt :
+			listeProtein.append(elt.replace('_protein',''))	
 
-
+	OG_liste = lines[1:len(lines)]
+	dico_OG = {}
+	for line in OG_liste :
+		OG = line.split('\t')[0]
+		count = line.split('\t')[1:-1]
+		if '0' not in count :
+			dico_OG[OG] = listeProtein
+		else :
+			listeIndex = indexDif(count,'0')
+			listeCount = []
+			for i in listeIndex :
+				listeCount.append(listeProtein[i])
+			dico_OG[OG] = listeCount
+	return(dico_OG)
 
 
 

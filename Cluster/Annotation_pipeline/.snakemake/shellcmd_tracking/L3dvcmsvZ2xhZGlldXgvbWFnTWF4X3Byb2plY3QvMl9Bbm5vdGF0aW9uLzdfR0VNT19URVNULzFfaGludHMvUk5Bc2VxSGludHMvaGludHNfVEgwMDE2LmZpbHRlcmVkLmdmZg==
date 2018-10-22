@@ -1,0 +1,4 @@
+
+	module load bioinfo/braker/1.9
+	script/filterHintsSnake.r -s TH0016 -p /work/gladieux/magMax_project/2_Annotation/7_GEMO_TEST/0_bamAlignement/TH0016//finalResults/ -o /work/gladieux/magMax_project/2_Annotation/7_GEMO_TEST/1_hints/RNAseqHints/hints_TH0016.filtered.gff
+	

@@ -1,0 +1,6 @@
+
+	module load bioinfo/TOGGLE/0.3.6
+	rm -r /work/gladieux/magMax_project/2_Annotation/6_GEMO_TEST/0_bamAlignement/TH0016/ 
+	toggleGenerator.pl -d /work/gladieux/magMax_project/2_Annotation/0_rawdata/rnaseq -r /home/gladieux/work/magMax_project/2_Annotation/0_rawdata/assembly_mBio/GEMO/TH0016.fasta -c SupplementaryFile/tophatMapping.config.txt -o /work/gladieux/magMax_project/2_Annotation/6_GEMO_TEST/0_bamAlignement/TH0016/ 
+	touch /work/gladieux/magMax_project/2_Annotation/6_GEMO_TEST/0_bamAlignement/TH0016/finalResults/bamList
+	

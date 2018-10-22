@@ -73,15 +73,12 @@ def filtreHit(files,dico_DB):
 		if line[0]== '#':
 			if line[0:2] == '#=' :
 				if goodAlignement == True :
-					zaerqs = 'da'
 					f.write(line)
 			else :
 				f.write(line)
 		elif line == '\n' :
-			zaerqs = 'da'
 			f.write(line)
 		elif line[0:2] == '//' :
-			zaerqs = 'da'
 			f.write(line)
 
 		else :
@@ -166,7 +163,7 @@ if __name__ == "__main__":
 	newAlignement = AlignementZero
 	print(form('Alignement n° 0\n','green','bold'))
 	print(form('\t - Création du pattern 0 à partir de %s_filtred'% (newAlignement.split('/')[-1]),'white','bold'))	
-	os.system('hmmsearch -A %s -E 1e-4 --max --nonull2 %s %s > trash'%(AlignementZero,profilZero,db))
+	os.system('hmmsearch -A %s -E 1e-3 --max --nonull2 %s %s > trash'%(AlignementZero,profilZero,db))
 	dico_fasta = fasta2dict(db)
 	nbG,nb = filtreHit(AlignementZero,dico_fasta)
 	print(form('\t - Alignement n° 0 filtré','white','bold'))	
@@ -185,15 +182,15 @@ if __name__ == "__main__":
 		f.close()
 		newAlignement = '%salignement_%s'%(outDir,str(i))
 		print(form('\t - Utilisation du profil n° %s sur le fichier %s'%(i,db.split('/')[-1]),'white','bold'))	
-		os.system('hmmsearch -A %s --max --nonull2 -E 1e-4 %s %s > %s'%(newAlignement,profil,db,'%sresult_%s'%(outDir,str(i))))
+		os.system('hmmsearch -A %s --max --nonull2 -E 1e-3 %s %s > %s'%(newAlignement,profil,db,'%sresult_%s'%(outDir,str(i))))
 		nbG,nb = filtreHit(newAlignement,dico_fasta)
 		print(form('\t - Alignement n° %s filtré'%i,'white','bold'))	
 		f = open(newAlignement+'_filtred','r')
 		linesNewAlignement =  f.readlines()
 		f.close()
 		print(form('\t - %s : %s hits récupérés, %s hits retirés\n'%(newAlignement.split('/')[-1],nbG,nb),'white','bold'))	
-		if linesOldAlignement == linesNewAlignement or i == 1:
-			print(i)
+		if linesOldAlignement == linesNewAlignement or len(linesOldAlignement) > len(linesNewAlignement):
+			print('Il y a eu %s itération'%i)
 			break
 		
 		

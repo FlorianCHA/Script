@@ -1,0 +1,6 @@
+
+	module load bioinfo/samtools/1.3
+	cd /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//GG11//finalResults
+	ls *.accepted_hits.bam > bamList
+	samtools merge -f -b bamList -c /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//GG11/finalResults/merged_/GG11.accepted_hits.bam
+	

@@ -430,10 +430,24 @@ def indexDif(liste,cible):
 			index.append(i)
 	return index
 
+def openfile(file):
+	"""
+	Permet de mettre dans une varaible une liste contenant chaque ligne du fichier
+	:Parameters:
+		file 
+		  Le chemin du fichier à ouvrir
+	"""
+	f = open(file,'r')
+	lines = f.readlines()
+	f.close()
+	return lines
 
 
-
-
-
+def is_number(s):
+    try:
+        float(s)
+        return True
+    except ValueError:
+        return False
 
 

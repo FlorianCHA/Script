@@ -9,10 +9,10 @@ from os.path import join
 #--------------------------------------------------
 
 # directory contained fasta files
-datadir="/work/gladieux/magMax_project/2_Annotation/0_rawdata/AssemblyToulouse/"
+datadir="/homedir/gladieux/work/magMax_project/2_New_Annotation/0_rawdata"
 
 # Out directory
-OutDir = '/work/gladieux/magMax_project/2_Annotation/5_soucheToulouse/'
+OutDir = '/work/gladieux/magMax_project/2_New_Annotation/1_tmp'
 
 # RNAseq directory
 RnaSeqDir='/work/gladieux/magMax_project/2_Annotation/0_rawdata/rnaseq'
@@ -29,7 +29,7 @@ suffixFile = '.fasta'
 # Config file for TOOGLE
 configFile = 'SupplementaryFile/tophatMapping.config.txt' # A mettre dans l'outils
 # Path to protein annotation file 
-protRef = 'SupplementaryFile/70-15_proteinAndAVR.fasta' # A mettre dans l'outils
+protRef = 'SupplementaryFile/OG.fasta' # A mettre dans l'outils
 ################################################################################
 
 SAMPLES, = glob_wildcards(datadir+"{smp}"+suffixFile)
@@ -42,7 +42,9 @@ rule final:
 		
 
 rule report:
+	threads : 1
 	input: assembly = OutDir+'6_report/data_report/Assembly_quality.csv', Annotation = OutDir+'6_report/data_report/Annotation_stat.csv'
+	params : l_mem_free='4G'
 	output: OutDir+'6_report/report.html'
 	shell :"""
 	module load bioinfo/R/3.4.3
@@ -52,32 +54,38 @@ rule report:
 
 
 rule recuperation_Stat:
-	input : assembly = datadir, gff = OutDir+'4_mergeGFF/', lien = expand(OutDir+'4_mergeGFF/{smp}_merge.gff3',smp = SAMPLES)
+	threads : 1
+	input : assembly = datadir,outdir = OutDir, lien = expand(OutDir+'4_mergeGFF/{smp}_merge.gff3',smp = SAMPLES)
+	params : l_mem_free='4G'
 	output : assembly = OutDir+'6_report/data_report/Assembly_quality.csv', Annotation = OutDir+'6_report/data_report/Annotation_stat.csv'
 	shell : """
 	script/QualityAssemblage.py -d {input.assembly} -o {output.assembly}
-	script/RecupInfoGFF.py -d {input.gff} -o {output.Annotation} -g {input.assembly}
+	script/RecupInfoGFF.py -d {input.outdir}4_mergeGFF/ -o {output.Annotation} -g {input.assembly}
 	"""
 
-
 rule renameFasta:
+	threads : 1
 	input : OutDir+'5_final_data/{smp}/'
+	params : l_mem_free='4G'
 	output : OutDir+'5_final_data/{smp}/{smp}_protein.fasta'
 	shell : """
 	script/renameFasta.py -d {input} -s {wildcards.smp}
 	"""
 
 rule createFasta:
+	threads : 1
 	input : gff = OutDir+'4_mergeGFF/{smp}_merge.gff3', fasta = datadir+"{smp}"+suffixFile
-	output : OutDir+'5_final_data/{smp}/', 
+	params : l_mem_free='4G'
+	output : OutDir+'5_final_data/{smp}/'
 	shell :"""
-	cd {ouput}
-	script/gff2fasta.pl --gff {input.gff} --fasta {input.fasta} --prefix {wildcards.smp}
+	script/gff2fasta.pl --gff {input.gff} --fasta {input.fasta} --prefix {output}{wildcards.smp}
 	cp {input.gff} {output}
 	"""
 
 rule mergeGFF:
+	threads : 1
 	input : augustus = OutDir+'3_augustus/{smp}.gff3', braker = OutDir+'2_Braker/{smp}/'
+	params : l_mem_free='4G'
 	output : OutDir+'4_mergeGFF/{smp}_merge.gff3'
 	message: 'Merge and rename Braker and Augustus output {wildcards.smp}.\nInput:\n\t\t-augustus : {input.augustus}\n\t\t-braker : {input.braker}/braker/magnaporthe_oryzae/augustus.gff3\nOutput :{output}\nThreads : {threads}\n'+'#'*108
 	shell : """
@@ -87,6 +95,7 @@ rule mergeGFF:
 rule augustus :
 	threads : 2
 	input :  hints = OutDir+'1_hints/MergeHints/RNAseq_protein.hints_{smp}.gff' , assembly = datadir+"{smp}"+suffixFile
+	params : l_mem_free='4G'
 	output : OutDir+'3_augustus/{smp}.gff3'
 	message: 'Execute augustus for {wildcards.smp}.\nInput:\n\t\t-Genome : {input.assembly}\n\t\t-Hints file : {input.hints}\nOutput :{output}\nThreads : {threads}\n'+'#'*108
 	shell : """
@@ -97,6 +106,7 @@ rule augustus :
 rule BRAKER :
 	threads : 2
 	input : genome = datadir+"{smp}"+suffixFile, hints = OutDir+'1_hints/MergeHints/RNAseq_protein.hints.intron_{smp}.gff'
+	params : l_mem_free='10G'
 	output : OutDir+'2_Braker/{smp}/'
 	message: 'Execute BRAKER for {wildcards.smp}.\nInput:\n\t\t-Genome : {input.genome}\n\t\t-Hints file : {input.hints}\nOutput :{output}\nThreads : {threads}\n'+'#'*108
 	shell :"""
@@ -109,6 +119,7 @@ rule BRAKER :
 rule mergeHint:
 	threads : 1
 	input : rnaseq = OutDir+'1_hints/RNAseqHints/hints_{smp}.filtered.gff', prot = OutDir+'1_hints/ProtHints/exonarate_{smp}.hints.gff3'
+	params : l_mem_free='4G'
 	output: merge = OutDir+'1_hints/MergeHints/RNAseq_protein.hints_{smp}.gff', mergeIntro = OutDir+'1_hints/MergeHints/RNAseq_protein.hints.intron_{smp}.gff'
 	message: '\nMerge hints outcome of RNAseq with hints outcome of proteine alignement for {wildcards.smp}.\nInput:\n\t\t-Hints RNseq : {input.rnaseq}\n\t\t-Hints proteine : {input.prot}\nOutput :{output.mergeIntro}\nThreads : {threads}\n'+'#'*108
 	shell :"""
@@ -119,6 +130,7 @@ rule mergeHint:
 rule exonerate :
 	threads : 2
 	input : protRef = protRef, file = datadir+"{smp}"+suffixFile
+	params : l_mem_free='4G'
 	output: exonerate = OutDir+'1_hints/ProtHints/exonarate_{smp}.gff3', hints =OutDir+'1_hints/ProtHints/exonarate_{smp}.hints.gff3'
 	message: 'Executing exonerate alignement and convert alignement into hints file for {wildcards.smp}.\nInput:\n\t\t-Reference file : {input.protRef}\n\t\t-Genome : {input.file}\nOutput :\n\t\t-Alignement {output.exonerate}\n\t\t-hints file : {output.hints}\nThreads : {threads}\n'+'#'*108
 	shell:"""
@@ -129,8 +141,9 @@ rule exonerate :
 	"""	
 	
 rule bam2hintsFilter :
-	threads : 2
+	threads : 1
 	input : file = OutDir+'0_bamAlignement/{smp}/finalResults/hints_{smp}.raw.bam', path = OutDir+'0_bamAlignement/{smp}/'
+	params : l_mem_free='4G'
 	output : OutDir+'1_hints/RNAseqHints/hints_{smp}.filtered.gff'
 	message: 'Filtre hint file outcome of bam file for {wildcards.smp}.\nInput: {input.file}\nOutput : {output}\nThreads : {threads}\n'+'#'*108
 	shell:"""
@@ -141,16 +154,18 @@ rule bam2hintsFilter :
 rule bam2hints :
 	threads : 2
 	input : OutDir+'0_bamAlignement/{smp}/finalResults/merged_{smp}.accepted_hits_sort.bam'
+	params : l_mem_free='4G'
 	output : bam2hints = OutDir+'0_bamAlignement/{smp}/finalResults/hints_{smp}.raw.bam'
 	message: 'Convert merged bam file of {wildcards.smp} into a hint file for AUGUSTUS.\nInput:{input}\nOutput : {output}\nThreads : {threads}\n'+'#'*108
 	shell:"""
 	module load bioinfo/braker/1.9
-	bam2hints --minintronlen=10 --maxintronlen=1000 --maxgaplen=9 --source=M --in={input} --out={output}
+	bam2hints --minintronlen=10 --maxintronlen=1000 --maxgaplen=9 --source=M --exonhints --in={input} --out={output}
 	"""
 	
 rule sortBam :
-	threads : 2
+	threads : 1
 	input : OutDir+'0_bamAlignement/{smp}/finalResults/merged_{smp}.accepted_hits.bam'
+	params : l_mem_free='40G'
 	output : OutDir+'0_bamAlignement/{smp}/finalResults/merged_{smp}.accepted_hits_sort.bam'
 	message: 'Sort the merged bam file of {wildcards.smp}.\nInput:{input}\nOutput : {output}\nThreads : {threads}\n'+'#'*108
 	shell:"""
@@ -160,8 +175,9 @@ rule sortBam :
 	
 	
 rule mergeBam :
-	threads : 2
+	threads : 1
 	input :  bam = OutDir+'0_bamAlignement/{smp}/'
+	params : l_mem_free='4G'
 	output : OutDir+'0_bamAlignement/{smp}/finalResults/merged_{smp}.accepted_hits.bam'
 	message: 'Merge all bam file of {wildcards.smp}.\nInput:{input}\nOutput : {output}\nThreads : {threads}\n'+'#'*108
 	shell :"""
@@ -172,14 +188,15 @@ rule mergeBam :
 	"""	
 	
 rule bamAlignement :
-	threads : 2
+	threads : 1
 	input: fasta = datadir+"{smp}"+suffixFile, RNAseq = RnaSeqDir, config = configFile
-	output: bam = OutDir+'0_bamAlignement/{smp}/'
-	output: bam = OutDir+'0_bamAlignement', list = OutDir+'0_bamAlignement/{smp}/finalResults/bamList'
+	params : l_mem_free='4G'
+	output: bam = OutDir+'0_bamAlignement/{smp}/', list = OutDir+'0_bamAlignement/{smp}/finalResults/bamList'
 	message: 'Executing Tophat2 alignement for {wildcards.smp}.\nInput:\n\t\t-Genome : {input.fasta}\n\t\t-RNAseq : {input.RNAseq}\nOutput : {output}\nThreads : {threads}\n'+'#'*108
 	log : 'log/bamAlignement_{wildcards.smp}.out'
 	shell :"""
 	module load bioinfo/TOGGLE/0.3.6
+	rm -r {output.bam} 
 	toggleGenerator.pl -d {input.RNAseq} -r {input.fasta} -c {input.config} -o {output.bam} 
 	touch {output.list}
 	"""

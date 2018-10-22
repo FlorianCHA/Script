@@ -1,0 +1,3 @@
+
+	script/renameFasta.py -d /work/gladieux/magMax_project/2_Annotation/7_GEMO_TEST/5_final_data/CD0156/ -s CD0156
+	

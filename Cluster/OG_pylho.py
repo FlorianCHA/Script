@@ -32,12 +32,17 @@ from progress.bar import ChargingBar
 #Import module_Flo
 from module_Flo import verifDir, createDir , form, isFasta, recupId ,verifFichier,fasta2dict,sort_human,indexEgale,indexDif,functionSens
 
+
+################## PATH ##################################################
 output_tmp = '/homedir/gladieux/work/magMax_project/4_Orthologie/5_test_without_transcript/0_rawdata/Results_MCL2_T0_Aug06/tmp/'
 MGG_fasta = '/homedir/gladieux/work/magMax_project/4_Orthologie/5_test_without_transcript/1_MGG/Magnaporthe_oryzae.MG8.pep.all.fasta'
 pathDBGenome = '/homedir/gladieux/work/magMax_project/4_Orthologie/3_correction/0_DB/All_genome_isolat'
 pathOrthologue = '/homedir/gladieux/work/magMax_project/4_Orthologie/5_test_without_transcript/0_rawdata/Results_MCL2_T0_Aug06/'
 
-f = open('/homedir/gladieux/work/magMax_project/4_Orthologie/5_test_without_transcript/0_rawdata/Results_MCL2_T0_Aug06/76Mo_2.txt','r')
+###############################################################################################################
+################## Récupération des groupes nescessaire à la phylogénétique ###################################
+###############################################################################################################
+f = open(pathOrthologue+'76Mo_2.txt','r')
 lines = f.readlines()
 f.close()
 OG_phylo = []
@@ -48,8 +53,12 @@ for OG in lines :
 	OG_phylo.append(OG)
 	bar.next()
 bar.finish()	
-	
-f = open('/homedir/gladieux/work/magMax_project/4_Orthologie/5_test_without_transcript/0_rawdata/Results_MCL2_T0_Aug06/Orthogroups_1.GeneCount_new.csv','r')
+
+###############################################################################################################
+#################### récupération des counts des OG ###########################################################
+###############################################################################################################
+
+f = open(pathOrthologue+'Orthogroups_1.GeneCount_new.csv','r')
 lines = f.readlines()
 f.close()
 entete = lines[0].split()
@@ -61,6 +70,11 @@ for elt in entete :
 dico_count = {}
 dico_OG = {}
 print('')
+
+###############################################################################################################
+##################### Récupération des OGs séléctionnés qui ne sont pas dans le core genome ###################
+###############################################################################################################
+
 bar = ChargingBar('Lecture du fichier GeneCount.csv', max=len(lines), suffix='%(percent)d%%')
 for line in lines :
 	listOG = line.split()
@@ -78,6 +92,11 @@ for line in lines :
 	bar.next()
 bar.finish()	
 
+
+######################################################################################################################
+####################### Création des fichiers fasta pour chaque OG ###################################################
+######################################################################################################################
+
 f = open('/homedir/gladieux/work/magMax_project/4_Orthologie/5_test_without_transcript/0_rawdata/Results_MCL2_T0_Aug06/Orthogroups_1.txt','r')
 lines = f.readlines()
 f.close()
@@ -88,7 +107,7 @@ nb = 0
 dico_OGvsMGG = {} 
 OG_76MO = []
 listeOG = []
-result = open('/homedir/gladieux/work/magMax_project/4_Orthologie/5_test_without_transcript/0_rawdata/Results_MCL2_T0_Aug06/Orthogroups_phylo.txt','w')
+result = open(pathOrthologue+'Orthogroups_phylo.txt','w')
 print('')
 bar = ChargingBar('Création des fichiers fasta de tous les OG séléctionnées', max=len(OG_phylo), suffix='%(percent)d%%')
 for line in lines :
@@ -117,14 +136,18 @@ for line in lines :
 bar.finish()
 result.close()
 
-f = open('/homedir/gladieux/work/magMax_project/4_Orthologie/5_test_without_transcript/0_rawdata/Results_MCL2_T0_Aug06/Orthogroups_1.GeneCount_new.csv','r')
+############################################################################################################################
+################################### Création des counts et traitement de ces dernier pour la correction ####################
+############################################################################################################################
+
+f = open(pathOrthologue+'/Orthogroups_1.GeneCount_new.csv','r')
 lines = f.readlines()
 f.close()
 entete = lines[0].split()
 print('')
 bar = ChargingBar('Création du fichier et du dico des counts des OG séléctionnés', max=len(listeOG), suffix='%(percent)d%%')
 lines = lines[1:len(lines)]
-result = open('/homedir/gladieux/work/magMax_project/4_Orthologie/5_test_without_transcript/0_rawdata/Results_MCL2_T0_Aug06/Orthogroups_phylo.GeneCount.txt','w')
+result = open(pathOrthologue+'Orthogroups_phylo.GeneCount.txt','w')
 dico_OG = {}
 dico_count = {}
 for line in lines :
@@ -149,9 +172,12 @@ for line in lines :
 
 bar.finish()		
 result.close()
+###########################################################################################################################
+############################## Partie lancement Blast pour correction #####################################################
+###########################################################################################################################
 
 blast = False 
-allscript = open('/homedir/gladieux/work/magMax_project/4_Orthologie/5_test_without_transcript/0_rawdata/Results_MCL2_T0_Aug06/tmp/LaunchBlast.sh','w')
+allscript = open(pathOrthologue+'tmp/LaunchBlast.sh','w')
 if blast :
 	for OG in OG_76MO :
 		fasta_output = output_tmp +'fasta/'+OG+'.fasta'
@@ -171,6 +197,11 @@ else :
 
 allscript.close()
 
+#################################################################################################################
+######################################### Parsage des résultat blast + ##########################################
+#################################################      +       ##################################################
+######################################### Création fasta des correction #########################################
+#################################################################################################################
 
 result = open(output_tmp+'gene_add.txt','w')
 result.write('%s\t%s\t%s\t%s\t%s\t%s\t%s\n'%('name','Num_scaffold','start','end','sens','PcIdent','couverture'))
@@ -244,6 +275,9 @@ result.close()
 
 print('\nNombre de correction effectué sur les %s Groupes Orthologue  : %s\n'%(len(OG_76MO),nbC))
 
+##################################################################################################################
+##################################### Ecriture nouveau fichier avec correction ###################################
+##################################################################################################################
 
 f = open(pathOrthologue +'Orthogroups_phylo.txt','r')
 lines = f.readlines()
@@ -256,7 +290,7 @@ for line in lines :
 	if OG in OG_76MO and len(dico_groupe[OG]) != 0 :
 		newline = line.replace('\n',' ') + ' '.join(dico_groupe[OG])
 	else :
-		newline = line
+		newline = line.replace('\n',' ')
 	result.write(newline+'\n')
 	bar.next()
 bar.finish()
@@ -281,7 +315,7 @@ for line in lines :
 	else :
 		newline = line
 	result.write(newline+'\n')
-	#bar.next()
+	bar.next()
 bar.finish()
 result.close()
 

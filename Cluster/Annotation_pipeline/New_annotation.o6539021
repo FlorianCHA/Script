@@ -1,0 +1,2356 @@
+Provided cluster nodes: 40
+Job counts:
+	count	jobs
+	181	BRAKER
+	181	augustus
+	181	bam2hints
+	181	bam2hintsFilter
+	181	bamAlignement
+	181	createFasta
+	181	exonerate
+	1	final
+	181	mergeBam
+	181	mergeGFF
+	181	mergeHint
+	1	recuperation_Stat
+	181	renameFasta
+	1	report
+	181	sortBam
+	2175
+
+Job 1618: Executing Tophat2 alignement for /B71.
+Input:
+		-Genome : /homedir/gladieux/work/magMax_project/2_New_Annotation/0_rawdata/B71.fasta
+		-RNAseq : /work/gladieux/magMax_project/2_Annotation/0_rawdata/rnaseq
+Output : /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//B71/ /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//B71/finalResults/bamList
+Threads : 1
+############################################################################################################
+
+
+Job 1512: Executing Tophat2 alignement for /TF05-1.
+Input:
+		-Genome : /homedir/gladieux/work/magMax_project/2_New_Annotation/0_rawdata/TF05-1.fasta
+		-RNAseq : /work/gladieux/magMax_project/2_Annotation/0_rawdata/rnaseq
+Output : /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//TF05-1/ /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//TF05-1/finalResults/bamList
+Threads : 1
+############################################################################################################
+
+
+Job 1744: Executing Tophat2 alignement for /PGPA.
+Input:
+		-Genome : /homedir/gladieux/work/magMax_project/2_New_Annotation/0_rawdata/PGPA.fasta
+		-RNAseq : /work/gladieux/magMax_project/2_Annotation/0_rawdata/rnaseq
+Output : /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//PGPA/ /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//PGPA/finalResults/bamList
+Threads : 1
+############################################################################################################
+
+
+Job 1755: Executing Tophat2 alignement for /P29.
+Input:
+		-Genome : /homedir/gladieux/work/magMax_project/2_New_Annotation/0_rawdata/P29.fasta
+		-RNAseq : /work/gladieux/magMax_project/2_Annotation/0_rawdata/rnaseq
+Output : /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//P29/ /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//P29/finalResults/bamList
+Threads : 1
+############################################################################################################
+
+
+Job 1637: Executing Tophat2 alignement for /B2.
+Input:
+		-Genome : /homedir/gladieux/work/magMax_project/2_New_Annotation/0_rawdata/B2.fasta
+		-RNAseq : /work/gladieux/magMax_project/2_Annotation/0_rawdata/rnaseq
+Output : /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//B2/ /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//B2/finalResults/bamList
+Threads : 1
+############################################################################################################
+
+
+Job 1504: Executing Tophat2 alignement for /PL2-1.
+Input:
+		-Genome : /homedir/gladieux/work/magMax_project/2_New_Annotation/0_rawdata/PL2-1.fasta
+		-RNAseq : /work/gladieux/magMax_project/2_Annotation/0_rawdata/rnaseq
+Output : /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//PL2-1/ /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//PL2-1/finalResults/bamList
+Threads : 1
+############################################################################################################
+
+
+Job 1552: Executing Tophat2 alignement for /Pm1.
+Input:
+		-Genome : /homedir/gladieux/work/magMax_project/2_New_Annotation/0_rawdata/Pm1.fasta
+		-RNAseq : /work/gladieux/magMax_project/2_Annotation/0_rawdata/rnaseq
+Output : /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//Pm1/ /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//Pm1/finalResults/bamList
+Threads : 1
+############################################################################################################
+
+
+Job 1523: Executing Tophat2 alignement for /LpKY97.
+Input:
+		-Genome : /homedir/gladieux/work/magMax_project/2_New_Annotation/0_rawdata/LpKY97.fasta
+		-RNAseq : /work/gladieux/magMax_project/2_Annotation/0_rawdata/rnaseq
+Output : /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//LpKY97/ /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//LpKY97/finalResults/bamList
+Threads : 1
+############################################################################################################
+
+
+Job 1674: Executing Tophat2 alignement for /PY5003.
+Input:
+		-Genome : /homedir/gladieux/work/magMax_project/2_New_Annotation/0_rawdata/PY5003.fasta
+		-RNAseq : /work/gladieux/magMax_project/2_Annotation/0_rawdata/rnaseq
+Output : /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//PY5003/ /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//PY5003/finalResults/bamList
+Threads : 1
+############################################################################################################
+
+
+Job 1457: Executing Tophat2 alignement for /CH1189-canu2.
+Input:
+		-Genome : /homedir/gladieux/work/magMax_project/2_New_Annotation/0_rawdata/CH1189-canu2.fasta
+		-RNAseq : /work/gladieux/magMax_project/2_Annotation/0_rawdata/rnaseq
+Output : /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//CH1189-canu2/ /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//CH1189-canu2/finalResults/bamList
+Threads : 1
+############################################################################################################
+
+
+Job 1803: Executing Tophat2 alignement for /PH0014-rn.
+Input:
+		-Genome : /homedir/gladieux/work/magMax_project/2_New_Annotation/0_rawdata/PH0014-rn.fasta
+		-RNAseq : /work/gladieux/magMax_project/2_Annotation/0_rawdata/rnaseq
+Output : /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//PH0014-rn/ /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//PH0014-rn/finalResults/bamList
+Threads : 1
+############################################################################################################
+
+
+Job 1751: Executing Tophat2 alignement for /PY6045.
+Input:
+		-Genome : /homedir/gladieux/work/magMax_project/2_New_Annotation/0_rawdata/PY6045.fasta
+		-RNAseq : /work/gladieux/magMax_project/2_Annotation/0_rawdata/rnaseq
+Output : /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//PY6045/ /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//PY6045/finalResults/bamList
+Threads : 1
+############################################################################################################
+
+
+Job 1749: Executing Tophat2 alignement for /WBKY11.
+Input:
+		-Genome : /homedir/gladieux/work/magMax_project/2_New_Annotation/0_rawdata/WBKY11.fasta
+		-RNAseq : /work/gladieux/magMax_project/2_Annotation/0_rawdata/rnaseq
+Output : /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//WBKY11/ /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//WBKY11/finalResults/bamList
+Threads : 1
+############################################################################################################
+
+
+Job 1486: Executing Tophat2 alignement for /DsLIZ.
+Input:
+		-Genome : /homedir/gladieux/work/magMax_project/2_New_Annotation/0_rawdata/DsLIZ.fasta
+		-RNAseq : /work/gladieux/magMax_project/2_Annotation/0_rawdata/rnaseq
+Output : /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//DsLIZ/ /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//DsLIZ/finalResults/bamList
+Threads : 1
+############################################################################################################
+
+
+Job 1647: Executing Tophat2 alignement for /T25.
+Input:
+		-Genome : /homedir/gladieux/work/magMax_project/2_New_Annotation/0_rawdata/T25.fasta
+		-RNAseq : /work/gladieux/magMax_project/2_Annotation/0_rawdata/rnaseq
+Output : /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//T25/ /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//T25/finalResults/bamList
+Threads : 1
+############################################################################################################
+
+
+Job 1579: Executing Tophat2 alignement for /PH0014-canu2.
+Input:
+		-Genome : /homedir/gladieux/work/magMax_project/2_New_Annotation/0_rawdata/PH0014-canu2.fasta
+		-RNAseq : /work/gladieux/magMax_project/2_Annotation/0_rawdata/rnaseq
+Output : /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//PH0014-canu2/ /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//PH0014-canu2/finalResults/bamList
+Threads : 1
+############################################################################################################
+
+
+Job 1493: Executing Tophat2 alignement for /HO.
+Input:
+		-Genome : /homedir/gladieux/work/magMax_project/2_New_Annotation/0_rawdata/HO.fasta
+		-RNAseq : /work/gladieux/magMax_project/2_Annotation/0_rawdata/rnaseq
+Output : /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//HO/ /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//HO/finalResults/bamList
+Threads : 1
+############################################################################################################
+
+
+Job 1670: Executing Tophat2 alignement for /PY0925.
+Input:
+		-Genome : /homedir/gladieux/work/magMax_project/2_New_Annotation/0_rawdata/PY0925.fasta
+		-RNAseq : /work/gladieux/magMax_project/2_Annotation/0_rawdata/rnaseq
+Output : /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//PY0925/ /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//PY0925/finalResults/bamList
+Threads : 1
+############################################################################################################
+
+
+Job 1777: Executing Tophat2 alignement for /Magnaporthe-Wheatblast-12-1-205.
+Input:
+		-Genome : /homedir/gladieux/work/magMax_project/2_New_Annotation/0_rawdata/Magnaporthe-Wheatblast-12-1-205.fasta
+		-RNAseq : /work/gladieux/magMax_project/2_Annotation/0_rawdata/rnaseq
+Output : /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//Magnaporthe-Wheatblast-12-1-205/ /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//Magnaporthe-Wheatblast-12-1-205/finalResults/bamList
+Threads : 1
+############################################################################################################
+
+
+Job 1712: Executing Tophat2 alignement for /IN0082-canu2.
+Input:
+		-Genome : /homedir/gladieux/work/magMax_project/2_New_Annotation/0_rawdata/IN0082-canu2.fasta
+		-RNAseq : /work/gladieux/magMax_project/2_Annotation/0_rawdata/rnaseq
+Output : /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//IN0082-canu2/ /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//IN0082-canu2/finalResults/bamList
+Threads : 1
+############################################################################################################
+
+
+Job 1730: Executing Tophat2 alignement for /FR13.
+Input:
+		-Genome : /homedir/gladieux/work/magMax_project/2_New_Annotation/0_rawdata/FR13.fasta
+		-RNAseq : /work/gladieux/magMax_project/2_Annotation/0_rawdata/rnaseq
+Output : /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//FR13/ /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//FR13/finalResults/bamList
+Threads : 1
+############################################################################################################
+
+
+Job 1497: Executing Tophat2 alignement for /SSFL14-3.
+Input:
+		-Genome : /homedir/gladieux/work/magMax_project/2_New_Annotation/0_rawdata/SSFL14-3.fasta
+		-RNAseq : /work/gladieux/magMax_project/2_Annotation/0_rawdata/rnaseq
+Output : /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//SSFL14-3/ /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//SSFL14-3/finalResults/bamList
+Threads : 1
+############################################################################################################
+
+
+Job 1465: Executing Tophat2 alignement for /GY11.
+Input:
+		-Genome : /homedir/gladieux/work/magMax_project/2_New_Annotation/0_rawdata/GY11.fasta
+		-RNAseq : /work/gladieux/magMax_project/2_Annotation/0_rawdata/rnaseq
+Output : /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//GY11/ /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//GY11/finalResults/bamList
+Threads : 1
+############################################################################################################
+
+
+Job 1789: Executing Tophat2 alignement for /Br62.
+Input:
+		-Genome : /homedir/gladieux/work/magMax_project/2_New_Annotation/0_rawdata/Br62.fasta
+		-RNAseq : /work/gladieux/magMax_project/2_Annotation/0_rawdata/rnaseq
+Output : /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//Br62/ /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//Br62/finalResults/bamList
+Threads : 1
+############################################################################################################
+
+
+Job 1629: Executing Tophat2 alignement for /P28.
+Input:
+		-Genome : /homedir/gladieux/work/magMax_project/2_New_Annotation/0_rawdata/P28.fasta
+		-RNAseq : /work/gladieux/magMax_project/2_Annotation/0_rawdata/rnaseq
+Output : /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//P28/ /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//P28/finalResults/bamList
+Threads : 1
+############################################################################################################
+
+
+Job 1633: Executing Tophat2 alignement for /CD0156.
+Input:
+		-Genome : /homedir/gladieux/work/magMax_project/2_New_Annotation/0_rawdata/CD0156.fasta
+		-RNAseq : /work/gladieux/magMax_project/2_Annotation/0_rawdata/rnaseq
+Output : /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//CD0156/ /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//CD0156/finalResults/bamList
+Threads : 1
+############################################################################################################
+
+
+Job 1527: Executing Tophat2 alignement for /Br80.
+Input:
+		-Genome : /homedir/gladieux/work/magMax_project/2_New_Annotation/0_rawdata/Br80.fasta
+		-RNAseq : /work/gladieux/magMax_project/2_Annotation/0_rawdata/rnaseq
+Output : /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//Br80/ /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//Br80/finalResults/bamList
+Threads : 1
+############################################################################################################
+
+
+Job 1488: Executing Tophat2 alignement for /PY5010.
+Input:
+		-Genome : /homedir/gladieux/work/magMax_project/2_New_Annotation/0_rawdata/PY5010.fasta
+		-RNAseq : /work/gladieux/magMax_project/2_Annotation/0_rawdata/rnaseq
+Output : /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//PY5010/ /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//PY5010/finalResults/bamList
+Threads : 1
+############################################################################################################
+
+
+Job 1714: Executing Tophat2 alignement for /WHTQ.
+Input:
+		-Genome : /homedir/gladieux/work/magMax_project/2_New_Annotation/0_rawdata/WHTQ.fasta
+		-RNAseq : /work/gladieux/magMax_project/2_Annotation/0_rawdata/rnaseq
+Output : /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//WHTQ/ /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//WHTQ/finalResults/bamList
+Threads : 1
+############################################################################################################
+
+
+Job 1472: Executing Tophat2 alignement for /PY86-1.
+Input:
+		-Genome : /homedir/gladieux/work/magMax_project/2_New_Annotation/0_rawdata/PY86-1.fasta
+		-RNAseq : /work/gladieux/magMax_project/2_Annotation/0_rawdata/rnaseq
+Output : /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//PY86-1/ /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//PY86-1/finalResults/bamList
+Threads : 1
+############################################################################################################
+
+
+Job 1479: Executing Tophat2 alignement for /FH.
+Input:
+		-Genome : /homedir/gladieux/work/magMax_project/2_New_Annotation/0_rawdata/FH.fasta
+		-RNAseq : /work/gladieux/magMax_project/2_Annotation/0_rawdata/rnaseq
+Output : /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//FH/ /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//FH/finalResults/bamList
+Threads : 1
+############################################################################################################
+
+
+Job 1545: Executing Tophat2 alignement for /BdBar.
+Input:
+		-Genome : /homedir/gladieux/work/magMax_project/2_New_Annotation/0_rawdata/BdBar.fasta
+		-RNAseq : /work/gladieux/magMax_project/2_Annotation/0_rawdata/rnaseq
+Output : /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//BdBar/ /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//BdBar/finalResults/bamList
+Threads : 1
+############################################################################################################
+
+
+Job 1592: Executing Tophat2 alignement for /CH1205-canu2.
+Input:
+		-Genome : /homedir/gladieux/work/magMax_project/2_New_Annotation/0_rawdata/CH1205-canu2.fasta
+		-RNAseq : /work/gladieux/magMax_project/2_Annotation/0_rawdata/rnaseq
+Output : /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//CH1205-canu2/ /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//CH1205-canu2/finalResults/bamList
+Threads : 1
+############################################################################################################
+
+
+Job 1748: Executing Tophat2 alignement for /PY6017.
+Input:
+		-Genome : /homedir/gladieux/work/magMax_project/2_New_Annotation/0_rawdata/PY6017.fasta
+		-RNAseq : /work/gladieux/magMax_project/2_Annotation/0_rawdata/rnaseq
+Output : /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//PY6017/ /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//PY6017/finalResults/bamList
+Threads : 1
+############################################################################################################
+
+
+Job 1499: Executing Tophat2 alignement for /GG11.
+Input:
+		-Genome : /homedir/gladieux/work/magMax_project/2_New_Annotation/0_rawdata/GG11.fasta
+		-RNAseq : /work/gladieux/magMax_project/2_Annotation/0_rawdata/rnaseq
+Output : /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//GG11/ /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//GG11/finalResults/bamList
+Threads : 1
+############################################################################################################
+
+
+Job 1758: Executing Tophat2 alignement for /PL3-1.
+Input:
+		-Genome : /homedir/gladieux/work/magMax_project/2_New_Annotation/0_rawdata/PL3-1.fasta
+		-RNAseq : /work/gladieux/magMax_project/2_Annotation/0_rawdata/rnaseq
+Output : /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//PL3-1/ /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//PL3-1/finalResults/bamList
+Threads : 1
+############################################################################################################
+
+
+Job 1666: Executing Tophat2 alignement for /V0107.
+Input:
+		-Genome : /homedir/gladieux/work/magMax_project/2_New_Annotation/0_rawdata/V0107.fasta
+		-RNAseq : /work/gladieux/magMax_project/2_Annotation/0_rawdata/rnaseq
+Output : /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//V0107/ /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//V0107/finalResults/bamList
+Threads : 1
+############################################################################################################
+
+
+Job 1605: Executing Tophat2 alignement for /TH0012-rn.
+Input:
+		-Genome : /homedir/gladieux/work/magMax_project/2_New_Annotation/0_rawdata/TH0012-rn.fasta
+		-RNAseq : /work/gladieux/magMax_project/2_Annotation/0_rawdata/rnaseq
+Output : /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//TH0012-rn/ /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//TH0012-rn/finalResults/bamList
+Threads : 1
+############################################################################################################
+
+
+Job 1742: Executing Tophat2 alignement for /FR1067_scaffold.
+Input:
+		-Genome : /homedir/gladieux/work/magMax_project/2_New_Annotation/0_rawdata/FR1067_scaffold.fasta
+		-RNAseq : /work/gladieux/magMax_project/2_Annotation/0_rawdata/rnaseq
+Output : /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//FR1067_scaffold/ /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//FR1067_scaffold/finalResults/bamList
+Threads : 1
+############################################################################################################
+
+
+Job 1543: Executing Tophat2 alignement for /PY5033.
+Input:
+		-Genome : /homedir/gladieux/work/magMax_project/2_New_Annotation/0_rawdata/PY5033.fasta
+		-RNAseq : /work/gladieux/magMax_project/2_Annotation/0_rawdata/rnaseq
+Output : /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//PY5033/ /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//PY5033/finalResults/bamList
+Threads : 1
+############################################################################################################
+
+Finished job 1457.
+1 of 2175 steps (0.05%) done
+
+Job 1651: Executing Tophat2 alignement for /PH42.
+Input:
+		-Genome : /homedir/gladieux/work/magMax_project/2_New_Annotation/0_rawdata/PH42.fasta
+		-RNAseq : /work/gladieux/magMax_project/2_Annotation/0_rawdata/rnaseq
+Output : /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//PH42/ /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//PH42/finalResults/bamList
+Threads : 1
+############################################################################################################
+
+Finished job 1543.
+2 of 2175 steps (0.09%) done
+
+Job 1570: Executing Tophat2 alignement for /PgKY.
+Input:
+		-Genome : /homedir/gladieux/work/magMax_project/2_New_Annotation/0_rawdata/PgKY.fasta
+		-RNAseq : /work/gladieux/magMax_project/2_Annotation/0_rawdata/rnaseq
+Output : /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//PgKY/ /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//PgKY/finalResults/bamList
+Threads : 1
+############################################################################################################
+
+Finished job 1742.
+3 of 2175 steps (0.14%) done
+
+Job 1470: Executing Tophat2 alignement for /PY36-1.
+Input:
+		-Genome : /homedir/gladieux/work/magMax_project/2_New_Annotation/0_rawdata/PY36-1.fasta
+		-RNAseq : /work/gladieux/magMax_project/2_Annotation/0_rawdata/rnaseq
+Output : /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//PY36-1/ /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//PY36-1/finalResults/bamList
+Threads : 1
+############################################################################################################
+
+Finished job 1744.
+4 of 2175 steps (0.18%) done
+
+Job 1496: Executing Tophat2 alignement for /BR0032.
+Input:
+		-Genome : /homedir/gladieux/work/magMax_project/2_New_Annotation/0_rawdata/BR0032.fasta
+		-RNAseq : /work/gladieux/magMax_project/2_Annotation/0_rawdata/rnaseq
+Output : /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//BR0032/ /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//BR0032/finalResults/bamList
+Threads : 1
+############################################################################################################
+
+Finished job 1755.
+5 of 2175 steps (0.23%) done
+
+Job 1517: Executing Tophat2 alignement for /CHRF.
+Input:
+		-Genome : /homedir/gladieux/work/magMax_project/2_New_Annotation/0_rawdata/CHRF.fasta
+		-RNAseq : /work/gladieux/magMax_project/2_Annotation/0_rawdata/rnaseq
+Output : /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//CHRF/ /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//CHRF/finalResults/bamList
+Threads : 1
+############################################################################################################
+
+Finished job 1674.
+6 of 2175 steps (0.28%) done
+
+Job 1539: Executing Tophat2 alignement for /P3.
+Input:
+		-Genome : /homedir/gladieux/work/magMax_project/2_New_Annotation/0_rawdata/P3.fasta
+		-RNAseq : /work/gladieux/magMax_project/2_Annotation/0_rawdata/rnaseq
+Output : /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//P3/ /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//P3/finalResults/bamList
+Threads : 1
+############################################################################################################
+
+Finished job 1647.
+7 of 2175 steps (0.32%) done
+
+Job 1654: Executing Tophat2 alignement for /EI9604.
+Input:
+		-Genome : /homedir/gladieux/work/magMax_project/2_New_Annotation/0_rawdata/EI9604.fasta
+		-RNAseq : /work/gladieux/magMax_project/2_Annotation/0_rawdata/rnaseq
+Output : /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//EI9604/ /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//EI9604/finalResults/bamList
+Threads : 1
+############################################################################################################
+
+Finished job 1666.
+8 of 2175 steps (0.37%) done
+
+Job 1474: Executing Tophat2 alignement for /G22.
+Input:
+		-Genome : /homedir/gladieux/work/magMax_project/2_New_Annotation/0_rawdata/G22.fasta
+		-RNAseq : /work/gladieux/magMax_project/2_Annotation/0_rawdata/rnaseq
+Output : /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//G22/ /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//G22/finalResults/bamList
+Threads : 1
+############################################################################################################
+
+Finished job 1512.
+9 of 2175 steps (0.41%) done
+
+Job 1576: Executing Tophat2 alignement for /Bm88324.
+Input:
+		-Genome : /homedir/gladieux/work/magMax_project/2_New_Annotation/0_rawdata/Bm88324.fasta
+		-RNAseq : /work/gladieux/magMax_project/2_Annotation/0_rawdata/rnaseq
+Output : /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//Bm88324/ /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//Bm88324/finalResults/bamList
+Threads : 1
+############################################################################################################
+
+Finished job 1486.
+10 of 2175 steps (0.46%) done
+
+Job 1612: Executing Tophat2 alignement for /Br7.
+Input:
+		-Genome : /homedir/gladieux/work/magMax_project/2_New_Annotation/0_rawdata/Br7.fasta
+		-RNAseq : /work/gladieux/magMax_project/2_Annotation/0_rawdata/rnaseq
+Output : /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//Br7/ /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//Br7/finalResults/bamList
+Threads : 1
+############################################################################################################
+
+Finished job 1637.
+11 of 2175 steps (0.51%) done
+
+Job 1689: Executing Tophat2 alignement for /Bd8401.
+Input:
+		-Genome : /homedir/gladieux/work/magMax_project/2_New_Annotation/0_rawdata/Bd8401.fasta
+		-RNAseq : /work/gladieux/magMax_project/2_Annotation/0_rawdata/rnaseq
+Output : /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//Bd8401/ /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//Bd8401/finalResults/bamList
+Threads : 1
+############################################################################################################
+
+Finished job 1493.
+12 of 2175 steps (0.55%) done
+
+Job 1478: Executing Tophat2 alignement for /BdMeh.
+Input:
+		-Genome : /homedir/gladieux/work/magMax_project/2_New_Annotation/0_rawdata/BdMeh.fasta
+		-RNAseq : /work/gladieux/magMax_project/2_Annotation/0_rawdata/rnaseq
+Output : /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//BdMeh/ /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//BdMeh/finalResults/bamList
+Threads : 1
+############################################################################################################
+
+Finished job 1523.
+13 of 2175 steps (0.60%) done
+
+Job 1506: Executing Tophat2 alignement for /GN0001_scaffold.
+Input:
+		-Genome : /homedir/gladieux/work/magMax_project/2_New_Annotation/0_rawdata/GN0001_scaffold.fasta
+		-RNAseq : /work/gladieux/magMax_project/2_Annotation/0_rawdata/rnaseq
+Output : /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//GN0001_scaffold/ /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//GN0001_scaffold/finalResults/bamList
+Threads : 1
+############################################################################################################
+
+Finished job 1504.
+14 of 2175 steps (0.64%) done
+
+Job 1761: Executing Tophat2 alignement for /G17.
+Input:
+		-Genome : /homedir/gladieux/work/magMax_project/2_New_Annotation/0_rawdata/G17.fasta
+		-RNAseq : /work/gladieux/magMax_project/2_Annotation/0_rawdata/rnaseq
+Output : /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//G17/ /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//G17/finalResults/bamList
+Threads : 1
+############################################################################################################
+
+Finished job 1670.
+15 of 2175 steps (0.69%) done
+
+Job 1547: Executing Tophat2 alignement for /US0071.
+Input:
+		-Genome : /homedir/gladieux/work/magMax_project/2_New_Annotation/0_rawdata/US0071.fasta
+		-RNAseq : /work/gladieux/magMax_project/2_Annotation/0_rawdata/rnaseq
+Output : /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//US0071/ /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//US0071/finalResults/bamList
+Threads : 1
+############################################################################################################
+
+Finished job 1749.
+16 of 2175 steps (0.74%) done
+
+Job 1787: Executing Tophat2 alignement for /Pg1213-22.
+Input:
+		-Genome : /homedir/gladieux/work/magMax_project/2_New_Annotation/0_rawdata/Pg1213-22.fasta
+		-RNAseq : /work/gladieux/magMax_project/2_Annotation/0_rawdata/rnaseq
+Output : /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//Pg1213-22/ /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//Pg1213-22/finalResults/bamList
+Threads : 1
+############################################################################################################
+
+Finished job 1618.
+17 of 2175 steps (0.78%) done
+
+Job 1460: Executing Tophat2 alignement for /BR29.
+Input:
+		-Genome : /homedir/gladieux/work/magMax_project/2_New_Annotation/0_rawdata/BR29.fasta
+		-RNAseq : /work/gladieux/magMax_project/2_Annotation/0_rawdata/rnaseq
+Output : /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//BR29/ /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//BR29/finalResults/bamList
+Threads : 1
+############################################################################################################
+
+Finished job 1552.
+18 of 2175 steps (0.83%) done
+
+Job 1661: Executing Tophat2 alignement for /Br48.
+Input:
+		-Genome : /homedir/gladieux/work/magMax_project/2_New_Annotation/0_rawdata/Br48.fasta
+		-RNAseq : /work/gladieux/magMax_project/2_Annotation/0_rawdata/rnaseq
+Output : /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//Br48/ /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//Br48/finalResults/bamList
+Threads : 1
+############################################################################################################
+
+Finished job 1789.
+19 of 2175 steps (0.87%) done
+
+Job 1549: Executing Tophat2 alignement for /FR1069_scaffold.
+Input:
+		-Genome : /homedir/gladieux/work/magMax_project/2_New_Annotation/0_rawdata/FR1069_scaffold.fasta
+		-RNAseq : /work/gladieux/magMax_project/2_Annotation/0_rawdata/rnaseq
+Output : /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//FR1069_scaffold/ /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//FR1069_scaffold/finalResults/bamList
+Threads : 1
+############################################################################################################
+
+Finished job 1714.
+20 of 2175 steps (0.92%) done
+
+Job 1795: Executing Tophat2 alignement for /Arcadia.
+Input:
+		-Genome : /homedir/gladieux/work/magMax_project/2_New_Annotation/0_rawdata/Arcadia.fasta
+		-RNAseq : /work/gladieux/magMax_project/2_Annotation/0_rawdata/rnaseq
+Output : /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//Arcadia/ /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//Arcadia/finalResults/bamList
+Threads : 1
+############################################################################################################
+
+Finished job 1758.
+21 of 2175 steps (0.97%) done
+
+Job 1688: Executing Tophat2 alignement for /IR0095_scaffold.
+Input:
+		-Genome : /homedir/gladieux/work/magMax_project/2_New_Annotation/0_rawdata/IR0095_scaffold.fasta
+		-RNAseq : /work/gladieux/magMax_project/2_Annotation/0_rawdata/rnaseq
+Output : /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//IR0095_scaffold/ /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//IR0095_scaffold/finalResults/bamList
+Threads : 1
+############################################################################################################
+
+Finished job 1751.
+22 of 2175 steps (1%) done
+
+Job 1700: Executing Tophat2 alignement for /IR0015_scaffold.
+Input:
+		-Genome : /homedir/gladieux/work/magMax_project/2_New_Annotation/0_rawdata/IR0015_scaffold.fasta
+		-RNAseq : /work/gladieux/magMax_project/2_Annotation/0_rawdata/rnaseq
+Output : /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//IR0015_scaffold/ /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//IR0015_scaffold/finalResults/bamList
+Threads : 1
+############################################################################################################
+
+Finished job 1633.
+23 of 2175 steps (1%) done
+
+Job 1646: Executing Tophat2 alignement for /CHW.
+Input:
+		-Genome : /homedir/gladieux/work/magMax_project/2_New_Annotation/0_rawdata/CHW.fasta
+		-RNAseq : /work/gladieux/magMax_project/2_Annotation/0_rawdata/rnaseq
+Output : /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//CHW/ /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//CHW/finalResults/bamList
+Threads : 1
+############################################################################################################
+
+Finished job 1748.
+24 of 2175 steps (1%) done
+
+Job 1624: Executing Tophat2 alignement for /IR00102_scaffold.
+Input:
+		-Genome : /homedir/gladieux/work/magMax_project/2_New_Annotation/0_rawdata/IR00102_scaffold.fasta
+		-RNAseq : /work/gladieux/magMax_project/2_Annotation/0_rawdata/rnaseq
+Output : /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//IR00102_scaffold/ /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//IR00102_scaffold/finalResults/bamList
+Threads : 1
+############################################################################################################
+
+Finished job 1545.
+25 of 2175 steps (1%) done
+
+Job 1558: Executing Tophat2 alignement for /IR0084_scaffold.
+Input:
+		-Genome : /homedir/gladieux/work/magMax_project/2_New_Annotation/0_rawdata/IR0084_scaffold.fasta
+		-RNAseq : /work/gladieux/magMax_project/2_Annotation/0_rawdata/rnaseq
+Output : /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//IR0084_scaffold/ /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//IR0084_scaffold/finalResults/bamList
+Threads : 1
+############################################################################################################
+
+Finished job 1499.
+26 of 2175 steps (1%) done
+
+Job 1709: Executing Tophat2 alignement for /Br58.
+Input:
+		-Genome : /homedir/gladieux/work/magMax_project/2_New_Annotation/0_rawdata/Br58.fasta
+		-RNAseq : /work/gladieux/magMax_project/2_Annotation/0_rawdata/rnaseq
+Output : /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//Br58/ /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//Br58/finalResults/bamList
+Threads : 1
+############################################################################################################
+
+Finished job 1730.
+27 of 2175 steps (1%) done
+
+Job 1801: Executing Tophat2 alignement for /EI9411.
+Input:
+		-Genome : /homedir/gladieux/work/magMax_project/2_New_Annotation/0_rawdata/EI9411.fasta
+		-RNAseq : /work/gladieux/magMax_project/2_Annotation/0_rawdata/rnaseq
+Output : /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//EI9411/ /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//EI9411/finalResults/bamList
+Threads : 1
+############################################################################################################
+
+Finished job 1803.
+28 of 2175 steps (1%) done
+
+Job 1556: Executing Tophat2 alignement for /SSFL02.
+Input:
+		-Genome : /homedir/gladieux/work/magMax_project/2_New_Annotation/0_rawdata/SSFL02.fasta
+		-RNAseq : /work/gladieux/magMax_project/2_Annotation/0_rawdata/rnaseq
+Output : /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//SSFL02/ /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//SSFL02/finalResults/bamList
+Threads : 1
+############################################################################################################
+
+Finished job 1592.
+29 of 2175 steps (1%) done
+
+Job 1625: Executing Tophat2 alignement for /Br130.
+Input:
+		-Genome : /homedir/gladieux/work/magMax_project/2_New_Annotation/0_rawdata/Br130.fasta
+		-RNAseq : /work/gladieux/magMax_project/2_Annotation/0_rawdata/rnaseq
+Output : /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//Br130/ /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//Br130/finalResults/bamList
+Threads : 1
+############################################################################################################
+
+Finished job 1496.
+30 of 2175 steps (1%) done
+
+Job 1780: Executing Tophat2 alignement for /GRF52.
+Input:
+		-Genome : /homedir/gladieux/work/magMax_project/2_New_Annotation/0_rawdata/GRF52.fasta
+		-RNAseq : /work/gladieux/magMax_project/2_Annotation/0_rawdata/rnaseq
+Output : /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//GRF52/ /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//GRF52/finalResults/bamList
+Threads : 1
+############################################################################################################
+
+Finished job 1605.
+31 of 2175 steps (1%) done
+
+Job 1595: Executing Tophat2 alignement for /BN0019.
+Input:
+		-Genome : /homedir/gladieux/work/magMax_project/2_New_Annotation/0_rawdata/BN0019.fasta
+		-RNAseq : /work/gladieux/magMax_project/2_Annotation/0_rawdata/rnaseq
+Output : /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//BN0019/ /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//BN0019/finalResults/bamList
+Threads : 1
+############################################################################################################
+
+Finished job 1479.
+32 of 2175 steps (1%) done
+
+Job 1809: Executing Tophat2 alignement for /Z2-1.
+Input:
+		-Genome : /homedir/gladieux/work/magMax_project/2_New_Annotation/0_rawdata/Z2-1.fasta
+		-RNAseq : /work/gladieux/magMax_project/2_Annotation/0_rawdata/rnaseq
+Output : /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//Z2-1/ /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//Z2-1/finalResults/bamList
+Threads : 1
+############################################################################################################
+
+Finished job 1470.
+33 of 2175 steps (2%) done
+
+Job 1643: Executing Tophat2 alignement for /IR0083_scaffold.
+Input:
+		-Genome : /homedir/gladieux/work/magMax_project/2_New_Annotation/0_rawdata/IR0083_scaffold.fasta
+		-RNAseq : /work/gladieux/magMax_project/2_Annotation/0_rawdata/rnaseq
+Output : /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//IR0083_scaffold/ /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//IR0083_scaffold/finalResults/bamList
+Threads : 1
+############################################################################################################
+
+Finished job 1488.
+34 of 2175 steps (2%) done
+
+Job 1668: Executing Tophat2 alignement for /IR0013_scaffold.
+Input:
+		-Genome : /homedir/gladieux/work/magMax_project/2_New_Annotation/0_rawdata/IR0013_scaffold.fasta
+		-RNAseq : /work/gladieux/magMax_project/2_Annotation/0_rawdata/rnaseq
+Output : /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//IR0013_scaffold/ /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//IR0013_scaffold/finalResults/bamList
+Threads : 1
+############################################################################################################
+
+Finished job 1579.
+35 of 2175 steps (2%) done
+
+Job 1695: Executing Tophat2 alignement for /IE1K.
+Input:
+		-Genome : /homedir/gladieux/work/magMax_project/2_New_Annotation/0_rawdata/IE1K.fasta
+		-RNAseq : /work/gladieux/magMax_project/2_Annotation/0_rawdata/rnaseq
+Output : /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//IE1K/ /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//IE1K/finalResults/bamList
+Threads : 1
+############################################################################################################
+
+Finished job 1570.
+36 of 2175 steps (2%) done
+
+Job 1451: Executing Tophat2 alignement for /IR0088_scaffold.
+Input:
+		-Genome : /homedir/gladieux/work/magMax_project/2_New_Annotation/0_rawdata/IR0088_scaffold.fasta
+		-RNAseq : /work/gladieux/magMax_project/2_Annotation/0_rawdata/rnaseq
+Output : /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//IR0088_scaffold/ /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//IR0088_scaffold/finalResults/bamList
+Threads : 1
+############################################################################################################
+
+Finished job 1654.
+37 of 2175 steps (2%) done
+
+Job 1520: Executing Tophat2 alignement for /ML33.
+Input:
+		-Genome : /homedir/gladieux/work/magMax_project/2_New_Annotation/0_rawdata/ML33.fasta
+		-RNAseq : /work/gladieux/magMax_project/2_Annotation/0_rawdata/rnaseq
+Output : /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//ML33/ /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//ML33/finalResults/bamList
+Threads : 1
+############################################################################################################
+
+Finished job 1612.
+38 of 2175 steps (2%) done
+
+Job 1775: Executing Tophat2 alignement for /JP0091_scaffold.
+Input:
+		-Genome : /homedir/gladieux/work/magMax_project/2_New_Annotation/0_rawdata/JP0091_scaffold.fasta
+		-RNAseq : /work/gladieux/magMax_project/2_Annotation/0_rawdata/rnaseq
+Output : /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//JP0091_scaffold/ /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//JP0091_scaffold/finalResults/bamList
+Threads : 1
+############################################################################################################
+
+Finished job 1472.
+39 of 2175 steps (2%) done
+
+Job 1768: Executing Tophat2 alignement for /IN0116.
+Input:
+		-Genome : /homedir/gladieux/work/magMax_project/2_New_Annotation/0_rawdata/IN0116.fasta
+		-RNAseq : /work/gladieux/magMax_project/2_Annotation/0_rawdata/rnaseq
+Output : /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//IN0116/ /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//IN0116/finalResults/bamList
+Threads : 1
+############################################################################################################
+
+Finished job 1777.
+40 of 2175 steps (2%) done
+
+Job 1613: Executing Tophat2 alignement for /SV9623.
+Input:
+		-Genome : /homedir/gladieux/work/magMax_project/2_New_Annotation/0_rawdata/SV9623.fasta
+		-RNAseq : /work/gladieux/magMax_project/2_Annotation/0_rawdata/rnaseq
+Output : /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//SV9623/ /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//SV9623/finalResults/bamList
+Threads : 1
+############################################################################################################
+
+Finished job 1712.
+41 of 2175 steps (2%) done
+
+Job 1534: Executing Tophat2 alignement for /SV9610.
+Input:
+		-Genome : /homedir/gladieux/work/magMax_project/2_New_Annotation/0_rawdata/SV9610.fasta
+		-RNAseq : /work/gladieux/magMax_project/2_Annotation/0_rawdata/rnaseq
+Output : /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//SV9610/ /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//SV9610/finalResults/bamList
+Threads : 1
+############################################################################################################
+
+Finished job 1465.
+42 of 2175 steps (2%) done
+
+Job 1464: Executing Tophat2 alignement for /87-120.
+Input:
+		-Genome : /homedir/gladieux/work/magMax_project/2_New_Annotation/0_rawdata/87-120.fasta
+		-RNAseq : /work/gladieux/magMax_project/2_Annotation/0_rawdata/rnaseq
+Output : /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//87-120/ /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//87-120/finalResults/bamList
+Threads : 1
+############################################################################################################
+
+Finished job 1497.
+43 of 2175 steps (2%) done
+
+Job 1739: Executing Tophat2 alignement for /GFSI1-7-2.
+Input:
+		-Genome : /homedir/gladieux/work/magMax_project/2_New_Annotation/0_rawdata/GFSI1-7-2.fasta
+		-RNAseq : /work/gladieux/magMax_project/2_Annotation/0_rawdata/rnaseq
+Output : /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//GFSI1-7-2/ /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//GFSI1-7-2/finalResults/bamList
+Threads : 1
+############################################################################################################
+
+Finished job 1629.
+44 of 2175 steps (2%) done
+
+Job 1774: Executing Tophat2 alignement for /US0041.
+Input:
+		-Genome : /homedir/gladieux/work/magMax_project/2_New_Annotation/0_rawdata/US0041.fasta
+		-RNAseq : /work/gladieux/magMax_project/2_Annotation/0_rawdata/rnaseq
+Output : /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//US0041/ /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//US0041/finalResults/bamList
+Threads : 1
+############################################################################################################
+
+Finished job 1527.
+45 of 2175 steps (2%) done
+
+Job 1610: Executing Tophat2 alignement for /GY0040_scaffold.
+Input:
+		-Genome : /homedir/gladieux/work/magMax_project/2_New_Annotation/0_rawdata/GY0040_scaffold.fasta
+		-RNAseq : /work/gladieux/magMax_project/2_Annotation/0_rawdata/rnaseq
+Output : /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//GY0040_scaffold/ /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//GY0040_scaffold/finalResults/bamList
+Threads : 1
+############################################################################################################
+
+Finished job 1547.
+46 of 2175 steps (2%) done
+
+Job 1532: Executing Tophat2 alignement for /TH0016.
+Input:
+		-Genome : /homedir/gladieux/work/magMax_project/2_New_Annotation/0_rawdata/TH0016.fasta
+		-RNAseq : /work/gladieux/magMax_project/2_Annotation/0_rawdata/rnaseq
+Output : /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//TH0016/ /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//TH0016/finalResults/bamList
+Threads : 1
+############################################################################################################
+
+Finished job 1558.
+47 of 2175 steps (2%) done
+
+Job 1574: Executing Tophat2 alignement for /US0064_scaffold.
+Input:
+		-Genome : /homedir/gladieux/work/magMax_project/2_New_Annotation/0_rawdata/US0064_scaffold.fasta
+		-RNAseq : /work/gladieux/magMax_project/2_Annotation/0_rawdata/rnaseq
+Output : /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//US0064_scaffold/ /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//US0064_scaffold/finalResults/bamList
+Threads : 1
+############################################################################################################
+
+Finished job 1474.
+48 of 2175 steps (2%) done
+
+Job 1706: Executing Tophat2 alignement for /VT0030.
+Input:
+		-Genome : /homedir/gladieux/work/magMax_project/2_New_Annotation/0_rawdata/VT0030.fasta
+		-RNAseq : /work/gladieux/magMax_project/2_Annotation/0_rawdata/rnaseq
+Output : /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//VT0030/ /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//VT0030/finalResults/bamList
+Threads : 1
+############################################################################################################
+
+Finished job 1517.
+49 of 2175 steps (2%) done
+
+Job 1680: Executing Tophat2 alignement for /ML0062.
+Input:
+		-Genome : /homedir/gladieux/work/magMax_project/2_New_Annotation/0_rawdata/ML0062.fasta
+		-RNAseq : /work/gladieux/magMax_project/2_Annotation/0_rawdata/rnaseq
+Output : /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//ML0062/ /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//ML0062/finalResults/bamList
+Threads : 1
+############################################################################################################
+
+Finished job 1761.
+50 of 2175 steps (2%) done
+
+Job 1735: Executing Tophat2 alignement for /CD0142.
+Input:
+		-Genome : /homedir/gladieux/work/magMax_project/2_New_Annotation/0_rawdata/CD0142.fasta
+		-RNAseq : /work/gladieux/magMax_project/2_Annotation/0_rawdata/rnaseq
+Output : /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//CD0142/ /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//CD0142/finalResults/bamList
+Threads : 1
+############################################################################################################
+
+Finished job 1646.
+51 of 2175 steps (2%) done
+
+Job 1732: Executing Tophat2 alignement for /IN0115.
+Input:
+		-Genome : /homedir/gladieux/work/magMax_project/2_New_Annotation/0_rawdata/IN0115.fasta
+		-RNAseq : /work/gladieux/magMax_project/2_Annotation/0_rawdata/rnaseq
+Output : /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//IN0115/ /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//IN0115/finalResults/bamList
+Threads : 1
+############################################################################################################
+
+Finished job 1576.
+52 of 2175 steps (2%) done
+
+Job 1484: Executing Tophat2 alignement for /AG0004_scaffold.
+Input:
+		-Genome : /homedir/gladieux/work/magMax_project/2_New_Annotation/0_rawdata/AG0004_scaffold.fasta
+		-RNAseq : /work/gladieux/magMax_project/2_Annotation/0_rawdata/rnaseq
+Output : /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//AG0004_scaffold/ /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//AG0004_scaffold/finalResults/bamList
+Threads : 1
+############################################################################################################
+
+Finished job 1700.
+53 of 2175 steps (2%) done
+
+Job 1536: Executing Tophat2 alignement for /B51.
+Input:
+		-Genome : /homedir/gladieux/work/magMax_project/2_New_Annotation/0_rawdata/B51.fasta
+		-RNAseq : /work/gladieux/magMax_project/2_Annotation/0_rawdata/rnaseq
+Output : /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//B51/ /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//B51/finalResults/bamList
+Threads : 1
+############################################################################################################
+
+Finished job 1539.
+54 of 2175 steps (2%) done
+
+Job 1598: Executing Tophat2 alignement for /Y34.
+Input:
+		-Genome : /homedir/gladieux/work/magMax_project/2_New_Annotation/0_rawdata/Y34.fasta
+		-RNAseq : /work/gladieux/magMax_project/2_Annotation/0_rawdata/rnaseq
+Output : /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//Y34/ /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//Y34/finalResults/bamList
+Threads : 1
+############################################################################################################
+
+Finished job 1549.
+55 of 2175 steps (3%) done
+
+Job 1492: Executing Tophat2 alignement for /IN0054.
+Input:
+		-Genome : /homedir/gladieux/work/magMax_project/2_New_Annotation/0_rawdata/IN0054.fasta
+		-RNAseq : /work/gladieux/magMax_project/2_Annotation/0_rawdata/rnaseq
+Output : /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//IN0054/ /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//IN0054/finalResults/bamList
+Threads : 1
+############################################################################################################
+
+Finished job 1709.
+56 of 2175 steps (3%) done
+
+Job 1808: Executing Tophat2 alignement for /TN0002.
+Input:
+		-Genome : /homedir/gladieux/work/magMax_project/2_New_Annotation/0_rawdata/TN0002.fasta
+		-RNAseq : /work/gladieux/magMax_project/2_Annotation/0_rawdata/rnaseq
+Output : /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//TN0002/ /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//TN0002/finalResults/bamList
+Threads : 1
+############################################################################################################
+
+Finished job 1668.
+57 of 2175 steps (3%) done
+
+Job 1642: Executing Tophat2 alignement for /TN0090.
+Input:
+		-Genome : /homedir/gladieux/work/magMax_project/2_New_Annotation/0_rawdata/TN0090.fasta
+		-RNAseq : /work/gladieux/magMax_project/2_Annotation/0_rawdata/rnaseq
+Output : /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//TN0090/ /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//TN0090/finalResults/bamList
+Threads : 1
+############################################################################################################
+
+Finished job 1478.
+58 of 2175 steps (3%) done
+
+Job 1785: Executing Tophat2 alignement for /TN0001.
+Input:
+		-Genome : /homedir/gladieux/work/magMax_project/2_New_Annotation/0_rawdata/TN0001.fasta
+		-RNAseq : /work/gladieux/magMax_project/2_Annotation/0_rawdata/rnaseq
+Output : /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//TN0001/ /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//TN0001/finalResults/bamList
+Threads : 1
+############################################################################################################
+
+Finished job 1661.
+59 of 2175 steps (3%) done
+
+Job 1566: Executing Tophat2 alignement for /TN0065.
+Input:
+		-Genome : /homedir/gladieux/work/magMax_project/2_New_Annotation/0_rawdata/TN0065.fasta
+		-RNAseq : /work/gladieux/magMax_project/2_Annotation/0_rawdata/rnaseq
+Output : /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//TN0065/ /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//TN0065/finalResults/bamList
+Threads : 1
+############################################################################################################
+
+Finished job 1689.
+60 of 2175 steps (3%) done
+
+Job 1490: Executing Tophat2 alignement for /IN0017.
+Input:
+		-Genome : /homedir/gladieux/work/magMax_project/2_New_Annotation/0_rawdata/IN0017.fasta
+		-RNAseq : /work/gladieux/magMax_project/2_Annotation/0_rawdata/rnaseq
+Output : /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//IN0017/ /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//IN0017/finalResults/bamList
+Threads : 1
+############################################################################################################
+
+Finished job 1809.
+61 of 2175 steps (3%) done
+
+Job 1622: Executing Tophat2 alignement for /CD0065.
+Input:
+		-Genome : /homedir/gladieux/work/magMax_project/2_New_Annotation/0_rawdata/CD0065.fasta
+		-RNAseq : /work/gladieux/magMax_project/2_Annotation/0_rawdata/rnaseq
+Output : /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//CD0065/ /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//CD0065/finalResults/bamList
+Threads : 1
+############################################################################################################
+
+Finished job 1451.
+62 of 2175 steps (3%) done
+
+Job 1726: Executing Tophat2 alignement for /BN0202.
+Input:
+		-Genome : /homedir/gladieux/work/magMax_project/2_New_Annotation/0_rawdata/BN0202.fasta
+		-RNAseq : /work/gladieux/magMax_project/2_Annotation/0_rawdata/rnaseq
+Output : /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//BN0202/ /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//BN0202/finalResults/bamList
+Threads : 1
+############################################################################################################
+
+Finished job 1506.
+63 of 2175 steps (3%) done
+
+Job 1526: Executing Tophat2 alignement for /BN0123.
+Input:
+		-Genome : /homedir/gladieux/work/magMax_project/2_New_Annotation/0_rawdata/BN0123.fasta
+		-RNAseq : /work/gladieux/magMax_project/2_Annotation/0_rawdata/rnaseq
+Output : /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//BN0123/ /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//BN0123/finalResults/bamList
+Threads : 1
+############################################################################################################
+
+Finished job 1787.
+64 of 2175 steps (3%) done
+
+Job 1782: Executing Tophat2 alignement for /CH1881_scaffold.
+Input:
+		-Genome : /homedir/gladieux/work/magMax_project/2_New_Annotation/0_rawdata/CH1881_scaffold.fasta
+		-RNAseq : /work/gladieux/magMax_project/2_Annotation/0_rawdata/rnaseq
+Output : /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//CH1881_scaffold/ /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//CH1881_scaffold/finalResults/bamList
+Threads : 1
+############################################################################################################
+
+Finished job 1795.
+65 of 2175 steps (3%) done
+
+Job 1455: Executing Tophat2 alignement for /VT0027.
+Input:
+		-Genome : /homedir/gladieux/work/magMax_project/2_New_Annotation/0_rawdata/VT0027.fasta
+		-RNAseq : /work/gladieux/magMax_project/2_Annotation/0_rawdata/rnaseq
+Output : /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//VT0027/ /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//VT0027/finalResults/bamList
+Threads : 1
+############################################################################################################
+
+Finished job 1688.
+66 of 2175 steps (3%) done
+
+Job 1619: Executing Tophat2 alignement for /IB33.
+Input:
+		-Genome : /homedir/gladieux/work/magMax_project/2_New_Annotation/0_rawdata/IB33.fasta
+		-RNAseq : /work/gladieux/magMax_project/2_Annotation/0_rawdata/rnaseq
+Output : /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//IB33/ /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//IB33/finalResults/bamList
+Threads : 1
+############################################################################################################
+
+Finished job 1780.
+67 of 2175 steps (3%) done
+
+Job 1734: Executing Tophat2 alignement for /CH0533.
+Input:
+		-Genome : /homedir/gladieux/work/magMax_project/2_New_Annotation/0_rawdata/CH0533.fasta
+		-RNAseq : /work/gladieux/magMax_project/2_Annotation/0_rawdata/rnaseq
+Output : /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//CH0533/ /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//CH0533/finalResults/bamList
+Threads : 1
+############################################################################################################
+
+Finished job 1624.
+68 of 2175 steps (3%) done
+
+Job 1811: Executing Tophat2 alignement for /CH0043.
+Input:
+		-Genome : /homedir/gladieux/work/magMax_project/2_New_Annotation/0_rawdata/CH0043.fasta
+		-RNAseq : /work/gladieux/magMax_project/2_Annotation/0_rawdata/rnaseq
+Output : /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//CH0043/ /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//CH0043/finalResults/bamList
+Threads : 1
+############################################################################################################
+
+Finished job 1695.
+69 of 2175 steps (3%) done
+
+Job 1703: Executing Tophat2 alignement for /TN0057.
+Input:
+		-Genome : /homedir/gladieux/work/magMax_project/2_New_Annotation/0_rawdata/TN0057.fasta
+		-RNAseq : /work/gladieux/magMax_project/2_Annotation/0_rawdata/rnaseq
+Output : /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//TN0057/ /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//TN0057/finalResults/bamList
+Threads : 1
+############################################################################################################
+
+Finished job 1556.
+70 of 2175 steps (3%) done
+
+Job 1608: Executing Tophat2 alignement for /TG0032.
+Input:
+		-Genome : /homedir/gladieux/work/magMax_project/2_New_Annotation/0_rawdata/TG0032.fasta
+		-RNAseq : /work/gladieux/magMax_project/2_Annotation/0_rawdata/rnaseq
+Output : /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//TG0032/ /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//TG0032/finalResults/bamList
+Threads : 1
+############################################################################################################
+
+Finished job 1801.
+71 of 2175 steps (3%) done
+
+Job 1683: Executing Tophat2 alignement for /TR0025_scaffold.
+Input:
+		-Genome : /homedir/gladieux/work/magMax_project/2_New_Annotation/0_rawdata/TR0025_scaffold.fasta
+		-RNAseq : /work/gladieux/magMax_project/2_Annotation/0_rawdata/rnaseq
+Output : /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//TR0025_scaffold/ /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//TR0025_scaffold/finalResults/bamList
+Threads : 1
+############################################################################################################
+
+Finished job 1595.
+72 of 2175 steps (3%) done
+
+Job 1677: Executing Tophat2 alignement for /ML0060_scaffold.
+Input:
+		-Genome : /homedir/gladieux/work/magMax_project/2_New_Annotation/0_rawdata/ML0060_scaffold.fasta
+		-RNAseq : /work/gladieux/magMax_project/2_Annotation/0_rawdata/rnaseq
+Output : /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//ML0060_scaffold/ /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//ML0060_scaffold/finalResults/bamList
+Threads : 1
+############################################################################################################
+
+Finished job 1768.
+73 of 2175 steps (3%) done
+
+Job 1582: Executing Tophat2 alignement for /CM0028_scaffold.
+Input:
+		-Genome : /homedir/gladieux/work/magMax_project/2_New_Annotation/0_rawdata/CM0028_scaffold.fasta
+		-RNAseq : /work/gladieux/magMax_project/2_Annotation/0_rawdata/rnaseq
+Output : /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//CM0028_scaffold/ /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//CM0028_scaffold/finalResults/bamList
+Threads : 1
+############################################################################################################
+
+Finished job 1460.
+74 of 2175 steps (3%) done
+
+Job 1588: Executing Tophat2 alignement for /BN0252.
+Input:
+		-Genome : /homedir/gladieux/work/magMax_project/2_New_Annotation/0_rawdata/BN0252.fasta
+		-RNAseq : /work/gladieux/magMax_project/2_Annotation/0_rawdata/rnaseq
+Output : /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//BN0252/ /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//BN0252/finalResults/bamList
+Threads : 1
+############################################################################################################
+
+Finished job 1534.
+75 of 2175 steps (3%) done
+
+Job 1800: Executing Tophat2 alignement for /IT0010_scaffold.
+Input:
+		-Genome : /homedir/gladieux/work/magMax_project/2_New_Annotation/0_rawdata/IT0010_scaffold.fasta
+		-RNAseq : /work/gladieux/magMax_project/2_Annotation/0_rawdata/rnaseq
+Output : /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//IT0010_scaffold/ /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//IT0010_scaffold/finalResults/bamList
+Threads : 1
+############################################################################################################
+
+Finished job 1610.
+76 of 2175 steps (3%) done
+
+Job 1765: Executing Tophat2 alignement for /BF0072.
+Input:
+		-Genome : /homedir/gladieux/work/magMax_project/2_New_Annotation/0_rawdata/BF0072.fasta
+		-RNAseq : /work/gladieux/magMax_project/2_Annotation/0_rawdata/rnaseq
+Output : /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//BF0072/ /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//BF0072/finalResults/bamList
+Threads : 1
+############################################################################################################
+
+Finished job 1739.
+77 of 2175 steps (4%) done
+
+Job 1656: Executing Tophat2 alignement for /CH1911_scaffold.
+Input:
+		-Genome : /homedir/gladieux/work/magMax_project/2_New_Annotation/0_rawdata/CH1911_scaffold.fasta
+		-RNAseq : /work/gladieux/magMax_project/2_Annotation/0_rawdata/rnaseq
+Output : /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//CH1911_scaffold/ /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//CH1911_scaffold/finalResults/bamList
+Threads : 1
+############################################################################################################
+
+Finished job 1643.
+78 of 2175 steps (4%) done
+
+Job 1701: Executing Tophat2 alignement for /IB49.
+Input:
+		-Genome : /homedir/gladieux/work/magMax_project/2_New_Annotation/0_rawdata/IB49.fasta
+		-RNAseq : /work/gladieux/magMax_project/2_Annotation/0_rawdata/rnaseq
+Output : /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//IB49/ /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//IB49/finalResults/bamList
+Threads : 1
+############################################################################################################
+
+Finished job 1625.
+79 of 2175 steps (4%) done
+
+Job 1754: Executing Tophat2 alignement for /BN0119.
+Input:
+		-Genome : /homedir/gladieux/work/magMax_project/2_New_Annotation/0_rawdata/BN0119.fasta
+		-RNAseq : /work/gladieux/magMax_project/2_Annotation/0_rawdata/rnaseq
+Output : /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//BN0119/ /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//BN0119/finalResults/bamList
+Threads : 1
+############################################################################################################
+
+Finished job 1566.
+80 of 2175 steps (4%) done
+
+Job 1738: Executing Tophat2 alignement for /CH1915_scaffold.
+Input:
+		-Genome : /homedir/gladieux/work/magMax_project/2_New_Annotation/0_rawdata/CH1915_scaffold.fasta
+		-RNAseq : /work/gladieux/magMax_project/2_Annotation/0_rawdata/rnaseq
+Output : /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//CH1915_scaffold/ /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//CH1915_scaffold/finalResults/bamList
+Threads : 1
+############################################################################################################
+
+Finished job 1732.
+81 of 2175 steps (4%) done
+
+Job 1589: Executing Tophat2 alignement for /IN0059.
+Input:
+		-Genome : /homedir/gladieux/work/magMax_project/2_New_Annotation/0_rawdata/IN0059.fasta
+		-RNAseq : /work/gladieux/magMax_project/2_Annotation/0_rawdata/rnaseq
+Output : /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//IN0059/ /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//IN0059/finalResults/bamList
+Threads : 1
+############################################################################################################
+
+Finished job 1775.
+82 of 2175 steps (4%) done
+
+Job 1514: Executing Tophat2 alignement for /CH1866_scaffold.
+Input:
+		-Genome : /homedir/gladieux/work/magMax_project/2_New_Annotation/0_rawdata/CH1866_scaffold.fasta
+		-RNAseq : /work/gladieux/magMax_project/2_Annotation/0_rawdata/rnaseq
+Output : /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//CH1866_scaffold/ /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//CH1866_scaffold/finalResults/bamList
+Threads : 1
+############################################################################################################
+
+Finished job 1598.
+83 of 2175 steps (4%) done
+
+Job 1649: Executing Tophat2 alignement for /TN0050_scaffold.
+Input:
+		-Genome : /homedir/gladieux/work/magMax_project/2_New_Annotation/0_rawdata/TN0050_scaffold.fasta
+		-RNAseq : /work/gladieux/magMax_project/2_Annotation/0_rawdata/rnaseq
+Output : /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//TN0050_scaffold/ /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//TN0050_scaffold/finalResults/bamList
+Threads : 1
+############################################################################################################
+
+Finished job 1613.
+84 of 2175 steps (4%) done
+
+Job 1567: Executing Tophat2 alignement for /CH1103.
+Input:
+		-Genome : /homedir/gladieux/work/magMax_project/2_New_Annotation/0_rawdata/CH1103.fasta
+		-RNAseq : /work/gladieux/magMax_project/2_Annotation/0_rawdata/rnaseq
+Output : /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//CH1103/ /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//CH1103/finalResults/bamList
+Threads : 1
+############################################################################################################
+
+Finished job 1520.
+85 of 2175 steps (4%) done
+
+Job 1616: Executing Tophat2 alignement for /INA168.
+Input:
+		-Genome : /homedir/gladieux/work/magMax_project/2_New_Annotation/0_rawdata/INA168.fasta
+		-RNAseq : /work/gladieux/magMax_project/2_Annotation/0_rawdata/rnaseq
+Output : /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//INA168/ /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//INA168/finalResults/bamList
+Threads : 1
+############################################################################################################
+
+Finished job 1774.
+86 of 2175 steps (4%) done
+
+Job 1593: Executing Tophat2 alignement for /NG0012.
+Input:
+		-Genome : /homedir/gladieux/work/magMax_project/2_New_Annotation/0_rawdata/NG0012.fasta
+		-RNAseq : /work/gladieux/magMax_project/2_Annotation/0_rawdata/rnaseq
+Output : /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//NG0012/ /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//NG0012/finalResults/bamList
+Threads : 1
+############################################################################################################
+
+Finished job 1490.
+87 of 2175 steps (4%) done
+
+Job 1453: Executing Tophat2 alignement for /CH0452.
+Input:
+		-Genome : /homedir/gladieux/work/magMax_project/2_New_Annotation/0_rawdata/CH0452.fasta
+		-RNAseq : /work/gladieux/magMax_project/2_Annotation/0_rawdata/rnaseq
+Output : /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//CH0452/ /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//CH0452/finalResults/bamList
+Threads : 1
+############################################################################################################
+
+Finished job 1574.
+88 of 2175 steps (4%) done
+
+Job 1720: Executing Tophat2 alignement for /CH0072.
+Input:
+		-Genome : /homedir/gladieux/work/magMax_project/2_New_Annotation/0_rawdata/CH0072.fasta
+		-RNAseq : /work/gladieux/magMax_project/2_Annotation/0_rawdata/rnaseq
+Output : /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//CH0072/ /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//CH0072/finalResults/bamList
+Threads : 1
+############################################################################################################
+
+Finished job 1464.
+89 of 2175 steps (4%) done
+
+Job 1561: Executing Tophat2 alignement for /IN0114.
+Input:
+		-Genome : /homedir/gladieux/work/magMax_project/2_New_Annotation/0_rawdata/IN0114.fasta
+		-RNAseq : /work/gladieux/magMax_project/2_Annotation/0_rawdata/rnaseq
+Output : /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//IN0114/ /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//IN0114/finalResults/bamList
+Threads : 1
+############################################################################################################
+
+Finished job 1536.
+90 of 2175 steps (4%) done
+
+Job 1529: Executing Tophat2 alignement for /NG0054.
+Input:
+		-Genome : /homedir/gladieux/work/magMax_project/2_New_Annotation/0_rawdata/NG0054.fasta
+		-RNAseq : /work/gladieux/magMax_project/2_Annotation/0_rawdata/rnaseq
+Output : /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//NG0054/ /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//NG0054/finalResults/bamList
+Threads : 1
+############################################################################################################
+
+Finished job 1706.
+91 of 2175 steps (4%) done
+
+Job 1692: Executing Tophat2 alignement for /P131.
+Input:
+		-Genome : /homedir/gladieux/work/magMax_project/2_New_Annotation/0_rawdata/P131.fasta
+		-RNAseq : /work/gladieux/magMax_project/2_Annotation/0_rawdata/rnaseq
+Output : /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//P131/ /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//P131/finalResults/bamList
+Threads : 1
+############################################################################################################
+
+Finished job 1735.
+92 of 2175 steps (4%) done
+
+Job 1682: Executing Tophat2 alignement for /TG0004.
+Input:
+		-Genome : /homedir/gladieux/work/magMax_project/2_New_Annotation/0_rawdata/TG0004.fasta
+		-RNAseq : /work/gladieux/magMax_project/2_Annotation/0_rawdata/rnaseq
+Output : /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//TG0004/ /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//TG0004/finalResults/bamList
+Threads : 1
+############################################################################################################
+
+Finished job 1680.
+93 of 2175 steps (4%) done
+
+Job 1584: Executing Tophat2 alignement for /CH1885_scaffold.
+Input:
+		-Genome : /homedir/gladieux/work/magMax_project/2_New_Annotation/0_rawdata/CH1885_scaffold.fasta
+		-RNAseq : /work/gladieux/magMax_project/2_Annotation/0_rawdata/rnaseq
+Output : /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//CH1885_scaffold/ /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//CH1885_scaffold/finalResults/bamList
+Threads : 1
+############################################################################################################
+
+Finished job 1484.
+94 of 2175 steps (4%) done
+
+Job 1461: Executing Tophat2 alignement for /CH1859_scaffold.
+Input:
+		-Genome : /homedir/gladieux/work/magMax_project/2_New_Annotation/0_rawdata/CH1859_scaffold.fasta
+		-RNAseq : /work/gladieux/magMax_project/2_Annotation/0_rawdata/rnaseq
+Output : /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//CH1859_scaffold/ /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//CH1859_scaffold/finalResults/bamList
+Threads : 1
+############################################################################################################
+
+Finished job 1532.
+95 of 2175 steps (4%) done
+
+Job 1571: Executing Tophat2 alignement for /CH1900_scaffold.
+Input:
+		-Genome : /homedir/gladieux/work/magMax_project/2_New_Annotation/0_rawdata/CH1900_scaffold.fasta
+		-RNAseq : /work/gladieux/magMax_project/2_Annotation/0_rawdata/rnaseq
+Output : /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//CH1900_scaffold/ /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//CH1900_scaffold/finalResults/bamList
+Threads : 1
+############################################################################################################
+
+Finished job 1782.
+96 of 2175 steps (4%) done
+
+Job 1628: Executing Tophat2 alignement for /IC17.
+Input:
+		-Genome : /homedir/gladieux/work/magMax_project/2_New_Annotation/0_rawdata/IC17.fasta
+		-RNAseq : /work/gladieux/magMax_project/2_Annotation/0_rawdata/rnaseq
+Output : /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//IC17/ /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//IC17/finalResults/bamList
+Threads : 1
+############################################################################################################
+
+Finished job 1642.
+97 of 2175 steps (4%) done
+
+Job 1601: Executing Tophat2 alignement for /CH1894_scaffold.
+Input:
+		-Genome : /homedir/gladieux/work/magMax_project/2_New_Annotation/0_rawdata/CH1894_scaffold.fasta
+		-RNAseq : /work/gladieux/magMax_project/2_Annotation/0_rawdata/rnaseq
+Output : /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//CH1894_scaffold/ /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//CH1894_scaffold/finalResults/bamList
+Threads : 1
+############################################################################################################
+
+Finished job 1785.
+98 of 2175 steps (5%) done
+
+Job 1806: Executing Tophat2 alignement for /CH1858_scaffold.
+Input:
+		-Genome : /homedir/gladieux/work/magMax_project/2_New_Annotation/0_rawdata/CH1858_scaffold.fasta
+		-RNAseq : /work/gladieux/magMax_project/2_Annotation/0_rawdata/rnaseq
+Output : /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//CH1858_scaffold/ /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//CH1858_scaffold/finalResults/bamList
+Threads : 1
+############################################################################################################
+
+Finished job 1492.
+99 of 2175 steps (5%) done
+
+Job 1672: Executing Tophat2 alignement for /CH1884_scaffold.
+Input:
+		-Genome : /homedir/gladieux/work/magMax_project/2_New_Annotation/0_rawdata/CH1884_scaffold.fasta
+		-RNAseq : /work/gladieux/magMax_project/2_Annotation/0_rawdata/rnaseq
+Output : /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//CH1884_scaffold/ /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//CH1884_scaffold/finalResults/bamList
+Threads : 1
+############################################################################################################
+
+Finished job 1622.
+100 of 2175 steps (5%) done
+
+Job 1791: Executing Tophat2 alignement for /CH1905_scaffold.
+Input:
+		-Genome : /homedir/gladieux/work/magMax_project/2_New_Annotation/0_rawdata/CH1905_scaffold.fasta
+		-RNAseq : /work/gladieux/magMax_project/2_Annotation/0_rawdata/rnaseq
+Output : /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//CH1905_scaffold/ /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//CH1905_scaffold/finalResults/bamList
+Threads : 1
+############################################################################################################
+
+Finished job 1455.
+101 of 2175 steps (5%) done
+
+Job 1685: Executing Tophat2 alignement for /CH1891_scaffold.
+Input:
+		-Genome : /homedir/gladieux/work/magMax_project/2_New_Annotation/0_rawdata/CH1891_scaffold.fasta
+		-RNAseq : /work/gladieux/magMax_project/2_Annotation/0_rawdata/rnaseq
+Output : /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//CH1891_scaffold/ /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//CH1891_scaffold/finalResults/bamList
+Threads : 1
+############################################################################################################
+
+Finished job 1726.
+102 of 2175 steps (5%) done
+
+Job 1585: Executing Tophat2 alignement for /CH0461.
+Input:
+		-Genome : /homedir/gladieux/work/magMax_project/2_New_Annotation/0_rawdata/CH0461.fasta
+		-RNAseq : /work/gladieux/magMax_project/2_Annotation/0_rawdata/rnaseq
+Output : /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//CH0461/ /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//CH0461/finalResults/bamList
+Threads : 1
+############################################################################################################
+
+Finished job 1526.
+103 of 2175 steps (5%) done
+
+Job 1468: Executing Tophat2 alignement for /CH1878_scaffold.
+Input:
+		-Genome : /homedir/gladieux/work/magMax_project/2_New_Annotation/0_rawdata/CH1878_scaffold.fasta
+		-RNAseq : /work/gladieux/magMax_project/2_Annotation/0_rawdata/rnaseq
+Output : /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//CH1878_scaffold/ /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//CH1878_scaffold/finalResults/bamList
+Threads : 1
+############################################################################################################
+
+Finished job 1808.
+104 of 2175 steps (5%) done
+
+Job 1722: Executing Tophat2 alignement for /CH1876_scaffold.
+Input:
+		-Genome : /homedir/gladieux/work/magMax_project/2_New_Annotation/0_rawdata/CH1876_scaffold.fasta
+		-RNAseq : /work/gladieux/magMax_project/2_Annotation/0_rawdata/rnaseq
+Output : /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//CH1876_scaffold/ /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//CH1876_scaffold/finalResults/bamList
+Threads : 1
+############################################################################################################
+
+Finished job 1619.
+105 of 2175 steps (5%) done
+
+Job 1697: Executing Tophat2 alignement for /CH1907_scaffold.
+Input:
+		-Genome : /homedir/gladieux/work/magMax_project/2_New_Annotation/0_rawdata/CH1907_scaffold.fasta
+		-RNAseq : /work/gladieux/magMax_project/2_Annotation/0_rawdata/rnaseq
+Output : /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//CH1907_scaffold/ /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//CH1907_scaffold/finalResults/bamList
+Threads : 1
+############################################################################################################
+
+Finished job 1765.
+106 of 2175 steps (5%) done
+
+Job 1676: Executing Tophat2 alignement for /CH1862_scaffold.
+Input:
+		-Genome : /homedir/gladieux/work/magMax_project/2_New_Annotation/0_rawdata/CH1862_scaffold.fasta
+		-RNAseq : /work/gladieux/magMax_project/2_Annotation/0_rawdata/rnaseq
+Output : /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//CH1862_scaffold/ /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//CH1862_scaffold/finalResults/bamList
+Threads : 1
+############################################################################################################
+
+Finished job 1703.
+107 of 2175 steps (5%) done
+
+Job 1763: Executing Tophat2 alignement for /CH1896_scaffold.
+Input:
+		-Genome : /homedir/gladieux/work/magMax_project/2_New_Annotation/0_rawdata/CH1896_scaffold.fasta
+		-RNAseq : /work/gladieux/magMax_project/2_Annotation/0_rawdata/rnaseq
+Output : /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//CH1896_scaffold/ /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//CH1896_scaffold/finalResults/bamList
+Threads : 1
+############################################################################################################
+
+Finished job 1734.
+108 of 2175 steps (5%) done
+
+Job 1482: Executing Tophat2 alignement for /CH1863_scaffold.
+Input:
+		-Genome : /homedir/gladieux/work/magMax_project/2_New_Annotation/0_rawdata/CH1863_scaffold.fasta
+		-RNAseq : /work/gladieux/magMax_project/2_Annotation/0_rawdata/rnaseq
+Output : /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//CH1863_scaffold/ /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//CH1863_scaffold/finalResults/bamList
+Threads : 1
+############################################################################################################
+
+Finished job 1811.
+109 of 2175 steps (5%) done
+
+Job 1563: Executing Tophat2 alignement for /CH1901_scaffold.
+Input:
+		-Genome : /homedir/gladieux/work/magMax_project/2_New_Annotation/0_rawdata/CH1901_scaffold.fasta
+		-RNAseq : /work/gladieux/magMax_project/2_Annotation/0_rawdata/rnaseq
+Output : /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//CH1901_scaffold/ /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//CH1901_scaffold/finalResults/bamList
+Threads : 1
+############################################################################################################
+
+Finished job 1683.
+110 of 2175 steps (5%) done
+
+Job 1501: Executing Tophat2 alignement for /CH1892_scaffold.
+Input:
+		-Genome : /homedir/gladieux/work/magMax_project/2_New_Annotation/0_rawdata/CH1892_scaffold.fasta
+		-RNAseq : /work/gladieux/magMax_project/2_Annotation/0_rawdata/rnaseq
+Output : /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//CH1892_scaffold/ /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//CH1892_scaffold/finalResults/bamList
+Threads : 1
+############################################################################################################
+
+Finished job 1800.
+111 of 2175 steps (5%) done
+
+Job 1509: Executing Tophat2 alignement for /CH1873_scaffold.
+Input:
+		-Genome : /homedir/gladieux/work/magMax_project/2_New_Annotation/0_rawdata/CH1873_scaffold.fasta
+		-RNAseq : /work/gladieux/magMax_project/2_Annotation/0_rawdata/rnaseq
+Output : /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//CH1873_scaffold/ /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//CH1873_scaffold/finalResults/bamList
+Threads : 1
+############################################################################################################
+
+Finished job 1588.
+112 of 2175 steps (5%) done
+
+Job 1784: Executing Tophat2 alignement for /CH1890_scaffold.
+Input:
+		-Genome : /homedir/gladieux/work/magMax_project/2_New_Annotation/0_rawdata/CH1890_scaffold.fasta
+		-RNAseq : /work/gladieux/magMax_project/2_Annotation/0_rawdata/rnaseq
+Output : /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//CH1890_scaffold/ /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//CH1890_scaffold/finalResults/bamList
+Threads : 1
+############################################################################################################
+
+Finished job 1582.
+113 of 2175 steps (5%) done
+
+Job 1516: Executing Tophat2 alignement for /CH1897_scaffold.
+Input:
+		-Genome : /homedir/gladieux/work/magMax_project/2_New_Annotation/0_rawdata/CH1897_scaffold.fasta
+		-RNAseq : /work/gladieux/magMax_project/2_Annotation/0_rawdata/rnaseq
+Output : /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//CH1897_scaffold/ /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//CH1897_scaffold/finalResults/bamList
+Threads : 1
+############################################################################################################
+
+Finished job 1656.
+114 of 2175 steps (5%) done
+
+Job 1559: Executing Tophat2 alignement for /CH1877_scaffold.
+Input:
+		-Genome : /homedir/gladieux/work/magMax_project/2_New_Annotation/0_rawdata/CH1877_scaffold.fasta
+		-RNAseq : /work/gladieux/magMax_project/2_Annotation/0_rawdata/rnaseq
+Output : /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//CH1877_scaffold/ /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//CH1877_scaffold/finalResults/bamList
+Threads : 1
+############################################################################################################
+
+Finished job 1608.
+115 of 2175 steps (5%) done
+
+Job 1631: Executing Tophat2 alignement for /CH1879_scaffold.
+Input:
+		-Genome : /homedir/gladieux/work/magMax_project/2_New_Annotation/0_rawdata/CH1879_scaffold.fasta
+		-RNAseq : /work/gladieux/magMax_project/2_Annotation/0_rawdata/rnaseq
+Output : /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//CH1879_scaffold/ /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//CH1879_scaffold/finalResults/bamList
+Threads : 1
+############################################################################################################
+
+Finished job 1754.
+116 of 2175 steps (5%) done
+
+Job 1507: Executing Tophat2 alignement for /CH1871_scaffold.
+Input:
+		-Genome : /homedir/gladieux/work/magMax_project/2_New_Annotation/0_rawdata/CH1871_scaffold.fasta
+		-RNAseq : /work/gladieux/magMax_project/2_Annotation/0_rawdata/rnaseq
+Output : /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//CH1871_scaffold/ /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//CH1871_scaffold/finalResults/bamList
+Threads : 1
+############################################################################################################
+
+Finished job 1720.
+117 of 2175 steps (5%) done
+
+Job 1542: Executing Tophat2 alignement for /CH1874_scaffold.
+Input:
+		-Genome : /homedir/gladieux/work/magMax_project/2_New_Annotation/0_rawdata/CH1874_scaffold.fasta
+		-RNAseq : /work/gladieux/magMax_project/2_Annotation/0_rawdata/rnaseq
+Output : /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//CH1874_scaffold/ /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//CH1874_scaffold/finalResults/bamList
+Threads : 1
+############################################################################################################
+
+Finished job 1701.
+118 of 2175 steps (5%) done
+
+Job 1728: Executing Tophat2 alignement for /CH1886_scaffold.
+Input:
+		-Genome : /homedir/gladieux/work/magMax_project/2_New_Annotation/0_rawdata/CH1886_scaffold.fasta
+		-RNAseq : /work/gladieux/magMax_project/2_Annotation/0_rawdata/rnaseq
+Output : /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//CH1886_scaffold/ /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//CH1886_scaffold/finalResults/bamList
+Threads : 1
+############################################################################################################
+
+Finished job 1677.
+119 of 2175 steps (5%) done
+
+Job 1793: Executing Tophat2 alignement for /CH1893_scaffold.
+Input:
+		-Genome : /homedir/gladieux/work/magMax_project/2_New_Annotation/0_rawdata/CH1893_scaffold.fasta
+		-RNAseq : /work/gladieux/magMax_project/2_Annotation/0_rawdata/rnaseq
+Output : /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//CH1893_scaffold/ /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//CH1893_scaffold/finalResults/bamList
+Threads : 1
+############################################################################################################
+
+Failed to remove marker file for job started ([Errno 2] No such file or directory: '/work/gladieux/Script/Cluster/Annotation_pipeline/.snakemake/version_tracking'). Please ensure write permissions for the directory /work/gladieux/Script/Cluster/Annotation_pipeline/.snakemake
+Finished job 1453.
+120 of 2175 steps (6%) done
+
+Job 1537: Executing Tophat2 alignement for /CH1883_scaffold.
+Input:
+		-Genome : /homedir/gladieux/work/magMax_project/2_New_Annotation/0_rawdata/CH1883_scaffold.fasta
+		-RNAseq : /work/gladieux/magMax_project/2_Annotation/0_rawdata/rnaseq
+Output : /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//CH1883_scaffold/ /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//CH1883_scaffold/finalResults/bamList
+Threads : 1
+############################################################################################################
+
+Failed to remove marker file for job started ([Errno 2] No such file or directory: '/work/gladieux/Script/Cluster/Annotation_pipeline/.snakemake/version_tracking'). Please ensure write permissions for the directory /work/gladieux/Script/Cluster/Annotation_pipeline/.snakemake
+Finished job 1461.
+121 of 2175 steps (6%) done
+
+Job 1771: Executing Tophat2 alignement for /NP0058.
+Input:
+		-Genome : /homedir/gladieux/work/magMax_project/2_New_Annotation/0_rawdata/NP0058.fasta
+		-RNAseq : /work/gladieux/magMax_project/2_Annotation/0_rawdata/rnaseq
+Output : /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//NP0058/ /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//NP0058/finalResults/bamList
+Threads : 1
+############################################################################################################
+
+Failed to remove marker file for job started ([Errno 2] No such file or directory: '/work/gladieux/Script/Cluster/Annotation_pipeline/.snakemake/version_tracking'). Please ensure write permissions for the directory /work/gladieux/Script/Cluster/Annotation_pipeline/.snakemake
+Finished job 1584.
+122 of 2175 steps (6%) done
+
+Job 1578: Executing Tophat2 alignement for /CH1910_scaffold.
+Input:
+		-Genome : /homedir/gladieux/work/magMax_project/2_New_Annotation/0_rawdata/CH1910_scaffold.fasta
+		-RNAseq : /work/gladieux/magMax_project/2_Annotation/0_rawdata/rnaseq
+Output : /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//CH1910_scaffold/ /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//CH1910_scaffold/finalResults/bamList
+Threads : 1
+############################################################################################################
+
+Failed to remove marker file for job started ([Errno 2] No such file or directory: '/work/gladieux/Script/Cluster/Annotation_pipeline/.snakemake/version_tracking'). Please ensure write permissions for the directory /work/gladieux/Script/Cluster/Annotation_pipeline/.snakemake
+Finished job 1601.
+123 of 2175 steps (6%) done
+
+Job 1522: Executing Tophat2 alignement for /CH1913_scaffold.
+Input:
+		-Genome : /homedir/gladieux/work/magMax_project/2_New_Annotation/0_rawdata/CH1913_scaffold.fasta
+		-RNAseq : /work/gladieux/magMax_project/2_Annotation/0_rawdata/rnaseq
+Output : /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//CH1913_scaffold/ /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//CH1913_scaffold/finalResults/bamList
+Threads : 1
+############################################################################################################
+
+Failed to remove marker file for job started ([Errno 2] No such file or directory: '/work/gladieux/Script/Cluster/Annotation_pipeline/.snakemake/version_tracking'). Please ensure write permissions for the directory /work/gladieux/Script/Cluster/Annotation_pipeline/.snakemake
+Finished job 1529.
+124 of 2175 steps (6%) done
+
+Job 1659: Executing Tophat2 alignement for /CH1899_scaffold.
+Input:
+		-Genome : /homedir/gladieux/work/magMax_project/2_New_Annotation/0_rawdata/CH1899_scaffold.fasta
+		-RNAseq : /work/gladieux/magMax_project/2_Annotation/0_rawdata/rnaseq
+Output : /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//CH1899_scaffold/ /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//CH1899_scaffold/finalResults/bamList
+Threads : 1
+############################################################################################################
+
+Failed to remove marker file for job started ([Errno 2] No such file or directory: '/work/gladieux/Script/Cluster/Annotation_pipeline/.snakemake/version_tracking'). Please ensure write permissions for the directory /work/gladieux/Script/Cluster/Annotation_pipeline/.snakemake
+Finished job 1628.
+125 of 2175 steps (6%) done
+
+Job 1694: Executing Tophat2 alignement for /IA1.
+Input:
+		-Genome : /homedir/gladieux/work/magMax_project/2_New_Annotation/0_rawdata/IA1.fasta
+		-RNAseq : /work/gladieux/magMax_project/2_Annotation/0_rawdata/rnaseq
+Output : /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//IA1/ /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//IA1/finalResults/bamList
+Threads : 1
+############################################################################################################
+
+Failed to remove marker file for job started ([Errno 2] No such file or directory: '/work/gladieux/Script/Cluster/Annotation_pipeline/.snakemake/version_tracking'). Please ensure write permissions for the directory /work/gladieux/Script/Cluster/Annotation_pipeline/.snakemake
+Finished job 1649.
+126 of 2175 steps (6%) done
+
+Job 1708: Executing Tophat2 alignement for /CH1908_scaffold.
+Input:
+		-Genome : /homedir/gladieux/work/magMax_project/2_New_Annotation/0_rawdata/CH1908_scaffold.fasta
+		-RNAseq : /work/gladieux/magMax_project/2_Annotation/0_rawdata/rnaseq
+Output : /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//CH1908_scaffold/ /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//CH1908_scaffold/finalResults/bamList
+Threads : 1
+############################################################################################################
+
+Failed to remove marker file for job started ([Errno 2] No such file or directory: '/work/gladieux/Script/Cluster/Annotation_pipeline/.snakemake/version_tracking'). Please ensure write permissions for the directory /work/gladieux/Script/Cluster/Annotation_pipeline/.snakemake
+Finished job 1571.
+127 of 2175 steps (6%) done
+
+Job 1604: Executing Tophat2 alignement for /CH1904_scaffold.
+Input:
+		-Genome : /homedir/gladieux/work/magMax_project/2_New_Annotation/0_rawdata/CH1904_scaffold.fasta
+		-RNAseq : /work/gladieux/magMax_project/2_Annotation/0_rawdata/rnaseq
+Output : /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//CH1904_scaffold/ /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//CH1904_scaffold/finalResults/bamList
+Threads : 1
+############################################################################################################
+
+Failed to remove marker file for job started ([Errno 2] No such file or directory: '/work/gladieux/Script/Cluster/Annotation_pipeline/.snakemake/version_tracking'). Please ensure write permissions for the directory /work/gladieux/Script/Cluster/Annotation_pipeline/.snakemake
+Finished job 1561.
+128 of 2175 steps (6%) done
+
+Job 1717: Executing Tophat2 alignement for /CH1887_scaffold.
+Input:
+		-Genome : /homedir/gladieux/work/magMax_project/2_New_Annotation/0_rawdata/CH1887_scaffold.fasta
+		-RNAseq : /work/gladieux/magMax_project/2_Annotation/0_rawdata/rnaseq
+Output : /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//CH1887_scaffold/ /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//CH1887_scaffold/finalResults/bamList
+Threads : 1
+############################################################################################################
+
+Failed to remove marker file for job started ([Errno 2] No such file or directory: '/work/gladieux/Script/Cluster/Annotation_pipeline/.snakemake/version_tracking'). Please ensure write permissions for the directory /work/gladieux/Script/Cluster/Annotation_pipeline/.snakemake
+Finished job 1806.
+129 of 2175 steps (6%) done
+
+Job 1724: Executing Tophat2 alignement for /CH1861_scaffold.
+Input:
+		-Genome : /homedir/gladieux/work/magMax_project/2_New_Annotation/0_rawdata/CH1861_scaffold.fasta
+		-RNAseq : /work/gladieux/magMax_project/2_Annotation/0_rawdata/rnaseq
+Output : /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//CH1861_scaffold/ /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//CH1861_scaffold/finalResults/bamList
+Threads : 1
+############################################################################################################
+
+Failed to remove marker file for job started ([Errno 2] No such file or directory: '/work/gladieux/Script/Cluster/Annotation_pipeline/.snakemake/version_tracking'). Please ensure write permissions for the directory /work/gladieux/Script/Cluster/Annotation_pipeline/.snakemake
+Finished job 1593.
+130 of 2175 steps (6%) done
+
+Job 1715: Executing Tophat2 alignement for /CH1857_scaffold.
+Input:
+		-Genome : /homedir/gladieux/work/magMax_project/2_New_Annotation/0_rawdata/CH1857_scaffold.fasta
+		-RNAseq : /work/gladieux/magMax_project/2_Annotation/0_rawdata/rnaseq
+Output : /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//CH1857_scaffold/ /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//CH1857_scaffold/finalResults/bamList
+Threads : 1
+############################################################################################################
+
+Failed to remove marker file for job started ([Errno 2] No such file or directory: '/work/gladieux/Script/Cluster/Annotation_pipeline/.snakemake/version_tracking'). Please ensure write permissions for the directory /work/gladieux/Script/Cluster/Annotation_pipeline/.snakemake
+Finished job 1589.
+131 of 2175 steps (6%) done
+
+Job 1476: Executing Tophat2 alignement for /CH1889_scaffold.
+Input:
+		-Genome : /homedir/gladieux/work/magMax_project/2_New_Annotation/0_rawdata/CH1889_scaffold.fasta
+		-RNAseq : /work/gladieux/magMax_project/2_Annotation/0_rawdata/rnaseq
+Output : /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//CH1889_scaffold/ /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//CH1889_scaffold/finalResults/bamList
+Threads : 1
+############################################################################################################
+
+Failed to remove marker file for job started ([Errno 2] No such file or directory: '/work/gladieux/Script/Cluster/Annotation_pipeline/.snakemake/version_tracking'). Please ensure write permissions for the directory /work/gladieux/Script/Cluster/Annotation_pipeline/.snakemake
+Finished job 1738.
+132 of 2175 steps (6%) done
+
+Job 1657: Executing Tophat2 alignement for /CH1906_scaffold.
+Input:
+		-Genome : /homedir/gladieux/work/magMax_project/2_New_Annotation/0_rawdata/CH1906_scaffold.fasta
+		-RNAseq : /work/gladieux/magMax_project/2_Annotation/0_rawdata/rnaseq
+Output : /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//CH1906_scaffold/ /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//CH1906_scaffold/finalResults/bamList
+Threads : 1
+############################################################################################################
+
+Failed to remove marker file for job started ([Errno 2] No such file or directory: '/work/gladieux/Script/Cluster/Annotation_pipeline/.snakemake/version_tracking'). Please ensure write permissions for the directory /work/gladieux/Script/Cluster/Annotation_pipeline/.snakemake
+Finished job 1616.
+133 of 2175 steps (6%) done
+
+Job 1745: Executing Tophat2 alignement for /CH1902_scaffold.
+Input:
+		-Genome : /homedir/gladieux/work/magMax_project/2_New_Annotation/0_rawdata/CH1902_scaffold.fasta
+		-RNAseq : /work/gladieux/magMax_project/2_Annotation/0_rawdata/rnaseq
+Output : /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//CH1902_scaffold/ /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//CH1902_scaffold/finalResults/bamList
+Threads : 1
+############################################################################################################
+
+Failed to remove marker file for job started ([Errno 2] No such file or directory: '/work/gladieux/Script/Cluster/Annotation_pipeline/.snakemake/version_tracking'). Please ensure write permissions for the directory /work/gladieux/Script/Cluster/Annotation_pipeline/.snakemake
+Finished job 1567.
+134 of 2175 steps (6%) done
+
+Job 1760: Executing Tophat2 alignement for /CH1895_scaffold.
+Input:
+		-Genome : /homedir/gladieux/work/magMax_project/2_New_Annotation/0_rawdata/CH1895_scaffold.fasta
+		-RNAseq : /work/gladieux/magMax_project/2_Annotation/0_rawdata/rnaseq
+Output : /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//CH1895_scaffold/ /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//CH1895_scaffold/finalResults/bamList
+Threads : 1
+############################################################################################################
+
+Failed to remove marker file for job started ([Errno 2] No such file or directory: '/work/gladieux/Script/Cluster/Annotation_pipeline/.snakemake/version_tracking'). Please ensure write permissions for the directory /work/gladieux/Script/Cluster/Annotation_pipeline/.snakemake
+Finished job 1692.
+135 of 2175 steps (6%) done
+
+Job 1664: Executing Tophat2 alignement for /CH1865_scaffold.
+Input:
+		-Genome : /homedir/gladieux/work/magMax_project/2_New_Annotation/0_rawdata/CH1865_scaffold.fasta
+		-RNAseq : /work/gladieux/magMax_project/2_Annotation/0_rawdata/rnaseq
+Output : /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//CH1865_scaffold/ /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//CH1865_scaffold/finalResults/bamList
+Threads : 1
+############################################################################################################
+
+Failed to remove marker file for job started ([Errno 2] No such file or directory: '/work/gladieux/Script/Cluster/Annotation_pipeline/.snakemake/version_tracking'). Please ensure write permissions for the directory /work/gladieux/Script/Cluster/Annotation_pipeline/.snakemake
+Finished job 1682.
+136 of 2175 steps (6%) done
+
+Job 1554: Executing Tophat2 alignement for /CH1898_scaffold.
+Input:
+		-Genome : /homedir/gladieux/work/magMax_project/2_New_Annotation/0_rawdata/CH1898_scaffold.fasta
+		-RNAseq : /work/gladieux/magMax_project/2_Annotation/0_rawdata/rnaseq
+Output : /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//CH1898_scaffold/ /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//CH1898_scaffold/finalResults/bamList
+Threads : 1
+############################################################################################################
+
+Failed to remove marker file for job started ([Errno 2] No such file or directory: '/work/gladieux/Script/Cluster/Annotation_pipeline/.snakemake/version_tracking'). Please ensure write permissions for the directory /work/gladieux/Script/Cluster/Annotation_pipeline/.snakemake
+Finished job 1697.
+137 of 2175 steps (6%) done
+
+Job 1798: Executing Tophat2 alignement for /CH1882_scaffold.
+Input:
+		-Genome : /homedir/gladieux/work/magMax_project/2_New_Annotation/0_rawdata/CH1882_scaffold.fasta
+		-RNAseq : /work/gladieux/magMax_project/2_Annotation/0_rawdata/rnaseq
+Output : /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//CH1882_scaffold/ /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//CH1882_scaffold/finalResults/bamList
+Threads : 1
+############################################################################################################
+
+Failed to remove marker file for job started ([Errno 2] No such file or directory: '/work/gladieux/Script/Cluster/Annotation_pipeline/.snakemake/version_tracking'). Please ensure write permissions for the directory /work/gladieux/Script/Cluster/Annotation_pipeline/.snakemake
+Finished job 1514.
+138 of 2175 steps (6%) done
+
+Job 1639: Executing Tophat2 alignement for /CH1868_scaffold.
+Input:
+		-Genome : /homedir/gladieux/work/magMax_project/2_New_Annotation/0_rawdata/CH1868_scaffold.fasta
+		-RNAseq : /work/gladieux/magMax_project/2_Annotation/0_rawdata/rnaseq
+Output : /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//CH1868_scaffold/ /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//CH1868_scaffold/finalResults/bamList
+Threads : 1
+############################################################################################################
+
+Failed to remove marker file for job started ([Errno 2] No such file or directory: '/work/gladieux/Script/Cluster/Annotation_pipeline/.snakemake/version_tracking'). Please ensure write permissions for the directory /work/gladieux/Script/Cluster/Annotation_pipeline/.snakemake
+Finished job 1672.
+139 of 2175 steps (6%) done
+
+Job 1769: Executing Tophat2 alignement for /CH1903_scaffold.
+Input:
+		-Genome : /homedir/gladieux/work/magMax_project/2_New_Annotation/0_rawdata/CH1903_scaffold.fasta
+		-RNAseq : /work/gladieux/magMax_project/2_Annotation/0_rawdata/rnaseq
+Output : /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//CH1903_scaffold/ /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//CH1903_scaffold/finalResults/bamList
+Threads : 1
+############################################################################################################
+
+Failed to remove marker file for job started ([Errno 2] No such file or directory: '/work/gladieux/Script/Cluster/Annotation_pipeline/.snakemake/version_tracking'). Please ensure write permissions for the directory /work/gladieux/Script/Cluster/Annotation_pipeline/.snakemake
+Finished job 1791.
+140 of 2175 steps (6%) done
+
+Job 1600: Executing Tophat2 alignement for /CH1869_scaffold.
+Input:
+		-Genome : /homedir/gladieux/work/magMax_project/2_New_Annotation/0_rawdata/CH1869_scaffold.fasta
+		-RNAseq : /work/gladieux/magMax_project/2_Annotation/0_rawdata/rnaseq
+Output : /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//CH1869_scaffold/ /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//CH1869_scaffold/finalResults/bamList
+Threads : 1
+############################################################################################################
+
+Failed to remove marker file for job started ([Errno 2] No such file or directory: '/work/gladieux/Script/Cluster/Annotation_pipeline/.snakemake/version_tracking'). Please ensure write permissions for the directory /work/gladieux/Script/Cluster/Annotation_pipeline/.snakemake
+Finished job 1482.
+141 of 2175 steps (6%) done
+
+Job 1636: Executing Tophat2 alignement for /CH1164.
+Input:
+		-Genome : /homedir/gladieux/work/magMax_project/2_New_Annotation/0_rawdata/CH1164.fasta
+		-RNAseq : /work/gladieux/magMax_project/2_Annotation/0_rawdata/rnaseq
+Output : /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//CH1164/ /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//CH1164/finalResults/bamList
+Threads : 1
+############################################################################################################
+
+Failed to remove marker file for job started ([Errno 2] No such file or directory: '/work/gladieux/Script/Cluster/Annotation_pipeline/.snakemake/version_tracking'). Please ensure write permissions for the directory /work/gladieux/Script/Cluster/Annotation_pipeline/.snakemake
+Finished job 1722.
+142 of 2175 steps (7%) done
+
+Job 2146: Merge all bam file of /P29.
+Input:/work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//P29/
+Output : /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//P29/finalResults/merged_/P29.accepted_hits.bam
+Threads : 1
+############################################################################################################
+
+Failed to remove marker file for job started ([Errno 2] No such file or directory: '/work/gladieux/Script/Cluster/Annotation_pipeline/.snakemake/version_tracking'). Please ensure write permissions for the directory /work/gladieux/Script/Cluster/Annotation_pipeline/.snakemake
+Finished job 1585.
+143 of 2175 steps (7%) done
+
+Job 2103: Merge all bam file of /PY0925.
+Input:/work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//PY0925/
+Output : /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//PY0925/finalResults/merged_/PY0925.accepted_hits.bam
+Threads : 1
+############################################################################################################
+
+Failed to remove marker file for job started ([Errno 2] No such file or directory: '/work/gladieux/Script/Cluster/Annotation_pipeline/.snakemake/version_tracking'). Please ensure write permissions for the directory /work/gladieux/Script/Cluster/Annotation_pipeline/.snakemake
+Finished job 1468.
+144 of 2175 steps (7%) done
+
+Job 2095: Merge all bam file of /EI9604.
+Input:/work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//EI9604/
+Output : /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//EI9604/finalResults/merged_/EI9604.accepted_hits.bam
+Threads : 1
+############################################################################################################
+
+Failed to remove marker file for job started ([Errno 2] No such file or directory: '/work/gladieux/Script/Cluster/Annotation_pipeline/.snakemake/version_tracking'). Please ensure write permissions for the directory /work/gladieux/Script/Cluster/Annotation_pipeline/.snakemake
+Finished job 1685.
+145 of 2175 steps (7%) done
+
+Job 2036: Merge all bam file of /B51.
+Input:/work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//B51/
+Output : /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//B51/finalResults/merged_/B51.accepted_hits.bam
+Threads : 1
+############################################################################################################
+
+Failed to remove marker file for job started ([Errno 2] No such file or directory: '/work/gladieux/Script/Cluster/Annotation_pipeline/.snakemake/version_tracking'). Please ensure write permissions for the directory /work/gladieux/Script/Cluster/Annotation_pipeline/.snakemake
+Finished job 1763.
+146 of 2175 steps (7%) done
+
+Job 2159: Merge all bam file of /CH1881_scaffold.
+Input:/work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//CH1881_scaffold/
+Output : /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//CH1881_scaffold/finalResults/merged_/CH1881_scaffold.accepted_hits.bam
+Threads : 1
+############################################################################################################
+
+Failed to remove marker file for job started ([Errno 2] No such file or directory: '/work/gladieux/Script/Cluster/Annotation_pipeline/.snakemake/version_tracking'). Please ensure write permissions for the directory /work/gladieux/Script/Cluster/Annotation_pipeline/.snakemake
+Finished job 1676.
+147 of 2175 steps (7%) done
+
+Job 2082: Merge all bam file of /IC17.
+Input:/work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//IC17/
+Output : /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//IC17/finalResults/merged_/IC17.accepted_hits.bam
+Threads : 1
+############################################################################################################
+
+Failed to remove marker file for job started ([Errno 2] No such file or directory: '/work/gladieux/Script/Cluster/Annotation_pipeline/.snakemake/version_tracking'). Please ensure write permissions for the directory /work/gladieux/Script/Cluster/Annotation_pipeline/.snakemake
+Finished job 1563.
+148 of 2175 steps (7%) done
+
+Job 2046: Merge all bam file of /SSFL02.
+Input:/work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//SSFL02/
+Output : /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//SSFL02/finalResults/merged_/SSFL02.accepted_hits.bam
+Threads : 1
+############################################################################################################
+
+Failed to remove marker file for job started ([Errno 2] No such file or directory: '/work/gladieux/Script/Cluster/Annotation_pipeline/.snakemake/version_tracking'). Please ensure write permissions for the directory /work/gladieux/Script/Cluster/Annotation_pipeline/.snakemake
+Finished job 1559.
+149 of 2175 steps (7%) done
+
+Job 2171: Merge all bam file of /CH1858_scaffold.
+Input:/work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//CH1858_scaffold/
+Output : /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//CH1858_scaffold/finalResults/merged_/CH1858_scaffold.accepted_hits.bam
+Threads : 1
+############################################################################################################
+
+Finished job 1509.
+150 of 2175 steps (7%) done
+
+Job 2013: Merge all bam file of /IN0017.
+Input:/work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//IN0017/
+Output : /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//IN0017/finalResults/merged_/IN0017.accepted_hits.bam
+Threads : 1
+############################################################################################################
+
+Finished job 1516.
+151 of 2175 steps (7%) done
+
+Job 2043: Merge all bam file of /FR1069_scaffold.
+Input:/work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//FR1069_scaffold/
+Output : /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//FR1069_scaffold/finalResults/merged_/FR1069_scaffold.accepted_hits.bam
+Threads : 1
+############################################################################################################
+
+Finished job 1631.
+152 of 2175 steps (7%) done
+
+Job 2172: Merge all bam file of /TN0002.
+Input:/work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//TN0002/
+Output : /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//TN0002/finalResults/merged_/TN0002.accepted_hits.bam
+Threads : 1
+############################################################################################################
+
+Finished job 1784.
+153 of 2175 steps (7%) done
+
+Job 2000: Merge all bam file of /87-120.
+Input:/work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//87-120/
+Output : /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//87-120/finalResults/merged_/87-120.accepted_hits.bam
+Threads : 1
+############################################################################################################
+
+Finished job 2146.
+154 of 2175 steps (7%) done
+
+Job 2108: Merge all bam file of /ML0062.
+Input:/work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//ML0062/
+Output : /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//ML0062/finalResults/merged_/ML0062.accepted_hits.bam
+Threads : 1
+############################################################################################################
+
+Finished job 2036.
+155 of 2175 steps (7%) done
+
+Job 2032: Merge all bam file of /Br80.
+Input:/work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//Br80/
+Output : /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//Br80/finalResults/merged_/Br80.accepted_hits.bam
+Threads : 1
+############################################################################################################
+
+Finished job 2103.
+156 of 2175 steps (7%) done
+
+Job 2113: Merge all bam file of /Bd8401.
+Input:/work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//Bd8401/
+Output : /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//Bd8401/finalResults/merged_/Bd8401.accepted_hits.bam
+Threads : 1
+############################################################################################################
+
+Finished job 2159.
+157 of 2175 steps (7%) done
+
+Job 2028: Merge all bam file of /ML33.
+Input:/work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//ML33/
+Output : /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//ML33/finalResults/merged_/ML33.accepted_hits.bam
+Threads : 1
+############################################################################################################
+
+Finished job 2082.
+158 of 2175 steps (7%) done
+
+Job 2018: Merge all bam file of /GG11.
+Input:/work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//GG11/
+Output : /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//GG11/finalResults/merged_/GG11.accepted_hits.bam
+Threads : 1
+############################################################################################################
+
+Finished job 2095.
+159 of 2175 steps (7%) done
+
+Job 2101: Merge all bam file of /V0107.
+Input:/work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//V0107/
+Output : /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//V0107/finalResults/merged_/V0107.accepted_hits.bam
+Threads : 1
+############################################################################################################
+
+Finished job 2046.
+160 of 2175 steps (7%) done
+
+Job 2163: Merge all bam file of /Br62.
+Input:/work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//Br62/
+Output : /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//Br62/finalResults/merged_/Br62.accepted_hits.bam
+Threads : 1
+############################################################################################################
+
+Finished job 2171.
+161 of 2175 steps (7%) done
+
+Job 2162: Merge all bam file of /Pg1213-22.
+Input:/work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//Pg1213-22/
+Output : /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//Pg1213-22/finalResults/merged_/Pg1213-22.accepted_hits.bam
+Threads : 1
+############################################################################################################
+
+Finished job 2013.
+162 of 2175 steps (7%) done
+
+Job 2169: Merge all bam file of /EI9411.
+Input:/work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//EI9411/
+Output : /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//EI9411/finalResults/merged_/EI9411.accepted_hits.bam
+Threads : 1
+############################################################################################################
+
+Finished job 2101.
+163 of 2175 steps (7%) done
+
+Job 2011: Merge all bam file of /DsLIZ.
+Input:/work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//DsLIZ/
+Output : /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//DsLIZ/finalResults/merged_/DsLIZ.accepted_hits.bam
+Threads : 1
+############################################################################################################
+
+Finished job 2043.
+164 of 2175 steps (8%) done
+
+Job 2023: Merge all bam file of /CH1873_scaffold.
+Input:/work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//CH1873_scaffold/
+Output : /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//CH1873_scaffold/finalResults/merged_/CH1873_scaffold.accepted_hits.bam
+Threads : 1
+############################################################################################################
+
+Finished job 2172.
+165 of 2175 steps (8%) done
+
+Job 2031: Merge all bam file of /BN0123.
+Input:/work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//BN0123/
+Output : /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//BN0123/finalResults/merged_/BN0123.accepted_hits.bam
+Threads : 1
+############################################################################################################
+
+Finished job 2000.
+166 of 2175 steps (8%) done
+
+Job 2129: Merge all bam file of /CH1876_scaffold.
+Input:/work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//CH1876_scaffold/
+Output : /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//CH1876_scaffold/finalResults/merged_/CH1876_scaffold.accepted_hits.bam
+Threads : 1
+############################################################################################################
+
+Finished job 2032.
+167 of 2175 steps (8%) done
+
+Job 2053: Merge all bam file of /PgKY.
+Input:/work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//PgKY/
+Output : /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//PgKY/finalResults/merged_/PgKY.accepted_hits.bam
+Threads : 1
+############################################################################################################
+
+Finished job 2108.
+168 of 2175 steps (8%) done
+
+Job 2107: Merge all bam file of /ML0060_scaffold.
+Input:/work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//ML0060_scaffold/
+Output : /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//ML0060_scaffold/finalResults/merged_/ML0060_scaffold.accepted_hits.bam
+Threads : 1
+############################################################################################################
+
+Finished job 2113.
+169 of 2175 steps (8%) done
+
+Job 2102: Merge all bam file of /IR0013_scaffold.
+Input:/work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//IR0013_scaffold/
+Output : /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//IR0013_scaffold/finalResults/merged_/IR0013_scaffold.accepted_hits.bam
+Threads : 1
+############################################################################################################
+
+Finished job 2162.
+170 of 2175 steps (8%) done
+
+Job 2121: Merge all bam file of /VT0030.
+Input:/work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//VT0030/
+Output : /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//VT0030/finalResults/merged_/VT0030.accepted_hits.bam
+Threads : 1
+############################################################################################################
+
+Finished job 2169.
+171 of 2175 steps (8%) done
+
+Job 2092: Merge all bam file of /T25.
+Input:/work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//T25/
+Output : /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//T25/finalResults/merged_/T25.accepted_hits.bam
+Threads : 1
+############################################################################################################
+
+Finished job 2018.
+172 of 2175 steps (8%) done
+
+Job 2160: Merge all bam file of /CH1890_scaffold.
+Input:/work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//CH1890_scaffold/
+Output : /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//CH1890_scaffold/finalResults/merged_/CH1890_scaffold.accepted_hits.bam
+Threads : 1
+############################################################################################################
+
+Finished job 2163.
+173 of 2175 steps (8%) done
+
+Job 1995: Merge all bam file of /CH0452.
+Input:/work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//CH0452/
+Output : /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//CH0452/finalResults/merged_/CH0452.accepted_hits.bam
+Threads : 1
+############################################################################################################
+
+Finished job 2028.
+174 of 2175 steps (8%) done
+
+Job 2030: Merge all bam file of /LpKY97.
+Input:/work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//LpKY97/
+Output : /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//LpKY97/finalResults/merged_/LpKY97.accepted_hits.bam
+Threads : 1
+############################################################################################################
+
+Finished job 1793.
+175 of 2175 steps (8%) done
+
+Job 1998: Merge all bam file of /BR29.
+Input:/work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//BR29/
+Output : /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//BR29/finalResults/merged_/BR29.accepted_hits.bam
+Threads : 1
+############################################################################################################
+
+Finished job 1501.
+176 of 2175 steps (8%) done
+
+Job 1997: Merge all bam file of /CH1189-canu2.
+Input:/work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//CH1189-canu2/
+Output : /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//CH1189-canu2/finalResults/merged_/CH1189-canu2.accepted_hits.bam
+Threads : 1
+############################################################################################################
+
+Finished job 1728.
+177 of 2175 steps (8%) done
+
+Job 2054: Merge all bam file of /CH1900_scaffold.
+Input:/work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//CH1900_scaffold/
+Output : /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//CH1900_scaffold/finalResults/merged_/CH1900_scaffold.accepted_hits.bam
+Threads : 1
+############################################################################################################
+
+Finished job 1542.
+178 of 2175 steps (8%) done
+
+Job 2039: Merge all bam file of /CH1874_scaffold.
+Input:/work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//CH1874_scaffold/
+Output : /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//CH1874_scaffold/finalResults/merged_/CH1874_scaffold.accepted_hits.bam
+Threads : 1
+############################################################################################################
+
+Finished job 1537.
+179 of 2175 steps (8%) done
+
+Job 2033: Merge all bam file of /NG0054.
+Input:/work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//NG0054/
+Output : /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//NG0054/finalResults/merged_/NG0054.accepted_hits.bam
+Threads : 1
+############################################################################################################
+
+Finished job 1578.
+180 of 2175 steps (8%) done
+
+Job 2077: Merge all bam file of /B71.
+Input:/work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//B71/
+Output : /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//B71/finalResults/merged_/B71.accepted_hits.bam
+Threads : 1
+############################################################################################################
+
+Finished job 1522.
+181 of 2175 steps (8%) done
+
+Job 2025: Merge all bam file of /CH1866_scaffold.
+Input:/work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//CH1866_scaffold/
+Output : /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//CH1866_scaffold/finalResults/merged_/CH1866_scaffold.accepted_hits.bam
+Threads : 1
+############################################################################################################
+
+Finished job 1771.
+182 of 2175 steps (8%) done
+
+Job 2154: Merge all bam file of /NP0058.
+Input:/work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//NP0058/
+Output : /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//NP0058/finalResults/merged_/NP0058.accepted_hits.bam
+Threads : 1
+############################################################################################################
+
+Finished job 1507.
+183 of 2175 steps (8%) done
+
+Job 2022: Merge all bam file of /CH1871_scaffold.
+Input:/work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//CH1871_scaffold/
+Output : /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//CH1871_scaffold/finalResults/merged_/CH1871_scaffold.accepted_hits.bam
+Threads : 1
+############################################################################################################
+
+Finished job 1659.
+184 of 2175 steps (8%) done
+
+Job 2012: Merge all bam file of /PY5010.
+Input:/work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//PY5010/
+Output : /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//PY5010/finalResults/merged_/PY5010.accepted_hits.bam
+Threads : 1
+############################################################################################################
+
+Finished job 1694.
+185 of 2175 steps (9%) done
+
+Job 2155: Merge all bam file of /US0041.
+Input:/work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//US0041/
+Output : /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//US0041/finalResults/merged_/US0041.accepted_hits.bam
+Threads : 1
+############################################################################################################
+
