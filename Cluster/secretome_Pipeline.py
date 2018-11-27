@@ -61,24 +61,25 @@ if __name__ == "__main__":
 	version="0.1" 
 	
 ############ Argparse #####################
-	parser = argparse.ArgumentParser(prog=__file__, description='''This program is used to predict secretome with SignalP, TagetP, Phobius.
+	parser = argparse.ArgumentParser(prog=__file__, description='''This program is used to predict secretome. This program uses :
+
+	- SignalP, TagetP, Phobius for detect the presence of signal peptide cleavage sites.
+	- ComparaisonSecretome script to retrieve and compare information from the secretome prediction tools.
+	- Selection_TMHMM script to select, from TMHMM ouput, only protein with no TH domain or only one TH in 60 first aa.
+	- EliminateREmotif script to eliminate, from ps_scan ouput, the protein with a RE retention motif.
 	
-	This program uses the comparaisonSecretome script to retrieve and compare information from the secretome prediction tools.
-	
-	And the selection_TMHMM script to select, from TMHMM ouput, only protein with no TH domain or only one TH in 60 first aa.
-	
-	This program uses also the eliminateREmotif script to eliminate, from ps_scan ouput, the protein with a RE retention motif.
-	
-	Please make sure that this script is present in the directory.''')
+Please make sure that this script is present in the directory.''',formatter_class=argparse.RawDescriptionHelpFormatter)
 	parser.add_argument('-v', '--version', action='version', version='You are using %(prog)s version: ' + version, help=\
 'display secretome_Pipeline version number and exit')
 
 
 	filesreq = parser.add_argument_group('Input mandatory infos for running')
 	filesreq.add_argument('-f', '--file',type = str, required=True, dest = 'dirPath', help = 'path of fasta files that contains all the protien of strain')
-	filesreq.add_argument('-o', '--outdir',type = str, required=True, dest = 'outdirPath', help = 'Path of prosite.dat file. You can upload the file at ftp://ftp.expasy.org/databases/prosite/prosite.dat')
-	filesreq.add_argument('-p', '--prosite',type = str, required=True, dest = 'prositePath', help = 'Path of the output directory')
-	filesreq.add_argument('-fo', '--force', action='store_true', dest = 'force', help = 'force the script to remove output data')
+	filesreq.add_argument('-p', '--prosite',type = str, required=True, dest = 'prositePath', help = 'Path of prosite.dat file. You can upload the file at ftp://ftp.expasy.org/databases/prosite/prosite.dat')
+	filesreq.add_argument('-o', '--outdir',type = str, required=True, dest = 'outdirPath', help = 'Path of the output directory')
+
+	filesNoreq = parser.add_argument_group('Input not mandatory infos for running')
+	filesNoreq.add_argument('-fo', '--force', action='store_true', dest = 'force', help = 'force the script to remove output data')
 
 	
 ######### Recuperation arguments ###########
@@ -99,7 +100,7 @@ if __name__ == "__main__":
 ############### start message ########################
 
 	print(form("\n\t---------------------------------------------------------",'yellow','bold'))
-	print("\t"+form("|",'yellow','bold')+form("      Welcome in secretome_Pipeline (Version " + version + ")        ",type='bold')+form("|",'yellow','bold'))
+	print("\t"+form("|",'yellow','bold')+form("      Welcome in secretome_Pipeline (Version " + version + ")      ",type='bold')+form("|",'yellow','bold'))
 	print(form("\t---------------------------------------------------------",'yellow','bold')+'\n')
 
 ############# Main #########################
@@ -186,7 +187,7 @@ if __name__ == "__main__":
 			f.write(elt)
 		f.close()
 		f = open('%s/%s.sh'%(bash,idFile),'w')
-		f.write('#$ -e %s\n#$ -o %s\n#$ -l mem_free=30G\n#$ -N P_%s_secretome\n#$ -q normal.q\n#$ -V\n\nmodule load bioinfo/signalp/4.1\n		module load system/java/jre8\n\n'% (outDir+'error_files', outDir+'out_files',idFile))
+		f.write('#$ -e %s\n#$ -o %s\n#$ -l mem_free=10G\n#$ -N P_%s_secretome\n#$ -q normal.q\n#$ -V\n\nmodule load bioinfo/signalp/4.1\nmodule load system/java/jre8\n\n'% (outDir+'error_files', outDir+'out_files',idFile))
 		f.write('\n\n%s Lancement des trois outils de prédiction %s\n\n'%("#"*10,"#"*10))
 		f.write('bash %s/%s_secretomeTools.sh\n\n'%(bash,idFile))
 		f.write('%s Comparaison des 3 outils de prédiction %s\n\n'%("#"*10,"#"*10))
@@ -217,7 +218,7 @@ if __name__ == "__main__":
 	print('\n\tInput : \n\t\t- '+ fasta_file)
 	print('\n\tOutput :')
 	print('\t\t - Résultat des prédictions des secretomes : '+outDir_result)
-	print('\nThe secretome_Pipeline a traité la souche '+str(nbfile)+', veuillez taper la commande suivante pour lancer les scripts créés :\n\n\t\t\t\t'+form('qsub %s/%s.sh\n'%(bash,idFile),'green','bold'))
+	print('\nThe secretome_Pipeline a traité la souche '+str(idFile)+', veuillez taper la commande suivante pour lancer les scripts créés :\n\n\t\t\t\t'+form('qsub %s/%s.sh\n'%(bash,idFile),'green','bold'))
 	print(form('----------------------------------------------------------------------------------------------------------------------','red','bold'))
 
 

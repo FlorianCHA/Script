@@ -162,6 +162,7 @@ foreach my $seq_id (keys %fasta) {
 	foreach my $feature (sort {$a->start <=> $b->start} @{$gene{$seq_id}}){
 		$cpt_gene++;
         my ($gene_id) = $feature->get_tag_values("ID");
+
         ($note) = $feature->get_tag_values("Note") if $feature->has_tag("Note");
 		my $seqobj_gene = $seqobj->trunc($feature->start,$feature->end);
 		my $strand = $feature->strand;
@@ -176,7 +177,7 @@ foreach my $seq_id (keys %fasta) {
 	foreach my $mrna_id (keys %{$cds{$seq_id}}){
 		$cpt_cds++;
 		my $prot_id = $mrna_id;
-		$prot_id =~ s/t/p/;
+		#$prot_id =~ s/T(\d)$/P$1/i;
 		my @cds = @{$cds{$seq_id}{$mrna_id}};
 		my @exon = @{$exon{$seq_id}{$mrna_id}};
 		my $desc = $desc{$mrna_id} if defined $desc{$mrna_id};

@@ -1,4 +1,0 @@
-
-	script/gff2fasta.pl --gff /work/gladieux/magMax_project/2_Annotation/6_GEMO_TEST/4_mergeGFF/FR13_merge.gff3 --fasta /home/gladieux/work/magMax_project/2_Annotation/0_rawdata/assembly_mBio/GEMO/FR13.fasta --prefix /work/gladieux/magMax_project/2_Annotation/6_GEMO_TEST/5_final_data/FR13/FR13
-	cp /work/gladieux/magMax_project/2_Annotation/6_GEMO_TEST/4_mergeGFF/FR13_merge.gff3 /work/gladieux/magMax_project/2_Annotation/6_GEMO_TEST/5_final_data/FR13/
-	

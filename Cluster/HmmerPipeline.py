@@ -156,7 +156,7 @@ if __name__ == "__main__":
 
 
 ############## main ####################################
-	#os.system('module load bioinfo/hmmer/3.1b2')
+	os.system('module load bioinfo/hmmer/3.1b2')
 	profilZero = '%sprofil_0'%outDir
 	os.system('hmmbuild --amino %s %s > trash '%(profilZero,alignement))
 	AlignementZero = '%salignement_0'%outDir

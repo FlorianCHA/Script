@@ -1,0 +1,4 @@
+
+	script/gff2fasta.pl --gff /work/gladieux/magMax_project/2_New_Annotation/1_tmp/4_mergeGFF/T25_merge.gff3 --fasta /homedir/gladieux/work/magMax_project/2_New_Annotation/0_rawdata/T25.fasta --prefix /work/gladieux/magMax_project/2_New_Annotation/1_tmp/5_final_data/T25/T25
+	cp /work/gladieux/magMax_project/2_New_Annotation/1_tmp/4_mergeGFF/T25_merge.gff3 /work/gladieux/magMax_project/2_New_Annotation/1_tmp/5_final_data/T25/
+	

@@ -1,4 +1,0 @@
-
-	cat /work/gladieux/magMax_project/2_Annotation/7_GEMO_TEST/1_hints/RNAseqHints/hints_BR0032.filtered.gff /work/gladieux/magMax_project/2_Annotation/7_GEMO_TEST/1_hints/ProtHints/exonarate_BR0032.hints.gff3  > /work/gladieux/magMax_project/2_Annotation/7_GEMO_TEST/1_hints/MergeHints/RNAseq_protein.hints_BR0032.gff
-	awk '/intron/' /work/gladieux/magMax_project/2_Annotation/7_GEMO_TEST/1_hints/MergeHints/RNAseq_protein.hints_BR0032.gff > /work/gladieux/magMax_project/2_Annotation/7_GEMO_TEST/1_hints/MergeHints/RNAseq_protein.hints.intron_BR0032.gff
-	

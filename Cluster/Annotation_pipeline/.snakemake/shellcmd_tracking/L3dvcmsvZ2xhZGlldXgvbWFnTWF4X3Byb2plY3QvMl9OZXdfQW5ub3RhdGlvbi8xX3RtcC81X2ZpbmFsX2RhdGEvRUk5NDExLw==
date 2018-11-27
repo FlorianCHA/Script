@@ -1,0 +1,4 @@
+
+	script/gff2fasta.pl --gff /work/gladieux/magMax_project/2_New_Annotation/1_tmp/4_mergeGFF/EI9411_merge.gff3 --fasta /homedir/gladieux/work/magMax_project/2_New_Annotation/0_rawdata/EI9411.fasta --prefix /work/gladieux/magMax_project/2_New_Annotation/1_tmp/5_final_data/EI9411/EI9411
+	cp /work/gladieux/magMax_project/2_New_Annotation/1_tmp/4_mergeGFF/EI9411_merge.gff3 /work/gladieux/magMax_project/2_New_Annotation/1_tmp/5_final_data/EI9411/
+	

@@ -1,0 +1,5 @@
+
+	module load bioinfo/braker/1.9
+	module load bioinfo/TOGGLE/0.3.6
+	braker.pl --cores 24 --fungus --gff3 --species=magnaporthe_oryzae --useexisting --genome=/homedir/gladieux/work/magMax_project/2_New_Annotation/0_rawdata/GFSI1-7-2.fasta --hints=/work/gladieux/magMax_project/2_New_Annotation/1_tmp/1_hints/MergeHints/RNAseq_protein.hints.intron_GFSI1-7-2.gff --overwrite --alternatives-from-evidence=false --workingdir=/work/gladieux/magMax_project/2_New_Annotation/1_tmp/2_Braker/GFSI1-7-2/
+	

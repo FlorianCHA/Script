@@ -1,0 +1,232 @@
+---
+title: "Rapport"
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+params:
+   assembly: "None"
+   Annotation: "None"
+output:
+  html_document:
+    fig_caption: yes
+    highlight: zenburn
+    theme: cerulean
+    toc: yes
+    toc_depth: 5
+    toc_float: yes
+---
+
+
+```{r knitr setup, include=FALSE,  eval=TRUE, echo=FALSE, warning=FALSE}
+# knitr::opts_chunk$set(echo=TRUE, eval=TRUE, cache=TRUE, message=FALSE, warning=FALSE, comment="")
+
+library(knitr)
+options(width=300)
+knitr::opts_chunk$set(
+  fig.width = 10, 
+  fig.height = 5, 
+  fig.align = "center", 
+  size = "tiny", 
+  echo = TRUE, eval=TRUE, 
+  warning = FALSE, message = FALSE, 
+  results = TRUE, comment = "")
+# knitr::asis_output("\\footnotesize")
+
+```
+
+
+```{r Package , echo=FALSE}
+if(!require("knitr"))
+  {
+  install.packages('knitr')
+}
+if(!require("DT"))
+  {
+  install.packages('DT')
+  }
+library('knitr')
+if(!require("ggplot2"))
+  {
+  install.packages('ggplot2')
+  }
+library('knitr')
+library('DT')
+library('ggplot2')
+```
+
+```{r Importation des données, echo=FALSE}
+file.quality <- params$assembly
+dataQ <- read.table(file=file.quality, sep="\t", header=TRUE)
+rownames(dataQ) <- dataQ$name
+datatableQ <- dataQ[,1:10]
+```
+
+&nbsp;
+
+#Assemblages
+
+
+##Données qualitées
+
+###Tableau
+
+&nbsp;
+
+```{R Visualisation des données brut, echo=FALSE}
+datatable(datatableQ, caption =" Tableau n°1: Tableau des statistiques de qualité de tous les assemblages",colnames = c('Id', colnames(datatableQ)),extensions = 'Buttons', options = list(dom = 'Blfrtip',buttons = c('copy', 'csv', 'excel', 'pdf', 'print'))) 
+```
+
+&nbsp;
+
+###Graphique
+
+&nbsp;
+
+####Graph N50 
+
+
+```{r plot N50 général, echo=FALSE}
+ggplot(dataQ,aes(x=name,y=N50))+geom_point(col='steelblue') +
+  labs(x='',y='N50')+
+  theme(axis.text.x = element_text( face="bold",size=5, angle=90))+
+  ggtitle('Graphique n°1 : Visualisation du N50 de tous les assemblages')
+```
+
+-----
+
+####Graph L50
+
+```{r plot L50, echo=FALSE}
+ggplot(dataQ,aes(x=name,y=L50))+geom_point(col='steelblue') +
+  labs(x='',y='L50')+
+  theme(axis.text.x = element_text( face="bold",size=5, angle=90))+
+  ggtitle('Graphique n°2 : Visualisation du L50 de tous les assemblages')
+```
+
+-----
+
+####Graph E-size
+
+```{r plot E-size, echo=FALSE}
+ggplot(dataQ,aes(x=name,y=E.size))+geom_point(col='steelblue') +
+  labs(x='',y='N50')+
+  theme(axis.text.x = element_text( face="bold",size=5, angle=90))+
+  ggtitle("Graphique n°4 : Visualisation de l'E-size de tous les assemblages")
+```
+
+-----
+
+####Graph Longueur max
+```{r plot longuer max du contigs , echo=FALSE}
+ggplot(dataQ,aes(x=name,y=max))+geom_point(col='steelblue') +
+  labs(x='',y='Longueur Max')+
+  theme(axis.text.x = element_text( face="bold",size=5, angle=90))+
+  ggtitle('Graphique n°4 : Visualisation de la longueur max des contigs de tous les assemblages')
+
+
+```
+
+-----
+
+####Graph n:500
+```{r plot n500 avant selection kmere, echo=FALSE}
+ggplot(dataQ,aes(x=dataQ$name,y=dataQ$n.500))+geom_point(col='steelblue') +
+  labs(x='',y='N50')+
+  theme(axis.text.x = element_text( face="bold",size=5, angle=90))+
+  ggtitle('Visualisation du nombre de contigs supérieur à 500 pb présent dans chaque assemblage')
+```
+
+&nbsp;
+
+&nbsp;
+
+##Distribution de la longueur
+
+&nbsp;
+
+```{r plot sum avant selection kmere, echo=FALSE}
+dataQ$sum <- as.numeric(lapply(dataQ$sum, function(x) x/1000000))
+ggplot(dataQ, aes(x=sum)) +labs(x = "Longeur total de l'assemblage (mb)", y = 'Densité')+
+  geom_density(alpha=.2, fill="steelblue") + theme(axis.text.y = element_blank())
+```
+
+&nbsp;
+
+&nbsp;
+
+#Annotation
+
+&nbsp;
+
+##Tableau
+
+&nbsp;
+
+```{R Visualisation des annotations, echo=FALSE}
+dataA <- read.table(params$Annotation, header = T, sep  = '\t')
+rownames(dataA) <- dataA$Strain
+datatableA <- dataA[,2:ncol(dataA)]
+
+datatable(dataA, caption =" Tableau n°1: Tableau des statistiques de qualité de tous les assemblages",colnames = c('Id', colnames(datatableA)),extensions = 'Buttons', options = list(dom = 'Blfrtip',buttons = c('copy', 'csv', 'excel', 'pdf', 'print'))) 
+```
+
+&nbsp;
+
+&nbsp;
+
+##Visualisation de l'ensemble des annotations
+
+```{r graphique qualité Annotation, echo=FALSE}
+name <- dataA$Strain
+#Length..mean research
+select <- dataA$Length..mean < mean(dataA$Length..mean) + 2*sd(dataA$Length..mean)
+name[select] <- NA
+select <- dataA$Length..mean < mean(dataA$Length..mean) - 2*sd(dataA$Length..mean)
+name[select] <- dataA[dataA$Length..mean < mean(dataA$Length..mean) - 2*sd(dataA$Length..mean),1]
+#LNb gene research
+select <- dataA$nb.Gene < mean(dataA$nb.Gene) - sd(dataA$nb.Gene)
+name[select] <- dataA[dataA$nb.Gene < mean(dataA$nb.Gene) - sd(dataA$nb.Gene),1]
+select <- dataA$nb.Gene > mean(dataA$nb.Gene) + sd(dataA$nb.Gene)
+name[select] <- dataA[dataA$nb.Gene > mean(dataA$nb.Gene) + sd(dataA$nb.Gene),1]
+#Color
+color <- rep('steelblue',length(dataA$Length..mean))
+select <- dataA$Length..mean > mean(dataA$Length..mean) + sd(dataA$Length..mean)
+color[select] <- 'orange'
+select <- dataA$Length..mean < mean(dataA$Length..mean) - sd(dataA$Length..mean)
+color[select] <- 'orange'
+select <- dataA$Length..mean > mean(dataA$Length..mean) + 2*sd(dataA$Length..mean)
+color[select] <- 'red4'
+select <- dataA$Length..mean < mean(dataA$Length..mean) - 2*sd(dataA$Length..mean)
+color[select] <- 'red4'
+#LNb gene research
+select <- dataA$nb.Gene < mean(dataA$nb.Gene) - sd(dataA$nb.Gene)
+color[select] <- 'red4'
+select <- dataA$nb.Gene > mean(dataA$nb.Gene) + sd(dataA$nb.Gene)
+color[select] <- 'red4'
+ggplot(dataA,aes(x=nb.Gene,y=Length..mean)) + geom_point(col=color) +
+  labs(x='Nombre de gènes',y="Longueur Moyenne d'un gène") +
+  geom_text(label = name, vjust =-1, size = 3)+
+  ggtitle('Graphique n°6 : Contrôle qualité des annotations')
+
+```
+
+&nbsp;
+
+##Provenance de l'annotation
+
+&nbsp;
+
+
+```{r proportion Braker/augusuts, echo=FALSE}
+augustus <- mean(dataA$Augustus)
+braker <- mean(dataA$Braker)
+total <- augustus+braker
+label1 <- paste('Protein predict by Braker (',round(braker/total*100,1),'%)')
+label2 <- paste('Protein predict by Augustus (',round(augustus/total*100,1), '%)')
+
+
+pie(c(braker,augustus),col=c("steelblue","forestgreen"),density = 60,label = c(label1, label2), main ='Origin of protein annoted by Annotation_pipeline')
+
+```
+
+
+
+

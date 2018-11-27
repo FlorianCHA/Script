@@ -1,0 +1,4 @@
+
+	script/QualityAssemblage.py -d /homedir/gladieux/work/magMax_project/2_New_Annotation/0_rawdata/ -o /work/gladieux/magMax_project/2_New_Annotation/1_tmp/6_report/data_report/Assembly_quality.csv
+	script/RecupInfoGFF.py -d /work/gladieux/magMax_project/2_New_Annotation/1_tmp/4_mergeGFF/ -o /work/gladieux/magMax_project/2_New_Annotation/1_tmp/6_report/data_report/Annotation_stat.csv -g /homedir/gladieux/work/magMax_project/2_New_Annotation/0_rawdata/
+	

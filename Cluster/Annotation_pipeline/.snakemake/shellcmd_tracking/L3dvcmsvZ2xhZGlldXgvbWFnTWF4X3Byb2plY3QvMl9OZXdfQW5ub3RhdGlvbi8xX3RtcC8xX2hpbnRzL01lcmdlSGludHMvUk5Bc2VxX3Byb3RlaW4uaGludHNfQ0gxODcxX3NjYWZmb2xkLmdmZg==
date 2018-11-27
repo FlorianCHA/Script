@@ -1,0 +1,4 @@
+
+	cat /work/gladieux/magMax_project/2_New_Annotation/1_tmp/1_hints/RNAseqHints/hints_CH1871_scaffold.filtered.gff /work/gladieux/magMax_project/2_New_Annotation/1_tmp/1_hints/ProtHints/exonerate_CH1871_scaffold.hints.gff3  > /work/gladieux/magMax_project/2_New_Annotation/1_tmp/1_hints/MergeHints/RNAseq_protein.hints_CH1871_scaffold.gff
+	awk '/intron/' /work/gladieux/magMax_project/2_New_Annotation/1_tmp/1_hints/MergeHints/RNAseq_protein.hints_CH1871_scaffold.gff > /work/gladieux/magMax_project/2_New_Annotation/1_tmp/1_hints/MergeHints/RNAseq_protein.hints.intron_CH1871_scaffold.gff
+	

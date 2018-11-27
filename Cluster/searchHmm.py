@@ -14,7 +14,7 @@
 	Script description
 	------------------
 
-	This program is used to seach sequence with a Hmm profil and create a fasta file.
+	This program is used to search sequence with a Hmm profil and create a fasta file.
 
 	Example
 	-------

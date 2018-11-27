@@ -1,4 +1,0 @@
-
-	module load bioinfo/TOGGLE/0.3.6
-	toggleGenerator.pl -d /work/gladieux/magMax_project/2_Annotation/0_rawdata/rnaseq -r /work/gladieux/magMax_project/2_Annotation/0_rawdata/AssemblyToulouse/Magnaporthe-Wheatblast-12-1-205.fasta -c SupplementaryFile/tophatMapping.config.txt -o /work/gladieux/magMax_project/2_Annotation/5_soucheToulouse/0_bamAlignement/Magnaporthe-Wheatblast-12-1-205/ 
-	

@@ -1,4 +1,0 @@
-
-	module load bioinfo/augustus/3.3.1
-	augustus --hintsfile=/work/gladieux/magMax_project/2_Annotation/7_GEMO_TEST/1_hints/MergeHints/RNAseq_protein.hints_GY11.gff --species=magnaporthe_grisea /home/gladieux/work/magMax_project/2_Annotation/0_rawdata/assembly_mBio/GEMO/GY11.fasta --gff3=on --outfile=/work/gladieux/magMax_project/2_Annotation/7_GEMO_TEST/3_augustus/GY11.gff3
-	

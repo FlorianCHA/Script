@@ -1,0 +1,4 @@
+
+	module load bioinfo/R/3.4.3
+	Rscript -e 'rmarkdown::render("script/report.Rmd", output_file="/work/gladieux/magMax_project/2_New_Annotation/1_tmp/6_report/report.html", quiet=TRUE, params = list(assembly = "/work/gladieux/magMax_project/2_New_Annotation/1_tmp/6_report/data_report/Assembly_quality.csv", Annotation = "/work/gladieux/magMax_project/2_New_Annotation/1_tmp/6_report/data_report/Annotation_stat.csv"))'
+	

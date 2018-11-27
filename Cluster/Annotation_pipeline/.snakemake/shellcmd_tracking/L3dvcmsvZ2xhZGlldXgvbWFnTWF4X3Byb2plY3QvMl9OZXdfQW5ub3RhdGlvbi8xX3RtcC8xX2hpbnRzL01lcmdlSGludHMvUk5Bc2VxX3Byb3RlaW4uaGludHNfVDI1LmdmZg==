@@ -1,0 +1,4 @@
+
+	cat /work/gladieux/magMax_project/2_New_Annotation/1_tmp/1_hints/RNAseqHints/hints_T25.filtered.gff /work/gladieux/magMax_project/2_New_Annotation/1_tmp/1_hints/ProtHints/exonerate_T25.hints.gff3  > /work/gladieux/magMax_project/2_New_Annotation/1_tmp/1_hints/MergeHints/RNAseq_protein.hints_T25.gff
+	awk '/intron/' /work/gladieux/magMax_project/2_New_Annotation/1_tmp/1_hints/MergeHints/RNAseq_protein.hints_T25.gff > /work/gladieux/magMax_project/2_New_Annotation/1_tmp/1_hints/MergeHints/RNAseq_protein.hints.intron_T25.gff
+	

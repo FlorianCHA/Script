@@ -48,7 +48,7 @@
 
 ########## Module ###############
 ## Python modules
-import argparse, os, sys
+qimport argparse, os, sys
 from Bio import SeqIO
 from Bio.SeqRecord import SeqRecord
 from Bio.Seq import Seq
@@ -100,7 +100,7 @@ if __name__ == "__main__":
 			name = line.split('|')[0].replace('>','').strip()
 			Isolat = name.split('_')[1]
 			num_scaffold = line.split('_')[-3].strip()
-			scaffold = '%s_Scaffold_%s'%(Isolat,num_scaffold)
+			scaffold = 'Scaffold_%s'%(num_scaffold)
 			position = line.split('_')[-2].split('|')[0].split(':')
 			if is_number(position[0]) and len(position) == 2:
 				start = int(position[0].strip())
@@ -113,29 +113,29 @@ if __name__ == "__main__":
 	hmm_result = openfile(hmm)
 	start_seq = False
 	effecteur = []
-	f = open(output,'w')
+	
 	print('')
 	print('Recuperation des sequences de chaque effecteur')
 	for line in hmm_result :
 		if '------' in line :
 			start_seq = True
 
-		elif start_seq == True and line == '' :
+		elif start_seq == True and len(line.split()) < 9 :
 			break
 		
 		elif start_seq == True:
-			print(line)
 			name = line.split()[8]
 			if 'Magnaporphe-Wheatblast-12-1-205' not in name and 'MGG' not in name :
 				effecteur.append(name)
 
 	hmm_result = ''
 	old_name = ''
+	f = open(output,'w')
 	for elt in sorted(effecteur):
 		name = elt.split('_')[1]
 		if name != old_name :
 			print(name)
-			fasta_genome = fasta2dict(name+'.fasta')
+			fasta_genome = fasta2dict(genome+'/'+name+'.fasta')
 			
 		scaffold, start, end, length = dico_prot[elt]
 		if int(length) < 300 :

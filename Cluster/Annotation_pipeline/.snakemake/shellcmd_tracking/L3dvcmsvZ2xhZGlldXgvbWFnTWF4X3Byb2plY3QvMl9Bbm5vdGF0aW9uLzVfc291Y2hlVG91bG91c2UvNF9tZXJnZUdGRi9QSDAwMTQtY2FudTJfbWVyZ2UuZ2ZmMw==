@@ -1,3 +1,0 @@
-
-	script/mergeBraker_augustus.py  --augustus /work/gladieux/magMax_project/2_Annotation/5_soucheToulouse/3_augustus/PH0014-canu2.gff3 --braker /work/gladieux/magMax_project/2_Annotation/5_soucheToulouse/2_Braker/PH0014-canu2//braker/magnaporthe_oryzae/augustus.gff3 -o /work/gladieux/magMax_project/2_Annotation/5_soucheToulouse/4_mergeGFF/PH0014-canu2_merge.gff3
-	

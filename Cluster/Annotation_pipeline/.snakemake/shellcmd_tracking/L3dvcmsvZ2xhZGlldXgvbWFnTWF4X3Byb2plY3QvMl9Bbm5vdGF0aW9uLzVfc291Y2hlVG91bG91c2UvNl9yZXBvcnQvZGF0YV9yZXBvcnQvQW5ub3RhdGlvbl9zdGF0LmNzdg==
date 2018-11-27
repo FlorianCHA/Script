@@ -1,4 +1,0 @@
-
-	script/QualityAssemblage.py -d /work/gladieux/magMax_project/2_Annotation/0_rawdata/AssemblyToulouse/ -o /work/gladieux/magMax_project/2_Annotation/5_soucheToulouse/6_report/data_report/Assembly_quality.csv
-	script/RecupInfoGFF.py -d /work/gladieux/magMax_project/2_Annotation/5_soucheToulouse/4_mergeGFF/ -o /work/gladieux/magMax_project/2_Annotation/5_soucheToulouse/6_report/data_report/Annotation_stat.csv -g /work/gladieux/magMax_project/2_Annotation/0_rawdata/AssemblyToulouse/
-	

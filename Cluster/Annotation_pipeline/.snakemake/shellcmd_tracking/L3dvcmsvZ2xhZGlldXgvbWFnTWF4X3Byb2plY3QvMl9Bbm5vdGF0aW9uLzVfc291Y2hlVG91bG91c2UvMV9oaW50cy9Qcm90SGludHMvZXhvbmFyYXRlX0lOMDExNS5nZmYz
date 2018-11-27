@@ -1,6 +1,0 @@
-
-	module load bioinfo/exonerate/2.4.7
-	module load bioinfo/braker/1.9
-	exonerate --model protein2genome --percent 95 --showtargetgff T SupplementaryFile/70-15_proteinAndAVR.fasta /work/gladieux/magMax_project/2_Annotation/0_rawdata/AssemblyToulouse/IN0115.fasta > /work/gladieux/magMax_project/2_Annotation/5_soucheToulouse/1_hints/ProtHints/exonarate_IN0115.gff3
-	exonerate2hints.pl --source=M --minintronlen=10 --maxintronlen=1000 --in=/work/gladieux/magMax_project/2_Annotation/5_soucheToulouse/1_hints/ProtHints/exonarate_IN0115.gff3 --out=/work/gladieux/magMax_project/2_Annotation/5_soucheToulouse/1_hints/ProtHints/exonarate_IN0115.hints.gff3
-	

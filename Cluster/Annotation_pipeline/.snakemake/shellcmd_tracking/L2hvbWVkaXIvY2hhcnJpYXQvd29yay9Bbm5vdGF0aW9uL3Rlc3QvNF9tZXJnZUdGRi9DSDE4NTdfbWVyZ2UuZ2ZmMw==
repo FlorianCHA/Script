@@ -1,3 +1,0 @@
-
-	script/mergeBraker_augustus.py  --augustus /homedir/charriat/work/Annotation/test/3_augustus/CH1857.gff3 --braker /homedir/charriat/work/Annotation/test/2_Braker/CH1857/braker/magnaporthe_oryzae/augustus.gff3 -o /homedir/charriat/work/Annotation/test/4_mergeGFF/CH1857_merge.gff3
-	

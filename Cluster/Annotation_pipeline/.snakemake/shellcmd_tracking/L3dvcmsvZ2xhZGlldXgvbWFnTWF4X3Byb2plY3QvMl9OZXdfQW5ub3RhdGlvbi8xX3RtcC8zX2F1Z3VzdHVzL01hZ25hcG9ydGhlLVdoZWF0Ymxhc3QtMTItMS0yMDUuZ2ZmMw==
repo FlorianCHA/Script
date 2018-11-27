@@ -1,0 +1,4 @@
+
+	module load bioinfo/augustus/3.3.1
+	augustus --hintsfile=/work/gladieux/magMax_project/2_New_Annotation/1_tmp/1_hints/MergeHints/RNAseq_protein.hints_Magnaporthe-Wheatblast-12-1-205.gff --species=magnaporthe_grisea /homedir/gladieux/work/magMax_project/2_New_Annotation/0_rawdata/Magnaporthe-Wheatblast-12-1-205.fasta --gff3=on --outfile=/work/gladieux/magMax_project/2_New_Annotation/1_tmp/3_augustus/Magnaporthe-Wheatblast-12-1-205.gff3
+	

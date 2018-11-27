@@ -1,4 +1,0 @@
-
-	script/gff2fasta.pl --gff /work/gladieux/magMax_project/2_Annotation/7_GEMO_TEST/4_mergeGFF/US0071_merge.gff3 --fasta /home/gladieux/work/magMax_project/2_Annotation/0_rawdata/assembly_mBio/GEMO/US0071.fasta --prefix /work/gladieux/magMax_project/2_Annotation/7_GEMO_TEST/5_final_data/US0071/US0071
-	cp /work/gladieux/magMax_project/2_Annotation/7_GEMO_TEST/4_mergeGFF/US0071_merge.gff3 /work/gladieux/magMax_project/2_Annotation/7_GEMO_TEST/5_final_data/US0071/
-	

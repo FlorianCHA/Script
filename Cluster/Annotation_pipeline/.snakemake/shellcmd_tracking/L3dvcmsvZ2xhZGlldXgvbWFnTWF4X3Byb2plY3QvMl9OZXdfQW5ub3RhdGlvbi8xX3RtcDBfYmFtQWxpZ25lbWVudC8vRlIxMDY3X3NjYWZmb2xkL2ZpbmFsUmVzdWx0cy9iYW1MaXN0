@@ -1,6 +1,0 @@
-
-	module load bioinfo/TOGGLE/0.3.6
-	rm -r /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//FR1067_scaffold/ 
-	toggleGenerator.pl -d /work/gladieux/magMax_project/2_Annotation/0_rawdata/rnaseq -r /homedir/gladieux/work/magMax_project/2_New_Annotation/0_rawdata/FR1067_scaffold.fasta -c SupplementaryFile/tophatMapping.config.txt -o /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//FR1067_scaffold/ 
-	touch /work/gladieux/magMax_project/2_New_Annotation/1_tmp0_bamAlignement//FR1067_scaffold/finalResults/bamList
-	

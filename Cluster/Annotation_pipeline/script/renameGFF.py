@@ -67,6 +67,7 @@ if __name__ == "__main__":
 	ouputDir = args.outDir
 	num =args.num
 	tools = args.tools
+	strainName = strainName.split('_')[0]
 	# resume value to user
 	print(" - Intput Info:")
 	print("\t - GFF file is : %s" % gffFileIn)

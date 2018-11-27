@@ -1,0 +1,6 @@
+
+	module load bioinfo/exonerate/2.4.7
+	module load bioinfo/braker/1.9
+	exonerate --model protein2genome --percent 95 --showtargetgff T SupplementaryFile/OG.fasta /homedir/gladieux/work/magMax_project/2_New_Annotation/0_rawdata/87-120.fasta > /work/gladieux/magMax_project/2_New_Annotation/1_tmp/1_hints/ProtHints/exonerate_87-120.gff3
+	exonerate2hints.pl --source=M --minintronlen=10 --maxintronlen=1000 --in=/work/gladieux/magMax_project/2_New_Annotation/1_tmp/1_hints/ProtHints/exonerate_87-120.gff3 --out=/work/gladieux/magMax_project/2_New_Annotation/1_tmp/1_hints/ProtHints/exonerate_87-120.hints.gff3
+	

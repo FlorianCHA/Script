@@ -1,0 +1,10 @@
+{
+	"__default__" :
+	{
+		"datadir"	: "/work/gladieux/magMax_project/2_New_Annotation/test/",
+		"OutDir"	: "/work/gladieux/Script/Cluster/Annotation_pipeline_v2/test/",
+		"RnaSeqDir"	: "/work/gladieux/magMax_project/2_Annotation/0_rawdata/rnaseq/",
+		"id_souche"	: "mo",
+		"protRef"	: "None"
+	}
+}

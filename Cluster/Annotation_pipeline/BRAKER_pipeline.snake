@@ -1,7 +1,7 @@
 import glob
 import re
 import sys
-from os.path import join 
+from os.path import join
 
 ###############################################################################
 ###############################################################################
@@ -9,13 +9,13 @@ from os.path import join
 #--------------------------------------------------
 
 # directory contained fasta files
-datadir="/homedir/gladieux/work/magMax_project/2_New_Annotation/0_rawdata"
+datadir="/homedir/gladieux/work/magMax_project/2_New_Annotation/0_rawdata/"
 
 # Out directory
-OutDir = '/work/gladieux/magMax_project/2_New_Annotation/1_tmp'
+OutDir = '/work/gladieux/magMax_project/2_New_Annotation/1_tmp/'
 
 # RNAseq directory
-RnaSeqDir='/work/gladieux/magMax_project/2_Annotation/0_rawdata/rnaseq'
+RnaSeqDir='/work/gladieux/magMax_project/2_Annotation/0_rawdata/rnaseq/'
 
 # file termination
 suffixFile = '.fasta'
@@ -33,7 +33,7 @@ protRef = 'SupplementaryFile/OG.fasta' # A mettre dans l'outils
 ################################################################################
 
 SAMPLES, = glob_wildcards(datadir+"{smp}"+suffixFile)
-	
+
 	
 rule final:
 	input: 
@@ -118,7 +118,7 @@ rule BRAKER :
 	
 rule mergeHint:
 	threads : 1
-	input : rnaseq = OutDir+'1_hints/RNAseqHints/hints_{smp}.filtered.gff', prot = OutDir+'1_hints/ProtHints/exonarate_{smp}.hints.gff3'
+	input : rnaseq = OutDir+'1_hints/RNAseqHints/hints_{smp}.filtered.gff', prot = OutDir+'1_hints/ProtHints/exonerate_{smp}.hints.gff3'
 	params : l_mem_free='4G'
 	output: merge = OutDir+'1_hints/MergeHints/RNAseq_protein.hints_{smp}.gff', mergeIntro = OutDir+'1_hints/MergeHints/RNAseq_protein.hints.intron_{smp}.gff'
 	message: '\nMerge hints outcome of RNAseq with hints outcome of proteine alignement for {wildcards.smp}.\nInput:\n\t\t-Hints RNseq : {input.rnaseq}\n\t\t-Hints proteine : {input.prot}\nOutput :{output.mergeIntro}\nThreads : {threads}\n'+'#'*108
@@ -131,7 +131,7 @@ rule exonerate :
 	threads : 2
 	input : protRef = protRef, file = datadir+"{smp}"+suffixFile
 	params : l_mem_free='4G'
-	output: exonerate = OutDir+'1_hints/ProtHints/exonarate_{smp}.gff3', hints =OutDir+'1_hints/ProtHints/exonarate_{smp}.hints.gff3'
+	output: exonerate = OutDir+'1_hints/ProtHints/exonerate_{smp}.gff3', hints =OutDir+'1_hints/ProtHints/exonerate_{smp}.hints.gff3'
 	message: 'Executing exonerate alignement and convert alignement into hints file for {wildcards.smp}.\nInput:\n\t\t-Reference file : {input.protRef}\n\t\t-Genome : {input.file}\nOutput :\n\t\t-Alignement {output.exonerate}\n\t\t-hints file : {output.hints}\nThreads : {threads}\n'+'#'*108
 	shell:"""
 	module load bioinfo/exonerate/2.4.7
