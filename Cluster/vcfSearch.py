@@ -59,10 +59,24 @@ from collections import defaultdict
 from module_Flo import verifDir, createDir, form, verifFichier, fasta2dict, openfile, sort_human
 from MODULES_SEB import AutoVivification
 
-def recupAC( ref, alt, qual, info):
+
+
+
+def recupAC(id,lineVCF,MQmin,DPmin,QDmin):
     '''
     Permet de récupéré l'acide nucléique à une position donnée en fonction de la qualité
     '''
+    IUPAC = {"AT": "W", "CG": "S", "AC": "M", "GT": "K", "AG": "R", "CT": "Y","TA": "W", "GC": "S", "CA": "M", "TG": "K", "GA": "R", "TC": "Y"}
+    if diploidy:
+        vcf_scaffold, position, _, ref, alt, qual, _, info, *_,infoDiploidy = line.split()
+        infoDiploidy = infoDiploidy.split(':')
+        for elt in infoDiploidy:
+            if '/' in elt :
+                infoDiploidy = elt
+                break
+    else :
+        vcf_scaffold, position, _, ref, alt, qual, _, info, *_ = line.split()
+
     if 'MQ=' in info and 'DP=' in info :
         MQ = float(info.split('MQ=')[1].split(';')[0])
         DP = float(info.split('DP=')[1].split(';')[0])
@@ -70,18 +84,32 @@ def recupAC( ref, alt, qual, info):
         MQ = 0
         DP = 0
 
-    if DP < 10 or MQ < 20:
+    if DP < DPmin or MQ < MQmin:
         ac = 'N'
     elif alt == '.':
         ac = ref
-    elif alt != '.' and DP >= 10 and MQ >= 20:
+    elif alt != '.' and DP >= DPmin and MQ >= MQmin:
         QD = float(info.split('QD=')[1].split(';')
         [0])
-        if QD >= 5:
-            ac = alt
+        if QD >= QDmin:
+            if diploidy :
+                if  infoDiploidy == '1/1' :
+                    ac = alt
+                elif  infoDiploidy == '1/2' :
+                    ac = IUPAC[alt.replace(',','')]
+                elif infoDiploidy == '0/1' or '1/0' :
+                    if len(ref) == 1 and len(alt) == 1:
+                        ac = IUPAC[ref+alt]
+                    elif len(ref) >= 2 :
+                        ac = alt + 'N'*(len(ref) -1)
+                    elif len(alt) >= 2  :
+                        ac = ref
+            else :
+                ac = alt
         else:
-            ac = 'N'
-            print("Warning, the gene {} have a SNP which don't pass the filter (QD < 5))")
+            ac = 'N'*len(ref)
+            print("Warning, the gene {} have a SNP (QD = {}) which don't pass the filter (QD < {})".format(id,QD,QDmin))
+
     return ac
 
 if __name__ == "__main__":
@@ -97,12 +125,26 @@ if __name__ == "__main__":
     filesreq = parser.add_argument_group('Input mandatory infos for running')
     filesreq.add_argument('-f', '--file', type=str, required=True, dest='vcf',
                           help='Path of vcf file which be used')
-    filesreq.add_argument('-l', '--listegene', type=str, required=False, default='None', dest='listeGene',
-                          help='Path of the file which contains a gene list of interest,'
-                               'the script search all gene of the gff file')
+
     filesreq.add_argument('-g', '--gff', type=str, required=True, dest='gff',
                           help='Path of the gff file path of the reference genome used to create the vcf')
-    filesreq.add_argument('-p', '--prefix', type=str, required=False,default = 'vcfSearch', dest='prefix', help='prefix for the output file')
+
+    files = parser.add_argument_group('Input infos for running with default values')
+    files.add_argument('-l', '--listegene', type=str, required=False, default='None', dest='listeGene',
+                          help='Path of the file which contains a gene list of interest,'
+                               'the script search all gene of the gff file')
+    files.add_argument('-MQ', '--MQ', type=int, required=False,default = 20, dest='MQmin', help='The minimum mapping quality supporting to accept the mapping (default = 20)')
+    files.add_argument('-DP', '--DP', type=int, required=False, default= 10, dest='DPmin',
+                          help=' The minimum sequencing depth supporting to accept the mapping ( default = 10)')
+    files.add_argument('-QD', '--QD', type=int, required=False, default= 5, dest='QDmin',
+                          help='The minimum QD value to accept the variant ( default = 5)')
+    files.add_argument('-prop', '--proportion', type=int, required=False, default= 80, dest='prcN',
+                       help='The maximum percentage of N in a sequence (default = 20)')
+    files.add_argument('-diploidy', '--diploidy',action='store_true', dest='diploidy',
+                          help='Use this option if you are using a diploid organism')
+
+    files.add_argument('-p', '--prefix', type=str, required=False, default='vcfSearch', dest='prefix',
+                          help='prefix for the output file')
 
     ######### Recuperation arguments ###########
     args = parser.parse_args()
@@ -110,7 +152,11 @@ if __name__ == "__main__":
     listeGene = args.listeGene
     gff = os.path.abspath(args.gff)
     prefix = args.prefix
-
+    MQmin = args.MQmin
+    QDmin = args.QDmin
+    DPmin = args.DPmin
+    diploidy = args.diploidy
+    prcN = args.prcN
     ########### Gestion directory ##############
     verifFichier(vcf)
     verifFichier(gff)
@@ -133,39 +179,47 @@ if __name__ == "__main__":
 
     dicoRNA = {}
     dicoCDS = {}
-    lines = lines[1:len(lines)]
+    print('\nOpenning gff file\n')
+
     with open(gff,'r') as gff_file :
         header = gff_file.readline()
         for line in gff_file :
-            Scaffold, _ ,types,start,end,_ ,brin,_,id = line.rstrip().split('\t')
+            try :
+                Scaffold, _ ,types,start,end,_ ,brin,_,id = line.rstrip().split('\t')
+            except :
+                print(line)
+                exit()
             id = id.split(';')[0].split('=')[1]
+            if ':' in id :
+                id = id.split(':')[0]
             if id in liste or listeGene == 'None' :
-                if id not in dicoCDS.keys():
-                    dicoCDS[id] = []
                 if types == 'mRNA' :
                     for position in range(int(start),int(end)+1) :
                         if Scaffold not in dicoRNA.keys():
                             dicoRNA[Scaffold] = {}
-                        dicoRNA[Scaffold][position] = [id,brin,'{0}:{1}-{2}'.format(Scaffold,start,end),start]
+                        if id not in dicoRNA[Scaffold].keys() :
+                            dicoRNA[Scaffold][position] = [id,brin,'{0}:{1}-{2}'.format(Scaffold,start,end),start]
                 elif types == 'CDS' :
+                    if id not in dicoCDS.keys():
+                        dicoCDS[id] = []
                     dicoCDS[id].append([Scaffold,int(start),int(end)])
 
-    print('\nOpenning of vcf file\n')
+    print('\nOpenning vcf file\n')
     dicoSeq = {}
     dicoInfo = {}
     with open(vcf, "r") as f:
         for line in f :
             if line[0] != '#' :
-                vcf_scaffold, position, _, ref, alt, qual, _, info, *_ = line.split()
+                vcf_scaffold, position, _, ref, alt, qual, _, info, *_, = line.split()
                 position = int(position)
                 if vcf_scaffold in dicoRNA.keys() and position in dicoRNA[vcf_scaffold].keys():
                     id = dicoRNA[vcf_scaffold][position][0]
                     brin = dicoRNA[vcf_scaffold][position][1]
                     if id not in dicoSeq.keys():
-                        dicoSeq[id] = recupAC( ref, alt, qual, info)
+                        dicoSeq[id] = recupAC(id,line,MQmin,DPmin,QDmin)
                         dicoInfo[id] = dicoRNA[vcf_scaffold][position]
                     else :
-                        dicoSeq[id] += recupAC( ref, alt, qual, info)
+                        dicoSeq[id] += recupAC(id,line,MQmin,DPmin,QDmin)
 
 
 
@@ -184,7 +238,7 @@ if __name__ == "__main__":
             SeqIO.write(record, output_gene, "fasta")
             cds = ''
             for elt in dicoCDS[id]:
-                cds = cds + seq[elt[1] - (int(start)):(elt[2] + 1 - int(start))]
+                cds = cds + seq[elt[1] - (int(start)):(elt[2] +1 - int(start))]
             if brin == '-':
                 seqcds = Seq(cds).reverse_complement()
             elif brin == '+':
@@ -197,7 +251,7 @@ if __name__ == "__main__":
                 descrip = '| position = {0}, length = {1}, brin = "{2}"'.format(dicoInfo[id][2], len(str(prot)), dicoInfo[id][1])
                 record = SeqRecord(prot, id=id, name=id, description=descrip)
                 SeqIO.write(record, output_prot, "fasta")
-            elif cds.count('N') < (len(cds) * 0.8):
+            elif cds.count('N') < (len(cds) * (prcN/100)):
                 prot = seqcds.translate()
                 descrip = '| position = {0}, length = {1}, brin = "{2}"'.format(dicoInfo[id][2], len(str(prot)), dicoInfo[id][1])
                 record = SeqRecord(prot, id=id + '_incomplete', name=id + '_incomplete', description=descrip)
