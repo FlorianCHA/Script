@@ -1,4 +1,4 @@
-#!/usr/local/bioinfo/python/3.4.3_build2/bin/python
+revers#!/usr/local/bioinfo/python/3.4.3_build2/bin/python
 # -*- coding: utf-8 -*-
 # @package HmmerPiepline.py
 # @author Florian Charriat
@@ -52,7 +52,7 @@ from Bio.SeqRecord import SeqRecord
 from Bio.Seq import Seq
 
 # Import module_Flo
-from module_Flo import verifDir, createDir, form, isFasta, recupId, verifFichier, fasta2dict, sort_human
+from module_Flo import verifDir, createDir, form, isFasta, recupId, verifFichier, fasta2dict, sort_human,indexEgale
 
 
 ############# Fonction ####################
@@ -74,6 +74,35 @@ def filtreSequence(file):
                 record = SeqRecord(sequence, id=str(elt), name=str(elt), description='length : ' + str(len(seq)))
                 SeqIO.write(record, f, "fasta")
     return nb
+
+def filtrAln(file):
+    """
+    Remove sequence with no alingmement of Cystein
+    """
+    listeGene = []
+    dico = fasta2dict(file)
+    seqRef = str(dico['co39C/4-59'].seq)
+    positionC = indexEgale(seqRef,'C')
+    nb = 0
+    with open(file,'r') as f :
+        for line in f :
+            if line[0] == '>':
+                listeGene.append(line.split()[0].replace('>',''))
+
+    with open(file,'w') as f ,open(file.replace('_filtred.aln','_bad.aln'),'w') as f_bad:
+        for elt in listeGene :
+            seq = str(dico[elt].seq)
+            if seq[positionC[0]] == 'C' and seq[positionC[1]] == 'C' :
+                sequence = Seq(seq)
+                record = SeqRecord(sequence, id=str(elt), name=str(elt), description='length : ' + str(len(seq)))
+                SeqIO.write(record, f, "fasta")
+            else :
+                sequence = Seq(seq)
+                record = SeqRecord(sequence, id=str(elt), name=str(elt), description='length : ' + str(len(seq)))
+                SeqIO.write(record, f_bad, "fasta")
+                nb += 1
+    return nb
+
 
 def filtreHit(files, dico_DB):
     """
@@ -112,7 +141,7 @@ def filtreHit(files, dico_DB):
                 sequence = Seq(seq)
                 record = SeqRecord(sequence, id=str(elt), name=str(elt), description='length : ' + str(len(sequence)))
                 SeqIO.write(record, f_bad, "fasta")
-    return nbG, nb  # ,nbU
+    return nbG, nb # ,nbU
 
 
 if __name__ == "__main__":
@@ -133,7 +162,6 @@ if __name__ == "__main__":
     filesreq.add_argument('-b', '--seqbd', type=str, required=True, dest='db', help='Path of sequence database')
     filesreq.add_argument('-o', '--outdir', type=str, required=True, dest='outdirPath',
                           help='Path of the output directory')
-
     ######### Recuperation arguments ###########
     args = parser.parse_args()
     alignement = os.path.abspath(args.file)
@@ -167,9 +195,10 @@ if __name__ == "__main__":
     nbG, nb = filtreHit(newAlignement, dico_fasta)
     nbR = filtreSequence('%s_filtred.fasta' % newAlignement)
     # os.system('clusterProt.py -f %s_filtred.fasta -i 1 -o %s_filtred_clust.fasta --quiet' % (newAlignement, newAlignement))
-    os.system('mafft --add %s_filtred_no_redundant.fasta --quiet --maxiterate 1000 --reorder %s > %s_filtred.aln' % (newAlignement, structure, newAlignement))
+    os.system('mafft --add %s_filtred_no_redundant.fasta --quiet --reorder %s > %s_filtred.aln' % (newAlignement, structure, newAlignement))
+    nbC = filtrAln('%s_filtred.aln'%newAlignement)
     print(form('\t - Alignement n° 0 filtré', 'white', 'bold'))
-    print(form('\t - %s : %s hits récupérés, %s hits retirés\n' % (newAlignement.split('/')[-1], nbG, nb), 'white',
+    print(form('\t - %s : %s hits récupérés, %s hits retirés\n' % (newAlignement.split('/')[-1], nbG, nb+nbC), 'white',
                'bold'))
 
     i = 0
@@ -191,12 +220,13 @@ if __name__ == "__main__":
         nbG, nb = filtreHit(newAlignement, dico_fasta) # Filtre les hits et va ensuite crée un fasta avec toutes les séquences obtenues
         # os.system('clusterProt.py -f %s_filtred.fasta -i 1 -o %s_filtred_clust.fasta --quiet'%(newAlignement,newAlignement))
         nbR = filtreSequence('%s_filtred.fasta'%newAlignement)
-        os.system('mafft --add %s_filtred_no_redundant.fasta --quiet --maxiterate 1000 --reorder %s > %s_filtred.aln' % (newAlignement, structure, newAlignement))
+        os.system('mafft --add %s_filtred_no_redundant.fasta --quiet --reorder %s > %s_filtred.aln' % (newAlignement, structure, newAlignement))
+        nbC = filtrAln('%s_filtred.aln' % newAlignement)
         print(form('\t - Alignement n° %s filtré' % i, 'white', 'bold'))
         f = open(newAlignement + '_filtred.aln', 'r')
         linesNewAlignement = f.readlines()
         f.close()
-        print(form('\t - %s : %s hits récupérés, %s hits retirés\n' % (newAlignement.split('/')[-1], nbG, nb), 'white',
+        print(form('\t - %s : %s hits récupérés, %s hits retirés\n' % (newAlignement.split('/')[-1], nbG, nb+nbC), 'white',
                    'bold'))
         if linesOldAlignement == linesNewAlignement or oldNb > nbG:
             print('Il y a eu %s itération' % i)

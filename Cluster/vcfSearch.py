@@ -1,4 +1,4 @@
-#!/usr/local/bioinfo/python/3.4.3_build2/bin/python
+#!/usr/local/bioinfo/python/3.6.4/bin/python
 # -*- coding: utf-8 -*-
 # @package vcfSearch.py
 # @author Florian Charriat
@@ -17,7 +17,7 @@
 	This program is used to search a list of gene in a vcf file and give in output CDS,protein and gene fasta file.
 
 	Example
-	-------
+	-------qstat
 
 	>>> vcfSearch.py -l /homedir/user/work/listegene.txt -g /homedir/user/work/Isolat.gff -f /homedir/user/work/file.vcf -p prefix
 
@@ -142,7 +142,6 @@ if __name__ == "__main__":
                        help='The maximum percentage of N in a sequence (default = 20)')
     files.add_argument('-diploidy', '--diploidy',action='store_true', dest='diploidy',
                           help='Use this option if you are using a diploid organism')
-
     files.add_argument('-p', '--prefix', type=str, required=False, default='vcfSearch', dest='prefix',
                           help='prefix for the output file')
 
@@ -220,7 +219,6 @@ if __name__ == "__main__":
                         dicoInfo[id] = dicoRNA[vcf_scaffold][position]
                     else :
                         dicoSeq[id] += recupAC(id,line,MQmin,DPmin,QDmin)
-
 
 
     print('\nWrite fasta\n')

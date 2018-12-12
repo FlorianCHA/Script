@@ -70,16 +70,21 @@ if __name__ == "__main__":
 	filesreq.add_argument('-o', '--output', type=str, required=True, dest='oufile',
 						  help='Path of the output file')
 
+	files = parser.add_argument_group('Input infos for running with default values')
+	files.add_argument('-q', '--quiet',action='store_true',
+					   dest='quiet', help='No stdout if you use this option')
 	######### Recuperation arguments ###########
 	args = parser.parse_args()
 	file = os.path.abspath(args.file)
 	output = os.path.abspath(args.oufile)
 	identity = args.identity
+	quiet = args.quiet
 	########### Gestion directory ##############
 	verifFichier(file)
 
 	########### Main ###########################
-	print('\nComparaison des sequences avec ucluster\n')
+	if quiet == False :
+		print('\nComparaison des sequences avec ucluster\n')
 
 	file_sort = '{}_sort.fasta'.format(file.replace('.fasta',''))
 	os.system('uclust --sort {} --output {} --quiet'.format(file,file_sort))
@@ -87,11 +92,12 @@ if __name__ == "__main__":
 	os.system('uclust --input {} --uc {} --id {} --quiet'.format(file_sort, result_uc,identity))
 	clusterResult =  '{}_cluster.fasta'.format(file.replace('.fasta',''))
 	os.system('uclust --uc2fasta {} --input {} --output {} --types S --quiet'.format(result_uc,file_sort,clusterResult))
-
-	print('Lecture du fichier Fasta\n')
+	if quiet == False:
+		print('Lecture du fichier Fasta\n')
 	dico = fasta2dict(file_sort)
 	liste = []
-	print('Lecture du fichier uc\n')
+	if quiet == False:
+		print('Lecture du fichier uc\n')
 	with open(clusterResult, 'r') as f:
 		for line in f :
 			if line[0] == '>':
@@ -100,8 +106,8 @@ if __name__ == "__main__":
 				liste.append([id_prot])#,float(evalue)])
 
 	#liste = sorted(liste, key=lambda sousliste: sousliste[1])
-
-	print('Fasta in process\n')
+	if quiet == False:
+		print('Fasta in process\n')
 	with open(output, 'w') as f:
 		for elt in liste :
 			sequence = Seq(str(dico[elt[0]].seq) + '*')

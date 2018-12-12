@@ -91,13 +91,14 @@ if __name__ == "__main__":
 	#output = '/homedir/gladieux/work/magMax_project/4_Orthologie/5_test_without_transcript/1_MGG/'
 
 	for fasta in os.listdir(directory):
-		print('%s in process'%fasta)
-		dico = fasta2dict(directory+fasta)
-		f = open(output+fasta,'w')
-		for idSeq in sorted(dico.keys(), key=sort_human):
-			if 'T0' in idSeq.split('_')[-1] :
-				seqObj = dico[idSeq].seq
-				record = SeqRecord(seqObj,id=idSeq,name=idSeq, description= dico[idSeq].description)
-				SeqIO.write(record,f, "fasta")
+		if isFasta(fasta) :
+			print('%s in process'%fasta)
+			dico = fasta2dict(directory+fasta)
+			with open(output+fasta,'w') as f :
+				for idSeq in sorted(dico.keys(), key=sort_human):
+					if 'T0' in idSeq.split('_')[-1] :
+						seqObj = dico[idSeq].seq
+						record = SeqRecord(seqObj,id=idSeq,name=idSeq, description= dico[idSeq].description)
+						SeqIO.write(record,f, "fasta")
 
 		

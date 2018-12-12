@@ -86,63 +86,65 @@ if __name__ == "__main__":
 	f = open(outFile,'w')
 	f.write('n\tn:500\tL50\tmin\tN80\tN50\tN20\tE-size\tmax\tsum\tname\n')
 	for files in os.listdir(directory):
-		print(files+ ' in process')
-
 		Pathfile = directory+files
-		isFasta(Pathfile)
-		strain = recupId(Pathfile.split('/')[-1])
-		dico_fasta = fasta2dict(Pathfile)
-		lengthGenome = 0
-		nbScaffold = 0
-		lengthN50 = 0
-		lengthN80 = 0
-		lengthN20 = 0
-		Esize = 0
-		L50 = 0
-		n500 = 0
-		first = True
+
+		if isFasta(Pathfile) :
+			print(files+ ' in process')
+
+			isFasta(Pathfile)
+			strain = recupId(Pathfile.split('/')[-1])
+			dico_fasta = fasta2dict(Pathfile)
+			lengthGenome = 0
+			nbScaffold = 0
+			lengthN50 = 0
+			lengthN80 = 0
+			lengthN20 = 0
+			Esize = 0
+			L50 = 0
+			n500 = 0
+			first = True
 
 
 
 
-		for elt in dico_fasta.values():
-			nbScaffold += 1
-			lengthGenome = lengthGenome +len(elt.seq)
-			Esize = Esize + (len(elt.seq)*len(elt.seq))
-			if len(elt.seq) > 500 :
-				n500 += 1
+			for elt in dico_fasta.values():
+				nbScaffold += 1
+				lengthGenome = lengthGenome +len(elt.seq)
+				Esize = Esize + (len(elt.seq)*len(elt.seq))
+				if len(elt.seq) > 500 :
+					n500 += 1
 
 
-		for elt  in sorted(dico_fasta.keys(), key=sort_human):
-			if first :
-				maxs =  len(dico_fasta[elt].seq)
-				first = False 
-			L50 += 1
-			lengthN50 = lengthN50 + len(dico_fasta[elt].seq)
-			if lengthN50 >= (lengthGenome/2) :
-				break
-		
-		N50 = len(dico_fasta[elt].seq)
+			for elt  in sorted(dico_fasta.keys(), key=sort_human):
+				if first :
+					maxs =  len(dico_fasta[elt].seq)
+					first = False
+				L50 += 1
+				lengthN50 = lengthN50 + len(dico_fasta[elt].seq)
+				if lengthN50 >= (lengthGenome/2) :
+					break
 
-		for elt  in sorted(dico_fasta.keys(), key=sort_human):
+			N50 = len(dico_fasta[elt].seq)
 
-			lengthN80 = lengthN80 + len(dico_fasta[elt].seq)
-			if lengthN80 >= (lengthGenome*0.8) :
-				break
-		
-		N80 = len(dico_fasta[elt].seq)
+			for elt  in sorted(dico_fasta.keys(), key=sort_human):
 
-		for elt  in sorted(dico_fasta.keys(), key=sort_human):
+				lengthN80 = lengthN80 + len(dico_fasta[elt].seq)
+				if lengthN80 >= (lengthGenome*0.8) :
+					break
 
-			lengthN20 = lengthN20 + len(dico_fasta[elt].seq)
-			if lengthN20 >= (lengthGenome*0.2) :
-				break
-		
-		N20 = len(dico_fasta[elt].seq)
-		Esize = int(Esize/lengthGenome)
+			N80 = len(dico_fasta[elt].seq)
 
-		f.write('%s\t%s\t%s\t500\t%s\t%s\t%s\t%s\t%s\t%s\t%s\n'%(nbScaffold,n500,L50,N80,N50,N20,Esize,maxs,lengthGenome,strain))
-		print(files+' done')
+			for elt  in sorted(dico_fasta.keys(), key=sort_human):
+
+				lengthN20 = lengthN20 + len(dico_fasta[elt].seq)
+				if lengthN20 >= (lengthGenome*0.2) :
+					break
+
+			N20 = len(dico_fasta[elt].seq)
+			Esize = int(Esize/lengthGenome)
+
+			f.write('%s\t%s\t%s\t500\t%s\t%s\t%s\t%s\t%s\t%s\t%s\n'%(nbScaffold,n500,L50,N80,N50,N20,Esize,maxs,lengthGenome,strain))
+			print(files+' done')
 
 	f.close()
 

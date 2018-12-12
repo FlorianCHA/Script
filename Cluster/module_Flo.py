@@ -451,3 +451,26 @@ def is_number(s):
         return False
 
 
+def comparaisonListe(list1,list2):
+	"""
+	Permet de récupérer les éléments en communs entre les deux listes (les doublons sont éliminés)
+	"""
+	list = []
+	list1 = set(list1)
+	list2 = set(list2)
+	for elt in list1:
+		if elt in list2:
+			list.append(elt)
+	return(list)
+
+def isIn(list1,list2):
+	"""
+	Permet de récupérer les éléments en communs entre les deux listes (les doublons sont éliminés)
+	"""
+	list = []
+	list1 = set(list1)
+	list2 = set(list2)
+	for elt in list1:
+		if elt in list2:
+			return True
+	return False
