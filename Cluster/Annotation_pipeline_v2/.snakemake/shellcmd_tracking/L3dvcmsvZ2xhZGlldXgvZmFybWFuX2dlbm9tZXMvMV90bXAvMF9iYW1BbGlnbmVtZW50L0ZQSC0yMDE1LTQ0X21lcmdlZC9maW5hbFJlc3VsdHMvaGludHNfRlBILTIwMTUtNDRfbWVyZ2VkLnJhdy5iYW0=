@@ -1,0 +1,4 @@
+
+	module load bioinfo/braker/1.9
+	bam2hints --minintronlen=10 --maxintronlen=1000 --maxgaplen=9 --source=M --exonhints --in=/work/gladieux/farman_genomes/1_tmp/0_bamAlignement/FPH-2015-44_merged/finalResults/merged_FPH-2015-44_merged.accepted_hits_sort.bam --out=/work/gladieux/farman_genomes/1_tmp/0_bamAlignement/FPH-2015-44_merged/finalResults/hints_FPH-2015-44_merged.raw.bam
+	

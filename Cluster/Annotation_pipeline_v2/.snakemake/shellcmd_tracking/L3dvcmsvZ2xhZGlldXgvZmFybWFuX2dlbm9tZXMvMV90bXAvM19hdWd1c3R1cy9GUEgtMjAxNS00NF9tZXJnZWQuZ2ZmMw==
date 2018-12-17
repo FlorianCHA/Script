@@ -1,0 +1,4 @@
+
+	module load bioinfo/augustus/3.3.1
+	augustus --hintsfile=/work/gladieux/farman_genomes/1_tmp/1_hints/MergeHints/RNAseq_protein.hints_FPH-2015-44_merged.gff --species=magnaporthe_oryzae /work/gladieux/farman_genomes/0_data/FPH-2015-44_merged.fasta --gff3=on --outfile=/work/gladieux/farman_genomes/1_tmp/3_augustus/FPH-2015-44_merged.gff3
+	

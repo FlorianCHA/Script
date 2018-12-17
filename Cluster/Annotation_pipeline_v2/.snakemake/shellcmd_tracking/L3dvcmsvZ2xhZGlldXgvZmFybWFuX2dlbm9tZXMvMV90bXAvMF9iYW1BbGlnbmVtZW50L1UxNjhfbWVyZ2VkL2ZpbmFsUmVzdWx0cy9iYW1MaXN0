@@ -1,0 +1,6 @@
+
+	module load bioinfo/TOGGLE/0.3.6
+	rm -r /work/gladieux/farman_genomes/1_tmp/0_bamAlignement/U168_merged/ 
+	toggleGenerator.pl -d /work/gladieux/magMax_project/2_New_Annotation/rnaseq/ -r /work/gladieux/farman_genomes/U168_merged.fasta -c SupplementaryFile/tophatMapping.config.txt -o /work/gladieux/farman_genomes/1_tmp/0_bamAlignement/U168_merged/ 
+	touch /work/gladieux/farman_genomes/1_tmp/0_bamAlignement/U168_merged/finalResults/bamList
+	

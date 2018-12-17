@@ -1,0 +1,45 @@
+NEXT STEP: check files and settings
+NEXT STEP: check options
+... options check complete.
+NEXT STEP: check if input file /work/gladieux/magMax_project/2_New_Annotation/1_tmp/1_hints/MergeHints/RNAseq_protein.hints.intron_BR0032.gff is in gff format
+gff format check complete.
+NEXT STEP: check fasta headers
+WARNING: Detected whitespace in fasta header of file /work/gladieux/magMax_project/2_New_Annotation/0_rawdata/BR0032.fasta. This may later on cause problems! The pipeline will create a new file without spaces or "|" characters and a header.map file to look up the old and new headers. This message will be suppressed from now on!
+fasta headers check complete.
+NEXT STEP: add hints from file /work/gladieux/magMax_project/2_New_Annotation/1_tmp/1_hints/MergeHints/RNAseq_protein.hints.intron_BR0032.gff
+NEXT STEP: sort hints
+hints sorted.
+NEXT STEP: summarize multiple identical hints to one
+hints joined.
+NEXT STEP: filter introns, find strand and change score to 'mult' entry
+strands found and score changed.
+hints file complete.
+NEXT STEP: execute GeneMark-ET
+GeneMark-ET finished.
+NEXT STEP: convert GeneMark-ET to real gtf format
+GeneMark-ET conversion.
+NEXT STEP: get flanking DNA size
+NEXT STEP: create genbank file
+genbank file created.
+NEXT STEP: filter genbank file
+genbank file filtered.
+NEXT STEP: split genbank file into train and test file
+genbank file splitted.
+NEXT STEP: copy optimized parameters to working directory
+parameter files copied.
+No extrinsic file assigned. Programme will create one.
+NEXT STEP: copy extrinsic file to working directory
+extrinsic file copied.
+Use assigned /usr/local/bioinfo/augustus/3.3.1/config/species/magnaporthe_oryzae/extrinsic.magnaporthe_oryzae.cfg as extrinsic file
+NEXT STEP: split genome file in smaller parts
+split genome file in 17 parts complete.
+NEXT STEP: run AUGUSTUS
+AUGUSTUS complete.
+NEXT STEP: concatenate and join AUGUSTUS output files
+join AUGUSTUS predictions complete.
+cat /work/gladieux/magMax_project/2_New_Annotation/1_tmp/2_Braker/BR0032/braker/magnaporthe_oryzae/augustus.gff | perl -ne 'if(m/\tAUGUSTUS\t/){print $_;}' | perl /usr/local/bioinfo/augustus/3.3.1/config/../scripts/gtf2gff.pl --printExon --out=/work/gladieux/magMax_project/2_New_Annotation/1_tmp/2_Braker/BR0032/braker/magnaporthe_oryzae/augustus.gtf 2>/work/gladieux/magMax_project/2_New_Annotation/1_tmp/2_Braker/BR0032/braker/magnaporthe_oryzae/errors/gtf2gff.augustus.gtf.stderr
+
+cat /work/gladieux/magMax_project/2_New_Annotation/1_tmp/2_Braker/BR0032/braker/magnaporthe_oryzae/augustus.gff | perl -ne 'if(m/\tAUGUSTUS\t/){print $_;}' | perl /usr/local/bioinfo/augustus/3.3.1/config/../scripts/gtf2gff.pl --printExon -gff3 --out=/work/gladieux/magMax_project/2_New_Annotation/1_tmp/2_Braker/BR0032/braker/magnaporthe_oryzae/augustus.gff3 2>/work/gladieux/magMax_project/2_New_Annotation/1_tmp/2_Braker/BR0032/braker/magnaporthe_oryzae/errors/gtf2gff.augustus.gff3.stderr
+
+NEXT STEP: delete empty files
+empty files deleted.

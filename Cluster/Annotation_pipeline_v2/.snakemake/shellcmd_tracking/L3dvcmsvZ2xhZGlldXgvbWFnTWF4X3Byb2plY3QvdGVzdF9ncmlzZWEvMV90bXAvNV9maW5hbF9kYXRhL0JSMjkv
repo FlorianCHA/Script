@@ -1,0 +1,4 @@
+
+	script/gff2fasta.pl --gff /work/gladieux/magMax_project/test_grisea/1_tmp/4_mergeGFF/BR29_merge.gff3 --fasta /work/gladieux/magMax_project/test_grisea/0_rawdata/BR29.fasta --prefix /work/gladieux/magMax_project/test_grisea/1_tmp/5_final_data/BR29/BR29
+	cp /work/gladieux/magMax_project/test_grisea/1_tmp/4_mergeGFF/BR29_merge.gff3 /work/gladieux/magMax_project/test_grisea/1_tmp/5_final_data/BR29/
+	
