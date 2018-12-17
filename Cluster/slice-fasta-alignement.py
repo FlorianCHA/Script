@@ -10,14 +10,15 @@
 	:contact: florian.charriat@inra.fr
 	:date: 08/07/2016
 	:version: 0.1
+
 	Script description
 	------------------
 	This Programme is used to slice a alignement between position 1 and position 2
 
 	Example
 	-------
-	>>> slice-fasta-alignement.py -f /homedir/input.fasta -pos1 5 -pos2 100 -o /homedir/result.fasta
 
+	>>> slice-fasta-alignement.py -f /homedir/input.fasta -pos1 5 -pos2 100 -o /homedir/result.fasta
 
 	Help Programm
 	-------------
@@ -71,7 +72,7 @@ VERSION_DATE='27/01/2017'
 ##################################################
 if __name__ == "__main__":
 	# Parameters recovery
-	parser = argparse.ArgumentParser(prog=__file__, description='''This Programme ....''')
+	parser = argparse.ArgumentParser(prog=__file__, description='''This Programme is used to slice a alignement between position 1 and position 2.''')
 	parser.add_argument('-v', '--version', action='version', version='You are using %(prog)s version: ' + version, help=\
 						'display '+__file__+' version number and exit')
 	parser.add_argument('-dd', '--debug', action='store_true', dest='debug', help='enter verbose/debug mode')
