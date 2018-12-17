@@ -4,9 +4,9 @@
 # @author Florian CHARRIAT
 
 """
-	The slice-fasta-alignement
-	===========================
-	:author: Sebastien Ravel
+	The slice-fasta-alignement script
+	=================================
+	:author: Florian CHARRIAT
 	:contact: florian.charriat@inra.fr
 	:date: 08/07/2016
 	:version: 0.1
