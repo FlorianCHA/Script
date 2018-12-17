@@ -129,8 +129,6 @@ if __name__ == "__main__":
 
 
 	createDir(listeDir)
-	nameF1 = fasta1.split('/')[-1]
-	nameF2 = fasta2.split('/')[-1]
 
 ############### start message ########################
 
@@ -155,6 +153,10 @@ if __name__ == "__main__":
 		liste2 = liste1
 		db2 = db_inter
 
+
+	nameF1 = fasta1.split('/')[-1]
+	nameF2 = fasta2.split('/')[-1]
+
 	if name:
 		list = comparaisonListe(liste1, liste2)
 		print(form(f'They have {len(list)} sequences name in common between {fasta1.split("/")[-1 ]} (nb sequence : {len(liste1)}) and {fasta2.split("/")[-1 ]} (nb sequence : {len(liste2)})\n','green','bold'))
@@ -166,7 +168,7 @@ if __name__ == "__main__":
 			with open(f'{dfasta}{nameF1}.fasta','w') as f :
 				fasta = fasta2dict(db1)
 				aln = fasta2dict(fasta1)
-				for elt in sorted(aln.keys(), key = sort_human) :
+				for elt in sorted(aln.keys(), key = sort_human) :qsta
 					sequence = fasta[elt].seq
 					record = SeqRecord(sequence, id=str(elt), name=str(elt), description=fasta[elt].description)
 					SeqIO.write(record, f, "fasta")
@@ -186,7 +188,7 @@ if __name__ == "__main__":
 		output_blast1= f"{Bresult}1_blast/{nameF2.replace('.fasta','')}_blast_result.txt"
 		print(form('\t- Création de la base de données pour psiblast','white','bold'))
 		os.system(f'makeblastdb -dbtype prot -in {fasta2} -input_type fasta -out {db_fasta2}\n')
-		print(form(f'\n\t- Lancement de blast (query : {nameF1} , db : {nameF2.replace("fasta","")}','white','bold'))
+		print(form(f'\n\t- Lancement de blast (query : {nameF1} , db : {nameF2.replace(".fasta","")})','white','bold'))
 		os.system(f'\nblastp -query {fasta1} -db {db_fasta2} -evalue 1e-3 -out {output_blast1}')
 		print(form(f'\t- Utilisation du fichier de sortie de blast pour la comparaison\n','white','bold'))
 		listeID = []

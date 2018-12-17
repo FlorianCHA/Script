@@ -210,7 +210,7 @@ if __name__ == "__main__":
 	if schema :
 		with open('makeFig.sh','w') as f:
 			f.write('#!/bin/bash\n')
-			f.write('module unload system/python/2.7.9\n')
+			f.write('module purge\n')
 			f.write('module load bioinfo/snakemake/3.13.3\n')
 			f.write('snakemake -s BRAKER_pipeline2.snake --dag | dot -Tpdf > schema_pipeline.pdf')
 		print(form('\nCreating the pipeline schema in schema_pipeline.pdf','green','bold'))
