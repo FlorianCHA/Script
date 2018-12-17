@@ -1,10 +1,10 @@
-#!/usr/local/bioinfo/python/3.4.3_build2/bin/python
+#!/usr/local/bioinfo/python/3.6.4/bin/python
 # -*- coding: utf-8 -*-
 # @package slice-fasta-alignement.py
 # @author Florian CHARRIAT
 
 """
-	The slice-fasta-alignement script
+	The slice-fasta-alignement
 	===========================
 	:author: Sebastien Ravel
 	:contact: florian.charriat@inra.fr
@@ -13,6 +13,7 @@
 	Script description
 	------------------
 	This Programme is used to slice a alignement between position 1 and position 2
+
 	Example
 	-------
 	>>> slice-fasta-alignement.py -f /homedir/input.fasta -pos1 5 -pos2 100 -o /homedir/result.fasta
