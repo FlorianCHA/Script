@@ -1,4 +1,0 @@
-
-	module load bioinfo/braker/1.9
-	script/filterHintsSnake.r -s U168 -p /work/gladieux/farman_genomes/4_Annotation/0_bamAlignement/U168//finalResults/ -o /work/gladieux/farman_genomes/4_Annotation/1_hints/RNAseqHints/hints_U168.filtered.gff
-	
