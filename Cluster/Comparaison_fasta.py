@@ -10,11 +10,15 @@
 	:contact: florian.charriat@inra.fr
 	:date: 08/07/2018
 	:version: 0.1
+
 	Script description
 	------------------
+
 	This Programme is used to compare compare the content of two fasta (name of sequences or sequences).
+
 	Example
 	-------
+
 	>>> Comparaison_fasta.py -f1 /homedir/file1.fasta -f2 /homedir/file2.fasta -o result/ --name
 
 
