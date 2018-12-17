@@ -514,7 +514,57 @@ MODULES_SEB.NumberList.append
 MODULES_SEB.StrList.append
 MODULES_SEB.StrSpaceList.append" class="py-name" href="#" onclick="return doclink('link-33', 'append', 'link-26');">append</a></tt><tt class="py-op">(</tt><tt class="py-name">i</tt><tt class="py-op">)</tt> </tt>
 <a name="L431"></a><tt class="py-lineno">431</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">index</tt> </tt>
-</div><a name="L432"></a><tt class="py-lineno">432</tt>  <tt class="py-line"> </tt><script type="text/javascript">
+</div><a name="L432"></a><tt class="py-lineno">432</tt>  <tt class="py-line"> </tt>
+<a name="openfile"></a><div id="openfile-def"><a name="L433"></a><tt class="py-lineno">433</tt> <a class="py-toggle" href="#" id="openfile-toggle" onclick="return toggle('openfile');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="module_Flo-module.html#openfile">openfile</a><tt class="py-op">(</tt><tt class="py-param">file</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="openfile-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="openfile-expanded"><a name="L434"></a><tt class="py-lineno">434</tt>  <tt class="py-line">        <tt class="py-docstring">"""</tt> </tt>
+<a name="L435"></a><tt class="py-lineno">435</tt>  <tt class="py-line"><tt class="py-docstring">        Permet de mettre dans une varaible une liste contenant chaque ligne du fichier</tt> </tt>
+<a name="L436"></a><tt class="py-lineno">436</tt>  <tt class="py-line"><tt class="py-docstring">        :Parameters:</tt> </tt>
+<a name="L437"></a><tt class="py-lineno">437</tt>  <tt class="py-line"><tt class="py-docstring">                file </tt> </tt>
+<a name="L438"></a><tt class="py-lineno">438</tt>  <tt class="py-line"><tt class="py-docstring">                  Le chemin du fichier &#224; ouvrir</tt> </tt>
+<a name="L439"></a><tt class="py-lineno">439</tt>  <tt class="py-line"><tt class="py-docstring">        """</tt> </tt>
+<a name="L440"></a><tt class="py-lineno">440</tt>  <tt class="py-line">        <tt id="link-34" class="py-name" targets="Variable correction_orthofinder.f=correction_orthofinder-module.html#f"><a title="correction_orthofinder.f" class="py-name" href="#" onclick="return doclink('link-34', 'f', 'link-34');">f</a></tt> <tt class="py-op">=</tt> <tt class="py-name">open</tt><tt class="py-op">(</tt><tt class="py-name">file</tt><tt class="py-op">,</tt><tt class="py-string">'r'</tt><tt class="py-op">)</tt> </tt>
+<a name="L441"></a><tt class="py-lineno">441</tt>  <tt class="py-line">        <tt id="link-35" class="py-name" targets="Variable correction_orthofinder.lines=correction_orthofinder-module.html#lines,Variable recupSeqFromGFF.lines=recupSeqFromGFF-module.html#lines"><a title="correction_orthofinder.lines
+recupSeqFromGFF.lines" class="py-name" href="#" onclick="return doclink('link-35', 'lines', 'link-35');">lines</a></tt> <tt class="py-op">=</tt> <tt id="link-36" class="py-name"><a title="correction_orthofinder.f" class="py-name" href="#" onclick="return doclink('link-36', 'f', 'link-34');">f</a></tt><tt class="py-op">.</tt><tt class="py-name">readlines</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L442"></a><tt class="py-lineno">442</tt>  <tt class="py-line">        <tt id="link-37" class="py-name"><a title="correction_orthofinder.f" class="py-name" href="#" onclick="return doclink('link-37', 'f', 'link-34');">f</a></tt><tt class="py-op">.</tt><tt class="py-name">close</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L443"></a><tt class="py-lineno">443</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt id="link-38" class="py-name"><a title="correction_orthofinder.lines
+recupSeqFromGFF.lines" class="py-name" href="#" onclick="return doclink('link-38', 'lines', 'link-35');">lines</a></tt> </tt>
+</div><a name="L444"></a><tt class="py-lineno">444</tt>  <tt class="py-line"> </tt>
+<a name="L445"></a><tt class="py-lineno">445</tt>  <tt class="py-line"> </tt>
+<a name="is_number"></a><div id="is_number-def"><a name="L446"></a><tt class="py-lineno">446</tt> <a class="py-toggle" href="#" id="is_number-toggle" onclick="return toggle('is_number');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="module_Flo-module.html#is_number">is_number</a><tt class="py-op">(</tt><tt class="py-param">s</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="is_number-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="is_number-expanded"><a name="L447"></a><tt class="py-lineno">447</tt>  <tt class="py-line">    <tt class="py-keyword">try</tt><tt class="py-op">:</tt> </tt>
+<a name="L448"></a><tt class="py-lineno">448</tt>  <tt class="py-line">        <tt class="py-name">float</tt><tt class="py-op">(</tt><tt class="py-name">s</tt><tt class="py-op">)</tt> </tt>
+<a name="L449"></a><tt class="py-lineno">449</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">True</tt> </tt>
+<a name="L450"></a><tt class="py-lineno">450</tt>  <tt class="py-line">    <tt class="py-keyword">except</tt> <tt class="py-name">ValueError</tt><tt class="py-op">:</tt> </tt>
+<a name="L451"></a><tt class="py-lineno">451</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">False</tt> </tt>
+</div><a name="L452"></a><tt class="py-lineno">452</tt>  <tt class="py-line"> </tt>
+<a name="L453"></a><tt class="py-lineno">453</tt>  <tt class="py-line"> </tt>
+<a name="comparaisonListe"></a><div id="comparaisonListe-def"><a name="L454"></a><tt class="py-lineno">454</tt> <a class="py-toggle" href="#" id="comparaisonListe-toggle" onclick="return toggle('comparaisonListe');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="module_Flo-module.html#comparaisonListe">comparaisonListe</a><tt class="py-op">(</tt><tt class="py-param">list1</tt><tt class="py-op">,</tt><tt class="py-param">list2</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="comparaisonListe-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="comparaisonListe-expanded"><a name="L455"></a><tt class="py-lineno">455</tt>  <tt class="py-line">        <tt class="py-docstring">"""</tt> </tt>
+<a name="L456"></a><tt class="py-lineno">456</tt>  <tt class="py-line"><tt class="py-docstring">        Permet de r&#233;cup&#233;rer les &#233;l&#233;ments en communs entre les deux listes (les doublons sont &#233;limin&#233;s)</tt> </tt>
+<a name="L457"></a><tt class="py-lineno">457</tt>  <tt class="py-line"><tt class="py-docstring">        """</tt> </tt>
+<a name="L458"></a><tt class="py-lineno">458</tt>  <tt class="py-line">        <tt class="py-name">list</tt> <tt class="py-op">=</tt> <tt class="py-op">[</tt><tt class="py-op">]</tt> </tt>
+<a name="L459"></a><tt class="py-lineno">459</tt>  <tt class="py-line">        <tt class="py-name">list1</tt> <tt class="py-op">=</tt> <tt class="py-name">set</tt><tt class="py-op">(</tt><tt class="py-name">list1</tt><tt class="py-op">)</tt> </tt>
+<a name="L460"></a><tt class="py-lineno">460</tt>  <tt class="py-line">        <tt class="py-name">list2</tt> <tt class="py-op">=</tt> <tt class="py-name">set</tt><tt class="py-op">(</tt><tt class="py-name">list2</tt><tt class="py-op">)</tt> </tt>
+<a name="L461"></a><tt class="py-lineno">461</tt>  <tt class="py-line">        <tt class="py-keyword">for</tt> <tt class="py-name">elt</tt> <tt class="py-keyword">in</tt> <tt class="py-name">list1</tt><tt class="py-op">:</tt> </tt>
+<a name="L462"></a><tt class="py-lineno">462</tt>  <tt class="py-line">                <tt class="py-keyword">if</tt> <tt class="py-name">elt</tt> <tt class="py-keyword">in</tt> <tt class="py-name">list2</tt><tt class="py-op">:</tt> </tt>
+<a name="L463"></a><tt class="py-lineno">463</tt>  <tt class="py-line">                        <tt class="py-name">list</tt><tt class="py-op">.</tt><tt id="link-39" class="py-name"><a title="MODULES_SEB.LetterList.append
+MODULES_SEB.NumberList.append
+MODULES_SEB.StrList.append
+MODULES_SEB.StrSpaceList.append" class="py-name" href="#" onclick="return doclink('link-39', 'append', 'link-26');">append</a></tt><tt class="py-op">(</tt><tt class="py-name">elt</tt><tt class="py-op">)</tt> </tt>
+<a name="L464"></a><tt class="py-lineno">464</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt><tt class="py-op">(</tt><tt class="py-name">list</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L465"></a><tt class="py-lineno">465</tt>  <tt class="py-line"> </tt>
+<a name="isIn"></a><div id="isIn-def"><a name="L466"></a><tt class="py-lineno">466</tt> <a class="py-toggle" href="#" id="isIn-toggle" onclick="return toggle('isIn');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="module_Flo-module.html#isIn">isIn</a><tt class="py-op">(</tt><tt class="py-param">list1</tt><tt class="py-op">,</tt><tt class="py-param">list2</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="isIn-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="isIn-expanded"><a name="L467"></a><tt class="py-lineno">467</tt>  <tt class="py-line">        <tt class="py-docstring">"""</tt> </tt>
+<a name="L468"></a><tt class="py-lineno">468</tt>  <tt class="py-line"><tt class="py-docstring">        Permet de r&#233;cup&#233;rer les &#233;l&#233;ments en communs entre les deux listes (les doublons sont &#233;limin&#233;s)</tt> </tt>
+<a name="L469"></a><tt class="py-lineno">469</tt>  <tt class="py-line"><tt class="py-docstring">        """</tt> </tt>
+<a name="L470"></a><tt class="py-lineno">470</tt>  <tt class="py-line">        <tt class="py-name">list</tt> <tt class="py-op">=</tt> <tt class="py-op">[</tt><tt class="py-op">]</tt> </tt>
+<a name="L471"></a><tt class="py-lineno">471</tt>  <tt class="py-line">        <tt class="py-name">list1</tt> <tt class="py-op">=</tt> <tt class="py-name">set</tt><tt class="py-op">(</tt><tt class="py-name">list1</tt><tt class="py-op">)</tt> </tt>
+<a name="L472"></a><tt class="py-lineno">472</tt>  <tt class="py-line">        <tt class="py-name">list2</tt> <tt class="py-op">=</tt> <tt class="py-name">set</tt><tt class="py-op">(</tt><tt class="py-name">list2</tt><tt class="py-op">)</tt> </tt>
+<a name="L473"></a><tt class="py-lineno">473</tt>  <tt class="py-line">        <tt class="py-keyword">for</tt> <tt class="py-name">elt</tt> <tt class="py-keyword">in</tt> <tt class="py-name">list1</tt><tt class="py-op">:</tt> </tt>
+<a name="L474"></a><tt class="py-lineno">474</tt>  <tt class="py-line">                <tt class="py-keyword">if</tt> <tt class="py-name">elt</tt> <tt class="py-keyword">in</tt> <tt class="py-name">list2</tt><tt class="py-op">:</tt> </tt>
+<a name="L475"></a><tt class="py-lineno">475</tt>  <tt class="py-line">                        <tt class="py-keyword">return</tt> <tt class="py-name">True</tt> </tt>
+<a name="L476"></a><tt class="py-lineno">476</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">False</tt> </tt>
+</div><a name="L477"></a><tt class="py-lineno">477</tt>  <tt class="py-line"> </tt><script type="text/javascript">
 <!--
 expandto(location.href);
 // -->
@@ -549,7 +599,8 @@ expandto(location.href);
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0.1 on Wed Aug 22 14:33:20 2018
+    Generated by Epydoc 3.0.1
+    on Mon Dec 17 12:58:58 2018
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"

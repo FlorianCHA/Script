@@ -1,4 +1,4 @@
-revers#!/usr/local/bioinfo/python/3.4.3_build2/bin/python
+#!/usr/local/bioinfo/python/3.6.4/bin/python
 # -*- coding: utf-8 -*-
 # @package HmmerPiepline.py
 # @author Florian Charriat
@@ -14,7 +14,7 @@ revers#!/usr/local/bioinfo/python/3.4.3_build2/bin/python
 	Script description
 	------------------
 
-	This program is used to search a HMM profil for search EffecteurMAX. This program used HMMbuild et HMMsearch.
+	This program is used to search a HMM profil for search EffecteurMAX. This program used HMMbuild et HMMsearch and mafft.
 
 	Example
 	-------
@@ -34,7 +34,9 @@ revers#!/usr/local/bioinfo/python/3.4.3_build2/bin/python
 		- \-a <path/to/alignement/file>, --alignementFile <path/to/alignement/file>
 						path of alignement file contrain by structure
 		- \-b <path/to/sequence/database/file>, --seqdb <path/to/sequence/database/file>
-						path of alignement file contrain by structure
+						Path of sequence database
+        - \-s <path/to/alignement/structure/file>, --structure <path/to/alignement/structure/file>
+						Path of structure alignement file (TMalign output)
 
 		- \-o <path/to/output/directory>, --outdirPath <path/to/output/directory>
 						path of the output directory

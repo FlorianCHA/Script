@@ -34,15 +34,32 @@
 		- \-f <path/to/vcf/file>, --file <path/to/vcf/file>
 						path of vcf file which be used
 
+        - \-g <path/to/gff/file>, --gff <path/to/gff/file>
+						path of the gff file path of the reference genome used to create the vcf
+
+	Input infos for running with default values:
+
+		- \-p <prefix>, --prefix <prefix>
+						prefix for the output file (default = 'vcfSearch')
+
 		- \-l <path/to/gene/liste/file>, --listegene <path/to/gene/liste/file>
 						path of the file which contains a gene list of interest. If you don't give a list,
 						the script search all gene of the gff file
 
-        - \-g <path/to/gff/file>, --gff <path/to/gff/file>
-						path of the gff file path of the reference genome used to create the vcf
+		- \-MQ <int>, --MQ <int>
+						The minimum mapping quality supporting to accept the mapping (default = 20)
 
-		- \-p <prefix>, --prefix <prefix>
-						prefix for the output file
+		- \-DP <int>, --DP <int>
+						The minimum sequencing depth supporting to accept the mapping ( default = 10)
+
+		- \-QD <int>, --QD <int>
+						The minimum QD value to accept the variant ( default = 5)
+
+		- \-prop <int>, --prop <int>
+						The maximum percentage of N in a sequence (default = 20)
+
+		- \-diploidy , --diploidy
+						Use this option if you are using a diploid organism
 
 """
 

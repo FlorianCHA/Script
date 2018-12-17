@@ -1,4 +1,4 @@
-#!/usr/local/bioinfo/python/3.4.3_build2/bin/python
+#!/usr/local/bioinfo/python/3.6.4/bin/python
 # -*- coding: utf-8 -*-
 # @package clusterProt.py
 # @author Florian Charriat
@@ -35,7 +35,7 @@
 						path of the fasta file to process
 
 		- \-i <int>, --identiity <int>
-						Max identity between two sequence.
+						Max identity between two sequence (default = 0.90).
 
 		- \-o <path/to/output/file>, --outdirPath <path/to/output/file>
 						path of the output file

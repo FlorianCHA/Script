@@ -37,6 +37,9 @@
 		- \-p <path/to/HMM/profil/file>, --profil <path/to/HMM/profil/file>
 						path of the Hmm profil which be used
 
+		- \-e <path/to/HMM/profil/file>, --evalue <path/to/HMM/profil/file>
+						Expect E-value for saving hits (default = 10). For exemple you can put 1e-4 for 10^-4
+
 		- \-o <path/to/output/file>, --output <path/to/output/file>
 						path of the output file (fasta file)
 

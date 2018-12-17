@@ -12,7 +12,7 @@
 	:version: 0.1
 	Script description
 	------------------
-	This Programme is used to compare différents fasta.
+	This Programme is used to compare compare the content of two fasta (name of sequences or sequences).
 	Example
 	-------
 	>>> Comparaison_fasta.py -f1 /homedir/file1.fasta -f2 /homedir/file2.fasta -o result/ --name
@@ -26,16 +26,16 @@
 		- \-v, --version
 						display Comparaison_fasta.py version number and exit
 	Input mandatory infos for running:
-		- \-f1 <path/to/fasta/file>, --file1 <path/to/fasta/file>
+		- \--file1 <path/to/fasta/file>
 						path of the first fasta file to used
-		- \-f2 <path/to/fasta/file>, --file2 <path/to/fasta/file>
+		- \--file2 <path/to/fasta/file>
 						path of the second fasta file to used
 		- \-o <path/to/output/directory/>, --output <path/to/output/directory/>
 						path of the output directory
 	Input infos for running with default values:
-		- \-db1 <path/to/fasta/file/>, --database1 <path/to/fasta/file/>
+		- \--database1 <path/to/fasta/file/>
 						If file1 are alignement file, use this option and give the fasta file used for alignement
-		- \-db2 <path/to/fasta/file/>, --database2 <path/to/fasta/file/>
+		- \--database2 <path/to/fasta/file/>
 						If file2 are alignement file, use this option and give the fasta file used for alignement
 		- \-n , --name
 						compare name of sequence between fasta file
@@ -69,7 +69,7 @@ if __name__ == "__main__":
 
 	version = '0.1'
 	# Parameters recovery
-	parser = argparse.ArgumentParser(prog=__file__, description='''This Programme ....''')
+	parser = argparse.ArgumentParser(prog=__file__, description='''This Programme is used to compare compare the content of two fasta (name of sequences or sequences).''')
 	parser.add_argument('-v', '--version', action='version', version='You are using %(prog)s version: ' + version, help='display '+__file__+' version number and exit')
 
 	filesreq = parser.add_argument_group('Input mandatory infos for running')

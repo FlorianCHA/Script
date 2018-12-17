@@ -57,33 +57,48 @@
 </b></center><br />
 <h1 class="epydoc">Module Hierarchy</h1>
 <ul class="nomargin-top">
+    <li> <strong class="uidlink"><a href="script-slice_fasta_alignement_py-module.html">slice_fasta_alignement_py (script)</a></strong>: <em class="summary">This Programme is used to slice a alignement between position 1 and position 2
+Example
+-------
+&gt;&gt;&gt; slice-fasta-alignement.py -f /homedir/input.fasta -pos1 5 -pos2 100 -o /homedir/result.fasta</em>    </li>
     <li> <strong class="uidlink"><a href="ABYSS_launch-module.html">ABYSS_launch</a></strong>: <em class="summary">This program is used to assemble all fasta files in a directory using the ABYSS tool. The assembly will be done with different lengths of km&#232;re (20, 30, 40, 50, 60, 70, 80 and 90). A new pipeline has been created, please watch the Assembly_pipeline in the same folder</em>    </li>
     <li> <strong class="uidlink"><a href="Alignement-module.html">Alignement</a></strong>: <em class="summary">This program is used to align multiple RNA-seq on a genome and merge the different alignments into a file</em>    </li>
     <li> <strong class="uidlink"><a href="BRAKER_pipeline-module.html">BRAKER_pipeline</a></strong>: <em class="summary">This program is used to annotate with BRAKER. This script use :</em>    </li>
+    <li> <strong class="uidlink"><a href="Comparaison_fasta-module.html">Comparaison_fasta</a></strong>: <em class="summary">This Programme is used to compare compare the content of two fasta (name of sequences or sequences).
+Example
+-------
+&gt;&gt;&gt; Comparaison_fasta.py -f1 /homedir/file1.fasta -f2 /homedir/file2.fasta -o result/ --name</em>    </li>
     <li> <strong class="uidlink"><a href="Correction_Transcript-module.html">Correction_Transcript</a></strong>: <em class="summary">This program is used to correct the orthofinder result. They remove alternatif transcript of a same Orthologue group.</em>    </li>
     <li> <strong class="uidlink"><a href="HmmerPipeline-module.html">HmmerPipeline</a></strong>: <em class="summary">This program is used to search a HMM profil for search EffecteurMAX. This program used HMMbuild et HMMsearch.</em>    </li>
+    <li> <strong class="uidlink"><a href="HmmerPipeline_v2-module.html">HmmerPipeline_v2</a></strong>: <em class="summary">This program is used to search a HMM profil for search EffecteurMAX. This program used HMMbuild et HMMsearch and mafft.</em>    </li>
     <li> <strong class="uidlink"><a href="MODULES_SEB-module.html">MODULES_SEB</a></strong>: <em class="summary">Use it to import very handy functions.</em>    </li>
-    <li> <strong class="uidlink"><a href="OG_pylho-module.html">OG_pylho</a></strong>: <em class="summary">This script was created for a special case (phylogenetic OG). So they have no documentation. Please contact the author for more information</em>    </li>
+    <li> <strong class="uidlink"><a href="OG_phylo-module.html">OG_phylo</a></strong>: <em class="summary">This program is used to search for orthologues groupe  of core genome single copy and create a consensus for phylogenetic tree</em>    </li>
     <li> <strong class="uidlink"><a href="Quality-module.html">Quality</a></strong>: <em class="summary">This program is used to retrieve quality data of all the assemblies done by the script ABYSS_launch</em>    </li>
     <li> <strong class="uidlink"><a href="QualityAssemblage-module.html">QualityAssemblage</a></strong>: <em class="summary">This program is used to check assembly quality</em>    </li>
     <li> <strong class="uidlink"><a href="Recup_T0_Only-module.html">Recup_T0_Only</a></strong>: <em class="summary">This program is used to remove all alternative transcript of protein fasta file.</em>    </li>
     <li> <strong class="uidlink"><a href="ToggleJobArray-module.html">ToggleJobArray</a></strong>: <em class="summary">This program launches the tool toogle in job array to be able to launch little by little the job</em>    </li>
     <li> <strong class="uidlink"><a href="Verif_Annotation-module.html">Verif_Annotation</a></strong>: <em class="summary">This program is used to verif annotation (start or stop error or multi-stop)</em>    </li>
+    <li> <strong class="uidlink"><a href="clusterProt-module.html">clusterProt</a></strong>: <em class="summary">This program is used to select only seq with less k % of identity.</em>    </li>
     <li> <strong class="uidlink"><a href="comparaisonSecretome-module.html">comparaisonSecretome</a></strong>: <em class="summary">This program is used to retrieve and compare information from the output of secretome prediction tools (signalP, targetP and Phobius). This program is used by secretome_Pipeline</em>    </li>
     <li> <strong class="uidlink"><a href="correction_orthofinder-module.html">correction_orthofinder</a></strong>: <em class="summary">This program is used to correct the result of Orthofinder. They use a tblastn for search the OG sequence in the blast DB of all genome. Please, this script is working slowly and it's not finish, choose the correction_pipeline.</em>    </li>
     <li> <strong class="uidlink"><a href="elimateREmotif-module.html">elimateREmotif</a></strong>: <em class="summary">This program is used to eliminate the result of PS-scan with PS00014 pattern (RE target Motif). This program is used by secretome_Pipeline.</em>    </li>
     <li> <strong class="uidlink"><a href="forRNAseq_inPlanta-module.html">forRNAseq_inPlanta</a></strong>: <em class="summary">This program is used to align multiple RNA-seq on a host genome for eliminate inPlanta RNA</em>    </li>
     <li> <strong class="uidlink"><a href="formatFastaName-module.html">formatFastaName</a></strong>: <em class="summary">This Programme filter sequences by length</em>    </li>
+    <li> <strong class="uidlink"><a href="makeEffectome-module.html">makeEffectome</a></strong>: <em class="summary">This program is used to create a fasta file which contain all nucl&#233;otidique sequence of effecteur MAX with 100bp before and after the sequence.</em>    </li>
     <li> <strong class="uidlink"><a href="module_Flo-module.html">module_Flo</a></strong>: <em class="summary">Use it to import very handy functions.</em>    </li>
+    <li> <strong class="uidlink"><a href="orf2gff-module.html">orf2gff</a></strong>: <em class="summary">This program is used to create a gff file from a getORF result and the fasta file.</em>    </li>
     <li> <strong class="uidlink"><a href="psiblast_tools-module.html">psiblast_tools</a></strong>: <em class="summary">This program is used to align sequence with psiblast tools and give in supplementary a fasta file.</em>    </li>
     <li> <strong class="uidlink"><a href="recupSeqFromGFF-module.html">recupSeqFromGFF</a></strong>: <em class="summary">This program is used to recup Seq from GFF format</em>    </li>
     <li> <strong class="uidlink"><a href="renameAndAddParent-module.html">renameAndAddParent</a></strong>    </li>
     <li> <strong class="uidlink"><a href="renameGFF-module.html">renameGFF</a></strong>: <em class="summary">This Programme rename genes name in GFF file. The name of every gene will be : Mo_+NumGene+T+Numtranscript</em>    </li>
     <li> <strong class="uidlink"><a href="repeatMasker_build-module.html">repeatMasker_build</a></strong>: <em class="summary">This program is used to create a bash file that can launch jobs on the cluster that uses repeatMasker on all the fasta files in a directory.</em>    </li>
-    <li> <strong class="uidlink"><a href="script_pangenome-module.html">script_pangenome</a></strong>: <em class="summary">This program is used to construct a pan g&#233;nome. This script create a core genome File and a accessory genome file which contain only the group of orthologue of Effecteur MAX.</em>    </li>
+    <li> <strong class="uidlink"><a href="script_pangenome-module.html">script_pangenome</a></strong>: <em class="summary">This program is used to search orthologue groups of a sequence in fasta files</em>    </li>
+    <li> <strong class="uidlink"><a href="searchHmm-module.html">searchHmm</a></strong>: <em class="summary">This program is used to search sequence with a Hmm profil and create a fasta file.</em>    </li>
     <li> <strong class="uidlink"><a href="secretome_Pipeline-module.html">secretome_Pipeline</a></strong>: <em class="summary">This program is used to predict secretome with SignalP, TagetP, Phobius.</em>    </li>
     <li> <strong class="uidlink"><a href="selection_TMHMM-module.html">selection_TMHMM</a></strong>: <em class="summary">This program is used to selected the proteins having no transmembrane domain or only one in the 40 first amino acid. The program take in input the output of TMHMM Tools. This program is used by secretome_Pipeline.</em>    </li>
     <li> <strong class="uidlink"><a href="stat_repeatMasker-module.html">stat_repeatMasker</a></strong>: <em class="summary">This program is used to retrieve the statistique of result from repeatMasker_build.py script</em>    </li>
+    <li> <strong class="uidlink"><a href="stat_vcf-module.html">stat_vcf</a></strong>: <em class="summary">This program is used to search a list of gene in a vcf file and give in output CDS,protein and gene fasta file.</em>    </li>
+    <li> <strong class="uidlink"><a href="vcfSearch-module.html">vcfSearch</a></strong>: <em class="summary">This program is used to search a list of gene in a vcf file and give in output CDS,protein and gene fasta file.</em>    </li>
 </ul>
 <!-- ==================== NAVIGATION BAR ==================== -->
 <table class="navbar" border="0" width="100%" cellpadding="0"
@@ -113,7 +128,8 @@
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0.1 on Wed Aug 22 14:33:20 2018
+    Generated by Epydoc 3.0.1
+    on Mon Dec 17 12:58:58 2018
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"
