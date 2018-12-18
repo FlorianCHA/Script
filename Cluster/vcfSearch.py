@@ -223,19 +223,30 @@ if __name__ == "__main__":
     print('\nOpenning vcf file\n')
     dicoSeq = {}
     dicoInfo = {}
+    listePosition = []
     with open(vcf, "r") as f:
         for line in f :
             if line[0] != '#' :
                 vcf_scaffold, position, _, ref, alt, qual, _, info, *_, = line.split()
                 position = int(position)
                 if vcf_scaffold in dicoRNA.keys() and position in dicoRNA[vcf_scaffold].keys():
-                    id = dicoRNA[vcf_scaffold][position][0]
-                    brin = dicoRNA[vcf_scaffold][position][1]
-                    if id not in dicoSeq.keys():
-                        dicoSeq[id] = recupAC(id,line,MQmin,DPmin,QDmin)
-                        dicoInfo[id] = dicoRNA[vcf_scaffold][position]
+                    if position in listePosition :
+                        dicoSeq[id] = dicoSeq[id].replace(dicoSeq[id][-len(ac):],'N'*len(ac))
+                        for i in range(1,len(ref)) :
+                            listePosition.append(position+i)
+
                     else :
-                        dicoSeq[id] += recupAC(id,line,MQmin,DPmin,QDmin)
+                        listePosition = [position]
+                        id = dicoRNA[vcf_scaffold][position][0]
+                        brin = dicoRNA[vcf_scaffold][position][1]
+                        if id not in dicoSeq.keys():
+                            ac = recupAC(id, line, MQmin, DPmin, QDmin)
+                            dicoSeq[id] = ac
+                            dicoInfo[id] = dicoRNA[vcf_scaffold][position]
+                        else :
+                            ac = recupAC(id, line, MQmin, DPmin, QDmin)
+                            dicoSeq[id] += ac
+
 
 
     print('\nWrite fasta\n')
