@@ -1,0 +1,4 @@
+
+	module load bioinfo/braker/1.9
+	script/filterHintsSnake.r -s DsLIZ -p /work/gladieux/magMax_project/test_grisea/1_tmp/0_bamAlignement/DsLIZ//finalResults/ -o /work/gladieux/magMax_project/test_grisea/1_tmp/1_hints/RNAseqHints/hints_DsLIZ.filtered.gff
+	

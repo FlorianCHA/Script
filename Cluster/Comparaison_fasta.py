@@ -10,15 +10,11 @@
 	:contact: florian.charriat@inra.fr
 	:date: 08/07/2018
 	:version: 0.1
-
 	Script description
 	------------------
-
-	This Programme is used to compare compare the content of two fasta (name of sequences or sequences).
-
+	This Programme is used to compare différents fasta.
 	Example
 	-------
-
 	>>> Comparaison_fasta.py -f1 /homedir/file1.fasta -f2 /homedir/file2.fasta -o result/ --name
 
 
@@ -30,16 +26,16 @@
 		- \-v, --version
 						display Comparaison_fasta.py version number and exit
 	Input mandatory infos for running:
-		- \--file1 <path/to/fasta/file>
+		- \-f1 <path/to/fasta/file>, --file1 <path/to/fasta/file>
 						path of the first fasta file to used
-		- \--file2 <path/to/fasta/file>
+		- \-f2 <path/to/fasta/file>, --file2 <path/to/fasta/file>
 						path of the second fasta file to used
 		- \-o <path/to/output/directory/>, --output <path/to/output/directory/>
 						path of the output directory
 	Input infos for running with default values:
-		- \--database1 <path/to/fasta/file/>
+		- \-db1 <path/to/fasta/file/>, --database1 <path/to/fasta/file/>
 						If file1 are alignement file, use this option and give the fasta file used for alignement
-		- \--database2 <path/to/fasta/file/>
+		- \-db2 <path/to/fasta/file/>, --database2 <path/to/fasta/file/>
 						If file2 are alignement file, use this option and give the fasta file used for alignement
 		- \-n , --name
 						compare name of sequence between fasta file
@@ -73,7 +69,7 @@ if __name__ == "__main__":
 
 	version = '0.1'
 	# Parameters recovery
-	parser = argparse.ArgumentParser(prog=__file__, description='''This Programme is used to compare compare the content of two fasta (name of sequences or sequences).''')
+	parser = argparse.ArgumentParser(prog=__file__, description='''This Programme ....''')
 	parser.add_argument('-v', '--version', action='version', version='You are using %(prog)s version: ' + version, help='display '+__file__+' version number and exit')
 
 	filesreq = parser.add_argument_group('Input mandatory infos for running')
@@ -154,7 +150,7 @@ if __name__ == "__main__":
 		liste1 = liste2
 		db1 = db2
 		fasta2 = fasta_inter
-		liste2 = liste1
+		liste2 = liste_inter
 		db2 = db_inter
 
 
@@ -172,7 +168,7 @@ if __name__ == "__main__":
 			with open(f'{dfasta}{nameF1}.fasta','w') as f :
 				fasta = fasta2dict(db1)
 				aln = fasta2dict(fasta1)
-				for elt in sorted(aln.keys(), key = sort_human) :qsta
+				for elt in sorted(aln.keys(), key = sort_human) :
 					sequence = fasta[elt].seq
 					record = SeqRecord(sequence, id=str(elt), name=str(elt), description=fasta[elt].description)
 					SeqIO.write(record, f, "fasta")
@@ -197,25 +193,29 @@ if __name__ == "__main__":
 		print(form(f'\t- Utilisation du fichier de sortie de blast pour la comparaison\n','white','bold'))
 		listeID = []
 		listeFalse = []
-
+		start = False
 		with open(output_blast1,'r') as f :
 			for line in f :
 				if line[0:6] == 'Query=' :
 					id = line.split()[1]
-				elif line[0:7] == 'Length=' :
+					start = True
+				elif line[0:7] == 'Length=' and start == True:
 					length = int(line.replace('\n','').split('Length=')[1])
+					start == False
 				elif 'Identities' in line  :
 					prcIdentity = int(line.split('(')[1].split('%')[0])
 					couverture = int(line.split('/')[-1].split()[0])
-					if couverture > length*0.8 and prcIdentity > 80 :
+					if couverture > length*0.9 and prcIdentity > 90 :
 						if id not in listeID :
 							listeID.append(id)
-					else :
-						if id not in listeFalse and id not in listeID :
-							listeFalse.append(id)
+					# else :
+					# 	if id not in listeFalse and id not in listeID :
+					# 		listeFalse.append(id)
+		for elt in liste1 :
+			if elt not in listeID :
+				listeFalse.append(elt)
 
 		print(form(f'They have {len(listeID)} sequences in common between {nameF1} (nb sequence : {len(liste1)}) and {nameF2} (nb sequence : {len(liste2)})\n','green','bold'))
-
 		dico_file1 = fasta2dict(fasta1)
 		with open(f'{output}notInF2.fasta','w') as f :
 			for elt in sorted(listeFalse,key = sort_human) :

@@ -1,0 +1,4 @@
+
+	script/gff2fasta.pl --gff /work/gladieux/magMax_project/2_New_Annotation/1_tmp/4_mergeGFF/CH1861_scaffold_merge.gff3 --fasta /work/gladieux/magMax_project/2_New_Annotation/0_rawdata/CH1861_scaffold.fasta --prefix /work/gladieux/magMax_project/2_New_Annotation/1_tmp/5_final_data/CH1861_scaffold/CH1861_scaffold
+	cp /work/gladieux/magMax_project/2_New_Annotation/1_tmp/4_mergeGFF/CH1861_scaffold_merge.gff3 /work/gladieux/magMax_project/2_New_Annotation/1_tmp/5_final_data/CH1861_scaffold/
+	

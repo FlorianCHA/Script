@@ -1,0 +1,4 @@
+
+	module load bioinfo/augustus/3.3.1
+	augustus --hintsfile=/work/gladieux/magMax_project/2_New_Annotation/1_tmp/1_hints/MergeHints/RNAseq_protein.hints_TN0050_scaffold.gff --species=magnaporthe_oryzae /work/gladieux/magMax_project/2_New_Annotation/0_rawdata/TN0050_scaffold.fasta --gff3=on --outfile=/work/gladieux/magMax_project/2_New_Annotation/1_tmp/3_augustus/TN0050_scaffold.gff3
+	

@@ -64,7 +64,7 @@ rule recuperation_Stat:
 	input : assembly = datadir,outdir = OutDir, lien = expand(OutDir+'4_mergeGFF/{smp}_merge.gff3',smp = SAMPLES)
 	params : l_mem_free='4G'
 	output : assembly = OutDir+'6_report/data_report/Assembly_quality.csv', Annotation = OutDir+'6_report/data_report/Annotation_stat.csv'
-	shell : """"
+	shell : """
 	script/QualityAssemblage.py -d {input.assembly} -o {output.assembly}
 	script/RecupInfoGFF.py -d {input.outdir}4_mergeGFF/ -o {output.Annotation} -g {input.assembly}
 	"""
@@ -173,66 +173,66 @@ rule exonerate :
 	exonerate2hints.pl --source=M --minintronlen=10 --maxintronlen=1000 --in={output.exonerate} --out={output.hints}
 	"""	
 	
-# rule bam2hintsFilter :
-# 	threads : 1
-# 	input : file = OutDir+'0_bamAlignement/{smp}/finalResults/hints_{smp}.raw.bam', path = OutDir+'0_bamAlignement/{smp}/'
-# 	params : l_mem_free='4G'
-# 	output : OutDir+'1_hints/RNAseqHints/hints_{smp}.filtered.gff'
-# 	message: 'Filtre hint file outcome of bam file for {wildcards.smp}.\nInput: {input.file}\nOutput : {output}\nThreads : {threads}\n'+'#'*108
-# 	shell:"""
-# 	module load bioinfo/braker/1.9
-# 	script/filterHintsSnake.r -s {wildcards.smp} -p {input.path}/finalResults/ -o {output}
-# 	"""
-#
-# rule bam2hints :
-# 	threads : 2
-# 	input : OutDir+'0_bamAlignement/{smp}/finalResults/merged_{smp}.accepted_hits_sort.bam'
-# 	params : l_mem_free='4G'
-# 	output : bam2hints = OutDir+'0_bamAlignement/{smp}/finalResults/hints_{smp}.raw.bam'
-# 	message: 'Convert merged bam file of {wildcards.smp} into a hint file for AUGUSTUS.\nInput:{input}\nOutput : {output}\nThreads : {threads}\n'+'#'*108
-# 	shell:"""
-# 	module load bioinfo/braker/1.9
-# 	bam2hints --minintronlen=10 --maxintronlen=1000 --maxgaplen=9 --source=M --exonhints --in={input} --out={output}
-# 	"""
-#
-# rule sortBam :
-# 	threads : 1
-# 	input : OutDir+'0_bamAlignement/{smp}/finalResults/merged_{smp}.accepted_hits.bam'
-# 	params : l_mem_free='40G'
-# 	output : OutDir+'0_bamAlignement/{smp}/finalResults/merged_{smp}.accepted_hits_sort.bam'
-# 	message: 'Sort the merged bam file of {wildcards.smp}.\nInput:{input}\nOutput : {output}\nThreads : {threads}\n'+'#'*108
-# 	shell:"""
-# 	module load bioinfo/picard-tools/2.7.0
-# 	java -jar /usr/local/bioinfo/picard-tools/2.7.0/picard.jar SortSam I={input} O={output} SORT_ORDER=coordinate
-# 	"""
-#
-#
-# rule mergeBam :
-# 	threads : 1
-# 	input :  bam = OutDir+'0_bamAlignement/{smp}/'
-# 	params : l_mem_free='4G'
-# 	output : OutDir+'0_bamAlignement/{smp}/finalResults/merged_{smp}.accepted_hits.bam'
-# 	message: 'Merge all bam file of {wildcards.smp}.\nInput:{input}\nOutput : {output}\nThreads : {threads}\n'+'#'*108
-# 	shell :"""
-# 	module load bioinfo/samtools/1.3
-# 	cd {input.bam}/finalResults
-# 	ls *.accepted_hits.bam > bamList
-# 	samtools merge -f -b bamList -c {output}
-# 	"""
-#
-# rule bamAlignement :
-# 	threads : 1
-# 	input: fasta = datadir+"{smp}"+suffixFile, RNAseq = RnaSeqDir, config = configFile
-# 	params : l_mem_free='4G'
-# 	output: bam = OutDir+'0_bamAlignement/{smp}/', list = OutDir+'0_bamAlignement/{smp}/finalResults/bamList'
-# 	message: 'Executing Tophat2 alignement for {wildcards.smp}.\nInput:\n\t\t-Genome : {input.fasta}\n\t\t-RNAseq : {input.RNAseq}\nOutput : {output}\nThreads : {threads}\n'+'#'*108
-# 	log : 'log/bamAlignement_{wildcards.smp}.out'
-# 	shell :"""
-# 	module load bioinfo/TOGGLE/0.3.6
-# 	rm -r {output.bam}
-# 	toggleGenerator.pl -d {input.RNAseq} -r {input.fasta} -c {input.config} -o {output.bam}
-# 	touch {output.list}
-# 	"""
+rule bam2hintsFilter :
+	threads : 1
+	input : file = OutDir+'0_bamAlignement/{smp}/finalResults/hints_{smp}.raw.bam', path = OutDir+'0_bamAlignement/{smp}/'
+	params : l_mem_free='4G'
+	output : OutDir+'1_hints/RNAseqHints/hints_{smp}.filtered.gff'
+	message: 'Filtre hint file outcome of bam file for {wildcards.smp}.\nInput: {input.file}\nOutput : {output}\nThreads : {threads}\n'+'#'*108
+	shell:"""
+	module load bioinfo/braker/1.9
+	script/filterHintsSnake.r -s {wildcards.smp} -p {input.path}/finalResults/ -o {output}
+	"""
+
+rule bam2hints :
+	threads : 2
+	input : OutDir+'0_bamAlignement/{smp}/finalResults/merged_{smp}.accepted_hits_sort.bam'
+	params : l_mem_free='4G'
+	output : bam2hints = OutDir+'0_bamAlignement/{smp}/finalResults/hints_{smp}.raw.bam'
+	message: 'Convert merged bam file of {wildcards.smp} into a hint file for AUGUSTUS.\nInput:{input}\nOutput : {output}\nThreads : {threads}\n'+'#'*108
+	shell:"""
+	module load bioinfo/braker/1.9
+	bam2hints --minintronlen=10 --maxintronlen=1000 --maxgaplen=9 --source=M --exonhints --in={input} --out={output}
+	"""
+
+rule sortBam :
+	threads : 1
+	input : OutDir+'0_bamAlignement/{smp}/finalResults/merged_{smp}.accepted_hits.bam'
+	params : l_mem_free='40G'
+	output : OutDir+'0_bamAlignement/{smp}/finalResults/merged_{smp}.accepted_hits_sort.bam'
+	message: 'Sort the merged bam file of {wildcards.smp}.\nInput:{input}\nOutput : {output}\nThreads : {threads}\n'+'#'*108
+	shell:"""
+	module load bioinfo/picard-tools/2.7.0
+	java -jar /usr/local/bioinfo/picard-tools/2.7.0/picard.jar SortSam I={input} O={output} SORT_ORDER=coordinate
+	"""
+
+
+rule mergeBam :
+	threads : 1
+	input :  bam = OutDir+'0_bamAlignement/{smp}/'
+	params : l_mem_free='4G'
+	output : OutDir+'0_bamAlignement/{smp}/finalResults/merged_{smp}.accepted_hits.bam'
+	message: 'Merge all bam file of {wildcards.smp}.\nInput:{input}\nOutput : {output}\nThreads : {threads}\n'+'#'*108
+	shell :"""
+	module load bioinfo/samtools/1.3
+	cd {input.bam}/finalResults
+	ls *.accepted_hits.bam > bamList
+	samtools merge -f -b bamList -c {output}
+	"""
+
+rule bamAlignement :
+	threads : 1
+	input: fasta = datadir+"{smp}"+suffixFile, RNAseq = RnaSeqDir, config = configFile
+	params : l_mem_free='4G'
+	output: bam = OutDir+'0_bamAlignement/{smp}/', list = OutDir+'0_bamAlignement/{smp}/finalResults/bamList'
+	message: 'Executing Tophat2 alignement for {wildcards.smp}.\nInput:\n\t\t-Genome : {input.fasta}\n\t\t-RNAseq : {input.RNAseq}\nOutput : {output}\nThreads : {threads}\n'+'#'*108
+	log : 'log/bamAlignement_{wildcards.smp}.out'
+	shell :"""
+	module load bioinfo/TOGGLE/0.3.6
+	rm -r {output.bam}
+	toggleGenerator.pl -d {input.RNAseq} -r {input.fasta} -c {input.config} -o {output.bam}
+	touch {output.list}
+	"""
 
 
 

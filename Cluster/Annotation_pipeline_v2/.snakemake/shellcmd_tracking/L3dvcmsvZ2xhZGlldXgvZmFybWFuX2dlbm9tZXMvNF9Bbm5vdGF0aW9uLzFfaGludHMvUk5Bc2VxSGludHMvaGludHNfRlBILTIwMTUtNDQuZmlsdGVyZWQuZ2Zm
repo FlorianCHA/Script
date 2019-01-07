@@ -1,0 +1,4 @@
+
+	module load bioinfo/braker/1.9
+	script/filterHintsSnake.r -s FPH-2015-44 -p /work/gladieux/farman_genomes/4_Annotation/0_bamAlignement/FPH-2015-44//finalResults/ -o /work/gladieux/farman_genomes/4_Annotation/1_hints/RNAseqHints/hints_FPH-2015-44.filtered.gff
+	

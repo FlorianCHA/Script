@@ -1,0 +1,3 @@
+
+	script/renameFasta.py -d /work/gladieux/magMax_project/2_New_Annotation/1_tmp/5_final_data/ML0060_scaffold/ -s ML0060_scaffold
+	

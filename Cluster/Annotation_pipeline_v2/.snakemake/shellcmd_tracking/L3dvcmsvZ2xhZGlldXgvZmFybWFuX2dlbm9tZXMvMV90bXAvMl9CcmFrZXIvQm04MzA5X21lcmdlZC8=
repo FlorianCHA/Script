@@ -1,0 +1,4 @@
+
+	module load bioinfo/braker/1.9
+	braker.pl --cores 24 --fungus --gff3 --species=magnaporthe_oryzae --useexisting --genome=/work/gladieux/farman_genomes/0_data/Bm8309_merged.fasta --hints=/work/gladieux/farman_genomes/1_tmp/1_hints/MergeHints/RNAseq_protein.hints.intron_Bm8309_merged.gff --overwrite --alternatives-from-evidence=false --workingdir=/work/gladieux/farman_genomes/1_tmp/2_Braker/Bm8309_merged/
+		

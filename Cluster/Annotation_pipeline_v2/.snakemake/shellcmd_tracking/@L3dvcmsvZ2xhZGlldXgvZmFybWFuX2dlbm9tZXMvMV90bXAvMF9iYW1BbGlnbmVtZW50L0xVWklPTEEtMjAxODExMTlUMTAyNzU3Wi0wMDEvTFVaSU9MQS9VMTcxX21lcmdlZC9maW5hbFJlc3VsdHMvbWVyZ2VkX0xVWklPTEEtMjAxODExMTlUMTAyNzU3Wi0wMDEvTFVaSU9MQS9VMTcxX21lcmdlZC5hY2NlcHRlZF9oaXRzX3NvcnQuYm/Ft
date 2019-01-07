@@ -1,0 +1,4 @@
+
+	module load bioinfo/picard-tools/2.7.0
+	java -jar /usr/local/bioinfo/picard-tools/2.7.0/picard.jar SortSam I=/work/gladieux/farman_genomes/1_tmp/0_bamAlignement/LUZIOLA-20181119T102757Z-001/LUZIOLA/U171_merged/finalResults/merged_LUZIOLA-20181119T102757Z-001/LUZIOLA/U171_merged.accepted_hits.bam O=/work/gladieux/farman_genomes/1_tmp/0_bamAlignement/LUZIOLA-20181119T102757Z-001/LUZIOLA/U171_merged/finalResults/merged_LUZIOLA-20181119T102757Z-001/LUZIOLA/U171_merged.accepted_hits_sort.bam SORT_ORDER=coordinate
+	
