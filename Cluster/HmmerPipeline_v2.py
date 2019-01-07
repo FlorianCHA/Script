@@ -1,4 +1,4 @@
-revers#!/usr/local/bioinfo/python/3.4.3_build2/bin/python
+#!/usr/local/bioinfo/python/3.6.4/bin/python
 # -*- coding: utf-8 -*-
 # @package HmmerPiepline.py
 # @author Florian Charriat

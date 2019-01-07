@@ -47,11 +47,30 @@
 import argparse, os, sys
 
 # Import module_Flo
-from module_Flo import verifDir, createDir, form, verifFichier,fasta2dict
+from module_Flo import verifDir, createDir, form, verifFichier,fasta2dict,sort_human
 from Bio import SeqIO
 from Bio.SeqRecord import SeqRecord
 from Bio.Seq import Seq
 import os
+
+
+def filtreSequence(file,file_out):
+    """
+    Remove only the redundante sequence
+    """
+    dico = fasta2dict(file)
+    listeSequence = []
+    nb = 0
+    with open(file_out,'w') as f :
+        for elt in sorted(dico.keys(),key = sort_human) :
+            seq = str(dico[elt].seq)
+            if seq not in listeSequence :
+                nb += 1
+                listeSequence.append(seq)
+                sequence = Seq(seq)
+                record = SeqRecord(sequence, id=str(elt), name=str(elt), description='length : ' + str(len(seq)))
+                SeqIO.write(record, f, "fasta")
+    return nb
 
 if __name__ == "__main__":
 	version = "0.1"
@@ -65,12 +84,14 @@ if __name__ == "__main__":
 	filesreq = parser.add_argument_group('Input mandatory infos for running')
 	filesreq.add_argument('-f', '--fasta', type=str, required=True, dest='file',
 						  help='Path of the fasta file to process')
-	filesreq.add_argument('-i', '--identity', type=float, required=False, dest='identity',
-						  help='Max identity between two sequence (default = 0.90)')
 	filesreq.add_argument('-o', '--output', type=str, required=True, dest='oufile',
 						  help='Path of the output file')
 
 	files = parser.add_argument_group('Input infos for running with default values')
+	filesreq.add_argument('-i', '--identity', type=float, required=False, dest='identity',
+						  help='Max identity between two sequence (default = 0.90)')
+	filesreq.add_argument('--noredundant',action='store_true', dest='noredundant',
+						  help='Remove only redundant sequence')
 	files.add_argument('-q', '--quiet',action='store_true',
 					   dest='quiet', help='No stdout if you use this option')
 	######### Recuperation arguments ###########
@@ -78,6 +99,7 @@ if __name__ == "__main__":
 	file = os.path.abspath(args.file)
 	output = os.path.abspath(args.oufile)
 	identity = args.identity
+	noredundant = args.noredundant
 	quiet = args.quiet
 	########### Gestion directory ##############
 	verifFichier(file)
@@ -85,7 +107,11 @@ if __name__ == "__main__":
 	########### Main ###########################
 	if quiet == False :
 		print('\nComparaison des sequences avec ucluster\n')
-
+	if noredundant :
+		if quiet == False:
+			print('\nEliminate only redundant sequence\n')
+		filtreSequence(file,output)
+		exit()
 	file_sort = '{}_sort.fasta'.format(file.replace('.fasta',''))
 	os.system('uclust --sort {} --output {} --quiet'.format(file,file_sort))
 	result_uc = '{}.uc'.format(file.replace('.fasta',''))

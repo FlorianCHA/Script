@@ -1,4 +1,4 @@
-#!/usr/local/bioinfo/python/3.4.3_build2/bin/python
+#!/usr/local/bioinfo/python/3.6.4/bin/python
 # -*- coding: utf-8 -*-
 # @package extractSeqFastaFromLen.py
 # @author Sebastien Ravel
@@ -111,7 +111,7 @@ if __name__ == "__main__":
 
 	dicoSize = lenSeq2dict(fastaFile)
 	dicoFasta = fasta2dict(fastaFile)
-
+	filename = fastaFile.split('/')[-1].replace('.fasta','')
 	nbTotal = len(dicoFasta.keys())
 
 	count=1
@@ -120,7 +120,7 @@ if __name__ == "__main__":
 	
 		sequence = dicoFasta[ID]
 		strain = outputfilename.split('/')[-1].split('_')[0].replace('.fasta','')
-		seqName = "Scaffold_{}".format(count)
+		seqName = f"{filename}_Scaffold_{count}"
 		#seqName = '%s_%s'%(strain,seqName)
 		descrip = "length={}".format(lenSeq)
 		if str(sequence.seq).count('N') < (len(str(sequence.seq)) - 20) :
