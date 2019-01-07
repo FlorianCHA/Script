@@ -1,3 +1,0 @@
-
-	script/mergeBraker_augustus.py  --augustus /work/gladieux/magMax_project/2_New_Annotation/1_tmp/3_augustus/EI9411.gff3 --braker /work/gladieux/magMax_project/2_New_Annotation/1_tmp/2_Braker/EI9411//braker/magnaporthe_oryzae/augustus.gff3 -o /work/gladieux/magMax_project/2_New_Annotation/1_tmp/4_mergeGFF/EI9411_merge.gff3
-	

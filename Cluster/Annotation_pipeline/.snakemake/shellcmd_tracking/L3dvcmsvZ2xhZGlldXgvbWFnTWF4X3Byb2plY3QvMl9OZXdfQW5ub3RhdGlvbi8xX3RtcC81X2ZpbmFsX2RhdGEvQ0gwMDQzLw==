@@ -1,4 +1,0 @@
-
-	script/gff2fasta.pl --gff /work/gladieux/magMax_project/2_New_Annotation/1_tmp/4_mergeGFF/CH0043_merge.gff3 --fasta /homedir/gladieux/work/magMax_project/2_New_Annotation/0_rawdata/CH0043.fasta --prefix /work/gladieux/magMax_project/2_New_Annotation/1_tmp/5_final_data/CH0043/CH0043
-	cp /work/gladieux/magMax_project/2_New_Annotation/1_tmp/4_mergeGFF/CH0043_merge.gff3 /work/gladieux/magMax_project/2_New_Annotation/1_tmp/5_final_data/CH0043/
-	

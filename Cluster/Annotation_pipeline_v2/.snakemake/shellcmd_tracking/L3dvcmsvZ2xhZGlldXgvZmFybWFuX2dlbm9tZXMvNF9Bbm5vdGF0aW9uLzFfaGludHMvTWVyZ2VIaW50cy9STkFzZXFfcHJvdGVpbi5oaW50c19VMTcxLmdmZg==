@@ -1,4 +1,0 @@
-
-			cat /work/gladieux/farman_genomes/4_Annotation/1_hints/RNAseqHints/hints_U171.filtered.gff /work/gladieux/farman_genomes/4_Annotation/1_hints/ProtHints/exonerate_U171.hints.gff3  > /work/gladieux/farman_genomes/4_Annotation/1_hints/MergeHints/RNAseq_protein.hints_U171.gff
-			awk '/intron/' /work/gladieux/farman_genomes/4_Annotation/1_hints/MergeHints/RNAseq_protein.hints_U171.gff > /work/gladieux/farman_genomes/4_Annotation/1_hints/MergeHints/RNAseq_protein.hints.intron_U171.gff
-			

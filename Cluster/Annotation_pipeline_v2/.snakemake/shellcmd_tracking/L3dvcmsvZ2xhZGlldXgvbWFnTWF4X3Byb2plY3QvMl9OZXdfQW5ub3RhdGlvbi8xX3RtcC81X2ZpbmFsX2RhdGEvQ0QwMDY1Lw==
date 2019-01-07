@@ -1,4 +1,0 @@
-
-	script/gff2fasta.pl --gff /work/gladieux/magMax_project/2_New_Annotation/1_tmp/4_mergeGFF/CD0065_merge.gff3 --fasta /work/gladieux/magMax_project/2_New_Annotation/0_rawdata/CD0065.fasta --prefix /work/gladieux/magMax_project/2_New_Annotation/1_tmp/5_final_data/CD0065/CD0065
-	cp /work/gladieux/magMax_project/2_New_Annotation/1_tmp/4_mergeGFF/CD0065_merge.gff3 /work/gladieux/magMax_project/2_New_Annotation/1_tmp/5_final_data/CD0065/
-	
