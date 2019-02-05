@@ -74,10 +74,12 @@ if __name__ == "__main__":
 
 ######### Recuperation arguments ###########
 	args = parser.parse_args()
+	directory = os.path.abspath(args.directory)
 	file = os.path.abspath(args.file)
 	output = os.path.abspath(args.output)
 ########### Gestion directory ##############
 	verifFichier(file)
+	verifDir(directory,True)
 ############### start message ########################
 
 	print(form("\n\t---------------------------------------------------------", 'yellow', 'bold'))
