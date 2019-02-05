@@ -125,6 +125,7 @@ def filtreHit(files, dico_DB):
             goodAlignement = False
             index = 0
             seq = str(dico_DB[elt].seq)
+            # if len(seq) < 170 : # test limitation longueur séquences
             for aa in seq:
                 if aa == 'C':
                     zone = seq[index + 34:index + 49]

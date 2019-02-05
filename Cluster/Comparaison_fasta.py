@@ -160,6 +160,8 @@ if __name__ == "__main__":
 	if name:
 		list = comparaisonListe(liste1, liste2)
 		print(form(f'They have {len(list)} sequences name in common between {fasta1.split("/")[-1 ]} (nb sequence : {len(liste1)}) and {fasta2.split("/")[-1 ]} (nb sequence : {len(liste2)})\n','green','bold'))
+		for elt in list :
+			print(elt)
 
 
 	if seq :

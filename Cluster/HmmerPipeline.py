@@ -224,12 +224,12 @@ if __name__ == "__main__":
         os.system('hmmsearch -A %s --max --nonull2 -E 1e-3 %s %s > %s' % (newAlignement, profil, db, '%sresult_%s' % (outDir, str(i))))
         nbG, nb = filtreHit(newAlignement, dico_fasta) # Filtre les hits et va ensuite crée un fasta avec toutes les séquences obtenues
         nbR = filtreSequence('%s_filtred.fasta'%newAlignement)
-        nbC = filtrAln('%s_filtred_no_redundant.fasta' % newAlignement)
+        # nbC = filtrAln('%s_filtred_no_redundant.fasta' % newAlignement)
         print(form('\t - Alignement n° %s filtré' % i, 'white', 'bold'))
         f = open(newAlignement + '_filtred_no_redundant.fasta', 'r')
         linesNewAlignement = f.readlines()
         f.close()
-        print(form('\t - %s : %s hits récupérés, %s hits retirés\n' % (newAlignement.split('/')[-1], nbG, nb+nbC), 'white',
+        print(form('\t - %s : %s hits récupérés, %s hits retirés\n' % (newAlignement.split('/')[-1], nbG, nb), 'white',
                    'bold'))
         if linesOldAlignement == linesNewAlignement or oldNb > nbG:
             print('Il y a eu %s itération' % i)

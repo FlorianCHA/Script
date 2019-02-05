@@ -38,6 +38,12 @@ import urllib
 
 ####### FUNCTION ################
 
+def is_number(s):
+    try:
+        float(s)
+        return True
+    except ValueError:
+        return False
 ################################ Fonction repertoire ##################################################"
 
 def createDir(Listedirectory):
@@ -106,7 +112,7 @@ def isFasta(fichier):
 	     fichier
 		Path du fichier	
 	'''
-	if fichier.endswith('.fasta') or fichier.endswith('.fa') or fichier.endswith('.fasta.gz') or fichier.endswith('.fa.gz'):
+	if fichier.endswith('.fasta') or fichier.endswith('.fa') or fichier.endswith('.fasta.gz') or fichier.endswith('.fa.gz') or fichier.endswith('.fna'):
 		return True
 	else :
 		return False

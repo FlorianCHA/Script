@@ -4,7 +4,7 @@
 # @author Florian CHARRIAT
 
 """
-	The script_pangenome script
+	The OG_phylo script
 	=============================
 	:author: Charriat Florian
 	:contact: florian.charriat@inra.fr
@@ -80,7 +80,7 @@ if __name__ == "__main__":
 
 	filesreq = parser.add_argument_group('Input mandatory infos for running')
 	filesreq.add_argument('-g', '--group', type=str, required=True, dest='group',
-						  help='Path of the result of orthofinder (format csv)')
+						  help='Path of the result of orthofinder (format txt)')
 	filesreq.add_argument('-c', '--count', type=str, required=True, dest='count',
 						  help='Path of the count result of orthofinder (format csv)')
 	filesreq.add_argument('-f', '--fasta', type=str, required=True, dest='fasta',
@@ -107,24 +107,22 @@ if __name__ == "__main__":
 	listeOG = []
 	print(form(f'\t- Traitement du fichier {count} pour récupérer les groupes orthologue single copy core genome','white','bold'))
 	print()
-	# with open(count, 'r') as file_count:
-	# 	header = file_count.readline()
-	# 	for line in file_count :
-	# 		name = line.split()[0]
-	# 		nbGenes = line.split()[1:len(line.split())]
-	# 		if nbGenes.count('1') == (len(nbGenes) -1 ) :
-	# 			nb += 1
-	# 			listeOG.append(name)
-
+	with open(count, 'r') as file_count:
+		header = file_count.readline()
+		for line in file_count :
+			name = line.split()[0]
+			nbGenes = line.split()[1:len(line.split())]
+			if nbGenes.count('1') == (len(nbGenes) -1 ) :
+				nb += 1
+				listeOG.append(name)
 	print(form(f'\t- {nb} groupe orthologue single copy core genome on été trouvé','white','bold'))
 	print()
 	print(form(f'\t- Traitement du fichier {group} pour récupérer les sequences','white','bold'))
-
 	# dico = fasta2dict(fasta)
 	# with open(group, 'r') as file_group:
 	# 	header = file_group.readline()
 	# 	for line in file_group :
-	# 		name = line.split()[0]
+	# 		name = line.split(':')[0]
 	# 		if name in listeOG :
 	# 			Genes = line.split()[1:len(line.split())]
 	# 			with open(f'{outdir}{name}.fasta','w') as f :
@@ -133,18 +131,19 @@ if __name__ == "__main__":
 	# 					record = SeqRecord(sequence, id=str(gene), name=str(gene),description= dico[gene].description)
 	# 					SeqIO.write(record, f, "fasta")
 	print()
-	print(form(f'\t- Lancement de transletorX', 'white', 'bold'))
-	# for elt in os.listdir(outdir) :
-	# 	if elt.endswith('.fasta') :
-	# 		print(f'{elt.replace(".fasta","")} in process')
-	# 		os.system(f'translatorx_vLocal.pl -i {outdir}{elt} -o {tranDir}{elt.replace(".fasta","")}> stdout.txt')
-
+	print(form(f'\t- Lancement de translatorX', 'white', 'bold'))
+	for elt in os.listdir(outdir) :
+		if elt.endswith('.fasta') :
+			print(f'{elt.replace(".fasta","")} in process')
+			os.system(f'translatorx_vLocal.pl -i {outdir}{elt} -o {tranDir}{elt.replace(".fasta","")}> stdout.txt')
+	print()
+	print(form(f'\t- Traitement des résultats de translatorX', 'white', 'bold'))
 	dico_seq = {}
 	for file_name in os.listdir(tranDir):
 		if file_name.endswith('.nt_ali.fasta') :
 			file_path = f'{tranDir}{file_name}'
 			dico = fasta2dict(file_path)
-			dico_species = {elt.split('_')[1] : value for elt,value in dico.items()}
+			dico_species = {elt.replace('Mo_','').split('_')[0] : value for elt,value in dico.items()}
 			for elt in sorted(dico_species.keys(), key = sort_human) :
 				if elt not in dico_seq.keys() :
 					dico_seq[elt] = str(dico_species[elt].seq)

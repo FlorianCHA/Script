@@ -54,99 +54,12 @@ from Bio.SeqRecord import SeqRecord
 from Bio.Seq import Seq
 import vcf
 
-
-########## Fonction ###############
-def sort_human(s, _nsre=re.compile('([0-9]+)')):
-    """ Sort the list in the way that humans expect, use list.sort(key=sort_human) or sorted(list, key=sort_human)).
-    """
-    try:
-        return [int(text) if text.isdigit() else text.lower() for text in re.split(_nsre, s)]
-    except TypeError:
-        if not isinstance(s, int):
-            print("WARNNING MODULES_SEB::sort_human : List %s value not understand so don't sort \n" % s)
+# Import module_Flo
+from module_Flo import verifDir, createDir, form, verifFichier, fasta2dict, openfile, sort_human
 
 
-    return s
 
-def verifFichier(fichier):
-    '''Permet de vérifier si un fichier existe.
 
-    :Parameters:
-         fichier
-        Path du fichier
-
-    '''
-    if os.path.exists(fichier):
-        return
-    else:
-        raise ValueError(form("ERROR the file '%s' doesn't exist, please check if your files exists" % fichier, 'red', 'bold'))
-
-def openfile(file):
-    """
-	Permet de mettre dans une varaible une liste contenant chaque ligne du fichier
-	:Parameters:
-		file
-		  Le chemin du fichier à ouvrir
-	"""
-    f = open(file,'r')
-    lines = f.readlines()
-    f.close()
-    return lines
-
-def fasta2dict(filename):
-    """
-	Function that take a file name (fasta), and return a dictionnary of sequence
-	"""
-    with open(filename, "rU") as fastaFile:
-        return SeqIO.to_dict(SeqIO.parse(fastaFile, "fasta"))
-
-def form(text, col='white', type='none'):
-    '''
-    Permet de mettre en forme les textes afficher sur le terminale.
-
-    :Parameters:
-         text
-        Le texte à transformer
-         col
-        La couleur souhaité entre les couleurs red, green, yellow, orange, blue et purple
-         text
-         str ou liste de str du format à appliquer (bold, underline, blind et highligth)
-    '''
-    W = '\033[0'  # white (normal)
-    R = '\033[31'  # red
-    G = '\033[32'  # green
-    Y = '\033[33'  # yellow
-    O = '\033[33'  # orange
-    B = '\033[34'  # blue
-    P = '\033[35'  # purple
-    end = '\033[0m'  # white (normal)
-    Bold = ';1'
-    underline = ';4'
-    blind = ';5'
-    highlight = ';7'
-    text = 'm' + text
-    if 'bold' in type:
-        text = Bold + text
-    if 'underline' in type:
-        text = underline + text
-    if 'highlight' in type:
-        text = blind + text
-    if 'highlight' in type:
-        text = highlight + text
-    if col == 'red':
-        return R + text + end
-    elif col == 'white':
-        return W + text + end
-    elif col == 'green':
-        return G + text + end
-    elif col == 'yellow':
-        return Y + text + end
-    elif col == 'orange':
-        return O + text + end
-    elif col == 'blue':
-        return B + text + end
-    elif col == 'purple':
-        return P + text + end
 
 def recupAC(id,record,MQmin,DPmin,QDmin):
     '''
@@ -217,6 +130,8 @@ if __name__ == "__main__":
                           help=' The minimum sequencing depth supporting to accept the mapping ( default = 10)')
     files.add_argument('-QD', '--QD', type=int, required=False, default= 5, dest='QDmin',
                           help='The minimum QD value to accept the variant ( default = 5)')
+    files.add_argument('-prop', '--proportion', type=int, required=False, default= 80, dest='prcN',
+                       help='The maximum percentage of N in a sequence (default = 20)')
     files.add_argument('-diploidy', '--diploidy',action='store_true', dest='diploidy',
                           help='Use this option if you are using a diploid organism')
     files.add_argument('-p', '--prefix', type=str, required=False, default='vcfSearch', dest='prefix',
@@ -232,6 +147,7 @@ if __name__ == "__main__":
     QDmin = args.QDmin
     DPmin = args.DPmin
     diploidy = args.diploidy
+    prcN = args.prcN
     ########### Gestion directory ##############
     verifFichier(vcf_file)
     if listeGene != 'None' :
@@ -256,7 +172,7 @@ if __name__ == "__main__":
     if gff != 'None' :
         verifFichier(gff)
         gff = os.path.abspath(gff)
-        print(form('\nOpenning gff file\n','white','bold'))
+        print('\nOpenning gff file\n')
         with open(gff,'r') as gff_file :
             header = gff_file.readline()
             for line in gff_file :
@@ -270,36 +186,81 @@ if __name__ == "__main__":
                     id = id.split(':')[0]
                 if id in liste or listeGene == 'None' :
                     if types == 'mRNA' :
-                        dicoRNA[id] = [Scaffold,int(start),int(end),brin]
+                        for position in range(int(start),int(end)+1) :
+                            if Scaffold not in dicoRNA.keys():
+                                dicoRNA[Scaffold] = {}
+                            if position not in dicoRNA[Scaffold].keys() :
+                                dicoRNA[Scaffold][position] = {}
+                            if id not in dicoRNA[Scaffold].keys() :
+                                dicoRNA[Scaffold][position][id] = [id,brin,'{0}:{1}-{2}'.format(Scaffold,start,end),start]
 
                     elif types == 'CDS' :
                         if id not in dicoCDS.keys():
                             dicoCDS[id] = []
                         dicoCDS[id].append([Scaffold,int(start),int(end)])
     else :
-        print(form("\nYou choose to don't use gff file\n",'white','bold'))
+        print("\nYou choose to don't use gff file\n")
     nb = 0
 
-    print(form('\nOpenning vcf file\n','white','bold'))
-
+    print('\nOpenning vcf file\n')
     dicoSeq = {}
     dicoInfo = {}
     listePosition = []
-    test2 = True
+    # if gff != 'None':
+    #     vcf_reader = vcf.Reader(open(vcf_file, 'r'))
+    #     for record in vcf_reader:
+    #         if record.CHROM in dicoRNA.keys() and record.POS in dicoRNA[record.CHROM].keys():
+    #             listeId = dicoRNA[record.CHROM][record.POS].keys()
+    #             for id in listeId:
+    #                 listePosition = [0] # ATTENTION PROBLEME DE listePOSITION réinitialisé comme avant
+    #                 if record.POS in listePosition:
+    #                     if len(record.REF) > len(ac):
+    #                         ac_new = recupAC(id, record, MQmin, DPmin, QDmin)
+    #                         dicoSeq[id] = dicoSeq[id][:-len(ac)] + 'N' * len(ac_new)
+    #
+    #                     else:
+    #                         dicoSeq[id] = dicoSeq[id][:-len(ac)] + 'N' * len(ac)
+    #                     for i in range(1, len(record.REF)):
+    #                         listePosition.append(record.POS + i)
+    #
+    #                 # elif record.POS > int(listePosition[-1]) + 1 and id in dicoSeq.keys() :
+    #                 #     dicoSeq[id] += 'N' * ((int(listePosition[-1]) + 1) - int(record.POS))
+    #                 #
+    #                 # elif id not in dicoSeq.keys() and int(dicoRNA[record.CHROM][record.POS][id][3]) < record.POS :
+    #                 #     dicoSeq[id] = 'N' * (record.POS - int(record.POS - dicoRNA[record.CHROM][record.POS][id][3]))
+    #
+    #                 else:
+    #                     listePosition = [record.POS]
+    #                     brin = dicoRNA[record.CHROM][record.POS][id][1]
+    #                     if record.INFO == {}:
+    #                         ac = 'N'
+    #                         if id not in dicoSeq.keys():
+    #                             dicoSeq[id] = ac
+    #                             dicoInfo[id] = dicoRNA[record.CHROM][record.POS][id]
+    #                         else:
+    #                             dicoSeq[id] += ac
+    #                     else:
+    #                         brin = dicoRNA[record.CHROM][record.POS][id][1]
+    #                         if id not in dicoSeq.keys():
+    #                             ac = recupAC(id, record, MQmin, DPmin, QDmin)
+    #                             dicoSeq[id] = ac
+    #                             dicoInfo[id] = dicoRNA[record.CHROM][record.POS][id]
+    #                         else:
+    #                             ac = recupAC(id, record, MQmin, DPmin, QDmin)
+    #                             dicoSeq[id] += ac
+
+
     vcf_reader = vcf.Reader(open(vcf_file, 'r'))
     for record in vcf_reader:
         if record.CHROM not in dicoSeq.keys() :
             if int(record.POS) != 1 :
-                dicoSeq[record.CHROM] = 'N'*(record.POS - 1)
+                dicoSeq[record.CHROM] = 'N'*(record.POS- 1)
 
         elif old_chrom == record.CHROM and old_position +1 < int(record.POS) :
-            dicoSeq[record.CHROM] += 'N'*(int(record.POS) - (old_position +1 ))
+            dicoSeq[record.CHROM] += 'N'*(int(record.POS) - old_position)
 
         if record.INFO == {}:
-            if record.CHROM not in dicoSeq.keys() :
-                dicoSeq[record.CHROM] = ''
             nb+= 1
-
 
         else :
             if record.CHROM not in dicoSeq.keys():
@@ -309,9 +270,8 @@ if __name__ == "__main__":
             nb = 0
             if record.POS in listePosition:
                 if len(record.REF) > len(ac):
-                    # ac_new = recupAC(id, record, MQmin, DPmin, QDmin)
-                    dicoSeq[id] = dicoSeq[id][:-len(ac)] + 'N' * len(record.REF)
-                    ac =record.REF
+                    ac_new = recupAC(id, record, MQmin, DPmin, QDmin)
+                    dicoSeq[id] = dicoSeq[id][:-len(ac)] + 'N' * len(ac_new)
                 else:
                     dicoSeq[id] = dicoSeq[id][:-len(ac)] + 'N' * len(ac)
                 for i in range(1, len(record.REF)):
@@ -331,28 +291,41 @@ if __name__ == "__main__":
         old_chrom = record.CHROM
     dicoSeq[record.CHROM] += 'N' * nb
 
-    print(form('\nWrite fasta\n','white','bold'))
+    print('\nWrite fasta\n')
     if gff !='None' :
         with open('{0}_gene.fasta'.format(prefix),'w') as output_gene, \
                 open('{0}_cds.fasta'.format(prefix), 'w') as output_cds,\
                 open('{0}_protein.fasta'.format(prefix),'w') as output_prot, \
                 open('{0}_protein_imcomplete.fasta'.format(prefix), 'w') as output_prot_imcomplete :
-            for id in sorted(dicoRNA.keys() ,key = sort_human):
-                Scaffold, start, end ,brin= dicoRNA[id]
-                seq = dicoSeq[Scaffold][(start-1):end]
-                listeCDS = sorted(dicoCDS[id])
-                for elt in listeCDS:
+            for id in sorted(dicoSeq.keys() ,key = sort_human):
+                sequence_chrom = dicoSeq[id]
+                seq = dicoSeq[id]
+                brin =  dicoInfo[id][1]
+                start  = dicoInfo[id][3]
+                descrip = '| position = {0}, length = {1}, brin = "{2}"'.format(dicoInfo[id][2], len(str(seq)), dicoInfo[id][1])
+                record = SeqRecord(Seq(seq), id=id, name=id, description=descrip)
+                SeqIO.write(record, output_gene, "fasta")
+                cds = ''
+                for elt in dicoCDS[id]:
                     cds = cds + seq[elt[1] - (int(start)):(elt[2] +1 - int(start))]
                 if brin == '-':
                     seqcds = Seq(cds).reverse_complement()
                 elif brin == '+':
                     seqcds = Seq(cds)
-                descrip = '| position = {0}, length = {1}, brin = "{2}"'.format('{0}:{1}-{2}'.format(Scaffold,start,end), len(str(cds)), brin)
+                descrip = '| position = {0}, length = {1}, brin = "{2}"'.format(dicoInfo[id][2], len(str(cds)), dicoInfo[id][1])
                 record = SeqRecord(seqcds, id=id, name=id, description=descrip)
                 SeqIO.write(record, output_cds, "fasta")
+                if 'N' not in cds:
+                    prot = seqcds.translate()
+                    descrip = '| position = {0}, length = {1}, brin = "{2}"'.format(dicoInfo[id][2], len(str(prot)), dicoInfo[id][1])
+                    record = SeqRecord(prot, id=id, name=id, description=descrip)
+                    SeqIO.write(record, output_prot, "fasta")
+                elif cds.count('N') <= (len(cds) * (prcN/100)):
+                    prot = seqcds.translate()
+                    descrip = '| position = {0}, length = {1}, brin = "{2}"'.format(dicoInfo[id][2], len(str(prot)), dicoInfo[id][1])
+                    record = SeqRecord(prot, id=id + '_incomplete', name=id + '_incomplete', description=descrip)
+                    SeqIO.write(record, output_prot_imcomplete, "fasta")
 
-    print('\nWrite fasta Scaffold\n')
-    if gff == 'None':
         with open('{0}_scaffold.fasta'.format(prefix),'w') as output_gene :
 
             for id in sorted(dicoSeq.keys() ,key = sort_human):
