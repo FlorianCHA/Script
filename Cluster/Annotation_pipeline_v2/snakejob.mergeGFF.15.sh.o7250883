@@ -1,0 +1,32 @@
+#################################################################
+#              Welcome in renameGFF (Version 0.1)               #
+#################################################################
+
+
+ - Intput Info:
+	 - GFF file is : /homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/result/2_Braker/CH1189-arrow2_TAG-filter/braker/magnaporthe_oryzae/augustus.gff3
+	 - Strain Name is : CH1189-arrow2
+#################################################################
+#              Welcome in renameGFF (Version 0.1)               #
+#################################################################
+
+
+ - Intput Info:
+	 - GFF file is : /homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/result/3_augustus/CH1189-arrow2_TAG-filter_prov.gff3
+	 - Strain Name is : CH1189-arrow2
+[33;1m
+	---------------------------------------------------------[0m
+	[33;1m|[0m[0;1m       Welcome in mergeBraker_augustus   (Version 0.1)      [0m[33;1m|[0m
+[33;1m	---------------------------------------------------------[0m
+
+CH1189-arrow2_TAG-filter in process
+Liste Augustuse done
+Nombre de gene dans le fichier augustus : 13166
+Comparaison done
+rename Braker file done
+Nombre de genes a ajouter : 688
+Write new gff3 for augustus : Done
+[33;1m
+	---------------------------------------------------------[0m
+	[33;1m|[0m[0;1m                    End of execution                   [0m[33;1m|[0m
+[33;1m	---------------------------------------------------------[0m

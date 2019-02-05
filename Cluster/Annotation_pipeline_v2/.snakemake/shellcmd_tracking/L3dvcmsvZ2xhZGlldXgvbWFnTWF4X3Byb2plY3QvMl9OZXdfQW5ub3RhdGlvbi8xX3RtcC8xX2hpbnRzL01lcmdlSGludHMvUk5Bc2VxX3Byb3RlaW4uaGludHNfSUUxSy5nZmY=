@@ -1,4 +1,0 @@
-
-			cat /work/gladieux/magMax_project/2_New_Annotation/1_tmp/1_hints/RNAseqHints/hints_IE1K.filtered.gff /work/gladieux/magMax_project/2_New_Annotation/1_tmp/1_hints/ProtHints/exonerate_IE1K.hints.gff3  > /work/gladieux/magMax_project/2_New_Annotation/1_tmp/1_hints/MergeHints/RNAseq_protein.hints_IE1K.gff
-			awk '/intron/' /work/gladieux/magMax_project/2_New_Annotation/1_tmp/1_hints/MergeHints/RNAseq_protein.hints_IE1K.gff > /work/gladieux/magMax_project/2_New_Annotation/1_tmp/1_hints/MergeHints/RNAseq_protein.hints.intron_IE1K.gff
-			

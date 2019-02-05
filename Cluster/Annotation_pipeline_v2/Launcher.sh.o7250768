@@ -1,0 +1,290 @@
+Provided cluster nodes: 100
+Job counts:
+	count	jobs
+	5	BRAKER
+	5	augustus
+	5	createFasta
+	1	final
+	5	mergeGFF
+	1	recuperation_Stat
+	5	renameFasta
+	1	report
+	28
+
+Job 26: Execute BRAKER for CH1205-arrow2_TAG-filter.
+Input:
+		-Genome : /homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/0_rawdata/CH1205-arrow2_TAG-filter.fasta
+		-Hints file : /homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/result/1_hints/MergeHints/RNAseq_protein.hints.intron_CH1205-arrow2_TAG-filter.gff
+Output :/homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/result/2_Braker/CH1205-arrow2_TAG-filter/
+Threads : 2
+############################################################################################################
+
+
+Job 27: Execute augustus for CH1205-arrow2_TAG-filter.
+Input:
+		-Genome : /homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/0_rawdata/CH1205-arrow2_TAG-filter.fasta
+		-Hints file : /homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/result/1_hints/MergeHints/RNAseq_protein.hints_CH1205-arrow2_TAG-filter.gff
+Output :/homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/result/3_augustus/CH1205-arrow2_TAG-filter.gff3
+Threads : 2
+############################################################################################################
+
+
+Job 23: Execute augustus for CH1189-arrow2_TAG-filter.
+Input:
+		-Genome : /homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/0_rawdata/CH1189-arrow2_TAG-filter.fasta
+		-Hints file : /homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/result/1_hints/MergeHints/RNAseq_protein.hints_CH1189-arrow2_TAG-filter.gff
+Output :/homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/result/3_augustus/CH1189-arrow2_TAG-filter.gff3
+Threads : 2
+############################################################################################################
+
+
+Job 21: Execute BRAKER for wheatBlast-arrow2_TAG-filter.
+Input:
+		-Genome : /homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/0_rawdata/wheatBlast-arrow2_TAG-filter.fasta
+		-Hints file : /homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/result/1_hints/MergeHints/RNAseq_protein.hints.intron_wheatBlast-arrow2_TAG-filter.gff
+Output :/homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/result/2_Braker/wheatBlast-arrow2_TAG-filter/
+Threads : 2
+############################################################################################################
+
+
+Job 22: Execute BRAKER for CH1189-arrow2_TAG-filter.
+Input:
+		-Genome : /homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/0_rawdata/CH1189-arrow2_TAG-filter.fasta
+		-Hints file : /homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/result/1_hints/MergeHints/RNAseq_protein.hints.intron_CH1189-arrow2_TAG-filter.gff
+Output :/homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/result/2_Braker/CH1189-arrow2_TAG-filter/
+Threads : 2
+############################################################################################################
+
+
+Job 24: Execute BRAKER for PH0014-arrow2_TAG-filter.
+Input:
+		-Genome : /homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/0_rawdata/PH0014-arrow2_TAG-filter.fasta
+		-Hints file : /homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/result/1_hints/MergeHints/RNAseq_protein.hints.intron_PH0014-arrow2_TAG-filter.gff
+Output :/homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/result/2_Braker/PH0014-arrow2_TAG-filter/
+Threads : 2
+############################################################################################################
+
+
+Job 18: Execute BRAKER for IN0082-arrow2_TAG-filter.
+Input:
+		-Genome : /homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/0_rawdata/IN0082-arrow2_TAG-filter.fasta
+		-Hints file : /homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/result/1_hints/MergeHints/RNAseq_protein.hints.intron_IN0082-arrow2_TAG-filter.gff
+Output :/homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/result/2_Braker/IN0082-arrow2_TAG-filter/
+Threads : 2
+############################################################################################################
+
+
+Job 20: Execute augustus for wheatBlast-arrow2_TAG-filter.
+Input:
+		-Genome : /homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/0_rawdata/wheatBlast-arrow2_TAG-filter.fasta
+		-Hints file : /homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/result/1_hints/MergeHints/RNAseq_protein.hints_wheatBlast-arrow2_TAG-filter.gff
+Output :/homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/result/3_augustus/wheatBlast-arrow2_TAG-filter.gff3
+Threads : 2
+############################################################################################################
+
+
+Job 19: Execute augustus for IN0082-arrow2_TAG-filter.
+Input:
+		-Genome : /homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/0_rawdata/IN0082-arrow2_TAG-filter.fasta
+		-Hints file : /homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/result/1_hints/MergeHints/RNAseq_protein.hints_IN0082-arrow2_TAG-filter.gff
+Output :/homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/result/3_augustus/IN0082-arrow2_TAG-filter.gff3
+Threads : 2
+############################################################################################################
+
+
+Job 25: Execute augustus for PH0014-arrow2_TAG-filter.
+Input:
+		-Genome : /homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/0_rawdata/PH0014-arrow2_TAG-filter.fasta
+		-Hints file : /homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/result/1_hints/MergeHints/RNAseq_protein.hints_PH0014-arrow2_TAG-filter.gff
+Output :/homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/result/3_augustus/PH0014-arrow2_TAG-filter.gff3
+Threads : 2
+############################################################################################################
+
+Finished job 21.
+1 of 28 steps (4%) done
+Finished job 26.
+2 of 28 steps (7%) done
+Finished job 24.
+3 of 28 steps (11%) done
+Finished job 22.
+4 of 28 steps (14%) done
+Finished job 18.
+5 of 28 steps (18%) done
+Finished job 20.
+6 of 28 steps (21%) done
+
+Job 14: Merge and rename Braker and Augustus output wheatBlast-arrow2_TAG-filter.
+Input:
+		-augustus : /homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/result/3_augustus/wheatBlast-arrow2_TAG-filter.gff3
+		-braker : /homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/result/2_Braker/wheatBlast-arrow2_TAG-filter//braker/magnaporthe_oryzae/augustus.gff3
+Output :/homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/result/4_mergeGFF/wheatBlast-arrow2_TAG-filter_merge.gff3
+Threads : 1
+############################################################################################################
+
+Finished job 14.
+7 of 28 steps (25%) done
+
+rule createFasta:
+    input: /homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/0_rawdata/wheatBlast-arrow2_TAG-filter.fasta, /homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/result/4_mergeGFF/wheatBlast-arrow2_TAG-filter_merge.gff3
+    output: /homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/result/5_final_data/wheatBlast-arrow2_TAG-filter/
+    jobid: 11
+    wildcards: smp=wheatBlast-arrow2_TAG-filter
+
+Finished job 11.
+8 of 28 steps (29%) done
+
+rule renameFasta:
+    input: /homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/result/5_final_data/wheatBlast-arrow2_TAG-filter/
+    output: /homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/result/5_final_data/wheatBlast-arrow2_TAG-filter/wheatBlast-arrow2_TAG-filter_protein.fasta
+    jobid: 5
+    wildcards: smp=wheatBlast-arrow2_TAG-filter
+
+Finished job 5.
+9 of 28 steps (32%) done
+Finished job 27.
+10 of 28 steps (36%) done
+
+Job 17: Merge and rename Braker and Augustus output CH1205-arrow2_TAG-filter.
+Input:
+		-augustus : /homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/result/3_augustus/CH1205-arrow2_TAG-filter.gff3
+		-braker : /homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/result/2_Braker/CH1205-arrow2_TAG-filter//braker/magnaporthe_oryzae/augustus.gff3
+Output :/homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/result/4_mergeGFF/CH1205-arrow2_TAG-filter_merge.gff3
+Threads : 1
+############################################################################################################
+
+Finished job 23.
+11 of 28 steps (39%) done
+
+Job 15: Merge and rename Braker and Augustus output CH1189-arrow2_TAG-filter.
+Input:
+		-augustus : /homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/result/3_augustus/CH1189-arrow2_TAG-filter.gff3
+		-braker : /homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/result/2_Braker/CH1189-arrow2_TAG-filter//braker/magnaporthe_oryzae/augustus.gff3
+Output :/homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/result/4_mergeGFF/CH1189-arrow2_TAG-filter_merge.gff3
+Threads : 1
+############################################################################################################
+
+Finished job 19.
+12 of 28 steps (43%) done
+
+Job 13: Merge and rename Braker and Augustus output IN0082-arrow2_TAG-filter.
+Input:
+		-augustus : /homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/result/3_augustus/IN0082-arrow2_TAG-filter.gff3
+		-braker : /homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/result/2_Braker/IN0082-arrow2_TAG-filter//braker/magnaporthe_oryzae/augustus.gff3
+Output :/homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/result/4_mergeGFF/IN0082-arrow2_TAG-filter_merge.gff3
+Threads : 1
+############################################################################################################
+
+Finished job 25.
+13 of 28 steps (46%) done
+
+Job 16: Merge and rename Braker and Augustus output PH0014-arrow2_TAG-filter.
+Input:
+		-augustus : /homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/result/3_augustus/PH0014-arrow2_TAG-filter.gff3
+		-braker : /homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/result/2_Braker/PH0014-arrow2_TAG-filter//braker/magnaporthe_oryzae/augustus.gff3
+Output :/homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/result/4_mergeGFF/PH0014-arrow2_TAG-filter_merge.gff3
+Threads : 1
+############################################################################################################
+
+Finished job 17.
+14 of 28 steps (50%) done
+
+rule createFasta:
+    input: /homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/0_rawdata/CH1205-arrow2_TAG-filter.fasta, /homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/result/4_mergeGFF/CH1205-arrow2_TAG-filter_merge.gff3
+    output: /homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/result/5_final_data/CH1205-arrow2_TAG-filter/
+    jobid: 12
+    wildcards: smp=CH1205-arrow2_TAG-filter
+
+Finished job 12.
+15 of 28 steps (54%) done
+
+rule renameFasta:
+    input: /homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/result/5_final_data/CH1205-arrow2_TAG-filter/
+    output: /homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/result/5_final_data/CH1205-arrow2_TAG-filter/CH1205-arrow2_TAG-filter_protein.fasta
+    jobid: 6
+    wildcards: smp=CH1205-arrow2_TAG-filter
+
+Finished job 6.
+16 of 28 steps (57%) done
+Finished job 15.
+17 of 28 steps (61%) done
+
+rule createFasta:
+    input: /homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/0_rawdata/CH1189-arrow2_TAG-filter.fasta, /homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/result/4_mergeGFF/CH1189-arrow2_TAG-filter_merge.gff3
+    output: /homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/result/5_final_data/CH1189-arrow2_TAG-filter/
+    jobid: 10
+    wildcards: smp=CH1189-arrow2_TAG-filter
+
+Finished job 10.
+18 of 28 steps (64%) done
+
+rule renameFasta:
+    input: /homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/result/5_final_data/CH1189-arrow2_TAG-filter/
+    output: /homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/result/5_final_data/CH1189-arrow2_TAG-filter/CH1189-arrow2_TAG-filter_protein.fasta
+    jobid: 4
+    wildcards: smp=CH1189-arrow2_TAG-filter
+
+Finished job 4.
+19 of 28 steps (68%) done
+Finished job 13.
+20 of 28 steps (71%) done
+
+rule createFasta:
+    input: /homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/0_rawdata/IN0082-arrow2_TAG-filter.fasta, /homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/result/4_mergeGFF/IN0082-arrow2_TAG-filter_merge.gff3
+    output: /homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/result/5_final_data/IN0082-arrow2_TAG-filter/
+    jobid: 7
+    wildcards: smp=IN0082-arrow2_TAG-filter
+
+Finished job 7.
+21 of 28 steps (75%) done
+
+rule renameFasta:
+    input: /homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/result/5_final_data/IN0082-arrow2_TAG-filter/
+    output: /homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/result/5_final_data/IN0082-arrow2_TAG-filter/IN0082-arrow2_TAG-filter_protein.fasta
+    jobid: 1
+    wildcards: smp=IN0082-arrow2_TAG-filter
+
+Finished job 1.
+22 of 28 steps (79%) done
+Finished job 16.
+23 of 28 steps (82%) done
+
+rule createFasta:
+    input: /homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/0_rawdata/PH0014-arrow2_TAG-filter.fasta, /homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/result/4_mergeGFF/PH0014-arrow2_TAG-filter_merge.gff3
+    output: /homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/result/5_final_data/PH0014-arrow2_TAG-filter/
+    jobid: 9
+    wildcards: smp=PH0014-arrow2_TAG-filter
+
+
+rule recuperation_Stat:
+    input: /homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/0_rawdata/, /homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/result/4_mergeGFF/wheatBlast-arrow2_TAG-filter_merge.gff3, /homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/result/4_mergeGFF/CH1189-arrow2_TAG-filter_merge.gff3, /homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/result/4_mergeGFF/PH0014-arrow2_TAG-filter_merge.gff3, /homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/result/4_mergeGFF/IN0082-arrow2_TAG-filter_merge.gff3, /homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/result/4_mergeGFF/CH1205-arrow2_TAG-filter_merge.gff3, /homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/result/
+    output: /homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/result/6_report/data_report/Assembly_quality.csv, /homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/result/6_report/data_report/Annotation_stat.csv
+    jobid: 8
+
+Finished job 8.
+24 of 28 steps (86%) done
+
+rule report:
+    input: /homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/result/6_report/data_report/Assembly_quality.csv, /homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/result/6_report/data_report/Annotation_stat.csv
+    output: /homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/result/6_report/report.html
+    jobid: 2
+
+Finished job 2.
+25 of 28 steps (89%) done
+Finished job 9.
+26 of 28 steps (93%) done
+
+rule renameFasta:
+    input: /homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/result/5_final_data/PH0014-arrow2_TAG-filter/
+    output: /homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/result/5_final_data/PH0014-arrow2_TAG-filter/PH0014-arrow2_TAG-filter_protein.fasta
+    jobid: 3
+    wildcards: smp=PH0014-arrow2_TAG-filter
+
+Finished job 3.
+27 of 28 steps (96%) done
+
+localrule final:
+    input: /homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/result/5_final_data/wheatBlast-arrow2_TAG-filter/wheatBlast-arrow2_TAG-filter_protein.fasta, /homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/result/5_final_data/CH1189-arrow2_TAG-filter/CH1189-arrow2_TAG-filter_protein.fasta, /homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/result/5_final_data/PH0014-arrow2_TAG-filter/PH0014-arrow2_TAG-filter_protein.fasta, /homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/result/5_final_data/IN0082-arrow2_TAG-filter/IN0082-arrow2_TAG-filter_protein.fasta, /homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/result/5_final_data/CH1205-arrow2_TAG-filter/CH1205-arrow2_TAG-filter_protein.fasta, /homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/result/6_report/report.html
+    jobid: 0
+
+Finished job 0.
+28 of 28 steps (100%) done

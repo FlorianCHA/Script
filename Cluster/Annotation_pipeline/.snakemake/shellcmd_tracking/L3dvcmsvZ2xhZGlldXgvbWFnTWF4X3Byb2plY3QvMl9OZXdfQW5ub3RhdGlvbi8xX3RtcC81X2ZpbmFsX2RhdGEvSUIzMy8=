@@ -1,4 +1,0 @@
-
-	script/gff2fasta.pl --gff /work/gladieux/magMax_project/2_New_Annotation/1_tmp/4_mergeGFF/IB33_merge.gff3 --fasta /homedir/gladieux/work/magMax_project/2_New_Annotation/0_rawdata/IB33.fasta --prefix /work/gladieux/magMax_project/2_New_Annotation/1_tmp/5_final_data/IB33/IB33
-	cp /work/gladieux/magMax_project/2_New_Annotation/1_tmp/4_mergeGFF/IB33_merge.gff3 /work/gladieux/magMax_project/2_New_Annotation/1_tmp/5_final_data/IB33/
-	

@@ -1,0 +1,411 @@
+Provided cluster nodes: 100
+Job counts:
+	count	jobs
+	3	BRAKER
+	3	augustus
+	3	bam2hints
+	3	bam2hintsFilter
+	3	bamAlignement
+	3	createFasta
+	3	exonerate
+	1	final
+	3	mergeBam
+	3	mergeGFF
+	3	mergeHint
+	1	recuperation_Stat
+	3	renameFasta
+	1	report
+	3	sortBam
+	39
+
+Job 25: Executing exonerate alignement and convert alignement into hints file for Bm8309.
+Input:
+		-Reference file : /work/gladieux/Script/Cluster/Annotation_pipeline_v2/SupplementaryFile/OG.fasta
+		-Genome : /homedir/gladieux/work/farman_genomes/3_masked/1_final-data/Bm8309.fasta
+Output :
+		-Alignement /homedir/gladieux/work/farman_genomes/6_annotation/1_hints/ProtHints/exonerate_Bm8309.gff3
+		-hints file : /homedir/gladieux/work/farman_genomes/6_annotation/1_hints/ProtHints/exonerate_Bm8309.hints.gff3
+Threads : 2
+############################################################################################################
+
+
+Job 27: Executing Tophat2 alignement for FPH-2015-44.
+Input:
+		-Genome : /homedir/gladieux/work/farman_genomes/3_masked/1_final-data/FPH-2015-44.fasta
+		-RNAseq : /work/gladieux/magMax_project/2_New_Annotation/rnaseq/
+Output : /homedir/gladieux/work/farman_genomes/6_annotation/0_bamAlignement/FPH-2015-44/finalResults/bamList /homedir/gladieux/work/farman_genomes/6_annotation/0_bamAlignement/FPH-2015-44/
+Threads : 1
+############################################################################################################
+
+
+Job 31: Executing Tophat2 alignement for Bm8309.
+Input:
+		-Genome : /homedir/gladieux/work/farman_genomes/3_masked/1_final-data/Bm8309.fasta
+		-RNAseq : /work/gladieux/magMax_project/2_New_Annotation/rnaseq/
+Output : /homedir/gladieux/work/farman_genomes/6_annotation/0_bamAlignement/Bm8309/finalResults/bamList /homedir/gladieux/work/farman_genomes/6_annotation/0_bamAlignement/Bm8309/
+Threads : 1
+############################################################################################################
+
+
+Job 21: Executing exonerate alignement and convert alignement into hints file for FPH-2015-44.
+Input:
+		-Reference file : /work/gladieux/Script/Cluster/Annotation_pipeline_v2/SupplementaryFile/OG.fasta
+		-Genome : /homedir/gladieux/work/farman_genomes/3_masked/1_final-data/FPH-2015-44.fasta
+Output :
+		-Alignement /homedir/gladieux/work/farman_genomes/6_annotation/1_hints/ProtHints/exonerate_FPH-2015-44.gff3
+		-hints file : /homedir/gladieux/work/farman_genomes/6_annotation/1_hints/ProtHints/exonerate_FPH-2015-44.hints.gff3
+Threads : 2
+############################################################################################################
+
+
+Job 24: Executing exonerate alignement and convert alignement into hints file for U168.
+Input:
+		-Reference file : /work/gladieux/Script/Cluster/Annotation_pipeline_v2/SupplementaryFile/OG.fasta
+		-Genome : /homedir/gladieux/work/farman_genomes/3_masked/1_final-data/U168.fasta
+Output :
+		-Alignement /homedir/gladieux/work/farman_genomes/6_annotation/1_hints/ProtHints/exonerate_U168.gff3
+		-hints file : /homedir/gladieux/work/farman_genomes/6_annotation/1_hints/ProtHints/exonerate_U168.hints.gff3
+Threads : 2
+############################################################################################################
+
+
+Job 29: Executing Tophat2 alignement for U168.
+Input:
+		-Genome : /homedir/gladieux/work/farman_genomes/3_masked/1_final-data/U168.fasta
+		-RNAseq : /work/gladieux/magMax_project/2_New_Annotation/rnaseq/
+Output : /homedir/gladieux/work/farman_genomes/6_annotation/0_bamAlignement/U168/finalResults/bamList /homedir/gladieux/work/farman_genomes/6_annotation/0_bamAlignement/U168/
+Threads : 1
+############################################################################################################
+
+Finished job 27.
+1 of 39 steps (3%) done
+
+Job 36: Merge all bam file of FPH-2015-44.
+Input:/homedir/gladieux/work/farman_genomes/6_annotation/0_bamAlignement/FPH-2015-44/
+Output : /homedir/gladieux/work/farman_genomes/6_annotation/0_bamAlignement/FPH-2015-44/finalResults/merged_FPH-2015-44.accepted_hits.bam
+Threads : 1
+############################################################################################################
+
+Finished job 36.
+2 of 39 steps (5%) done
+
+Job 33: Sort the merged bam file of FPH-2015-44.
+Input:/homedir/gladieux/work/farman_genomes/6_annotation/0_bamAlignement/FPH-2015-44/finalResults/merged_FPH-2015-44.accepted_hits.bam
+Output : /homedir/gladieux/work/farman_genomes/6_annotation/0_bamAlignement/FPH-2015-44/finalResults/merged_FPH-2015-44.accepted_hits_sort.bam
+Threads : 1
+############################################################################################################
+
+Finished job 31.
+3 of 39 steps (8%) done
+
+Job 38: Merge all bam file of Bm8309.
+Input:/homedir/gladieux/work/farman_genomes/6_annotation/0_bamAlignement/Bm8309/
+Output : /homedir/gladieux/work/farman_genomes/6_annotation/0_bamAlignement/Bm8309/finalResults/merged_Bm8309.accepted_hits.bam
+Threads : 1
+############################################################################################################
+
+Finished job 33.
+4 of 39 steps (10%) done
+
+Job 28: Convert merged bam file of FPH-2015-44 into a hint file for AUGUSTUS.
+Input:/homedir/gladieux/work/farman_genomes/6_annotation/0_bamAlignement/FPH-2015-44/finalResults/merged_FPH-2015-44.accepted_hits_sort.bam
+Output : /homedir/gladieux/work/farman_genomes/6_annotation/0_bamAlignement/FPH-2015-44/finalResults/hints_FPH-2015-44.raw.bam
+Threads : 2
+############################################################################################################
+
+Finished job 28.
+5 of 39 steps (13%) done
+
+Job 22: Filtre hint file outcome of bam file for FPH-2015-44.
+Input: /homedir/gladieux/work/farman_genomes/6_annotation/0_bamAlignement/FPH-2015-44/finalResults/hints_FPH-2015-44.raw.bam
+Output : /homedir/gladieux/work/farman_genomes/6_annotation/1_hints/RNAseqHints/hints_FPH-2015-44.filtered.gff
+Threads : 1
+############################################################################################################
+
+Finished job 38.
+6 of 39 steps (15%) done
+
+Job 35: Sort the merged bam file of Bm8309.
+Input:/homedir/gladieux/work/farman_genomes/6_annotation/0_bamAlignement/Bm8309/finalResults/merged_Bm8309.accepted_hits.bam
+Output : /homedir/gladieux/work/farman_genomes/6_annotation/0_bamAlignement/Bm8309/finalResults/merged_Bm8309.accepted_hits_sort.bam
+Threads : 1
+############################################################################################################
+
+Finished job 22.
+7 of 39 steps (18%) done
+Finished job 29.
+8 of 39 steps (21%) done
+
+Job 37: Merge all bam file of U168.
+Input:/homedir/gladieux/work/farman_genomes/6_annotation/0_bamAlignement/U168/
+Output : /homedir/gladieux/work/farman_genomes/6_annotation/0_bamAlignement/U168/finalResults/merged_U168.accepted_hits.bam
+Threads : 1
+############################################################################################################
+
+Finished job 35.
+9 of 39 steps (23%) done
+
+Job 32: Convert merged bam file of Bm8309 into a hint file for AUGUSTUS.
+Input:/homedir/gladieux/work/farman_genomes/6_annotation/0_bamAlignement/Bm8309/finalResults/merged_Bm8309.accepted_hits_sort.bam
+Output : /homedir/gladieux/work/farman_genomes/6_annotation/0_bamAlignement/Bm8309/finalResults/hints_Bm8309.raw.bam
+Threads : 2
+############################################################################################################
+
+Finished job 32.
+10 of 39 steps (26%) done
+
+Job 26: Filtre hint file outcome of bam file for Bm8309.
+Input: /homedir/gladieux/work/farman_genomes/6_annotation/0_bamAlignement/Bm8309/finalResults/hints_Bm8309.raw.bam
+Output : /homedir/gladieux/work/farman_genomes/6_annotation/1_hints/RNAseqHints/hints_Bm8309.filtered.gff
+Threads : 1
+############################################################################################################
+
+Finished job 37.
+11 of 39 steps (28%) done
+
+Job 34: Sort the merged bam file of U168.
+Input:/homedir/gladieux/work/farman_genomes/6_annotation/0_bamAlignement/U168/finalResults/merged_U168.accepted_hits.bam
+Output : /homedir/gladieux/work/farman_genomes/6_annotation/0_bamAlignement/U168/finalResults/merged_U168.accepted_hits_sort.bam
+Threads : 1
+############################################################################################################
+
+Finished job 26.
+12 of 39 steps (31%) done
+Finished job 34.
+13 of 39 steps (33%) done
+
+Job 30: Convert merged bam file of U168 into a hint file for AUGUSTUS.
+Input:/homedir/gladieux/work/farman_genomes/6_annotation/0_bamAlignement/U168/finalResults/merged_U168.accepted_hits_sort.bam
+Output : /homedir/gladieux/work/farman_genomes/6_annotation/0_bamAlignement/U168/finalResults/hints_U168.raw.bam
+Threads : 2
+############################################################################################################
+
+Finished job 30.
+14 of 39 steps (36%) done
+
+Job 23: Filtre hint file outcome of bam file for U168.
+Input: /homedir/gladieux/work/farman_genomes/6_annotation/0_bamAlignement/U168/finalResults/hints_U168.raw.bam
+Output : /homedir/gladieux/work/farman_genomes/6_annotation/1_hints/RNAseqHints/hints_U168.filtered.gff
+Threads : 1
+############################################################################################################
+
+Finished job 23.
+15 of 39 steps (38%) done
+Finished job 24.
+16 of 39 steps (41%) done
+
+Job 19: 
+Merge hints outcome of RNAseq with hints outcome of proteine alignement for U168.
+Input:
+		-Hints RNseq : /homedir/gladieux/work/farman_genomes/6_annotation/1_hints/RNAseqHints/hints_U168.filtered.gff
+		-Hints proteine : /homedir/gladieux/work/farman_genomes/6_annotation/1_hints/ProtHints/exonerate_U168.hints.gff3
+Output :/homedir/gladieux/work/farman_genomes/6_annotation/1_hints/MergeHints/RNAseq_protein.hints.intron_U168.gff
+Threads : 1
+############################################################################################################
+
+Finished job 19.
+17 of 39 steps (44%) done
+
+Job 15: Execute BRAKER for U168.
+Input:
+		-Genome : /homedir/gladieux/work/farman_genomes/3_masked/1_final-data/U168.fasta
+		-Hints file : /homedir/gladieux/work/farman_genomes/6_annotation/1_hints/MergeHints/RNAseq_protein.hints.intron_U168.gff
+Output :/homedir/gladieux/work/farman_genomes/6_annotation/2_Braker/U168/
+Threads : 2
+############################################################################################################
+
+
+Job 14: Execute augustus for U168.
+Input:
+		-Genome : /homedir/gladieux/work/farman_genomes/3_masked/1_final-data/U168.fasta
+		-Hints file : /homedir/gladieux/work/farman_genomes/6_annotation/1_hints/MergeHints/RNAseq_protein.hints_U168.gff
+Output :/homedir/gladieux/work/farman_genomes/6_annotation/3_augustus/U168.gff3
+Threads : 2
+############################################################################################################
+
+Finished job 25.
+18 of 39 steps (46%) done
+
+Job 20: 
+Merge hints outcome of RNAseq with hints outcome of proteine alignement for Bm8309.
+Input:
+		-Hints RNseq : /homedir/gladieux/work/farman_genomes/6_annotation/1_hints/RNAseqHints/hints_Bm8309.filtered.gff
+		-Hints proteine : /homedir/gladieux/work/farman_genomes/6_annotation/1_hints/ProtHints/exonerate_Bm8309.hints.gff3
+Output :/homedir/gladieux/work/farman_genomes/6_annotation/1_hints/MergeHints/RNAseq_protein.hints.intron_Bm8309.gff
+Threads : 1
+############################################################################################################
+
+Finished job 20.
+19 of 39 steps (49%) done
+
+Job 17: Execute BRAKER for Bm8309.
+Input:
+		-Genome : /homedir/gladieux/work/farman_genomes/3_masked/1_final-data/Bm8309.fasta
+		-Hints file : /homedir/gladieux/work/farman_genomes/6_annotation/1_hints/MergeHints/RNAseq_protein.hints.intron_Bm8309.gff
+Output :/homedir/gladieux/work/farman_genomes/6_annotation/2_Braker/Bm8309/
+Threads : 2
+############################################################################################################
+
+
+Job 16: Execute augustus for Bm8309.
+Input:
+		-Genome : /homedir/gladieux/work/farman_genomes/3_masked/1_final-data/Bm8309.fasta
+		-Hints file : /homedir/gladieux/work/farman_genomes/6_annotation/1_hints/MergeHints/RNAseq_protein.hints_Bm8309.gff
+Output :/homedir/gladieux/work/farman_genomes/6_annotation/3_augustus/Bm8309.gff3
+Threads : 2
+############################################################################################################
+
+Finished job 15.
+20 of 39 steps (51%) done
+Finished job 17.
+21 of 39 steps (54%) done
+Finished job 21.
+22 of 39 steps (56%) done
+
+Job 18: 
+Merge hints outcome of RNAseq with hints outcome of proteine alignement for FPH-2015-44.
+Input:
+		-Hints RNseq : /homedir/gladieux/work/farman_genomes/6_annotation/1_hints/RNAseqHints/hints_FPH-2015-44.filtered.gff
+		-Hints proteine : /homedir/gladieux/work/farman_genomes/6_annotation/1_hints/ProtHints/exonerate_FPH-2015-44.hints.gff3
+Output :/homedir/gladieux/work/farman_genomes/6_annotation/1_hints/MergeHints/RNAseq_protein.hints.intron_FPH-2015-44.gff
+Threads : 1
+############################################################################################################
+
+Finished job 14.
+23 of 39 steps (59%) done
+
+Job 10: Merge and rename Braker and Augustus output U168.
+Input:
+		-augustus : /homedir/gladieux/work/farman_genomes/6_annotation/3_augustus/U168.gff3
+		-braker : /homedir/gladieux/work/farman_genomes/6_annotation/2_Braker/U168//braker/magnaporthe_oryzae/augustus.gff3
+Output :/homedir/gladieux/work/farman_genomes/6_annotation/4_mergeGFF/U168_merge.gff3
+Threads : 1
+############################################################################################################
+
+Finished job 18.
+24 of 39 steps (62%) done
+
+Job 12: Execute BRAKER for FPH-2015-44.
+Input:
+		-Genome : /homedir/gladieux/work/farman_genomes/3_masked/1_final-data/FPH-2015-44.fasta
+		-Hints file : /homedir/gladieux/work/farman_genomes/6_annotation/1_hints/MergeHints/RNAseq_protein.hints.intron_FPH-2015-44.gff
+Output :/homedir/gladieux/work/farman_genomes/6_annotation/2_Braker/FPH-2015-44/
+Threads : 2
+############################################################################################################
+
+
+Job 13: Execute augustus for FPH-2015-44.
+Input:
+		-Genome : /homedir/gladieux/work/farman_genomes/3_masked/1_final-data/FPH-2015-44.fasta
+		-Hints file : /homedir/gladieux/work/farman_genomes/6_annotation/1_hints/MergeHints/RNAseq_protein.hints_FPH-2015-44.gff
+Output :/homedir/gladieux/work/farman_genomes/6_annotation/3_augustus/FPH-2015-44.gff3
+Threads : 2
+############################################################################################################
+
+Finished job 10.
+25 of 39 steps (64%) done
+
+rule createFasta:
+    input: /homedir/gladieux/work/farman_genomes/6_annotation/4_mergeGFF/U168_merge.gff3, /homedir/gladieux/work/farman_genomes/3_masked/1_final-data/U168.fasta
+    output: /homedir/gladieux/work/farman_genomes/6_annotation/5_final_data/U168/
+    jobid: 6
+    wildcards: smp=U168
+
+Finished job 6.
+26 of 39 steps (67%) done
+
+rule renameFasta:
+    input: /homedir/gladieux/work/farman_genomes/6_annotation/5_final_data/U168/
+    output: /homedir/gladieux/work/farman_genomes/6_annotation/5_final_data/U168/U168_protein.fasta
+    jobid: 2
+    wildcards: smp=U168
+
+Finished job 2.
+27 of 39 steps (69%) done
+Finished job 12.
+28 of 39 steps (72%) done
+Finished job 16.
+29 of 39 steps (74%) done
+
+Job 11: Merge and rename Braker and Augustus output Bm8309.
+Input:
+		-augustus : /homedir/gladieux/work/farman_genomes/6_annotation/3_augustus/Bm8309.gff3
+		-braker : /homedir/gladieux/work/farman_genomes/6_annotation/2_Braker/Bm8309//braker/magnaporthe_oryzae/augustus.gff3
+Output :/homedir/gladieux/work/farman_genomes/6_annotation/4_mergeGFF/Bm8309_merge.gff3
+Threads : 1
+############################################################################################################
+
+Finished job 13.
+30 of 39 steps (77%) done
+
+Job 9: Merge and rename Braker and Augustus output FPH-2015-44.
+Input:
+		-augustus : /homedir/gladieux/work/farman_genomes/6_annotation/3_augustus/FPH-2015-44.gff3
+		-braker : /homedir/gladieux/work/farman_genomes/6_annotation/2_Braker/FPH-2015-44//braker/magnaporthe_oryzae/augustus.gff3
+Output :/homedir/gladieux/work/farman_genomes/6_annotation/4_mergeGFF/FPH-2015-44_merge.gff3
+Threads : 1
+############################################################################################################
+
+Finished job 11.
+31 of 39 steps (79%) done
+
+rule createFasta:
+    input: /homedir/gladieux/work/farman_genomes/6_annotation/4_mergeGFF/Bm8309_merge.gff3, /homedir/gladieux/work/farman_genomes/3_masked/1_final-data/Bm8309.fasta
+    output: /homedir/gladieux/work/farman_genomes/6_annotation/5_final_data/Bm8309/
+    jobid: 8
+    wildcards: smp=Bm8309
+
+Finished job 8.
+32 of 39 steps (82%) done
+
+rule renameFasta:
+    input: /homedir/gladieux/work/farman_genomes/6_annotation/5_final_data/Bm8309/
+    output: /homedir/gladieux/work/farman_genomes/6_annotation/5_final_data/Bm8309/Bm8309_protein.fasta
+    jobid: 4
+    wildcards: smp=Bm8309
+
+Finished job 4.
+33 of 39 steps (85%) done
+Finished job 9.
+34 of 39 steps (87%) done
+
+rule recuperation_Stat:
+    input: /homedir/gladieux/work/farman_genomes/6_annotation/, /homedir/gladieux/work/farman_genomes/6_annotation/4_mergeGFF/FPH-2015-44_merge.gff3, /homedir/gladieux/work/farman_genomes/6_annotation/4_mergeGFF/Bm8309_merge.gff3, /homedir/gladieux/work/farman_genomes/6_annotation/4_mergeGFF/U168_merge.gff3, /homedir/gladieux/work/farman_genomes/3_masked/1_final-data/
+    output: /homedir/gladieux/work/farman_genomes/6_annotation/6_report/data_report/Annotation_stat.csv, /homedir/gladieux/work/farman_genomes/6_annotation/6_report/data_report/Assembly_quality.csv
+    jobid: 7
+
+
+rule createFasta:
+    input: /homedir/gladieux/work/farman_genomes/6_annotation/4_mergeGFF/FPH-2015-44_merge.gff3, /homedir/gladieux/work/farman_genomes/3_masked/1_final-data/FPH-2015-44.fasta
+    output: /homedir/gladieux/work/farman_genomes/6_annotation/5_final_data/FPH-2015-44/
+    jobid: 5
+    wildcards: smp=FPH-2015-44
+
+Finished job 7.
+35 of 39 steps (90%) done
+
+rule report:
+    input: /homedir/gladieux/work/farman_genomes/6_annotation/6_report/data_report/Annotation_stat.csv, /homedir/gladieux/work/farman_genomes/6_annotation/6_report/data_report/Assembly_quality.csv
+    output: /homedir/gladieux/work/farman_genomes/6_annotation/6_report/report.html
+    jobid: 3
+
+Finished job 5.
+36 of 39 steps (92%) done
+
+rule renameFasta:
+    input: /homedir/gladieux/work/farman_genomes/6_annotation/5_final_data/FPH-2015-44/
+    output: /homedir/gladieux/work/farman_genomes/6_annotation/5_final_data/FPH-2015-44/FPH-2015-44_protein.fasta
+    jobid: 1
+    wildcards: smp=FPH-2015-44
+
+Finished job 3.
+37 of 39 steps (95%) done
+Finished job 1.
+38 of 39 steps (97%) done
+
+localrule final:
+    input: /homedir/gladieux/work/farman_genomes/6_annotation/5_final_data/FPH-2015-44/FPH-2015-44_protein.fasta, /homedir/gladieux/work/farman_genomes/6_annotation/5_final_data/Bm8309/Bm8309_protein.fasta, /homedir/gladieux/work/farman_genomes/6_annotation/5_final_data/U168/U168_protein.fasta, /homedir/gladieux/work/farman_genomes/6_annotation/6_report/report.html
+    jobid: 0
+
+Finished job 0.
+39 of 39 steps (100%) done

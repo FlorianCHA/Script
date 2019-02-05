@@ -47,6 +47,7 @@ from module_Flo import verifDir, createDir, form, verifFichier, fasta2dict, open
 
 ## Python modules
 import argparse
+import pandas as pd
 
 
 ##################################################
@@ -89,21 +90,11 @@ if __name__ == "__main__":
 	print(form("\t---------------------------------------------------------", 'yellow', 'bold') + '\n')
 
 ########### Main #####################################
-	print(form(f'Openning show-snp result file : {file}','white','bold'))
-	nb = 0
-	RefFile = '/homedir/gladieux/work/magMax_project/9_SNPcalling/70-15.fasta'
-	nameFile = output.split('/')[-1].split('.')[0]
-	with open(file,'r') as snp_file, open(output,'w') as output_file :
-		output_file.write('##fileformat=VCFv4.2\n')
-		output_file.write(f'##reference=file={RefFile}\n')
-		output_file.write(f'##FORMAT=<ID=GT,Number=1,Type=String,Description="Genotype">\n')
-		output_file.write(f'#CHROM\tPOS\tID\tREF\tALT\tQUAL\tFILTER\tINFO\tFORMAT\t{nameFile}\n')
+	print(form(f'Openning vcf file with multi sample : {file}','white','bold'))
+	test = pd.read_csv(file, header=None)
+	print(test[1:])
 
-		for line in snp_file :
-			if is_number(line[0]) :
-				nb += 1
-				position,REF,ALT,*_,CHROM,_ = line.split()
-				output_file.write(f'{CHROM}\t{position}\t.\t{REF}\t{ALT}\t.\t.\t.\tGT\t1\n')
+
 
 	print(form(f'\nThe {nb} SNPs is add to {output}', 'white', 'bold'))
 ############## end message ###########################

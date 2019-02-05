@@ -1,0 +1,360 @@
+Provided cluster nodes: 100
+Job counts:
+	count	jobs
+	5	BRAKER
+	5	augustus
+	5	bam2hints
+	5	bam2hintsFilter
+	5	bamAlignement
+	5	createFasta
+	5	exonerate
+	1	final
+	5	mergeBam
+	5	mergeGFF
+	5	mergeHint
+	1	recuperation_Stat
+	5	renameFasta
+	1	report
+	5	sortBam
+	63
+
+Job 48: Executing Tophat2 alignement for CH1205-arrow2_TAG-filter.
+Input:
+		-Genome : /homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/0_rawdata/CH1205-arrow2_TAG-filter.fasta
+		-RNAseq : /work/gladieux/magMax_project/2_New_Annotation/rnaseq/
+Output : /homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/result/0_bamAlignement/CH1205-arrow2_TAG-filter/ /homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/result/0_bamAlignement/CH1205-arrow2_TAG-filter/finalResults/bamList
+Threads : 1
+############################################################################################################
+
+
+Job 39: Executing exonerate alignement and convert alignement into hints file for PH0014-arrow2_TAG-filter.
+Input:
+		-Reference file : /work/gladieux/Script/Cluster/Annotation_pipeline_v2/SupplementaryFile/OG_filter.fasta
+		-Genome : /homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/0_rawdata/PH0014-arrow2_TAG-filter.fasta
+Output :
+		-Alignement /homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/result/1_hints/ProtHints/exonerate_PH0014-arrow2_TAG-filter.gff3
+		-hints file : /homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/result/1_hints/ProtHints/exonerate_PH0014-arrow2_TAG-filter.hints.gff3
+Threads : 2
+############################################################################################################
+
+
+Job 52: Executing Tophat2 alignement for CH1189-arrow2_TAG-filter.
+Input:
+		-Genome : /homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/0_rawdata/CH1189-arrow2_TAG-filter.fasta
+		-RNAseq : /work/gladieux/magMax_project/2_New_Annotation/rnaseq/
+Output : /homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/result/0_bamAlignement/CH1189-arrow2_TAG-filter/ /homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/result/0_bamAlignement/CH1189-arrow2_TAG-filter/finalResults/bamList
+Threads : 1
+############################################################################################################
+
+
+Job 42: Executing exonerate alignement and convert alignement into hints file for CH1189-arrow2_TAG-filter.
+Input:
+		-Reference file : /work/gladieux/Script/Cluster/Annotation_pipeline_v2/SupplementaryFile/OG_filter.fasta
+		-Genome : /homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/0_rawdata/CH1189-arrow2_TAG-filter.fasta
+Output :
+		-Alignement /homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/result/1_hints/ProtHints/exonerate_CH1189-arrow2_TAG-filter.gff3
+		-hints file : /homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/result/1_hints/ProtHints/exonerate_CH1189-arrow2_TAG-filter.hints.gff3
+Threads : 2
+############################################################################################################
+
+
+Job 35: Executing exonerate alignement and convert alignement into hints file for wheatBlast-arrow2_TAG-filter.
+Input:
+		-Reference file : /work/gladieux/Script/Cluster/Annotation_pipeline_v2/SupplementaryFile/OG_filter.fasta
+		-Genome : /homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/0_rawdata/wheatBlast-arrow2_TAG-filter.fasta
+Output :
+		-Alignement /homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/result/1_hints/ProtHints/exonerate_wheatBlast-arrow2_TAG-filter.gff3
+		-hints file : /homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/result/1_hints/ProtHints/exonerate_wheatBlast-arrow2_TAG-filter.hints.gff3
+Threads : 2
+############################################################################################################
+
+
+Job 50: Executing Tophat2 alignement for PH0014-arrow2_TAG-filter.
+Input:
+		-Genome : /homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/0_rawdata/PH0014-arrow2_TAG-filter.fasta
+		-RNAseq : /work/gladieux/magMax_project/2_New_Annotation/rnaseq/
+Output : /homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/result/0_bamAlignement/PH0014-arrow2_TAG-filter/ /homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/result/0_bamAlignement/PH0014-arrow2_TAG-filter/finalResults/bamList
+Threads : 1
+############################################################################################################
+
+
+Job 37: Executing exonerate alignement and convert alignement into hints file for CH1205-arrow2_TAG-filter.
+Input:
+		-Reference file : /work/gladieux/Script/Cluster/Annotation_pipeline_v2/SupplementaryFile/OG_filter.fasta
+		-Genome : /homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/0_rawdata/CH1205-arrow2_TAG-filter.fasta
+Output :
+		-Alignement /homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/result/1_hints/ProtHints/exonerate_CH1205-arrow2_TAG-filter.gff3
+		-hints file : /homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/result/1_hints/ProtHints/exonerate_CH1205-arrow2_TAG-filter.hints.gff3
+Threads : 2
+############################################################################################################
+
+
+Job 46: Executing Tophat2 alignement for wheatBlast-arrow2_TAG-filter.
+Input:
+		-Genome : /homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/0_rawdata/wheatBlast-arrow2_TAG-filter.fasta
+		-RNAseq : /work/gladieux/magMax_project/2_New_Annotation/rnaseq/
+Output : /homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/result/0_bamAlignement/wheatBlast-arrow2_TAG-filter/ /homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/result/0_bamAlignement/wheatBlast-arrow2_TAG-filter/finalResults/bamList
+Threads : 1
+############################################################################################################
+
+
+Job 33: Executing exonerate alignement and convert alignement into hints file for IN0082-arrow2_TAG-filter.
+Input:
+		-Reference file : /work/gladieux/Script/Cluster/Annotation_pipeline_v2/SupplementaryFile/OG_filter.fasta
+		-Genome : /homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/0_rawdata/IN0082-arrow2_TAG-filter.fasta
+Output :
+		-Alignement /homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/result/1_hints/ProtHints/exonerate_IN0082-arrow2_TAG-filter.gff3
+		-hints file : /homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/result/1_hints/ProtHints/exonerate_IN0082-arrow2_TAG-filter.hints.gff3
+Threads : 2
+############################################################################################################
+
+
+Job 43: Executing Tophat2 alignement for IN0082-arrow2_TAG-filter.
+Input:
+		-Genome : /homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/0_rawdata/IN0082-arrow2_TAG-filter.fasta
+		-RNAseq : /work/gladieux/magMax_project/2_New_Annotation/rnaseq/
+Output : /homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/result/0_bamAlignement/IN0082-arrow2_TAG-filter/ /homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/result/0_bamAlignement/IN0082-arrow2_TAG-filter/finalResults/bamList
+Threads : 1
+############################################################################################################
+
+Finished job 46.
+1 of 63 steps (2%) done
+
+Job 59: Merge all bam file of wheatBlast-arrow2_TAG-filter.
+Input:/homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/result/0_bamAlignement/wheatBlast-arrow2_TAG-filter/
+Output : /homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/result/0_bamAlignement/wheatBlast-arrow2_TAG-filter/finalResults/merged_wheatBlast-arrow2_TAG-filter.accepted_hits.bam
+Threads : 1
+############################################################################################################
+
+Finished job 43.
+2 of 63 steps (3%) done
+
+Job 58: Merge all bam file of IN0082-arrow2_TAG-filter.
+Input:/homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/result/0_bamAlignement/IN0082-arrow2_TAG-filter/
+Output : /homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/result/0_bamAlignement/IN0082-arrow2_TAG-filter/finalResults/merged_IN0082-arrow2_TAG-filter.accepted_hits.bam
+Threads : 1
+############################################################################################################
+
+Finished job 59.
+3 of 63 steps (5%) done
+
+Job 54: Sort the merged bam file of wheatBlast-arrow2_TAG-filter.
+Input:/homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/result/0_bamAlignement/wheatBlast-arrow2_TAG-filter/finalResults/merged_wheatBlast-arrow2_TAG-filter.accepted_hits.bam
+Output : /homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/result/0_bamAlignement/wheatBlast-arrow2_TAG-filter/finalResults/merged_wheatBlast-arrow2_TAG-filter.accepted_hits_sort.bam
+Threads : 1
+############################################################################################################
+
+Finished job 52.
+4 of 63 steps (6%) done
+
+Job 62: Merge all bam file of CH1189-arrow2_TAG-filter.
+Input:/homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/result/0_bamAlignement/CH1189-arrow2_TAG-filter/
+Output : /homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/result/0_bamAlignement/CH1189-arrow2_TAG-filter/finalResults/merged_CH1189-arrow2_TAG-filter.accepted_hits.bam
+Threads : 1
+############################################################################################################
+
+Finished job 48.
+5 of 63 steps (8%) done
+
+Job 60: Merge all bam file of CH1205-arrow2_TAG-filter.
+Input:/homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/result/0_bamAlignement/CH1205-arrow2_TAG-filter/
+Output : /homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/result/0_bamAlignement/CH1205-arrow2_TAG-filter/finalResults/merged_CH1205-arrow2_TAG-filter.accepted_hits.bam
+Threads : 1
+############################################################################################################
+
+Finished job 58.
+6 of 63 steps (10%) done
+
+Job 53: Sort the merged bam file of IN0082-arrow2_TAG-filter.
+Input:/homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/result/0_bamAlignement/IN0082-arrow2_TAG-filter/finalResults/merged_IN0082-arrow2_TAG-filter.accepted_hits.bam
+Output : /homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/result/0_bamAlignement/IN0082-arrow2_TAG-filter/finalResults/merged_IN0082-arrow2_TAG-filter.accepted_hits_sort.bam
+Threads : 1
+############################################################################################################
+
+Finished job 62.
+7 of 63 steps (11%) done
+
+Job 57: Sort the merged bam file of CH1189-arrow2_TAG-filter.
+Input:/homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/result/0_bamAlignement/CH1189-arrow2_TAG-filter/finalResults/merged_CH1189-arrow2_TAG-filter.accepted_hits.bam
+Output : /homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/result/0_bamAlignement/CH1189-arrow2_TAG-filter/finalResults/merged_CH1189-arrow2_TAG-filter.accepted_hits_sort.bam
+Threads : 1
+############################################################################################################
+
+Finished job 50.
+8 of 63 steps (13%) done
+
+Job 61: Merge all bam file of PH0014-arrow2_TAG-filter.
+Input:/homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/result/0_bamAlignement/PH0014-arrow2_TAG-filter/
+Output : /homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/result/0_bamAlignement/PH0014-arrow2_TAG-filter/finalResults/merged_PH0014-arrow2_TAG-filter.accepted_hits.bam
+Threads : 1
+############################################################################################################
+
+Finished job 53.
+9 of 63 steps (14%) done
+
+Job 44: Convert merged bam file of IN0082-arrow2_TAG-filter into a hint file for AUGUSTUS.
+Input:/homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/result/0_bamAlignement/IN0082-arrow2_TAG-filter/finalResults/merged_IN0082-arrow2_TAG-filter.accepted_hits_sort.bam
+Output : /homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/result/0_bamAlignement/IN0082-arrow2_TAG-filter/finalResults/hints_IN0082-arrow2_TAG-filter.raw.bam
+Threads : 2
+############################################################################################################
+
+Finished job 60.
+10 of 63 steps (16%) done
+
+Job 55: Sort the merged bam file of CH1205-arrow2_TAG-filter.
+Input:/homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/result/0_bamAlignement/CH1205-arrow2_TAG-filter/finalResults/merged_CH1205-arrow2_TAG-filter.accepted_hits.bam
+Output : /homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/result/0_bamAlignement/CH1205-arrow2_TAG-filter/finalResults/merged_CH1205-arrow2_TAG-filter.accepted_hits_sort.bam
+Threads : 1
+############################################################################################################
+
+Finished job 57.
+11 of 63 steps (17%) done
+
+Job 51: Convert merged bam file of CH1189-arrow2_TAG-filter into a hint file for AUGUSTUS.
+Input:/homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/result/0_bamAlignement/CH1189-arrow2_TAG-filter/finalResults/merged_CH1189-arrow2_TAG-filter.accepted_hits_sort.bam
+Output : /homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/result/0_bamAlignement/CH1189-arrow2_TAG-filter/finalResults/hints_CH1189-arrow2_TAG-filter.raw.bam
+Threads : 2
+############################################################################################################
+
+Finished job 44.
+12 of 63 steps (19%) done
+
+Job 34: Filtre hint file outcome of bam file for IN0082-arrow2_TAG-filter.
+Input: /homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/result/0_bamAlignement/IN0082-arrow2_TAG-filter/finalResults/hints_IN0082-arrow2_TAG-filter.raw.bam
+Output : /homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/result/1_hints/RNAseqHints/hints_IN0082-arrow2_TAG-filter.filtered.gff
+Threads : 1
+############################################################################################################
+
+Finished job 34.
+13 of 63 steps (21%) done
+Finished job 54.
+14 of 63 steps (22%) done
+
+Job 45: Convert merged bam file of wheatBlast-arrow2_TAG-filter into a hint file for AUGUSTUS.
+Input:/homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/result/0_bamAlignement/wheatBlast-arrow2_TAG-filter/finalResults/merged_wheatBlast-arrow2_TAG-filter.accepted_hits_sort.bam
+Output : /homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/result/0_bamAlignement/wheatBlast-arrow2_TAG-filter/finalResults/hints_wheatBlast-arrow2_TAG-filter.raw.bam
+Threads : 2
+############################################################################################################
+
+Finished job 51.
+15 of 63 steps (24%) done
+
+Job 41: Filtre hint file outcome of bam file for CH1189-arrow2_TAG-filter.
+Input: /homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/result/0_bamAlignement/CH1189-arrow2_TAG-filter/finalResults/hints_CH1189-arrow2_TAG-filter.raw.bam
+Output : /homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/result/1_hints/RNAseqHints/hints_CH1189-arrow2_TAG-filter.filtered.gff
+Threads : 1
+############################################################################################################
+
+Finished job 61.
+16 of 63 steps (25%) done
+
+Job 56: Sort the merged bam file of PH0014-arrow2_TAG-filter.
+Input:/homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/result/0_bamAlignement/PH0014-arrow2_TAG-filter/finalResults/merged_PH0014-arrow2_TAG-filter.accepted_hits.bam
+Output : /homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/result/0_bamAlignement/PH0014-arrow2_TAG-filter/finalResults/merged_PH0014-arrow2_TAG-filter.accepted_hits_sort.bam
+Threads : 1
+############################################################################################################
+
+Finished job 55.
+17 of 63 steps (27%) done
+
+Job 47: Convert merged bam file of CH1205-arrow2_TAG-filter into a hint file for AUGUSTUS.
+Input:/homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/result/0_bamAlignement/CH1205-arrow2_TAG-filter/finalResults/merged_CH1205-arrow2_TAG-filter.accepted_hits_sort.bam
+Output : /homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/result/0_bamAlignement/CH1205-arrow2_TAG-filter/finalResults/hints_CH1205-arrow2_TAG-filter.raw.bam
+Threads : 2
+############################################################################################################
+
+Finished job 41.
+18 of 63 steps (29%) done
+Finished job 45.
+19 of 63 steps (30%) done
+
+Job 36: Filtre hint file outcome of bam file for wheatBlast-arrow2_TAG-filter.
+Input: /homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/result/0_bamAlignement/wheatBlast-arrow2_TAG-filter/finalResults/hints_wheatBlast-arrow2_TAG-filter.raw.bam
+Output : /homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/result/1_hints/RNAseqHints/hints_wheatBlast-arrow2_TAG-filter.filtered.gff
+Threads : 1
+############################################################################################################
+
+Finished job 36.
+20 of 63 steps (32%) done
+Finished job 47.
+21 of 63 steps (33%) done
+
+Job 38: Filtre hint file outcome of bam file for CH1205-arrow2_TAG-filter.
+Input: /homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/result/0_bamAlignement/CH1205-arrow2_TAG-filter/finalResults/hints_CH1205-arrow2_TAG-filter.raw.bam
+Output : /homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/result/1_hints/RNAseqHints/hints_CH1205-arrow2_TAG-filter.filtered.gff
+Threads : 1
+############################################################################################################
+
+Finished job 56.
+22 of 63 steps (35%) done
+
+Job 49: Convert merged bam file of PH0014-arrow2_TAG-filter into a hint file for AUGUSTUS.
+Input:/homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/result/0_bamAlignement/PH0014-arrow2_TAG-filter/finalResults/merged_PH0014-arrow2_TAG-filter.accepted_hits_sort.bam
+Output : /homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/result/0_bamAlignement/PH0014-arrow2_TAG-filter/finalResults/hints_PH0014-arrow2_TAG-filter.raw.bam
+Threads : 2
+############################################################################################################
+
+Finished job 38.
+23 of 63 steps (37%) done
+Finished job 49.
+24 of 63 steps (38%) done
+
+Job 40: Filtre hint file outcome of bam file for PH0014-arrow2_TAG-filter.
+Input: /homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/result/0_bamAlignement/PH0014-arrow2_TAG-filter/finalResults/hints_PH0014-arrow2_TAG-filter.raw.bam
+Output : /homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/result/1_hints/RNAseqHints/hints_PH0014-arrow2_TAG-filter.filtered.gff
+Threads : 1
+############################################################################################################
+
+Finished job 40.
+25 of 63 steps (40%) done
+Finished job 35.
+26 of 63 steps (41%) done
+
+Job 29: 
+Merge hints outcome of RNAseq with hints outcome of proteine alignement for wheatBlast-arrow2_TAG-filter.
+Input:
+		-Hints RNseq : /homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/result/1_hints/RNAseqHints/hints_wheatBlast-arrow2_TAG-filter.filtered.gff
+		-Hints proteine : /homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/result/1_hints/ProtHints/exonerate_wheatBlast-arrow2_TAG-filter.hints.gff3
+Output :/homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/result/1_hints/MergeHints/RNAseq_protein.hints.intron_wheatBlast-arrow2_TAG-filter.gff
+Threads : 1
+############################################################################################################
+
+Finished job 29.
+27 of 63 steps (43%) done
+
+Job 20: Execute BRAKER for wheatBlast-arrow2_TAG-filter.
+Input:
+		-Genome : /homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/0_rawdata/wheatBlast-arrow2_TAG-filter.fasta
+		-Hints file : /homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/result/1_hints/MergeHints/RNAseq_protein.hints.intron_wheatBlast-arrow2_TAG-filter.gff
+Output :/homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/result/2_Braker/wheatBlast-arrow2_TAG-filter/
+Threads : 2
+############################################################################################################
+
+
+Job 21: Execute augustus for wheatBlast-arrow2_TAG-filter.
+Input:
+		-Genome : /homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/0_rawdata/wheatBlast-arrow2_TAG-filter.fasta
+		-Hints file : /homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/result/1_hints/MergeHints/RNAseq_protein.hints_wheatBlast-arrow2_TAG-filter.gff
+Output :/homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/result/3_augustus/wheatBlast-arrow2_TAG-filter.gff3
+Threads : 2
+############################################################################################################
+
+Error in job BRAKER while creating output file /homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/result/2_Braker/wheatBlast-arrow2_TAG-filter/.
+ClusterJobException in line 113 of /work/gladieux/Script/Cluster/Annotation_pipeline_v2/BRAKER_pipeline2.snake:
+Error executing rule BRAKER on cluster (jobid: 20, external: Your job 7248013 ("snakejob.BRAKER.20.sh") has been submitted, jobscript: /work/gladieux/Script/Cluster/Annotation_pipeline_v2/.snakemake/tmp._pobp8a0/snakejob.BRAKER.20.sh). For detailed error see the cluster log.
+Will exit after finishing currently running jobs.
+Finished job 21.
+28 of 63 steps (44%) done
+Finished job 37.
+29 of 63 steps (46%) done
+Will exit after finishing currently running jobs.
+Finished job 42.
+30 of 63 steps (48%) done
+Will exit after finishing currently running jobs.
+Finished job 33.
+31 of 63 steps (49%) done
+Will exit after finishing currently running jobs.
+Finished job 39.
+32 of 63 steps (51%) done
+Will exit after finishing currently running jobs.
+Exiting because a job execution failed. Look above for error message

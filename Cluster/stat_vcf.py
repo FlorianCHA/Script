@@ -33,16 +33,20 @@
 	Input mandatory infos for running:
 		- \-f <path/to/vcf/file>, --file <path/to/vcf/file>
 						path of vcf file which be used
+        - \-g <path/to/gff/file>, --gff <path/to/gff/file>
+						path of the gff file path of the reference genome used to create the vcf
+
+	Input infos for running with default values:
 
 		- \-l <path/to/gene/liste/file>, --listegene <path/to/gene/liste/file>
 						path of the file which contains a gene list of interest. If you don't give a list,
 						the script search all gene of the gff file
-
-        - \-g <path/to/gff/file>, --gff <path/to/gff/file>
-						path of the gff file path of the reference genome used to create the vcf
-
 		- \-p <prefix>, --prefix <prefix>
 						prefix for the output file
+		- \-cds, -cds
+						Retrieve only the stat of CDS mapping
+		- \-gene, --gene
+						Retrieve only the stat of gene mapping
 
 """
 
@@ -59,6 +63,23 @@ from collections import defaultdict
 from module_Flo import verifDir, createDir, form, verifFichier, fasta2dict, openfile, sort_human
 from MODULES_SEB import AutoVivification
 
+filesreq = parser.add_argument_group('Input mandatory infos for running')
+filesreq.add_argument('-f', '--file', type=str, required=True, dest='vcf',
+                      help='Path of vcf file which be used')
+
+filesreq.add_argument('-g', '--gff', type=str, required=True, dest='gff',
+                      help='Path of the gff file path of the reference genome used to create the vcf')
+
+files = parser.add_argument_group('Input infos for running with default values')
+files.add_argument('-l', '--listegene', type=str, required=False, default='None', dest='listeGene',
+                   help='Path of the file which contains a gene list of interest,'
+                        'the script search all gene of the gff file')
+files.add_argument('--cds', action='store_true', dest='cds',
+                   help='Retrieve only the stat of CDS mapping')
+files.add_argument('--gene', action='store_true', dest='gene',
+                   help='Retrieve only the stat of gene mapping')
+files.add_argument('-p', '--prefix', type=str, required=False, default='vcfSearch', dest='prefix',
+                   help='prefix for the output file')
 
 
 def recupstat(file,line,map,noMap):

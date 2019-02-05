@@ -1,7 +1,7 @@
 
 {
-		"datadir"	: "/work/gladieux/magMax_project/2_New_Annotation/0_rawdata/",
-		"OutDir"	: "/work/gladieux/magMax_project/2_New_Annotation/1_tmp/",
+		"datadir"	: "/homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/0_rawdata/",
+		"OutDir"	: "/homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/result/",
 		"RnaSeqDir"	: "/work/gladieux/magMax_project/2_New_Annotation/rnaseq/",
 		"id_souche"	: "magnaporthe_oryzae",
 		"protRef"	: "/work/gladieux/Script/Cluster/Annotation_pipeline_v2/SupplementaryFile/OG_filter.fasta"

@@ -14,7 +14,7 @@
 	Script description
 	------------------
 
-	This program is used to search orthologue groups of a sequence in fasta files
+	This program is used to search for orthologues groupe  of core genome single copy and create a consensus for phylogenetic tree
 	
 	Example
 	-------
@@ -31,23 +31,23 @@
 						display secretome_Pipeline.py version number and exit
 						
 	Input mandatory infos for running:
-		- \-a <path/to/alingment/HMM/file>, --align <path/to/fasta/file>
-						path of the alignement HMM file of HmmerPipeline.py
-		- \-db <path/to/blast/database>, --database <path/to/prosite.dat/file>
-						path of the database of all genome which must be contain the database crate with makeblastbd.
-		- \-f <path/to/secretome/fasta/file/>, --fasta <path/to/prosite.dat/file>
-						path of the fasta file of all secretome
-		- \-g                             --orthoGroups
-						path of the directory which contain OrthoFinder result.
-						
-		- \-p                             --phenotype
-						path of the phenotype file. Please, change the use the model for create your phenotype file.						
-					
+		- \-g <path/to/orthofinder/result/file>, --group<path/to/orthofinder/result/file>
+						Path of the result of orthofinder (format csv)
+		- \-c <path/to/orthofinder/result/count/file>, --count <path/to/orthofinder/result/count/file>
+						Path of the count result of orthofinder (format csv)
+		- \-f <path/to//fasta/file/>, --fasta <path/to//fasta/file/>
+						Path of the fasta which contains all sequence used for orthofinder
 		- \-o <path/to/output/directory>, --outdirPath <path/to/output/directory>
 						path of the output directory
 
 """
-
+filesreq.add_argument('-g', '--group', type=str, required=True, dest='group',
+					  help='Path of the result of orthofinder (format csv)')
+filesreq.add_argument('-c', '--count', type=str, required=True, dest='count',
+					  help='Path of the count result of orthofinder (format csv)')
+filesreq.add_argument('-f', '--fasta', type=str, required=True, dest='fasta',
+					  help='Path of the fasta which contains all sequence used for orthofinder')
+filesreq.add_argument('-o', '--outdir', type=str, required=True, dest='outdir', help='Path of the output directory')
 
 ##################################################
 ## Modules
@@ -115,6 +115,7 @@ if __name__ == "__main__":
 			if nbGenes.count('1') == (len(nbGenes) -1 ) :
 				nb += 1
 				listeOG.append(name)
+<<<<<<< HEAD
 	print(form(f'\t- {nb} groupe orthologue single copy core genome on été trouvé','white','bold'))
 	print()
 	print(form(f'\t- Traitement du fichier {group} pour récupérer les sequences','white','bold'))
@@ -132,12 +133,37 @@ if __name__ == "__main__":
 	# 					SeqIO.write(record, f, "fasta")
 	print()
 	print(form(f'\t- Lancement de translatorX', 'white', 'bold'))
+=======
+
+	print(form(f'\t- {nb} groupe orthologue single copy core genome on été trouvé','white','bold'))
+	print()
+	print(form(f'\t- Traitement du fichier {group} pour récupérer les sequences','white','bold'))
+
+	dico = fasta2dict(fasta)
+	with open(group, 'r') as file_group:
+		header = file_group.readline()
+		for line in file_group :
+			name = line.split()[0]
+			if name in listeOG :
+				Genes = line.split()[1:len(line.split())]
+				with open(f'{outdir}{name}.fasta','w') as f :
+					for gene in Genes :
+						sequence = dico[gene].seq
+						record = SeqRecord(sequence, id=str(gene), name=str(gene),description= dico[gene].description)
+						SeqIO.write(record, f, "fasta")
+	print()
+	print(form(f'\t- Lancement de transletorX', 'white', 'bold'))
+>>>>>>> refs/remotes/origin/master
 	for elt in os.listdir(outdir) :
 		if elt.endswith('.fasta') :
 			print(f'{elt.replace(".fasta","")} in process')
 			os.system(f'translatorx_vLocal.pl -i {outdir}{elt} -o {tranDir}{elt.replace(".fasta","")}> stdout.txt')
+<<<<<<< HEAD
 	print()
 	print(form(f'\t- Traitement des résultats de translatorX', 'white', 'bold'))
+=======
+
+>>>>>>> refs/remotes/origin/master
 	dico_seq = {}
 	for file_name in os.listdir(tranDir):
 		if file_name.endswith('.nt_ali.fasta') :

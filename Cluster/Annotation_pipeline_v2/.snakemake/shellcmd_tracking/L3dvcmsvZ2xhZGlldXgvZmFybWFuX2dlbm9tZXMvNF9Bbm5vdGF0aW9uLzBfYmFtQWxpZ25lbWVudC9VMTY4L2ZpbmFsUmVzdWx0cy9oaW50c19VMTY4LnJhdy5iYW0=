@@ -1,4 +1,0 @@
-
-	module load bioinfo/braker/1.9
-	bam2hints --minintronlen=10 --maxintronlen=1000 --maxgaplen=9 --source=M --exonhints --in=/work/gladieux/farman_genomes/4_Annotation/0_bamAlignement/U168/finalResults/merged_U168.accepted_hits_sort.bam --out=/work/gladieux/farman_genomes/4_Annotation/0_bamAlignement/U168/finalResults/hints_U168.raw.bam
-	

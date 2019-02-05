@@ -1,0 +1,79 @@
+Provided cluster nodes: 100
+Job counts:
+	count	jobs
+	4	BRAKER
+	4	augustus
+	5	createFasta
+	1	final
+	5	mergeGFF
+	4	mergeHint
+	1	recuperation_Stat
+	5	renameFasta
+	1	report
+	30
+
+Job 15: Merge and rename Braker and Augustus output wheatBlast-arrow2_TAG-filter.
+Input:
+		-augustus : /homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/result/3_augustus/wheatBlast-arrow2_TAG-filter.gff3
+		-braker : /homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/result/2_Braker/wheatBlast-arrow2_TAG-filter//braker/magnaporthe_oryzae/augustus.gff3
+Output :/homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/result/4_mergeGFF/wheatBlast-arrow2_TAG-filter_merge.gff3
+Threads : 1
+############################################################################################################
+
+
+Job 29: 
+Merge hints outcome of RNAseq with hints outcome of proteine alignement for CH1205-arrow2_TAG-filter.
+Input:
+		-Hints RNseq : /homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/result/1_hints/RNAseqHints/hints_CH1205-arrow2_TAG-filter.filtered.gff
+		-Hints proteine : /homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/result/1_hints/ProtHints/exonerate_CH1205-arrow2_TAG-filter.hints.gff3
+Output :/homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/result/1_hints/MergeHints/RNAseq_protein.hints.intron_CH1205-arrow2_TAG-filter.gff
+Threads : 1
+############################################################################################################
+
+
+Job 31: 
+Merge hints outcome of RNAseq with hints outcome of proteine alignement for PH0014-arrow2_TAG-filter.
+Input:
+		-Hints RNseq : /homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/result/1_hints/RNAseqHints/hints_PH0014-arrow2_TAG-filter.filtered.gff
+		-Hints proteine : /homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/result/1_hints/ProtHints/exonerate_PH0014-arrow2_TAG-filter.hints.gff3
+Output :/homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/result/1_hints/MergeHints/RNAseq_protein.hints.intron_PH0014-arrow2_TAG-filter.gff
+Threads : 1
+############################################################################################################
+
+
+Job 28: 
+Merge hints outcome of RNAseq with hints outcome of proteine alignement for CH1189-arrow2_TAG-filter.
+Input:
+		-Hints RNseq : /homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/result/1_hints/RNAseqHints/hints_CH1189-arrow2_TAG-filter.filtered.gff
+		-Hints proteine : /homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/result/1_hints/ProtHints/exonerate_CH1189-arrow2_TAG-filter.hints.gff3
+Output :/homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/result/1_hints/MergeHints/RNAseq_protein.hints.intron_CH1189-arrow2_TAG-filter.gff
+Threads : 1
+############################################################################################################
+
+
+Job 32: 
+Merge hints outcome of RNAseq with hints outcome of proteine alignement for IN0082-arrow2_TAG-filter.
+Input:
+		-Hints RNseq : /homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/result/1_hints/RNAseqHints/hints_IN0082-arrow2_TAG-filter.filtered.gff
+		-Hints proteine : /homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/result/1_hints/ProtHints/exonerate_IN0082-arrow2_TAG-filter.hints.gff3
+Output :/homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/result/1_hints/MergeHints/RNAseq_protein.hints.intron_IN0082-arrow2_TAG-filter.gff
+Threads : 1
+############################################################################################################
+
+Error in job mergeGFF while creating output file /homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/result/4_mergeGFF/wheatBlast-arrow2_TAG-filter_merge.gff3.
+ClusterJobException in line 92 of /work/gladieux/Script/Cluster/Annotation_pipeline_v2/BRAKER_pipeline2.snake:
+Error executing rule mergeGFF on cluster (jobid: 15, external: Your job 7250761 ("snakejob.mergeGFF.15.sh") has been submitted, jobscript: /work/gladieux/Script/Cluster/Annotation_pipeline_v2/.snakemake/tmp.39p0kj6f/snakejob.mergeGFF.15.sh). For detailed error see the cluster log.
+Will exit after finishing currently running jobs.
+Finished job 29.
+1 of 30 steps (3%) done
+Will exit after finishing currently running jobs.
+Finished job 31.
+2 of 30 steps (7%) done
+Will exit after finishing currently running jobs.
+Finished job 28.
+3 of 30 steps (10%) done
+Will exit after finishing currently running jobs.
+Finished job 32.
+4 of 30 steps (13%) done
+Will exit after finishing currently running jobs.
+Exiting because a job execution failed. Look above for error message

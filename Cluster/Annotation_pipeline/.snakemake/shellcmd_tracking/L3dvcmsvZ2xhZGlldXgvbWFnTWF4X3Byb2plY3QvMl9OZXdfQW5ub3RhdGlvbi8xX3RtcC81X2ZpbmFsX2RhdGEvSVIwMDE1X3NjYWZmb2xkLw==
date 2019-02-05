@@ -1,4 +1,0 @@
-
-	script/gff2fasta.pl --gff /work/gladieux/magMax_project/2_New_Annotation/1_tmp/4_mergeGFF/IR0015_scaffold_merge.gff3 --fasta /homedir/gladieux/work/magMax_project/2_New_Annotation/0_rawdata/IR0015_scaffold.fasta --prefix /work/gladieux/magMax_project/2_New_Annotation/1_tmp/5_final_data/IR0015_scaffold/IR0015_scaffold
-	cp /work/gladieux/magMax_project/2_New_Annotation/1_tmp/4_mergeGFF/IR0015_scaffold_merge.gff3 /work/gladieux/magMax_project/2_New_Annotation/1_tmp/5_final_data/IR0015_scaffold/
-	

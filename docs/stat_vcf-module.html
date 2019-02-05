@@ -1,0 +1,318 @@
+<?xml version="1.0" encoding="ascii"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>stat_vcf</title>
+  <link rel="stylesheet" href="epydoc.css" type="text/css" />
+  <script type="text/javascript" src="epydoc.js"></script>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="#204080"
+      alink="#204080">
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Project homepage -->
+      <th class="navbar" align="right" width="100%">
+        <table border="0" cellpadding="0" cellspacing="0">
+          <tr><th class="navbar" align="center"
+            ><a href="https://floriancha.github.io/stage/" target="_blank">Retour au Site</a></th>
+          </tr></table></th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <span class="breadcrumbs">
+        Module&nbsp;stat_vcf
+      </span>
+    </td>
+    <td>
+      <table cellpadding="0" cellspacing="0">
+        <!-- hide/show private -->
+        <tr><td align="right"><span class="options">[<a href="javascript:void(0);" class="privatelink"
+    onclick="toggle_private();">hide&nbsp;private</a>]</span></td></tr>
+        <tr><td align="right"><span class="options"
+            >[<a href="frames.html" target="_top">frames</a
+            >]&nbsp;|&nbsp;<a href="stat_vcf-module.html"
+            target="_top">no&nbsp;frames</a>]</span></td></tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<!-- ==================== MODULE DESCRIPTION ==================== -->
+<h1 class="epydoc">Module stat_vcf</h1><p class="nomargin-top"><span class="codelink"><a href="stat_vcf-pysrc.html">source&nbsp;code</a></span></p>
+<div class="rst-section" id="rst-script-description">
+<h1 class="heading">Script description</h1>
+<p>This program is used to search a list of gene in a vcf file and give in output CDS,protein and gene fasta file.</p>
+<p>Example
+-------qstat</p>
+<pre class="py-doctest">
+<span class="py-prompt">&gt;&gt;&gt; </span>vcfSearch.py -l /homedir/user/work/listegene.txt -g /homedir/user/work/Isolat.gff -f /homedir/user/work/file.vcf -p prefix</pre>
+</div>
+<div class="rst-section" id="rst-help-programm">
+<h1 class="heading">Help Programm</h1>
+<dl class="rst-docutils">
+<dt>optional arguments:</dt>
+<dd><ul class="rst-first rst-last rst-simple">
+<li><dl class="rst-first rst-docutils">
+<dt>-h, --help</dt>
+<dd>show this help  message and exit</dd>
+</dl>
+</li>
+<li><dl class="rst-first rst-docutils">
+<dt>-v, --version</dt>
+<dd>display vcfSearch.py version number and exit</dd>
+</dl>
+</li>
+</ul>
+</dd>
+<dt>Input mandatory infos for running:</dt>
+<dd><ul class="rst-first rst-last rst-simple">
+<li><dl class="rst-first rst-docutils">
+<dt>-f &lt;path/to/vcf/file&gt;, --file &lt;path/to/vcf/file&gt;</dt>
+<dd>path of vcf file which be used</dd>
+</dl>
+</li>
+</ul>
+</dd>
+</dl>
+<ul class="rst-simple">
+<li><dl class="rst-first rst-docutils">
+<dt>-g &lt;path/to/gff/file&gt;, --gff &lt;path/to/gff/file&gt;</dt>
+<dd>path of the gff file path of the reference genome used to create the vcf</dd>
+</dl>
+</li>
+</ul>
+<p>Input infos for running with default values:</p>
+<blockquote>
+<ul class="rst-simple">
+<li><dl class="rst-first rst-docutils">
+<dt>-l &lt;path/to/gene/liste/file&gt;, --listegene &lt;path/to/gene/liste/file&gt;</dt>
+<dd>path of the file which contains a gene list of interest. If you don't give a list,
+the script search all gene of the gff file</dd>
+</dl>
+</li>
+<li><dl class="rst-first rst-docutils">
+<dt>-p &lt;prefix&gt;, --prefix &lt;prefix&gt;</dt>
+<dd>prefix for the output file</dd>
+</dl>
+</li>
+<li><dl class="rst-first rst-docutils">
+<dt>-cds, -cds</dt>
+<dd>Retrieve only the stat of CDS mapping</dd>
+</dl>
+</li>
+<li><dl class="rst-first rst-docutils">
+<dt>-gene, --gene</dt>
+<dd>Retrieve only the stat of gene mapping</dd>
+</dl>
+</li>
+</ul>
+</blockquote>
+</div>
+
+<hr />
+<div class="fields">      <p><strong>Author:</strong>
+        Charriat Florian
+      </p>
+      <p><strong>Contact:</strong>
+        <a class="rst-reference external" href="mailto:florian.charriat&#64;inra.fr" target="_top">florian.charriat&#64;inra.fr</a>
+      </p>
+      <p><strong>Date:</strong>
+        13/11/2018
+      </p>
+      <p><strong>Version:</strong>
+        0.1
+      </p>
+</div><!-- ==================== FUNCTIONS ==================== -->
+<a name="section-Functions"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Functions</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-Functions"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="recupstat"></a><span class="summary-sig-name">recupstat</span>(<span class="summary-sig-arg">file</span>,
+        <span class="summary-sig-arg">line</span>,
+        <span class="summary-sig-arg">map</span>,
+        <span class="summary-sig-arg">noMap</span>)</span><br />
+      Permet de r&#233;cup&#233;r&#233; l'acide nucl&#233;ique &#224; une position donn&#233;e en fonction de la qualit&#233;</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="stat_vcf-pysrc.html#recupstat">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+</table>
+<!-- ==================== VARIABLES ==================== -->
+<a name="section-Variables"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Variables</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-Variables"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="stat_vcf-module.html#filesreq" class="summary-name">filesreq</a> = <code title="parser.add_argument_group('Input mandatory infos for running')">parser.add_argument_group('Input mandatory infos fo<code class="variable-ellipsis">...</code></code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="stat_vcf-module.html#files" class="summary-name">files</a> = <code title="parser.add_argument_group('Input infos for running with default values\
+')">parser.add_argument_group('Input infos for running wit<code class="variable-ellipsis">...</code></code>
+    </td>
+  </tr>
+</table>
+<!-- ==================== VARIABLES DETAILS ==================== -->
+<a name="section-VariablesDetails"></a>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Variables Details</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-VariablesDetails"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+</table>
+<a name="filesreq"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <h3 class="epydoc">filesreq</h3>
+  
+  <dl class="fields">
+  </dl>
+  <dl class="fields">
+    <dt>Value:</dt>
+      <dd><table><tr><td><pre class="variable">
+parser.add_argument_group('Input mandatory infos for running')
+</pre></td></tr></table>
+</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="files"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <h3 class="epydoc">files</h3>
+  
+  <dl class="fields">
+  </dl>
+  <dl class="fields">
+    <dt>Value:</dt>
+      <dd><table><tr><td><pre class="variable">
+parser.add_argument_group('Input infos for running with default values<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
+')
+</pre></td></tr></table>
+</dd>
+  </dl>
+</td></tr></table>
+</div>
+<br />
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Project homepage -->
+      <th class="navbar" align="right" width="100%">
+        <table border="0" cellpadding="0" cellspacing="0">
+          <tr><th class="navbar" align="center"
+            ><a href="https://floriancha.github.io/stage/" target="_blank">Retour au Site</a></th>
+          </tr></table></th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%%">
+  <tr>
+    <td align="left" class="footer">
+    Generated by Epydoc 3.0.1
+    on Mon Dec 17 13:10:39 2018
+    </td>
+    <td align="right" class="footer">
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
+    </td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+  <!--
+  // Private objects are initially displayed (because if
+  // javascript is turned off then we want them to be
+  // visible); but by default, we want to hide them.  So hide
+  // them unless we have a cookie that says to show them.
+  checkCookie();
+  // -->
+</script>
+</body>
+</html>

@@ -35,7 +35,7 @@
 						path of the fasta file to process
 
 		- \-i <int>, --identiity <int>
-						Max identity between two sequence.
+						Max identity between two sequence (default = 0.90).
 
 		- \-o <path/to/output/file>, --outdirPath <path/to/output/file>
 						path of the output file

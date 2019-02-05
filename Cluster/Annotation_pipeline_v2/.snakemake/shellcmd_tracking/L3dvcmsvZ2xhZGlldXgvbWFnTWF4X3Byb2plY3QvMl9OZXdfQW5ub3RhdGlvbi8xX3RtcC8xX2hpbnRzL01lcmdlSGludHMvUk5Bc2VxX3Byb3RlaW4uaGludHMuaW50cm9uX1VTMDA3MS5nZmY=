@@ -1,4 +1,0 @@
-
-			cat /work/gladieux/magMax_project/2_New_Annotation/1_tmp/1_hints/RNAseqHints/hints_US0071.filtered.gff /work/gladieux/magMax_project/2_New_Annotation/1_tmp/1_hints/ProtHints/exonerate_US0071.hints.gff3  > /work/gladieux/magMax_project/2_New_Annotation/1_tmp/1_hints/MergeHints/RNAseq_protein.hints_US0071.gff
-			awk '/intron/' /work/gladieux/magMax_project/2_New_Annotation/1_tmp/1_hints/MergeHints/RNAseq_protein.hints_US0071.gff > /work/gladieux/magMax_project/2_New_Annotation/1_tmp/1_hints/MergeHints/RNAseq_protein.hints.intron_US0071.gff
-			

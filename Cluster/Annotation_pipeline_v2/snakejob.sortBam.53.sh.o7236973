@@ -1,0 +1,99 @@
+[Tue Jan 29 03:10:45 CET 2019] picard.sam.SortSam INPUT=/homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/result/0_bamAlignement/IN0082-arrow2_TAG-filter/finalResults/merged_IN0082-arrow2_TAG-filter.accepted_hits.bam OUTPUT=/homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/result/0_bamAlignement/IN0082-arrow2_TAG-filter/finalResults/merged_IN0082-arrow2_TAG-filter.accepted_hits_sort.bam SORT_ORDER=coordinate    VERBOSITY=INFO QUIET=false VALIDATION_STRINGENCY=STRICT COMPRESSION_LEVEL=5 MAX_RECORDS_IN_RAM=500000 CREATE_INDEX=false CREATE_MD5_FILE=false GA4GH_CLIENT_SECRETS=client_secrets.json
+[Tue Jan 29 03:10:45 CET 2019] Executing as gladieux@cc2-n5 on Linux 2.6.32-504.16.2.el6.x86_64 amd64; Java HotSpot(TM) 64-Bit Server VM 1.8.0_31-b13; Picard version: 2.7.0-SNAPSHOT
+INFO	2019-01-29 03:12:09	SortSam	Read    10,000,000 records.  Elapsed time: 00:01:24s.  Time for last 10,000,000:   84s.  Last read position: Scaffold_1:1,898,069
+INFO	2019-01-29 03:13:20	SortSam	Read    20,000,000 records.  Elapsed time: 00:02:34s.  Time for last 10,000,000:   70s.  Last read position: Scaffold_1:3,697,604
+INFO	2019-01-29 03:14:45	SortSam	Read    30,000,000 records.  Elapsed time: 00:03:59s.  Time for last 10,000,000:   84s.  Last read position: Scaffold_1:5,298,787
+INFO	2019-01-29 03:15:59	SortSam	Read    40,000,000 records.  Elapsed time: 00:05:14s.  Time for last 10,000,000:   74s.  Last read position: Scaffold_1:7,071,211
+INFO	2019-01-29 03:17:27	SortSam	Read    50,000,000 records.  Elapsed time: 00:06:41s.  Time for last 10,000,000:   87s.  Last read position: Scaffold_10:877,880
+INFO	2019-01-29 03:18:20	SortSam	Read    60,000,000 records.  Elapsed time: 00:07:35s.  Time for last 10,000,000:   53s.  Last read position: Scaffold_108:4,928
+INFO	2019-01-29 03:19:06	SortSam	Read    70,000,000 records.  Elapsed time: 00:08:21s.  Time for last 10,000,000:   46s.  Last read position: Scaffold_108:5,468
+INFO	2019-01-29 03:19:59	SortSam	Read    80,000,000 records.  Elapsed time: 00:09:14s.  Time for last 10,000,000:   52s.  Last read position: Scaffold_108:26,976
+INFO	2019-01-29 03:21:13	SortSam	Read    90,000,000 records.  Elapsed time: 00:10:27s.  Time for last 10,000,000:   73s.  Last read position: Scaffold_112:486
+INFO	2019-01-29 03:22:25	SortSam	Read   100,000,000 records.  Elapsed time: 00:11:40s.  Time for last 10,000,000:   72s.  Last read position: Scaffold_112:1,194
+INFO	2019-01-29 03:23:45	SortSam	Read   110,000,000 records.  Elapsed time: 00:12:59s.  Time for last 10,000,000:   79s.  Last read position: Scaffold_112:1,196
+INFO	2019-01-29 03:25:14	SortSam	Read   120,000,000 records.  Elapsed time: 00:14:29s.  Time for last 10,000,000:   89s.  Last read position: Scaffold_112:6,099
+INFO	2019-01-29 03:26:18	SortSam	Read   130,000,000 records.  Elapsed time: 00:15:33s.  Time for last 10,000,000:   64s.  Last read position: Scaffold_112:8,739
+INFO	2019-01-29 03:27:35	SortSam	Read   140,000,000 records.  Elapsed time: 00:16:50s.  Time for last 10,000,000:   76s.  Last read position: Scaffold_112:9,528
+INFO	2019-01-29 03:28:32	SortSam	Read   150,000,000 records.  Elapsed time: 00:17:46s.  Time for last 10,000,000:   56s.  Last read position: Scaffold_112:9,530
+INFO	2019-01-29 03:29:14	SortSam	Read   160,000,000 records.  Elapsed time: 00:18:28s.  Time for last 10,000,000:   42s.  Last read position: Scaffold_112:14,420
+INFO	2019-01-29 03:29:57	SortSam	Read   170,000,000 records.  Elapsed time: 00:19:11s.  Time for last 10,000,000:   42s.  Last read position: Scaffold_112:17,030
+INFO	2019-01-29 03:30:37	SortSam	Read   180,000,000 records.  Elapsed time: 00:19:52s.  Time for last 10,000,000:   40s.  Last read position: Scaffold_112:17,861
+INFO	2019-01-29 03:31:22	SortSam	Read   190,000,000 records.  Elapsed time: 00:20:36s.  Time for last 10,000,000:   44s.  Last read position: Scaffold_112:17,863
+INFO	2019-01-29 03:32:08	SortSam	Read   200,000,000 records.  Elapsed time: 00:21:22s.  Time for last 10,000,000:   46s.  Last read position: Scaffold_112:22,744
+INFO	2019-01-29 03:32:51	SortSam	Read   210,000,000 records.  Elapsed time: 00:22:05s.  Time for last 10,000,000:   42s.  Last read position: Scaffold_112:25,217
+INFO	2019-01-29 03:33:35	SortSam	Read   220,000,000 records.  Elapsed time: 00:22:49s.  Time for last 10,000,000:   44s.  Last read position: Scaffold_112:26,191
+INFO	2019-01-29 03:34:24	SortSam	Read   230,000,000 records.  Elapsed time: 00:23:38s.  Time for last 10,000,000:   49s.  Last read position: Scaffold_112:26,196
+INFO	2019-01-29 03:35:12	SortSam	Read   240,000,000 records.  Elapsed time: 00:24:26s.  Time for last 10,000,000:   47s.  Last read position: Scaffold_12:278,661
+INFO	2019-01-29 03:35:51	SortSam	Read   250,000,000 records.  Elapsed time: 00:25:05s.  Time for last 10,000,000:   39s.  Last read position: Scaffold_16:58,243
+INFO	2019-01-29 03:36:35	SortSam	Read   260,000,000 records.  Elapsed time: 00:25:49s.  Time for last 10,000,000:   44s.  Last read position: Scaffold_2:1,106,286
+INFO	2019-01-29 03:37:13	SortSam	Read   270,000,000 records.  Elapsed time: 00:26:27s.  Time for last 10,000,000:   37s.  Last read position: Scaffold_2:2,594,154
+INFO	2019-01-29 03:37:56	SortSam	Read   280,000,000 records.  Elapsed time: 00:27:10s.  Time for last 10,000,000:   42s.  Last read position: Scaffold_2:4,093,547
+INFO	2019-01-29 03:38:38	SortSam	Read   290,000,000 records.  Elapsed time: 00:27:52s.  Time for last 10,000,000:   41s.  Last read position: Scaffold_20:247,273
+INFO	2019-01-29 03:39:22	SortSam	Read   300,000,000 records.  Elapsed time: 00:28:36s.  Time for last 10,000,000:   44s.  Last read position: Scaffold_28:56,708
+INFO	2019-01-29 03:40:03	SortSam	Read   310,000,000 records.  Elapsed time: 00:29:17s.  Time for last 10,000,000:   41s.  Last read position: Scaffold_3:1,700,308
+INFO	2019-01-29 03:40:46	SortSam	Read   320,000,000 records.  Elapsed time: 00:30:00s.  Time for last 10,000,000:   42s.  Last read position: Scaffold_3:3,274,804
+INFO	2019-01-29 03:41:28	SortSam	Read   330,000,000 records.  Elapsed time: 00:30:42s.  Time for last 10,000,000:   42s.  Last read position: Scaffold_35:122,159
+INFO	2019-01-29 03:42:08	SortSam	Read   340,000,000 records.  Elapsed time: 00:31:22s.  Time for last 10,000,000:   39s.  Last read position: Scaffold_4:1,516,315
+INFO	2019-01-29 03:42:47	SortSam	Read   350,000,000 records.  Elapsed time: 00:32:01s.  Time for last 10,000,000:   39s.  Last read position: Scaffold_4:2,815,865
+INFO	2019-01-29 03:43:28	SortSam	Read   360,000,000 records.  Elapsed time: 00:32:42s.  Time for last 10,000,000:   40s.  Last read position: Scaffold_4:3,583,049
+INFO	2019-01-29 03:44:09	SortSam	Read   370,000,000 records.  Elapsed time: 00:33:23s.  Time for last 10,000,000:   40s.  Last read position: Scaffold_43:1,790
+INFO	2019-01-29 03:44:49	SortSam	Read   380,000,000 records.  Elapsed time: 00:34:03s.  Time for last 10,000,000:   39s.  Last read position: Scaffold_43:2,382
+INFO	2019-01-29 03:45:32	SortSam	Read   390,000,000 records.  Elapsed time: 00:34:46s.  Time for last 10,000,000:   42s.  Last read position: Scaffold_43:59,075
+INFO	2019-01-29 03:46:12	SortSam	Read   400,000,000 records.  Elapsed time: 00:35:26s.  Time for last 10,000,000:   40s.  Last read position: Scaffold_5:1,223,824
+INFO	2019-01-29 03:46:51	SortSam	Read   410,000,000 records.  Elapsed time: 00:36:05s.  Time for last 10,000,000:   38s.  Last read position: Scaffold_5:2,472,829
+INFO	2019-01-29 03:47:29	SortSam	Read   420,000,000 records.  Elapsed time: 00:36:43s.  Time for last 10,000,000:   38s.  Last read position: Scaffold_6:94,556
+INFO	2019-01-29 03:48:07	SortSam	Read   430,000,000 records.  Elapsed time: 00:37:21s.  Time for last 10,000,000:   37s.  Last read position: Scaffold_6:1,822,530
+INFO	2019-01-29 03:48:46	SortSam	Read   440,000,000 records.  Elapsed time: 00:38:00s.  Time for last 10,000,000:   39s.  Last read position: Scaffold_7:993,855
+INFO	2019-01-29 03:49:28	SortSam	Read   450,000,000 records.  Elapsed time: 00:38:42s.  Time for last 10,000,000:   41s.  Last read position: Scaffold_7:2,031,357
+INFO	2019-01-29 03:50:07	SortSam	Read   460,000,000 records.  Elapsed time: 00:39:21s.  Time for last 10,000,000:   38s.  Last read position: Scaffold_8:857,614
+INFO	2019-01-29 03:50:45	SortSam	Read   470,000,000 records.  Elapsed time: 00:39:59s.  Time for last 10,000,000:   37s.  Last read position: Scaffold_9:3,321
+INFO	2019-01-29 03:51:23	SortSam	Finished reading inputs, merging and writing to output now.
+INFO	2019-01-29 03:52:31	SortSam	Wrote    10,000,000 records from a sorting collection.  Elapsed time: 00:41:46s.  Time for last 10,000,000:   67s.  Last read position: Scaffold_1:1,898,069
+INFO	2019-01-29 03:53:37	SortSam	Wrote    20,000,000 records from a sorting collection.  Elapsed time: 00:42:52s.  Time for last 10,000,000:   65s.  Last read position: Scaffold_1:3,697,604
+INFO	2019-01-29 03:54:48	SortSam	Wrote    30,000,000 records from a sorting collection.  Elapsed time: 00:44:03s.  Time for last 10,000,000:   71s.  Last read position: Scaffold_1:5,298,787
+INFO	2019-01-29 03:55:57	SortSam	Wrote    40,000,000 records from a sorting collection.  Elapsed time: 00:45:11s.  Time for last 10,000,000:   68s.  Last read position: Scaffold_1:7,071,211
+INFO	2019-01-29 03:57:14	SortSam	Wrote    50,000,000 records from a sorting collection.  Elapsed time: 00:46:28s.  Time for last 10,000,000:   77s.  Last read position: Scaffold_10:877,880
+INFO	2019-01-29 03:58:30	SortSam	Wrote    60,000,000 records from a sorting collection.  Elapsed time: 00:47:44s.  Time for last 10,000,000:   75s.  Last read position: Scaffold_108:4,928
+INFO	2019-01-29 03:59:19	SortSam	Wrote    70,000,000 records from a sorting collection.  Elapsed time: 00:48:34s.  Time for last 10,000,000:   49s.  Last read position: Scaffold_108:5,468
+INFO	2019-01-29 04:00:18	SortSam	Wrote    80,000,000 records from a sorting collection.  Elapsed time: 00:49:33s.  Time for last 10,000,000:   59s.  Last read position: Scaffold_108:26,976
+INFO	2019-01-29 04:01:24	SortSam	Wrote    90,000,000 records from a sorting collection.  Elapsed time: 00:50:39s.  Time for last 10,000,000:   65s.  Last read position: Scaffold_112:486
+INFO	2019-01-29 04:02:21	SortSam	Wrote   100,000,000 records from a sorting collection.  Elapsed time: 00:51:35s.  Time for last 10,000,000:   56s.  Last read position: Scaffold_112:1,194
+INFO	2019-01-29 04:03:18	SortSam	Wrote   110,000,000 records from a sorting collection.  Elapsed time: 00:52:32s.  Time for last 10,000,000:   56s.  Last read position: Scaffold_112:1,196
+INFO	2019-01-29 04:04:16	SortSam	Wrote   120,000,000 records from a sorting collection.  Elapsed time: 00:53:30s.  Time for last 10,000,000:   58s.  Last read position: Scaffold_112:6,099
+INFO	2019-01-29 04:05:13	SortSam	Wrote   130,000,000 records from a sorting collection.  Elapsed time: 00:54:27s.  Time for last 10,000,000:   57s.  Last read position: Scaffold_112:8,739
+INFO	2019-01-29 04:06:16	SortSam	Wrote   140,000,000 records from a sorting collection.  Elapsed time: 00:55:31s.  Time for last 10,000,000:   63s.  Last read position: Scaffold_112:9,528
+INFO	2019-01-29 04:07:20	SortSam	Wrote   150,000,000 records from a sorting collection.  Elapsed time: 00:56:35s.  Time for last 10,000,000:   64s.  Last read position: Scaffold_112:9,530
+INFO	2019-01-29 04:08:21	SortSam	Wrote   160,000,000 records from a sorting collection.  Elapsed time: 00:57:35s.  Time for last 10,000,000:   60s.  Last read position: Scaffold_112:14,420
+INFO	2019-01-29 04:09:22	SortSam	Wrote   170,000,000 records from a sorting collection.  Elapsed time: 00:58:36s.  Time for last 10,000,000:   60s.  Last read position: Scaffold_112:17,030
+INFO	2019-01-29 04:10:22	SortSam	Wrote   180,000,000 records from a sorting collection.  Elapsed time: 00:59:36s.  Time for last 10,000,000:   60s.  Last read position: Scaffold_112:17,861
+INFO	2019-01-29 04:11:19	SortSam	Wrote   190,000,000 records from a sorting collection.  Elapsed time: 01:00:33s.  Time for last 10,000,000:   57s.  Last read position: Scaffold_112:17,863
+INFO	2019-01-29 04:12:20	SortSam	Wrote   200,000,000 records from a sorting collection.  Elapsed time: 01:01:34s.  Time for last 10,000,000:   61s.  Last read position: Scaffold_112:22,744
+INFO	2019-01-29 04:13:24	SortSam	Wrote   210,000,000 records from a sorting collection.  Elapsed time: 01:02:38s.  Time for last 10,000,000:   64s.  Last read position: Scaffold_112:25,217
+INFO	2019-01-29 04:14:24	SortSam	Wrote   220,000,000 records from a sorting collection.  Elapsed time: 01:03:38s.  Time for last 10,000,000:   59s.  Last read position: Scaffold_112:26,191
+INFO	2019-01-29 04:15:37	SortSam	Wrote   230,000,000 records from a sorting collection.  Elapsed time: 01:04:51s.  Time for last 10,000,000:   73s.  Last read position: Scaffold_112:26,196
+INFO	2019-01-29 04:16:39	SortSam	Wrote   240,000,000 records from a sorting collection.  Elapsed time: 01:05:53s.  Time for last 10,000,000:   61s.  Last read position: Scaffold_12:278,661
+INFO	2019-01-29 04:17:50	SortSam	Wrote   250,000,000 records from a sorting collection.  Elapsed time: 01:07:05s.  Time for last 10,000,000:   71s.  Last read position: Scaffold_16:58,243
+INFO	2019-01-29 04:19:05	SortSam	Wrote   260,000,000 records from a sorting collection.  Elapsed time: 01:08:19s.  Time for last 10,000,000:   74s.  Last read position: Scaffold_2:1,106,286
+INFO	2019-01-29 04:20:52	SortSam	Wrote   270,000,000 records from a sorting collection.  Elapsed time: 01:10:06s.  Time for last 10,000,000:  107s.  Last read position: Scaffold_2:2,594,154
+INFO	2019-01-29 04:21:59	SortSam	Wrote   280,000,000 records from a sorting collection.  Elapsed time: 01:11:14s.  Time for last 10,000,000:   67s.  Last read position: Scaffold_2:4,093,547
+INFO	2019-01-29 04:23:19	SortSam	Wrote   290,000,000 records from a sorting collection.  Elapsed time: 01:12:34s.  Time for last 10,000,000:   79s.  Last read position: Scaffold_20:247,273
+INFO	2019-01-29 04:24:33	SortSam	Wrote   300,000,000 records from a sorting collection.  Elapsed time: 01:13:48s.  Time for last 10,000,000:   74s.  Last read position: Scaffold_28:56,708
+INFO	2019-01-29 04:25:48	SortSam	Wrote   310,000,000 records from a sorting collection.  Elapsed time: 01:15:03s.  Time for last 10,000,000:   74s.  Last read position: Scaffold_3:1,700,308
+INFO	2019-01-29 04:27:02	SortSam	Wrote   320,000,000 records from a sorting collection.  Elapsed time: 01:16:16s.  Time for last 10,000,000:   73s.  Last read position: Scaffold_3:3,274,804
+INFO	2019-01-29 04:28:13	SortSam	Wrote   330,000,000 records from a sorting collection.  Elapsed time: 01:17:27s.  Time for last 10,000,000:   70s.  Last read position: Scaffold_35:122,159
+INFO	2019-01-29 04:29:29	SortSam	Wrote   340,000,000 records from a sorting collection.  Elapsed time: 01:18:44s.  Time for last 10,000,000:   76s.  Last read position: Scaffold_4:1,516,315
+INFO	2019-01-29 04:30:42	SortSam	Wrote   350,000,000 records from a sorting collection.  Elapsed time: 01:19:56s.  Time for last 10,000,000:   72s.  Last read position: Scaffold_4:2,815,865
+INFO	2019-01-29 04:31:42	SortSam	Wrote   360,000,000 records from a sorting collection.  Elapsed time: 01:20:56s.  Time for last 10,000,000:   59s.  Last read position: Scaffold_4:3,583,049
+INFO	2019-01-29 04:32:44	SortSam	Wrote   370,000,000 records from a sorting collection.  Elapsed time: 01:21:58s.  Time for last 10,000,000:   61s.  Last read position: Scaffold_43:1,790
+INFO	2019-01-29 04:33:48	SortSam	Wrote   380,000,000 records from a sorting collection.  Elapsed time: 01:23:02s.  Time for last 10,000,000:   63s.  Last read position: Scaffold_43:2,382
+INFO	2019-01-29 04:34:44	SortSam	Wrote   390,000,000 records from a sorting collection.  Elapsed time: 01:23:58s.  Time for last 10,000,000:   55s.  Last read position: Scaffold_43:59,075
+INFO	2019-01-29 04:36:01	SortSam	Wrote   400,000,000 records from a sorting collection.  Elapsed time: 01:25:15s.  Time for last 10,000,000:   77s.  Last read position: Scaffold_5:1,223,824
+INFO	2019-01-29 04:37:21	SortSam	Wrote   410,000,000 records from a sorting collection.  Elapsed time: 01:26:35s.  Time for last 10,000,000:   80s.  Last read position: Scaffold_5:2,472,829
+INFO	2019-01-29 04:38:37	SortSam	Wrote   420,000,000 records from a sorting collection.  Elapsed time: 01:27:51s.  Time for last 10,000,000:   75s.  Last read position: Scaffold_6:94,556
+INFO	2019-01-29 04:39:44	SortSam	Wrote   430,000,000 records from a sorting collection.  Elapsed time: 01:28:58s.  Time for last 10,000,000:   66s.  Last read position: Scaffold_6:1,822,530
+INFO	2019-01-29 04:40:57	SortSam	Wrote   440,000,000 records from a sorting collection.  Elapsed time: 01:30:11s.  Time for last 10,000,000:   72s.  Last read position: Scaffold_7:993,855
+INFO	2019-01-29 04:41:58	SortSam	Wrote   450,000,000 records from a sorting collection.  Elapsed time: 01:31:13s.  Time for last 10,000,000:   61s.  Last read position: Scaffold_7:2,031,357
+INFO	2019-01-29 04:43:06	SortSam	Wrote   460,000,000 records from a sorting collection.  Elapsed time: 01:32:20s.  Time for last 10,000,000:   67s.  Last read position: Scaffold_8:857,614
+INFO	2019-01-29 04:44:08	SortSam	Wrote   470,000,000 records from a sorting collection.  Elapsed time: 01:33:23s.  Time for last 10,000,000:   62s.  Last read position: Scaffold_9:3,321
+[Tue Jan 29 04:45:16 CET 2019] picard.sam.SortSam done. Elapsed time: 94.51 minutes.
+Runtime.totalMemory()=1540882432
