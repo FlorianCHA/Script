@@ -1,0 +1,7 @@
+
+	module load bioinfo/MUMmer/4.0
+	touch  /gs7k1/home/charriat/magMax_project/9_SNPcalling/2_result/Alignement_file/CH1884
+	echo nucmer -p /gs7k1/home/charriat/magMax_project/9_SNPcalling/2_result/Alignement_file/CH1884 /gs7k1/home/charriat/magMax_project/9_SNPcalling/1_ref/70-15.fasta /gs7k1/home/charriat/magMax_project/9_SNPcalling/0_rawdata//CH1884.fasta 
+	nucmer -p /gs7k1/home/charriat/magMax_project/9_SNPcalling/2_result/Alignement_file/CH1884 /gs7k1/home/charriat/magMax_project/9_SNPcalling/1_ref/70-15.fasta /gs7k1/home/charriat/magMax_project/9_SNPcalling/0_rawdata//CH1884.fasta 
+	echo nucmer -p /gs7k1/home/charriat/magMax_project/9_SNPcalling/2_result/Alignement_file/CH1884 /gs7k1/home/charriat/magMax_project/9_SNPcalling/1_ref/70-15.fasta /gs7k1/home/charriat/magMax_project/9_SNPcalling/0_rawdata//CH1884.fasta 
+	

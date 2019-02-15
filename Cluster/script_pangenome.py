@@ -126,9 +126,10 @@ if __name__ == "__main__":
 			if name in listeOG :
 				nb += 1
 				total = line.split()[-1]
-				result.write(line.replace(f'\t{total}',''))
-
-	os.system("Rscript -e 'rmarkdown::render(%s, output_file=%s, quiet=TRUE, params = list(data = %s, dataH = %s))'"%('"'+pathScript+'"','"'+outdir+'Report.html'+'"','"'+outdir+'gene.count.csv"','"'+hote+'"'))
+				gene = line.replace(f'\t{total}', '')
+				result.write(gene)
+				print(gene)
+	# os.system("Rscript -e 'rmarkdown::render(%s, output_file=%s, quiet=TRUE, params = list(data = %s, dataH = %s))'"%('"'+pathScript+'"','"'+outdir+'Report.html'+'"','"'+outdir+'gene.count.csv"','"'+hote+'"'))
 
 	############## end message ###########################
 

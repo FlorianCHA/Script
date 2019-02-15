@@ -74,6 +74,7 @@ if __name__ == "__main__":
 	filesreq.add_argument('-f', '--fasta', type = str, required=True, dest = 'fasta', help = 'path of gene fasta file')
 	filesreq.add_argument('-g', '--gff',type = str, required=True, dest = 'gff', help = 'path directory which contain all gff file ')
 	filesreq.add_argument('-d', '--directory',type = str, required=True, dest = 'directory', help = 'path of directory which contain all gff file for ET ')
+	filesreq.add_argument('-a', '--assembly', type=str, required=True, dest='assembly', help='path of directory which contain all assembly file')
 	filesreq.add_argument('-o', '--output',type=str, required=True, dest = 'output', help = 'path of the output file')
 
 ######### Recuperation arguments ###########
@@ -82,6 +83,8 @@ if __name__ == "__main__":
 	gff = os.path.abspath(args.gff)
 	directory = os.path.abspath(args.directory)
 	output = os.path.abspath(args.output)
+	assembly = os.path.abspath(args.assembly)
+	assembly  = verifDir(assembly, True)
 	verifFichier(fasta)
 	gff = verifDir(gff, True)
 	directory = verifDir(directory,True)
@@ -102,21 +105,23 @@ if __name__ == "__main__":
 	dico_id = {}
 	print(form(f"Ouverture du fichier {fasta}\n", 'white', 'bold'))
 	for elt in sorted(dico_fasta.keys(),key = sort_human) :
-		isolat = elt.split('_')[1]
-		if isolat in dico_id.keys() :
-			dico_id[isolat][elt] = []
-		elif isolat not in dico_id.keys():
-			dico_id[isolat] = {}
-			dico_id[isolat][elt] = []
+		if 'Mo_' in elt :
+			isolat = elt.split('_')[1]
+			if isolat in dico_id.keys() :
+				dico_id[isolat][elt] = []
+			elif isolat not in dico_id.keys():
+				dico_id[isolat] = {}
+				dico_id[isolat][elt] = []
 
-	with open(output,'w') as output_file :
+	with open(output,'w') as output_file,open(output.replace('.','_value.'),'w') as output_file_script :
 		for elt in dico_id.keys() :
 			ET_path = f'{directory}{elt}_ET.gff'
+			dico_ET = {}
 			if os.path.exists(ET_path) :
-				print(form(f"Traitement de l'isolat {elt}\n",'white','bold'))
-
-				dico_ET = {}
-				print(form(f"Ouverture du fichier {ET_path}\n",'white','bold'))
+				file_ET = True
+				print(form('-' * 100, 'white', 'bold'))
+				print(form(f"Traitement de l'isolat {elt}", 'green', 'bold'))
+				print()
 
 				with open(ET_path,'r') as ET_file :
 					for line in ET_file :
@@ -127,52 +132,75 @@ if __name__ == "__main__":
 								dico_ET[Scaffold] = [(start,stop,brin,id)]
 							else :
 								dico_ET[Scaffold].append((start,stop,brin,id))
-
-
-
-
-				gff_path = f'{gff}{elt}/{elt}_merge.gff3'
-				print(form(f"Ouverture du fichier {gff_path}\n",'white','bold'))
-
-				with open(gff_path,'r') as gff_file :
-					for line in gff_file :
-						if line[0] != '#' :
-							Scaffold,_,type,start,stop,_,brin,*_,id = line.split('\t')
-							id = id.split(';')[0].replace('ID=','')
-							if type == 'mRNA' and id in dico_id[elt].keys() :
-								if Scaffold in dico_ET.keys() :
-									listeET = dico_ET[Scaffold]
-									for ET in listeET :
-										start_ET, stop_ET, brin_ET, id_ET = ET
-										start = int(start)
-										stop = int(stop)
-										start_ET = int(start_ET)
-										stop_ET = int(stop_ET)
-
-										if brin == '+' :
-											if start > start_ET > (start - 400) :
-												output_file.write(f"\t - {id} have the {id_ET} element transposable dans les 400 nucléotides en amont\n")
-											elif start > stop_ET> (start - 400) :
-												output_file.write(f"\t - {id} have a part of the  {id_ET} element transposable dans les 400 nucléotides en amont\n")
-										if brin == '-' :
-											if stop < stop_ET < (stop + 400) :
-												output_file.write(f"\t - {id} have the {id_ET} element transposable dans les 400 nucléotides en amont\n")
-											elif stop < start_ET< (stop + 400) :
-												output_file.write(f"\t - {id} have a part of the  {id_ET} element transposable dans les 400 nucléotides en amont\n")
 			else :
-				print(form(f"Il n'y a pas de fichier d'annotation des éléments transposable de l'isolat {elt} dans le repertoire {directory}\n", 'orange', 'bold'))
+				file_ET = False
+				assembly_path = f'{assembly}{elt}.fasta'
+				print(form('-' * 100, 'white', 'bold'))
+				print(form(f"Traitement de l'isolat {elt}", 'green', 'bold'))
+				print()
+				print(form(
+					f"Warning : Il n'y a pas de fichier d'annotation des éléments transposable de l'isolat {elt} dans le repertoire {directory.split('/')[-1]}\n",
+					'orange', 'bold'))
+				print(form(f"Ouverture du fichier {assembly_path}\n", 'white', 'bold'))
+
+				dicofasta_scaffold = fasta2dict(assembly_path)
+				dico_scaffold = {}
+				for elt2 in dicofasta_scaffold.keys() :
+					id = elt2
+					length = int(dicofasta_scaffold[elt2].description.split('length=')[-1].replace('\n',''))
+					dico_scaffold[id] = length
+			gff_path = f'{gff}{elt}/{elt}_merge.gff3'
+			print(form(f"Ouverture du fichier {gff_path}\n",'white','bold'))
+
+			with open(gff_path,'r') as gff_file :
+				for line in gff_file :
+					if line[0] != '#' :
+						Scaffold,_,type,start,stop,_,brin,*_,id = line.split('\t')
+						id = id.split(';')[0].replace('ID=','')
+						if type == 'mRNA' and id in dico_id[elt].keys() :
+							start = int(start)
+							stop = int(stop)
+							if Scaffold in dico_ET.keys() :
+								listeET = dico_ET[Scaffold]
+								for ET in listeET :
+									start_ET, stop_ET, brin_ET, id_ET = ET
+									start_ET = int(start_ET)
+									stop_ET = int(stop_ET)
+
+									if brin == '+' :
+										if start > start_ET > (start - 400) :
+											output_file.write(f"\t - {id} have the {id_ET} element transposable dans les 400 nucléotides en amont\n")
+											output_file_script.write(f"{id}\t1\n")
+										elif start > stop_ET> (start - 400) :
+											output_file.write(f"\t - {id} have a part of the  {id_ET} element transposable dans les 400 nucléotides en amont\n")
+											output_file_script.write(f"{id}\t1\n")
+									if brin == '-' :
+										if stop < stop_ET < (stop + 400) :
+											output_file.write(f"\t - {id} have the {id_ET} element transposable dans les 400 nucléotides en amont\n")
+											output_file_script.write(f"{id}\t1\n")
+										elif stop < start_ET< (stop + 400) :
+											output_file.write(f"\t - {id} have a part of the  {id_ET} element transposable dans les 400 nucléotides en amont\n")
+											output_file_script.write(f"{id}\t1\n")
+							elif file_ET == False :
+								if start < 400  and brin == '+':
+									output_file.write(f"\t - {id} is in 400 first nucléotides of the contigs (brin +) \n")
+									output_file_script.write(f"{id}\t2\n")
+								elif stop +400 > dico_scaffold[Scaffold] :
+									output_file.write(f"\t - {id} is in 400 last nucléotides of the contigs (brin -) \n")
+									output_file_script.write(f"{id}\t2\n")
+								elif str(dicofasta_scaffold[Scaffold].seq)[start-400:start].count('N') > 30 and brin == '+' :
+									output_file.write(
+										f"\t - {id} have the {str(dicofasta_scaffold[Scaffold].seq)[start-400:start].count('N')} N en amont\n")
+									output_file_script.write(f"{id}\t3\n")
+								elif str(dicofasta_scaffold[Scaffold].seq)[stop:stop+400].count('N') > 30 and brin == '-':
+									output_file.write(
+										f"\t - {id} have the {str(dicofasta_scaffold[Scaffold].seq)[stop:stop+400].count('N')} N en amont\n")
+									output_file_script.write(f"{id}\t3\n")
 
 
+	print(form('-' * 100, 'white', 'bold'))
 
-
-
-
-
-
-
-
-
-############## end message ###########################
+	############## end message ###########################
 
 	print(form("\n\t---------------------------------------------------------",'yellow','bold'))
 	print("\t"+form("|",'yellow','bold')+form("                    End of execution                   ",type='bold')+form("|",'yellow','bold'))

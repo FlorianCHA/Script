@@ -1,0 +1,6 @@
+
+	module load bioinfo/bcftools/1.8
+	cd /gs7k1/home/charriat/magMax_project/9_SNPcalling/2_result/VCF_file
+	list=`ls *.vcf.gz`
+	bcftools merge $list -o /gs7k1/home/charriat/magMax_project/9_SNPcalling/2_result/merge_raw.vcf
+	

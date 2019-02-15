@@ -1,0 +1,3 @@
+
+	Script/mummerToVcf.py -f /gs7k1/home/charriat/magMax_project/9_SNPcalling/2_result/SNP_file/CH1910.snp -o /gs7k1/home/charriat/magMax_project/9_SNPcalling/2_result/VCF_file/CH1910.vcf 
+	

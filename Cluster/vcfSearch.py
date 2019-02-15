@@ -34,32 +34,15 @@
 		- \-f <path/to/vcf/file>, --file <path/to/vcf/file>
 						path of vcf file which be used
 
-        - \-g <path/to/gff/file>, --gff <path/to/gff/file>
-						path of the gff file path of the reference genome used to create the vcf
-
-	Input infos for running with default values:
-
-		- \-p <prefix>, --prefix <prefix>
-						prefix for the output file (default = 'vcfSearch')
-
 		- \-l <path/to/gene/liste/file>, --listegene <path/to/gene/liste/file>
 						path of the file which contains a gene list of interest. If you don't give a list,
 						the script search all gene of the gff file
 
-		- \-MQ <int>, --MQ <int>
-						The minimum mapping quality supporting to accept the mapping (default = 20)
+        - \-g <path/to/gff/file>, --gff <path/to/gff/file>
+						path of the gff file path of the reference genome used to create the vcf
 
-		- \-DP <int>, --DP <int>
-						The minimum sequencing depth supporting to accept the mapping ( default = 10)
-
-		- \-QD <int>, --QD <int>
-						The minimum QD value to accept the variant ( default = 5)
-
-		- \-prop <int>, --prop <int>
-						The maximum percentage of N in a sequence (default = 20)
-
-		- \-diploidy , --diploidy
-						Use this option if you are using a diploid organism
+		- \-p <prefix>, --prefix <prefix>
+						prefix for the output file
 
 """
 
@@ -302,7 +285,6 @@ if __name__ == "__main__":
     dicoSeq = {}
     dicoInfo = {}
     listePosition = []
-<<<<<<< HEAD
     test2 = True
     vcf_reader = vcf.Reader(open(vcf_file, 'r'))
     for record in vcf_reader:
@@ -351,14 +333,12 @@ if __name__ == "__main__":
 
     print(form('\nWrite fasta\n','white','bold'))
     if gff !='None' :
-        with open('{0}_gene.fasta'.format(prefix),'w') as output_gene, \
-                open('{0}_cds.fasta'.format(prefix), 'w') as output_cds,\
-                open('{0}_protein.fasta'.format(prefix),'w') as output_prot, \
-                open('{0}_protein_imcomplete.fasta'.format(prefix), 'w') as output_prot_imcomplete :
+        with open('{0}_cds.fasta'.format(prefix), 'w') as output_cds :
             for id in sorted(dicoRNA.keys() ,key = sort_human):
                 Scaffold, start, end ,brin= dicoRNA[id]
                 seq = dicoSeq[Scaffold][(start-1):end]
                 listeCDS = sorted(dicoCDS[id])
+                cds = ''
                 for elt in listeCDS:
                     cds = cds + seq[elt[1] - (int(start)):(elt[2] +1 - int(start))]
                 if brin == '-':
@@ -377,65 +357,5 @@ if __name__ == "__main__":
                 seq = dicoSeq[id]
                 record = SeqRecord(Seq(seq), id=id, name=id, description= f'| length : {len(seq)}')
                 SeqIO.write(record, output_gene, "fasta")
-=======
-    with open(vcf, "r") as f:
-        for line in f :
-            if line[0] != '#' :
-                vcf_scaffold, position, _, ref, alt, qual, _, info, *_, = line.split()
-                position = int(position)
-                if vcf_scaffold in dicoRNA.keys() and position in dicoRNA[vcf_scaffold].keys():
-                    if position in listePosition :
-                        dicoSeq[id] = dicoSeq[id].replace(dicoSeq[id][-len(ac):],'N'*len(ac))
-                        for i in range(1,len(ref)) :
-                            listePosition.append(position+i)
-
-                    else :
-                        listePosition = [position]
-                        id = dicoRNA[vcf_scaffold][position][0]
-                        brin = dicoRNA[vcf_scaffold][position][1]
-                        if id not in dicoSeq.keys():
-                            ac = recupAC(id, line, MQmin, DPmin, QDmin)
-                            dicoSeq[id] = ac
-                            dicoInfo[id] = dicoRNA[vcf_scaffold][position]
-                        else :
-                            ac = recupAC(id, line, MQmin, DPmin, QDmin)
-                            dicoSeq[id] += ac
-
-
-
-    print('\nWrite fasta\n')
-    with open('{0}_gene.fasta'.format(prefix),'w') as output_gene, \
-            open('{0}_cds.fasta'.format(prefix), 'w') as output_cds,\
-            open('{0}_protein.fasta'.format(prefix),'w') as output_prot, \
-            open('{0}_protein_imcomplete.fasta'.format(prefix), 'w') as output_prot_imcomplete :
-
-        for id in sorted(dicoSeq.keys() ,key = sort_human):
-            seq = dicoSeq[id]
-            brin =  dicoInfo[id][1]
-            start  = dicoInfo[id][3]
-            descrip = '| position = {0}, length = {1}, brin = "{2}"'.format(dicoInfo[id][2], len(str(seq)), dicoInfo[id][1])
-            record = SeqRecord(Seq(seq), id=id, name=id, description=descrip)
-            SeqIO.write(record, output_gene, "fasta")
-            cds = ''
-            for elt in dicoCDS[id]:
-                cds = cds + seq[elt[1] - (int(start)):(elt[2] +1 - int(start))]
-            if brin == '-':
-                seqcds = Seq(cds).reverse_complement()
-            elif brin == '+':
-                seqcds = Seq(cds)
-            descrip = '| position = {0}, length = {1}, brin = "{2}"'.format(dicoInfo[id][2], len(str(cds)), dicoInfo[id][1])
-            record = SeqRecord(seqcds, id=id, name=id, description=descrip)
-            SeqIO.write(record, output_cds, "fasta")
-            if 'N' not in cds:
-                prot = seqcds.translate()
-                descrip = '| position = {0}, length = {1}, brin = "{2}"'.format(dicoInfo[id][2], len(str(prot)), dicoInfo[id][1])
-                record = SeqRecord(prot, id=id, name=id, description=descrip)
-                SeqIO.write(record, output_prot, "fasta")
-            elif cds.count('N') < (len(cds) * (prcN/100)):
-                prot = seqcds.translate()
-                descrip = '| position = {0}, length = {1}, brin = "{2}"'.format(dicoInfo[id][2], len(str(prot)), dicoInfo[id][1])
-                record = SeqRecord(prot, id=id + '_incomplete', name=id + '_incomplete', description=descrip)
-                SeqIO.write(record, output_prot_imcomplete, "fasta")
->>>>>>> refs/remotes/origin/master
 
 

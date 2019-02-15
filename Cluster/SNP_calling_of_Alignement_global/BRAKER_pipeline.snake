@@ -1,0 +1,112 @@
+import glob
+import re
+import sys
+from os.path import join
+
+###############################################################################
+###############################################################################
+# Adapt here so you can get all read pairs and ref:
+#--------------------------------------------------
+
+# directory contained fasta files
+ref='/gs7k1/home/charriat/magMax_project/9_SNPcalling/1_ref/70-15.fasta'
+# Out directory
+directory = '/gs7k1/home/charriat/magMax_project/9_SNPcalling/0_rawdata/'
+
+# RNAseq directory
+output='/gs7k1/home/charriat/magMax_project/9_SNPcalling/2_result/'
+
+# file termination
+suffixFile = '.fasta'
+
+################################################################################
+################################################################################
+
+SAMPLES, = glob_wildcards(directory+"{smp}"+suffixFile)
+
+	
+rule final:
+	input:  output + 'merge_sample.vcf'
+		
+rule corrected_mutliVCF :
+	threads : 1 
+	input : multivcf = output + 'merge_raw.vcf', directory =  output
+	params : l_mem_free='60G'
+	output : output + 'merge_sample.vcf'
+	shell : """
+	Script/corrected_multiVCF.py -f {input.multivcf} -d {input.directory}SNP_file/ -o {output}
+	"""	
+
+rule merge_vcf :
+	threads : 1 
+	input : vcf = output , lien = expand(output + 'VCF_file/{smp}.vcf.gz', smp = SAMPLES)
+	params : l_mem_free='4G'
+	output : output + 'merge_raw.vcf'
+	shell : """
+	module load bioinfo/bcftools/1.8
+	cd {input.vcf}VCF_file
+	list=`ls *.vcf.gz`
+	bcftools merge $list -o {output}
+	"""	
+
+rule formatting_vcf :
+	threads : 1 
+	input : output + 'VCF_file/{smp}.vcf'
+	params : l_mem_free='4G'
+	output : sample = output + 'VCF_file/{smp}.vcf.gz'
+	shell : """
+	module load bioinfo/samtools/1.9 
+	module load bioinfo/bcftools/1.8
+	bgzip {input}
+	bcftools index {output.sample}
+	"""	
+
+rule create_vcf :
+	threads : 1 
+	input : output + 'SNP_file/{smp}.snp'
+	params : l_mem_free='4G'
+	output : output + 'VCF_file/{smp}.vcf'
+	shell : """
+	Script/mummerToVcf.py -f {input} -o {output} 
+	"""
+
+rule retrieve_SNP :
+	threads : 1 
+	input : output + 'Alignement_file/{smp}'
+	params : l_mem_free='4G'
+	output : filter = output + 'SNP_file/{smp}.snp' , all = output + 'SNP_file/{smp}_all.snp'
+	shell : """
+	module load bioinfo/MUMmer/4.0
+	show-snps -C -I -T {input}.delta > {output.filter}
+	show-snps -T -H {input}.delta > {output.all}
+	"""
+
+rule Global_alignement:
+	threads : 1
+	input : reference = ref, sample = directory + '/{smp}.fasta'
+	params : l_mem_free='10G'
+	output : aln = output + 'Alignement_file/{smp}'
+	shell : """
+	module load bioinfo/MUMmer/4.0
+	touch  {output.aln}
+	echo nucmer -p {output.aln} {input.reference} {input.sample} 
+	nucmer -p {output.aln} {input.reference} {input.sample} 
+	echo nucmer -p {output.aln} {input.reference} {input.sample} 
+	"""
+
+
+
+
+
+
+
+
+
+
+	
+	
+	
+	
+	
+	
+	

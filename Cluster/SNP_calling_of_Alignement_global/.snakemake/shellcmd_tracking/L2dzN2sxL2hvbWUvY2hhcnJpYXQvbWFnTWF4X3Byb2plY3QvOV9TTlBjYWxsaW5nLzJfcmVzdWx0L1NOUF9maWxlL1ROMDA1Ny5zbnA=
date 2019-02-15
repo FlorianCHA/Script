@@ -1,0 +1,5 @@
+
+	module load bioinfo/MUMmer/4.0
+	show-snps -C -I -T /gs7k1/home/charriat/magMax_project/9_SNPcalling/2_result/Alignement_file/TN0057.delta > /gs7k1/home/charriat/magMax_project/9_SNPcalling/2_result/SNP_file/TN0057.snp
+	show-snps -T -H /gs7k1/home/charriat/magMax_project/9_SNPcalling/2_result/Alignement_file/TN0057.delta > /gs7k1/home/charriat/magMax_project/9_SNPcalling/2_result/SNP_file/TN0057_all.snp
+	

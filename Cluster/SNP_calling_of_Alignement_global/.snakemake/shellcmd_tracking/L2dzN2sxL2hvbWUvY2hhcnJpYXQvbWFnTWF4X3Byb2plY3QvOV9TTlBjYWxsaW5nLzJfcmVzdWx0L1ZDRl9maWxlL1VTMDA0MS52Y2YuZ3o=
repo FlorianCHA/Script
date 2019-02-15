@@ -1,0 +1,6 @@
+
+	module load bioinfo/samtools/1.9 
+	module load bioinfo/bcftools/1.8
+	bgzip /gs7k1/home/charriat/magMax_project/9_SNPcalling/2_result/VCF_file/US0041.vcf
+	bcftools index /gs7k1/home/charriat/magMax_project/9_SNPcalling/2_result/VCF_file/US0041.vcf.gz
+	
