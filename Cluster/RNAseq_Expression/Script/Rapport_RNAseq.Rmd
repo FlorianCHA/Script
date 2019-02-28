@@ -1,0 +1,186 @@
+---
+title: "Analyse des RNAseqs CL367 avec la souche CH1908"
+author: "Florian Charriat"
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+output:
+  html_document:
+    fig_caption: yes
+    highlight: zenburn
+    theme: cerulean
+    toc: yes
+    toc_depth: 5
+    toc_float:
+      collapsed: false
+      smooth_scroll: false
+---
+```{r knitr setup, include=FALSE,  eval=TRUE, echo=FALSE, warning=FALSE}
+library(knitr)
+options(width=300)
+knitr::opts_chunk$set(
+  fig.width = 10, 
+  fig.height = 5, 
+  fig.align = "center", 
+  size = "tiny", 
+  echo = FALSE, eval=TRUE, 
+  warning = FALSE, message = FALSE, 
+  results = TRUE, comment = "")
+```
+
+```{r installation package}
+library(ggplot2)
+library("gridExtra")
+library("cowplot")
+library('DT')
+```
+
+&nbsp;
+
+##Représentation des données RNAseq
+
+&nbsp;
+
+```{r Représentation des Reads}
+RNAseq1 <- 'CL367.b'
+RNAseq2 <- 'CL367.c'
+RNAseq3 <- 'CL367.d'
+data <- read.table('/home/charriat/Documents/Cufflinks/result_Cufflinks.CL367.txt',sep = '\t', header = F)
+
+
+
+read.a <- data.frame(cbind(rep(RNAseq1,2),c(87248239,2084932),c('No-align','Align 1 times')))
+read.b <- data.frame(cbind(rep(RNAseq2,2),c(86218084,1716070),c('No-align','Align 1 times')))
+read.d <- data.frame(cbind(rep(RNAseq3,2),c(90603857,1147550),c('No-align','Align 1 times')))
+#summary.all.read <- data.frame(rbind(c('IN0059.a',97399470),c('IN0059.b',88904326),c('IN0059.d',69784687)))
+summary.align.read <- data.frame(rbind(c(RNAseq1,2084932),c(RNAseq2,1716070),c(RNAseq3,1147550)))
+
+summary.all.read <- data.frame(rbind(read.a,read.b,read.d))
+colnames(summary.all.read) <- c('Id','nb.read','type')
+#colnames(summary.all.read) <- c('Id','nb.read')
+colnames(summary.align.read) <- c('Id','nb.read')
+
+all.read.plot <- ggplot(summary.all.read,aes(x = Id,y = as.numeric(as.character(nb.read)),group = type,fill = type)) + geom_bar(stat = 'identity',color = 'black') +
+  coord_flip()+scale_x_discrete(name ="", limits=c(RNAseq3,RNAseq2,RNAseq1)) + ylab('Nombre de read')+ ggtitle('Nombre total de reads')+
+  scale_fill_manual(values = c('forestgreen','firebrick')) + geom_text(aes(label =c('','Total read : 89339371','',' Total read : 87938837','','Total read : 91754960')),hjust = -0.2,color = 'white')
+
+align.read.plot <- ggplot(summary.align.read,aes(x = Id,y = as.numeric(as.character(nb.read)))) + geom_bar(stat = 'identity',fill = 'forestgreen',color = 'black') + ggtitle('Nombre de reads aligné')+
+  coord_flip()+scale_x_discrete(name ="", limits=c(RNAseq3,RNAseq2,RNAseq1))  + ylab('Nombre de read') + geom_text(aes(label = nb.read),color = 'white',hjust = 1.3)
+
+plot_grid(all.read.plot, align.read.plot, ncol = 1, nrow = 2)
+```
+
+
+---- 
+
+##Représentation du nombre de gènes exprimés en fonction des données RNAseq
+
+&nbsp;
+
+```{r summary expression}
+colnames(data) <- c('Id','Position','FPKM','couverture','RNAseq')
+data$FPKM <- log2(data$FPKM)
+data$FPKM[data$FPKM == '-Inf'] <- 0
+min_level <- 1
+No_expression <- data[data$FPKM < min_level ,]
+expression <- data[data$FPKM > min_level,]
+stat_expression = summary(expression$FPKM)
+sd.expression <- sd(expression$FPKM)
+meanExpression <- mean(expression$FPKM)
+
+RNAseq1.e <- c(RNAseq1,sum(expression$RNAseq == RNAseq1),'Expression')
+RNAseq1.n <- c(RNAseq1, sum(No_expression$RNAseq == RNAseq1),'In-expression')
+RNAseq2.e <- c(RNAseq2,sum(expression$RNAseq == RNAseq2),'Expression')
+RNAseq2.n <- c(RNAseq2, sum(No_expression$RNAseq == RNAseq2),'In-expression')
+RNAseq3.e <- c(RNAseq3,sum(expression$RNAseq == RNAseq3),'Expression')
+RNAseq3.n <- c(RNAseq3, sum(No_expression$RNAseq == RNAseq3),'In-expression')
+
+summaryExpression <- data.frame(rbind(RNAseq1.e,RNAseq1.n,RNAseq2.e,RNAseq2.n,RNAseq3.e,RNAseq3.n))
+colnames(summaryExpression) <- c('Id','Count','Type')
+ggplot(summaryExpression,aes(x = Id, y = as.numeric(as.character(Count)), group = Type, fill = Type)) +
+  geom_bar(stat = 'identity', position=position_dodge(-0.92),color = 'white')+ coord_flip() +  
+  scale_x_discrete(name ="", limits=c(RNAseq3,RNAseq2,RNAseq1)) +ylab('Nb Gene')+
+  scale_fill_manual(values = c('forestgreen','red3'))+ 
+  geom_text(aes(label = Count),hjust = 1.1, color = 'white',position=position_dodge(-0.9))
+```
+
+
+---- 
+
+##Représentation des niveaux d'expressions de chaque données RNAseq
+
+&nbsp;
+
+```{r level expression}
+color <- rep('orange',length(expression$FPKM))
+color[expression$FPKM > meanExpression + sd.expression] <- 'brown1'
+color[expression$FPKM > meanExpression + 2*sd.expression] <- 'red3'
+color[expression$FPKM < meanExpression - sd.expression] <- 'green'
+color[expression$FPKM < meanExpression - 2*sd.expression] <- 'darkgreen'
+
+ggplot(expression, aes(x = RNAseq, y = FPKM)) + geom_boxplot()+geom_point(color =color)
+```
+
+---- 
+
+##Représentation des niveaux d'expressions des données RNAseq réunis
+
+&nbsp;
+
+```{r disperssion}
+name <- unique(expression$Id)
+liste.sd <- c()
+liste.name <- c()
+liste.mean <- c()
+for (elt in name)
+{
+  sd <- sd(expression$FPKM[expression$Id == elt])
+  mean <- mean(expression$FPKM[expression$Id == elt])
+  if (!(is.na(sd)))
+  {
+    liste.name <- c(liste.name,elt)
+    liste.sd <- c(liste.sd,sd)
+    liste.mean <- c(liste.mean,mean)
+  }
+}
+
+dispersion <- data.frame(cbind(as.character(liste.name),liste.sd,liste.mean))
+colnames(dispersion) <- c('Id','sd','mean')
+dispersion.sort <- dispersion
+dispersion.sort$mean <- as.numeric(as.character(dispersion.sort$mean))
+dispersion.sort$sd <- as.numeric(as.character(dispersion.sort$sd))
+dispersion.sort$Id = factor(dispersion.sort$Id, levels=dispersion.sort[order(dispersion.sort$mean), "Id"])
+len.data <- length(dispersion.sort$mean)
+ggplot(dispersion.sort,aes(x = Id, y = mean)) +geom_point(size = 0.05,color = 'red')+  
+  annotate("rect",xmin = 0, xmax = len.data,ymin = meanExpression + 2*sd.expression, ymax = max(dispersion.sort$mean),alpha=0.5,fill = 'red3')+
+  annotate("rect",xmin = 0, xmax = len.data,ymin = meanExpression + sd.expression, ymax = meanExpression + 2*sd.expression,alpha=0.5,fill = 'brown1')+
+  annotate("rect",xmin = 0, xmax = len.data,ymin = meanExpression - sd.expression, ymax = meanExpression + sd.expression,alpha=0.5,fill = 'orange')+
+  annotate("rect",xmin = 0, xmax = len.data,ymin = meanExpression - 2*sd.expression, ymax = meanExpression - sd.expression,alpha=0.5,fill = 'green')+
+  annotate("rect",xmin = 0, xmax = len.data,ymin = 0, ymax = meanExpression - 2*sd.expression,alpha=0.5,fill = 'darkgreen')+
+  geom_errorbar(aes(ymin=mean-sd,ymax = mean+sd),color='steelblue')+geom_point(size = 0.05,color = 'red')+
+  theme(axis.text.x = element_blank(), axis.ticks.x = element_blank()) +xlab('Gene')+ylab('log2(FPKM)')
+```
+
+----
+
+##Tableau des données d'expression
+
+&nbsp;
+
+```{r tableau expression}
+line1 <- meanExpression - 2*sd.expression
+line2 <- meanExpression - sd.expression
+line3 <- meanExpression + sd.expression
+line4 <- meanExpression + 2*sd.expression
+
+datatable(data,extensions = 'Buttons', options = list(dom = 'Blfrtip',buttons = c('copy', 'csv', 'excel', 'pdf', 'print'))) %>%
+  formatStyle('FPKM',color = 'white',font ='bold',background = styleInterval(c(line1,line2,line3,line4), c('darkgreen','green','orange', 'red', 'brown')))
+
+```
+
+
+
+
+
+
+
+
+

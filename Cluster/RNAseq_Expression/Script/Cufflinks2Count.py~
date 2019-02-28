@@ -1,0 +1,18 @@
+#!/usr/local/bioinfo/python/3.4.3_build2/bin/python
+# -*- coding: utf-8 -*-
+
+
+RNAseq = "CL367.c"
+f = open('/homedir/gladieux/work/magMax_project/5_RNAseq/1_Alignement/CL367_CH1908/Cufflinks_%s/transcripts.gtf'%RNAseq,'r')
+lines = f.readlines()
+f.close()
+
+for line in lines :
+	tabLine = line.split('\t')
+	if tabLine[2] == 'transcript' :
+		position = '%s:%s_%s'%(tabLine[0],tabLine[3],tabLine[4])
+		tabScore = tabLine[8].split('"')
+		name = tabScore[3]
+		FPKM = tabScore[5]
+		couverture = tabScore[-2]
+		print('%s\t%s\t%s\t%s\t%s'%(name,position,FPKM,couverture,RNAseq))

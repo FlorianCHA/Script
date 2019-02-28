@@ -1,0 +1,6 @@
+
+	module load bioinfo/samtools/1.3
+	cd /homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/result/0_bamAlignement/GUY11_PacBio//finalResults
+	ls *.accepted_hits.bam > bamList
+	samtools merge -f -b bamList -c /homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/result/0_bamAlignement/GUY11_PacBio/finalResults/merged_GUY11_PacBio.accepted_hits.bam
+	

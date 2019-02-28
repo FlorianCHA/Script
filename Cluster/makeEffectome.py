@@ -48,12 +48,11 @@
 
 ########## Module ###############
 ## Python modules
-qimport argparse, os, sys
+import argparse, os, sys
 from Bio import SeqIO
 from Bio.SeqRecord import SeqRecord
 from Bio.Seq import Seq
 from progress.bar import ChargingBar
-
 #Import module_Flo
 from module_Flo import verifDir, createDir , form,verifFichier,fasta2dict, openfile,is_number
 
@@ -70,81 +69,50 @@ if __name__ == "__main__":
 
 
 	filesreq = parser.add_argument_group('Input mandatory infos for running')
-	filesreq.add_argument('-f', '--fasta',type = str, required=True, dest = 'fasta', help = 'Path of fasta file that contains all the genome assembly of Isolat')
-	filesreq.add_argument('-p', '--prot',type = str, required=True, dest = 'protein', help = 'Path of fasta that contains all the protein of Isolat.')
-	filesreq.add_argument('-hmm', '--hmmsearch',type = str, required=True, dest = 'hmm', help = 'Path of hmmsearch result (stdout of effecteur MAX search)')
+	filesreq.add_argument('-f', '--fasta',type = str, required=True, dest = 'fasta', help = 'Path of directory that contains all the genome assembly of Isolat')
+	filesreq.add_argument('-g', '--gff',type = str, required=True, dest = 'gff', help = 'Path of directory that contains all the gff file of Isolat.')
+	filesreq.add_argument('-list', '--list',type = str, required=True, dest = 'hmm', help = 'Path of the file witch contains all sequence ton analyse')
 	filesreq.add_argument('-o', '--output',type = str, required=True, dest = 'output', help = 'Path of the output file')
 
 	
 ######### Recuperation arguments ###########
 	args = parser.parse_args()
 	genome = os.path.abspath(args.fasta)
-	prot = os.path.abspath(args.protein)
+	gff = os.path.abspath(args.gff)
 	hmm = os.path.abspath(args.hmm)
 	output = os.path.abspath( args.output)
 
 ########### Gestion directory ##############
 	verifDir(genome,True)
-	verifFichier(prot)
+	verifDir(gff,True)
 	verifFichier(hmm)
 
 ################## Main ######################
-	print('Récupération des séquences et informations de toute les protéines')
-	lines = openfile(prot)
-	dico_prot = {}
-	print('')
-	bar = ChargingBar('Recuperation des informations de chaque gène du fichier protéique : ', max=len(lines), suffix='%(percent)d%%')
-	for line in lines :
-		bar.next()
-		if '>' in line :
-			name = line.split('|')[0].replace('>','').strip()
-			Isolat = name.split('_')[1]
-			num_scaffold = line.split('_')[-3].strip()
-			scaffold = 'Scaffold_%s'%(num_scaffold)
-			position = line.split('_')[-2].split('|')[0].split(':')
-			if is_number(position[0]) and len(position) == 2:
-				start = int(position[0].strip())
-				end = int(position[1].strip())
-				length = line.split('length=')[-1].replace('\n','').strip()
-				dico_prot[name] = [scaffold,start,end,length]
 
-	bar.finish()	
+	with open(hmm,'r') as list_file :
+		list = list_file.read()
+		list = list.replace('\n',' ').replace('\t',' ')
+		list = list.split()
 
-	hmm_result = openfile(hmm)
-	start_seq = False
-	effecteur = []
-	
-	print('')
-	print('Recuperation des sequences de chaque effecteur')
-	for line in hmm_result :
-		if '------' in line :
-			start_seq = True
+	for gene in list :
+		if 'Mo_' not in gene :
+			print(form(f"The gene {gene} haven't a good name, please rename you gene with Organisme_isolat_Nam",'red','bold'))
+			exit()
+		print(f'Traitement du gène : {gene}')
+		isolat = gene.split('_')[1]
+		fasta = fasta2dict(f'{genome}/{isolat}.fasta')
+		with open(f'{gff}/{isolat}_merge.gff3','r') as gff_file, open(output,'a') as output_file:
+			for line in gff_file :
+				if gene in line and 'mRNA' in line :
+					Scaffold,_,_,start,end,_,brin,*_ = line.split()
+					start = int(start)
+					end = int(end)
+					if brin == '+' :
+						seq = Seq(str(fasta[Scaffold].seq)[start-200:start])
+					if brin == '-':
+						seq = Seq(str(fasta[Scaffold].seq)[end:end +200])
+						seq  =seq.reverse_complement()
 
-		elif start_seq == True and len(line.split()) < 9 :
-			break
-		
-		elif start_seq == True:
-			name = line.split()[8]
-			if 'Magnaporphe-Wheatblast-12-1-205' not in name and 'MGG' not in name :
-				effecteur.append(name)
-
-	hmm_result = ''
-	old_name = ''
-	f = open(output,'w')
-	for elt in sorted(effecteur):
-		name = elt.split('_')[1]
-		if name != old_name :
-			print(name)
-			fasta_genome = fasta2dict(genome+'/'+name+'.fasta')
-			
-		scaffold, start, end, length = dico_prot[elt]
-		if int(length) < 300 :
-			sequence = Seq(str(fasta_genome[scaffold].seq)[start-90:end+90])
-			record = SeqRecord(sequence,id=str(elt),name=str(elt), description= 'length : '+ str(len(sequence)))
-			SeqIO.write(record,f, "fasta")
-		old_name = name
-
-	f.close()
-
-
+					record = SeqRecord(seq, id=gene, name=gene,description ='')
+					SeqIO.write(record, output_file, "fasta")
 

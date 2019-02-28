@@ -1,0 +1,165 @@
+Provided cluster nodes: 100
+Job counts:
+	count	jobs
+	1	BRAKER
+	1	augustus
+	1	bam2hints
+	1	bam2hintsFilter
+	1	bamAlignement
+	1	createFasta
+	1	exonerate
+	1	final
+	1	mergeBam
+	1	mergeGFF
+	1	mergeHint
+	1	recuperation_Stat
+	1	renameFasta
+	1	report
+	1	sortBam
+	15
+
+Job 60: Executing Tophat2 alignement for GUY11_PacBio.
+Input:
+		-Genome : /homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/0_rawdata/GUY11_PacBio.fasta
+		-RNAseq : /work/gladieux/magMax_project/2_New_Annotation/rnaseq/
+Output : /homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/result/0_bamAlignement/GUY11_PacBio/ /homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/result/0_bamAlignement/GUY11_PacBio/finalResults/bamList
+Threads : 1
+############################################################################################################
+
+
+Job 48: Executing exonerate alignement and convert alignement into hints file for GUY11_PacBio.
+Input:
+		-Reference file : /work/gladieux/Script/Cluster/Annotation_pipeline_v2/SupplementaryFile/OG_filter.fasta
+		-Genome : /homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/0_rawdata/GUY11_PacBio.fasta
+Output :
+		-Alignement /homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/result/1_hints/ProtHints/exonerate_GUY11_PacBio.gff3
+		-hints file : /homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/result/1_hints/ProtHints/exonerate_GUY11_PacBio.hints.gff3
+Threads : 2
+############################################################################################################
+
+Finished job 60.
+1 of 15 steps (7%) done
+
+Job 73: Merge all bam file of GUY11_PacBio.
+Input:/homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/result/0_bamAlignement/GUY11_PacBio/
+Output : /homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/result/0_bamAlignement/GUY11_PacBio/finalResults/merged_GUY11_PacBio.accepted_hits.bam
+Threads : 1
+############################################################################################################
+
+Finished job 73.
+2 of 15 steps (13%) done
+
+Job 67: Sort the merged bam file of GUY11_PacBio.
+Input:/homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/result/0_bamAlignement/GUY11_PacBio/finalResults/merged_GUY11_PacBio.accepted_hits.bam
+Output : /homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/result/0_bamAlignement/GUY11_PacBio/finalResults/merged_GUY11_PacBio.accepted_hits_sort.bam
+Threads : 1
+############################################################################################################
+
+Finished job 67.
+3 of 15 steps (20%) done
+
+Job 59: Convert merged bam file of GUY11_PacBio into a hint file for AUGUSTUS.
+Input:/homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/result/0_bamAlignement/GUY11_PacBio/finalResults/merged_GUY11_PacBio.accepted_hits_sort.bam
+Output : /homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/result/0_bamAlignement/GUY11_PacBio/finalResults/hints_GUY11_PacBio.raw.bam
+Threads : 2
+############################################################################################################
+
+Finished job 59.
+4 of 15 steps (27%) done
+
+Job 47: Filtre hint file outcome of bam file for GUY11_PacBio.
+Input: /homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/result/0_bamAlignement/GUY11_PacBio/finalResults/hints_GUY11_PacBio.raw.bam
+Output : /homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/result/1_hints/RNAseqHints/hints_GUY11_PacBio.filtered.gff
+Threads : 1
+############################################################################################################
+
+Finished job 47.
+5 of 15 steps (33%) done
+Finished job 48.
+6 of 15 steps (40%) done
+
+Job 37: 
+Merge hints outcome of RNAseq with hints outcome of proteine alignement for GUY11_PacBio.
+Input:
+		-Hints RNseq : /homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/result/1_hints/RNAseqHints/hints_GUY11_PacBio.filtered.gff
+		-Hints proteine : /homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/result/1_hints/ProtHints/exonerate_GUY11_PacBio.hints.gff3
+Output :/homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/result/1_hints/MergeHints/RNAseq_protein.hints.intron_GUY11_PacBio.gff
+Threads : 1
+############################################################################################################
+
+Finished job 37.
+7 of 15 steps (47%) done
+
+Job 30: Execute augustus for GUY11_PacBio.
+Input:
+		-Genome : /homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/0_rawdata/GUY11_PacBio.fasta
+		-Hints file : /homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/result/1_hints/MergeHints/RNAseq_protein.hints_GUY11_PacBio.gff
+Output :/homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/result/3_augustus/GUY11_PacBio.gff3
+Threads : 2
+############################################################################################################
+
+
+Job 29: Execute BRAKER for GUY11_PacBio.
+Input:
+		-Genome : /homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/0_rawdata/GUY11_PacBio.fasta
+		-Hints file : /homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/result/1_hints/MergeHints/RNAseq_protein.hints.intron_GUY11_PacBio.gff
+Output :/homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/result/2_Braker/GUY11_PacBio/
+Threads : 2
+############################################################################################################
+
+Finished job 29.
+8 of 15 steps (53%) done
+Finished job 30.
+9 of 15 steps (60%) done
+
+Job 19: Merge and rename Braker and Augustus output GUY11_PacBio.
+Input:
+		-augustus : /homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/result/3_augustus/GUY11_PacBio.gff3
+		-braker : /homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/result/2_Braker/GUY11_PacBio//braker/magnaporthe_oryzae/augustus.gff3
+Output :/homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/result/4_mergeGFF/GUY11_PacBio_merge.gff3
+Threads : 1
+############################################################################################################
+
+Finished job 19.
+10 of 15 steps (67%) done
+
+rule recuperation_Stat:
+    input: /homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/result/, /homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/0_rawdata/, /homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/result/4_mergeGFF/wheatBlast-arrow2_TAG-filter_merge.gff3, /homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/result/4_mergeGFF/CH1189-arrow2_TAG-filter_merge.gff3, /homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/result/4_mergeGFF/GUY11_PacBio_merge.gff3, /homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/result/4_mergeGFF/PH0014-arrow2_TAG-filter_merge.gff3, /homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/result/4_mergeGFF/IN0082-arrow2_TAG-filter_merge.gff3, /homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/result/4_mergeGFF/CH1205-arrow2_TAG-filter_merge.gff3
+    output: /homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/result/6_report/data_report/Annotation_stat.csv, /homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/result/6_report/data_report/Assembly_quality.csv
+    jobid: 12
+
+
+rule createFasta:
+    input: /homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/result/4_mergeGFF/GUY11_PacBio_merge.gff3, /homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/0_rawdata/GUY11_PacBio.fasta
+    output: /homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/result/5_final_data/GUY11_PacBio/
+    jobid: 14
+    wildcards: smp=GUY11_PacBio
+
+Finished job 12.
+11 of 15 steps (73%) done
+
+rule report:
+    input: /homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/result/6_report/data_report/Annotation_stat.csv, /homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/result/6_report/data_report/Assembly_quality.csv
+    output: /homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/result/6_report/report.html
+    jobid: 5
+
+Finished job 14.
+12 of 15 steps (80%) done
+
+rule renameFasta:
+    input: /homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/result/5_final_data/GUY11_PacBio/
+    output: /homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/result/5_final_data/GUY11_PacBio/GUY11_PacBio_protein.fasta
+    jobid: 7
+    wildcards: smp=GUY11_PacBio
+
+Finished job 5.
+13 of 15 steps (87%) done
+Finished job 7.
+14 of 15 steps (93%) done
+
+localrule final:
+    input: /homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/result/5_final_data/wheatBlast-arrow2_TAG-filter/wheatBlast-arrow2_TAG-filter_protein.fasta, /homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/result/5_final_data/CH1189-arrow2_TAG-filter/CH1189-arrow2_TAG-filter_protein.fasta, /homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/result/5_final_data/GUY11_PacBio/GUY11_PacBio_protein.fasta, /homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/result/5_final_data/PH0014-arrow2_TAG-filter/PH0014-arrow2_TAG-filter_protein.fasta, /homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/result/5_final_data/IN0082-arrow2_TAG-filter/IN0082-arrow2_TAG-filter_protein.fasta, /homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/result/5_final_data/CH1205-arrow2_TAG-filter/CH1205-arrow2_TAG-filter_protein.fasta, /homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/result/6_report/report.html
+    jobid: 0
+
+Finished job 0.
+15 of 15 steps (100%) done

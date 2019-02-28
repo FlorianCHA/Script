@@ -103,7 +103,7 @@ if __name__ == "__main__":
 	length_Seq = len(alignment[1,:].seq)
 	bar = ChargingBar("Traitement du fichier d'alignement", max=length_Seq, suffix='%(percent)d%%')
 	for i in range(0,length_Seq) :
-		if nbSeq != alignment[:,i].count('A') and nbSeq != alignment[:,i].count('T') and nbSeq != alignment[:,i].count('G') and nbSeq != alignment[:,i].count('C') :
+		if nbSeq != alignment[:,i].count('A') and nbSeq != alignment[:,i].count('T') and nbSeq != alignment[:,i].count('G') and nbSeq != alignment[:,i].count('C') and 'N' not in alignment[:,i] and '-' not in alignment[:,i]:
 			pos = 0
 			for id in dico_seq.keys() :
 				dico_seq[id] += alignment[:,i][pos]

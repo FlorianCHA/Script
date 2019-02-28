@@ -1,0 +1,115 @@
+import glob
+import re
+import sys
+from os.path import join
+
+###############################################################################
+###############################################################################
+# Adapt here so you can get all read pairs and ref:
+#--------------------------------------------------
+
+# fasta files
+ref='/homedir/gladieux/work/magMax_project/5_RNAseq/1_Alignement/test/0_rawdata/Genome/Y34.fasta'
+# gff file
+gff='/homedir/gladieux/work/magMax_project/5_RNAseq/1_Alignement/test/0_rawdata/Genome/Y34_merge.gff3'
+# Out directory
+output = '/homedir/gladieux/work/magMax_project/5_RNAseq/1_Alignement/test/0_rawdata/result/'
+
+# RNAseq directory
+directory='/homedir/gladieux/work/magMax_project/5_RNAseq/1_Alignement/test/0_rawdata/RNAseq/'
+
+# file termination
+suffixFile = '.fq.gz'
+
+################################################################################
+################################################################################
+
+SAMPLES, = glob_wildcards(directory+"{smp}"+suffixFile)
+
+
+rule final:
+	input:  expand(output + 'cufflinks/{smp}-count.txt', smp = SAMPLES)
+
+
+
+rule hisat2_index :
+	threads : 1
+	input : reference = ref  
+	params : l_mem_free='4G'
+	output : ref.replace('.fasta','')
+	shell :"""
+	module load bioinfo/hisat2/2.1.0
+	hisat2-build {input} {output}
+	touch {output}
+	"""		
+
+rule hisat2 :
+	threads : 1
+	input : reference = ref.replace('.fasta',''), rnaseq = directory + '{smp}'+ suffixFile 
+	params : l_mem_free='4G'
+	output : sam =  output + 'sam_file/{smp}.sam', stdout =  output + 'sam_file/{smp}_cufflinks.txt'
+	shell :"""
+	module load bioinfo/hisat2/2.1.0
+	hisat2 -x {input.reference} --summary-file -U {input.rnaseq} -S {output.sam} 2>{output.stdout} 
+	"""
+rule Count :
+	threads : 1
+	input :  output + 'sam_file/{smp}_cufflinks.txt'
+	params : l_mem_free='4G'
+	output :  output + 'sam_file/{smp}_cuff.txt'
+	shell :"""
+	Script/SummaryHisat2.py {input} {wildcards.smp} > {output}
+	"""
+
+rule samtools :
+	threads : 1
+	input : output + 'sam_file/{smp}.sam'
+	params : l_mem_free='4G'
+	output : bam = output + 'bam_file/{smp}.bam', sort = output + 'bam_file/{smp}_sort.bam'
+	shell :"""
+	module load bioinfo/samtools/1.9
+	samtools view -b {input} > {output.bam}
+	samtools sort -o {output.sort} {output.bam}
+	"""
+
+rule Cufflinks :
+	threads : 1
+	input : GFF = gff, bam = output + 'bam_file/{smp}_sort.bam'
+	params : l_mem_free='4G'
+	output : output + 'cufflinks/{smp}'
+	shell :"""
+	module load bioinfo/cufflinks/2.2.1
+	cufflinks -g {input.GFF} {input.bam} -o {output}
+	"""
+
+rule Count :
+	threads : 1
+	input : output + 'cufflinks/{smp}'
+	params : l_mem_free='4G'
+	output : output + 'cufflinks/{smp}-count.txt'
+	shell :"""
+	Script/Cufflinks2Count.py {input} {wildcards.smp} > {output}
+	"""
+
+rule Rapport :
+	threads : 1	
+	input : lien = output + 'cufflinks/{smp}-count.txt', directory = output + 'cufflinks/'
+	params : l_mem_free='4G'
+	output : output + 'Rapport.html'
+	shell : """
+	module load bioinfo/R/3.4.3
+	cat {input.directory}/*-count.txt >  {input.directory}/Count.txt
+	Rscript -e 'rmarkdown::render("Script/Rapport_RNAseq.Rmd", output_file="{output}", quiet=TRUE, params = list(count = " {input.directory}/Count.txt"))'
+	"""
+
+
+
+
+
+	
+	
+	
+	
+	
+	
+	

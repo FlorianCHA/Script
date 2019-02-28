@@ -1,0 +1,4 @@
+
+	module load bioinfo/cufflinks/2.2.1
+	cufflinks -g /homedir/gladieux/work/magMax_project/5_RNAseq/1_Alignement/test/0_rawdata/Genome/Y34_merge.gff3 /homedir/gladieux/work/magMax_project/5_RNAseq/1_Alignement/test/0_rawdata/result/bam_file/S119_sort.bam -o /homedir/gladieux/work/magMax_project/5_RNAseq/1_Alignement/test/0_rawdata/result/cufflinks/S119
+	

@@ -1,0 +1,4 @@
+
+	module load bioinfo/braker/1.9
+	bam2hints --minintronlen=10 --maxintronlen=1000 --maxgaplen=9 --source=M --exonhints --in=/homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/result/0_bamAlignement/GUY11_PacBio/finalResults/merged_GUY11_PacBio.accepted_hits_sort.bam --out=/homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/result/0_bamAlignement/GUY11_PacBio/finalResults/hints_GUY11_PacBio.raw.bam
+	

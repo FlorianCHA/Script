@@ -1,0 +1,6 @@
+
+	module load bioinfo/exonerate/2.4.7
+	module load bioinfo/braker/1.9
+	exonerate --model protein2genome --percent 95 --showtargetgff T /work/gladieux/Script/Cluster/Annotation_pipeline_v2/SupplementaryFile/OG_filter.fasta /homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/0_rawdata/GUY11_PacBio.fasta > /homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/result/1_hints/ProtHints/exonerate_GUY11_PacBio.gff3
+	exonerate2hints.pl --source=M --minintronlen=10 --maxintronlen=1000 --in=/homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/result/1_hints/ProtHints/exonerate_GUY11_PacBio.gff3 --out=/homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/result/1_hints/ProtHints/exonerate_GUY11_PacBio.hints.gff3
+	

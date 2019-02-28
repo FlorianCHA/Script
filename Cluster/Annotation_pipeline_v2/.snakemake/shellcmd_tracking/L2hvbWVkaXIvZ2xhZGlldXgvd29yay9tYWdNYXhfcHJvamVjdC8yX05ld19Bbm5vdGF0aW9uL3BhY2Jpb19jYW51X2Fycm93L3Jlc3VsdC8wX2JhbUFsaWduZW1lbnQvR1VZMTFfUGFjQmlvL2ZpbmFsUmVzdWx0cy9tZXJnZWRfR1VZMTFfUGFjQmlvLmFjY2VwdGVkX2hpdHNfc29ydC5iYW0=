@@ -1,0 +1,4 @@
+
+	module load bioinfo/picard-tools/2.7.0
+	java -jar /usr/local/bioinfo/picard-tools/2.7.0/picard.jar SortSam I=/homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/result/0_bamAlignement/GUY11_PacBio/finalResults/merged_GUY11_PacBio.accepted_hits.bam O=/homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/result/0_bamAlignement/GUY11_PacBio/finalResults/merged_GUY11_PacBio.accepted_hits_sort.bam SORT_ORDER=coordinate
+	
