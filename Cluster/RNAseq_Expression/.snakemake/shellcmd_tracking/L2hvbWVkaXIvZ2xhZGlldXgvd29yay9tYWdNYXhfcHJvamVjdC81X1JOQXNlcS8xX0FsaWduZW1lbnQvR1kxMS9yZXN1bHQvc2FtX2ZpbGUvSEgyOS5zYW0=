@@ -1,0 +1,4 @@
+
+	module load bioinfo/hisat2/2.1.0
+	hisat2 -x /homedir/gladieux/work/magMax_project/5_RNAseq/1_Alignement/GY11/Genome/ML33 --summary-file -U /homedir/gladieux/work/magMax_project/5_RNAseq/1_Alignement/GY11/RNAseq/HH29.fq.gz -S /homedir/gladieux/work/magMax_project/5_RNAseq/1_Alignement/GY11/result/sam_file/HH29.sam 2>/homedir/gladieux/work/magMax_project/5_RNAseq/1_Alignement/GY11/result/sam_file/HH29_cufflinks.txt 
+	

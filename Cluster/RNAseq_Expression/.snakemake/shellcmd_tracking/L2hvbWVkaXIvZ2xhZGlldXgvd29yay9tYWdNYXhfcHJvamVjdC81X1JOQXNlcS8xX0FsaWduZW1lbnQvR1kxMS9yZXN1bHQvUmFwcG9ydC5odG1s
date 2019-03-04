@@ -1,0 +1,6 @@
+
+	module load bioinfo/R/3.4.3
+	cat /homedir/gladieux/work/magMax_project/5_RNAseq/1_Alignement/GY11/result/sam_file/*_cuff.txt >  /homedir/gladieux/work/magMax_project/5_RNAseq/1_Alignement/GY11/result/sam_file/Cufflinks.txt
+	cat /homedir/gladieux/work/magMax_project/5_RNAseq/1_Alignement/GY11/result/cufflinks/*-count.txt >  /homedir/gladieux/work/magMax_project/5_RNAseq/1_Alignement/GY11/result/cufflinks/Count.txt
+	Rscript -e 'rmarkdown::render("Script/Rapport_RNAseq.Rmd", output_file="/homedir/gladieux/work/magMax_project/5_RNAseq/1_Alignement/GY11/result/Rapport.html", quiet=TRUE, params = list(count = "/homedir/gladieux/work/magMax_project/5_RNAseq/1_Alignement/GY11/result/cufflinks/Count.txt",mapping = "/homedir/gladieux/work/magMax_project/5_RNAseq/1_Alignement/GY11/result/sam_file/Cufflinks.txt"))'
+	

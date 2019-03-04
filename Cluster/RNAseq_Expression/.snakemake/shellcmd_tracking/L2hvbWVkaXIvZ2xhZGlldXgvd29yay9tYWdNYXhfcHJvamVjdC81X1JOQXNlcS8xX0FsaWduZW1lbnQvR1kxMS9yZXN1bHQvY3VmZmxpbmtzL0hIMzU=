@@ -1,0 +1,4 @@
+
+	module load bioinfo/cufflinks/2.2.1
+	cufflinks -g //homedir/gladieux/work/magMax_project/5_RNAseq/1_Alignement/GY11/Genome/ML33_merge.gff3 /homedir/gladieux/work/magMax_project/5_RNAseq/1_Alignement/GY11/result/bam_file/HH35_sort.bam -o /homedir/gladieux/work/magMax_project/5_RNAseq/1_Alignement/GY11/result/cufflinks/HH35
+	

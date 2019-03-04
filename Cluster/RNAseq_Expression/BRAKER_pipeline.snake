@@ -9,18 +9,19 @@ from os.path import join
 #--------------------------------------------------
 
 # fasta files
-ref='/homedir/gladieux/work/magMax_project/5_RNAseq/1_Alignement/test/0_rawdata/Genome/Y34.fasta'
+ref='/homedir/charriat/magMax_project/5_RNAseq/1_Alignement/IN0059/Genome/IN0059.fasta'
 # gff file
-gff='/homedir/gladieux/work/magMax_project/5_RNAseq/1_Alignement/test/0_rawdata/Genome/Y34_merge.gff3'
+gff='/homedir/charriat/magMax_project/5_RNAseq/1_Alignement/IN0059/Genome/IN0059_merge.gff3'
 # Out directory
-output = '/homedir/gladieux/work/magMax_project/5_RNAseq/1_Alignement/test/0_rawdata/result/'
+output = '/homedir/charriat/magMax_project/5_RNAseq/1_Alignement/IN0059/result/'
 
 # RNAseq directory
-directory='/homedir/gladieux/work/magMax_project/5_RNAseq/1_Alignement/test/0_rawdata/RNAseq/'
+directory='/homedir/charriat/magMax_project/5_RNAseq/1_Alignement/IN0059/RNAseq/'
 
 # file termination
-suffixFile = '.fq.gz'
-
+suffixFile = '.fastq.gz'
+if not os.path.exists(output):
+	os.mkdir(output)
 ################################################################################
 ################################################################################
 
@@ -28,7 +29,7 @@ SAMPLES, = glob_wildcards(directory+"{smp}"+suffixFile)
 
 
 rule final:
-	input:  expand(output + 'cufflinks/{smp}-count.txt', smp = SAMPLES)
+	input:  output + 'Rapport.html'
 
 
 
@@ -52,7 +53,7 @@ rule hisat2 :
 	module load bioinfo/hisat2/2.1.0
 	hisat2 -x {input.reference} --summary-file -U {input.rnaseq} -S {output.sam} 2>{output.stdout} 
 	"""
-rule Count :
+rule RNAseq_summary :
 	threads : 1
 	input :  output + 'sam_file/{smp}_cufflinks.txt'
 	params : l_mem_free='4G'
@@ -93,13 +94,14 @@ rule Count :
 
 rule Rapport :
 	threads : 1	
-	input : lien = output + 'cufflinks/{smp}-count.txt', directory = output + 'cufflinks/'
+	input :  directory = output , lien = expand(output + 'cufflinks/{smp}-count.txt', smp = SAMPLES),lien2 = expand(output + 'sam_file/{smp}_cuff.txt', smp = SAMPLES)
 	params : l_mem_free='4G'
 	output : output + 'Rapport.html'
 	shell : """
 	module load bioinfo/R/3.4.3
-	cat {input.directory}/*-count.txt >  {input.directory}/Count.txt
-	Rscript -e 'rmarkdown::render("Script/Rapport_RNAseq.Rmd", output_file="{output}", quiet=TRUE, params = list(count = " {input.directory}/Count.txt"))'
+	cat {input.directory}sam_file/*_cuff.txt >  {input.directory}sam_file/Cufflinks.txt
+	cat {input.directory}cufflinks/*-count.txt >  {input.directory}cufflinks/Count.txt
+	Rscript -e 'rmarkdown::render("Script/Rapport_RNAseq.Rmd", output_file="{output}", quiet=TRUE, params = list(count = "{input.directory}cufflinks/Count.txt",mapping = "{input.directory}sam_file/Cufflinks.txt"))'
 	"""
 
 
