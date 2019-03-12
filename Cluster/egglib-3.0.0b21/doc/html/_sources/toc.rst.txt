@@ -1,0 +1,18 @@
+.. _toc:
+
+========
+Contents
+========
+
+.. toctree::
+    :maxdepth: 99
+
+    install
+    manual/index
+    globindex
+    history
+    releases
+    authors
+    training
+    py/index
+    cpp/index

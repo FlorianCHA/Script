@@ -1,0 +1,858 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Accessing and editing data &#8212; EggLib&#39;s documentation</title>
+    <link rel="stylesheet" href="../_static/egglibdoc.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '3.0.0b21',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="shortcut icon" href="../_static/icon.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Encoding of data" href="base-3.html" />
+    <link rel="prev" title="Importing sequences in the Fasta format" href="base-1.html" />
+    <script type="text/javascript">
+      // intelligent scrolling of the sidebar content
+      $(window).scroll(function() {
+        var sb = $('.sphinxsidebarwrapper');
+        var win = $(window);
+        var sbh = sb.height();
+        var offset = $('.sphinxsidebar').position()['top'];
+        var wintop = win.scrollTop();
+        var winbot = wintop + win.innerHeight();
+        var curtop = sb.position()['top'];
+        var curbot = curtop + sbh;
+        // does sidebar fit in window?
+        if (sbh < win.innerHeight()) {
+          // yes: easy case -- always keep at the top
+          sb.css('top', $u.min([$u.max([0, wintop - offset - 10]),
+                                $(document).height() - sbh - 200]));
+        } else {
+          // no: only scroll if top/bottom edge of sidebar is at
+          // top/bottom edge of window
+          if (curtop > wintop && curbot > winbot) {
+            sb.css('top', $u.max([wintop - offset - 10, 0]));
+          } else if (curtop < wintop && curbot < winbot) {
+            sb.css('top', $u.min([winbot - sbh - offset - 20,
+                                  $(document).height() - sbh - 200]));
+          }
+        }
+      });
+    </script>
+  </head>
+  <body>
+<div style="background-color: white; text-align: left; padding: 0px 0px 0px 0px">
+<a href="../index.html"><img src="../_static/banner.png" border="0" alt="EggLib"/></a>
+</div>
+
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="base-3.html" title="Encoding of data"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="base-1.html" title="Importing sequences in the Fasta format"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../contents.html">EggLib&#39;s documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../toc.html" >Contents</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="index.html" >Manual</a> &#187;</li>
+          <li class="nav-item nav-item-3"><a href="base.html" accesskey="U">The <code class="docutils literal"><span class="pre">Align</span></code> and <code class="docutils literal"><span class="pre">Container</span></code> classes</a> &#187;</li> 
+      </ul>
+    </div>
+
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../contents.html">
+              <img class="logo" src="../_static/egglib_small.bmp" alt="Logo"/>
+            </a></p>
+  <h3><a href="../contents.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Accessing and editing data</a><ul>
+<li><a class="reference internal" href="#accessing-a-given-sample">Accessing a given sample</a></li>
+<li><a class="reference internal" href="#editing-names">Editing names</a></li>
+<li><a class="reference internal" href="#editing-sequences-or-data-entries">Editing sequences or data entries</a><ul>
+<li><a class="reference internal" href="#the-sequenceview-type">The <code class="docutils literal"><span class="pre">SequenceView</span></code> type</a></li>
+<li><a class="reference internal" href="#operations-using-a-sequenceview-as-a-list-like-object">Operations using a <code class="docutils literal"><span class="pre">SequenceView</span></code> as a list-like object</a></li>
+<li><a class="reference internal" href="#using-methods-of-align-and-container">Using methods of <code class="docutils literal"><span class="pre">Align</span></code> and <code class="docutils literal"><span class="pre">Container</span></code></a></li>
+<li><a class="reference internal" href="#using-external-functions">Using external functions</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#editing-group-labels">Editing group labels</a><ul>
+<li><a class="reference internal" href="#using-groupview">Using <code class="docutils literal"><span class="pre">GroupView</span></code></a></li>
+<li><a class="reference internal" href="#id1">Using methods of <code class="docutils literal"><span class="pre">Align</span></code> and <code class="docutils literal"><span class="pre">Container</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#initializing-objects">Initializing objects</a><ul>
+<li><a class="reference internal" href="#creating-from-empty-instances">Creating from empty instances</a></li>
+<li><a class="reference internal" href="#deep-copy-of-align-and-container-objects">Deep copy of <code class="docutils literal"><span class="pre">Align</span></code> and <code class="docutils literal"><span class="pre">Container</span></code> objects</a></li>
+<li><a class="reference internal" href="#conversion-between-align-and-container-objects">Conversion between <code class="docutils literal"><span class="pre">Align</span></code> and <code class="docutils literal"><span class="pre">Container</span></code> objects</a></li>
+<li><a class="reference internal" href="#creation-from-other-iterable-types">Creation from other iterable types</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#add-remove-samples">Add/remove samples</a></li>
+<li><a class="reference internal" href="#editing-alignments">Editing alignments</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="base-1.html"
+                        title="previous chapter">Importing sequences in the Fasta format</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="base-3.html"
+                        title="next chapter">Encoding of data</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/manual/base-2.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="accessing-and-editing-data">
+<h1>Accessing and editing data<a class="headerlink" href="#accessing-and-editing-data" title="Permalink to this headline">¶</a></h1>
+<p>In general, <code class="xref py py-class docutils literal"><span class="pre">Align</span></code>/<code class="xref py py-class docutils literal"><span class="pre">Container</span></code>: provide two ways to access/edit
+data they contain: through the methods of <code class="xref py py-class docutils literal"><span class="pre">SampleItem</span></code> objects returned by the iterators,
+and through direct methods of the <code class="xref py py-class docutils literal"><span class="pre">Align</span></code>/<code class="xref py py-class docutils literal"><span class="pre">Container</span></code> objects themselves.
+Those two approaches are equivalent and your choice should be guided by readability first.</p>
+<div class="section" id="accessing-a-given-sample">
+<h2>Accessing a given sample<a class="headerlink" href="#accessing-a-given-sample" title="Permalink to this headline">¶</a></h2>
+<p><code class="xref py py-class docutils literal"><span class="pre">SampleItem</span></code> objects can be directly accessed using their index without requiring
+iteration. Two methods are provided: one for the ingroup (<a class="reference internal" href="../py/toplevel.html#egglib.Align.get_sample" title="egglib.Align.get_sample"><code class="xref py py-meth docutils literal"><span class="pre">get_sample()</span></code></a>)
+and one for the outgroup (<a class="reference internal" href="../py/toplevel.html#egglib.Align.get_outgroup" title="egglib.Align.get_outgroup"><code class="xref py py-meth docutils literal"><span class="pre">get_outgroup()</span></code></a>). The bracket operator <code class="docutils literal"><span class="pre">[]</span></code> is
+a synonym for <code class="xref py py-meth docutils literal"><span class="pre">get_sample()</span></code> and applied to the ingroup. Here is an illustratory
+example (first two lines show the name of the first ingroup sample, last line shows
+the name of the outgroup sample):</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="nb">print</span> <span class="n">aln4</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">name</span>
+<span class="nb">print</span> <span class="n">aln4</span><span class="o">.</span><span class="n">get_sample</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">name</span>
+<span class="nb">print</span> <span class="n">aln4</span><span class="o">.</span><span class="n">get_outgroup</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">name</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="editing-names">
+<h2>Editing names<a class="headerlink" href="#editing-names" title="Permalink to this headline">¶</a></h2>
+<p>There is no trick about reading/setting the name of a sample in <code class="xref py py-class docutils literal"><span class="pre">Container</span></code>/<code class="xref py py-class docutils literal"><span class="pre">Align</span></code>
+objects. The <code class="xref py py-attr docutils literal"><span class="pre">name</span></code> attribute of <code class="xref py py-class docutils literal"><span class="pre">SampleView</span></code> is a standard <a class="reference external" href="https://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">str</span></code></a> and
+can be modified by any new value, as long as it is, or can be casted to, a <a class="reference external" href="https://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">str</span></code></a>.
+Alternatively, both <code class="xref py py-class docutils literal"><span class="pre">Container</span></code> and <code class="xref py py-class docutils literal"><span class="pre">Align</span></code> have methods to get and set the
+name of an ingroup or outgroup sample. All techniques are listed in the table below, with
+<code class="docutils literal"><span class="pre">item</span></code> being a <code class="xref py py-class docutils literal"><span class="pre">SampleView</span></code> object, and <code class="docutils literal"><span class="pre">obj</span></code> being either a
+<code class="xref py py-class docutils literal"><span class="pre">Align</span></code> or <code class="xref py py-class docutils literal"><span class="pre">Container</span></code> object:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="29%" />
+<col width="71%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Expression</th>
+<th class="head">Result</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">item.name</span></code></td>
+<td>Access the name of an ingroup or outgroup sample (1).</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">item.name</span> <span class="pre">=</span> <span class="pre">x</span></code></td>
+<td>Set the name of an ingroup or outgroup sample to <code class="docutils literal"><span class="pre">x</span></code> (1)(2).</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">obj.get_name(i)</span></code></td>
+<td>Get the name of the <code class="docutils literal"><span class="pre">i</span></code>th ingroup sample.</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">obj.get_name_o(i)</span></code></td>
+<td>Get the name of the <code class="docutils literal"><span class="pre">i</span></code>th outgroup sample.</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">obj.set_name(i,x)</span></code></td>
+<td>Set the name of the <code class="docutils literal"><span class="pre">i</span></code>th ingroup sample to <code class="docutils literal"><span class="pre">x</span></code> (2).</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">obj.set_name_o(i,x)</span></code></td>
+<td>Set the name of the <code class="docutils literal"><span class="pre">i</span></code>th outgroup sample to <code class="docutils literal"><span class="pre">x</span></code> (2).</td>
+</tr>
+</tbody>
+</table>
+<dl class="docutils">
+<dt>Notes:</dt>
+<dd><ol class="first last arabic simple">
+<li>The identity of the sample is defined by the origin of the <code class="xref py py-class docutils literal"><span class="pre">SampleView</span></code> object.</li>
+<li><code class="docutils literal"><span class="pre">x</span></code> must be a <a class="reference external" href="https://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">str</span></code></a>.</li>
+</ol>
+</dd>
+</dl>
+<p>The example below shows that those approaches are equivalent, and also demonstrates
+that the content available through a <code class="xref py py-class docutils literal"><span class="pre">SampleView</span></code> is modified whenever
+the underlying <code class="xref py py-class docutils literal"><span class="pre">Align</span></code> is modified, even if it is by an other mean:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">item</span> <span class="o">=</span> <span class="n">aln4</span><span class="o">.</span><span class="n">get_sample</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="nb">print</span> <span class="n">item</span><span class="o">.</span><span class="n">name</span>
+<span class="nb">print</span> <span class="n">aln4</span><span class="o">.</span><span class="n">get_name</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">aln4</span><span class="o">.</span><span class="n">set_name</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;another name&#39;</span><span class="p">)</span>
+<span class="nb">print</span> <span class="n">item</span><span class="o">.</span><span class="n">name</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">sample1</span>
+<span class="n">sample1</span>
+<span class="n">another</span> <span class="n">name</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="editing-sequences-or-data-entries">
+<h2>Editing sequences or data entries<a class="headerlink" href="#editing-sequences-or-data-entries" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="the-sequenceview-type">
+<h3>The <a class="reference internal" href="../py/toplevel.html#egglib.SequenceView" title="egglib.SequenceView"><code class="xref py py-class docutils literal"><span class="pre">SequenceView</span></code></a> type<a class="headerlink" href="#the-sequenceview-type" title="Permalink to this headline">¶</a></h3>
+<p><code class="xref py py-class docutils literal"><span class="pre">SequenceView</span></code> is another proxy class, managing the sequence of data
+for a given sample. It can be obtained from a <code class="xref py py-class docutils literal"><span class="pre">SampleView</span></code> or from
+the methods <a class="reference internal" href="../py/toplevel.html#egglib.Align.get_sequence" title="egglib.Align.get_sequence"><code class="xref py py-meth docutils literal"><span class="pre">get_sequence()</span></code></a> and <a class="reference internal" href="../py/toplevel.html#egglib.Align.get_sequence_o" title="egglib.Align.get_sequence_o"><code class="xref py py-meth docutils literal"><span class="pre">get_sequence_o()</span></code></a> (for
+ingroup and outgroup samples, respectively), both available from both
+<code class="xref py py-class docutils literal"><span class="pre">Align</span></code> and <code class="xref py py-class docutils literal"><span class="pre">Container</span></code> objects. <code class="xref py py-class docutils literal"><span class="pre">SequenceView</span></code> objects
+can be treated, to some extend, as lists of data values. In particular, they
+offer the same functionalities for editing the data. There is one significant
+limitation: the length of <code class="xref py py-class docutils literal"><span class="pre">SequenceView</span></code> connected to a
+<code class="xref py py-class docutils literal"><span class="pre">Align</span></code> cannot be modified.</p>
+</div>
+<div class="section" id="operations-using-a-sequenceview-as-a-list-like-object">
+<h3>Operations using a <a class="reference internal" href="../py/toplevel.html#egglib.SequenceView" title="egglib.SequenceView"><code class="xref py py-class docutils literal"><span class="pre">SequenceView</span></code></a> as a list-like object<a class="headerlink" href="#operations-using-a-sequenceview-as-a-list-like-object" title="Permalink to this headline">¶</a></h3>
+<p>In the table below, assume <code class="docutils literal"><span class="pre">seq</span></code> is a <code class="xref py py-class docutils literal"><span class="pre">SequenceView</span></code> object,
+<code class="docutils literal"><span class="pre">s</span></code> is a stretch of sequence as a <a class="reference external" href="https://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">str</span></code></a>, <code class="docutils literal"><span class="pre">c</span></code> is a one-character
+string (although an integer can be accepted, see <a class="reference internal" href="base-3.html#encoding"><span class="std std-ref">Encoding of data</span></a>), <code class="docutils literal"><span class="pre">i</span></code> is any valid
+index (and <code class="docutils literal"><span class="pre">j</span></code> a second one if a slice is needed).</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="29%" />
+<col width="71%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Expression</th>
+<th class="head">Result</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">len(seq)</span></code></td>
+<td>Get the number of data entries.</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">for</span> <span class="pre">v</span> <span class="pre">in</span> <span class="pre">seq</span></code></td>
+<td>Iterate over data entries.</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">seq[i]</span></code></td>
+<td>Access a data item.</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">seq[i:j]</span></code></td>
+<td>Access a section of the sequence.</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">seq[i]</span> <span class="pre">=</span> <span class="pre">c</span></code></td>
+<td>Modify a data item.</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">seq[i:j]</span> <span class="pre">=</span> <span class="pre">s</span></code></td>
+<td>Replace a section of the sequence by a new sequence (1).</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">del</span> <span class="pre">seq[i]</span></code></td>
+<td>Delete a data entry (2).</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">del</span> <span class="pre">seq[i:j]</span></code></td>
+<td>Delete a section of the sequence (2).</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">seq.string()</span></code></td>
+<td>Return the sequence as a <a class="reference external" href="https://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">str</span></code></a>.</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">seq.insert(i,</span> <span class="pre">s)</span></code></td>
+<td>Insert a stretch of sequence (2).</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">seq.find(s)</span></code></td>
+<td>Find the position of a given motif.</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">seq.to_upper()</span></code></td>
+<td>Modify the sequence to contain only upper-case characters.</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">seq.to_lower()</span></code></td>
+<td>Modify the sequence to contain only lower-case characters.</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">seq.strip(s)</span></code></td>
+<td>Remove left/right occurrences of characters present in <code class="docutils literal"><span class="pre">s</span></code>.</td>
+</tr>
+</tbody>
+</table>
+<dl class="docutils">
+<dt>Notes:</dt>
+<dd><ol class="first last arabic simple">
+<li>Only available for <code class="xref py py-class docutils literal"><span class="pre">Align</span></code> objects if the length of the provided stretch matches.</li>
+<li>Not available for <code class="xref py py-class docutils literal"><span class="pre">Align</span></code> objects.</li>
+</ol>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Each time you extract a data item from a <code class="xref py py-class docutils literal"><span class="pre">SequenceView</span></code>,
+you will notice that the value you obtain is a <a class="reference external" href="https://docs.python.org/2.7/library/functions.html#int" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">int</span></code></a>
+rather than a character as you might expect if you loaded a Fasta file
+with nucleotide sequences. See <a class="reference internal" href="base-3.html#encoding"><span class="std std-ref">Encoding of data</span></a> for a discussion of this matter.</p>
+</div>
+<p>In addition, one can modify the whole sequence directly through the
+<code class="xref py py-class docutils literal"><span class="pre">SampleView</span></code>, as in:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">item</span> <span class="o">=</span> <span class="n">aln4</span><span class="o">.</span><span class="n">get_sample</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">item</span><span class="o">.</span><span class="n">sequence</span> <span class="o">=</span> <span class="s1">&#39;ACCGTGGAGAGCGCGTTGCA&#39;</span>
+</pre></div>
+</div>
+<p>Obviously, and again, if the original object is an <code class="xref py py-class docutils literal"><span class="pre">Align</span></code>, the
+sequence length must be kept constant.</p>
+</div>
+<div class="section" id="using-methods-of-align-and-container">
+<h3>Using methods of <a class="reference internal" href="../py/toplevel.html#egglib.Align" title="egglib.Align"><code class="xref py py-class docutils literal"><span class="pre">Align</span></code></a> and <a class="reference internal" href="../py/toplevel.html#egglib.Container" title="egglib.Container"><code class="xref py py-class docutils literal"><span class="pre">Container</span></code></a><a class="headerlink" href="#using-methods-of-align-and-container" title="Permalink to this headline">¶</a></h3>
+<p>Most of the functionality available through <code class="xref py py-class docutils literal"><span class="pre">SequenceView</span></code> is also
+available as methods of the <code class="xref py py-class docutils literal"><span class="pre">Align</span></code>/<code class="xref py py-class docutils literal"><span class="pre">Container</span></code>. The table
+below lists the available methods (or attributes), with <em>i</em> a sample index,
+<em>j</em> a position, <em>n</em> a number of sites, <em>c</em> a data entry
+(either an integer or character, see <a class="reference internal" href="base-3.html#encoding"><span class="std std-ref">Encoding of data</span></a>),
+and <em>s</em> a <a class="reference external" href="https://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">str</span></code></a>, or a list of data entries.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="30%" />
+<col width="70%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Expression</th>
+<th class="head">Result</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">aln.ls</span></code></td>
+<td>Get alignment length (cannot be modified) (1).</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">cnt.ls(i)</span></code></td>
+<td>Length of the sequence for an ingroup sample (2).</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">cnt.lo(i)</span></code></td>
+<td>Length of the sequence for an outgroup sample (2).</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">obj.get_sequence(i)</span></code></td>
+<td>Get the sequence of an ingroup sample as a <code class="xref py py-class docutils literal"><span class="pre">SequenceView</span></code>.</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">obj.get_sequence_o(i)</span></code></td>
+<td>Get the sequence of an outgroup sample as a <code class="xref py py-class docutils literal"><span class="pre">SequenceView</span></code>.</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">obj.get_i(i,j)</span></code></td>
+<td>Get a data entry of an ingroup sample.</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">obj.get_o(i,j)</span></code></td>
+<td>Get a data entry of an outgroup sample.</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">obj.set_i(i,j,c)</span></code></td>
+<td>Set a data entry of an ingroup sample.</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">obj.set_o(i,j,c)</span></code></td>
+<td>Set a data entry of an outgroup sample).</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">obj.set_sequence(i,s)</span></code></td>
+<td>Get the sequence of an ingroup sample as a <code class="xref py py-class docutils literal"><span class="pre">SequenceView</span></code>.</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">obj.set_sequence_o(i,s)</span></code></td>
+<td>Get the sequence of an outgroup sample as a <code class="xref py py-class docutils literal"><span class="pre">SequenceView</span></code>.</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">cnt.del_sites(i,j,n)</span></code></td>
+<td>Delete data entries for an ingroup sample (2).</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">cnt.del_sites_o(i,j,n)</span></code></td>
+<td>Delete data entries for an outgroup sample (2).</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">cnt.insert_sites(i,j,s)</span></code></td>
+<td>Insert a given sequence at a given position for an ingroup sample (2).</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">cnt.insert_sites_o(i,j,s)</span></code></td>
+<td>Insert a given sequence at a given position for an outgroup sample (2).</td>
+</tr>
+</tbody>
+</table>
+<dl class="docutils">
+<dt>Notes:</dt>
+<dd><ol class="first last arabic simple">
+<li>Only available for <code class="xref py py-class docutils literal"><span class="pre">Align</span></code> objects.</li>
+<li>Only available for <code class="xref py py-class docutils literal"><span class="pre">Container</span></code> objects.</li>
+</ol>
+</dd>
+</dl>
+</div>
+<div class="section" id="using-external-functions">
+<h3>Using external functions<a class="headerlink" href="#using-external-functions" title="Permalink to this headline">¶</a></h3>
+<p>A few functions from the <code class="xref py py-mod docutils literal"><span class="pre">tools</span></code> module and provide tools that can be
+used with sequences. Note that they never modify the passed object. On the
+other hand, they can accept sequences as <code class="xref py py-class docutils literal"><span class="pre">SequenceView</span></code> or <a class="reference external" href="https://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">str</span></code></a>
+objects.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="28%" />
+<col width="72%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Function</th>
+<th class="head">Operation</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><a class="reference internal" href="../py/tools.html#egglib.tools.rc" title="egglib.tools.rc"><code class="xref py py-func docutils literal"><span class="pre">tools.rc()</span></code></a></td>
+<td>Reverse-complement of a DNA sequence.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="../py/tools.html#egglib.tools.compare" title="egglib.tools.compare"><code class="xref py py-func docutils literal"><span class="pre">tools.compare()</span></code></a></td>
+<td>Check if sequences matches (supporting ambiguity characters).</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="../py/tools.html#egglib.tools.regex" title="egglib.tools.regex"><code class="xref py py-func docutils literal"><span class="pre">tools.regex()</span></code></a></td>
+<td>Turn a sequence with ambiguity characters to a regular expression.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="../py/tools.html#egglib.tools.motif_iter" title="egglib.tools.motif_iter"><code class="xref py py-func docutils literal"><span class="pre">tools.motif_iter()</span></code></a></td>
+<td>Iterate over occurrences of a motif.</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="section" id="editing-group-labels">
+<h2>Editing group labels<a class="headerlink" href="#editing-group-labels" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="using-groupview">
+<h3>Using <a class="reference internal" href="../py/toplevel.html#egglib.GroupView" title="egglib.GroupView"><code class="xref py py-class docutils literal"><span class="pre">GroupView</span></code></a><a class="headerlink" href="#using-groupview" title="Permalink to this headline">¶</a></h3>
+<p>In comparison to sequences, list of group labels are relatively simpler, logically.
+However, there is also a specialized proxy class, <code class="xref py py-class docutils literal"><span class="pre">GroupView</span></code>. Objects of this
+type behave to a limited extend like a list of integer values (only null or positive
+labels are allowed). It is not possible to delete any item from a <code class="xref py py-class docutils literal"><span class="pre">GroupView</span></code> or,
+in general, change the number of items it contains. The supported functions are listed
+in the table below, where <code class="docutils literal"><span class="pre">grp</span></code> is a <code class="xref py py-class docutils literal"><span class="pre">GroupView</span></code>, <code class="docutils literal"><span class="pre">i</span></code> a level index, and
+<code class="docutils literal"><span class="pre">v</span></code> a label value:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="29%" />
+<col width="71%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Expression</th>
+<th class="head">Result</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">len(grp)</span></code></td>
+<td>Get the number of group levels.</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">grp.outgroup</span></code></td>
+<td><code class="docutils literal"><span class="pre">True</span></code> if the corresponding sample belongs to the outgroup.</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">grp[i]</span></code></td>
+<td>Access a group label.</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">grp[i]</span> <span class="pre">=</span> <span class="pre">v</span></code></td>
+<td>Modify a group label.</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">for</span> <span class="pre">v</span> <span class="pre">in</span> <span class="pre">grp</span></code></td>
+<td>Iterate over group labels.</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">For compatibility, outgroup group labels behave exactly the same as
+ingroup group labels. Outgroup samples always have a single group label.</p>
+</div>
+</div>
+<div class="section" id="id1">
+<h3>Using methods of <a class="reference internal" href="../py/toplevel.html#egglib.Align" title="egglib.Align"><code class="xref py py-class docutils literal"><span class="pre">Align</span></code></a> and <a class="reference internal" href="../py/toplevel.html#egglib.Container" title="egglib.Container"><code class="xref py py-class docutils literal"><span class="pre">Container</span></code></a><a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
+<p>The methods (and one attribute) allowing to edit group labels are listed below,
+where <code class="docutils literal"><span class="pre">n</span></code> is non-negative integer, <code class="docutils literal"><span class="pre">i</span></code> is a sample index, <code class="docutils literal"><span class="pre">j</span></code> is the
+index of a group level and <code class="docutils literal"><span class="pre">g</span></code> is a group label:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="30%" />
+<col width="70%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>Expression</td>
+<td>Result</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">ng</span></code></td>
+<td>Get the number of group levels (in the ingroup).</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">ng</span> <span class="pre">=</span> <span class="pre">n</span></code></td>
+<td>Set the number of group levels (in the ingroup).</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">get_label(i,j)</span></code></td>
+<td>Get one of the group labels of an ingroup sample.</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">get_label_o(i,j)</span></code></td>
+<td>Get the group label of an outgroup sample.</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">set_label(i,j,g)</span></code></td>
+<td>Set one of the group labels of an ingroup sample.</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">set_label_o(i,g)</span></code></td>
+<td>Set the group label of an outgroup sample.</td>
+</tr>
+</tbody>
+</table>
+<p>Note that the attribute <a class="reference internal" href="../py/toplevel.html#egglib.Align.ng" title="egglib.Align.ng"><code class="xref py py-attr docutils literal"><span class="pre">ng</span></code></a> is modifiable. If it is increased,
+the newly created group levels are filled with zero’s. If it is decreased, group
+labels are discarded. For outgroup samples, there is always a single group level.</p>
+</div>
+</div>
+<div class="section" id="initializing-objects">
+<h2>Initializing objects<a class="headerlink" href="#initializing-objects" title="Permalink to this headline">¶</a></h2>
+<p>We have seen how to create <code class="xref py py-class docutils literal"><span class="pre">Container</span></code> and <code class="xref py py-class docutils literal"><span class="pre">Align</span></code> objects
+initialized from the content of a Fasta-formatted sequence file. In
+<a class="reference internal" href="coal.html#coalesce-manual"><span class="std std-ref">Coalescent simulations</span></a> we will see how to generate data sets using coalescent
+simulations. Several methods exist to create sequence set objects with
+more flexibility.</p>
+<div class="section" id="creating-from-empty-instances">
+<h3>Creating from empty instances<a class="headerlink" href="#creating-from-empty-instances" title="Permalink to this headline">¶</a></h3>
+<p>The default constructors of <code class="xref py py-class docutils literal"><span class="pre">Container</span></code> and <code class="xref py py-class docutils literal"><span class="pre">Align</span></code> return
+empty instances that can later be filled manually with the methods described in the
+following sections. In addition, the <a class="reference internal" href="../py/toplevel.html#egglib.Align" title="egglib.Align"><code class="xref py py-class docutils literal"><span class="pre">Align</span></code></a> constructors allows one
+to initialize the object to specified dimensions, with an optional user-specified
+initial values for all data entries, as shown in the example below:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">aln5</span> <span class="o">=</span> <span class="n">egglib</span><span class="o">.</span><span class="n">Align</span><span class="p">()</span>
+<span class="nb">print</span> <span class="n">aln5</span><span class="o">.</span><span class="n">ns</span><span class="p">,</span> <span class="n">aln5</span><span class="o">.</span><span class="n">ls</span>
+
+<span class="n">aln6</span> <span class="o">=</span> <span class="n">egglib</span><span class="o">.</span><span class="n">Align</span><span class="p">(</span><span class="n">nsam</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span> <span class="n">nout</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">nsit</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">init</span><span class="o">=</span><span class="s1">&#39;N&#39;</span><span class="p">)</span>
+<span class="nb">print</span> <span class="n">aln6</span><span class="o">.</span><span class="n">ns</span><span class="p">,</span> <span class="n">aln6</span><span class="o">.</span><span class="n">ls</span>
+<span class="nb">print</span> <span class="n">aln6</span><span class="o">.</span><span class="n">to_fasta</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="mi">0</span> <span class="mi">0</span>
+<span class="mi">6</span> <span class="mi">4</span>
+<span class="o">&gt;</span>
+<span class="n">NNNN</span>
+<span class="o">&gt;</span>
+<span class="n">NNNN</span>
+<span class="o">&gt;</span>
+<span class="n">NNNN</span>
+<span class="o">&gt;</span>
+<span class="n">NNNN</span>
+<span class="o">&gt;</span>
+<span class="n">NNNN</span>
+<span class="o">&gt;</span>
+<span class="n">NNNN</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="deep-copy-of-align-and-container-objects">
+<h3>Deep copy of <a class="reference internal" href="../py/toplevel.html#egglib.Align" title="egglib.Align"><code class="xref py py-class docutils literal"><span class="pre">Align</span></code></a> and <a class="reference internal" href="../py/toplevel.html#egglib.Container" title="egglib.Container"><code class="xref py py-class docutils literal"><span class="pre">Container</span></code></a> objects<a class="headerlink" href="#deep-copy-of-align-and-container-objects" title="Permalink to this headline">¶</a></h3>
+<p>Both <code class="xref py py-class docutils literal"><span class="pre">Align</span></code> and <code class="xref py py-class docutils literal"><span class="pre">Container</span></code> have a <em>class method</em>
+<a class="reference internal" href="../py/toplevel.html#egglib.Align.create" title="egglib.Align.create"><code class="xref py py-meth docutils literal"><span class="pre">create()</span></code></a> that returns a new object initialized from the
+content of the provided argument. There can be several uses for that
+functionality, and one of them is performing a deep copy of an object.
+For example, let us assume one wants to create an independent copy of an
+alignement. The approach exemplified below will <strong>not</strong> work as wanted:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">aln</span> <span class="o">=</span> <span class="n">egglib</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">from_fasta</span><span class="p">(</span><span class="s1">&#39;align4.fas&#39;</span><span class="p">,</span> <span class="n">groups</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">copy</span> <span class="o">=</span> <span class="n">aln</span>
+<span class="n">aln</span><span class="o">.</span><span class="n">set_sequence</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;CCTCCTCCTCCTCCTCCTCT&#39;</span><span class="p">)</span>
+<span class="nb">print</span> <span class="n">copy</span><span class="o">.</span><span class="n">get_sequence</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">string</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>This results in the string <code class="docutils literal"><span class="pre">CCTCCTCCTCCTCCTCCTCT</span></code> since <code class="docutils literal"><span class="pre">aln</span></code> and <code class="docutils literal"><span class="pre">copy</span></code>
+are actually references to the same underlying object (see
+<a class="reference external" href="https://docs.python.org/2/faq/programming.html#why-did-changing-list-y-also-change-list-x">this FAQ</a>
+in the Python documentation). The class method <code class="xref py py-meth docutils literal"><span class="pre">create()</span></code> circumvent
+this effect as demonstrated in the code below, were <code class="docutils literal"><span class="pre">copy</span></code> is created in such a way
+it is an object independent of <code class="docutils literal"><span class="pre">aln</span></code>:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">aln</span> <span class="o">=</span> <span class="n">egglib</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">from_fasta</span><span class="p">(</span><span class="s1">&#39;align4.fas&#39;</span><span class="p">,</span> <span class="n">groups</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">copy</span> <span class="o">=</span> <span class="n">egglib</span><span class="o">.</span><span class="n">Align</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">aln</span><span class="p">)</span>
+<span class="n">aln</span><span class="o">.</span><span class="n">set_sequence</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;CCTCCTCCTCCTCCTCCTCT&#39;</span><span class="p">)</span>
+<span class="nb">print</span> <span class="n">copy</span><span class="o">.</span><span class="n">get_sequence</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">string</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="conversion-between-align-and-container-objects">
+<h3>Conversion between <a class="reference internal" href="../py/toplevel.html#egglib.Align" title="egglib.Align"><code class="xref py py-class docutils literal"><span class="pre">Align</span></code></a> and <a class="reference internal" href="../py/toplevel.html#egglib.Container" title="egglib.Container"><code class="xref py py-class docutils literal"><span class="pre">Container</span></code></a> objects<a class="headerlink" href="#conversion-between-align-and-container-objects" title="Permalink to this headline">¶</a></h3>
+<p>Another use of <code class="xref py py-meth docutils literal"><span class="pre">create()</span></code> is to convert between <code class="xref py py-class docutils literal"><span class="pre">Align</span></code> and
+<code class="xref py py-class docutils literal"><span class="pre">Container</span></code> types. It is possible to make a <code class="xref py py-class docutils literal"><span class="pre">Container</span></code> copy of
+an <code class="xref py py-class docutils literal"><span class="pre">Align</span></code> as in:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">cnt</span> <span class="o">=</span> <span class="n">egglib</span><span class="o">.</span><span class="n">Container</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">aln</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Obviously, the opposite (from <code class="xref py py-class docutils literal"><span class="pre">Container</span></code> to <code class="xref py py-class docutils literal"><span class="pre">Align</span></code>) requires that
+all sequences have the same length. For example, suppose that we have an alignment that
+has, for some reason, a longer sequence, as in:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">&gt;</span><span class="n">sample1</span>
+<span class="n">ACCGTGGAGAGCGCGTTGCA</span>
+<span class="o">&gt;</span><span class="n">sample2</span>
+<span class="n">ACCGTGGAGAGCGCGTTGCA</span>
+<span class="o">&gt;</span><span class="n">sample3</span>
+<span class="n">ACCGTGGAGAGCGCGTTGCATTAAGTA</span>
+<span class="o">&gt;</span><span class="n">sample4</span>
+<span class="n">ACCGTGGAGAGCGCGTTGCA</span>
+</pre></div>
+</div>
+<p>You must import this data set as a <code class="xref py py-class docutils literal"><span class="pre">Container</span></code>. The code below shows
+that the resulting object is a <a class="reference internal" href="../py/toplevel.html#egglib.Container" title="egglib.Container"><code class="xref py py-class docutils literal"><span class="pre">Container</span></code></a> (the attribute
+<a class="reference internal" href="../py/toplevel.html#egglib.Align.is_matrix" title="egglib.Align.is_matrix"><code class="xref py py-attr docutils literal"><span class="pre">is_matrix</span></code></a> is another way to tell if an object is an
+<code class="xref py py-class docutils literal"><span class="pre">Align</span></code>), and confirms that the third sequence is longer:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">cnt</span> <span class="o">=</span> <span class="n">egglib</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">from_fasta</span><span class="p">(</span><span class="s1">&#39;align5.fas&#39;</span><span class="p">)</span>
+<span class="nb">print</span> <span class="nb">type</span><span class="p">(</span><span class="n">cnt</span><span class="p">)</span>
+<span class="nb">print</span> <span class="n">cnt</span><span class="o">.</span><span class="n">is_matrix</span>
+<span class="nb">print</span> <span class="n">cnt</span><span class="o">.</span><span class="n">ls</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="nb">print</span> <span class="n">cnt</span><span class="o">.</span><span class="n">ls</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span>&lt;class &#39;egglib._interface.Container&#39;&gt;
+False
+20
+27
+</pre></div>
+</div>
+<p>After cropping the longer sequence such that all sequences have the same length,
+we can turn the <code class="xref py py-class docutils literal"><span class="pre">Container</span></code> into an <code class="xref py py-class docutils literal"><span class="pre">Align</span></code>:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">cnt</span><span class="o">.</span><span class="n">del_sites</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">7</span><span class="p">)</span>
+<span class="n">aln</span> <span class="o">=</span> <span class="n">egglib</span><span class="o">.</span><span class="n">Align</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">cnt</span><span class="p">)</span>
+<span class="nb">print</span> <span class="n">aln</span><span class="o">.</span><span class="n">to_fasta</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">&gt;</span><span class="n">sample1</span>
+<span class="n">ACCGTGGAGAGCGCGTTGCA</span>
+<span class="o">&gt;</span><span class="n">sample2</span>
+<span class="n">ACCGTGGAGAGCGCGTTGCA</span>
+<span class="o">&gt;</span><span class="n">sample3</span>
+<span class="n">ACCGTGGAGAGCGCGTTGCA</span>
+<span class="o">&gt;</span><span class="n">sample4</span>
+<span class="n">ACCGTGGAGAGCGCGTTGCA</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="creation-from-other-iterable-types">
+<h3>Creation from other iterable types<a class="headerlink" href="#creation-from-other-iterable-types" title="Permalink to this headline">¶</a></h3>
+<p>Besides <code class="xref py py-class docutils literal"><span class="pre">Align</span></code> and <code class="xref py py-class docutils literal"><span class="pre">Container</span></code> objects, the method
+<code class="xref py py-meth docutils literal"><span class="pre">create()</span></code> supports all compatible iterable object. To be compatible,
+an object must return, during iteration, <code class="docutils literal"><span class="pre">(name,</span> <span class="pre">sequence)</span></code> or
+<code class="docutils literal"><span class="pre">(name,</span> <span class="pre">sequence,</span> <span class="pre">groups)</span></code> items, where <code class="docutils literal"><span class="pre">name</span></code> is a name string, <code class="docutils literal"><span class="pre">sequence</span></code>
+is a sequence string (or a list of data entries), and <code class="docutils literal"><span class="pre">groups</span></code> (which may be omitted)
+is a list of group labels. For creating an <code class="xref py py-class docutils literal"><span class="pre">Align</span></code>, it is required that
+all sequences match. Typically, objects can be created from lists using this way:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">aln</span> <span class="o">=</span> <span class="n">egglib</span><span class="o">.</span><span class="n">Align</span><span class="o">.</span><span class="n">create</span><span class="p">([(</span><span class="s1">&#39;sample1&#39;</span><span class="p">,</span> <span class="s1">&#39;ACCGTGGAGAGCGCGTTGCA&#39;</span><span class="p">),</span>
+                           <span class="p">(</span><span class="s1">&#39;sample2&#39;</span><span class="p">,</span> <span class="s1">&#39;ACCGTGGAGAGCGCGTTGCA&#39;</span><span class="p">),</span>
+                           <span class="p">(</span><span class="s1">&#39;sample3&#39;</span><span class="p">,</span> <span class="s1">&#39;ACCGTGGAGAGCGCGTTGCA&#39;</span><span class="p">),</span>
+                           <span class="p">(</span><span class="s1">&#39;sample4&#39;</span><span class="p">,</span> <span class="s1">&#39;ACCGTGGAGAGCGCGTTGCA&#39;</span><span class="p">)])</span>
+<span class="nb">print</span> <span class="n">aln</span><span class="o">.</span><span class="n">to_fasta</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>The code above re-creates the alignment discussed in the previous section.
+Note that there is a method, <a class="reference internal" href="../py/toplevel.html#egglib.Container.equalize" title="egglib.Container.equalize"><code class="xref py py-meth docutils literal"><span class="pre">Container.equalize()</span></code></a>, that inserts stretches of <code class="docutils literal"><span class="pre">?</span></code> at the end of
+sequences of a <code class="xref py py-class docutils literal"><span class="pre">Container</span></code> in order to have all sequences of the same length.
+In such case, the <code class="xref py py-class docutils literal"><span class="pre">Container</span></code> could be converted to an <code class="xref py py-class docutils literal"><span class="pre">Align</span></code>
+using <a class="reference internal" href="../py/toplevel.html#egglib.Align.create" title="egglib.Align.create"><code class="xref py py-meth docutils literal"><span class="pre">Align.create()</span></code></a>, but it is not probably not what you want to do if you want
+to align sequences.</p>
+</div>
+</div>
+<div class="section" id="add-remove-samples">
+<h2>Add/remove samples<a class="headerlink" href="#add-remove-samples" title="Permalink to this headline">¶</a></h2>
+<p>Both <code class="xref py py-class docutils literal"><span class="pre">Align</span></code> and <code class="xref py py-class docutils literal"><span class="pre">Container</span></code> support the following operations
+to change the list of samples of an object:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="35%" />
+<col width="40%" />
+<col width="25%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Method</th>
+<th class="head">Syntax</th>
+<th class="head">Action</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><a class="reference internal" href="../py/toplevel.html#egglib.Container.add_sample" title="egglib.Container.add_sample"><code class="xref py py-meth docutils literal"><span class="pre">add_sample()</span></code></a></td>
+<td><code class="docutils literal"><span class="pre">cnt.add_sample(name,</span> <span class="pre">sequence[,</span> <span class="pre">groups])</span></code></td>
+<td>Add an ingroup sample.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="../py/toplevel.html#egglib.Container.add_outgroup" title="egglib.Container.add_outgroup"><code class="xref py py-meth docutils literal"><span class="pre">add_outgroup()</span></code></a></td>
+<td><code class="docutils literal"><span class="pre">cnt.add_outgroup(name,</span> <span class="pre">sequence[,</span> <span class="pre">group])</span></code></td>
+<td>Add an outgroup sample.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="../py/toplevel.html#egglib.Container.add_samples" title="egglib.Container.add_samples"><code class="xref py py-meth docutils literal"><span class="pre">add_samples()</span></code></a></td>
+<td><code class="docutils literal"><span class="pre">cnt.add_samples(samples)</span></code></td>
+<td>Add several ingroup samples.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="../py/toplevel.html#egglib.Container.del_sample" title="egglib.Container.del_sample"><code class="xref py py-meth docutils literal"><span class="pre">del_sample()</span></code></a></td>
+<td><code class="docutils literal"><span class="pre">cnt.del_sample(index)</span></code></td>
+<td>Delete an ingroup sample.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="../py/toplevel.html#egglib.Container.del_outgroup" title="egglib.Container.del_outgroup"><code class="xref py py-meth docutils literal"><span class="pre">del_outgroup()</span></code></a></td>
+<td><code class="docutils literal"><span class="pre">cnt.del_outgroup(index)</span></code></td>
+<td>Delete an outgroup sample.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="../py/toplevel.html#egglib.Container.reset" title="egglib.Container.reset"><code class="xref py py-meth docutils literal"><span class="pre">reset()</span></code></a></td>
+<td><code class="docutils literal"><span class="pre">cnt.reset()</span></code></td>
+<td>Remove all samples.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="../py/toplevel.html#egglib.Container.remove_duplicates" title="egglib.Container.remove_duplicates"><code class="xref py py-meth docutils literal"><span class="pre">remove_duplicates()</span></code></a></td>
+<td><code class="docutils literal"><span class="pre">cnt.remove_duplicates()</span></code></td>
+<td>Remove duplicates.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="editing-alignments">
+<h2>Editing alignments<a class="headerlink" href="#editing-alignments" title="Permalink to this headline">¶</a></h2>
+<p><code class="xref py py-class docutils literal"><span class="pre">Align</span></code> objects have additional methods that allow to extract or delete
+sections of the alignment</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="24%" />
+<col width="30%" />
+<col width="46%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Method</th>
+<th class="head">Syntax</th>
+<th class="head">Action</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><a class="reference internal" href="../py/toplevel.html#egglib.Align.column" title="egglib.Align.column"><code class="xref py py-meth docutils literal"><span class="pre">column()</span></code></a></td>
+<td><code class="docutils literal"><span class="pre">aln.column(i)</span></code></td>
+<td>Extract a site as a list (1).</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="../py/toplevel.html#egglib.Align.insert_columns" title="egglib.Align.insert_columns"><code class="xref py py-meth docutils literal"><span class="pre">insert_columns()</span></code></a></td>
+<td><code class="docutils literal"><span class="pre">aln.insert_columns(i,</span> <span class="pre">values)</span></code></td>
+<td>Insert columns at a given position.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="../py/toplevel.html#egglib.Align.del_columns" title="egglib.Align.del_columns"><code class="xref py py-meth docutils literal"><span class="pre">del_columns()</span></code></a></td>
+<td><code class="docutils literal"><span class="pre">aln.del_columns(i[,</span> <span class="pre">num])</span></code></td>
+<td>Delete one or more columns.</td>
+</tr>
+<tr class="row-odd"><td rowspan="2"><a class="reference internal" href="../py/toplevel.html#egglib.Align.extract" title="egglib.Align.extract"><code class="xref py py-meth docutils literal"><span class="pre">extract()</span></code></a></td>
+<td><code class="docutils literal"><span class="pre">sub</span> <span class="pre">=</span> <span class="pre">aln.extract(start,</span> <span class="pre">stop)</span></code></td>
+<td rowspan="2">Generate a new <code class="xref py py-class docutils literal"><span class="pre">Align</span></code> with the specified columns
+(either as a range or a list).</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">sub</span> <span class="pre">=</span> <span class="pre">aln.extract([i,</span> <span class="pre">j,</span> <span class="pre">...,</span> <span class="pre">z])</span></code></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="../py/toplevel.html#egglib.Align.subset" title="egglib.Align.subset"><code class="xref py py-meth docutils literal"><span class="pre">subset()</span></code></a></td>
+<td><code class="docutils literal"><span class="pre">sub</span> <span class="pre">=</span> <span class="pre">aln.subset(samples)</span></code></td>
+<td>Generate a new <code class="xref py py-class docutils literal"><span class="pre">Align</span></code> with selected samples (1).</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="../py/toplevel.html#egglib.Align.subgroup" title="egglib.Align.subgroup"><code class="xref py py-meth docutils literal"><span class="pre">subgroup()</span></code></a></td>
+<td><code class="docutils literal"><span class="pre">sub</span> <span class="pre">=</span> <span class="pre">aln.subgroup(groups)</span></code></td>
+<td>Generate a new <code class="xref py py-class docutils literal"><span class="pre">Align</span></code> based on groups (1).</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="../py/toplevel.html#egglib.Align.intersperse" title="egglib.Align.intersperse"><code class="xref py py-meth docutils literal"><span class="pre">intersperse()</span></code></a></td>
+<td><code class="docutils literal"><span class="pre">aln.intersperse(len[,</span> <span class="pre">...])</span></code></td>
+<td>Insert non-varying sites randomly.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="../py/toplevel.html#egglib.Align.random_missing" title="egglib.Align.random_missing"><code class="xref py py-meth docutils literal"><span class="pre">random_missing()</span></code></a></td>
+<td><code class="docutils literal"><span class="pre">aln.random_missing(p[,</span> <span class="pre">...])</span></code></td>
+<td>Insert missing data randomly (1).</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="../py/toplevel.html#egglib.Align.fix_ends" title="egglib.Align.fix_ends"><code class="xref py py-meth docutils literal"><span class="pre">fix_ends()</span></code></a></td>
+<td><code class="docutils literal"><span class="pre">aln.fix_ends()</span></code></td>
+<td>Replace alignment gaps at ends by missing data.</td>
+</tr>
+</tbody>
+</table>
+<dl class="docutils">
+<dt>Note:</dt>
+<dd><ol class="first last arabic simple">
+<li>Also available for <code class="xref py py-class docutils literal"><span class="pre">Container</span></code>.</li>
+</ol>
+</dd>
+</dl>
+<p>The following functions lie in the <code class="xref py py-mod docutils literal"><span class="pre">tools</span></code> module and provide additional
+functionalities to manipulate alignments:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="19%" />
+<col width="25%" />
+<col width="55%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Function</th>
+<th class="head">Syntax</th>
+<th class="head">Action</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><a class="reference internal" href="../py/tools.html#egglib.tools.concat" title="egglib.tools.concat"><code class="xref py py-func docutils literal"><span class="pre">tools.concat()</span></code></a></td>
+<td><code class="docutils literal"><span class="pre">res</span> <span class="pre">=</span> <span class="pre">concat(aln1,</span> <span class="pre">aln2)</span></code> (1)</td>
+<td>Concatenate alignments (2).</td>
+</tr>
+<tr class="row-odd"><td rowspan="2"><a class="reference internal" href="../py/tools.html#egglib.tools.ungap" title="egglib.tools.ungap"><code class="xref py py-func docutils literal"><span class="pre">tools.ungap()</span></code></a></td>
+<td><code class="docutils literal"><span class="pre">cnt</span> <span class="pre">=</span> <span class="pre">ungap(aln)</span></code></td>
+<td>Remove all gaps from an alignment.</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">aln2</span> <span class="pre">=</span> <span class="pre">ungap(aln,</span> <span class="pre">p)</span></code></td>
+<td>Remove sites with too many gaps.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="../py/tools.html#egglib.tools.backalign" title="egglib.tools.backalign"><code class="xref py py-func docutils literal"><span class="pre">tools.backalign()</span></code></a></td>
+<td><code class="docutils literal"><span class="pre">aln</span> <span class="pre">=</span> <span class="pre">backalign(nucl,</span> <span class="pre">prot)</span></code></td>
+<td>Align (unaligned) nucleotide sequences based on an amino acid alignment.</td>
+</tr>
+</tbody>
+</table>
+<dl class="docutils">
+<dt>Notes:</dt>
+<dd><ol class="first last arabic simple">
+<li>Based on how you import egglib, all functions might have to prefixed by <code class="docutils literal"><span class="pre">egglib.tools</span></code>.</li>
+<li><code class="xref py py-func docutils literal"><span class="pre">concat()</span></code> allows you to add spacers between segments and
+it supports missing segments. See the documentation for more details.</li>
+</ol>
+</dd>
+</dl>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="base-3.html" title="Encoding of data"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="base-1.html" title="Importing sequences in the Fasta format"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../contents.html">EggLib&#39;s documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../toc.html" >Contents</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="index.html" >Manual</a> &#187;</li>
+          <li class="nav-item nav-item-3"><a href="base.html" >The <code class="docutils literal"><span class="pre">Align</span></code> and <code class="docutils literal"><span class="pre">Container</span></code> classes</a> &#187;</li> 
+      </ul>
+    </div>
+<!--
+        <address style="text-align: right;"><small>Hosted by&nbsp;
+        <a href="http://sourceforge.net/projects/egglib"><img src="http://sflogo.sourceforge.net/sflogo.php?group_id=232965&amp;type=8" width="80" height="15" alt="Get EggLib at SourceForge.net. Fast, secure and Free Open Source software downloads" / ALIGN=RIGHT BORDER=0></a>
+        </address>
+-->
+
+  </body>
+</html>

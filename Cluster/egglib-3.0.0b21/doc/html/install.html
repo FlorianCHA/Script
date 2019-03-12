@@ -1,0 +1,261 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Installation &#8212; EggLib&#39;s documentation</title>
+    <link rel="stylesheet" href="_static/egglibdoc.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '3.0.0b21',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="shortcut icon" href="_static/icon.ico"/>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Manual" href="manual/index.html" />
+    <link rel="prev" title="Contents" href="toc.html" />
+    <script type="text/javascript">
+      // intelligent scrolling of the sidebar content
+      $(window).scroll(function() {
+        var sb = $('.sphinxsidebarwrapper');
+        var win = $(window);
+        var sbh = sb.height();
+        var offset = $('.sphinxsidebar').position()['top'];
+        var wintop = win.scrollTop();
+        var winbot = wintop + win.innerHeight();
+        var curtop = sb.position()['top'];
+        var curbot = curtop + sbh;
+        // does sidebar fit in window?
+        if (sbh < win.innerHeight()) {
+          // yes: easy case -- always keep at the top
+          sb.css('top', $u.min([$u.max([0, wintop - offset - 10]),
+                                $(document).height() - sbh - 200]));
+        } else {
+          // no: only scroll if top/bottom edge of sidebar is at
+          // top/bottom edge of window
+          if (curtop > wintop && curbot > winbot) {
+            sb.css('top', $u.max([wintop - offset - 10, 0]));
+          } else if (curtop < wintop && curbot < winbot) {
+            sb.css('top', $u.min([winbot - sbh - offset - 20,
+                                  $(document).height() - sbh - 200]));
+          }
+        }
+      });
+    </script>
+  </head>
+  <body>
+<div style="background-color: white; text-align: left; padding: 0px 0px 0px 0px">
+<a href="index.html"><img src="_static/banner.png" border="0" alt="EggLib"/></a>
+</div>
+
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="manual/index.html" title="Manual"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="toc.html" title="Contents"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="contents.html">EggLib&#39;s documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="toc.html" accesskey="U">Contents</a> &#187;</li> 
+      </ul>
+    </div>
+
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="contents.html">
+              <img class="logo" src="_static/egglib_small.bmp" alt="Logo"/>
+            </a></p>
+  <h3><a href="contents.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Installation</a><ul>
+<li><a class="reference internal" href="#requirements">Requirements</a></li>
+<li><a class="reference internal" href="#download">Download</a></li>
+<li><a class="reference internal" href="#id1">Installation</a><ul>
+<li><a class="reference internal" href="#from-source">From source</a></li>
+<li><a class="reference internal" href="#pre-compiled-package-for-windows">Pre-compiled package for Windows</a></li>
+<li><a class="reference internal" href="#pre-compiled-package-for-macosx">Pre-compiled package for MacOSX</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#configuring-external-applications">Configuring external applications</a></li>
+<li><a class="reference internal" href="#testing">Testing</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="toc.html"
+                        title="previous chapter">Contents</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="manual/index.html"
+                        title="next chapter">Manual</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/install.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="installation">
+<span id="install"></span><h1>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h1>
+<p>This page describes the installation procedure of this preliminary
+release of EggLib 3.</p>
+<div class="section" id="requirements">
+<h2>Requirements<a class="headerlink" href="#requirements" title="Permalink to this headline">¶</a></h2>
+<p>EggLib requires Python version 2.7. If you plan to compile EggLib from
+source, you’ll need the development libraries for your version of
+Python. For using functions of the <code class="xref py py-mod docutils literal"><span class="pre">wrappers</span></code> module, the
+corresponding program must be found in your system and EggLib should be
+configured accordingly (see <a class="reference internal" href="py/wrappers.html#paths"><span class="std std-ref">Application paths</span></a>).</p>
+</div>
+<div class="section" id="download">
+<h2>Download<a class="headerlink" href="#download" title="Permalink to this headline">¶</a></h2>
+<p>EggLib now comes as a single Python package (the C++ code of the
+underlying library is included in this package).</p>
+<p>Packages for the version 3.0.0b21 are available here:</p>
+<ul class="simple">
+<li><a class="reference external" href="http://mycor.nancy.inra.fr/egglib/releases/3.0.0b21/egglib-3.0.0b21.tar.gz">source</a> (cross-platform, but requiring that you
+have tools to compile Python extension packages)</li>
+<li><a class="reference external" href="http://mycor.nancy.inra.fr/egglib/releases/3.0.0b21/egglib-3.0.0b21.win32-py2.7.zip">Windows 32 bits</a> (suitable for modern
+64-bit architectures)</li>
+<li><a class="reference external" href="http://mycor.nancy.inra.fr/egglib/releases/3.0.0b21/egglib-3.0.0b21.macosx-py2.7.zip">MacOSX 64 bits</a></li>
+</ul>
+<p>All distributed packages include a <code class="docutils literal"><span class="pre">doc</span></code> directory that contains a
+copy of the HTML documentation available from the web site.</p>
+<p>See <a class="reference internal" href="releases.html#releases"><span class="std std-ref">Released versions</span></a> for the list of released packages for all previous
+versions.</p>
+</div>
+<div class="section" id="id1">
+<h2>Installation<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="from-source">
+<h3>From source<a class="headerlink" href="#from-source" title="Permalink to this headline">¶</a></h3>
+<p>The installation of the EggLib package is relatively standard. First,
+unpack the source package and archive and move to the new directory.
+Then, issue the following commands:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">setup</span><span class="o">.</span><span class="n">py</span> <span class="n">build</span>
+</pre></div>
+</div>
+<p>And (may require administrator/super-user rights):</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">setup</span><span class="o">.</span><span class="n">py</span> <span class="n">install</span>
+</pre></div>
+</div>
+<p>That that should be it.
+The setup script takes standard Python Distutils options (see <a class="reference external" href="https://docs.python.org/2/install/">https://docs.python.org/2/install/</a>).
+In addition, the following options are available for the build command:</p>
+<ul class="simple">
+<li><code class="docutils literal"><span class="pre">idir=path</span></code> – specify an include directory.</li>
+<li><code class="docutils literal"><span class="pre">ldir=path</span></code> – specify a link directory.</li>
+<li><code class="docutils literal"><span class="pre">lname=name</span></code> – specify a library name to link with.</li>
+<li><code class="docutils literal"><span class="pre">cflag=flag</span></code> – specify an explicit CFLAG.</li>
+<li><code class="docutils literal"><span class="pre">lflag=flag</span></code> – specify an explicit LFLAG.</li>
+<li><code class="docutils literal"><span class="pre">enable-abc=F</span></code> – if <code class="docutils literal"><span class="pre">T</span></code>, compile the ABC class (requires the GNU
+Scientific Library).</li>
+</ul>
+<p>At this point, you probably won’t need to use any the above. It is
+recommended to leave the <code class="docutils literal"><span class="pre">enable-abc</span></code> option to its default value
+(<code class="docutils literal"><span class="pre">F</span></code>).</p>
+</div>
+<div class="section" id="pre-compiled-package-for-windows">
+<h3>Pre-compiled package for Windows<a class="headerlink" href="#pre-compiled-package-for-windows" title="Permalink to this headline">¶</a></h3>
+<p>The package contains an interactive installer, named <code class="docutils literal"><span class="pre">egglib-3.0.0b21.win32-py2.7.exe</span></code>
+for the last version, which can be executed directly and will install
+the EggLib package to yout Python distribution.</p>
+</div>
+<div class="section" id="pre-compiled-package-for-macosx">
+<h3>Pre-compiled package for MacOSX<a class="headerlink" href="#pre-compiled-package-for-macosx" title="Permalink to this headline">¶</a></h3>
+<p>The package contains an archive named <code class="docutils literal"><span class="pre">egglib-3.0.0b21.macosx-10.11-intel.tar.gz</span></code>.
+and a script <code class="docutils literal"><span class="pre">install.py</span></code>.</p>
+<p>To install, you need to run the following command: <code class="docutils literal"><span class="pre">python</span> <span class="pre">install.py</span> <span class="pre">egglib-3.0.0b21.macosx-10.11-intel.tar.gz</span></code>.</p>
+<p>This command requires that you have administration rights.</p>
+</div>
+</div>
+<div class="section" id="configuring-external-applications">
+<h2>Configuring external applications<a class="headerlink" href="#configuring-external-applications" title="Permalink to this headline">¶</a></h2>
+<p>If external applications are needed (one is required for every function
+of the <code class="xref py py-mod docutils literal"><span class="pre">wrappers</span></code> module), they are must be configured. By
+default, EggLib will assume that the corresponding programs are absent
+and will not attempt to run them. The best way consists in providing the
+command allowing to run the programs to the <code class="xref py py-mod docutils literal"><span class="pre">wrappers</span></code> module,
+which can be done permanently or temporarily. For details, see
+<a class="reference internal" href="py/wrappers.html#paths"><span class="std std-ref">Application paths</span></a>.</p>
+</div>
+<div class="section" id="testing">
+<h2>Testing<a class="headerlink" href="#testing" title="Permalink to this headline">¶</a></h2>
+<p>After installing EggLib, if the following script runs without errors and
+prints the right version as well a few nucleotide sequences, EggLib is
+probably installed properly:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">egglib</span>
+<span class="nb">print</span> <span class="n">egglib</span><span class="o">.</span><span class="n">version</span>
+<span class="n">m</span> <span class="o">=</span> <span class="n">egglib</span><span class="o">.</span><span class="n">coalesce</span><span class="o">.</span><span class="n">Simulator</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">num_chrom</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,),</span> <span class="n">theta</span><span class="o">=</span><span class="mf">8.0</span><span class="p">)</span>
+<span class="n">a</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">simul</span><span class="p">()</span>
+<span class="nb">print</span> <span class="n">a</span><span class="o">.</span><span class="n">to_fasta</span><span class="p">(</span><span class="n">mapping</span><span class="o">=</span><span class="s1">&#39;ACGT&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="manual/index.html" title="Manual"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="toc.html" title="Contents"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="contents.html">EggLib&#39;s documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="toc.html" >Contents</a> &#187;</li> 
+      </ul>
+    </div>
+<!--
+        <address style="text-align: right;"><small>Hosted by&nbsp;
+        <a href="http://sourceforge.net/projects/egglib"><img src="http://sflogo.sourceforge.net/sflogo.php?group_id=232965&amp;type=8" width="80" height="15" alt="Get EggLib at SourceForge.net. Fast, secure and Free Open Source software downloads" / ALIGN=RIGHT BORDER=0></a>
+        </address>
+-->
+
+  </body>
+</html>

@@ -1,0 +1,194 @@
+
+================================
+Low-level binding of C++ library
+================================
+
+Besides sequence storage classes :class:`~egglib.Container` and
+:class:`~egglib.Align`,
+the wrapped C++ library available through the :mod:`egglib` egglib-py
+module contains several classes that might be of use for Python scripts.
+Still, they are a priori not intended to be used directly and this page
+only provides automated documentation. The user is prompted to refer to
+the doxygen documentation of the C++ library for a more comprehensive
+documentation of these tools.
+
+
+Data holders
+------------
+
+.. autoclass:: egglib.egglib_binding.Align
+   :members:
+   :inherited-members:
+
+.. autoclass:: egglib.egglib_binding.CharMatrix
+   :members:
+   :inherited-members:
+
+.. autoclass:: egglib.egglib_binding.Container
+   :members:
+   :inherited-members:
+
+.. autoclass:: egglib.egglib_binding.DataMatrix
+   :members:
+   :inherited-members:
+
+Conversion and parsing
+----------------------
+
+.. autoclass:: egglib.egglib_binding.Consensus
+   :members:
+   :inherited-members:
+
+.. autoclass:: egglib.egglib_binding.Convert
+   :members:
+   :inherited-members:
+
+.. autoclass:: egglib.egglib_binding.Fasta
+   :members:
+   :inherited-members:
+
+.. autoclass:: egglib.egglib_binding.Ms
+   :members:
+   :inherited-members:
+
+.. autoclass:: egglib.egglib_binding.Staden
+   :members:
+   :inherited-members:
+
+Analysis of polymorphism
+------------------------
+
+.. autoclass:: egglib.egglib_binding.BaseDiversity
+   :members:
+   :inherited-members:
+
+.. autoclass:: egglib.egglib_binding.BppDiversity
+   :members:
+   :inherited-members:
+
+.. autoclass:: egglib.egglib_binding.FStatistics
+   :members:
+   :inherited-members:
+
+.. autoclass:: egglib.egglib_binding.HFStatistics
+   :members:
+   :inherited-members:
+
+.. autoclass:: egglib.egglib_binding.HaplotypeDiversity
+   :members:
+   :inherited-members:
+
+.. autoclass:: egglib.egglib_binding.LinkageDisequilibrium
+   :members:
+   :inherited-members:
+
+.. autoclass:: egglib.egglib_binding.MicrosatelliteDiversity
+   :members:
+   :inherited-members:
+
+.. autoclass:: egglib.egglib_binding.NucleotideDiversity
+   :members:
+   :inherited-members:
+
+.. autoclass:: egglib.egglib_binding.SitePolymorphism
+   :members:
+   :inherited-members:
+
+Coalescent simulator
+--------------------
+
+.. autoclass:: egglib.egglib_binding.AllMigrationRateChange
+   :members:
+   :inherited-members:
+
+.. autoclass:: egglib.egglib_binding.AllPopulationSizeChange
+   :members:
+   :inherited-members:
+
+.. autoclass:: egglib.egglib_binding.Arg
+   :members:
+   :inherited-members:
+
+.. autoclass:: egglib.egglib_binding.Bottleneck
+   :members:
+   :inherited-members:
+
+.. autoclass:: egglib.egglib_binding.Change
+   :members:
+   :inherited-members:
+
+.. autoclass:: egglib.egglib_binding.Controller
+   :members:
+   :inherited-members:
+
+.. autoclass:: egglib.egglib_binding.Current
+   :members:
+   :inherited-members:
+
+.. autoclass:: egglib.egglib_binding.Edge
+   :members:
+   :inherited-members:
+
+.. autoclass:: egglib.egglib_binding.GrowthRateChange
+   :members:
+   :inherited-members:
+
+.. autoclass:: egglib.egglib_binding.Mutator
+   :members:
+   :inherited-members:
+
+.. autoclass:: egglib.egglib_binding.ParamSet
+   :members:
+   :inherited-members:
+
+.. autoclass:: egglib.egglib_binding.PopulationBottleneck
+   :members:
+   :inherited-members:
+
+.. autoclass:: egglib.egglib_binding.PopulationFusion
+   :members:
+   :inherited-members:
+
+.. autoclass:: egglib.egglib_binding.PopulationGrowthRateChange
+   :members:
+   :inherited-members:
+
+.. autoclass:: egglib.egglib_binding.PopulationParamChange
+   :members:
+   :inherited-members:
+
+.. autoclass:: egglib.egglib_binding.PopulationSplit
+   :members:
+   :inherited-members:
+
+.. autoclass:: egglib.egglib_binding.SelfingRateChange
+   :members:
+   :inherited-members:
+
+.. autoclass:: egglib.egglib_binding.SingleMigrationRateChange
+   :members:
+   :inherited-members:
+
+.. autoclass:: egglib.egglib_binding.SingleParamChange
+   :members:
+   :inherited-members:
+
+.. autoclass:: egglib.egglib_binding.SinglePopulationSizeChange
+   :members:
+   :inherited-members:
+
+Approximate Bayesian Computation
+--------------------------------
+
+.. autoclass:: egglib.egglib_binding.ABC
+   :members:
+   :inherited-members:
+
+Random number generator
+-----------------------
+
+.. autoclass:: egglib.egglib_binding.Random
+   :members:
+   :inherited-members:
+
+

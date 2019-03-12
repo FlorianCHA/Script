@@ -1,0 +1,12 @@
+Metadata-Version: 1.0
+Name: egglib
+Version: 3.0.0b21
+Summary: Evolutionary Genetics and Genomics Library
+Home-page: mycor.nancy.inra.fr/egglib/
+Author: Stephane De Mita, Mathieu Siol
+Author-email: demita@gmail.com
+License: GPL v3
+Description: EggLib is a C++/Python library and program package for evolutionary genetics and genomics. Main features are sequence data management, sequence polymorphism analysis, and coalescent simulations. EggLib is a flexible Python module with a performant underlying C++ library and allows fast and intuitive development of Python programs and scripts.
+Platform: cross-platform
+Platform: Windows i686
+Platform: MacOSX AMD64

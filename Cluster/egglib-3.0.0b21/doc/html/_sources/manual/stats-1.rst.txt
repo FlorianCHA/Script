@@ -1,0 +1,604 @@
+--------------------------------------
+The :class:`.stats.ComputeStats` class
+--------------------------------------
+
+The :mod:`.stats` module contains a set of tools to analyze molecular
+variation data, either represented as :class:`.Align` objects (which
+have been extensively described in the previous part of the manual) or
+:class:`.stats.Site` instances (which will be introduced later in this
+page).
+
+Among those tools, :class:`.stats.ComputeStats` is the more complex, and
+the more rich with functionalities. Most of the statistics can be computed
+using :class:`!ComputeStats` (in general, only the most complex statistics
+deserve their own function or class; such as part of linkage disequilibrium
+statistics, which are addressed near the end of this page).
+
+The rationale for defining :class:`!ComputeStats` as a class rather than a
+standalone function is that it allows more flexibility (the following
+sections offer an overview of the possibilities) and that it can also be
+more efficient if a lot of items (alignments or sites) need to be processed
+in a row.
+
+The basic worflow consists in the following steps, which are developped in
+the following paragraphs:
+
+    * Create an object of the class,
+    * Set parameters,
+    * Enter the list of statistics to be computed,
+    * Process one or several alignments or sites.
+
+Options
+=======
+
+It is possible to pass parameters values either as constructor arguments or
+through the :meth:`.ComputeStats.configure` method. The parameters are
+listed and explained in the documentation of this method. The most important is
+*only_diallelic*.
+By default, *only_diallelic* is ``True``, causing all sites that have more
+than two alleles to be excluded as well. The default parameters might be what
+you want if you use single-nucleotide polymorphism markers or nucleotide
+sequence alignments, but certainly not if you
+use massively multiallelic markers. Other parameters set the behaviour of tools
+computing statistics related to linkage disequilibrium.
+
+To pass parameters, both syntaxes are equivalent::
+
+    >>> cs = egglib.stats.ComputeStats()
+    >>> cs.configure(only_diallelic=False)
+
+and ::
+
+    >>> cs = egglib.stats.ComputeStats(only_diallelic=False)
+
+Note also that it is also possible to call :meth:`!configure` later at
+any moment in the workflow. In general, try as much as possible to reuse
+objects whenever you perform intensive computations.
+
+List of statistics
+==================
+
+Statistics can be specified using the object method :meth:`~.ComputeStats.add_stats`.
+It is possible to call this method several times in a row, it can be
+called at any time even after analysing data sets, and it is also possible
+to enter several statistics at once, as shown in the example below::
+
+    >>> cs.add_stats('S', 'Pi')
+    >>> cs.add_stats('D')
+
+Statistics are represented by a code (as a :class:`str`). A list of
+tuples matching each code with a short description can be obtained through
+the object method :meth:`~.ComputeStats.list_stats`. It is also available
+in :ref:`list_stats`.
+
+There is a method to add all possible statistics (:meth:`~.ComputeStats.all_stats`),
+but note that, obviously, only those that can be computed (depending on
+the structure of the provided data set) will be computed (others will be
+set to ``None``).
+
+.. note::
+
+    Even if a statistic can be computed, it does not mean that it must be.
+    When analysing data, it can be counter-productive to generate huge
+    tables of statistics among which some (many) may have too much variance
+    to be interpreted anyway.
+
+You can reset the list of statistics using::
+
+    >>> cs.clear_stats()
+
+If you are happy with default values of parameters, you are not required
+to call :meth:`!configure`. However, it is necessary that you enter parameters
+to be computed, so you have to call :meth:`!add_stats`. Still, it is not
+an error to skip this step and proceed with analysing data (but in that
+case you will not get any results).
+
+Processing data
+===============
+
+Once needed parameters have been set and needed statistics have been
+entered, the user can analyze data using the following methods of
+the :class:`!ComputeStats` object:
+
+    * :meth:`~.ComputeStats.process_align` to process an :class:`.Align` object.
+    * :meth:`~.ComputeStats.process_site` to process a :class:`.Site` object.
+    * :meth:`~.ComputeStats.process_sites` to process several :class:`.Site` objects.
+    * :meth:`~.ComputeStats.process_freq` to process a :class:`.Freq` object.
+
+These methods are addressed in more details in the following section.
+By default, they all return a :class:`dict` containing computed values
+of statistics corresponding to the analysis of data provided as argument.
+It is also possible to call them several times and access the results of
+the analysis of all passed data eventually (see :ref:`stats-multiple`).
+
+--------------------
+Computing statistics
+--------------------
+
+Single alignment
+================
+
+Computing statistics from a single alignment should be rather straightforward.
+Assume with have a Fasta file containing a nucleotide alignment. We
+show below how we would compute a set of standard statistics used in the
+case of nucleotide sequences from this alignment::
+
+    >>> aln1 = egglib.io.from_fasta('align1.fas', cls=egglib.Align, groups=True)
+    >>> cs = egglib.stats.ComputeStats()
+    >>> cs.add_stats('S', 'thetaW', 'Pi', 'D', 'lseff', 'nseff')
+    >>> stats = cs.process_align(aln1)
+    >>> print aln1.ns, aln1.ls
+    99 8942
+    >>> print stats
+    {'lseff': 3297, 'S': 314, 'thetaW': 60.76702099101937, 'nseff': 99.0, 'Pi': 71.44588744588735, 'D': 0.5939904839741603}
+
+As visible in the statistics list, the number of available statistics is
+much larger than that, but many will be irrelevant for this kind of data
+(most of them being reported as ``None`` because they just can't be computed).
+We first printed the :attr:`!ns` (number of provided samples) and
+:attr:`!ls` (alignment length) attributes of the alignment: there are 99
+samples and 8942 sites
+
+    * ``S`` is the number of polymorphic sites. Here we have 314 variable sites.
+    * ``thetaW`` (:math:`\hat{\theta}_W`) is the so-called Watterson's estimator of
+      :math:`\theta = 4N_E\mu`. The value is close to 61 which approaches
+      0.02 per analysed site (see below).
+    * ``Pi`` (:math:`\pi`) is the nucleotide diversity, which is a bit
+      larger.
+    * ``D`` (Tajima's :math:`D`) is positive (+0.59), which is a corollary of
+      ``Pi`` being larger than ``thetaW``.
+    * ``lseff`` is the number of sites used for analysis (excluding those
+      with either too many missing data or too many alleles). Here the
+      number is 3297, meaning that 5645 sites have been excluded (because
+      the default is to exclude all sites with any missing data).
+    * ``nseff`` is the average number of used samples among included sites.
+      In our case, since only sites with no missing data at all have been
+      used, the number of samples is always 99, but this value can be
+      smaller if the parameter *max_missing* is larger than 0 (see
+      example in :ref:`manual-missing-data`).
+
+.. note::
+
+    ``thetaW`` and ``Pi`` are given per gene (that is, they are
+    summed over the total number of analyzed sites). To be expressed
+    per site, they must be divided by ``lseff``.
+
+.. _stats-multiple:
+
+Multiple alignments
+===================
+
+If you have several separate alignments but you want to obtain global
+statistics, the instinctive approach would be to concatenate the alignments
+and use the result in :meth:`!process_align`. There is a much more efficient
+way (assuming you want to do so with many alignments), described below.
+
+There is a *multi* option which, if toggled, set :class:`!ComputeStats`
+to load data, and wait for more data before computing statistics. In that
+case, you must call :meth:`~.ComputeStats.results` to actually compute
+and get statistics::
+
+    >>> alnA = aln1.extract(0, 4500)
+    >>> alnB = aln1.extract(4500, None)
+    >>> cs.process_align(alnA, multi=True)
+    >>> cs.process_align(alnB, multi=True)
+    >>> stats = cs.results()
+    >>> print stats
+    {'lseff': 3297, 'S': 314, 'thetaW': 60.76702099101937, 'nseff': 99.0, 'Pi': 71.44588744588735, 'D': 0.5939904839741603}
+
+The above example just cut the original alignment in two parts, and then
+processes the two alignments separately. The final dictionary of statistics,
+as expected, is exactly identical to the one obtained with the full
+alignment.
+
+Phased data
+***********
+
+Note that some statistics require that data are phased. That's the case
+of all statistics based on haplotype and linkage disequilibrium. If multiple
+alignments are loaded, it is not ensured that data are phased, even if the number
+of samples matches. By default, it is assumed that data are not phased (and
+thus the concerned statistics will not be computed. That's the case the
+the ``ZnS`` and ``K`` statistics that are used in the example below::
+
+    >>> cs.clear_stats()
+    >>> cs.add_stats('thetaW', 'Pi', 'ZnS', 'K')
+    >>> cs.process_align(alnA, multi=True)
+    >>> cs.process_align(alnB, multi=True)
+    >>> stats = cs.results()
+    >>> print stats
+    {'ZnS': None, 'K': None, 'Pi': 71.44588744588735, 'thetaW': 60.76702099101937}
+
+There is an option *phased* to the method :meth:`!results` that allows the
+user to confirm that data is phased (if they are). If it is toggled, and
+if the number of samples is constant, the concerned statistics will be
+computed::
+
+    >>> cs.process_align(alnA, multi=True)
+    >>> cs.process_align(alnB, multi=True)
+    >>> stats = cs.results(phased=True)
+    >>> print stats
+    {'ZnS': 0.0015415339323000112, 'K': 44, 'Pi': 71.44588744588735, 'thetaW': 60.76702099101937}
+
+The option is ``False`` by default to avoid computing incorrect statistics
+by mistake if data are not phased and the number of samples matches by chance.
+
+Alignments with different number of samples
+*******************************************
+
+This still works if the number of samples is not constant over alignments.
+Here we make *alnB* to have less samples than *alnA* and show that the
+statistics are identical when we process them separately or as a single
+concatenated alignment::
+
+    >>> alnB.del_sample(88) # delete higher index first
+    >>> alnB.del_sample(44)
+    >>> cs.process_align(alnA, multi=True, ignore_ns=True,max_missing=0.1)
+    >>> cs.process_align(alnB, multi=True, ignore_ns=True,max_missing=0.1)
+    >>> print cs.results()
+    {'lseff': 8880, 'S': 855, 'thetaW': 166.12382880026243, 'nseff': 97.00518018018018, 'Pi': 192.73199154011564, 'D': 0.5466322413908552}
+
+    >>> aln2 = egglib.tools.concat(alnA, alnB)
+    >>> print cs.process_align(aln2)
+    {'lseff': 8879, 'S': 855, 'thetaW': 166.12382880026243, 'nseff': 97.00619439126028, 'Pi': 192.73199154011564, 'D': 0.5466322413908552}
+
+Note that, to delete the 45th and 89th samples (indexes 44 and 88), we
+delete the one with the higher index first, to avoid the effect of index
+shifting after the first deletion.
+
+To process alignment with varying number of samples, it is also required
+to set the *ignore_ns* flag to ``True``. This ensures that you know what
+you are doing and avoid errors that would be caused by accidentally missing
+samples when the user expects that all alignments have the same number of
+samples.
+
+As expected, the statistics are identical.
+
+We will examine the effects of changing the value *max_missing* in
+:ref:`manual-missing-data`.
+Besides, there is a small difference (one more analyzed site when we
+process parts separately). This is because the concatenated alignment has
+missing data instead of the removed data, causing an increased
+probability of excluding sites (the difference is marginal because of the
+relatively large number of samples compared with the difference in
+number of samples).
+
+.. note::
+
+    Haplotype and linkage disequilibrium statistics are never computed
+    when the number of samples is variable over alignments (in that case,
+    the value of the *phased* option is ignored).
+
+Using individuals sites
+=======================
+
+Individual sites can be processed as well. They are represented by the
+class :class:`.stats.Site`. This class is aimed to represent data for any
+genetic marker such as a single nucleotide polymorphism (SNP), a
+microsatellite, an encoded insertion/deletion polymorphism, or any other
+form of genetic variation. It handles both ingroup and outgroup data and
+encodes data as integers, just like :class:`!Align`. The following functions
+allow to create a :class:`!Site`:
+
++--------------------------------+-----------------------------------------------------------+ 
+| Generator functions            | Source of data                                            |
++================================+===========================================================+
+| :func:`.stats.site_from_align` | A position in an :class:`Align` object.                   |
++--------------------------------+-----------------------------------------------------------+ 
+| :func:`.stats.site_from_list`  | A user-provided :class:`list` of data.                    |
++--------------------------------+-----------------------------------------------------------+ 
+| :func:`.stats.site_from_vcf`   | The current data of a VCF parser (see :ref:`manual-vcf`). |
++--------------------------------+-----------------------------------------------------------+ 
+
+Note that each of those functions has a counterpart as a :class:`!Site`
+method to allow to recycle an existing object if one already exists.
+
+In the examples of the following paragraphs, we will create sites from
+the same alignment that we have been using in previous examples. However,
+in practice the class :class:`!Site` is mostly there for cases when
+individual sites are available. The small example below shows how to
+create a :class:`!Site` from a list of allelic values, which is the most
+simple and intuitive way::
+
+    >>> site = egglib.stats.site_from_list(
+          ingroup=[(144, 144), (144, 148), (140, 140), (136, 148), (148, 146)],
+          outgroup=[(144, 144)])
+
+The data are loaded as two lists (one for the ingroup and the other for
+the outgroup) of individual allelic values, themselves represented by tuples
+or nested lists (in the case, tuples of two values each, assume a diploid
+case). If data are haploid (or ploidy is irrelevant), the inner tuples
+should be of length one. There is a *flat* option to skip the individual level
+and pass haploid data as single lists, as shown below::
+
+    >>> site = egglib.stats.site_from_list(
+          ingroup=[144, 144, 144, 148, 140, 140, 136, 148, 148, 146],
+          outgroup=[144, 144],
+          flat=True)
+
+Characters are accepted as input instead of integer values (see :ref:`encoding`),
+allowing to pass individual data as two-items strings (for diploid data)::
+
+    >>> site = egglib.stats.site_from_list(['AA', 'AA', 'AG', 'AA', 'GG'], None)
+
+The example above also shows that ``None`` can be pass instead of the outgroup
+if none is available (it is equivalent to an empty list). ``None`` is also
+accepted within data, to represent missing data.
+
+Single site statistics
+**********************
+
+The code in the next example will clear the list of statistics and specify
+a list more adapted to single-site analysis, and then will analyse the site
+at position 66::
+
+    >>> cs.clear_stats()
+    >>> cs.add_stats('Aing', 'He', 'R')
+    >>> site = egglib.stats.site_from_align(aln1, 66, egglib.stats.filter_dna)
+    >>> stats = cs.process_site(site)
+    >>> print stats
+    {'R': 0.02040816326530612, 'Aing': 3, 'He': 0.6233766233766234}
+
+To understand what ``egglib.stats.filter_dna`` is for, see :ref:`filters`.
+
+The statistics computed here are:
+
+    * ``Aing``: the number of alleles in ingroup (this is a relatively unfrequent case
+      with a SNP with three alleles within a nucleotide alignment).
+    * ``R``: the allelic richness.
+    * ``He``: the heterozygosity (which is above 0.5 only because there are three alleles).
+
+Multiple sites statistics
+*************************
+
+You might be also interested in statistics over several sites. You can
+load multiple sites in a similar way as for alignments. In the example
+below we compute, in addition to ``Aing``, ``R`` and ``He``, the
+per-gene statistic ``D`` over all sites of the alignment::
+
+    >>> cs.add_stats('D', 'Pi')
+    >>> for i in xrange(aln1.ls):
+    ...     site.process_align(aln1, i, egglib.stats.filter_dna)
+    ...     cs.process_site(site)
+    ...
+    >>> print cs.results()
+    {'Pi': 195.22252571452051, 'R': 0.0010210126233630454, 'Aing': 1.098813786929275, 'D': 0.5726843754717476, 'He': 0.02184674638703229}
+
+Rather than creating a new site for each position of the alignment using
+``egglib.stats.site_from_align()``, we recycle over and over again the
+same instance using the object method :meth:`.Site.process_align` which
+is more efficient. Contrary to :meth:`!process_align`, :meth:`!process_site`
+does not have an option *multi* to combine data from different sites (it
+is always possible to combine data). Note that there is also a
+:meth:`~.ComputeStats.process_sites` method to process a list of sites
+in one call (but this approach does not allow to recycle the same
+:class:`!Site` instance).
+
+On average over all sites, the number of alleles is slightly over 1 because
+most sites are fixed and a minority have several alleles (we considered
+in the previous example the rare case of a site with three alleles). The
+average values of ``R`` and ``He`` are, accordingly, much smaller. We
+also showed that it is possible to compute statistics for sequence alignments
+using individuals sites (in this case, ``Pi`` and ``D``).
+
+Note that ``Pi`` is equal to the sum of ``He`` values for all sites.
+As a result, the value of ``Pi`` is equal to the averaged value of ``He``
+multiplied by the actual number of processed sites (which is 8936,
+because all sites with any non-missing data have been processed as long
+as they still have non-missing data). We can
+check that the statistics are identical when
+using :meth:`!process_align` with the original alignment (remember that
+we must allow any number of missing data to reproduce what happens when
+will load all sites from the alignment)::
+
+    >>> print cs.process_align(aln1, max_missing=0.999)
+    {'Pi': 195.22252571452051, 'R': 0.0010210126233630454, 'Aing': 1.098813786929275, 'D': 0.5726843754717476, 'He': 0.02184674638703229}
+
+.. note::
+
+    To compute per-site statistics for sites of an alignment, you can
+    use :meth:`.ComputeStats.process_align` (per-site statistics will be
+    averaged as was done for the last example). It makes no sense to
+    compute per-gene statistics (such as ``D``) through sites extracted
+    from an :class:`!Align` rather than using :meth:`!process_align`
+    directly. However, :meth:`process_site` is useful if sites are
+    obtained by other means than from an alignment.
+
+Static list of sites
+********************
+
+Linkage disequilibrium statistics, as well as :math:`\bar{r}_d` (code ``rD``),
+require that all sites used for analysis are available at the time. Those
+statistics cannot be computed by :meth:`!results` if the data have been
+provided by :meth:`!process_site` or :meth:`!process_sites`, even if
+*phased* is set to ``True``. The examples below demonstrate it with the
+case of the ``ZnS`` statistic. Such statistic can be computed if we pass
+an :class:`!Align`::
+
+    >>> cs.clear_stats()
+    >>> cs.add_stats('ZnS')
+    >>> print cs.process_align(aln1)
+    {'ZnS': 0.0015415339323000112}
+
+They can be as well if we pass several fragments, but only if they have
+the same number of samples and we promise that the list of samples is
+matching (data phased)::
+
+    >>> alnA = aln1.extract(0, 4500)
+    >>> alnB = aln1.extract(4500, None)
+
+    >>> cs.process_align(alnA, multi=True)
+    >>> cs.process_align(alnB, multi=True)
+    >>> print cs.results(phased=True)
+    {'ZnS': 0.0015415339323000112}
+
+    >>> cs.process_align(alnA, multi=True)
+    >>> cs.process_align(alnB, multi=True)
+    >>> print cs.results(phased=False)
+    {'ZnS': None}
+
+To test what happens when we provide the sites individually, we extract
+all sites of the alignment (skipping those with missing data to match
+what :meth:`process_align` does by default)::
+
+    >>> sites = []
+    >>> for i in xrange(aln1.ls):
+    ...     site = egglib.stats.site_from_align(aln1, i, egglib.stats.filter_dna)
+    ...     if site.num_missing_ingroup == 0:
+    ...         sites.append(site)
+    ...
+
+The statistics in question are not computed if we provide the sites
+individually and one by one, regardless of whether they are phased or not,
+because nothing guarantees that the site objects will be constant until
+statistics are actually computed::
+
+    >>> for site in sites:
+    ...     cs.process_site(site)
+    ...
+    >>> print cs.results(phased=True)
+    {'ZnS': None}
+
+In that case, it is necessary to pass all sites grouped together in one
+list::
+
+    >>> print cs.process_sites(sites, phased=True)
+    {'ZnS': 0.0015415339323000112}
+
+In that case, the method :meth:`!results` does not compute statistics
+because the list of sites are not stored internally. Since they might
+be modified because these statistics are computed, they are skipped in
+this case::
+
+    >>> cs.process_sites(sites, multi=True, phased=True)
+    >>> print cs.results(phased=True)
+    {'ZnS': None}
+
+Note that these limitations might be lifted in a future version.
+
+Stand-alone allelic frequencies
+===============================
+
+It can happen that only allelic frequencies are available (such as with
+bulk sequencing). In that case :class:`!Site` is not appropriate because
+it requires an ordering of samples. It would be possible to arbitrarily
+create a site from a set of allelic frequencies but this would be a
+pointless waste of computing resources. There is a class in EggLib, named
+:class:`.stats.Freq`, fulfilling this aim.
+
+There is a logical relationship between the classes :class:`!Align`,
+:class:`!Site`, and :class:`!Freq`: the latter two can be created based on
+objects of the respective previous one, but they can also be provided by
+external means. In other words, :class:`!Align` and even :class:`!Site` can
+be bypassed if the corresponding data is not available. We have seen in the
+previous section that it is not necessary to artifically create an
+:class:`!Align` instance if only available sites are available. Likewise,
+:class:`!Site` can be bypassed if only frequencies are available.
+
+Like :class:`!Site`, :class:`!Freq` objects can be created from different types
+of source: from a :class:`!Site` object, from a user-specified list, or from VCF data.
+
++-------------------------------+-----------------------------------------------------------+ 
+| Generator functions           | Source of data                                            |
++===============================+===========================================================+
+| :func:`.stats.freq_from_site` | A :class:`.Site` object.                                  |
++-------------------------------+-----------------------------------------------------------+ 
+| :func:`.stats.freq_from_list` | A user-provided :class:`list` of data.                    |
++-------------------------------+-----------------------------------------------------------+ 
+| :func:`.stats.freq_from_vcf`  | The current data of a VCF parser (see :ref:`manual-vcf`). |
++-------------------------------+-----------------------------------------------------------+ 
+
+There are also equivalent methods to recycle an existing object.
+
+Creation of :class:`.Freq` objects from a site
+**********************************************
+
+If we go back to the example site created above, we see that creating a
+:class:`!Freq` object is rather straighforward (see highlighted line below):
+
+.. code-block:: python
+   :emphasize-lines: 4
+
+    site = egglib.stats.site_from_list(
+        ingroup=[(144, 144), (144, 148), (140, 140), (136, 148), (148, 146)],
+        outgroup=[(144, 144)])
+    freq = egglib.stats.freq_from_site(site)
+    for i in xrange(freq.num_alleles):
+        print freq.freq_allele(i)
+
+Creation of :class:`.Freq` objects from user-provided frequency data
+********************************************************************
+
+To create a :class:`!Freq` object from already computed allelic frequencies,
+the syntax is logical but the data format must be followed carefully.
+Here, it is necessary to provide allelic or genotypic frequencies while taking into account
+population structure.
+Formally, :func:`!freq_from_list` expects allelic population frequencies for
+an arbitrary number of clusters (at least one). The number of alleles, of
+clusters, and of populations per clusters are deduced from provided data.
+In practice, this require that you provide a nested list of frequencies with
+three levels: clusters, populations, individuals.
+
+The basic structure of the input nested list is:
+    * First level: ``[cluster1, cluster2, ...]``
+    * Second level: ``cluster1 = [pop1, pop2, ...]``
+    * Third level: ``pop1 = [p1, p2, ...]`` where ``p1`` is the absolute
+      frequency of the first allele (the number of allele must match
+      over all populations.
+
+In many cases, there will be no clusters, which is actually equivalent to
+a single cluster. In this case, the first level would be a list containing
+a single item: ``[[pop1, pop2, ...]]``.
+
+It is possible also that there is no population structure. Then this level
+can be also bypassed by using a single-item list.
+
+The outgroup is loaded as the second argument, and is provided as another
+list that is analogous to an additional population (a list of frequencies
+of all alleles, even if there is only one sample).
+
+Actually, for simple cases, the syntax is not verbose. The above example,
+assuming a single cluster and a single population, while providing allelic
+frequencies only, writes as follows::
+
+    freq = egglib.stats.freq_from_list([[[3, 3, 2, 1, 1]]], [1, 0, 0, 0, 0])
+
+If your data is based on genotypes, you can provide genotypic frequencies.
+In this case you are required to provided as well a list detailing the
+allele composition of each genotypes considered. In the example above, there
+are also five genotypes, but each is represented by a single copy. We need
+to recode them, and use the *geno_list* option::
+
+    freq = egglib.stats.freq_from_list([[[1, 1, 1, 1, 1]]], [1, 0, 0, 0, 0],
+        geno_list=[(0, 0), (0, 1), (2, 2), (3, 1), (1, 4)])
+
+The allelic frequencies are computed automatically based on the composition
+of genotypes as provided.
+
+Computing diversity statistics
+******************************
+
+Using the same example as above, we can see that we can also compute
+diversity statistics for a single site or from an array of sites when
+only frequencies are available (obviously, statistics requiring
+haplotypic information will not be available). For this we need to use
+the method :meth:`.ComputeStats.process_freq`::
+
+    cs.clear_stats()
+    cs.add_stats('Aing', 'He', 'R')
+    site = egglib.stats.site_from_align(aln1, 66, egglib.stats.filter_dna)
+    freq = egglib.stats.freq_from_site(site)
+    print cs.process_freq(freq)
+
+    cs.add_stats('D', 'Pi')
+    for i in xrange(aln1.ls):
+        site.process_align(aln1, i, egglib.stats.filter_dna)
+        freq.process_site(site)
+        cs.process_freq(freq)
+    print cs.results()
+
+.. code-block:: none
+
+    {'R': 0.02040816326530612, 'Aing': 3, 'He': 0.6233766233766234}
+    {'Pi': 195.22252571452051, 'R': 0.0010210126233630454, 'Aing': 1.098813786929275,
+     'D': 0.5726843754717476, 'He': 0.02184674638703229}

@@ -1,0 +1,16 @@
+Loading required package: ggplot2
+Loading required package: gridExtra
+Loading required package: cowplot
+
+Attaching package: 'cowplot'
+
+The following object is masked from 'package:ggplot2':
+
+    ggsave
+
+Loading required package: DT
+Loading required package: stringr
+Warning messages:
+1: position_dodge requires non-overlapping x intervals 
+2: In instance$preRenderHook(instance) :
+  It seems your data is too big for client-side DataTables. You may consider server-side processing: http://rstudio.github.io/DT/server.html

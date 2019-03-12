@@ -1,0 +1,47 @@
+.. _eggcoal:
+
+=======
+eggcoal
+=======
+
+eggcoal is a standalone program for generating samples under the
+coalescent framework. It is based on the egglib-cpp C++ library. It can
+be used independently from the rest of the package. It is based on the
+same assumptions as the ms software and uses the same rescaling of time
+units (time is counted in 4N generations, where N is the number of
+diploid individuals in the populations). It also generates compatible
+output files. Here is a list of features provided by eggcoal:
+
+    - Haploid (1 gene) and/or diploid (2 genes per individual) samples.
+    - Partial selfing (panmixy is of course also allowed).
+    - Recombination (but not gene conversion and no variation of
+      recombination rate along the sequence yet).
+    - Variation of population size.
+    - Population structure and arbitrary migration matrices.
+    - Exponential population growth or decline.
+    - Change of all migration rates in the past.
+    - Change of the selfing rate in the past.
+    - Change of the exponential growth/decline rate in the past.
+    - Instant population change.
+    - Population fusion or split.
+    - Composite bottleneck model (with one-parameter intensity combining
+      duration and population size reduction).
+    - Standard infinite site mutation model.
+    - Finite site mutation models (with variation of site mutability).
+    - Possibility to set site locations (having effect on the
+      recombination rate between them).
+    - Fixed number of mutations.
+    - Mutation models: finite allele model, infinite allele model,
+      stepwise mutation model, two-phase mutation model.
+    - Microsatellite are exported in a slightly different format to
+      accomodate allele values larger than 9.
+    - Possibility to implement mutation bias (e.g. transition vs.
+      transversion).
+    - Generate fasta alignments.
+    - Generate newick trees (also for simulations with recombination).
+    - Output simulation statistics (not diversity statistics; for those,
+      use a program such as eggstats).
+
+Once the program is installed, type ``eggcoal -h`` for a short manual
+page and ``eggcoal -u`` for a longer manual.      
+

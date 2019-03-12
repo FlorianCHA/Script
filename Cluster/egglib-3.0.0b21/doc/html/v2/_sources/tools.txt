@@ -1,0 +1,80 @@
+=====
+tools
+=====
+
+.. automodule:: egglib.tools
+
+---------------------
+Specific data formats
+---------------------
+
+.. autofunction:: egglib.tools.aln2fas
+
+.. autofunction:: egglib.tools.staden
+
+.. autofunction:: egglib.tools.get_fgenesh
+
+.. autofunction:: egglib.tools.genalys2fasta
+
+.. autoclass:: egglib.tools.Mase
+    :members:
+    :show-inheritance:
+
+-------------
+Data analysis
+-------------
+
+.. autofunction:: egglib.tools.LD
+
+---------------------------
+Sequence manipulation tools
+---------------------------
+
+.. autofunction:: egglib.tools.backalign
+
+.. autofunction:: egglib.tools.concat
+
+.. autofunction:: egglib.tools.longest_orf
+
+.. autofunction:: egglib.tools.rc
+
+.. autofunction:: egglib.tools.translate
+
+.. autofunction:: egglib.tools.ungap
+
+.. autoclass:: egglib.tools.GeneticCodes
+    :members:
+    :inherited-members:
+    :show-inheritance:
+
+-------------------
+Sequence comparison
+-------------------
+
+.. autofunction:: egglib.tools.compare
+
+.. autofunction:: egglib.tools.motifs
+
+.. autofunction:: egglib.tools.locate
+
+---------------------------------------------
+Tools not (directly) related to sequence data
+---------------------------------------------
+
+.. autofunction:: egglib.tools.chisquare
+
+.. autofunction:: egglib.tools.correl
+
+.. autofunction:: egglib.tools.ranges
+
+.. autoclass:: egglib.tools.ReadingFrame
+    :members:
+    :inherited-members:
+    :show-inheritance:
+
+.. autoclass:: egglib.tools.Updater
+    :members:
+    :inherited-members:
+    :show-inheritance:
+    
+.. autofunction:: egglib.tools.wrap

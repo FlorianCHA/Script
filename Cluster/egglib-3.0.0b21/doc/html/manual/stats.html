@@ -1,0 +1,197 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Computing diversity statistics &#8212; EggLib&#39;s documentation</title>
+    <link rel="stylesheet" href="../_static/egglibdoc.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '3.0.0b21',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="shortcut icon" href="../_static/icon.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="The stats.ComputeStats class" href="stats-1.html" />
+    <link rel="prev" title="Encoding of data" href="base-3.html" />
+    <script type="text/javascript">
+      // intelligent scrolling of the sidebar content
+      $(window).scroll(function() {
+        var sb = $('.sphinxsidebarwrapper');
+        var win = $(window);
+        var sbh = sb.height();
+        var offset = $('.sphinxsidebar').position()['top'];
+        var wintop = win.scrollTop();
+        var winbot = wintop + win.innerHeight();
+        var curtop = sb.position()['top'];
+        var curbot = curtop + sbh;
+        // does sidebar fit in window?
+        if (sbh < win.innerHeight()) {
+          // yes: easy case -- always keep at the top
+          sb.css('top', $u.min([$u.max([0, wintop - offset - 10]),
+                                $(document).height() - sbh - 200]));
+        } else {
+          // no: only scroll if top/bottom edge of sidebar is at
+          // top/bottom edge of window
+          if (curtop > wintop && curbot > winbot) {
+            sb.css('top', $u.max([wintop - offset - 10, 0]));
+          } else if (curtop < wintop && curbot < winbot) {
+            sb.css('top', $u.min([winbot - sbh - offset - 20,
+                                  $(document).height() - sbh - 200]));
+          }
+        }
+      });
+    </script>
+  </head>
+  <body>
+<div style="background-color: white; text-align: left; padding: 0px 0px 0px 0px">
+<a href="../index.html"><img src="../_static/banner.png" border="0" alt="EggLib"/></a>
+</div>
+
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="stats-1.html" title="The stats.ComputeStats class"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="base-3.html" title="Encoding of data"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../contents.html">EggLib&#39;s documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../toc.html" >Contents</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="index.html" accesskey="U">Manual</a> &#187;</li> 
+      </ul>
+    </div>
+
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../contents.html">
+              <img class="logo" src="../_static/egglib_small.bmp" alt="Logo"/>
+            </a></p>
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="base-3.html"
+                        title="previous chapter">Encoding of data</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="stats-1.html"
+                        title="next chapter">The <code class="docutils literal"><span class="pre">stats.ComputeStats</span></code> class</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/manual/stats.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="computing-diversity-statistics">
+<h1>Computing diversity statistics<a class="headerlink" href="#computing-diversity-statistics" title="Permalink to this headline">¶</a></h1>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="stats-1.html">The <code class="docutils literal"><span class="pre">stats.ComputeStats</span></code> class</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="stats-1.html#options">Options</a></li>
+<li class="toctree-l2"><a class="reference internal" href="stats-1.html#list-of-statistics">List of statistics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="stats-1.html#processing-data">Processing data</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="stats-1.html#computing-statistics">Computing statistics</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="stats-1.html#single-alignment">Single alignment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="stats-1.html#multiple-alignments">Multiple alignments</a></li>
+<li class="toctree-l2"><a class="reference internal" href="stats-1.html#using-individuals-sites">Using individuals sites</a></li>
+<li class="toctree-l2"><a class="reference internal" href="stats-1.html#stand-alone-allelic-frequencies">Stand-alone allelic frequencies</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="stats-2.html">Accounting for structure</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="stats-2.html#creating-a-structure-from-an-alignment">Creating a structure from an alignment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="stats-2.html#creating-a-structure-manually">Creating a structure manually</a></li>
+<li class="toctree-l2"><a class="reference internal" href="stats-2.html#using-the-structure">Using the structure</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="stats-2.html#filters">Filters</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="stats-2.html#principle">Principle</a></li>
+<li class="toctree-l2"><a class="reference internal" href="stats-2.html#pre-defined-filters-and-default">Pre-defined filters and default</a></li>
+<li class="toctree-l2"><a class="reference internal" href="stats-2.html#the-case-of-simulated-data">The case of simulated data</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="stats-3.html">Missing data</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="stats-3.html#relationships-with-filters">Relationships with filters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="stats-3.html#supporting-missing-data">Supporting missing data</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="stats-3.html#linkage-disequilibrium-statistics">Linkage disequilibrium statistics</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="stats-3.html#from-computestats">From <code class="docutils literal"><span class="pre">ComputeStats</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="stats-3.html#pairwise-linkage-disequilibrium">Pairwise linkage disequilibrium</a></li>
+<li class="toctree-l2"><a class="reference internal" href="stats-3.html#ehh-statistics">EHH statistics</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="stats-4.html">Using VCF files</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="stats-4.html#short-description-of-the-format">Short description of the format</a></li>
+<li class="toctree-l2"><a class="reference internal" href="stats-4.html#reading-vcf-files">Reading VCF files</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="stats-1.html" title="The stats.ComputeStats class"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="base-3.html" title="Encoding of data"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../contents.html">EggLib&#39;s documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../toc.html" >Contents</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="index.html" >Manual</a> &#187;</li> 
+      </ul>
+    </div>
+<!--
+        <address style="text-align: right;"><small>Hosted by&nbsp;
+        <a href="http://sourceforge.net/projects/egglib"><img src="http://sflogo.sourceforge.net/sflogo.php?group_id=232965&amp;type=8" width="80" height="15" alt="Get EggLib at SourceForge.net. Fast, secure and Free Open Source software downloads" / ALIGN=RIGHT BORDER=0></a>
+        </address>
+-->
+
+  </body>
+</html>

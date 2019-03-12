@@ -1,0 +1,48 @@
+.. |nbsp| unicode:: 0xA0 
+   :trim:
+
+******************
+Training workshops
+******************
+
+--------------------------------
+Atelier Réseau EFPA 23 juin 2017
+--------------------------------
+
+Voici les deux présentations d'introduction à l'atelier |nbsp| :
+
+* :trn_lnk:`Introduction à Python <presentation1-2017.pdf>`.
+* :trn_lnk:`Présentation d'Egglib <presentation2-2017.pdf>`.
+
+:trn_lnk:`Archive zip <exercices-2017.zip>`
+avec les fichiers utilisés pour les exercices et les corrigés.
+
+
+--------------------------------
+Atelier Gandalf 24-28 avril 2016
+--------------------------------
+
+:trn_lnk:`Programme <programme-2016.pdf>` de la semaine.
+
+Voici des documents permettant de vous initier au langage de
+programmation Python |nbsp| :
+
+* :trn_lnk:`Introduction à Python <presentation1-2016.pdf>` (sera
+  présentée lors de l'atelier).
+* :trn_lnk:`Un cours précédent sur Python <cours_python_2012.pdf>`.
+* :trn_lnk:`Les notes de cours  <notes_python_2012.pdf>`.
+
+:trn_lnk:`Documents pour l'atelier <EggLibCourse2016.zip>`
+(archive zip, 6.9 MB) contenant |nbsp| :
+
+* Les présentations.
+* Les énoncés d'exercices.
+* Les fichiers d'exemple utilisés dans les exercices.
+* Les solutions des exercices (scripts Python).
+
+Bonus |nbsp| : la :trn_lnk:`sortie <output-solution6.txt>` du corrigé
+de l'exercice 6.
+
+Pour les développeurs |nbsp| : :trn_lnk:`sources <EggLibCourse2016-dev.tar.gz>`
+des documents LaTeX et tous les fichiers utilisés pour préparer l'atelier
+(archive tar compressée, 16.1 MB).

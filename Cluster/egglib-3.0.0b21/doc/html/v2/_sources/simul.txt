@@ -1,0 +1,49 @@
+=====
+simul
+=====
+
+.. automodule:: egglib.simul
+
+-------------------
+Simulation function
+-------------------
+
+.. autofunction:: egglib.simul.coalesce
+
+----------------------
+Parameter holder class
+----------------------
+
+.. autoclass:: egglib.simul.CoalesceParamSet
+    :members:
+    :inherited-members:
+    :show-inheritance:
+
+-------------------------------------------------
+Specifying mutation model using dedicated classes
+-------------------------------------------------
+
+.. autoclass:: egglib.simul.CoalesceMutator
+    :members:
+    :inherited-members:
+    :show-inheritance:
+
+.. autoclass:: egglib.simul.CoalesceFiniteAlleleMutator
+    :members:
+    :inherited-members:
+    :show-inheritance:
+
+.. autoclass:: egglib.simul.CoalesceInfiniteAlleleMutator
+    :members:
+    :inherited-members:
+    :show-inheritance:
+
+.. autoclass:: egglib.simul.CoalesceStepwiseMutator
+    :members:
+    :inherited-members:
+    :show-inheritance:
+
+.. autoclass:: egglib.simul.CoalesceTwoPhaseMutator
+    :members:
+    :inherited-members:
+    :show-inheritance:

@@ -1,0 +1,645 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Missing data &#8212; EggLib&#39;s documentation</title>
+    <link rel="stylesheet" href="../_static/egglibdoc.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '3.0.0b21',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="shortcut icon" href="../_static/icon.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Using VCF files" href="stats-4.html" />
+    <link rel="prev" title="Accounting for structure" href="stats-2.html" />
+    <script type="text/javascript">
+      // intelligent scrolling of the sidebar content
+      $(window).scroll(function() {
+        var sb = $('.sphinxsidebarwrapper');
+        var win = $(window);
+        var sbh = sb.height();
+        var offset = $('.sphinxsidebar').position()['top'];
+        var wintop = win.scrollTop();
+        var winbot = wintop + win.innerHeight();
+        var curtop = sb.position()['top'];
+        var curbot = curtop + sbh;
+        // does sidebar fit in window?
+        if (sbh < win.innerHeight()) {
+          // yes: easy case -- always keep at the top
+          sb.css('top', $u.min([$u.max([0, wintop - offset - 10]),
+                                $(document).height() - sbh - 200]));
+        } else {
+          // no: only scroll if top/bottom edge of sidebar is at
+          // top/bottom edge of window
+          if (curtop > wintop && curbot > winbot) {
+            sb.css('top', $u.max([wintop - offset - 10, 0]));
+          } else if (curtop < wintop && curbot < winbot) {
+            sb.css('top', $u.min([winbot - sbh - offset - 20,
+                                  $(document).height() - sbh - 200]));
+          }
+        }
+      });
+    </script>
+  </head>
+  <body>
+<div style="background-color: white; text-align: left; padding: 0px 0px 0px 0px">
+<a href="../index.html"><img src="../_static/banner.png" border="0" alt="EggLib"/></a>
+</div>
+
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="stats-4.html" title="Using VCF files"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="stats-2.html" title="Accounting for structure"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../contents.html">EggLib&#39;s documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../toc.html" >Contents</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="index.html" >Manual</a> &#187;</li>
+          <li class="nav-item nav-item-3"><a href="stats.html" accesskey="U">Computing diversity statistics</a> &#187;</li> 
+      </ul>
+    </div>
+
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../contents.html">
+              <img class="logo" src="../_static/egglib_small.bmp" alt="Logo"/>
+            </a></p>
+  <h3><a href="../contents.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Missing data</a><ul>
+<li><a class="reference internal" href="#relationships-with-filters">Relationships with filters</a></li>
+<li><a class="reference internal" href="#supporting-missing-data">Supporting missing data</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#linkage-disequilibrium-statistics">Linkage disequilibrium statistics</a><ul>
+<li><a class="reference internal" href="#from-computestats">From <code class="docutils literal"><span class="pre">ComputeStats</span></code></a></li>
+<li><a class="reference internal" href="#pairwise-linkage-disequilibrium">Pairwise linkage disequilibrium</a><ul>
+<li><a class="reference internal" href="#the-pairwise-ld-function">The <code class="docutils literal"><span class="pre">pairwise_LD()</span></code> function</a></li>
+<li><a class="reference internal" href="#the-matrix-ld-function">The <code class="docutils literal"><span class="pre">matrix_LD()</span></code> function</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#ehh-statistics">EHH statistics</a><ul>
+<li><a class="reference internal" href="#loading-the-core-site">Loading the core site</a></li>
+<li><a class="reference internal" href="#loading-the-distant-sites">Loading the distant sites</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="stats-2.html"
+                        title="previous chapter">Accounting for structure</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="stats-4.html"
+                        title="next chapter">Using VCF files</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/manual/stats-3.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="missing-data">
+<span id="manual-missing-data"></span><h1>Missing data<a class="headerlink" href="#missing-data" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="relationships-with-filters">
+<h2>Relationships with filters<a class="headerlink" href="#relationships-with-filters" title="Permalink to this headline">¶</a></h2>
+<p>In the filters that have been described in the previous section, we
+mentioned that some characters can be allowed (that is, if they are present
+in analysed data sets, they don’t cause an error) but considered as missing data.
+This is common in real-life applications. For nucleotide sequences, all characters representing
+proper missing data, ambiguity between two, three, or four different bases, and
+alignment gaps, are collectively considered to be missing data. There are
+several functions that understand ambiguity code (such as protein translation with
+<a class="reference internal" href="base-3.html#smart-translation"><span class="std std-ref">“Smart” translation</span></a>, but not by default), but the general approach is to treat
+them as missing data (this is the case unless otherwise stated).</p>
+</div>
+<div class="section" id="supporting-missing-data">
+<h2>Supporting missing data<a class="headerlink" href="#supporting-missing-data" title="Permalink to this headline">¶</a></h2>
+<p>Consider the following alignment of 10 sequences, with 30 sites, of which 10
+are polymorphic (those at indexes: 2, 5, 7, 8, 12, 13, 14, 18, 22, and 26):</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">GCACCATCATGACTTACGGTATTATCGTAT</span>
+<span class="o">.....</span><span class="n">T</span><span class="o">......</span><span class="n">A</span><span class="o">.</span><span class="n">A</span><span class="o">...........</span><span class="n">C</span><span class="o">...</span>
+<span class="o">.....</span><span class="n">T</span><span class="o">.</span><span class="n">GT</span><span class="o">...</span><span class="n">A</span><span class="o">.................</span>
+<span class="o">......................</span><span class="n">A</span><span class="o">...</span><span class="n">C</span><span class="o">...</span>
+<span class="o">......................</span><span class="n">A</span><span class="o">...</span><span class="n">C</span><span class="o">...</span>
+<span class="o">..</span><span class="n">T</span><span class="o">..</span><span class="n">T</span><span class="o">.</span><span class="n">GT</span><span class="o">.............</span><span class="n">A</span><span class="o">...</span><span class="n">C</span><span class="o">...</span>
+<span class="o">..</span><span class="n">T</span><span class="o">..</span><span class="n">T</span><span class="o">.......</span><span class="n">G</span><span class="o">................</span>
+<span class="o">..</span><span class="n">T</span><span class="o">..</span><span class="n">T</span><span class="o">........</span><span class="n">A</span><span class="o">...........</span><span class="n">C</span><span class="o">...</span>
+<span class="o">..</span><span class="n">T</span><span class="o">....</span><span class="n">GT</span><span class="o">.....</span><span class="n">A</span><span class="o">...</span><span class="n">C</span><span class="o">...</span><span class="n">A</span><span class="o">...</span><span class="n">C</span><span class="o">...</span>
+<span class="o">..</span><span class="n">T</span><span class="o">..</span><span class="n">T</span><span class="o">........</span><span class="n">A</span><span class="o">...</span><span class="n">C</span><span class="o">.......</span><span class="n">C</span><span class="o">...</span>
+</pre></div>
+</div>
+<p>Assumed it is saved a Fasta in <code class="docutils literal"><span class="pre">align6A.fas</span></code>. Without missing data,
+computing diversity is relatively straightforward:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">cs</span> <span class="o">=</span> <span class="n">egglib</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">ComputeStats</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cs</span><span class="o">.</span><span class="n">add_stats</span><span class="p">(</span><span class="s1">&#39;lseff&#39;</span><span class="p">,</span> <span class="s1">&#39;nseff&#39;</span><span class="p">,</span> <span class="s1">&#39;S&#39;</span><span class="p">,</span> <span class="s1">&#39;sites&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">alnA</span> <span class="o">=</span> <span class="n">egglib</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">from_fasta</span><span class="p">(</span><span class="s1">&#39;align6A.fas&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span> <span class="n">cs</span><span class="o">.</span><span class="n">process_align</span><span class="p">(</span><span class="n">alnA</span><span class="p">)</span>
+<span class="go">{&#39;lseff&#39;: 30, &#39;S&#39;: 10, &#39;sites&#39;: [2, 5, 7, 8, 12, 13, 14, 18, 22, 26], &#39;nseff&#39;: 10.0}</span>
+</pre></div>
+</div>
+<p>Suppose now that the same data were obtained but with less than a perfect
+sequencing technology and that consequently some data are missing:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>GCACCATCATGACTTACGGTATTATCGTAT
+.....T......A.A...........C...
+.....T.GT...A.................
+......................A...C...
+......................A...C...
+..T..T.GW....K....S...A...C...
+..T..T.......G............S...
+..T..T........A...........S...
+..T....GT.....A...C...A...C...
+..T..T........A.??????????????
+</pre></div>
+</div>
+<p>By default, all sites with at least one missing data will be excluded,
+causing a significant loss of data:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">alnB</span> <span class="o">=</span> <span class="n">egglib</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">from_fasta</span><span class="p">(</span><span class="s1">&#39;align6B.fas&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span> <span class="n">cs</span><span class="o">.</span><span class="n">process_align</span><span class="p">(</span><span class="n">alnB</span><span class="p">)</span>
+<span class="go">{&#39;lseff&#39;: 14, &#39;S&#39;: 5, &#39;sites&#39;: [2, 5, 7, 12, 14], &#39;nseff&#39;: 10.0}</span>
+</pre></div>
+</div>
+<p>Note that it is important to always refer to <code class="docutils literal"><span class="pre">lseff</span></code> to know how many
+sites have been actually used for the analysis (usually smaller than <code class="xref py py-attr docutils literal"><span class="pre">Align.ls</span></code>).
+In this case, only 14 of the 30 sites are considered. In particular, the
+sites 8 and 13, which are polymorphic, are excluding because the 6th
+sequence has ambiguity data. Furthermore, all sites after index 15 are excluded
+because the last sequence has missing data (among other). Among those 14 sites
+included, only 5 remain polymorphic.</p>
+<p>EggLib has a specific option to allow considering sites even if they contain
+missing data, up to a user-specified threshold. In <code class="xref py py-class docutils literal"><span class="pre">ComputeStats</span></code>,
+the threshold is expressed as a proportion. Assume we want to allow for only
+one missing data (10%). We can do it as shown below:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span> <span class="n">cs</span><span class="o">.</span><span class="n">process_align</span><span class="p">(</span><span class="n">alnB</span><span class="p">,</span> <span class="n">max_missing</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
+<span class="go">{&#39;lseff&#39;: 28, &#39;S&#39;: 8, &#39;sites&#39;: [2, 5, 7, 8, 12, 13, 14, 22], &#39;nseff&#39;: 9.5}</span>
+</pre></div>
+</div>
+<p>This analysis has included 28 sites: all except two that have more than one
+missing piece of data (sites at indexes 18 and 26, which appear to be both polymorphic).
+The statistic <code class="docutils literal"><span class="pre">nseff</span></code> gives the average number of samples in sites included in the
+analysis. While <em>max_missing</em> was set to the default (0), all included sites
+necessarily had have all samples, so the value was always equal to 10. Now,
+included sites may have less than all samples available. For 14 of them all
+samples are available, while the 14 others have one missing data, thereby the
+average value of 9.5. Whenever possible, computations take this effect into
+account and in all cases frequencies are expressed relatively to the effective
+number of samples for a given site.</p>
+<p>It is possible to be even more liberal and allow for more missing data.
+Here, we need to allow for at least 3 missing data to accept all sites (and
+detect all polymorphic sites):</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span> <span class="n">cs</span><span class="o">.</span><span class="n">process_align</span><span class="p">(</span><span class="n">alnB</span><span class="p">,</span> <span class="n">max_missing</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+<span class="go">{&#39;lseff&#39;: 30, &#39;S&#39;: 10, &#39;sites&#39;: [2, 5, 7, 8, 12, 13, 14, 18, 22, 26], &#39;nseff&#39;: 9.366666666666667}</span>
+</pre></div>
+</div>
+<p>Eventually, all sites are processed and all 10 polymorphic sites are detected,
+while the average number of samples in used sites drops to 9.37.</p>
+<p>The cost of increasing the value for <em>max_missing</em> is primarily that large
+values (if there are many missign data) leads to including a lot of sites
+with few exploitable samples for which all statistics will be poorly estimated,
+which will be in the end counter-productive.</p>
+</div>
+</div>
+<div class="section" id="linkage-disequilibrium-statistics">
+<h1>Linkage disequilibrium statistics<a class="headerlink" href="#linkage-disequilibrium-statistics" title="Permalink to this headline">¶</a></h1>
+<p>Part of the statistics connected to linkage between distant sites can be
+computed using the <a class="reference internal" href="../py/stats.html#egglib.stats.ComputeStats" title="egglib.stats.ComputeStats"><code class="xref py py-class docutils literal"><span class="pre">ComputeStats</span></code></a> class. Other require separate
+tools, also available in the <code class="xref py py-mod docutils literal"><span class="pre">stats</span></code> module.</p>
+<div class="section" id="from-computestats">
+<h2>From <a class="reference internal" href="../py/stats.html#egglib.stats.ComputeStats" title="egglib.stats.ComputeStats"><code class="xref py py-class docutils literal"><span class="pre">ComputeStats</span></code></a><a class="headerlink" href="#from-computestats" title="Permalink to this headline">¶</a></h2>
+<p>A number of linkage-related statistics are available among the list of
+statistics proposed by <code class="xref py py-class docutils literal"><span class="pre">ComputeStats</span></code>. They included proper
+linkage disequilibrium statistics such as Kelly <em>et al.</em>’s and Rozas <em>et al.</em>’s
+statistics (such as <code class="docutils literal"><span class="pre">Za</span></code>, <code class="docutils literal"><span class="pre">ZZ</span></code> and <code class="docutils literal"><span class="pre">ZnS</span></code>) and closely related as Hudson’s <code class="docutils literal"><span class="pre">Rmin</span></code>.
+We can also consider that statistics based on haplotypes are somewhat connected
+(including <code class="docutils literal"><span class="pre">K</span></code>, Hudson’s <code class="docutils literal"><span class="pre">Fst</span></code>, Fu’s <code class="docutils literal"><span class="pre">Fs</span></code>, but also Ramos-Onsins and Rozas’s <code class="docutils literal"><span class="pre">R2</span></code>
+or Wall’s <code class="docutils literal"><span class="pre">B</span></code> and <code class="docutils literal"><span class="pre">Q</span></code>). Please refer to the <a class="reference internal" href="../py/stats.html#list-stats"><span class="std std-ref">List of statistics</span></a> for the full list.
+It should be noted that all those statistics require that the data are phased,
+meaning that the order of samples is matching over all provided sites (including
+the order of alleles within individuals if the individuals are not haploid).
+This may seem obvious, but keep in mind that you may compute haplotype or
+linkage disequilibrium statistics over completely unrelated sites (with
+non-matching lists of samples). Provided that the number of samples matches,
+EggLib will compute all statistics you ask and it is up to you to decided
+whether they are meaningful or not.</p>
+<p>This being said, you can compute linkage disequilibrium and haplotype statistics
+using <a class="reference internal" href="../py/stats.html#egglib.stats.ComputeStats.process_align" title="egglib.stats.ComputeStats.process_align"><code class="xref py py-meth docutils literal"><span class="pre">ComputeStats.process_align()</span></code></a> and <a class="reference internal" href="../py/stats.html#egglib.stats.ComputeStats.process_sites" title="egglib.stats.ComputeStats.process_sites"><code class="xref py py-meth docutils literal"><span class="pre">ComputeStats.process_sites()</span></code></a>.
+In both cases, it will be assumed that the data are phased. When using an alignment,
+computing this category of statistics is rather straighforward, but note that it is also possible
+to process a list of <a class="reference internal" href="../py/stats.html#egglib.stats.Site" title="egglib.stats.Site"><code class="xref py py-class docutils literal"><span class="pre">Site</span></code></a> instances as in the example below:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">site1</span> <span class="o">=</span> <span class="n">egglib</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">site_from_list</span><span class="p">(</span><span class="s1">&#39;AAAAAAAACCCCCCCC&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="n">flat</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">site2</span> <span class="o">=</span> <span class="n">egglib</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">site_from_list</span><span class="p">(</span><span class="s1">&#39;GGGGGGGGGGGTTTTT&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="n">flat</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">site3</span> <span class="o">=</span> <span class="n">egglib</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">site_from_list</span><span class="p">(</span><span class="s1">&#39;CCCCCCAAAAAAAAAA&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="n">flat</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">site4</span> <span class="o">=</span> <span class="n">egglib</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">site_from_list</span><span class="p">(</span><span class="s1">&#39;TTTTAAAAAAATTTTT&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="n">flat</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">site5</span> <span class="o">=</span> <span class="n">egglib</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">site_from_list</span><span class="p">(</span><span class="s1">&#39;CCGGGGGGGGGGCCCG&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="n">flat</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">site6</span> <span class="o">=</span> <span class="n">egglib</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">site_from_list</span><span class="p">(</span><span class="s1">&#39;AATTAAAAAAAAAAAT&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="n">flat</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sites</span> <span class="o">=</span> <span class="n">site1</span><span class="p">,</span> <span class="n">site2</span><span class="p">,</span> <span class="n">site3</span><span class="p">,</span> <span class="n">site4</span><span class="p">,</span> <span class="n">site5</span><span class="p">,</span> <span class="n">site6</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cs</span> <span class="o">=</span> <span class="n">egglib</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">ComputeStats</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cs</span><span class="o">.</span><span class="n">add_stats</span><span class="p">(</span><span class="s1">&#39;Rmin&#39;</span><span class="p">,</span> <span class="s1">&#39;Rintervals&#39;</span><span class="p">,</span> <span class="s1">&#39;ZnS&#39;</span><span class="p">,</span> <span class="s1">&#39;K&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span> <span class="n">cs</span><span class="o">.</span><span class="n">process_sites</span><span class="p">(</span><span class="n">sites</span><span class="p">,</span> <span class="n">phased</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="go">{&#39;ZnS&#39;: 0.08081054747721413, &#39;Rmin&#39;: 1, &#39;Rintervals&#39;: [(2, 3)], &#39;K&#39;: 8}</span>
+</pre></div>
+</div>
+<p>Note that several options can be set using <a class="reference internal" href="../py/stats.html#egglib.stats.ComputeStats.configure" title="egglib.stats.ComputeStats.configure"><code class="xref py py-meth docutils literal"><span class="pre">configure()</span></code></a>
+to control the computation of several statistics in this category (refer to
+the documentation of this method for all details).</p>
+<p>Note also that the presence of missing data can be a problem, since, on one hand, a sequence
+that contain any missing data cannot be easily used while identifying haplotypes and,
+on the other hand, the effect of missing data is magnified in the context of pairwise comparisons.
+To compute this family of statistics, it can be better to remove samples for which the amount
+of missing data is above a given threshold by keeping the argument <em>max_missing</em> to a (very)
+low value.</p>
+</div>
+<div class="section" id="pairwise-linkage-disequilibrium">
+<h2>Pairwise linkage disequilibrium<a class="headerlink" href="#pairwise-linkage-disequilibrium" title="Permalink to this headline">¶</a></h2>
+<p>There are two functions in the <code class="xref py py-mod docutils literal"><span class="pre">stats</span></code> module to compute linkage
+disequilibrium between sites: one to process a pair of sites (<a class="reference internal" href="../py/stats.html#egglib.stats.pairwise_LD" title="egglib.stats.pairwise_LD"><code class="xref py py-func docutils literal"><span class="pre">stats.pairwise_LD()</span></code></a>)
+and one to process all sites for an alignment (<a class="reference internal" href="../py/stats.html#egglib.stats.matrix_LD" title="egglib.stats.matrix_LD"><code class="xref py py-func docutils literal"><span class="pre">stats.matrix_LD()</span></code></a>).</p>
+<div class="section" id="the-pairwise-ld-function">
+<h3>The <a class="reference internal" href="../py/stats.html#egglib.stats.pairwise_LD" title="egglib.stats.pairwise_LD"><code class="xref py py-func docutils literal"><span class="pre">pairwise_LD()</span></code></a> function<a class="headerlink" href="#the-pairwise-ld-function" title="Permalink to this headline">¶</a></h3>
+<p>This function takes two sites as arguments. It is up to the user to provide
+sites with little enough missing data to make the computation relevant.
+The function has options to control what happens if there are more than two
+alleles at either site (this is not addressed here; see the function’s documentation
+for more details).</p>
+<p>The fragment of code below shows what the function does:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span> <span class="n">egglib</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">pairwise_LD</span><span class="p">(</span><span class="n">site1</span><span class="p">,</span> <span class="n">site2</span><span class="p">)</span>
+<span class="go">{&#39;n&#39;: 1, &#39;r&#39;: 0.674199862463242, &#39;D&#39;: 0.15625, &#39;Dp&#39;: 1.0, &#39;rsq&#39;: 0.4545454545454545}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span> <span class="n">egglib</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">pairwise_LD</span><span class="p">(</span><span class="n">site1</span><span class="p">,</span> <span class="n">site4</span><span class="p">)</span>
+<span class="go">{&#39;n&#39;: 1, &#39;r&#39;: -0.1259881576697424, &#39;D&#39;: -0.03125, &#39;Dp&#39;: -0.14285714285714285, &#39;rsq&#39;: 0.01587301587301587}</span>
+</pre></div>
+</div>
+<p>The values are:</p>
+<blockquote>
+<div><ul class="simple">
+<li><code class="docutils literal"><span class="pre">n</span></code>, the number of pair of alleles considered (significant if there are more than two alleles at either site).</li>
+<li><code class="docutils literal"><span class="pre">D</span></code>, linkage disequilibrium.</li>
+<li><code class="docutils literal"><span class="pre">Dp</span></code>, Lewontin’s D’.</li>
+<li><code class="docutils literal"><span class="pre">r</span></code>, Pearson’s correlation coefficient.</li>
+<li><code class="docutils literal"><span class="pre">rsq</span></code>, squared Pearson’s correlation coefficient.</li>
+</ul>
+</div></blockquote>
+<p>Note that if statistics cannot be computed (typically, because of the presence of
+missing data), values in the return dictionary are replaced by <code class="docutils literal"><span class="pre">None</span></code>.</p>
+</div>
+<div class="section" id="the-matrix-ld-function">
+<h3>The <a class="reference internal" href="../py/stats.html#egglib.stats.matrix_LD" title="egglib.stats.matrix_LD"><code class="xref py py-func docutils literal"><span class="pre">matrix_LD()</span></code></a> function<a class="headerlink" href="#the-matrix-ld-function" title="Permalink to this headline">¶</a></h3>
+<p>This function generates the linkage disequilibrium matrix between all pairs of sites
+(for which computation is possible) from a user-provided alignment. This
+function has a bunch of options:</p>
+<blockquote>
+<div><ul class="simple">
+<li>Options to control what happens if there are more than two
+alleles at either site.</li>
+<li>Options to apply filters on sites based on allelic frequencies
+(to exclude sites with too unbalanced frequencies, which are less informative) and
+the number of available data.</li>
+<li>It is also possible to provide a filter (see <a class="reference internal" href="stats-2.html#filters"><span class="std std-ref">Filters</span></a>).</li>
+<li>List of positions of sites provided in the alignment (by default, the index of sites
+is used).</li>
+</ul>
+</div></blockquote>
+<p>The function requires two mandatory arguments: an <code class="xref py py-class docutils literal"><span class="pre">Align</span></code> instance and
+the list of statistics that must be computed, among:</p>
+<blockquote>
+<div><ul class="simple">
+<li><code class="docutils literal"><span class="pre">d</span></code>, the distance between sites of a pair (based on positions if
+they have been provided, or in sites’ indexes by default).</li>
+<li><code class="docutils literal"><span class="pre">D</span></code>, linkage disequilibrium.</li>
+<li><code class="docutils literal"><span class="pre">Dp</span></code>, Lewontin’s D’.</li>
+<li><code class="docutils literal"><span class="pre">r</span></code>, Pearson’s correlation coefficient.</li>
+<li><code class="docutils literal"><span class="pre">rsq</span></code>, squared Pearson’s correlation coefficient.</li>
+</ul>
+</div></blockquote>
+<p>In this example, we consider a very simple alignment of 10 sequences and
+10 sites (of which only 3 are variable), saved in a Fasta-formatted file
+named <code class="docutils literal"><span class="pre">align7.fas</span></code>:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">&gt;</span><span class="n">sample01</span>
+<span class="n">CACATGTGGA</span>
+<span class="o">&gt;</span><span class="n">sample02</span>
+<span class="n">CACATGTGGA</span>
+<span class="o">&gt;</span><span class="n">sample03</span>
+<span class="n">CAGATGTGGT</span>
+<span class="o">&gt;</span><span class="n">sample04</span>
+<span class="n">CAGATGTGGT</span>
+<span class="o">&gt;</span><span class="n">sample05</span>
+<span class="n">CACATGTAGT</span>
+<span class="o">&gt;</span><span class="n">sample06</span>
+<span class="n">CACATGTAGT</span>
+<span class="o">&gt;</span><span class="n">sample07</span>
+<span class="n">CAGATGTGGT</span>
+<span class="o">&gt;</span><span class="n">sample08</span>
+<span class="n">CAGATGTGGT</span>
+<span class="o">&gt;</span><span class="n">sample09</span>
+<span class="n">CACATGTGGT</span>
+<span class="o">&gt;</span><span class="n">sample10</span>
+<span class="n">CACATGTGGA</span>
+</pre></div>
+</div>
+<p>The code below demonstrates the usage of <code class="xref py py-func docutils literal"><span class="pre">matrix_LD()</span></code> and will help
+described its return value:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">aln</span> <span class="o">=</span> <span class="n">egglib</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">from_fasta</span><span class="p">(</span><span class="s1">&#39;align7.fas&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span> <span class="n">egglib</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">matrix_LD</span><span class="p">(</span><span class="n">aln</span><span class="p">,</span> <span class="p">(</span><span class="s1">&#39;d&#39;</span><span class="p">,</span> <span class="s1">&#39;rsq&#39;</span><span class="p">))</span>
+<span class="go">([2.0, 7.0, 9.0], [[None], [[5.0, 0.16666666666666652], None], [[7.0, 0.28571428571428575], [2.0, 0.10714285714285716], None]])</span>
+</pre></div>
+</div>
+<p>The usage is fairly straighforward. Just remember to specify the list of statistics
+you want to be computed (in this case, we requested <code class="docutils literal"><span class="pre">d</span></code> and <code class="docutils literal"><span class="pre">rsq</span></code>) and
+consider if some of the optional arguments are needed.</p>
+<p>The return value
+is a <code class="xref py py-class docutils literal"><span class="pre">tuple</span></code> of two lists. The first list is the position of sites
+that have been included in the analysis, in this case the three polymorphic sites, which
+appear to be at positions 2, 7, and 9 (there is currently an automatic conversion to <code class="xref py py-class docutils literal"><span class="pre">float</span></code>
+but this may change in the future).</p>
+<p>The second item of the return value is a nested list, containing the lower half-matrix
+with requested values. We additional example below shows how to collect results
+in such as way that we loop over all pairs of sites:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">pos</span><span class="p">,</span> <span class="n">mat</span> <span class="o">=</span> <span class="n">egglib</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">matrix_LD</span><span class="p">(</span><span class="n">aln</span><span class="p">,</span> <span class="p">(</span><span class="s1">&#39;d&#39;</span><span class="p">,</span> <span class="s1">&#39;rsq&#39;</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">pos</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">xrange</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="n">xrange</span><span class="p">(</span><span class="n">i</span><span class="p">):</span>
+<span class="gp">... </span>        <span class="n">p1</span> <span class="o">=</span> <span class="n">pos</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+<span class="gp">... </span>        <span class="n">p2</span> <span class="o">=</span> <span class="n">pos</span><span class="p">[</span><span class="n">j</span><span class="p">]</span>
+<span class="gp">... </span>        <span class="n">d</span> <span class="o">=</span> <span class="n">mat</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+<span class="gp">... </span>        <span class="n">r2</span> <span class="o">=</span> <span class="n">mat</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span>
+<span class="gp">... </span>        <span class="nb">print</span> <span class="s1">&#39;pos:&#39;</span><span class="p">,</span> <span class="n">p1</span><span class="p">,</span> <span class="n">p2</span><span class="p">,</span> <span class="s1">&#39;d:&#39;</span><span class="p">,</span> <span class="n">d</span><span class="p">,</span> <span class="s1">&#39;r2:&#39;</span><span class="p">,</span> <span class="n">r2</span>
+<span class="gp">...</span>
+<span class="go">pos: 7.0 2.0 d: 5.0 r2: 0.166666666667</span>
+<span class="go">pos: 9.0 2.0 d: 7.0 r2: 0.285714285714</span>
+<span class="go">pos: 9.0 7.0 d: 2.0 r2: 0.107142857143</span>
+</pre></div>
+</div>
+<p>Note that there is a gotcha with this function. If one requests an iterable of statistics
+costs as the <em>stats</em> argument, the values in the half-matrix provided as the second return value are
+a <code class="xref py py-class docutils literal"><span class="pre">list</span></code> of values, including if only one statistic is requested, as in:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span> <span class="n">egglib</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">matrix_LD</span><span class="p">(</span><span class="n">aln</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;rsq&#39;</span><span class="p">])</span>
+<span class="go">([2.0, 7.0, 9.0], [[None], [[0.16666666666666652], None], [[0.28571428571428575], [0.10714285714285716], None]])</span>
+</pre></div>
+</div>
+<p>However, if one passes a statistic code (not an iterable) as value for <em>stat</em>,
+the items in the returned half-matrix are statistic values, not embedded in a list:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span> <span class="n">egglib</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">matrix_LD</span><span class="p">(</span><span class="n">aln</span><span class="p">,</span> <span class="s1">&#39;rsq&#39;</span><span class="p">)</span>
+<span class="go">([2.0, 7.0, 9.0], [[None], [0.16666666666666652, None], [0.28571428571428575, 0.10714285714285716, None]])</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="ehh-statistics">
+<h2>EHH statistics<a class="headerlink" href="#ehh-statistics" title="Permalink to this headline">¶</a></h2>
+<p>The Extended Haplotype Homozygosity (EHH) are one of the few (sets of) statistics
+specifically developed with the aim of exploiting large-scale sequencing
+data. The documentation for the class <a class="reference internal" href="../py/stats.html#egglib.stats.EHH" title="egglib.stats.EHH"><code class="xref py py-class docutils literal"><span class="pre">stats.EHH</span></code></a> provides all
+details and the list of literature references. In this section we provide
+a quick overview of the usage of this class.</p>
+<p>EHH would be too complex to be included among statistics proposed by
+<code class="xref py py-class docutils literal"><span class="pre">ComputeStats</span></code>. It is the reason why it has a class of its own.
+To use it, one must therefore first create a class instance:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ehh</span> <span class="o">=</span> <span class="n">egglib</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">EHH</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="section" id="loading-the-core-site">
+<h3>Loading the core site<a class="headerlink" href="#loading-the-core-site" title="Permalink to this headline">¶</a></h3>
+<p>The first step consists in loading a core site, which will be used as reference
+for all computations. In the original paper, it was a non-recombining region for
+which haplotypes have been determined. It can as well be a two-allele SNP marker.
+Assume that we have a file named <code class="docutils literal"><span class="pre">sites1.txt</span></code>, of which the first line is:</p>
+<div class="highlight-none"><div class="highlight"><pre><span></span>0000000000000000010002000000010001001000000000000001000000002000000100000000101000000101000010010010
+</pre></div>
+</div>
+<p>This is one way to represent haplotypic data for 100 individuals in a simple manner.
+We will use simple code to import this string of haplotype identifiers as a
+<code class="xref py py-class docutils literal"><span class="pre">Site</span></code>:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">site</span> <span class="o">=</span> <span class="n">egglib</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">Site</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">f</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;sites1.txt&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">site</span><span class="o">.</span><span class="n">process_list</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">(),</span> <span class="kc">None</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>There is a method to set a <code class="xref py py-class docutils literal"><span class="pre">Site</span></code> object as the core site for EHH:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ehh</span><span class="o">.</span><span class="n">set_core</span><span class="p">(</span><span class="n">site</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>This method takes an array of options, one of which (<em>min_freq</em>) controlling the frequency
+threshold (to exclude low-frequency haplotypes from the analysis).</p>
+<p>After the core site has been loaded, basic statistics can be accessed:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span> <span class="n">ehh</span><span class="o">.</span><span class="n">num_haplotypes</span>
+<span class="go">3</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span> <span class="n">ehh</span><span class="o">.</span><span class="n">nsam</span><span class="p">()</span>
+<span class="go">100</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span> <span class="p">[</span><span class="n">ehh</span><span class="o">.</span><span class="n">nsam</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">xrange</span><span class="p">(</span><span class="n">ehh</span><span class="o">.</span><span class="n">num_haplotypes</span><span class="p">)]</span>
+<span class="go">[85, 13, 2]</span>
+</pre></div>
+</div>
+<p>These three lines show, respectively:</p>
+<ul class="simple">
+<li>The number of core haplotypes (if haplotypes have been excluded due
+to the <em>min_freq</em> option, this attribute gives the number of included
+haplotypes, and the total number of haplotypes is given by
+<code class="xref py py-attr docutils literal"><span class="pre">tot_haplotypes</span></code>).</li>
+<li>The total number of samples (only considered included haplotypes).</li>
+<li>The list of frequency (at the core site) of the core haplotypes.</li>
+</ul>
+<p>Below we show the initial value of some of the EHH statistics (they have a
+value only after loading the core site, but it is only after loading other
+site that they can be interpreted:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span> <span class="n">ehh</span><span class="o">.</span><span class="n">cur_haplotypes</span>
+<span class="go">3</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span> <span class="n">ehh</span><span class="o">.</span><span class="n">get_EHH</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="go">1.0</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span> <span class="n">ehh</span><span class="o">.</span><span class="n">get_rEHH</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="go">1.30057803468</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span> <span class="n">ehh</span><span class="o">.</span><span class="n">get_iHH</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="go">0.0</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span> <span class="n">ehh</span><span class="o">.</span><span class="n">get_iHS</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="go">None</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span> <span class="n">ehh</span><span class="o">.</span><span class="n">get_EHHS</span><span class="p">()</span>
+<span class="go">1.0</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span> <span class="n">ehh</span><span class="o">.</span><span class="n">get_iES</span><span class="p">()</span>
+<span class="go">0.0</span>
+</pre></div>
+</div>
+<p>The table below lists the statistics shown (more are available):</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="16%" />
+<col width="42%" />
+<col width="42%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Statistic</th>
+<th class="head">Meaning</th>
+<th class="head">Initial value</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>cur_haplotypes</td>
+<td>current number of haplotypes</td>
+<td>equal to <a class="reference internal" href="../py/stats.html#egglib.stats.EHH.num_haplotypes" title="egglib.stats.EHH.num_haplotypes"><code class="xref py py-attr docutils literal"><span class="pre">num_haplotypes</span></code></a></td>
+</tr>
+<tr class="row-odd"><td>get_EHH(i)</td>
+<td>EHH value for haplotype <em>i</em></td>
+<td>equal to 1</td>
+</tr>
+<tr class="row-even"><td>get_rEHH(i)</td>
+<td>Ratio of EHH and EHHc for haplotype <em>i</em></td>
+<td>not defined</td>
+</tr>
+<tr class="row-odd"><td>get_iHH(i)</td>
+<td>Integrated value of EHH</td>
+<td>equal to 0</td>
+</tr>
+<tr class="row-even"><td>get_iHS(i)</td>
+<td>Ratio of iHH and its complement iHHc</td>
+<td>not computable between both terms are 0</td>
+</tr>
+<tr class="row-odd"><td>get_EHHS()</td>
+<td>Site-wise EHHS</td>
+<td>equal to 1</td>
+</tr>
+<tr class="row-even"><td>get_iES()</td>
+<td>Integrated value of iES</td>
+<td>equal to 0</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="loading-the-distant-sites">
+<h3>Loading the distant sites<a class="headerlink" href="#loading-the-distant-sites" title="Permalink to this headline">¶</a></h3>
+<p>After this, we can start to load other sites (referred to as distant sites).
+Distant sites are classically SNP markers located at increasing distance from the
+core site (the increasing distance is required). Here we continue reading the
+file <code class="docutils literal"><span class="pre">sites1.txt</span></code> which contains, after the core site, biallelic sites
+formatted as shown below, taking the first 5 sites as example:</p>
+<div class="highlight-none"><div class="highlight"><pre><span></span>0000000000000000010000000000010001001000000000000001000000000000000100000000100000000101000010000000
+0000100001000100000000000000000010000100001001001000100000100001100000100000000010000010100000000100
+0000000000000000010000000000010001001000000000000001000000000000000100000000101000000101000010010010
+0000100001000100010000000000010001001000000000000001000000000000000100100000101000000101000010010010
+0000000000100000000000000000000000000000000000000000000000000000000000000100000000000000000100000000
+</pre></div>
+</div>
+<p>The code below processes the next site in file (using a similar syntax than for the core site)
+and pass it to the <code class="xref py py-class docutils literal"><span class="pre">EHH</span></code> object. The distance to the core site must be passed as
+second argument. In our example, we will use arbitrary values:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">site</span><span class="o">.</span><span class="n">process_list</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">(),</span> <span class="kc">None</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ehh</span><span class="o">.</span><span class="n">load_distant</span><span class="p">(</span><span class="n">site</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span> <span class="n">ehh</span><span class="o">.</span><span class="n">cur_haplotypes</span>
+<span class="go">4</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span> <span class="n">ehh</span><span class="o">.</span><span class="n">get_EHH</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="go">1.0</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span> <span class="n">ehh</span><span class="o">.</span><span class="n">get_rEHH</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="go">1.99115044248</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span> <span class="n">ehh</span><span class="o">.</span><span class="n">get_iHH</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="go">0.1</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span> <span class="n">ehh</span><span class="o">.</span><span class="n">get_iHS</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="go">-0.453255771945</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span> <span class="n">ehh</span><span class="o">.</span><span class="n">get_EHHS</span><span class="p">()</span>
+<span class="go">0.991778569471</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span> <span class="n">ehh</span><span class="o">.</span><span class="n">get_iES</span><span class="p">()</span>
+<span class="go">0.0995889284736</span>
+</pre></div>
+</div>
+<p>We can observe that there is already an additional haplotype, meaning that
+the first distant site already modifies the sample partition. However it does not
+affect the first haplotype since its EHH value is still 1.0. The rEHH value has
+increased because the complement of the first haplotype is affected by the new haplotype.
+iHH is 0.1 (integration of EHH over the distance arbitrarily set to 0.1). The value
+of iHS is negative, which is possible because it is the logarithm of a ratio.
+The whole-site EHHS value has decreased because it accounts for data at the whole site.</p>
+<p>The code below reads all the other sites of the file and displays final values:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">line</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">f</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="n">site</span><span class="o">.</span><span class="n">process_list</span><span class="p">(</span><span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">(),</span> <span class="kc">None</span><span class="p">)</span>
+<span class="gp">... </span>    <span class="n">ehh</span><span class="o">.</span><span class="n">load_distant</span><span class="p">(</span><span class="n">site</span><span class="p">,</span> <span class="mf">0.2</span> <span class="o">+</span> <span class="n">i</span> <span class="o">/</span> <span class="mf">10.0</span><span class="p">)</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span> <span class="n">ehh</span><span class="o">.</span><span class="n">cur_haplotypes</span>
+<span class="go">42</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span> <span class="n">ehh</span><span class="o">.</span><span class="n">get_EHH</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="go">0.0505190311419</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span> <span class="n">ehh</span><span class="o">.</span><span class="n">get_rEHH</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="go">0.206668763762</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span> <span class="n">ehh</span><span class="o">.</span><span class="n">get_iHH</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="go">1.66459515571</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span> <span class="n">ehh</span><span class="o">.</span><span class="n">get_iHS</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="go">0.775048763201</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span> <span class="n">ehh</span><span class="o">.</span><span class="n">get_EHHS</span><span class="p">()</span>
+<span class="go">0.0438476294875</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span> <span class="n">ehh</span><span class="o">.</span><span class="n">get_iES</span><span class="p">()</span>
+<span class="go">1.62369142231</span>
+</pre></div>
+</div>
+<p>For more details about controlling at what point integration of EHH statistics
+should stop, or management of missing data, see the class’s manual.</p>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="stats-4.html" title="Using VCF files"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="stats-2.html" title="Accounting for structure"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../contents.html">EggLib&#39;s documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../toc.html" >Contents</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="index.html" >Manual</a> &#187;</li>
+          <li class="nav-item nav-item-3"><a href="stats.html" >Computing diversity statistics</a> &#187;</li> 
+      </ul>
+    </div>
+<!--
+        <address style="text-align: right;"><small>Hosted by&nbsp;
+        <a href="http://sourceforge.net/projects/egglib"><img src="http://sflogo.sourceforge.net/sflogo.php?group_id=232965&amp;type=8" width="80" height="15" alt="Get EggLib at SourceForge.net. Fast, secure and Free Open Source software downloads" / ALIGN=RIGHT BORDER=0></a>
+        </address>
+-->
+
+  </body>
+</html>

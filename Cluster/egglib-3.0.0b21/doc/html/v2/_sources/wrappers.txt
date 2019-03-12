@@ -1,0 +1,60 @@
+========
+wrappers
+========
+
+.. automodule:: egglib.wrappers
+
+-----------------------------
+Hudson's coalescent simulator
+-----------------------------
+
+.. autofunction:: egglib.wrappers.ms
+
+----------------
+NCBI BLAST tools
+----------------
+
+.. autoclass:: egglib.wrappers.BLAST
+    :members:
+    :inherited-members:
+    :show-inheritance:
+
+.. autoclass:: egglib.wrappers.BL2SEQ
+    :members:
+    :inherited-members:
+    :show-inheritance:
+
+.. autoclass:: egglib.wrappers.BLASTdb
+    :members:
+    :inherited-members:
+    :show-inheritance:
+
+--------------------------
+Sequence alignment
+--------------------------
+
+.. autofunction:: egglib.wrappers.clustal
+
+.. autofunction:: egglib.wrappers.muscle
+
+--------------------------
+Tree building and analysis
+--------------------------
+
+.. autofunction:: egglib.wrappers.phyml
+
+.. autofunction:: egglib.wrappers.nj
+
+.. autoclass:: egglib.wrappers.Codeml
+    :members:
+    :inherited-members:
+    :show-inheritance:
+
+----------------
+Primer detection
+----------------
+
+.. autoclass:: egglib.wrappers.Primer3
+    :members:
+    :inherited-members:
+    :show-inheritance:

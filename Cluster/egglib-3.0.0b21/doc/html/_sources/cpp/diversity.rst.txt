@@ -1,0 +1,162 @@
+.. _diversity:
+
+------------------
+Diversity analyses
+------------------
+
+Elementary classes
+==================
+
+Filter
+******
+
+.. doxygenclass:: egglib::Filter
+    :members:
+
+Structure
+*********
+
+.. doxygenclass:: egglib::StructureHolder
+    :members:
+
+.. doxygenclass:: egglib::StructureCluster
+    :members:
+
+.. doxygenclass:: egglib::StructurePopulation
+    :members:
+
+.. doxygenclass:: egglib::StructureIndiv
+    :members:
+
+Classes analysing frequencies
+=============================
+
+FreqHolder
+**********
+
+.. doxygenclass:: egglib::FreqHolder
+    :members:
+
+FreqSet
+*******
+
+.. doxygenclass:: egglib::FreqSet
+    :members:
+
+Site-level operations
+=====================
+
+SiteHolder
+**********
+
+.. doxygenclass:: egglib::SiteHolder
+    :members:
+
+SiteGeno
+********
+
+.. doxygenclass:: egglib::SiteGeno
+    :members:
+
+SiteDiversity
+*************
+
+.. doxygenclass:: egglib::SiteDiversity
+    :members:
+
+CodingSite
+**********
+
+.. doxygenclass:: egglib::CodingSite
+    :members:
+
+AlleleStatus
+************
+
+.. doxygenclass:: egglib::AlleleStatus
+    :members:
+
+ComputeV
+********
+
+.. doxygenclass:: egglib::ComputeV
+    :members:
+
+Generic classes
+===============
+
+Diversity1
+**********
+
+.. doxygenclass:: egglib::Diversity1
+    :members:
+
+Diversity2
+**********
+
+.. doxygenclass:: egglib::Diversity2
+    :members:
+
+Other statistics
+================
+
+Haplotypes
+**********
+
+.. doxygenclass:: egglib::Haplotypes
+    :members:
+
+ParalogPi
+*********
+
+.. doxygenclass:: egglib::ParalogPi
+    :members:
+
+Rd
+**
+
+.. doxygenclass:: egglib::Rd
+    :members:
+
+Fu's F
+******
+
+.. doxygenfunction:: egglib::Fs
+
+Linkage analysis
+================
+
+PairwiseLD
+**********
+
+.. doxygenclass:: egglib::PairwiseLD
+    :members:
+
+MatrixLD
+********
+
+.. doxygenclass:: egglib::MatrixLD
+    :members:
+
+See also the :cpp:class:`~egglib::Rd` class.
+
+Extended haplotype homozygosity
+===============================
+
+.. doxygenclass:: egglib::EHH
+    :members:
+
+Helpers
+=======
+
+Constants
+*********
+
+.. doxygenvariable:: egglib::MAX_N_STIRLING
+.. doxygenvariable:: egglib::NUM_STIRLING
+.. doxygenvariable:: egglib::STIRLING_TABLE
+
+Functions
+*********
+
+.. doxygenfunction:: egglib::stirling_table()

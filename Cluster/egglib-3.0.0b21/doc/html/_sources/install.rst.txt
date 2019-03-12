@@ -1,0 +1,125 @@
+.. _install:
+
+************
+Installation
+************
+
+This page describes the installation procedure of this preliminary
+release of EggLib 3.
+
+------------
+Requirements
+------------
+
+EggLib requires Python version 2.7. If you plan to compile EggLib from
+source, you'll need the development libraries for your version of
+Python. For using functions of the :mod:`.wrappers` module, the
+corresponding program must be found in your system and EggLib should be
+configured accordingly (see :ref:`paths`).
+
+--------
+Download
+--------
+
+EggLib now comes as a single Python package (the C++ code of the
+underlying library is included in this package).
+
+.. EGGVERSION ..
+
+Packages for the version 3.0.0b21 are available here:
+
+* :package:`source <tar.gz>` (cross-platform, but requiring that you
+  have tools to compile Python extension packages)
+
+* :package:`Windows 32 bits <win32-py2.7.zip>` (suitable for modern
+  64-bit architectures)
+
+* :package:`MacOSX 64 bits <macosx-py2.7.zip>`
+
+All distributed packages include a ``doc`` directory that contains a
+copy of the HTML documentation available from the web site.
+
+See :ref:`releases` for the list of released packages for all previous
+versions.
+
+------------
+Installation
+------------
+
+From source
+===========
+
+The installation of the EggLib package is relatively standard. First,
+unpack the source package and archive and move to the new directory.
+Then, issue the following commands::
+
+    python setup.py build
+
+And (may require administrator/super-user rights)::
+
+    python setup.py install
+
+That that should be it.
+The setup script takes standard Python Distutils options (see `<https://docs.python.org/2/install/>`_).
+In addition, the following options are available for the build command:
+
+* ``idir=path`` -- specify an include directory.
+* ``ldir=path`` -- specify a link directory.
+* ``lname=name`` -- specify a library name to link with.
+* ``cflag=flag`` -- specify an explicit CFLAG.
+* ``lflag=flag`` -- specify an explicit LFLAG.
+* ``enable-abc=F`` -- if ``T``, compile the ABC class (requires the GNU
+  Scientific Library).
+
+At this point, you probably won't need to use any the above. It is
+recommended to leave the ``enable-abc`` option to its default value
+(``F``).
+
+Pre-compiled package for Windows
+================================
+
+.. EGGVERSION ..
+
+The package contains an interactive installer, named ``egglib-3.0.0b21.win32-py2.7.exe``
+for the last version, which can be executed directly and will install
+the EggLib package to yout Python distribution.
+
+Pre-compiled package for MacOSX
+===============================
+
+.. EGGVERSION ..
+
+The package contains an archive named ``egglib-3.0.0b21.macosx-10.11-intel.tar.gz``.
+and a script ``install.py``.
+
+.. EGGVERSION ..
+
+To install, you need to run the following command: ``python install.py egglib-3.0.0b21.macosx-10.11-intel.tar.gz``.
+
+This command requires that you have administration rights.
+
+---------------------------------
+Configuring external applications
+---------------------------------
+
+If external applications are needed (one is required for every function
+of the :mod:`.wrappers` module), they are must be configured. By
+default, EggLib will assume that the corresponding programs are absent
+and will not attempt to run them. The best way consists in providing the
+command allowing to run the programs to the :mod:`!wrappers` module,
+which can be done permanently or temporarily. For details, see
+:ref:`paths`.
+
+-------
+Testing
+-------
+
+After installing EggLib, if the following script runs without errors and
+prints the right version as well a few nucleotide sequences, EggLib is
+probably installed properly::
+
+    import egglib
+    print egglib.version
+    m = egglib.coalesce.Simulator(1, num_chrom=(6,), theta=8.0)
+    a = m.simul()
+    print a.to_fasta(mapping='ACGT')

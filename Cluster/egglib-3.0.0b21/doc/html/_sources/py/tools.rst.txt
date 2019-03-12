@@ -1,0 +1,172 @@
+.. _tools:
+
+-------------
+Generic tools
+-------------
+
+Discretize
+==========
+
+.. autoclass:: egglib.tools.Discretize
+    :members:
+
+Random
+======
+
+.. autoclass:: egglib.tools.Random
+    :members:
+
+ReadingFrame
+============
+
+.. autoclass:: egglib.tools.ReadingFrame
+    :members:
+
+Sequence manipulation tools
+===========================
+
+.. _iupac-nomenclature:
+
+IUPAC nomenclature
+******************
+
+The nomenclature for ambiguity characters is listed in the following
+table:
+
++--------+-------------------------+------------+
+| Symbol | Possible values         + Complement +
++========+=========================+============+
+| ``A``  | Adenine                 + ``T``      +
++--------+-------------------------+------------+
+| ``C``  | Cytosine                + ``G``      +
++--------+-------------------------+------------+
+| ``G``  | Guanine                 + ``C``      +
++--------+-------------------------+------------+
+| ``T``  | Thymine                 + ``A``      +
++--------+-------------------------+------------+
+| ``M``  | ``A`` or ``C``          + ``K``      +
++--------+-------------------------+------------+
+| ``R``  | ``A`` or ``G``          + ``Y``      +
++--------+-------------------------+------------+
+| ``W``  | ``A`` or ``T``          + ``W``      +
++--------+-------------------------+------------+
+| ``S``  | ``C`` or ``G``          + ``S``      +
++--------+-------------------------+------------+
+| ``Y``  | ``C`` or ``T``          + ``R``      +
++--------+-------------------------+------------+
+| ``K``  | ``G`` or ``T``          + ``M``      +
++--------+-------------------------+------------+
+| ``B``  | ``C``, ``G`` or ``T``   + ``V``      +
++--------+-------------------------+------------+
+| ``D``  | ``A``, ``G`` or ``T``   + ``H``      +
++--------+-------------------------+------------+
+| ``H``  | ``A``, ``C`` or ``T``   + ``D``      +
++--------+-------------------------+------------+
+| ``V``  | ``A``, ``C`` or ``G``   + ``B``      +
++--------+-------------------------+------------+
+| ``N``  | ``A``, ``C``, ``G``     + ``N``      +
+|        | or ``T``                +            +
++--------+-------------------------+------------+
+| ``-``  | Alignment gap           + ``-``      +
++--------+-------------------------+------------+
+| ``?``  | Any of ``A``, ``C``,    + ``?``      +
+|        | ``G``, ``T``, or ``-``  +            +
++--------+-------------------------+------------+
+
+concat()
+********
+
+.. autofunction:: egglib.tools.concat
+
+ungap()
+*******
+
+.. function:: egglib.tools.ungap(align, gap='-', triplets=False)
+
+   Generate a new :class:`.Container` instance containing all sequences
+   of the provided alignment with all gaps removed. See documentation
+   for arguments below.
+
+   :return: A :class:`.Container` instance.
+
+.. autofunction:: egglib.tools.ungap
+
+rc()
+****
+
+.. autofunction:: egglib.tools.rc
+
+backalign()
+***********
+
+.. autofunction:: egglib.tools.backalign
+
+.. autoclass:: egglib.tools.BackalignError
+    :members:
+    :inherited-members:
+    :show-inheritance:
+
+compare()
+*********
+
+.. autofunction:: egglib.tools.compare
+
+regex()
+*******
+
+.. autofunction:: egglib.tools.regex
+
+motif_iter()
+************
+
+.. autofunction:: egglib.tools.motif_iter
+
+Tools based on the genetic code
+===============================
+
+.. _genetic-codes:
+
+Available genetic codes
+***********************
+
+All genetic codes defined by the National Center for Biotechnology
+Information are supported and can be accessed using codes compatible
+with the GenBank ``/trans_table`` qualifier. The codes are integers.
+
+.. include:: list_genetic_codes.txt
+
+Reference: National Center for Biotechnology Information
+[`<http://www.ncbi.nlm.nih.gov/Taxonomy/Utils/wprintgc.cgi>`_]
+
+Translator
+**********
+
+.. autoclass:: egglib.tools.Translator
+    :members:
+
+translate()
+***********
+
+.. autofunction:: egglib.tools.translate
+
+orf_iter()
+**********
+
+.. autofunction:: egglib.tools.orf_iter
+
+longest_orf()
+*************
+
+.. autofunction:: egglib.tools.longest_orf
+
+Stop codon detection functions
+******************************
+
+.. autofunction:: egglib.tools.trailing_stops
+.. autofunction:: egglib.tools.iter_stops
+.. autofunction:: egglib.tools.has_stop
+
+int2codon()
+***********
+
+.. autofunction:: egglib.tools.int2codon

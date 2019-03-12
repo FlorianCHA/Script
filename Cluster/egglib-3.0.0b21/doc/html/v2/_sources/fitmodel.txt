@@ -1,0 +1,146 @@
+========
+fitmodel
+========
+
+.. automodule:: egglib.fitmodel
+
+---------
+Utilities
+---------
+
+.. autoclass:: egglib.fitmodel.Dataset
+    :members:
+    :inherited-members:
+    :show-inheritance:
+
+.. autoclass:: egglib.fitmodel.ParamSample
+    :members:
+    :inherited-members:
+    :show-inheritance:
+
+.. autofunction:: egglib.fitmodel.import_posterior
+
+
+---------------------
+Prior implementations
+---------------------
+
+.. autoclass:: egglib.fitmodel.PriorParseError
+
+
+.. autoclass:: egglib.fitmodel.PriorDiscrete
+    :members:
+    :inherited-members:
+    :show-inheritance:
+
+.. autoclass:: egglib.fitmodel.PriorDumb
+    :members:
+    :inherited-members:
+    :show-inheritance:
+
+.. autodata:: egglib.fitmodel.priors
+
+---------------------------------
+Demographic model implementations
+---------------------------------
+
+.. autoclass:: egglib.fitmodel.SNM
+    :members:
+    :inherited-members:
+    :show-inheritance:
+
+.. autoclass:: egglib.fitmodel.PEM
+    :members:
+    :inherited-members:
+    :show-inheritance:
+
+.. autoclass:: egglib.fitmodel.BNM
+    :members:
+    :inherited-members:
+    :show-inheritance:
+
+.. autoclass:: egglib.fitmodel.GDB
+    :members:
+    :inherited-members:
+    :show-inheritance:
+
+.. autoclass:: egglib.fitmodel.GGDB
+    :members:
+    :inherited-members:
+    :show-inheritance:
+
+.. autoclass:: egglib.fitmodel.IM
+    :members:
+    :inherited-members:
+    :show-inheritance:
+
+.. autoclass:: egglib.fitmodel.IMn
+    :members:
+    :inherited-members:
+    :show-inheritance:
+
+.. autoclass:: egglib.fitmodel.IMG
+    :members:
+    :inherited-members:
+    :show-inheritance:
+
+.. autoclass:: egglib.fitmodel.IMiG
+    :members:
+    :inherited-members:
+    :show-inheritance:
+
+.. autoclass:: egglib.fitmodel.IMiGn
+    :members:
+    :inherited-members:
+    :show-inheritance:
+
+.. autoclass:: egglib.fitmodel.SM
+    :members:
+    :inherited-members:
+    :show-inheritance:
+
+.. autoclass:: egglib.fitmodel.AM
+    :members:
+    :inherited-members:
+    :show-inheritance:
+
+.. autoclass:: egglib.fitmodel.MRC
+    :members:
+    :inherited-members:
+    :show-inheritance:
+
+.. autoclass:: egglib.fitmodel.DOM
+    :members:
+    :inherited-members:
+    :show-inheritance:
+
+.. autodata:: egglib.fitmodel.models
+
+.. autofunction:: egglib.fitmodel.add_model
+
+----------------------------------
+Summary statistics implementations
+----------------------------------
+
+.. autoclass:: egglib.fitmodel.TPH
+    :members:
+    :inherited-members:
+    :show-inheritance:
+
+.. autoclass:: egglib.fitmodel.TPS
+    :members:
+    :inherited-members:
+    :show-inheritance:
+
+.. autoclass:: egglib.fitmodel.SFS
+    :members:
+    :inherited-members:
+    :show-inheritance:
+
+.. autoclass:: egglib.fitmodel.JFS
+    :members:
+    :inherited-members:
+    :show-inheritance:
+
+.. autodata:: egglib.fitmodel.summstats
+

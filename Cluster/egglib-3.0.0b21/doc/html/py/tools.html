@@ -1,0 +1,1932 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Generic tools &#8212; EggLib&#39;s documentation</title>
+    <link rel="stylesheet" href="../_static/egglibdoc.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '3.0.0b21',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="shortcut icon" href="../_static/icon.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Import/export utilities" href="io.html" />
+    <link rel="prev" title="Genetic data holder types" href="toplevel.html" />
+    <script type="text/javascript">
+      // intelligent scrolling of the sidebar content
+      $(window).scroll(function() {
+        var sb = $('.sphinxsidebarwrapper');
+        var win = $(window);
+        var sbh = sb.height();
+        var offset = $('.sphinxsidebar').position()['top'];
+        var wintop = win.scrollTop();
+        var winbot = wintop + win.innerHeight();
+        var curtop = sb.position()['top'];
+        var curbot = curtop + sbh;
+        // does sidebar fit in window?
+        if (sbh < win.innerHeight()) {
+          // yes: easy case -- always keep at the top
+          sb.css('top', $u.min([$u.max([0, wintop - offset - 10]),
+                                $(document).height() - sbh - 200]));
+        } else {
+          // no: only scroll if top/bottom edge of sidebar is at
+          // top/bottom edge of window
+          if (curtop > wintop && curbot > winbot) {
+            sb.css('top', $u.max([wintop - offset - 10, 0]));
+          } else if (curtop < wintop && curbot < winbot) {
+            sb.css('top', $u.min([winbot - sbh - offset - 20,
+                                  $(document).height() - sbh - 200]));
+          }
+        }
+      });
+    </script>
+  </head>
+  <body>
+<div style="background-color: white; text-align: left; padding: 0px 0px 0px 0px">
+<a href="../index.html"><img src="../_static/banner.png" border="0" alt="EggLib"/></a>
+</div>
+
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="io.html" title="Import/export utilities"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="toplevel.html" title="Genetic data holder types"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../contents.html">EggLib&#39;s documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../toc.html" >Contents</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="index.html" accesskey="U">Python Module</a> &#187;</li> 
+      </ul>
+    </div>
+
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../contents.html">
+              <img class="logo" src="../_static/egglib_small.bmp" alt="Logo"/>
+            </a></p>
+  <h3><a href="../contents.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Generic tools</a><ul>
+<li><a class="reference internal" href="#discretize">Discretize</a></li>
+<li><a class="reference internal" href="#random">Random</a></li>
+<li><a class="reference internal" href="#readingframe">ReadingFrame</a></li>
+<li><a class="reference internal" href="#sequence-manipulation-tools">Sequence manipulation tools</a><ul>
+<li><a class="reference internal" href="#iupac-nomenclature">IUPAC nomenclature</a></li>
+<li><a class="reference internal" href="#concat">concat()</a></li>
+<li><a class="reference internal" href="#ungap">ungap()</a></li>
+<li><a class="reference internal" href="#rc">rc()</a></li>
+<li><a class="reference internal" href="#backalign">backalign()</a></li>
+<li><a class="reference internal" href="#compare">compare()</a></li>
+<li><a class="reference internal" href="#regex">regex()</a></li>
+<li><a class="reference internal" href="#motif-iter">motif_iter()</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#tools-based-on-the-genetic-code">Tools based on the genetic code</a><ul>
+<li><a class="reference internal" href="#available-genetic-codes">Available genetic codes</a></li>
+<li><a class="reference internal" href="#translator">Translator</a></li>
+<li><a class="reference internal" href="#translate">translate()</a></li>
+<li><a class="reference internal" href="#orf-iter">orf_iter()</a></li>
+<li><a class="reference internal" href="#longest-orf">longest_orf()</a></li>
+<li><a class="reference internal" href="#stop-codon-detection-functions">Stop codon detection functions</a></li>
+<li><a class="reference internal" href="#int2codon">int2codon()</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="toplevel.html"
+                        title="previous chapter">Genetic data holder types</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="io.html"
+                        title="next chapter">Import/export utilities</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/py/tools.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="generic-tools">
+<span id="tools"></span><h1>Generic tools<a class="headerlink" href="#generic-tools" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="discretize">
+<h2>Discretize<a class="headerlink" href="#discretize" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="egglib.tools.Discretize">
+<em class="property">class </em><code class="descclassname">egglib.tools.</code><code class="descname">Discretize</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#egglib.tools.Discretize" title="Permalink to this definition">¶</a></dt>
+<dd><p>This class discretizes a continuous distribution based on a given
+number of samples with an arbitrary number of dimensions.</p>
+<p>The default constructor builds an empty instance which can
+process data using <a class="reference internal" href="#egglib.tools.Discretize.process" title="egglib.tools.Discretize.process"><code class="xref py py-meth docutils literal"><span class="pre">process()</span></code></a>. It is possible to
+process data directly at object construction time by passing
+arguments to the constructor. In that case, arguments must match the
+syntax of the <a class="reference internal" href="#egglib.tools.Discretize.process" title="egglib.tools.Discretize.process"><code class="xref py py-meth docutils literal"><span class="pre">process()</span></code></a> method.</p>
+<div class="versionadded">
+<p><span class="versionmodified">New in version 3.0.0.</span></p>
+</div>
+<dl class="attribute">
+<dt id="egglib.tools.Discretize.bounds">
+<code class="descname">bounds</code><a class="headerlink" href="#egglib.tools.Discretize.bounds" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bounds of the final distribution. By default (if no data have
+been processed), returns <code class="docutils literal"><span class="pre">None</span></code>. If data have been processed,
+returns a list of length matching <a class="reference internal" href="#egglib.tools.Discretize.ndim" title="egglib.tools.Discretize.ndim"><code class="xref py py-attr docutils literal"><span class="pre">ndim</span></code></a> containing
+<code class="docutils literal"><span class="pre">(min,</span> <span class="pre">max)</span></code> tuples giving the extreme values for each
+dimension. If <a class="reference internal" href="#egglib.tools.Discretize.bounds" title="egglib.tools.Discretize.bounds"><code class="xref py py-attr docutils literal"><span class="pre">bounds</span></code></a> have been set, returns a copy of
+the passed value regardless of whether data have been processed
+or not.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.tools.Discretize.get">
+<code class="descname">get</code><span class="sig-paren">(</span><em>*idx</em><span class="sig-paren">)</span><a class="headerlink" href="#egglib.tools.Discretize.get" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get a frequency value from discretized data. Positional
+arguments should be the categories indexes (one index per
+dimension). Passing invalid indexes or an invalid number of
+index values, or calling this method on an instance that does
+not contain data, result in a <code class="xref py py-class docutils literal"><span class="pre">ValueError</span></code>. Indexes can
+be negative (to count from the end). Slicing is not supported.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.tools.Discretize.left">
+<code class="descname">left</code><span class="sig-paren">(</span><em>dim</em><span class="sig-paren">)</span><a class="headerlink" href="#egglib.tools.Discretize.left" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the list of category left points (minimum of each category)
+for a given dimension. Raises a <code class="xref py py-class docutils literal"><span class="pre">ValueError</span></code> if no data
+are present in the instance or if the index is out of bounds.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.tools.Discretize.mget">
+<code class="descname">mget</code><span class="sig-paren">(</span><em>*idx</em><span class="sig-paren">)</span><a class="headerlink" href="#egglib.tools.Discretize.mget" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get marginal values. This method is equivalent to
+<a class="reference internal" href="#egglib.tools.Discretize.get" title="egglib.tools.Discretize.get"><code class="xref py py-meth docutils literal"><span class="pre">get()</span></code></a> except that it can integrate values
+over any dimension. To obtain marginal sums for a given set of
+dimensions (one or more) one should replace all other indexes by
+<code class="docutils literal"><span class="pre">None</span></code>. This method requires, as <a class="reference internal" href="#egglib.tools.Discretize.get" title="egglib.tools.Discretize.get"><code class="xref py py-meth docutils literal"><span class="pre">get()</span></code></a>
+does, one argument per dimension. If argument are provided they
+must be proper indexes. It is possible to replace any index by
+<code class="docutils literal"><span class="pre">None</span></code>, including several at the same time, all of them
+(equivalent to <a class="reference internal" href="#egglib.tools.Discretize.ndata" title="egglib.tools.Discretize.ndata"><code class="xref py py-attr docutils literal"><span class="pre">ndata</span></code></a>) and none of them (equivalent to
+<a class="reference internal" href="#egglib.tools.Discretize.get" title="egglib.tools.Discretize.get"><code class="xref py py-meth docutils literal"><span class="pre">get()</span></code></a>).</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.tools.Discretize.mid">
+<code class="descname">mid</code><span class="sig-paren">(</span><em>dim</em><span class="sig-paren">)</span><a class="headerlink" href="#egglib.tools.Discretize.mid" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the list of category midpoints for a given dimension. Raises
+a <code class="xref py py-class docutils literal"><span class="pre">ValueError</span></code> if no data are present in the instance or
+if the index is out of bounds.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="egglib.tools.Discretize.ncat">
+<code class="descname">ncat</code><a class="headerlink" href="#egglib.tools.Discretize.ncat" title="Permalink to this definition">¶</a></dt>
+<dd><p>Number of categories of the processed data set. The value is
+<code class="docutils literal"><span class="pre">None</span></code> if no data set has been processed. Otherwise the value
+is necessarily at least 1.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="egglib.tools.Discretize.ndata">
+<code class="descname">ndata</code><a class="headerlink" href="#egglib.tools.Discretize.ndata" title="Permalink to this definition">¶</a></dt>
+<dd><p>Number of data set items of the processed data set. The value is
+<code class="docutils literal"><span class="pre">None</span></code> if no data set has been processed. If out of bounds
+values were allowed, and did actually occur, this value will be
+the number of data set items that were included and used.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="egglib.tools.Discretize.ndim">
+<code class="descname">ndim</code><a class="headerlink" href="#egglib.tools.Discretize.ndim" title="Permalink to this definition">¶</a></dt>
+<dd><p>Number of dimensions of the processed data set. The value is
+<code class="docutils literal"><span class="pre">None</span></code> if no data set has been processed.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="egglib.tools.Discretize.nskipped">
+<code class="descname">nskipped</code><a class="headerlink" href="#egglib.tools.Discretize.nskipped" title="Permalink to this definition">¶</a></dt>
+<dd><p>Number of data set items that were skipped because they were
+out of bounds (only if non-default bounds were used). The value
+is <code class="docutils literal"><span class="pre">None</span></code> is no data set has been processed.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.tools.Discretize.process">
+<code class="descname">process</code><span class="sig-paren">(</span><em>data</em>, <em>ncat</em>, <em>bounds=None</em>, <em>allow_oob=False</em><span class="sig-paren">)</span><a class="headerlink" href="#egglib.tools.Discretize.process" title="Permalink to this definition">¶</a></dt>
+<dd><p>Process a data set and generate a discretized distribution.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>data</strong> – a sequence of fixed-length sequences of numeric
+values. Typically, one will pass a list of <em>d</em>-length lists
+or tuples containing floats (but integers are also
+supported), where <em>d</em> is the number of dimensions of the
+distribution. It is required that all items of <em>data</em> have
+the same length, and that this length is at least 1. The
+number of dimensions is read from the first item of <em>data</em>.</li>
+<li><strong>ncat</strong> – numbers of categories used for binarization. The
+value can be a single integer or a sequence of integers
+whose length matches the number of dimensions of the data
+set. If an integer is passed, it must be a strictly positive
+integer and it will be used as the number of categories for
+all dimensions. Otherwise, each value describes the number of
+categories for each corresponding dimension. There is no
+default; this argument is required.</li>
+<li><strong>bounds</strong> – bounds of the distribution given as minimum and
+maximum values for all dimensions. The position of category
+limits are determined by these bounds. The value can either
+be (1) <code class="docutils literal"><span class="pre">None</span></code>, (2) a sequence of two integers, or (3) a
+sequence of sequences of two integers. In case (1), the
+actual minimum and maximum values of all dimensions are used
+a distribution bounds. In case (2), the values are used as
+minimum and maximum (respectively) for all dimensions. In
+case (3), the length of the sequence must be equal to the
+number of dimensions. Each item is used to define the minimum
+and maximum (respectively) for the corresponding dimension.
+In addition, it is possible to replace any item of this
+sequence <code class="docutils literal"><span class="pre">None</span></code> to specify that the actual minimum and
+maximum values must be used as distribution bounds for the
+corresponding dimensions. By default, the actual extreme
+values of the data are used. In that case, it is guaranteed
+that there will be no out of bounds values.</li>
+<li><strong>allow_oob</strong> – a boolean indicating what to do if a value is
+out of bounds for any of the dimensions. This can happen only
+if the argument <em>bounds</em> has been set to a non-default value.
+If out of bounds values are allowed, they will be ignored and
+a counter will be incremented. Otherwise, a
+<code class="xref py py-class docutils literal"><span class="pre">ValueError</span></code> will be raised on the first occurrence of
+an out of bound value.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.tools.Discretize.reset">
+<code class="descname">reset</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#egglib.tools.Discretize.reset" title="Permalink to this definition">¶</a></dt>
+<dd><p>Clear all data and reset the object to default settings.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.tools.Discretize.right">
+<code class="descname">right</code><span class="sig-paren">(</span><em>dim</em><span class="sig-paren">)</span><a class="headerlink" href="#egglib.tools.Discretize.right" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the list of category right points (maximum of each category)
+for a given dimension. Raises a <code class="xref py py-class docutils literal"><span class="pre">ValueError</span></code> if no data
+are present in the instance or if the index is out of bounds.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="random">
+<h2>Random<a class="headerlink" href="#random" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="egglib.tools.Random">
+<em class="property">class </em><code class="descclassname">egglib.tools.</code><code class="descname">Random</code><span class="sig-paren">(</span><em>seed=None</em><span class="sig-paren">)</span><a class="headerlink" href="#egglib.tools.Random" title="Permalink to this definition">¶</a></dt>
+<dd><p>Pseudo-random number generator.</p>
+<p>This class implements the Mersenne Twister algorithm for
+pseudo-random number generation. It is based on work by <a class="reference external" href="http://www.math.sci.hiroshima-u.ac.jp/~m-MAT/MT/emt.html">Makoto
+Matsumoto and Takuji Nishimura</a> and
+<a class="reference external" href="http://www.bedaux.net/mtrand/">Jasper Bedaux</a> for the core
+generator, and the <code class="xref cpp cpp-class docutils literal"><span class="pre">Random</span></code> class of Egglib up to 2.2 for
+conversion to other laws than uniform.</p>
+<p>Note that different instances of the class have independent chains
+of pseudo-random numbers. If several instances have the same seed,
+they will generate the exact same chain of pseudo-random numbers.
+Note that this applies if the default constructor is used and that
+instances are created within the same second.</p>
+<p>All non-uniform distribution laws generators are based either on the
+<a class="reference internal" href="#egglib.tools.Random.integer_32bit" title="egglib.tools.Random.integer_32bit"><code class="xref py py-meth docutils literal"><span class="pre">integer_32bit()</span></code></a> or the standard (half-open, 32 bit)
+<a class="reference internal" href="#egglib.tools.Random.uniform" title="egglib.tools.Random.uniform"><code class="xref py py-meth docutils literal"><span class="pre">uniform()</span></code></a> methods.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>seed</strong> – The constructor accepts an optional integer value to
+seed the pseudo-random number generator sequence. By default,
+the current system clock value will be used, which means that
+all instances created within the same second will generate
+strictly identical sequences. Favor large, high-complexity
+seeds. When using different instances of this class in a
+program, or different instances of the same program launched
+simultaneously, ensure they are all seeded using different
+seeds.</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="egglib.tools.Random.bernoulli">
+<code class="descname">bernoulli</code><span class="sig-paren">(</span><em>p</em><span class="sig-paren">)</span><a class="headerlink" href="#egglib.tools.Random.bernoulli" title="Permalink to this definition">¶</a></dt>
+<dd><p>Draw a boolean with given probability.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>p</strong> – probability of returning <code class="docutils literal"><span class="pre">True</span></code>.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">A boolean.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.tools.Random.binomial">
+<code class="descname">binomial</code><span class="sig-paren">(</span><em>n</em>, <em>p</em><span class="sig-paren">)</span><a class="headerlink" href="#egglib.tools.Random.binomial" title="Permalink to this definition">¶</a></dt>
+<dd><p>Draw a value from a binomial distribution.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>n</strong> – Number of tests (&gt;=0).</li>
+<li><strong>p</strong> – Test probability (&gt;=0 and &lt;=1).</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">An <a class="reference external" href="https://docs.python.org/2.7/library/functions.html#int" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">int</span></code></a> (number of successes).</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.tools.Random.boolean">
+<code class="descname">boolean</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#egglib.tools.Random.boolean" title="Permalink to this definition">¶</a></dt>
+<dd><p>Draw a boolean with equal probabilities (<em>p</em> = 0.5).</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">A boolean.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.tools.Random.exponential">
+<code class="descname">exponential</code><span class="sig-paren">(</span><em>expectation</em><span class="sig-paren">)</span><a class="headerlink" href="#egglib.tools.Random.exponential" title="Permalink to this definition">¶</a></dt>
+<dd><p>Draw a value from an exponential distribution.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>expectation</strong> – Distribution’s mean (equal to
+1/<span class="math">\lambda</span> , if <span class="math">\lambda</span> is the rate
+parameter). Required to be &gt;0.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">A <a class="reference external" href="https://docs.python.org/2.7/library/functions.html#long" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">long</span></code></a>.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.tools.Random.geometric">
+<code class="descname">geometric</code><span class="sig-paren">(</span><em>p</em><span class="sig-paren">)</span><a class="headerlink" href="#egglib.tools.Random.geometric" title="Permalink to this definition">¶</a></dt>
+<dd><p>Draw a value from a geometric distribution.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>p</strong> – Geometric law parameter (&gt;0 and &lt;=1).</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">A positive <a class="reference external" href="https://docs.python.org/2.7/library/functions.html#int" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">int</span></code></a>.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.tools.Random.get_seed">
+<code class="descname">get_seed</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#egglib.tools.Random.get_seed" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the seed value (value used at object creation, or value used
+to reset the instance with <a class="reference internal" href="#egglib.tools.Random.set_seed" title="egglib.tools.Random.set_seed"><code class="xref py py-meth docutils literal"><span class="pre">set_seed()</span></code></a>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">A <a class="reference external" href="https://docs.python.org/2.7/library/functions.html#long" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">long</span></code></a>.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.tools.Random.integer">
+<code class="descname">integer</code><span class="sig-paren">(</span><em>n</em><span class="sig-paren">)</span><a class="headerlink" href="#egglib.tools.Random.integer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Draw an integer from a uniform distribution.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>n</strong> – Number of possible values). Note that this number is
+excluded and will never be returned. Required to be a
+stricly positive integer.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">An <cite>int</cite> in range <code class="docutils literal"><span class="pre">[0,</span> <span class="pre">n-1]</span></code>.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.tools.Random.integer_32bit">
+<code class="descname">integer_32bit</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#egglib.tools.Random.integer_32bit" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generate a 32-bit random integer.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">An <a class="reference external" href="https://docs.python.org/2.7/library/functions.html#long" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">long</span></code></a> in the interval [0, 4294967295] (that
+is in the interval [0, 2^32-1].</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.tools.Random.normal">
+<code class="descname">normal</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#egglib.tools.Random.normal" title="Permalink to this definition">¶</a></dt>
+<dd><p>Draw a value from the normal distribution with expectation 0
+and variance 1. The expression <code class="docutils literal"><span class="pre">rand.normal()</span> <span class="pre">*</span> <span class="pre">sd</span> <span class="pre">+</span> <span class="pre">m</span></code> can be
+used to rescale the drawn value to a normal distribution with
+expectation <em>m</em> and standard deviation <em>sd</em>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">A <a class="reference external" href="https://docs.python.org/2.7/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.tools.Random.poisson">
+<code class="descname">poisson</code><span class="sig-paren">(</span><em>p</em><span class="sig-paren">)</span><a class="headerlink" href="#egglib.tools.Random.poisson" title="Permalink to this definition">¶</a></dt>
+<dd><p>Draw a value from a Poisson distribution.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>p</strong> – Poisson distribution parameter (usually noted
+<span class="math">\lambda</span>). Required to be &gt;0</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">A positive <a class="reference external" href="https://docs.python.org/2.7/library/functions.html#int" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">int</span></code></a>.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.tools.Random.set_seed">
+<code class="descname">set_seed</code><span class="sig-paren">(</span><em>seed</em><span class="sig-paren">)</span><a class="headerlink" href="#egglib.tools.Random.set_seed" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reset the instance by providing a seed value. See the comments
+on the seed value in the class description.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.tools.Random.uniform">
+<code class="descname">uniform</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#egglib.tools.Random.uniform" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generate a <a class="reference external" href="https://docs.python.org/2.7/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a> in the half-open interval [0,1) with
+default 32-bit precision. The value 1 is not included.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.tools.Random.uniform_53bit">
+<code class="descname">uniform_53bit</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#egglib.tools.Random.uniform_53bit" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generate a <a class="reference external" href="https://docs.python.org/2.7/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a> in the half-open interval [0,1) with
+increased 53-bit precision. The value 1 is not included.</p>
+<p>The increased precision increases the number of possible values
+(2^53 = 9007199254740992 instead of 2^32 = 4294967296). This
+comes with the cost of increased computing time.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.tools.Random.uniform_closed">
+<code class="descname">uniform_closed</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#egglib.tools.Random.uniform_closed" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generate a <a class="reference external" href="https://docs.python.org/2.7/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a> in the closed interval [0,1] with
+default 32-bit precision. Both limits are included.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.tools.Random.uniform_open">
+<code class="descname">uniform_open</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#egglib.tools.Random.uniform_open" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generate a <a class="reference external" href="https://docs.python.org/2.7/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a> in the open interval (0,1) with
+default 32-bit precision. Both limits are excluded.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="readingframe">
+<h2>ReadingFrame<a class="headerlink" href="#readingframe" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="egglib.tools.ReadingFrame">
+<em class="property">class </em><code class="descclassname">egglib.tools.</code><code class="descname">ReadingFrame</code><span class="sig-paren">(</span><em>frame=None</em><span class="sig-paren">)</span><a class="headerlink" href="#egglib.tools.ReadingFrame" title="Permalink to this definition">¶</a></dt>
+<dd><p>Handles reading frame positions. The reading frame positions can be
+loaded as constructor argument or using the method
+<a class="reference internal" href="#egglib.tools.ReadingFrame.process" title="egglib.tools.ReadingFrame.process"><code class="xref py py-meth docutils literal"><span class="pre">process()</span></code></a>. By default, builds an instance with
+no exons. If the argument is specified, it must be identical to the
+argument to the method <a class="reference internal" href="#egglib.tools.ReadingFrame.process" title="egglib.tools.ReadingFrame.process"><code class="xref py py-meth docutils literal"><span class="pre">process()</span></code></a>.</p>
+<div class="versionchanged">
+<p><span class="versionmodified">Changed in version 3.0.0: </span>Previously, bases from truncated codons were discarded; they are
+not included as part of partial codons. Functionality extended.</p>
+</div>
+<dl class="method">
+<dt id="egglib.tools.ReadingFrame.codon_bases">
+<code class="descname">codon_bases</code><span class="sig-paren">(</span><em>codon</em><span class="sig-paren">)</span><a class="headerlink" href="#egglib.tools.ReadingFrame.codon_bases" title="Permalink to this definition">¶</a></dt>
+<dd><p>Give the position of the three bases of a given codon. One or
+two positions (but never the middle one alone) will be <code class="docutils literal"><span class="pre">None</span></code>
+if the codon is truncated (beginning/end of an exon without
+coverage of the previous/next one).</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>codon</strong> – any codon index.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">A tuple with the three base positions, potentially
+containing one or two <code class="docutils literal"><span class="pre">None</span></code>, or, instead of the tuple,
+<code class="docutils literal"><span class="pre">None</span></code> if the codon index is out of range.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.tools.ReadingFrame.codon_index">
+<code class="descname">codon_index</code><span class="sig-paren">(</span><em>base</em><span class="sig-paren">)</span><a class="headerlink" href="#egglib.tools.ReadingFrame.codon_index" title="Permalink to this definition">¶</a></dt>
+<dd><p>Find the codon in which a given base falls.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>base</strong> – any base index.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The index of the corresponding codon, or <code class="docutils literal"><span class="pre">None</span></code> if
+the base does not fall in any codon.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.tools.ReadingFrame.codon_position">
+<code class="descname">codon_position</code><span class="sig-paren">(</span><em>base</em><span class="sig-paren">)</span><a class="headerlink" href="#egglib.tools.ReadingFrame.codon_position" title="Permalink to this definition">¶</a></dt>
+<dd><p>Tell if the given base is the 1st, 2nd or 3rd position of the
+codon in which it falls.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>base</strong> – any base index.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The index of the base in the codon (0, 1 or 3), or
+<code class="docutils literal"><span class="pre">None</span></code> if the base does not fall in any codon.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.tools.ReadingFrame.exon_index">
+<code class="descname">exon_index</code><span class="sig-paren">(</span><em>base</em><span class="sig-paren">)</span><a class="headerlink" href="#egglib.tools.ReadingFrame.exon_index" title="Permalink to this definition">¶</a></dt>
+<dd><p>Find the exon in which a given base falls.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>base</strong> – any base index.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The index of the corresponding exon, or <code class="docutils literal"><span class="pre">None</span></code> if the
+base does not fall in any exon.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.tools.ReadingFrame.iter_codons">
+<code class="descname">iter_codons</code><span class="sig-paren">(</span><em>skip_partial=False</em><span class="sig-paren">)</span><a class="headerlink" href="#egglib.tools.ReadingFrame.iter_codons" title="Permalink to this definition">¶</a></dt>
+<dd><p>This iterator returns <code class="docutils literal"><span class="pre">(first,</span> <span class="pre">second,</span> <span class="pre">third)</span></code> tuples of the
+positions of the three bases of each codon. If <em>skip_partial</em> is
+<code class="docutils literal"><span class="pre">False</span></code>, partial codons (containing one or two <code class="docutils literal"><span class="pre">None</span></code> for
+bases that are in non-covered exons) are included.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>skip_partial</strong> – tells if codons containing one or two
+non-represented bases should be included.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.tools.ReadingFrame.iter_exon_bounds">
+<code class="descname">iter_exon_bounds</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#egglib.tools.ReadingFrame.iter_exon_bounds" title="Permalink to this definition">¶</a></dt>
+<dd><p>This iterator returns <code class="docutils literal"><span class="pre">(start,</span> <span class="pre">stop)</span></code> tuples of the positions
+of the limits of each exon.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="egglib.tools.ReadingFrame.num_codons">
+<code class="descname">num_codons</code><a class="headerlink" href="#egglib.tools.ReadingFrame.num_codons" title="Permalink to this definition">¶</a></dt>
+<dd><p>Number of codons (including truncated codons).</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="egglib.tools.ReadingFrame.num_exon_bases">
+<code class="descname">num_exon_bases</code><a class="headerlink" href="#egglib.tools.ReadingFrame.num_exon_bases" title="Permalink to this definition">¶</a></dt>
+<dd><p>Number of bases in exons.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="egglib.tools.ReadingFrame.num_exons">
+<code class="descname">num_exons</code><a class="headerlink" href="#egglib.tools.ReadingFrame.num_exons" title="Permalink to this definition">¶</a></dt>
+<dd><p>Number of exons.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="egglib.tools.ReadingFrame.num_full_codons">
+<code class="descname">num_full_codons</code><a class="headerlink" href="#egglib.tools.ReadingFrame.num_full_codons" title="Permalink to this definition">¶</a></dt>
+<dd><p>Number of full (non-truncated) codons.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="egglib.tools.ReadingFrame.num_needed_bases">
+<code class="descname">num_needed_bases</code><a class="headerlink" href="#egglib.tools.ReadingFrame.num_needed_bases" title="Permalink to this definition">¶</a></dt>
+<dd><p>Number of bases needed for a sequence to apply this reading
+frame. In practice, the value equals to the end of the last exon
+plus one, or zero if there is no exon. If the reading frame is
+used with a shorted sequence, it can lead to errors.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="egglib.tools.ReadingFrame.num_tot_bases">
+<code class="descname">num_tot_bases</code><a class="headerlink" href="#egglib.tools.ReadingFrame.num_tot_bases" title="Permalink to this definition">¶</a></dt>
+<dd><p>Total number of bases (starting from the start of the first exon
+up to end of the last one).</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.tools.ReadingFrame.process">
+<code class="descname">process</code><span class="sig-paren">(</span><em>frame</em><span class="sig-paren">)</span><a class="headerlink" href="#egglib.tools.ReadingFrame.process" title="Permalink to this definition">¶</a></dt>
+<dd><p>Load a reading frame. All previously loaded data are discarded.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>frame</strong> – <p>the reading frame specification must be a sequence
+of <code class="docutils literal"><span class="pre">(start,</span> <span class="pre">stop[,</span> <span class="pre">codon_start])</span></code> pairs or triplets where
+<em>start</em> and <em>stop</em> give the limits of an exon, such that
+<code class="docutils literal"><span class="pre">sequence[start:stop]</span></code> returns the exon sequence, and
+<em>codon_start</em>, if specified, can be:</p>
+<ul class="simple">
+<li>1 if the first position of the exon is the first position
+of a codon (e.g. <code class="docutils literal"><span class="pre">ATG</span> <span class="pre">ATG</span></code>),</li>
+<li>2 if the first position of the segment is the second
+position of a codon (e.g. <code class="docutils literal"><span class="pre">TG</span> <span class="pre">ATG</span></code>),</li>
+<li>3 if the first position of the segment is the third
+position a of codon (e.g. <code class="docutils literal"><span class="pre">G</span> <span class="pre">ATG</span></code>),</li>
+<li><code class="docutils literal"><span class="pre">None</span></code> if the reading frame is continuing the previous
+exon.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p>If <em>codon_start</em> of the first segment is <code class="docutils literal"><span class="pre">None</span></code>, 1 will be
+assumed. If <em>codon_start</em> of any non-first segment is not
+<code class="docutils literal"><span class="pre">None</span></code>, the reading frame is supposed to be interupted. This
+means that if any codon was not completed at the end of the
+previous exon, it will remain incomplete.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="sequence-manipulation-tools">
+<h2>Sequence manipulation tools<a class="headerlink" href="#sequence-manipulation-tools" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="iupac-nomenclature">
+<span id="id1"></span><h3>IUPAC nomenclature<a class="headerlink" href="#iupac-nomenclature" title="Permalink to this headline">¶</a></h3>
+<p>The nomenclature for ambiguity characters is listed in the following
+table:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="18%" />
+<col width="56%" />
+<col width="27%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head" rowspan="2">Symbol</th>
+<th class="head" rowspan="2">Possible values</th>
+<th class="head" rowspan="2">Complement</th>
+</tr>
+<tr class="row-even"></tr>
+</thead>
+<tbody valign="top">
+<tr class="row-odd"><td rowspan="2"><code class="docutils literal"><span class="pre">A</span></code></td>
+<td rowspan="2">Adenine</td>
+<td rowspan="2"><code class="docutils literal"><span class="pre">T</span></code></td>
+</tr>
+<tr class="row-even"></tr>
+<tr class="row-odd"><td rowspan="2"><code class="docutils literal"><span class="pre">C</span></code></td>
+<td rowspan="2">Cytosine</td>
+<td rowspan="2"><code class="docutils literal"><span class="pre">G</span></code></td>
+</tr>
+<tr class="row-even"></tr>
+<tr class="row-odd"><td rowspan="2"><code class="docutils literal"><span class="pre">G</span></code></td>
+<td rowspan="2">Guanine</td>
+<td rowspan="2"><code class="docutils literal"><span class="pre">C</span></code></td>
+</tr>
+<tr class="row-even"></tr>
+<tr class="row-odd"><td rowspan="2"><code class="docutils literal"><span class="pre">T</span></code></td>
+<td rowspan="2">Thymine</td>
+<td rowspan="2"><code class="docutils literal"><span class="pre">A</span></code></td>
+</tr>
+<tr class="row-even"></tr>
+<tr class="row-odd"><td rowspan="2"><code class="docutils literal"><span class="pre">M</span></code></td>
+<td rowspan="2"><code class="docutils literal"><span class="pre">A</span></code> or <code class="docutils literal"><span class="pre">C</span></code></td>
+<td rowspan="2"><code class="docutils literal"><span class="pre">K</span></code></td>
+</tr>
+<tr class="row-even"></tr>
+<tr class="row-odd"><td rowspan="2"><code class="docutils literal"><span class="pre">R</span></code></td>
+<td rowspan="2"><code class="docutils literal"><span class="pre">A</span></code> or <code class="docutils literal"><span class="pre">G</span></code></td>
+<td rowspan="2"><code class="docutils literal"><span class="pre">Y</span></code></td>
+</tr>
+<tr class="row-even"></tr>
+<tr class="row-odd"><td rowspan="2"><code class="docutils literal"><span class="pre">W</span></code></td>
+<td rowspan="2"><code class="docutils literal"><span class="pre">A</span></code> or <code class="docutils literal"><span class="pre">T</span></code></td>
+<td rowspan="2"><code class="docutils literal"><span class="pre">W</span></code></td>
+</tr>
+<tr class="row-even"></tr>
+<tr class="row-odd"><td rowspan="2"><code class="docutils literal"><span class="pre">S</span></code></td>
+<td rowspan="2"><code class="docutils literal"><span class="pre">C</span></code> or <code class="docutils literal"><span class="pre">G</span></code></td>
+<td rowspan="2"><code class="docutils literal"><span class="pre">S</span></code></td>
+</tr>
+<tr class="row-even"></tr>
+<tr class="row-odd"><td rowspan="2"><code class="docutils literal"><span class="pre">Y</span></code></td>
+<td rowspan="2"><code class="docutils literal"><span class="pre">C</span></code> or <code class="docutils literal"><span class="pre">T</span></code></td>
+<td rowspan="2"><code class="docutils literal"><span class="pre">R</span></code></td>
+</tr>
+<tr class="row-even"></tr>
+<tr class="row-odd"><td rowspan="2"><code class="docutils literal"><span class="pre">K</span></code></td>
+<td rowspan="2"><code class="docutils literal"><span class="pre">G</span></code> or <code class="docutils literal"><span class="pre">T</span></code></td>
+<td rowspan="2"><code class="docutils literal"><span class="pre">M</span></code></td>
+</tr>
+<tr class="row-even"></tr>
+<tr class="row-odd"><td rowspan="2"><code class="docutils literal"><span class="pre">B</span></code></td>
+<td rowspan="2"><code class="docutils literal"><span class="pre">C</span></code>, <code class="docutils literal"><span class="pre">G</span></code> or <code class="docutils literal"><span class="pre">T</span></code></td>
+<td rowspan="2"><code class="docutils literal"><span class="pre">V</span></code></td>
+</tr>
+<tr class="row-even"></tr>
+<tr class="row-odd"><td rowspan="2"><code class="docutils literal"><span class="pre">D</span></code></td>
+<td rowspan="2"><code class="docutils literal"><span class="pre">A</span></code>, <code class="docutils literal"><span class="pre">G</span></code> or <code class="docutils literal"><span class="pre">T</span></code></td>
+<td rowspan="2"><code class="docutils literal"><span class="pre">H</span></code></td>
+</tr>
+<tr class="row-even"></tr>
+<tr class="row-odd"><td rowspan="2"><code class="docutils literal"><span class="pre">H</span></code></td>
+<td rowspan="2"><code class="docutils literal"><span class="pre">A</span></code>, <code class="docutils literal"><span class="pre">C</span></code> or <code class="docutils literal"><span class="pre">T</span></code></td>
+<td rowspan="2"><code class="docutils literal"><span class="pre">D</span></code></td>
+</tr>
+<tr class="row-even"></tr>
+<tr class="row-odd"><td rowspan="2"><code class="docutils literal"><span class="pre">V</span></code></td>
+<td rowspan="2"><code class="docutils literal"><span class="pre">A</span></code>, <code class="docutils literal"><span class="pre">C</span></code> or <code class="docutils literal"><span class="pre">G</span></code></td>
+<td rowspan="2"><code class="docutils literal"><span class="pre">B</span></code></td>
+</tr>
+<tr class="row-even"></tr>
+<tr class="row-odd"><td rowspan="3"><code class="docutils literal"><span class="pre">N</span></code></td>
+<td rowspan="3"><code class="docutils literal"><span class="pre">A</span></code>, <code class="docutils literal"><span class="pre">C</span></code>, <code class="docutils literal"><span class="pre">G</span></code>
+or <code class="docutils literal"><span class="pre">T</span></code></td>
+<td rowspan="3"><code class="docutils literal"><span class="pre">N</span></code></td>
+</tr>
+<tr class="row-even"></tr>
+<tr class="row-odd"></tr>
+<tr class="row-even"><td rowspan="2"><code class="docutils literal"><span class="pre">-</span></code></td>
+<td rowspan="2">Alignment gap</td>
+<td rowspan="2"><code class="docutils literal"><span class="pre">-</span></code></td>
+</tr>
+<tr class="row-odd"></tr>
+<tr class="row-even"><td rowspan="3"><code class="docutils literal"><span class="pre">?</span></code></td>
+<td rowspan="3">Any of <code class="docutils literal"><span class="pre">A</span></code>, <code class="docutils literal"><span class="pre">C</span></code>,
+<code class="docutils literal"><span class="pre">G</span></code>, <code class="docutils literal"><span class="pre">T</span></code>, or <code class="docutils literal"><span class="pre">-</span></code></td>
+<td rowspan="3"><code class="docutils literal"><span class="pre">?</span></code></td>
+</tr>
+<tr class="row-odd"></tr>
+<tr class="row-even"></tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="concat">
+<h3>concat()<a class="headerlink" href="#concat" title="Permalink to this headline">¶</a></h3>
+<dl class="function">
+<dt id="egglib.tools.concat">
+<code class="descclassname">egglib.tools.</code><code class="descname">concat</code><span class="sig-paren">(</span><em>align1</em>, <em>align2</em>, <em>...</em>, <em>spacer=0</em>, <em>ch='?'</em>, <em>group_check=True</em>, <em>no_missing=False</em>, <em>ignore_names=False</em>, <em>dest=None</em><span class="sig-paren">)</span><a class="headerlink" href="#egglib.tools.concat" title="Permalink to this definition">¶</a></dt>
+<dd><p>Concatenates sequence alignments provided as <a class="reference internal" href="toplevel.html#egglib.Align" title="egglib.Align"><code class="xref py py-class docutils literal"><span class="pre">Align</span></code></a>
+instances passed as arguments to this function. A unique
+<a class="reference internal" href="toplevel.html#egglib.Align" title="egglib.Align"><code class="xref py py-class docutils literal"><span class="pre">Align</span></code></a> is produced. All different sequences from all passed
+alignments are represented in the final alignment. Sequences whose
+name match are matching are concatenated. In case several sequences
+have the same name in a given segment, the first one is considered
+and others are discarded. In case a sequence is missing for a
+particular segment, a stretch of non-varying characters is inserted
+to replace the unknown sequence.</p>
+<p>All options (excluding the alignements to be concatenated) must be
+specified as keyword arguments, otherwise they will be treated as
+alignments, which may generate an error.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>align2</strong> (<em>align1</em><em>,</em>) – Two or more <a class="reference internal" href="toplevel.html#egglib.Align" title="egglib.Align"><code class="xref py py-class docutils literal"><span class="pre">Align</span></code></a> instances (their
+order is used for concatenation. It is not allowed to specify
+them using the keyword syntax.</li>
+<li><strong>spacer</strong> – Length  of  unsequenced stretches (represented by
+non-varying characters) between concatenated alignments. If
+<em>spacer</em> is a positive integer, the length of all stretches will
+be identical. If <em>spacer</em> is an iterable containing integers,
+each specifying the interval between two consecutive alignments
+(if <em>aligns</em> contains <code class="docutils literal"><span class="pre">n</span></code> alignments, <em>spacer</em> must be of
+length <code class="docutils literal"><span class="pre">n-1</span></code>).</li>
+<li><strong>ch</strong> – Character to used for conserved stretches and for missing
+segments.</li>
+<li><strong>group_check</strong> – If <code class="docutils literal"><span class="pre">True</span></code>, an exception will be raised in case
+of a mismatch between group labels of different sequence
+segments bearing the same name. Otherwise, the group of the
+first segment found will be used as group label of the final
+sequence.</li>
+<li><strong>no_missing</strong> – If <code class="docutils literal"><span class="pre">True</span></code>, an exception will be raised in case
+the list of samples differs between <a class="reference internal" href="toplevel.html#egglib.Align" title="egglib.Align"><code class="xref py py-class docutils literal"><span class="pre">Align</span></code></a> instances.
+Then, the number of samples must always be the same and all
+samples must always be present (although it is possible that
+they consist in missing data only). Ignored if <em>ignore_names</em> is
+<code class="docutils literal"><span class="pre">True</span></code>.</li>
+<li><strong>ignore_names</strong> – Don’t consider sample names and concatenate
+sequences based on they order in the instance. Then the value of
+the option <em>no_missing</em> is ignored and the number of samples is
+required to be constant over alignments.</li>
+<li><strong>dest</strong> – An optional <a class="reference internal" href="toplevel.html#egglib.Align" title="egglib.Align"><code class="xref py py-class docutils literal"><span class="pre">Align</span></code></a> instance where to place
+results. This instance is automatically reset, ignoring all
+data previously loaded. If this argument is not <code class="docutils literal"><span class="pre">None</span></code>, the
+function returns nothing and the passed instance is modified.
+Allows to recycle the same object in intensive applications.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">If <em>dest</em> is <code class="docutils literal"><span class="pre">None</span></code>, a new <a class="reference internal" href="toplevel.html#egglib.Align" title="egglib.Align"><code class="xref py py-class docutils literal"><span class="pre">Align</span></code></a> instance.
+If <em>dest</em> is <code class="docutils literal"><span class="pre">None</span></code>, this function returns <code class="docutils literal"><span class="pre">None</span></code>.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Outgroup samples are processed like ingroup samples, but they
+are processed independently. In particular, they may have the
+same name as ingroup samples but will not be skipped.</p>
+</div>
+<div class="versionadded">
+<p><span class="versionmodified">New in version 2.0.1: </span>The arguments allowing to customize function’s behaviour.</p>
+</div>
+<div class="versionchanged">
+<p><span class="versionmodified">Changed in version 3.0.0: </span>Major interface change: the alignments are not passed as a list
+as before, but as a variable-length list of positional
+arguments, implying that options must be specified as keyword
+arguments only. Besides, added options <em>no_missing</em>,
+<em>ignore_names</em> and <em>dest</em>. Renamed option <em>groupCheck</em> as
+<em>group_check</em>. Removed option <em>strict</em> (now name comparison is
+always strict).</p>
+</div>
+</dd></dl>
+
+</div>
+<div class="section" id="ungap">
+<h3>ungap()<a class="headerlink" href="#ungap" title="Permalink to this headline">¶</a></h3>
+<dl class="function">
+<dt id="egglib.tools.ungap">
+<code class="descclassname">egglib.tools.</code><code class="descname">ungap</code><span class="sig-paren">(</span><em>align</em>, <em>gap='-'</em>, <em>triplets=False</em><span class="sig-paren">)</span><a class="headerlink" href="#egglib.tools.ungap" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generate a new <a class="reference internal" href="toplevel.html#egglib.Container" title="egglib.Container"><code class="xref py py-class docutils literal"><span class="pre">Container</span></code></a> instance containing all sequences
+of the provided alignment with all gaps removed. See documentation
+for arguments below.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">A <a class="reference internal" href="toplevel.html#egglib.Container" title="egglib.Container"><code class="xref py py-class docutils literal"><span class="pre">Container</span></code></a> instance.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt>
+<code class="descclassname">egglib.tools.</code><code class="descname">ungap</code><span class="sig-paren">(</span><em>align</em>, <em>freq</em>, <em>consider_outgroup=False</em>, <em>gap='-'</em>, <em>triplets=False</em><span class="sig-paren">)</span></dt>
+<dd><p>Generate a new <a class="reference internal" href="toplevel.html#egglib.Align" title="egglib.Align"><code class="xref py py-class docutils literal"><span class="pre">Align</span></code></a> instance containing all sequences of
+the provided alignment but with only those sites for which the
+frequency of alignment gaps (by default, the <code class="docutils literal"><span class="pre">-</span></code> symbol) is less
+than or equal to <em>freq</em>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>freq</strong> – minimum gap frequency in a site (if there are more
+gaps, the site is not included in the returned <a class="reference internal" href="toplevel.html#egglib.Align" title="egglib.Align"><code class="xref py py-class docutils literal"><span class="pre">Align</span></code></a>
+instance). This argument is required (otherwise, a
+<a class="reference internal" href="toplevel.html#egglib.Container" title="egglib.Container"><code class="xref py py-class docutils literal"><span class="pre">Container</span></code></a> is returned (see above). This value is a
+relative frequency (included in the [0, 1] range).</li>
+<li><strong>consider_outgroup</strong> – if <code class="docutils literal"><span class="pre">True</span></code>, consider the outgroup when
+computing the frequency of gaps. The outgroup sequences are
+always included in the returned <a class="reference internal" href="toplevel.html#egglib.Align" title="egglib.Align"><code class="xref py py-class docutils literal"><span class="pre">Align</span></code></a> irrespective to
+the value of this option.</li>
+<li><strong>gap</strong> – the character representing gaps. It is allowed to pass
+the allele value as a single-character <a class="reference external" href="https://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">str</span></code></a>, a
+single-character <code class="xref py py-class docutils literal"><span class="pre">unicode</span></code>, and as a <a class="reference external" href="https://docs.python.org/2.7/library/functions.html#int" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">int</span></code></a>.</li>
+<li><strong>triplets</strong> – process codon sites (triplets of three consecutive
+sites) instead of individual sites. A triplet is considered to
+be missing if at least one of the three base is a gap. If a
+codon site has too many (that is, at a frequency larger than
+<em>freq</em>) missing triplets, it is completely remove. If <code class="docutils literal"><span class="pre">True</span></code>,
+the length of the alignment is required to be a multiple of 3.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">An <a class="reference internal" href="toplevel.html#egglib.Align" title="egglib.Align"><code class="xref py py-class docutils literal"><span class="pre">Align</span></code></a> instance.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="versionchanged">
+<p><span class="versionmodified">Changed in version 2.1.0: </span>Added option <em>includeOutgroup</em>.</p>
+</div>
+<div class="versionchanged">
+<p><span class="versionmodified">Changed in version 3.0.0: </span>Option <em>includeOutgroup</em> is renamed, and its default value is
+changed to <code class="docutils literal"><span class="pre">False</span></code>. Merged with previous functions
+<code class="xref py py-meth docutils literal"><span class="pre">ungap_all()</span></code> and <code class="xref py py-meth docutils literal"><span class="pre">ungap_triplets()</span></code>. If a site has a
+frequency of gaps equal to <em>freq</em>, it is kept (previously it was
+removed). Added <em>gap</em> option.</p>
+</div>
+</dd></dl>
+
+</div>
+<div class="section" id="rc">
+<h3>rc()<a class="headerlink" href="#rc" title="Permalink to this headline">¶</a></h3>
+<dl class="function">
+<dt id="egglib.tools.rc">
+<code class="descclassname">egglib.tools.</code><code class="descname">rc</code><span class="sig-paren">(</span><em>seq</em><span class="sig-paren">)</span><a class="headerlink" href="#egglib.tools.rc" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reverse-complement a DNA sequence.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>seq</strong> – input nucleotide sequence, as a <a class="reference external" href="https://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">str</span></code></a>, or a :class: <cite>SequenceView</cite>.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The reverse-complemented sequence (see details below).</td>
+</tr>
+</tbody>
+</table>
+<p>The case of the provided sequence is preserved. Ambiguity characters
+are complemented as described in the <a class="reference internal" href="#iupac-nomenclature"><span class="std std-ref">IUPAC nomenclature</span></a>.
+Invalid characters characters raise a <a class="reference external" href="https://docs.python.org/2.7/library/exceptions.html#exceptions.ValueError" title="(in Python v2.7)"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code></a>.</p>
+<div class="versionchanged">
+<p><span class="versionmodified">Changed in version 2.0.1: </span>Characters N, - and ? are correctly processed.</p>
+</div>
+<div class="versionchanged">
+<p><span class="versionmodified">Changed in version 2.0.2: </span>Reimplemented (will be faster for large sequences).</p>
+</div>
+<div class="versionchanged">
+<p><span class="versionmodified">Changed in version 3.0.0: </span>The case of the original sequence is preserved.</p>
+</div>
+</dd></dl>
+
+</div>
+<div class="section" id="backalign">
+<h3>backalign()<a class="headerlink" href="#backalign" title="Permalink to this headline">¶</a></h3>
+<dl class="function">
+<dt id="egglib.tools.backalign">
+<code class="descclassname">egglib.tools.</code><code class="descname">backalign</code><span class="sig-paren">(</span><em>nucl</em>, <em>aln</em>, <em>code=1</em>, <em>smart=False</em>, <em>ignore_names=False</em>, <em>ignore_mismatches=False</em>, <em>fix_stop=False</em><span class="sig-paren">)</span><a class="headerlink" href="#egglib.tools.backalign" title="Permalink to this definition">¶</a></dt>
+<dd><p>Align coding sequence based on the corresponding protein alignment.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>nucl</strong> – a <a class="reference internal" href="toplevel.html#egglib.Container" title="egglib.Container"><code class="xref py py-class docutils literal"><span class="pre">Container</span></code></a> or <a class="reference internal" href="toplevel.html#egglib.Align" title="egglib.Align"><code class="xref py py-class docutils literal"><span class="pre">Align</span></code></a> instance
+containing coding DNA sequences that should be aligned. Codons
+containing an ambiguity IPUAC character or <code class="docutils literal"><span class="pre">?</span></code> (see
+<a class="reference internal" href="#iupac-nomenclature"><span class="std std-ref">IUPAC nomenclature</span></a>) are translated as <code class="docutils literal"><span class="pre">X</span></code>. All
+alignment gaps (character <code class="docutils literal"><span class="pre">-</span></code>) will be stripped from the
+sequences.</li>
+<li><strong>aln</strong> – a :class::<cite>.Align</cite> instance containing an alignment of
+the protein sequences encoded by the coding sequences provided
+as value for the <em>nucl</em> argument. If there is an outgroup in
+<em>nucl</em>, it must also be present in <em>aln</em>. Group labels of <em>aln</em>
+are not taken into account.</li>
+<li><strong>code</strong> – genetic code identifier (see <a class="reference internal" href="#genetic-codes"><span class="std std-ref">Available genetic codes</span></a>).
+Required to be an integer among the valid values. The default
+value is the standard genetic code.</li>
+<li><strong>smart</strong> – “smart” translation.</li>
+<li><strong>ignore_names</strong> – if <code class="docutils literal"><span class="pre">True</span></code>, ignore names for matching
+sequences in the protein alignment to coding sequences.
+Sequences will be matched using their rank and the names in the
+returned alignment will be taken from <em>nucl</em>.</li>
+<li><strong>fix_stop</strong> – if <code class="docutils literal"><span class="pre">True</span></code>, support a single trailing stop codon
+in coding sequences not represented by a <code class="docutils literal"><span class="pre">*</span></code> in the provided
+protein alignment (such as if the final stop codons have been
+stripped during alignment). If found, this stop codon will be
+flushed as left as possible (immediately after the last non-gap
+character) in the returned coding alignment.</li>
+<li><strong>ignore_mismatches</strong> – if <code class="docutils literal"><span class="pre">True</span></code>, do not generate any exception
+if a predicted protein does not match the provided protein
+sequence (if the lengths differ, an exception is always raised).</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">A <a class="reference internal" href="toplevel.html#egglib.Align" title="egglib.Align"><code class="xref py py-class docutils literal"><span class="pre">Align</span></code></a> instance containing aligned coding DNA
+sequence (including the outgroup)</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p>If a mismatch is detected between a protein from <em>aln</em> and the
+corresponding prediction from <em>nucl</em>, an instance of
+<a class="reference internal" href="#egglib.tools.BackalignError" title="egglib.tools.BackalignError"><code class="xref py py-exc docutils literal"><span class="pre">BackalignError</span></code></a> (a subclass of <a class="reference external" href="https://docs.python.org/2.7/library/exceptions.html#exceptions.ValueError" title="(in Python v2.7)"><code class="xref py py-exc docutils literal"><span class="pre">exceptions.ValueError</span></code></a>)
+is raised. The attribute <a class="reference internal" href="#egglib.tools.BackalignError.alignment" title="egglib.tools.BackalignError.alignment"><code class="xref py py-attr docutils literal"><span class="pre">BackalignError.alignment</span></code></a> can be
+used to help identify the reason of the error. Mismatches (but not
+differences of length) can be ignored with the option
+<em>ignore_mismatches</em>.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="egglib.tools.BackalignError">
+<em class="property">class </em><code class="descclassname">egglib.tools.</code><code class="descname">BackalignError</code><span class="sig-paren">(</span><em>name</em>, <em>fnuc</em>, <em>faln</em>, <em>i_nuc</em>, <em>i_aln</em>, <em>ls_aln</em>, <em>ls_nuc</em>, <em>translator</em><span class="sig-paren">)</span><a class="headerlink" href="#egglib.tools.BackalignError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/2.7/library/exceptions.html#exceptions.ValueError" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">exceptions.ValueError</span></code></a></p>
+<p>Subclass of <a class="reference external" href="https://docs.python.org/2.7/library/exceptions.html#exceptions.ValueError" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">ValueError</span></code></a> used to report errors
+occurring during the use of <a class="reference internal" href="#egglib.tools.backalign" title="egglib.tools.backalign"><code class="xref py py-func docutils literal"><span class="pre">backalign()</span></code></a> because of mismatches
+between the provided alignment and predicted proteins.</p>
+<dl class="attribute">
+<dt id="egglib.tools.BackalignError.alignment">
+<code class="descname">alignment</code><a class="headerlink" href="#egglib.tools.BackalignError.alignment" title="Permalink to this definition">¶</a></dt>
+<dd><p>String representing the alignment of the provided and predicted
+proteins, incorporating the following codes in the middle line:</p>
+<ul class="simple">
+<li><code class="docutils literal"><span class="pre">|</span></code>: match.</li>
+<li><code class="docutils literal"><span class="pre">#</span></code>: mismatch.</li>
+<li><code class="docutils literal"><span class="pre">~</span></code>: one protein shorter.
+differ).</li>
+</ul>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="egglib.tools.BackalignError.name">
+<code class="descname">name</code><a class="headerlink" href="#egglib.tools.BackalignError.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>Name of sequence for which the error occurred.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="compare">
+<h3>compare()<a class="headerlink" href="#compare" title="Permalink to this headline">¶</a></h3>
+<dl class="function">
+<dt id="egglib.tools.compare">
+<code class="descclassname">egglib.tools.</code><code class="descname">compare</code><span class="sig-paren">(</span><em>seq1</em>, <em>seq2</em><span class="sig-paren">)</span><a class="headerlink" href="#egglib.tools.compare" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compare two sequences. The comparison supports ambiguity characters
+(see <a class="reference internal" href="#iupac-nomenclature"><span class="std std-ref">IUPAC nomenclature</span></a>) such that partially overlapping
+ambiguity sets characters are not treated as different. For example,
+<code class="docutils literal"><span class="pre">A</span></code> and <code class="docutils literal"><span class="pre">M</span></code> are not treated as different, nor are <code class="docutils literal"><span class="pre">M</span></code> and
+<code class="docutils literal"><span class="pre">R</span></code>. Only IUPAC characters may be supplied.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>seq1</strong> – a DNA sequence as a <a class="reference external" href="https://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">str</span></code></a> or  a :class: <cite>SequenceView</cite>.</li>
+<li><strong>seq2</strong> – another DNA sequence as a <a class="reference external" href="https://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">str</span></code></a> or  a :class: <cite>SequenceView</cite>.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><code class="docutils literal"><span class="pre">True</span></code> if sequences have the same length and they either
+are identical or differ only by overlapping IUPAC characters,
+<code class="docutils literal"><span class="pre">False</span></code> otherwise.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="regex">
+<h3>regex()<a class="headerlink" href="#regex" title="Permalink to this headline">¶</a></h3>
+<dl class="function">
+<dt id="egglib.tools.regex">
+<code class="descclassname">egglib.tools.</code><code class="descname">regex</code><span class="sig-paren">(</span><em>query</em>, <em>both_strands=False</em><span class="sig-paren">)</span><a class="headerlink" href="#egglib.tools.regex" title="Permalink to this definition">¶</a></dt>
+<dd><p>Turn a DNA sequence into a regular expression. The input sequence
+should contain IUPAC characters only (see
+<a class="reference internal" href="#iupac-nomenclature"><span class="std std-ref">IUPAC nomenclature</span></a>). Ambiguity characters will be teated as
+follows: an ambiguity will match either (1) itself, (2) one of the
+characters it defines, or (3) one of the ambiguity characters that
+define a subset of the characters it defines. For example, a <code class="docutils literal"><span class="pre">M</span></code>
+in the query will match an <code class="docutils literal"><span class="pre">A</span></code>, a <code class="docutils literal"><span class="pre">C</span></code> or a <code class="docutils literal"><span class="pre">M</span></code>, and a <code class="docutils literal"><span class="pre">D</span></code>
+will match all the following: <code class="docutils literal"><span class="pre">A</span></code>, <code class="docutils literal"><span class="pre">G</span></code>, <code class="docutils literal"><span class="pre">T</span></code>, <code class="docutils literal"><span class="pre">R</span></code>, <code class="docutils literal"><span class="pre">W</span></code>,
+<code class="docutils literal"><span class="pre">K</span></code>, and <code class="docutils literal"><span class="pre">D</span></code>. The fully degenerated <code class="docutils literal"><span class="pre">N</span></code> matches all four bases
+and all intermediate ambiguity characters and, finally, <code class="docutils literal"><span class="pre">?</span></code>
+matches all allowed characters (including alignment gaps). <code class="docutils literal"><span class="pre">-</span></code>
+only matches itself.</p>
+<p>Result of this function can be used with the module <a class="reference external" href="https://docs.python.org/2.7/library/re.html#module-re" title="(in Python v2.7)"><code class="xref py py-mod docutils literal"><span class="pre">re</span></code></a> to
+locate occurrences of a motif or the position of a sequence as in:</p>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="n">regex</span> <span class="o">=</span> <span class="n">egglib</span><span class="o">.</span><span class="n">tools</span><span class="o">.</span><span class="n">regex</span><span class="p">(</span><span class="n">query</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">hit</span> <span class="ow">in</span> <span class="n">re</span><span class="o">.</span><span class="n">finditer</span><span class="p">(</span><span class="n">regex</span><span class="p">,</span> <span class="n">subject</span><span class="p">):</span>
+    <span class="nb">print</span> <span class="n">hit</span><span class="o">.</span><span class="n">start</span><span class="p">(),</span> <span class="n">hit</span><span class="o">.</span><span class="n">end</span><span class="p">(),</span> <span class="n">hit</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The returned regular expression includes upper-case characters,
+regardless of the case of input characters. To perform a
+case-insensitive search, use the <a class="reference external" href="https://docs.python.org/2.7/library/re.html#re.IGNORECASE" title="(in Python v2.7)"><code class="xref py py-data docutils literal"><span class="pre">re.IGNORECASE</span></code></a> flag of the
+<a class="reference external" href="https://docs.python.org/2.7/library/re.html#module-re" title="(in Python v2.7)"><code class="xref py py-mod docutils literal"><span class="pre">re</span></code></a> module in regular expression searches (as in
+<code class="docutils literal"><span class="pre">re.search(egglib.tools.regex(query),</span> <span class="pre">subject,</span> <span class="pre">re.IGNORECASE)</span></code>.
+Note that the regular expression is contained into a group if
+<em>both_strands</em> is <code class="docutils literal"><span class="pre">False</span></code>, and two groups otherwise (one for each
+strand).</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>query</strong> – a <a class="reference external" href="https://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">str</span></code></a> containing IUPAC characters or  a :class: <cite>SequenceView</cite>.</li>
+<li><strong>both_strands</strong> – look for the query on both forward and reverse
+strands (by default, only on forward strand).</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">A regular expression as a  <a class="reference external" href="https://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">str</span></code></a> expanding ambiguity
+characters to all compatible characters.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="versionadded">
+<p><span class="versionmodified">New in version 3.0.0.</span></p>
+</div>
+</dd></dl>
+
+</div>
+<div class="section" id="motif-iter">
+<h3>motif_iter()<a class="headerlink" href="#motif-iter" title="Permalink to this headline">¶</a></h3>
+<dl class="function">
+<dt id="egglib.tools.motif_iter">
+<code class="descclassname">egglib.tools.</code><code class="descname">motif_iter</code><span class="sig-paren">(</span><em>subject</em>, <em>query</em>, <em>mismatches=0</em>, <em>both_strands=False</em>, <em>case_independent=True</em>, <em>only_base=True</em><span class="sig-paren">)</span><a class="headerlink" href="#egglib.tools.motif_iter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return an iterator over hits of the provided query in the subject
+sequence. The query should only contain bases (including IUPAC
+ambiguity characters as listed in <a class="reference internal" href="#iupac-nomenclature"><span class="std std-ref">IUPAC nomenclature</span></a>, but
+excluding <code class="docutils literal"><span class="pre">-</span></code> and <code class="docutils literal"><span class="pre">?</span></code>). Ambiguity characters are treated as
+described in <a class="reference internal" href="#egglib.tools.regex" title="egglib.tools.regex"><code class="xref py py-func docutils literal"><span class="pre">regex()</span></code></a> (the bottom line is that ambiguities in
+the query can only match identical or less degenerate ambiguities in
+the subject). Mismatches are allowed, and the iterator will first
+yield identical hits (if they exist), then hits with one mismatch,
+then hits with two mismatches, and so on.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>subject</strong> – a DNA sequence as <a class="reference external" href="https://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">str</span></code></a>. The sequence may
+contain ambiguity characters. In principle, the subject sequence
+should contain IUPAC characters only, but this is not strictly
+enforced (non-IUPAC characters will always be treated as
+different of IUPAC characters).</li>
+<li><strong>query</strong> – a DNA sequence as <a class="reference external" href="https://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">str</span></code></a>, also containing only
+IUPAC characters only.</li>
+<li><strong>mismatches</strong> – maximum number of mismatches.</li>
+<li><strong>both_strands</strong> – look for the query on both forward and reverse
+strands (by default, only on forward strand).</li>
+<li><strong>case_independent</strong> – if <code class="docutils literal"><span class="pre">True</span></code>, perform case-independent
+searches.</li>
+<li><strong>only_base</strong> – if <code class="docutils literal"><span class="pre">True</span></code>, never create a hit if the putative
+hit sequence contains an alignment gap (<code class="docutils literal"><span class="pre">-</span></code>) or a <code class="docutils literal"><span class="pre">?</span></code>
+character, irrespective of the number of allowed mismatches.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">An iterator returning, for each hit, a
+<code class="docutils literal"><span class="pre">(start,</span> <span class="pre">stop,</span> <span class="pre">strand,</span> <span class="pre">num)</span></code> tuple where <em>start</em> and <em>stop</em>
+are the position of the hit such that <code class="docutils literal"><span class="pre">subject[start:stop]</span></code>
+returns the hit sequence, <em>strand</em> is the strand as <code class="docutils literal"><span class="pre">+</span></code> or
+<code class="docutils literal"><span class="pre">-</span></code>, and <em>num</em> is the number of mismatches of the hit.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">If a given query has a hit on both strands at the same position
+(this only happens if the sequence is a motif equal to its
+reverse-complement like <code class="docutils literal"><span class="pre">AATCGATT</span></code>), it is guaranteed that the
+only one hit will be returned for a given position (no twice on
+each strand). However, the value of the strand flag is not
+defined.</p>
+</div>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">This function is designed to be efficient only if the number of
+mismatches is small (only a few). A combination of a large
+number of mismatches (more than 2 or 3) and a large query
+sequence (as early as 10 or 20), will take significant time to
+complete. More complex problems require the use of genuine
+pairwise ocal alignment tools.</p>
+</div>
+</dd></dl>
+
+</div>
+</div>
+<div class="section" id="tools-based-on-the-genetic-code">
+<h2>Tools based on the genetic code<a class="headerlink" href="#tools-based-on-the-genetic-code" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="available-genetic-codes">
+<span id="genetic-codes"></span><h3>Available genetic codes<a class="headerlink" href="#available-genetic-codes" title="Permalink to this headline">¶</a></h3>
+<p>All genetic codes defined by the National Center for Biotechnology
+Information are supported and can be accessed using codes compatible
+with the GenBank <code class="docutils literal"><span class="pre">/trans_table</span></code> qualifier. The codes are integers.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="17%" />
+<col width="83%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Identifier</th>
+<th class="head">Code</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>1</td>
+<td>The Standard Code</td>
+</tr>
+<tr class="row-odd"><td>2</td>
+<td>The Vertebrate Mitochondrial Code</td>
+</tr>
+<tr class="row-even"><td>3</td>
+<td>The Yeast Mitochondrial Code</td>
+</tr>
+<tr class="row-odd"><td>4</td>
+<td>The Mold, Protozoan, and Coelenterate Mitochondrial
+Code and the Mycoplasma/Spiroplasma Code</td>
+</tr>
+<tr class="row-even"><td>5</td>
+<td>The Invertebrate Mitochondrial Code</td>
+</tr>
+<tr class="row-odd"><td>6</td>
+<td>The Ciliate, Dasycladacean and Hexamita Nuclear Code</td>
+</tr>
+<tr class="row-even"><td>9</td>
+<td>The Echinoderm and Flatworm Mitochondrial Code</td>
+</tr>
+<tr class="row-odd"><td>10</td>
+<td>The Euplotid Nuclear Code</td>
+</tr>
+<tr class="row-even"><td>11</td>
+<td>The Bacterial, Archaeal and Plant Plastid Code</td>
+</tr>
+<tr class="row-odd"><td>12</td>
+<td>The Alternative Yeast Nuclear Code</td>
+</tr>
+<tr class="row-even"><td>13</td>
+<td>The Ascidian Mitochondrial Code</td>
+</tr>
+<tr class="row-odd"><td>14</td>
+<td>The Alternative Flatworm Mitochondrial Code</td>
+</tr>
+<tr class="row-even"><td>16</td>
+<td>Chlorophycean Mitochondrial Code</td>
+</tr>
+<tr class="row-odd"><td>21</td>
+<td>Trematode Mitochondrial Code</td>
+</tr>
+<tr class="row-even"><td>22</td>
+<td>Scenedesmus obliquus Mitochondrial Code</td>
+</tr>
+<tr class="row-odd"><td>23</td>
+<td>Thraustochytrium Mitochondrial Code</td>
+</tr>
+<tr class="row-even"><td>24</td>
+<td>Pterobranchia Mitochondrial Code</td>
+</tr>
+<tr class="row-odd"><td>25</td>
+<td>Candidate Division SR1 and Gracilibacteria Code</td>
+</tr>
+<tr class="row-even"><td>26</td>
+<td>Pachysolen tannophilus Nuclear Code</td>
+</tr>
+<tr class="row-odd"><td>27</td>
+<td>Karyorelict Nuclear</td>
+</tr>
+<tr class="row-even"><td>28</td>
+<td>Condylostoma Nuclear</td>
+</tr>
+<tr class="row-odd"><td>29</td>
+<td>Mesodinium Nuclear</td>
+</tr>
+<tr class="row-even"><td>30</td>
+<td>Peritrich Nuclear</td>
+</tr>
+<tr class="row-odd"><td>31</td>
+<td>Blastocrithidia Nuclear</td>
+</tr>
+</tbody>
+</table>
+<p>Note that the following code identifiers do not exist: 7, 8, 15, 17, 18, 19, and 20, as well as 0 and values above 31.</p>
+<p>Reference: National Center for Biotechnology Information
+[<a class="reference external" href="http://www.ncbi.nlm.nih.gov/Taxonomy/Utils/wprintgc.cgi">http://www.ncbi.nlm.nih.gov/Taxonomy/Utils/wprintgc.cgi</a>]</p>
+</div>
+<div class="section" id="translator">
+<h3>Translator<a class="headerlink" href="#translator" title="Permalink to this headline">¶</a></h3>
+<dl class="class">
+<dt id="egglib.tools.Translator">
+<em class="property">class </em><code class="descclassname">egglib.tools.</code><code class="descname">Translator</code><span class="sig-paren">(</span><em>code=1</em>, <em>smart=False</em>, <em>delete_truncated=False</em><span class="sig-paren">)</span><a class="headerlink" href="#egglib.tools.Translator" title="Permalink to this definition">¶</a></dt>
+<dd><p>Class providing methods to translate nucleotide (DNA) sequences to
+proteins.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>code</strong> – genetic code identifier (see <a class="reference internal" href="#genetic-codes"><span class="std std-ref">Available genetic codes</span></a>).
+Required to be an integer among the valid values. The default
+value is the standard genetic code.</li>
+<li><strong>smart</strong> – “smart” translation.</li>
+<li><strong>delete_truncated</strong> – if <code class="docutils literal"><span class="pre">True</span></code>, codons that are truncated
+(either because the reading frame is 5’, internally, or 3’
+partial, or if the number of bases is not a multiple of three)
+are skipped when translated. By default, truncated codons are
+translated as <code class="docutils literal"><span class="pre">X</span></code>.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="versionadded">
+<p><span class="versionmodified">New in version 3.0.0.</span></p>
+</div>
+<dl class="attribute">
+<dt id="egglib.tools.Translator.delete_truncated">
+<code class="descname">delete_truncated</code><a class="headerlink" href="#egglib.tools.Translator.delete_truncated" title="Permalink to this definition">¶</a></dt>
+<dd><p>Value of the <em>delete_truncated</em> option. The value can be
+modified.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.tools.Translator.translate_align">
+<code class="descname">translate_align</code><span class="sig-paren">(</span><em>align</em>, <em>frame=None</em>, <em>allow_alt=False</em>, <em>in_place=False</em><span class="sig-paren">)</span><a class="headerlink" href="#egglib.tools.Translator.translate_align" title="Permalink to this definition">¶</a></dt>
+<dd><p>Translate a <a class="reference internal" href="toplevel.html#egglib.Align" title="egglib.Align"><code class="xref py py-class docutils literal"><span class="pre">Align</span></code></a> instance.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>align</strong> – a <a class="reference internal" href="toplevel.html#egglib.Align" title="egglib.Align"><code class="xref py py-class docutils literal"><span class="pre">Align</span></code></a> containing DNA sequences.</li>
+<li><strong>frame</strong> – a <a class="reference internal" href="#egglib.tools.ReadingFrame" title="egglib.tools.ReadingFrame"><code class="xref py py-class docutils literal"><span class="pre">ReadingFrame</span></code></a> instance providing the
+exon positions in the correct frame. By default, a
+non-segmented frame covering all sequences is assumed (in
+case the provided alignment is the coding region).</li>
+<li><strong>allow_alt</strong> – a boolean telling whether alternative start
+(initiation) codons should be considered. If <code class="docutils literal"><span class="pre">False</span></code>,
+codons are translated as a methionine (M) if, and only if,
+there are among the alternative start codons for the considered
+genetic code and they appear at the first position for the
+considered sequence (excluding all triplets of gap symbols
+appearing at the 5’ end of the sequence). With this option,
+it is required that all sequences start by a valid initiation
+codon unless the first codon is partial or contains invalid
+data (in such cases, it is ignored).</li>
+<li><strong>in_place</strong> – place translated sequences into the original
+<a class="reference internal" href="toplevel.html#egglib.Align" title="egglib.Align"><code class="xref py py-class docutils literal"><span class="pre">Align</span></code></a> instance (this discards original data). By
+default, returns a new instance.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">By default, an original <a class="reference internal" href="toplevel.html#egglib.Align" title="egglib.Align"><code class="xref py py-class docutils literal"><span class="pre">Align</span></code></a> instance
+containing translated (protein) sequences. If <em>in_place</em> was
+<code class="docutils literal"><span class="pre">True</span></code>, return <code class="docutils literal"><span class="pre">None</span></code>.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.tools.Translator.translate_codon">
+<code class="descname">translate_codon</code><span class="sig-paren">(</span><em>first</em>, <em>second</em>, <em>third</em><span class="sig-paren">)</span><a class="headerlink" href="#egglib.tools.Translator.translate_codon" title="Permalink to this definition">¶</a></dt>
+<dd><p>Translate a single codon based on the genetic code defined at
+construction time.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>first</strong> – first base of the codon as a one-character string.</li>
+<li><strong>second</strong> – second base of the codon as a one-character
+string.</li>
+<li><strong>third</strong> – third base of the codon as a one-character string.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">The one-letter amino acid code if the codon can be
+translated, ‘-‘ if the codon is ‘—’, <code class="docutils literal"><span class="pre">X</span></code> otherwise
+(including all cases with invalid nucleotides).</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.tools.Translator.translate_container">
+<code class="descname">translate_container</code><span class="sig-paren">(</span><em>container</em>, <em>allow_alt=False</em>, <em>in_place=False</em><span class="sig-paren">)</span><a class="headerlink" href="#egglib.tools.Translator.translate_container" title="Permalink to this definition">¶</a></dt>
+<dd><p>Translate a <a class="reference internal" href="toplevel.html#egglib.Container" title="egglib.Container"><code class="xref py py-class docutils literal"><span class="pre">Container</span></code></a> instance.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>align</strong> – a <a class="reference internal" href="toplevel.html#egglib.Container" title="egglib.Container"><code class="xref py py-class docutils literal"><span class="pre">Container</span></code></a> containing DNA sequences.</li>
+<li><strong>allow_alt</strong> – a boolean telling whether alternative start
+(initiation) codons should be considered. If <code class="docutils literal"><span class="pre">False</span></code>,
+codons are translated as a methionine (M) if, and only if,
+there are among the alternative start codons for the considered
+genetic code and they appear at the first position for the
+considered sequence. With this option, it is required that
+all sequences start by a valid initiation
+codon unless the first codon is missing, partial, or contains invalid
+data (in such cases, it is ignored).</li>
+<li><strong>in_place</strong> – place translated sequences into the original
+<a class="reference internal" href="toplevel.html#egglib.Container" title="egglib.Container"><code class="xref py py-class docutils literal"><span class="pre">Container</span></code></a> instance (this discards original data).
+By default, returns a new instance.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">By default, an original <a class="reference internal" href="toplevel.html#egglib.Container" title="egglib.Container"><code class="xref py py-class docutils literal"><span class="pre">Container</span></code></a> instance
+containing translated (protein) sequences. If <em>in_place</em> was
+<code class="docutils literal"><span class="pre">True</span></code>, return <code class="docutils literal"><span class="pre">None</span></code>.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.tools.Translator.translate_sequence">
+<code class="descname">translate_sequence</code><span class="sig-paren">(</span><em>sequence</em>, <em>frame=None</em>, <em>allow_alt=False</em><span class="sig-paren">)</span><a class="headerlink" href="#egglib.tools.Translator.translate_sequence" title="Permalink to this definition">¶</a></dt>
+<dd><p>Translate a sequence.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>sequence</strong> – a <a class="reference external" href="https://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">str</span></code></a>, <a class="reference internal" href="toplevel.html#egglib.SequenceView" title="egglib.SequenceView"><code class="xref py py-class docutils literal"><span class="pre">SequenceView</span></code></a> or
+compatible instance containing DNA sequences. All sequence
+types yielding one-character strings are acceptable.</li>
+<li><strong>frame</strong> – a <a class="reference internal" href="#egglib.tools.ReadingFrame" title="egglib.tools.ReadingFrame"><code class="xref py py-class docutils literal"><span class="pre">ReadingFrame</span></code></a> instance providing the
+exon positions in the correct frame. By default, a
+non-segmented frame covering all sequences is assumed (in
+case the provided alignment is the coding region).</li>
+<li><strong>allow_alt</strong> – a boolean telling whether alternative start
+(initiation) codons should be considered. If <code class="docutils literal"><span class="pre">False</span></code>,
+codons are translated as a methionine (M) if, and only if,
+there are among the alternative start codons for the considered
+genetic code and they appear at the first position for the
+sequence. With this option, it is required that the sequence starts by a valid initiation
+codon unless the first codon is missing, partial, or contains invalid
+data (in such cases, it is ignored).</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">A new <a class="reference external" href="https://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">str</span></code></a> instance containing translated
+(protein) sequences.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Character mapping is ignored for this method (sequences must
+be provided as is, with <code class="docutils literal"><span class="pre">A</span></code>, <code class="docutils literal"><span class="pre">C</span></code>, <code class="docutils literal"><span class="pre">G</span></code> and <code class="docutils literal"><span class="pre">T</span></code> and
+ambiguity characters if relevant; invalid characters cause
+translation to <code class="docutils literal"><span class="pre">X</span></code> in resulting amino acid sequences).</p>
+</div>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="translate">
+<h3>translate()<a class="headerlink" href="#translate" title="Permalink to this headline">¶</a></h3>
+<dl class="function">
+<dt id="egglib.tools.translate">
+<code class="descclassname">egglib.tools.</code><code class="descname">translate</code><span class="sig-paren">(</span><em>seq</em>, <em>frame=None</em>, <em>code=1</em>, <em>smart=False</em>, <em>delete_truncated=False</em>, <em>allow_alt=False</em>, <em>in_place=False</em><span class="sig-paren">)</span><a class="headerlink" href="#egglib.tools.translate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Translates DNA nucleotide sequences to proteins. See the class
+<a class="reference internal" href="#egglib.tools.Translator" title="egglib.tools.Translator"><code class="xref py py-class docutils literal"><span class="pre">Translator</span></code></a> for more details. This is a convenience method
+allowing to translate nucleotide sequences in a single call. For
+repeatitive calls, direct use of <a class="reference internal" href="#egglib.tools.Translator" title="egglib.tools.Translator"><code class="xref py py-class docutils literal"><span class="pre">Translator</span></code></a> can be more
+efficient.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>seq</strong> – input DNA nucleotide sequences. Accepted types are
+<a class="reference internal" href="toplevel.html#egglib.Align" title="egglib.Align"><code class="xref py py-class docutils literal"><span class="pre">Align</span></code></a>, <a class="reference internal" href="toplevel.html#egglib.Container" title="egglib.Container"><code class="xref py py-class docutils literal"><span class="pre">Container</span></code></a>, <a class="reference internal" href="toplevel.html#egglib.SequenceView" title="egglib.SequenceView"><code class="xref py py-class docutils literal"><span class="pre">SequenceView</span></code></a>
+or <a class="reference external" href="https://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">str</span></code></a> (or also types compatible with <a class="reference external" href="https://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">str</span></code></a>).</li>
+<li><strong>frame</strong> – reading frame as a <a class="reference internal" href="#egglib.tools.ReadingFrame" title="egglib.tools.ReadingFrame"><code class="xref py py-class docutils literal"><span class="pre">ReadingFrame</span></code></a> instance
+(see <a class="reference internal" href="#egglib.tools.Translator.translate_align" title="egglib.tools.Translator.translate_align"><code class="xref py py-meth docutils literal"><span class="pre">translate_align()</span></code></a> for details). Not
+allowed if <em>seq</em> is a <a class="reference internal" href="toplevel.html#egglib.Container" title="egglib.Container"><code class="xref py py-class docutils literal"><span class="pre">Container</span></code></a> instance.</li>
+<li><strong>code</strong> – genetic code identifier (see <a class="reference internal" href="#genetic-codes"><span class="std std-ref">Available genetic codes</span></a>).
+Required to be an integer among the valid values. The default
+value is the standard genetic code.</li>
+<li><strong>smart</strong> – “smart” translation.</li>
+<li><strong>delete_truncated</strong> – skip codons that are truncated (by default,
+they are retained and translated as <code class="docutils literal"><span class="pre">X</span></code>. See
+<a class="reference internal" href="#egglib.tools.Translator" title="egglib.tools.Translator"><code class="xref py py-class docutils literal"><span class="pre">Translator</span></code></a> for details.</li>
+<li><strong>allow_alt</strong> – a boolean telling whether alternative start
+(initiation) codons should be considered. If <code class="docutils literal"><span class="pre">False</span></code>,
+codons are translated as a methionine (M) if, and only if,
+there are among the alternative start codons for the considered
+genetic code and they appear at the first position for the
+sequence. With this option, it is required that the sequence starts
+by a valid initiation codon unless the first codon is missing,
+partial, or contains invalid data (in such cases, it is ignored).
+If <em>seq</em> is an <a class="reference internal" href="toplevel.html#egglib.Align" title="egglib.Align"><code class="xref py py-class docutils literal"><span class="pre">Align</span></code></a>, leading gaps are ignored as long as
+they are a multiple of 3 (fully missing triplets).</li>
+<li><strong>in_place</strong> – place translated sequences in the provided
+<a class="reference internal" href="toplevel.html#egglib.Align" title="egglib.Align"><code class="xref py py-class docutils literal"><span class="pre">Align</span></code></a> or <a class="reference internal" href="toplevel.html#egglib.Container" title="egglib.Container"><code class="xref py py-class docutils literal"><span class="pre">Container</span></code></a> instance, overwritting
+initial data. Not allowed if <em>seq</em> is not of one of these two
+types. See <a class="reference internal" href="#egglib.tools.Translator.translate_align" title="egglib.tools.Translator.translate_align"><code class="xref py py-meth docutils literal"><span class="pre">translate_align()</span></code></a> for details).</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">Protein sequences as an <a class="reference internal" href="toplevel.html#egglib.Align" title="egglib.Align"><code class="xref py py-class docutils literal"><span class="pre">Align</span></code></a> or a
+<a class="reference internal" href="toplevel.html#egglib.Container" title="egglib.Container"><code class="xref py py-class docutils literal"><span class="pre">Container</span></code></a> if either of these types have been provided
+as <em>seq</em>, or a <a class="reference external" href="https://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">str</span></code></a> otherwise. If <em>in_place</em> has been
+provided, returns <code class="docutils literal"><span class="pre">None</span></code>.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="versionchanged">
+<p><span class="versionmodified">Changed in version 3.0.0: </span>Added options <em>code</em>, <em>frame</em> and the options to define
+nucleotide values (default values are backward-compatible).
+Option <em>strip</em> is removed. Functionality is moved to class
+<a class="reference internal" href="#egglib.tools.Translator" title="egglib.tools.Translator"><code class="xref py py-class docutils literal"><span class="pre">Translator</span></code></a>.</p>
+</div>
+</dd></dl>
+
+</div>
+<div class="section" id="orf-iter">
+<h3>orf_iter()<a class="headerlink" href="#orf-iter" title="Permalink to this headline">¶</a></h3>
+<dl class="function">
+<dt id="egglib.tools.orf_iter">
+<code class="descclassname">egglib.tools.</code><code class="descname">orf_iter</code><span class="sig-paren">(</span><em>sequence</em>, <em>code=1</em>, <em>smart=False</em>, <em>min_length=1</em>, <em>forward_only=False</em>, <em>force_start=True</em>, <em>start_ATG=False</em>, <em>force_stop=True</em><span class="sig-paren">)</span><a class="headerlink" href="#egglib.tools.orf_iter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return an iterator over non-segmented open reading frames (ORFs)
+found in a provided DNA sequence in any of the six possible frames.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>sequence</strong> – a <a class="reference external" href="https://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">str</span></code></a> representing a DNA sequence.</li>
+<li><strong>code</strong> – genetic code identifier (see <a class="reference internal" href="#genetic-codes"><span class="std std-ref">Available genetic codes</span></a>).
+Required to be an integer among the valid values. The default
+value is the standard genetic code.</li>
+<li><strong>smart</strong> – “smart” translation.</li>
+<li><strong>min_length</strong> – minimum length of returned ORFs. This value must
+be at least 1. It is understood as the length of the encoded
+peptide (therefore, selected ORFs will have a length of least
+three times this value).</li>
+<li><strong>forward_only</strong> – consider only the three forward frames (do not
+consider the reverse strand).</li>
+<li><strong>force_start</strong> – if <code class="docutils literal"><span class="pre">True</span></code>, all returned ORFs are required to
+start with a start codon. Otherwise, all non-stop codons are
+included in ORFs. Note that alternative start codons (<code class="docutils literal"><span class="pre">CTG</span></code>
+and <code class="docutils literal"><span class="pre">TTG</span></code> for the standard genetic code) are also supported.</li>
+<li><strong>start_ATG</strong> – consider <code class="docutils literal"><span class="pre">ATG</span></code> as the only start codon (ignored
+if <em>force_start</em> is <code class="docutils literal"><span class="pre">False</span></code>.</li>
+<li><strong>force_stop</strong> – if <code class="docutils literal"><span class="pre">True</span></code>, all returned ORFs are required to
+end with a stop codon (this only excludes 3’-partial ORFs, that
+is ORFs that end with the end of the provided sequennce).</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">An iterator over all detected ORFs. Each ORF is represented
+by a <code class="docutils literal"><span class="pre">(start,</span> <span class="pre">stop,</span> <span class="pre">length,</span> <span class="pre">frame)</span></code> tuple where <em>start</em> is the
+start position of the ORF and <em>stop</em> the stop position (such as
+<code class="docutils literal"><span class="pre">sequence[start:stop]</span></code> returns the ORF sequence or its reverse
+complement ), <em>length</em> is the ORF length and <em>frame</em> is the
+reading frame on which it was found: +1, +2, +3 are the frames
+on the forward strand (starting respectively at the first,
+second, and third base), and -1, -2, -3 are the frames on the
+reverse strand (starting respectively at the last, last but one,
+and last but two base).</p>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="versionadded">
+<p><span class="versionmodified">New in version 3.0.0: </span>Take over the basic functionality of <a class="reference internal" href="#egglib.tools.longest_orf" title="egglib.tools.longest_orf"><code class="xref py py-func docutils literal"><span class="pre">longest_orf()</span></code></a>;
+turned into an iterator. This new version comes with a better
+implementation, a changed signature (with a new <em>forward_only</em>
+option) and returns ORF positions instead of sequences.</p>
+</div>
+</dd></dl>
+
+</div>
+<div class="section" id="longest-orf">
+<h3>longest_orf()<a class="headerlink" href="#longest-orf" title="Permalink to this headline">¶</a></h3>
+<dl class="function">
+<dt id="egglib.tools.longest_orf">
+<code class="descclassname">egglib.tools.</code><code class="descname">longest_orf</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#egglib.tools.longest_orf" title="Permalink to this definition">¶</a></dt>
+<dd><p>Detect the longest open reading frame</p>
+<p>Arguments are identical to <a class="reference internal" href="#egglib.tools.orf_iter" title="egglib.tools.orf_iter"><code class="xref py py-func docutils literal"><span class="pre">orf_iter()</span></code></a>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">A <code class="docutils literal"><span class="pre">(start,</span> <span class="pre">stop,</span> <span class="pre">length,</span> <span class="pre">frame)</span></code> tuple (see the return
+value of <a class="reference internal" href="#egglib.tools.orf_iter" title="egglib.tools.orf_iter"><code class="xref py py-func docutils literal"><span class="pre">orf_iter()</span></code></a> for details), or <code class="docutils literal"><span class="pre">None</span></code> if no open
+reading frame fits the requirements (typically, the minimum
+length).</td>
+</tr>
+</tbody>
+</table>
+<p>An <a class="reference external" href="https://docs.python.org/2.7/library/exceptions.html#exceptions.ValueError" title="(in Python v2.7)"><code class="xref py py-exc docutils literal"><span class="pre">exceptions.ValueError</span></code></a> is raised if two or more open
+reading frames have the largest length.</p>
+<div class="versionchanged">
+<p><span class="versionmodified">Changed in version 2.0.1: </span>Added options; return the trailing stop codon when appropriate.</p>
+</div>
+<div class="versionchanged">
+<p><span class="versionmodified">Changed in version 2.1.0: </span>Added option <em>mini</em>. The behaviour of previous versions is
+reproduced by setting <em>mini</em> to 0.</p>
+</div>
+<div class="versionchanged">
+<p><span class="versionmodified">Changed in version 3.0.0: </span>Most of the functionality is moved to <a class="reference internal" href="#egglib.tools.orf_iter" title="egglib.tools.orf_iter"><code class="xref py py-func docutils literal"><span class="pre">orf_iter()</span></code></a> with an
+updated interface.</p>
+</div>
+</dd></dl>
+
+</div>
+<div class="section" id="stop-codon-detection-functions">
+<h3>Stop codon detection functions<a class="headerlink" href="#stop-codon-detection-functions" title="Permalink to this headline">¶</a></h3>
+<dl class="function">
+<dt id="egglib.tools.trailing_stops">
+<code class="descclassname">egglib.tools.</code><code class="descname">trailing_stops</code><span class="sig-paren">(</span><em>align</em>, <em>frame=None</em>, <em>action=0</em>, <em>code=None</em>, <em>include_outgroup=False</em>, <em>gap='-'</em>, <em>replacement='???'</em><span class="sig-paren">)</span><a class="headerlink" href="#egglib.tools.trailing_stops" title="Permalink to this definition">¶</a></dt>
+<dd><p>Detect and (optionally fix) stop codons at the end of the sequences.
+The last three non-gap data of a sequence must form a single codon
+in the specified frame, meaning that if the final codon is
+interrupted by a gap of shifted out of frame, it will not be
+detected as a stop codon. If the last codon is truncated, it will
+also be considered as non gap. If the last codon is fully falling in
+a gap, the previous one is considered (and so on).</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>align</strong> – a <a class="reference internal" href="toplevel.html#egglib.Align" title="egglib.Align"><code class="xref py py-class docutils literal"><span class="pre">Align</span></code></a> containing aligned coding DNA
+sequences.</li>
+<li><strong>frame</strong> – a <a class="reference internal" href="#egglib.tools.ReadingFrame" title="egglib.tools.ReadingFrame"><code class="xref py py-class docutils literal"><span class="pre">ReadingFrame</span></code></a> instance providing the exon
+positions in the correct frame. By default, a non-segmented
+frame covering all sequences is assumed (in case the provided
+alignment is the coding region).</li>
+<li><strong>action</strong> – <p>an integer specifying what should be done if a stop
+codon is found at the end of a given sequence. Possible actions
+are listed in the following table:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="11%" />
+<col width="89%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head" rowspan="2">Code</th>
+<th class="head" rowspan="2">Action</th>
+</tr>
+<tr class="row-even"></tr>
+</thead>
+<tbody valign="top">
+<tr class="row-odd"><td rowspan="2">0</td>
+<td rowspan="2">Nothing (just count them).</td>
+</tr>
+<tr class="row-even"></tr>
+<tr class="row-odd"><td rowspan="3">1</td>
+<td rowspan="3">Replace them by gaps, and delete the final three
+positions if they are made by gaps only.</td>
+</tr>
+<tr class="row-even"></tr>
+<tr class="row-odd"></tr>
+<tr class="row-even"><td rowspan="2">2</td>
+<td rowspan="2">Replace them by the value given as <em>replacement</em>.</td>
+</tr>
+<tr class="row-odd"></tr>
+</tbody>
+</table>
+<p>Note that using <code class="docutils literal"><span class="pre">action=1</span></code> is not stricly equivalent to using
+<code class="docutils literal"><span class="pre">action=2,</span> <span class="pre">replacement='---'</span></code> because the former deletes the
+last three positions of the alignment if needed while the latter
+does not.</p>
+</li>
+<li><strong>code</strong> – genetic code identifier (see <a class="reference internal" href="#genetic-codes"><span class="std std-ref">Available genetic codes</span></a>).
+Required to be an integer among the valid values. The default
+value is the standard genetic code.</li>
+<li><strong>smart</strong> – “smart” translation.</li>
+<li><strong>include_outgroup</strong> – if <code class="docutils literal"><span class="pre">True</span></code>, process both ingroup and
+outgroup samples; if <code class="docutils literal"><span class="pre">False</span></code>, process only ingroup.</li>
+<li><strong>gap</strong> – the character representing gaps. It is allowed to pass
+the allele value as a single-character <a class="reference external" href="https://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">str</span></code></a>, a
+single-character <code class="xref py py-class docutils literal"><span class="pre">unicode</span></code>, and as a <a class="reference external" href="https://docs.python.org/2.7/library/functions.html#int" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">int</span></code></a>.</li>
+<li><strong>replacement</strong> – if <em>action</em> is set to 2, provide the three
+values that should be used to replace stop codons. This value
+must be a three-character <a class="reference external" href="https://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">str</span></code></a> or a three-item sequence
+of integers. By default, replace final stop codons by
+uncharacterized bases.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">The number of sequences that had a trailing stop codons
+among the considered sequences (including outgroup if
+<em>include_outgroup</em> is <code class="docutils literal"><span class="pre">True</span></code>).</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="egglib.tools.iter_stops">
+<code class="descclassname">egglib.tools.</code><code class="descname">iter_stops</code><span class="sig-paren">(</span><em>align</em>, <em>frame=None</em>, <em>code=1</em>, <em>smart=False</em>, <em>include_outgroup=False</em><span class="sig-paren">)</span><a class="headerlink" href="#egglib.tools.iter_stops" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return an iterator providing the coordinates of all stop codons in
+the alignment (over all sequences). Only stop codons in the
+specified frame are detected, excluding all those that are segmented
+by a gap or are in a shifted frame. Each iteration returns a
+<code class="docutils literal"><span class="pre">(sample,</span> <span class="pre">position,</span> <span class="pre">flag)</span></code> where <em>sample</em> is the sample index,
+<em>position</em> is the position of the first base of the stop codon, and
+<em>flag</em> is <code class="docutils literal"><span class="pre">True</span></code> if the sample belongs to the ingroup and
+<code class="docutils literal"><span class="pre">False</span></code> if the sample belongs to the outgroup.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>align</strong> – a <a class="reference internal" href="toplevel.html#egglib.Align" title="egglib.Align"><code class="xref py py-class docutils literal"><span class="pre">Align</span></code></a> containing aligned coding DNA
+sequences. Values should consist in A, C, G and T (and possibly
+IUPAC ambiguity codes if <em>smart</em> is toggled). Other values are
+treated as missing data.</li>
+<li><strong>frame</strong> – a <a class="reference internal" href="#egglib.tools.ReadingFrame" title="egglib.tools.ReadingFrame"><code class="xref py py-class docutils literal"><span class="pre">ReadingFrame</span></code></a> instance providing the exon
+positions in the correct frame. By default, a non-segmented
+frame covering all sequences is assumed (in case the provided
+alignment is the coding region).</li>
+<li><strong>code</strong> – genetic code identifier (see <a class="reference internal" href="#genetic-codes"><span class="std std-ref">Available genetic codes</span></a>).
+Required to be an integer among the valid values. The default
+value is the standard genetic code.</li>
+<li><strong>smart</strong> – “smart” translation.</li>
+<li><strong>include_outgroup</strong> – if <code class="docutils literal"><span class="pre">True</span></code>, process both ingroup and
+outgroup samples; if <code class="docutils literal"><span class="pre">False</span></code>, process only ingroup.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">An iterator over the <cite>(sample, position, flag)`</cite> tuples
+corresponding to each stop codon found in the alignment (see
+above).</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="egglib.tools.has_stop">
+<code class="descclassname">egglib.tools.</code><code class="descname">has_stop</code><span class="sig-paren">(</span><em>align</em>, <em>frame=None</em>, <em>code=1</em>, <em>smart=False</em>, <em>include_outgroup=False</em><span class="sig-paren">)</span><a class="headerlink" href="#egglib.tools.has_stop" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return <code class="docutils literal"><span class="pre">True</span></code> if the alignment contains at least one codon stop
+at any position in any sequence, and <code class="docutils literal"><span class="pre">False</span></code> otherwise. Only sto
+codons in the specified frame are detected, excluding all those tha
+are segmented by a gap or are in a shifted frame.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>align</strong> – a <a class="reference internal" href="toplevel.html#egglib.Align" title="egglib.Align"><code class="xref py py-class docutils literal"><span class="pre">Align</span></code></a> containing aligned coding DNA
+sequences.</li>
+<li><strong>frame</strong> – a <a class="reference internal" href="#egglib.tools.ReadingFrame" title="egglib.tools.ReadingFrame"><code class="xref py py-class docutils literal"><span class="pre">ReadingFrame</span></code></a> instance providing the exon
+positions in the correct frame. By default, a non-segmented
+frame covering all sequences is assumed (in case the provided
+alignment is the coding region).</li>
+<li><strong>frame</strong> – a <a class="reference internal" href="#egglib.tools.ReadingFrame" title="egglib.tools.ReadingFrame"><code class="xref py py-class docutils literal"><span class="pre">ReadingFrame</span></code></a> instance providing the exon
+positions in the correct frame. By default, a non-segmented
+frame covering all sequences is assumed (in case the provided
+alignment is the coding region).</li>
+<li><strong>code</strong> – genetic code identifier (see <a class="reference internal" href="#genetic-codes"><span class="std std-ref">Available genetic codes</span></a>).
+Required to be an integer among the valid values. The default
+value is the standard genetic code.</li>
+<li><strong>include_outgroup</strong> – if <code class="docutils literal"><span class="pre">True</span></code>, process both ingroup and
+outgroup samples; if <code class="docutils literal"><span class="pre">False</span></code>, process only ingroup.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">A boolean.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="int2codon">
+<h3>int2codon()<a class="headerlink" href="#int2codon" title="Permalink to this headline">¶</a></h3>
+<dl class="function">
+<dt id="egglib.tools.int2codon">
+<code class="descclassname">egglib.tools.</code><code class="descname">int2codon</code><span class="sig-paren">(</span><em>codon</em><span class="sig-paren">)</span><a class="headerlink" href="#egglib.tools.int2codon" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the three-character string of a codon encoded with a single
+integer (such as those obtained from <code class="xref py py-class docutils literal"><span class="pre">CodingDiversity</span></code>).
+Return <code class="docutils literal"><span class="pre">&quot;???&quot;</span></code> if the encoded codon is out of expected range.</p>
+</dd></dl>
+
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="io.html" title="Import/export utilities"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="toplevel.html" title="Genetic data holder types"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../contents.html">EggLib&#39;s documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../toc.html" >Contents</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="index.html" >Python Module</a> &#187;</li> 
+      </ul>
+    </div>
+<!--
+        <address style="text-align: right;"><small>Hosted by&nbsp;
+        <a href="http://sourceforge.net/projects/egglib"><img src="http://sflogo.sourceforge.net/sflogo.php?group_id=232965&amp;type=8" width="80" height="15" alt="Get EggLib at SourceForge.net. Fast, secure and Free Open Source software downloads" / ALIGN=RIGHT BORDER=0></a>
+        </address>
+-->
+
+  </body>
+</html>

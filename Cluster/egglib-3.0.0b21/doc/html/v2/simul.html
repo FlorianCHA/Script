@@ -1,0 +1,634 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>simul &mdash; EggLib</title>
+    
+    <link rel="stylesheet" href="_static/sphinxdoc.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '2.1.11',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="shortcut icon" href="_static/icon.ico"/>
+    <link rel="top" title="EggLib" href="index.html" />
+    <link rel="up" title="Python module" href="egglib-py.html" />
+    <link rel="next" title="fitmodel" href="fitmodel.html" />
+    <link rel="prev" title="wrappers" href="wrappers.html" /> 
+  </head>
+  <body>
+
+<div style="background-color: white; text-align: left; padding: 0px 0px 0px 0px">
+<a href="index.html"><img src="_static/egglib_banniere5.png" border="0" alt="EggLib"/></a>
+</div>
+
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="fitmodel.html" title="fitmodel"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="wrappers.html" title="wrappers"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">EggLib</a> &raquo;</li>
+          <li><a href="egglib-py.html" accesskey="U">Python module</a> &raquo;</li> 
+      </ul>
+    </div>
+<div style="background-color: grey; text-align: left; padding: 0px 0px 0px 10px; border-bottom: 1px solid #2d2e91">
+<font color="white" ><b>EggLib version 2.1 is archived.</b></font></div>
+
+
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">simul</a><ul>
+<li><a class="reference internal" href="#simulation-function">Simulation function</a></li>
+<li><a class="reference internal" href="#parameter-holder-class">Parameter holder class</a></li>
+<li><a class="reference internal" href="#specifying-mutation-model-using-dedicated-classes">Specifying mutation model using dedicated classes</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="wrappers.html"
+                        title="previous chapter">wrappers</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="fitmodel.html"
+                        title="next chapter">fitmodel</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/simul.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="module-egglib.simul">
+<span id="simul"></span><h1>simul<a class="headerlink" href="#module-egglib.simul" title="Permalink to this headline">¶</a></h1>
+<p>This module wraps the C++-implemented coalescent simulator. To perform
+coalescent simulations, the user must create a <a class="reference internal" href="#egglib.simul.CoalesceParamSet" title="egglib.simul.CoalesceParamSet"><tt class="xref py py-class docutils literal"><span class="pre">CoalesceParamSet</span></tt></a>
+instance with the desired parameter values (and call the appropriate
+methods to set optional demographic changes), and an instance of one of
+the subclasses of <a class="reference internal" href="#egglib.simul.CoalesceMutator" title="egglib.simul.CoalesceMutator"><tt class="xref py py-class docutils literal"><span class="pre">CoalesceMutator</span></tt></a>, and then pass these two
+objects to the simulation function. The function will return a list of
+<a class="reference internal" href="data.html#egglib.Align" title="egglib.Align"><tt class="xref py py-class docutils literal"><span class="pre">Align</span></tt></a> or <tt class="xref py py-class docutils literal"><span class="pre">SSR</span></tt> instances.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Only polymorphic sites are returned. This can be significant
+when computed polymorphism statistics be expressed per site.
+Such statistics should then be multiplied by the length of the
+corresponding alignments (that is, the number of segregating
+sites) to obtain a gene-wise value.</p>
+</div>
+<div class="section" id="simulation-function">
+<h2>Simulation function<a class="headerlink" href="#simulation-function" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="egglib.simul.coalesce">
+<tt class="descclassname">egglib.simul.</tt><tt class="descname">coalesce</tt><big>(</big><em>paramSet</em>, <em>mutator</em>, <em>repets=1</em>, <em>random=None</em>, <em>maxNumberOfIterations=1000000</em>, <em>convert=True</em>, <em>forceSSR=False</em><big>)</big><a class="headerlink" href="#egglib.simul.coalesce" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generates simulated datasets, using the incorporated coalescent
+simulator.</p>
+<p><em>paramSet</em> must be a <a class="reference internal" href="#egglib.simul.CoalesceParamSet" title="egglib.simul.CoalesceParamSet"><tt class="xref py py-class docutils literal"><span class="pre">CoalesceParamSet</span></tt></a> instance; it holds
+parameters controlling the demographic process (and therefore the
+shape of generated genealogical trees).</p>
+<p><em>mutator</em> must be an instance of a subclass of
+<a class="reference internal" href="#egglib.simul.CoalesceMutator" title="egglib.simul.CoalesceMutator"><tt class="xref py py-class docutils literal"><span class="pre">CoalesceMutator</span></tt></a> (but not <a class="reference internal" href="#egglib.simul.CoalesceMutator" title="egglib.simul.CoalesceMutator"><tt class="xref py py-class docutils literal"><span class="pre">CoalesceMutator</span></tt></a> itself);
+it holds parameters controlling the generation of genetic data
+(sequence or microsatellites).</p>
+<p><em>repets</em> gives the number of repetitions to perform.</p>
+<p><em>random</em> controls the pseudo-random number generator. This argument
+is polymorph: if <tt class="docutils literal"><span class="pre">None</span></tt>, the generator is automatically set (using
+the system clock to determine seed values); if <em>random</em> is a
+sequence of two numbers, they will be used a seeds of the random
+number generator (therefore allowing to replicate results with a
+given set of parameters); alternatively, <em>seeds</em> can be a
+<a class="reference internal" href="binding.html#egglib.egglib_binding.Random" title="egglib.egglib_binding.Random"><tt class="xref py py-class docutils literal"><span class="pre">Random</span></tt></a> instance.</p>
+<p><em>maxNumberOfIterations</em> sets the maximum number of steps in the
+coalescent algorithm (provided as a safeguard).</p>
+<p><em>convert</em> if <tt class="docutils literal"><span class="pre">True</span></tt>, converts the generated <a class="reference internal" href="binding.html#egglib.egglib_binding.DataMatrix" title="egglib.egglib_binding.DataMatrix"><tt class="xref py py-class docutils literal"><span class="pre">DataMatrix</span></tt></a>
+objects to high-level types (Align or SSR). Otherwise, returns them
+as is.</p>
+<p><em>forceSSR</em> if <tt class="docutils literal"><span class="pre">True</span></tt> and if <em>convert</em> is <tt class="docutils literal"><span class="pre">True</span></tt>, return
+<tt class="xref py py-class docutils literal"><span class="pre">SSR</span></tt> instances whatever options were passed regarding
+the mutation model (that is, even if a finite-allele model with 4 or
+less alleles was used). The value of this option is ignored if
+<em>convert</em> is <tt class="docutils literal"><span class="pre">True</span></tt>.</p>
+<p>Returns a list of simulated data sets.  Data sets are instances of
+<a class="reference internal" href="binding.html#egglib.egglib_binding.DataMatrix" title="egglib.egglib_binding.DataMatrix"><tt class="xref py py-class docutils literal"><span class="pre">DataMatrix</span></tt></a> if <em>convert</em> is <tt class="docutils literal"><span class="pre">False</span></tt>.
+Otherwise, they are automatically converted to <tt class="xref py py-class docutils literal"><span class="pre">SSR</span></tt>
+instances or to <a class="reference internal" href="data.html#egglib.Align" title="egglib.Align"><tt class="xref py py-class docutils literal"><span class="pre">Align</span></tt></a> instances. Conversion to
+<a class="reference internal" href="data.html#egglib.Align" title="egglib.Align"><tt class="xref py py-class docutils literal"><span class="pre">Align</span></tt></a> is only performed if the mutator is of type
+<a class="reference internal" href="#egglib.simul.CoalesceFiniteAlleleMutator" title="egglib.simul.CoalesceFiniteAlleleMutator"><tt class="xref py py-class docutils literal"><span class="pre">CoalesceFiniteAlleleMutator</span></tt></a>, the number of
+alleles is smaller than or equal to 4 and if <em>forceSSR</em> is <tt class="docutils literal"><span class="pre">False</span></tt>.</p>
+<p>All returned instances have non-default members providing simulation
+statistics:</p>
+<blockquote>
+<div><ul class="simple">
+<li><cite>tMRCA</cite> (the time to the  most recent common ancestor),</li>
+<li><cite>totLength</cite> (sum of tree branch lengths),</li>
+<li><cite>nMutations</cite> (number of mutations that occurred),</li>
+<li><cite>nRecomb</cite> (number of recombination events).</li>
+</ul>
+</div></blockquote>
+<div class="versionadded">
+<p><span class="versionmodified">New in version 2.0.1.</span></p>
+</div>
+<div class="versionchanged">
+<p><span class="versionmodified">Changed in version 2.1.0: </span><em>forceSSR</em> is added, and <a class="reference internal" href="data.html#egglib.Align" title="egglib.Align"><tt class="xref py py-class docutils literal"><span class="pre">Align</span></tt></a> instances are no
+longer returned if the number of alleles is above 4.</p>
+</div>
+</dd></dl>
+
+</div>
+<div class="section" id="parameter-holder-class">
+<h2>Parameter holder class<a class="headerlink" href="#parameter-holder-class" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="egglib.simul.CoalesceParamSet">
+<em class="property">class </em><tt class="descclassname">egglib.simul.</tt><tt class="descname">CoalesceParamSet</tt><big>(</big><em>singleSamples</em>, <em>doubleSamples=None</em>, <em>s=0.0</em>, <em>rho=0.0</em>, <em>nsites=1</em>, <em>alpha=0.0</em>, <em>M=0.1</em>, <em>N=1.0</em><big>)</big><a class="headerlink" href="#egglib.simul.CoalesceParamSet" title="Permalink to this definition">¶</a></dt>
+<dd><p>Holder for coalescent parameters related to the reconstruction
+of genealogical trees. The value of different demographic parameters
+are passed to the constructor, and the user can subsequently add
+demographic changes. The order in which demographic changes are
+entered is not important (they are sorted automatically by date).</p>
+<div class="versionadded">
+<p><span class="versionmodified">New in version 2.0.1.</span></p>
+</div>
+<p>Constructor arguments:</p>
+<p><em>singleSamples</em> and <em>doubleSamples</em> specify the number of
+sampled genes. Since the underlying model is diploid, it is
+possible to sample either one or both chromosomes of a given
+individual. <em>singleSamples</em> specifies the number of individuals
+of which one (random) chromosome was sampled. <em>doubleSamples</em>
+specifies the number of individuals of which both chromosomes
+were sampled. For each of these options, an <tt class="xref py py-class docutils literal"><span class="pre">int</span></tt>, a
+sequence can be passed, as well as <tt class="docutils literal"><span class="pre">None</span></tt>, which means that no
+samples of this type were collected. The number of populations
+in the model is implied by these two options. The number of
+populations is given by the length of the passed list (one
+population if integers are passed). The number of populations
+implied by these two options must be consistent, except if one
+of them is <tt class="docutils literal"><span class="pre">None</span></tt> (in what a list of <tt class="docutils literal"><span class="pre">0</span></tt> is assumed). An
+example is <tt class="docutils literal"><span class="pre">singleSamples=[10,</span> <span class="pre">20],</span> <span class="pre">doubleSamples=[5,</span> <span class="pre">0]</span></tt> 
+which sums up to 20 genes in both populations.</p>
+<p><em>s</em> gives the selfing rate. <tt class="docutils literal"><span class="pre">s=0.</span></tt> means total panmixia and
+<tt class="docutils literal"><span class="pre">s=1.</span></tt> total autogamy.</p>
+<p><em>rho</em> is the recombination rate, expressed as <tt class="docutils literal"><span class="pre">4Nc</span></tt> where
+<tt class="docutils literal"><span class="pre">N</span></tt> is the population size (number of diploid individuals)
+and <tt class="docutils literal"><span class="pre">c</span></tt> the per-gene instantaneous recombination rate. If
+<em>rho</em> is &gt;0, it is required to provide a value of <em>nsites</em>
+&gt;1.</p>
+<p><em>nsites</em> is the number of recombining sites (ignored if <em>rho</em> is
+zero).</p>
+<p><em>alpha</em> is the exponential growth/decline rate. A value of
+<em>alpha</em> greater than <tt class="docutils literal"><span class="pre">0</span></tt> means that the population size was
+smaller in the past. If a <tt class="xref py py-class docutils literal"><span class="pre">float</span></tt> is passed, the same
+value will be applied to all populations. If a sequence is
+passed, is specifies individual, population-specific, rates and
+the length of the sequence must match the length of
+<em>singleSamples</em>  and/or <em>doubleSamples</em>.</p>
+<p><em>M</em> is the migration rate, expressed as <tt class="docutils literal"><span class="pre">4Nm</span></tt>  where <tt class="docutils literal"><span class="pre">N</span></tt> is
+the population size (number of diploid individuals) and <tt class="docutils literal"><span class="pre">m</span></tt>
+the instantaneous migration rate (the probability that a given
+individual changes deme). If <em>M</em> is a <tt class="xref py py-class docutils literal"><span class="pre">float</span></tt>, all non-
+diagonal values of the migration matrix will be set to <em>M/(k-1)</em>
+where <tt class="docutils literal"><span class="pre">k</span></tt> is the number of populations in the system (the
+proportion of migrants will always be <em>M</em>). Otherwise <em>M</em> must be
+a sequence of sequences of dimensions <tt class="docutils literal"><span class="pre">kxk</span></tt> where <tt class="docutils literal"><span class="pre">k</span></tt> is the
+number of populations. It is illegal to set the diagonal of the
+matrix, and therefore it is enforced that all values of the
+diagonal are <tt class="docutils literal"><span class="pre">None</span></tt>. Here is an example for 2 populations with
+asymetric migration rates: <tt class="docutils literal"><span class="pre">M=[[None,</span> <span class="pre">0.1],</span> <span class="pre">[0.2,</span> <span class="pre">None]]</span></tt>, and
+an example for 3 populations with a &#8220;stepping stone&#8221; model of
+migration: <tt class="docutils literal"><span class="pre">M=[[None,</span> <span class="pre">0.1,</span> <span class="pre">0.0],</span> <span class="pre">[0.1,</span> <span class="pre">None,</span> <span class="pre">0.1],</span> <span class="pre">[0.,</span> <span class="pre">0.1,</span> 
+<span class="pre">None]]</span></tt>.</p>
+<p><em>N</em> is the relative size of all populations. It is possible to
+pass a <tt class="xref py py-class docutils literal"><span class="pre">float</span></tt>, what sets all populations to the same
+size and corresponds to rescaling the time scale. Otherwise a
+sequence of <tt class="xref py py-class docutils literal"><span class="pre">float</span></tt> must be passed, and the length of
+this sequence must match the length of <em>singleSamples</em>  and/or
+<em>doubleSamples</em>.</p>
+<dl class="method">
+<dt id="egglib.simul.CoalesceParamSet.bottleneck">
+<tt class="descname">bottleneck</tt><big>(</big><em>date</em>, <em>strength</em><big>)</big><a class="headerlink" href="#egglib.simul.CoalesceParamSet.bottleneck" title="Permalink to this definition">¶</a></dt>
+<dd><p>At time <em>date</em>, apply a bottleneck of strength <em>strength</em> to
+all populations. The bottleneck strength corresponds to an
+amount of time where the time counted is blocked and only
+coalescences are allowed (resulting in a given - and random -
+number of instantaneous coalescence with branches of length 0).</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.simul.CoalesceParamSet.changeAllGrowthRates">
+<tt class="descname">changeAllGrowthRates</tt><big>(</big><em>date</em>, <em>value</em><big>)</big><a class="headerlink" href="#egglib.simul.CoalesceParamSet.changeAllGrowthRates" title="Permalink to this definition">¶</a></dt>
+<dd><p>At time <em>date</em>, change all growth rates to <em>value</em>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.simul.CoalesceParamSet.changeAllMigrationRates">
+<tt class="descname">changeAllMigrationRates</tt><big>(</big><em>date</em>, <em>value</em><big>)</big><a class="headerlink" href="#egglib.simul.CoalesceParamSet.changeAllMigrationRates" title="Permalink to this definition">¶</a></dt>
+<dd><p>At time <em>date</em>, change all pairwise migration rates to
+<em>value</em></p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.simul.CoalesceParamSet.changeAllPopulationSizes">
+<tt class="descname">changeAllPopulationSizes</tt><big>(</big><em>date</em>, <em>value</em><big>)</big><a class="headerlink" href="#egglib.simul.CoalesceParamSet.changeAllPopulationSizes" title="Permalink to this definition">¶</a></dt>
+<dd><p>At time <em>date</em>, change all populations sizes to <em>value</em></p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.simul.CoalesceParamSet.changePairwiseMigrationRate">
+<tt class="descname">changePairwiseMigrationRate</tt><big>(</big><em>date</em>, <em>source</em>, <em>dest</em>, <em>migr</em><big>)</big><a class="headerlink" href="#egglib.simul.CoalesceParamSet.changePairwiseMigrationRate" title="Permalink to this definition">¶</a></dt>
+<dd><p>At time <em>date</em>, change all the migration rate from
+population <em>source</em> to the population <em>dest</em> to the value
+<em>migr</em>. It is illegal to change a value of the diagonal.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.simul.CoalesceParamSet.changeSelfingRate">
+<tt class="descname">changeSelfingRate</tt><big>(</big><em>date</em>, <em>value</em><big>)</big><a class="headerlink" href="#egglib.simul.CoalesceParamSet.changeSelfingRate" title="Permalink to this definition">¶</a></dt>
+<dd><p>At time <em>date</em>, change all selfing rate to <em>value</em>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.simul.CoalesceParamSet.changeSinglePopulationGrowthRate">
+<tt class="descname">changeSinglePopulationGrowthRate</tt><big>(</big><em>date</em>, <em>population</em>, <em>value</em><big>)</big><a class="headerlink" href="#egglib.simul.CoalesceParamSet.changeSinglePopulationGrowthRate" title="Permalink to this definition">¶</a></dt>
+<dd><p>At time <em>date</em>, change growth rate of population
+<em>population</em> to <em>value</em>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.simul.CoalesceParamSet.changeSinglePopulationSize">
+<tt class="descname">changeSinglePopulationSize</tt><big>(</big><em>date</em>, <em>population</em>, <em>value</em><big>)</big><a class="headerlink" href="#egglib.simul.CoalesceParamSet.changeSinglePopulationSize" title="Permalink to this definition">¶</a></dt>
+<dd><p>At time <em>date</em>, change size of population <em>population</em> to
+<em>value</em></p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.simul.CoalesceParamSet.populationFusion">
+<tt class="descname">populationFusion</tt><big>(</big><em>date</em>, <em>mother</em>, <em>daughter</em><big>)</big><a class="headerlink" href="#egglib.simul.CoalesceParamSet.populationFusion" title="Permalink to this definition">¶</a></dt>
+<dd><p>At time <em>date</em>, all the lineages from the population
+<em>daughter</em> are moved to the population <em>mother</em> and all mutation
+rates to the population <em>daughter</em> are cancelled.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.simul.CoalesceParamSet.populationSplit">
+<tt class="descname">populationSplit</tt><big>(</big><em>date</em>, <em>population</em>, <em>probability</em><big>)</big><a class="headerlink" href="#egglib.simul.CoalesceParamSet.populationSplit" title="Permalink to this definition">¶</a></dt>
+<dd><p>A the time given by <em>date</em>, the population <em>population</em> is
+split in two. An additional population (incremented from the
+current total number of populations) is created and lineages are
+randomly picked from population <em>population</em> and moved to the
+new population, with probability <em>probability</em>. If <em>probability</em>
+is <tt class="docutils literal"><span class="pre">0.</span></tt>, the simulator creates an empty population (thinking
+forward in time, this corresponds to a population extinction).
+Note: the properties of the newly introduced population (size,
+migration rates, growth rate etc.) are taken from defaults and
+not inherited from the source population (the migration rate is
+arbitrarily fixed to the migration rate from the first pair of
+populations). The source population is not modified.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.simul.CoalesceParamSet.samples">
+<tt class="descname">samples</tt><big>(</big><big>)</big><a class="headerlink" href="#egglib.simul.CoalesceParamSet.samples" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a list of <tt class="docutils literal"><span class="pre">(d,s)</span></tt> tuples (one per population), with
+<em>d</em> the number of diploid samples and <em>s</em> the number of haploid
+samples from a given population</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.simul.CoalesceParamSet.singlePopulationBottleneck">
+<tt class="descname">singlePopulationBottleneck</tt><big>(</big><em>date</em>, <em>population</em>, <em>strength</em><big>)</big><a class="headerlink" href="#egglib.simul.CoalesceParamSet.singlePopulationBottleneck" title="Permalink to this definition">¶</a></dt>
+<dd><p>At time <em>date</em>, apply a bottleneck of strength <em>strength</em> to
+population <em>population</em>. The bottleneck strength corresponds to
+an amount of time where the time counted is blocked and only
+coalescences are allowed (resulting in a given - and random -
+number of instantaneous coalescence with branches of length 0).</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="specifying-mutation-model-using-dedicated-classes">
+<h2>Specifying mutation model using dedicated classes<a class="headerlink" href="#specifying-mutation-model-using-dedicated-classes" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="egglib.simul.CoalesceMutator">
+<em class="property">class </em><tt class="descclassname">egglib.simul.</tt><tt class="descname">CoalesceMutator</tt><big>(</big><em>theta</em><big>)</big><a class="headerlink" href="#egglib.simul.CoalesceMutator" title="Permalink to this definition">¶</a></dt>
+<dd><p>Base class for mutator objects.</p>
+<div class="versionadded">
+<p><span class="versionmodified">New in version 2.0.1.</span></p>
+</div>
+<dl class="method">
+<dt id="egglib.simul.CoalesceMutator.fixedNumberOfMutation">
+<tt class="descname">fixedNumberOfMutation</tt><big>(</big><em>number</em><big>)</big><a class="headerlink" href="#egglib.simul.CoalesceMutator.fixedNumberOfMutation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fix the final number of mutations to <em>number</em>. It is not
+guaranteed that it equals to the number of polymorphic sites
+unless the number of mutable sites is infinite. It is required
+that the object was created with <em>theta</em> = 0 to use this
+method.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.simul.CoalesceMutator.numberOfMutations">
+<tt class="descname">numberOfMutations</tt><big>(</big><big>)</big><a class="headerlink" href="#egglib.simul.CoalesceMutator.numberOfMutations" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the number of mutations yielded by the last simulation
+(returns 0 by default).</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.simul.CoalesceMutator.setSites">
+<tt class="descname">setSites</tt><big>(</big><em>sites</em><big>)</big><a class="headerlink" href="#egglib.simul.CoalesceMutator.setSites" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>sites</em> gives the number of mutable sites. If it equals to
+<tt class="docutils literal"><span class="pre">0</span></tt> or <tt class="docutils literal"><span class="pre">False</span></tt> or has length <tt class="docutils literal"><span class="pre">0</span></tt>, an infinite number of
+sites will be assumed and all mutations will hit a different
+site. If <em>sites</em> is an integer, it specifies the number of
+mutable sites. They all will be placed at equal distance along
+a virtual chromosome bound by 0 and 1 and have equal mutation
+weight. Otherwise, <em>sites</em> must be a sequence. The length of the
+sequence gives the number of sites. Each site must be
+represented by a sequence of two items: the site position
+(between 0. and 1.) and its weight. The weight can be any
+positive number and gives the relative probability that a given
+mutation hits that particular site.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="egglib.simul.CoalesceFiniteAlleleMutator">
+<em class="property">class </em><tt class="descclassname">egglib.simul.</tt><tt class="descname">CoalesceFiniteAlleleMutator</tt><big>(</big><em>theta=0</em>, <em>alleles=2</em>, <em>randomAncestralState=False</em><big>)</big><a class="headerlink" href="#egglib.simul.CoalesceFiniteAlleleMutator" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#egglib.simul.CoalesceMutator" title="egglib.simul.CoalesceMutator"><tt class="xref py py-class docutils literal"><span class="pre">egglib.simul.CoalesceMutator</span></tt></a></p>
+<p>Represents a mutation model with fixed number of alleles. At
+each mutation, alleles are drawn from a finite set of possible
+values. It is possible to set no equiprobable transitions to the
+different transition using the method <a class="reference internal" href="#egglib.simul.CoalesceFiniteAlleleMutator.transitionWeights" title="egglib.simul.CoalesceFiniteAlleleMutator.transitionWeights"><tt class="xref py py-meth docutils literal"><span class="pre">transitionWeights()</span></tt></a>. 
+This model sets by default an infinite number of mutable sites.</p>
+<p>Constructors arguments: <em>theta</em> is the mutation rate,
+expressed as <tt class="docutils literal"><span class="pre">4Nu</span></tt> where <tt class="docutils literal"><span class="pre">N</span></tt> is the number of diploid
+individuals of a population and <tt class="docutils literal"><span class="pre">u</span></tt> is the per-gene mutation
+rate. <em>alleles</em> is the number of possible alleles. If
+<em>randomAncestralState</em>, the ancestral state is drawn randomly
+from possible states (otherwise, it will be zero).</p>
+<dl class="method">
+<dt id="egglib.simul.CoalesceFiniteAlleleMutator.fixedNumberOfMutation">
+<tt class="descname">fixedNumberOfMutation</tt><big>(</big><em>number</em><big>)</big><a class="headerlink" href="#egglib.simul.CoalesceFiniteAlleleMutator.fixedNumberOfMutation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fix the final number of mutations to <em>number</em>. It is not
+guaranteed that it equals to the number of polymorphic sites
+unless the number of mutable sites is infinite. It is required
+that the object was created with <em>theta</em> = 0 to use this
+method.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.simul.CoalesceFiniteAlleleMutator.numberOfMutations">
+<tt class="descname">numberOfMutations</tt><big>(</big><big>)</big><a class="headerlink" href="#egglib.simul.CoalesceFiniteAlleleMutator.numberOfMutations" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the number of mutations yielded by the last simulation
+(returns 0 by default).</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.simul.CoalesceFiniteAlleleMutator.setSites">
+<tt class="descname">setSites</tt><big>(</big><em>sites</em><big>)</big><a class="headerlink" href="#egglib.simul.CoalesceFiniteAlleleMutator.setSites" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>sites</em> gives the number of mutable sites. If it equals to
+<tt class="docutils literal"><span class="pre">0</span></tt> or <tt class="docutils literal"><span class="pre">False</span></tt> or has length <tt class="docutils literal"><span class="pre">0</span></tt>, an infinite number of
+sites will be assumed and all mutations will hit a different
+site. If <em>sites</em> is an integer, it specifies the number of
+mutable sites. They all will be placed at equal distance along
+a virtual chromosome bound by 0 and 1 and have equal mutation
+weight. Otherwise, <em>sites</em> must be a sequence. The length of the
+sequence gives the number of sites. Each site must be
+represented by a sequence of two items: the site position
+(between 0. and 1.) and its weight. The weight can be any
+positive number and gives the relative probability that a given
+mutation hits that particular site.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.simul.CoalesceFiniteAlleleMutator.transitionWeights">
+<tt class="descname">transitionWeights</tt><big>(</big><em>matrix</em><big>)</big><a class="headerlink" href="#egglib.simul.CoalesceFiniteAlleleMutator.transitionWeights" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets the weights to apply to each possible transition. Here,
+a transition is taken as any mutation from one character to an
+other. If the number of alleles is <em>k</em>, <em>matrix</em> must be a
+sequence of <em>k</em> sequences of <em>k</em> weights (strictly positive
+values). The higher the weight, the more likely the transition.
+The values on the diagonal are required to be <tt class="docutils literal"><span class="pre">None</span></tt>.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="egglib.simul.CoalesceInfiniteAlleleMutator">
+<em class="property">class </em><tt class="descclassname">egglib.simul.</tt><tt class="descname">CoalesceInfiniteAlleleMutator</tt><big>(</big><em>theta=0</em><big>)</big><a class="headerlink" href="#egglib.simul.CoalesceInfiniteAlleleMutator" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#egglib.simul.CoalesceMutator" title="egglib.simul.CoalesceMutator"><tt class="xref py py-class docutils literal"><span class="pre">egglib.simul.CoalesceMutator</span></tt></a></p>
+<p>Represents a mutation model with an infinite number of alleles.
+Each mutation creates a different new allele. This model sets by
+default one possible mutable site.</p>
+<p><em>theta</em> is the mutation rate, expressed as <tt class="docutils literal"><span class="pre">4Nu</span></tt> where
+<tt class="docutils literal"><span class="pre">N</span></tt> is the number of diploid individuals of a population and
+<tt class="docutils literal"><span class="pre">u</span></tt> is the per-gene mutation rate.</p>
+<dl class="method">
+<dt id="egglib.simul.CoalesceInfiniteAlleleMutator.fixedNumberOfMutation">
+<tt class="descname">fixedNumberOfMutation</tt><big>(</big><em>number</em><big>)</big><a class="headerlink" href="#egglib.simul.CoalesceInfiniteAlleleMutator.fixedNumberOfMutation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fix the final number of mutations to <em>number</em>. It is not
+guaranteed that it equals to the number of polymorphic sites
+unless the number of mutable sites is infinite. It is required
+that the object was created with <em>theta</em> = 0 to use this
+method.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.simul.CoalesceInfiniteAlleleMutator.numberOfMutations">
+<tt class="descname">numberOfMutations</tt><big>(</big><big>)</big><a class="headerlink" href="#egglib.simul.CoalesceInfiniteAlleleMutator.numberOfMutations" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the number of mutations yielded by the last simulation
+(returns 0 by default).</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.simul.CoalesceInfiniteAlleleMutator.setSites">
+<tt class="descname">setSites</tt><big>(</big><em>sites</em><big>)</big><a class="headerlink" href="#egglib.simul.CoalesceInfiniteAlleleMutator.setSites" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>sites</em> gives the number of mutable sites. If it equals to
+<tt class="docutils literal"><span class="pre">0</span></tt> or <tt class="docutils literal"><span class="pre">False</span></tt> or has length <tt class="docutils literal"><span class="pre">0</span></tt>, an infinite number of
+sites will be assumed and all mutations will hit a different
+site. If <em>sites</em> is an integer, it specifies the number of
+mutable sites. They all will be placed at equal distance along
+a virtual chromosome bound by 0 and 1 and have equal mutation
+weight. Otherwise, <em>sites</em> must be a sequence. The length of the
+sequence gives the number of sites. Each site must be
+represented by a sequence of two items: the site position
+(between 0. and 1.) and its weight. The weight can be any
+positive number and gives the relative probability that a given
+mutation hits that particular site.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="egglib.simul.CoalesceStepwiseMutator">
+<em class="property">class </em><tt class="descclassname">egglib.simul.</tt><tt class="descname">CoalesceStepwiseMutator</tt><big>(</big><em>theta=0</em><big>)</big><a class="headerlink" href="#egglib.simul.CoalesceStepwiseMutator" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#egglib.simul.CoalesceMutator" title="egglib.simul.CoalesceMutator"><tt class="xref py py-class docutils literal"><span class="pre">egglib.simul.CoalesceMutator</span></tt></a></p>
+<p>Represents the stepwise mutation model. Each mutation randomly
+increments or decrements the current allele value with a step of one
+unit. This model sets by default one possible mutable site.</p>
+<p><em>theta</em> is the mutation rate, expressed as <tt class="docutils literal"><span class="pre">4Nu</span></tt> where
+<tt class="docutils literal"><span class="pre">N</span></tt> is the number of diploid individuals of a population and
+<tt class="docutils literal"><span class="pre">u</span></tt> is the per-gene mutation rate.</p>
+<dl class="method">
+<dt id="egglib.simul.CoalesceStepwiseMutator.fixedNumberOfMutation">
+<tt class="descname">fixedNumberOfMutation</tt><big>(</big><em>number</em><big>)</big><a class="headerlink" href="#egglib.simul.CoalesceStepwiseMutator.fixedNumberOfMutation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fix the final number of mutations to <em>number</em>. It is not
+guaranteed that it equals to the number of polymorphic sites
+unless the number of mutable sites is infinite. It is required
+that the object was created with <em>theta</em> = 0 to use this
+method.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.simul.CoalesceStepwiseMutator.numberOfMutations">
+<tt class="descname">numberOfMutations</tt><big>(</big><big>)</big><a class="headerlink" href="#egglib.simul.CoalesceStepwiseMutator.numberOfMutations" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the number of mutations yielded by the last simulation
+(returns 0 by default).</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.simul.CoalesceStepwiseMutator.setSites">
+<tt class="descname">setSites</tt><big>(</big><em>sites</em><big>)</big><a class="headerlink" href="#egglib.simul.CoalesceStepwiseMutator.setSites" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>sites</em> gives the number of mutable sites. If it equals to
+<tt class="docutils literal"><span class="pre">0</span></tt> or <tt class="docutils literal"><span class="pre">False</span></tt> or has length <tt class="docutils literal"><span class="pre">0</span></tt>, an infinite number of
+sites will be assumed and all mutations will hit a different
+site. If <em>sites</em> is an integer, it specifies the number of
+mutable sites. They all will be placed at equal distance along
+a virtual chromosome bound by 0 and 1 and have equal mutation
+weight. Otherwise, <em>sites</em> must be a sequence. The length of the
+sequence gives the number of sites. Each site must be
+represented by a sequence of two items: the site position
+(between 0. and 1.) and its weight. The weight can be any
+positive number and gives the relative probability that a given
+mutation hits that particular site.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="egglib.simul.CoalesceTwoPhaseMutator">
+<em class="property">class </em><tt class="descclassname">egglib.simul.</tt><tt class="descname">CoalesceTwoPhaseMutator</tt><big>(</big><em>theta=0</em>, <em>proba=0.5</em>, <em>param=0.5</em><big>)</big><a class="headerlink" href="#egglib.simul.CoalesceTwoPhaseMutator" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#egglib.simul.CoalesceMutator" title="egglib.simul.CoalesceMutator"><tt class="xref py py-class docutils literal"><span class="pre">egglib.simul.CoalesceMutator</span></tt></a></p>
+<p>Represents the two-phase mutation model. Each mutation randomly
+increments or decrements the current allele value with a variable
+step. With a given probability, the step is 1; otherwise it is drawn
+from a gamma distribution. This model sets by default one possible
+mutable site.</p>
+<p><em>theta</em> is the mutation rate, expressed as <tt class="docutils literal"><span class="pre">4Nu</span></tt> where
+<tt class="docutils literal"><span class="pre">N</span></tt> is the number of diploid individuals of a population and
+<tt class="docutils literal"><span class="pre">u</span></tt> is the per-gene mutation rate. <em>proba</em> gives the
+probability of drawing the mutation step from the gamma
+distribution of parameter <em>param</em>. Both <em>proba</em> and <em>param</em> must
+be in range <tt class="docutils literal"><span class="pre">[0,1]</span></tt>.</p>
+<dl class="method">
+<dt id="egglib.simul.CoalesceTwoPhaseMutator.fixedNumberOfMutation">
+<tt class="descname">fixedNumberOfMutation</tt><big>(</big><em>number</em><big>)</big><a class="headerlink" href="#egglib.simul.CoalesceTwoPhaseMutator.fixedNumberOfMutation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fix the final number of mutations to <em>number</em>. It is not
+guaranteed that it equals to the number of polymorphic sites
+unless the number of mutable sites is infinite. It is required
+that the object was created with <em>theta</em> = 0 to use this
+method.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.simul.CoalesceTwoPhaseMutator.numberOfMutations">
+<tt class="descname">numberOfMutations</tt><big>(</big><big>)</big><a class="headerlink" href="#egglib.simul.CoalesceTwoPhaseMutator.numberOfMutations" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the number of mutations yielded by the last simulation
+(returns 0 by default).</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.simul.CoalesceTwoPhaseMutator.setSites">
+<tt class="descname">setSites</tt><big>(</big><em>sites</em><big>)</big><a class="headerlink" href="#egglib.simul.CoalesceTwoPhaseMutator.setSites" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>sites</em> gives the number of mutable sites. If it equals to
+<tt class="docutils literal"><span class="pre">0</span></tt> or <tt class="docutils literal"><span class="pre">False</span></tt> or has length <tt class="docutils literal"><span class="pre">0</span></tt>, an infinite number of
+sites will be assumed and all mutations will hit a different
+site. If <em>sites</em> is an integer, it specifies the number of
+mutable sites. They all will be placed at equal distance along
+a virtual chromosome bound by 0 and 1 and have equal mutation
+weight. Otherwise, <em>sites</em> must be a sequence. The length of the
+sequence gives the number of sites. Each site must be
+represented by a sequence of two items: the site position
+(between 0. and 1.) and its weight. The weight can be any
+positive number and gives the relative probability that a given
+mutation hits that particular site.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="fitmodel.html" title="fitmodel"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="wrappers.html" title="wrappers"
+             >previous</a> |</li>
+        <li><a href="index.html">EggLib</a> &raquo;</li>
+          <li><a href="egglib-py.html" >Python module</a> &raquo;</li> 
+      </ul>
+    </div>
+        <address style="text-align: right;"><small>Hosted by&nbsp;
+        <a href="http://sourceforge.net/projects/seqlib"><img src="http://sflogo.sourceforge.net/sflogo.php?group_id=232965&amp;type=8" width="80" height="15" alt="Get seqlib at SourceForge.net. Fast, secure and Free Open Source software downloads" / ALIGN=RIGHT BORDER=0></a>
+        </address>
+
+  </body>
+</html>

@@ -1,0 +1,16 @@
+.. _acknow:
+
+===============
+Acknowledgments
+===============
+
+	- Thomas Bataillon and Joëlle Ronfort, as PhD supervisors of the authors, helped initiation of the project.
+	- Nathalie Chantret, Jérôme Gouzy, Martin Lascoux, Xavier Bailly, Thomas Källman, Thibaut Hourlier, Rik op
+	  den Camp, Kate St-Onge, Sonja Kujala, Tanja Pyhäjärvi, Paivio Pollari, Alexis Dereeper and others tested
+          early versions of the package and provided valuable input.
+        - Tuomas Toivainen and Outi Savolainen hosted a course which included a practical demonstration of the package.
+	- The ``sprimers`` command was developed in collaboration with Gerben Bijl.
+	- Antoine Gaillard designed the EggLib logo and banner.
+
+
+

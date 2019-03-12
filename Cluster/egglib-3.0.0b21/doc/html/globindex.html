@@ -1,0 +1,856 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Index &#8212; EggLib&#39;s documentation</title>
+    <link rel="stylesheet" href="_static/egglibdoc.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '3.0.0b21',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="shortcut icon" href="_static/icon.ico"/>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="History" href="history.html" />
+    <link rel="prev" title="Integration of external software" href="manual/wrappers.html" />
+    <script type="text/javascript">
+      // intelligent scrolling of the sidebar content
+      $(window).scroll(function() {
+        var sb = $('.sphinxsidebarwrapper');
+        var win = $(window);
+        var sbh = sb.height();
+        var offset = $('.sphinxsidebar').position()['top'];
+        var wintop = win.scrollTop();
+        var winbot = wintop + win.innerHeight();
+        var curtop = sb.position()['top'];
+        var curbot = curtop + sbh;
+        // does sidebar fit in window?
+        if (sbh < win.innerHeight()) {
+          // yes: easy case -- always keep at the top
+          sb.css('top', $u.min([$u.max([0, wintop - offset - 10]),
+                                $(document).height() - sbh - 200]));
+        } else {
+          // no: only scroll if top/bottom edge of sidebar is at
+          // top/bottom edge of window
+          if (curtop > wintop && curbot > winbot) {
+            sb.css('top', $u.max([wintop - offset - 10, 0]));
+          } else if (curtop < wintop && curbot < winbot) {
+            sb.css('top', $u.min([winbot - sbh - offset - 20,
+                                  $(document).height() - sbh - 200]));
+          }
+        }
+      });
+    </script>
+  </head>
+  <body>
+<div style="background-color: white; text-align: left; padding: 0px 0px 0px 0px">
+<a href="index.html"><img src="_static/banner.png" border="0" alt="EggLib"/></a>
+</div>
+
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="history.html" title="History"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="manual/wrappers.html" title="Integration of external software"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="contents.html">EggLib&#39;s documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="toc.html" accesskey="U">Contents</a> &#187;</li> 
+      </ul>
+    </div>
+
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="contents.html">
+              <img class="logo" src="_static/egglib_small.bmp" alt="Logo"/>
+            </a></p>
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="manual/wrappers.html"
+                        title="previous chapter">Integration of external software</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="history.html"
+                        title="next chapter">History</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/globindex.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="index">
+<span id="globindex"></span><h1>Index<a class="headerlink" href="#index" title="Permalink to this headline">¶</a></h1>
+<p id="keya"><strong>A</strong></p>
+<blockquote>
+<div><ul class="simple">
+<li><a class="reference internal" href="py/io.html#egglib.io.Variant.AA" title="egglib.io.Variant.AA"><code class="xref py py-attr docutils literal"><span class="pre">egglib.io.Variant.AA</span></code></a> [attribute]</li>
+<li><code class="xref py py-class docutils literal"><span class="pre">egglib.fit.ABC</span></code> [class]</li>
+<li><a class="reference internal" href="py/io.html#egglib.io.Variant.AC" title="egglib.io.Variant.AC"><code class="xref py py-attr docutils literal"><span class="pre">egglib.io.Variant.AC</span></code></a> [attribute]</li>
+<li><a class="reference internal" href="py/io.html#egglib.io.Variant.AF" title="egglib.io.Variant.AF"><code class="xref py py-attr docutils literal"><span class="pre">egglib.io.Variant.AF</span></code></a> [attribute]</li>
+<li><a class="reference internal" href="py/io.html#egglib.io.Variant.AN" title="egglib.io.Variant.AN"><code class="xref py py-attr docutils literal"><span class="pre">egglib.io.Variant.AN</span></code></a> [attribute]</li>
+<li><a class="reference internal" href="py/toplevel.html#egglib.Align" title="egglib.Align"><code class="xref py py-class docutils literal"><span class="pre">egglib.Align</span></code></a> [class]</li>
+<li><a class="reference internal" href="py/coalesce.html#egglib.coalesce.EventList.add" title="egglib.coalesce.EventList.add"><code class="xref py py-meth docutils literal"><span class="pre">egglib.coalesce.EventList.add()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/io.html#egglib.io.GenBankFeatureLocation.add_base_choice" title="egglib.io.GenBankFeatureLocation.add_base_choice"><code class="xref py py-meth docutils literal"><span class="pre">egglib.io.GenBankFeatureLocation.add_base_choice()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/io.html#egglib.io.GenBankFeatureLocation.add_base_range" title="egglib.io.GenBankFeatureLocation.add_base_range"><code class="xref py py-meth docutils literal"><span class="pre">egglib.io.GenBankFeatureLocation.add_base_range()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/io.html#egglib.io.GenBankFeatureLocation.add_between_base" title="egglib.io.GenBankFeatureLocation.add_between_base"><code class="xref py py-meth docutils literal"><span class="pre">egglib.io.GenBankFeatureLocation.add_between_base()</span></code></a> [method]</li>
+<li><code class="xref py py-meth docutils literal"><span class="pre">egglib.fit.ABC.add_data()</span></code> [method]</li>
+<li><a class="reference internal" href="py/coalesce.html#egglib.coalesce.ParamDict.add_event" title="egglib.coalesce.ParamDict.add_event"><code class="xref py py-meth docutils literal"><span class="pre">egglib.coalesce.ParamDict.add_event()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/io.html#egglib.io.GenBank.add_feature" title="egglib.io.GenBank.add_feature"><code class="xref py py-meth docutils literal"><span class="pre">egglib.io.GenBank.add_feature()</span></code></a> [method]</li>
+<li><code class="xref py py-meth docutils literal"><span class="pre">egglib.fit.ABC.add_inf()</span></code> [method]</li>
+<li><a class="reference internal" href="py/toplevel.html#egglib.Tree.add_node" title="egglib.Tree.add_node"><code class="xref py py-meth docutils literal"><span class="pre">egglib.Tree.add_node()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/toplevel.html#egglib.Align.add_outgroup" title="egglib.Align.add_outgroup"><code class="xref py py-meth docutils literal"><span class="pre">egglib.Align.add_outgroup()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/toplevel.html#egglib.Container.add_outgroup" title="egglib.Container.add_outgroup"><code class="xref py py-meth docutils literal"><span class="pre">egglib.Container.add_outgroup()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/io.html#egglib.io.GenBankFeature.add_qualifier" title="egglib.io.GenBankFeature.add_qualifier"><code class="xref py py-meth docutils literal"><span class="pre">egglib.io.GenBankFeature.add_qualifier()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/toplevel.html#egglib.Align.add_sample" title="egglib.Align.add_sample"><code class="xref py py-meth docutils literal"><span class="pre">egglib.Align.add_sample()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/toplevel.html#egglib.Container.add_sample" title="egglib.Container.add_sample"><code class="xref py py-meth docutils literal"><span class="pre">egglib.Container.add_sample()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/toplevel.html#egglib.Align.add_samples" title="egglib.Align.add_samples"><code class="xref py py-meth docutils literal"><span class="pre">egglib.Align.add_samples()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/toplevel.html#egglib.Container.add_samples" title="egglib.Container.add_samples"><code class="xref py py-meth docutils literal"><span class="pre">egglib.Container.add_samples()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/io.html#egglib.io.GenBankFeatureLocation.add_single_base" title="egglib.io.GenBankFeatureLocation.add_single_base"><code class="xref py py-meth docutils literal"><span class="pre">egglib.io.GenBankFeatureLocation.add_single_base()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/stats.html#egglib.stats.ComputeStats.add_stats" title="egglib.stats.ComputeStats.add_stats"><code class="xref py py-meth docutils literal"><span class="pre">egglib.stats.ComputeStats.add_stats()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/io.html#egglib.io.GFF3Feature.aliases" title="egglib.io.GFF3Feature.aliases"><code class="xref py py-attr docutils literal"><span class="pre">egglib.io.GFF3Feature.aliases</span></code></a> [attribute]</li>
+<li><a class="reference internal" href="py/coalesce.html#egglib.coalesce.Simulator.align" title="egglib.coalesce.Simulator.align"><code class="xref py py-attr docutils literal"><span class="pre">egglib.coalesce.Simulator.align</span></code></a> [attribute]</li>
+<li><a class="reference internal" href="py/tools.html#egglib.tools.BackalignError.alignment" title="egglib.tools.BackalignError.alignment"><code class="xref py py-attr docutils literal"><span class="pre">egglib.tools.BackalignError.alignment</span></code></a> [attribute]</li>
+<li><a class="reference internal" href="py/stats.html#egglib.stats.ComputeStats.all_stats" title="egglib.stats.ComputeStats.all_stats"><code class="xref py py-meth docutils literal"><span class="pre">egglib.stats.ComputeStats.all_stats()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/io.html#egglib.io.Variant.alleles" title="egglib.io.Variant.alleles"><code class="xref py py-attr docutils literal"><span class="pre">egglib.io.Variant.alleles</span></code></a> [attribute]</li>
+<li><a class="reference internal" href="py/stats.html#egglib.stats.Site.alleles" title="egglib.stats.Site.alleles"><code class="xref py py-meth docutils literal"><span class="pre">egglib.stats.Site.alleles()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/io.html#egglib.io.Variant.alternate_types" title="egglib.io.Variant.alternate_types"><code class="xref py py-attr docutils literal"><span class="pre">egglib.io.Variant.alternate_types</span></code></a> [attribute]</li>
+<li><code class="xref py py-attr docutils literal"><span class="pre">egglib.tools.BackalignError.args</span></code> [attribute]</li>
+<li><a class="reference internal" href="py/stats.html#egglib.stats.Structure.as_dict" title="egglib.stats.Structure.as_dict"><code class="xref py py-meth docutils literal"><span class="pre">egglib.stats.Structure.as_dict()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/stats.html#egglib.stats.Site.as_list" title="egglib.stats.Site.as_list"><code class="xref py py-meth docutils literal"><span class="pre">egglib.stats.Site.as_list()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/io.html#egglib.io.GenBankFeatureLocation.as_order" title="egglib.io.GenBankFeatureLocation.as_order"><code class="xref py py-meth docutils literal"><span class="pre">egglib.io.GenBankFeatureLocation.as_order()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/io.html#egglib.io.GenBankFeatureLocation.as_range" title="egglib.io.GenBankFeatureLocation.as_range"><code class="xref py py-meth docutils literal"><span class="pre">egglib.io.GenBankFeatureLocation.as_range()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/io.html#egglib.io.GFF3Feature.attributes" title="egglib.io.GFF3Feature.attributes"><code class="xref py py-attr docutils literal"><span class="pre">egglib.io.GFF3Feature.attributes</span></code></a> [attribute]</li>
+</ul>
+</div></blockquote>
+<p id="keyb"><strong>B</strong></p>
+<blockquote>
+<div><ul class="simple">
+<li><a class="reference internal" href="py/tools.html#egglib.tools.BackalignError" title="egglib.tools.BackalignError"><code class="xref py py-class docutils literal"><span class="pre">egglib.tools.BackalignError</span></code></a> [class]</li>
+<li><a class="reference internal" href="py/tools.html#egglib.tools.backalign" title="egglib.tools.backalign"><code class="xref py py-func docutils literal"><span class="pre">egglib.tools.backalign()</span></code></a> [function]</li>
+<li><a class="reference internal" href="py/toplevel.html#egglib.Tree.base" title="egglib.Tree.base"><code class="xref py py-attr docutils literal"><span class="pre">egglib.Tree.base</span></code></a> [attribute]</li>
+<li><a class="reference internal" href="py/io.html#egglib.io.VcfParser.bed_slider" title="egglib.io.VcfParser.bed_slider"><code class="xref py py-meth docutils literal"><span class="pre">egglib.io.VcfParser.bed_slider()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/tools.html#egglib.tools.Random.bernoulli" title="egglib.tools.Random.bernoulli"><code class="xref py py-meth docutils literal"><span class="pre">egglib.tools.Random.bernoulli()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/tools.html#egglib.tools.Random.binomial" title="egglib.tools.Random.binomial"><code class="xref py py-meth docutils literal"><span class="pre">egglib.tools.Random.binomial()</span></code></a> [method]</li>
+<li><code class="xref py py-func docutils literal"><span class="pre">egglib.wrappers.blast_config()</span></code> [function]</li>
+<li><code class="xref py py-func docutils literal"><span class="pre">egglib.wrappers.blastn()</span></code> [function]</li>
+<li><code class="xref py py-func docutils literal"><span class="pre">egglib.wrappers.blastp()</span></code> [function]</li>
+<li><code class="xref py py-func docutils literal"><span class="pre">egglib.wrappers.blastx()</span></code> [function]</li>
+<li><a class="reference internal" href="py/tools.html#egglib.tools.Random.boolean" title="egglib.tools.Random.boolean"><code class="xref py py-meth docutils literal"><span class="pre">egglib.tools.Random.boolean()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/tools.html#egglib.tools.Discretize.bounds" title="egglib.tools.Discretize.bounds"><code class="xref py py-attr docutils literal"><span class="pre">egglib.tools.Discretize.bounds</span></code></a> [attribute]</li>
+<li><a class="reference internal" href="py/toplevel.html#egglib.Node.branch_to" title="egglib.Node.branch_to"><code class="xref py py-meth docutils literal"><span class="pre">egglib.Node.branch_to()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/toplevel.html#egglib.Tree.breadth_iter" title="egglib.Tree.breadth_iter"><code class="xref py py-meth docutils literal"><span class="pre">egglib.Tree.breadth_iter()</span></code></a> [method]</li>
+</ul>
+</div></blockquote>
+<p id="keyc"><strong>C</strong></p>
+<blockquote>
+<div><ul class="simple">
+<li><a class="reference internal" href="py/stats.html#egglib.stats.CodingDiversity" title="egglib.stats.CodingDiversity"><code class="xref py py-class docutils literal"><span class="pre">egglib.stats.CodingDiversity</span></code></a> [class]</li>
+<li><a class="reference internal" href="py/stats.html#egglib.stats.ComputeStats" title="egglib.stats.ComputeStats"><code class="xref py py-class docutils literal"><span class="pre">egglib.stats.ComputeStats</span></code></a> [class]</li>
+<li><a class="reference internal" href="py/toplevel.html#egglib.Container" title="egglib.Container"><code class="xref py py-class docutils literal"><span class="pre">egglib.Container</span></code></a> [class]</li>
+<li><a class="reference internal" href="py/toplevel.html#egglib.Node.child" title="egglib.Node.child"><code class="xref py py-meth docutils literal"><span class="pre">egglib.Node.child()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/toplevel.html#egglib.Node.children" title="egglib.Node.children"><code class="xref py py-meth docutils literal"><span class="pre">egglib.Node.children()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/io.html#egglib.io.Variant.chromosome" title="egglib.io.Variant.chromosome"><code class="xref py py-attr docutils literal"><span class="pre">egglib.io.Variant.chromosome</span></code></a> [attribute]</li>
+<li><a class="reference internal" href="py/misc.html#egglib.misc.TempFile.clean" title="egglib.misc.TempFile.clean"><code class="xref py py-meth docutils literal"><span class="pre">egglib.misc.TempFile.clean()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/toplevel.html#egglib.Tree.clean_branch_lengths" title="egglib.Tree.clean_branch_lengths"><code class="xref py py-meth docutils literal"><span class="pre">egglib.Tree.clean_branch_lengths()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/toplevel.html#egglib.Tree.clean_internal_labels" title="egglib.Tree.clean_internal_labels"><code class="xref py py-meth docutils literal"><span class="pre">egglib.Tree.clean_internal_labels()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/toplevel.html#egglib.Align.clear" title="egglib.Align.clear"><code class="xref py py-meth docutils literal"><span class="pre">egglib.Align.clear()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/toplevel.html#egglib.Container.clear" title="egglib.Container.clear"><code class="xref py py-meth docutils literal"><span class="pre">egglib.Container.clear()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/coalesce.html#egglib.coalesce.EventList.clear" title="egglib.coalesce.EventList.clear"><code class="xref py py-meth docutils literal"><span class="pre">egglib.coalesce.EventList.clear()</span></code></a> [method]</li>
+<li><code class="xref py py-meth docutils literal"><span class="pre">egglib.misc.Pool.clear()</span></code> [method]</li>
+<li><code class="xref py py-meth docutils literal"><span class="pre">egglib.fit.ABC.clear_data()</span></code> [method]</li>
+<li><code class="xref py py-meth docutils literal"><span class="pre">egglib.fit.ABC.clear_io()</span></code> [method]</li>
+<li><a class="reference internal" href="py/stats.html#egglib.stats.ComputeStats.clear_stats" title="egglib.stats.ComputeStats.clear_stats"><code class="xref py py-meth docutils literal"><span class="pre">egglib.stats.ComputeStats.clear_stats()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/wrappers.html#egglib.wrappers.clustal" title="egglib.wrappers.clustal"><code class="xref py py-func docutils literal"><span class="pre">egglib.wrappers.clustal()</span></code></a> [function]</li>
+<li><code class="xref py py-mod docutils literal"><span class="pre">egglib.coalesce</span></code> [module]</li>
+<li><a class="reference internal" href="py/wrappers.html#egglib.wrappers.codeml" title="egglib.wrappers.codeml"><code class="xref py py-func docutils literal"><span class="pre">egglib.wrappers.codeml()</span></code></a> [function]</li>
+<li><a class="reference internal" href="py/tools.html#egglib.tools.ReadingFrame.codon_bases" title="egglib.tools.ReadingFrame.codon_bases"><code class="xref py py-meth docutils literal"><span class="pre">egglib.tools.ReadingFrame.codon_bases()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/tools.html#egglib.tools.ReadingFrame.codon_index" title="egglib.tools.ReadingFrame.codon_index"><code class="xref py py-meth docutils literal"><span class="pre">egglib.tools.ReadingFrame.codon_index()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/tools.html#egglib.tools.ReadingFrame.codon_position" title="egglib.tools.ReadingFrame.codon_position"><code class="xref py py-meth docutils literal"><span class="pre">egglib.tools.ReadingFrame.codon_position()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/toplevel.html#egglib.Tree.collapse" title="egglib.Tree.collapse"><code class="xref py py-meth docutils literal"><span class="pre">egglib.Tree.collapse()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/toplevel.html#egglib.Align.column" title="egglib.Align.column"><code class="xref py py-meth docutils literal"><span class="pre">egglib.Align.column()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/tools.html#egglib.tools.compare" title="egglib.tools.compare"><code class="xref py py-func docutils literal"><span class="pre">egglib.tools.compare()</span></code></a> [function]</li>
+<li><a class="reference internal" href="py/stats.html#egglib.stats.ProbaMisoriented.compute" title="egglib.stats.ProbaMisoriented.compute"><code class="xref py py-meth docutils literal"><span class="pre">egglib.stats.ProbaMisoriented.compute()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/tools.html#egglib.tools.concat" title="egglib.tools.concat"><code class="xref py py-func docutils literal"><span class="pre">egglib.tools.concat()</span></code></a> [function]</li>
+<li><a class="reference internal" href="py/stats.html#egglib.stats.ComputeStats.configure" title="egglib.stats.ComputeStats.configure"><code class="xref py py-meth docutils literal"><span class="pre">egglib.stats.ComputeStats.configure()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/toplevel.html#egglib.Align.consensus" title="egglib.Align.consensus"><code class="xref py py-meth docutils literal"><span class="pre">egglib.Align.consensus()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/toplevel.html#egglib.Tree.copy" title="egglib.Tree.copy"><code class="xref py py-meth docutils literal"><span class="pre">egglib.Tree.copy()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/coalesce.html#egglib.coalesce.ParamDict.copy" title="egglib.coalesce.ParamDict.copy"><code class="xref py py-meth docutils literal"><span class="pre">egglib.coalesce.ParamDict.copy()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/io.html#egglib.io.GenBankFeature.copy" title="egglib.io.GenBankFeature.copy"><code class="xref py py-meth docutils literal"><span class="pre">egglib.io.GenBankFeature.copy()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/io.html#egglib.io.GenBankFeatureLocation.copy" title="egglib.io.GenBankFeatureLocation.copy"><code class="xref py py-meth docutils literal"><span class="pre">egglib.io.GenBankFeatureLocation.copy()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/coalesce.html#egglib.coalesce.ParamList.count" title="egglib.coalesce.ParamList.count"><code class="xref py py-meth docutils literal"><span class="pre">egglib.coalesce.ParamList.count()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/coalesce.html#egglib.coalesce.ParamMatrix.count" title="egglib.coalesce.ParamMatrix.count"><code class="xref py py-meth docutils literal"><span class="pre">egglib.coalesce.ParamMatrix.count()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/toplevel.html#egglib.Align.create" title="egglib.Align.create"><code class="xref py py-meth docutils literal"><span class="pre">egglib.Align.create()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/toplevel.html#egglib.Container.create" title="egglib.Container.create"><code class="xref py py-meth docutils literal"><span class="pre">egglib.Container.create()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/stats.html#egglib.stats.EHH.cur_haplotypes" title="egglib.stats.EHH.cur_haplotypes"><code class="xref py py-attr docutils literal"><span class="pre">egglib.stats.EHH.cur_haplotypes</span></code></a> [attribute]</li>
+</ul>
+</div></blockquote>
+<p id="keyd"><strong>D</strong></p>
+<blockquote>
+<div><ul class="simple">
+<li><a class="reference internal" href="py/stats.html#egglib.stats.ProbaMisoriented.D" title="egglib.stats.ProbaMisoriented.D"><code class="xref py py-attr docutils literal"><span class="pre">egglib.stats.ProbaMisoriented.D</span></code></a> [attribute]</li>
+<li><a class="reference internal" href="py/tools.html#egglib.tools.Discretize" title="egglib.tools.Discretize"><code class="xref py py-class docutils literal"><span class="pre">egglib.tools.Discretize</span></code></a> [class]</li>
+<li><a class="reference internal" href="py/io.html#egglib.io.GFF3Feature.dbxref" title="egglib.io.GFF3Feature.dbxref"><code class="xref py py-attr docutils literal"><span class="pre">egglib.io.GFF3Feature.dbxref</span></code></a> [attribute]</li>
+<li><a class="reference internal" href="py/toplevel.html#egglib.Align.del_columns" title="egglib.Align.del_columns"><code class="xref py py-meth docutils literal"><span class="pre">egglib.Align.del_columns()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/toplevel.html#egglib.Align.del_outgroup" title="egglib.Align.del_outgroup"><code class="xref py py-meth docutils literal"><span class="pre">egglib.Align.del_outgroup()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/toplevel.html#egglib.Container.del_outgroup" title="egglib.Container.del_outgroup"><code class="xref py py-meth docutils literal"><span class="pre">egglib.Container.del_outgroup()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/toplevel.html#egglib.Align.del_sample" title="egglib.Align.del_sample"><code class="xref py py-meth docutils literal"><span class="pre">egglib.Align.del_sample()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/toplevel.html#egglib.Container.del_sample" title="egglib.Container.del_sample"><code class="xref py py-meth docutils literal"><span class="pre">egglib.Container.del_sample()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/toplevel.html#egglib.Container.del_sites" title="egglib.Container.del_sites"><code class="xref py py-meth docutils literal"><span class="pre">egglib.Container.del_sites()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/toplevel.html#egglib.Container.del_sites_o" title="egglib.Container.del_sites_o"><code class="xref py py-meth docutils literal"><span class="pre">egglib.Container.del_sites_o()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/tools.html#egglib.tools.Translator.delete_truncated" title="egglib.tools.Translator.delete_truncated"><code class="xref py py-attr docutils literal"><span class="pre">egglib.tools.Translator.delete_truncated</span></code></a> [attribute]</li>
+<li><a class="reference internal" href="py/toplevel.html#egglib.Tree.depth_iter" title="egglib.Tree.depth_iter"><code class="xref py py-meth docutils literal"><span class="pre">egglib.Tree.depth_iter()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/io.html#egglib.io.GFF3Feature.derives_from" title="egglib.io.GFF3Feature.derives_from"><code class="xref py py-attr docutils literal"><span class="pre">egglib.io.GFF3Feature.derives_from</span></code></a> [attribute]</li>
+<li><code class="xref py py-attr docutils literal"><span class="pre">egglib.fit.Nnet.dim</span></code> [attribute]</li>
+<li><a class="reference internal" href="py/coalesce.html#egglib.coalesce.ParamDict.disable_trans_matrix" title="egglib.coalesce.ParamDict.disable_trans_matrix"><code class="xref py py-meth docutils literal"><span class="pre">egglib.coalesce.ParamDict.disable_trans_matrix()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/stats.html#egglib.stats.EHH.done_EHH" title="egglib.stats.EHH.done_EHH"><code class="xref py py-meth docutils literal"><span class="pre">egglib.stats.EHH.done_EHH()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/stats.html#egglib.stats.EHH.done_EHHc" title="egglib.stats.EHH.done_EHHc"><code class="xref py py-meth docutils literal"><span class="pre">egglib.stats.EHH.done_EHHc()</span></code></a> [method]</li>
+</ul>
+</div></blockquote>
+<p id="keye"><strong>E</strong></p>
+<blockquote>
+<div><ul class="simple">
+<li><a class="reference internal" href="py/stats.html#egglib.stats.EHH" title="egglib.stats.EHH"><code class="xref py py-class docutils literal"><span class="pre">egglib.stats.EHH</span></code></a> [class]</li>
+<li><a class="reference internal" href="py/coalesce.html#egglib.coalesce.EventList" title="egglib.coalesce.EventList"><code class="xref py py-class docutils literal"><span class="pre">egglib.coalesce.EventList</span></code></a> [class]</li>
+<li><a class="reference internal" href="py/toplevel.html#egglib.Align.encode" title="egglib.Align.encode"><code class="xref py py-meth docutils literal"><span class="pre">egglib.Align.encode()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/toplevel.html#egglib.Container.encode" title="egglib.Container.encode"><code class="xref py py-meth docutils literal"><span class="pre">egglib.Container.encode()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/io.html#egglib.io.GFF3Feature.end" title="egglib.io.GFF3Feature.end"><code class="xref py py-attr docutils literal"><span class="pre">egglib.io.GFF3Feature.end</span></code></a> [attribute]</li>
+<li><a class="reference internal" href="py/toplevel.html#egglib.Container.equalize" title="egglib.Container.equalize"><code class="xref py py-meth docutils literal"><span class="pre">egglib.Container.equalize()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/tools.html#egglib.tools.ReadingFrame.exon_index" title="egglib.tools.ReadingFrame.exon_index"><code class="xref py py-meth docutils literal"><span class="pre">egglib.tools.ReadingFrame.exon_index()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/stats.html#egglib.stats.Filter.exploitable" title="egglib.stats.Filter.exploitable"><code class="xref py py-meth docutils literal"><span class="pre">egglib.stats.Filter.exploitable()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/tools.html#egglib.tools.Random.exponential" title="egglib.tools.Random.exponential"><code class="xref py py-meth docutils literal"><span class="pre">egglib.tools.Random.exponential()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/toplevel.html#egglib.Align.extract" title="egglib.Align.extract"><code class="xref py py-meth docutils literal"><span class="pre">egglib.Align.extract()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/toplevel.html#egglib.Tree.extract" title="egglib.Tree.extract"><code class="xref py py-meth docutils literal"><span class="pre">egglib.Tree.extract()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/io.html#egglib.io.GenBank.extract" title="egglib.io.GenBank.extract"><code class="xref py py-meth docutils literal"><span class="pre">egglib.io.GenBank.extract()</span></code></a> [method]</li>
+</ul>
+</div></blockquote>
+<p id="keyf"><strong>F</strong></p>
+<blockquote>
+<div><ul class="simple">
+<li><a class="reference internal" href="py/stats.html#egglib.stats.Filter" title="egglib.stats.Filter"><code class="xref py py-class docutils literal"><span class="pre">egglib.stats.Filter</span></code></a> [class]</li>
+<li><a class="reference internal" href="py/stats.html#egglib.stats.Freq" title="egglib.stats.Freq"><code class="xref py py-class docutils literal"><span class="pre">egglib.stats.Freq</span></code></a> [class]</li>
+<li><a class="reference internal" href="py/io.html#egglib.io.Variant.failed_tests" title="egglib.io.Variant.failed_tests"><code class="xref py py-attr docutils literal"><span class="pre">egglib.io.Variant.failed_tests</span></code></a> [attribute]</li>
+<li><a class="reference internal" href="py/io.html#egglib.io.fasta_iter" title="egglib.io.fasta_iter"><code class="xref py py-class docutils literal"><span class="pre">egglib.io.fasta_iter</span></code></a> [class]</li>
+<li><a class="reference internal" href="py/io.html#egglib.io.GFF3.feature_iter" title="egglib.io.GFF3.feature_iter"><code class="xref py py-meth docutils literal"><span class="pre">egglib.io.GFF3.feature_iter()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/io.html#egglib.io.VcfParser.file_format" title="egglib.io.VcfParser.file_format"><code class="xref py py-attr docutils literal"><span class="pre">egglib.io.VcfParser.file_format</span></code></a> [attribute]</li>
+<li><a class="reference internal" href="py/toplevel.html#egglib.Align.filter" title="egglib.Align.filter"><code class="xref py py-meth docutils literal"><span class="pre">egglib.Align.filter()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/toplevel.html#egglib.Align.find" title="egglib.Align.find"><code class="xref py py-meth docutils literal"><span class="pre">egglib.Align.find()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/toplevel.html#egglib.Container.find" title="egglib.Container.find"><code class="xref py py-meth docutils literal"><span class="pre">egglib.Container.find()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/toplevel.html#egglib.SequenceView.find" title="egglib.SequenceView.find"><code class="xref py py-meth docutils literal"><span class="pre">egglib.SequenceView.find()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/toplevel.html#egglib.Tree.find_clade" title="egglib.Tree.find_clade"><code class="xref py py-meth docutils literal"><span class="pre">egglib.Tree.find_clade()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/toplevel.html#egglib.Align.find_motif" title="egglib.Align.find_motif"><code class="xref py py-meth docutils literal"><span class="pre">egglib.Align.find_motif()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/toplevel.html#egglib.Container.find_motif" title="egglib.Container.find_motif"><code class="xref py py-meth docutils literal"><span class="pre">egglib.Container.find_motif()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/toplevel.html#egglib.Align.find_motif_o" title="egglib.Align.find_motif_o"><code class="xref py py-meth docutils literal"><span class="pre">egglib.Align.find_motif_o()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/toplevel.html#egglib.Container.find_motif_o" title="egglib.Container.find_motif_o"><code class="xref py py-meth docutils literal"><span class="pre">egglib.Container.find_motif_o()</span></code></a> [method]</li>
+<li><code class="xref py py-meth docutils literal"><span class="pre">egglib.fit.ABC.fit()</span></code> [method]</li>
+<li><code class="xref py py-mod docutils literal"><span class="pre">egglib.fit</span></code> [module]</li>
+<li><a class="reference internal" href="py/toplevel.html#egglib.Align.fix_ends" title="egglib.Align.fix_ends"><code class="xref py py-meth docutils literal"><span class="pre">egglib.Align.fix_ends()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/misc.html#egglib.misc.TempFile.fname" title="egglib.misc.TempFile.fname"><code class="xref py py-attr docutils literal"><span class="pre">egglib.misc.TempFile.fname</span></code></a> [attribute]</li>
+<li><a class="reference internal" href="py/io.html#egglib.io.Variant.format_fields" title="egglib.io.Variant.format_fields"><code class="xref py py-attr docutils literal"><span class="pre">egglib.io.Variant.format_fields</span></code></a> [attribute]</li>
+<li><a class="reference internal" href="py/stats.html#egglib.stats.Freq.freq_allele" title="egglib.stats.Freq.freq_allele"><code class="xref py py-meth docutils literal"><span class="pre">egglib.stats.Freq.freq_allele()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/stats.html#egglib.stats.freq_from_list" title="egglib.stats.freq_from_list"><code class="xref py py-func docutils literal"><span class="pre">egglib.stats.freq_from_list()</span></code></a> [function]</li>
+<li><a class="reference internal" href="py/stats.html#egglib.stats.freq_from_site" title="egglib.stats.freq_from_site"><code class="xref py py-func docutils literal"><span class="pre">egglib.stats.freq_from_site()</span></code></a> [function]</li>
+<li><a class="reference internal" href="py/stats.html#egglib.stats.freq_from_vcf" title="egglib.stats.freq_from_vcf"><code class="xref py py-func docutils literal"><span class="pre">egglib.stats.freq_from_vcf()</span></code></a> [function]</li>
+<li><a class="reference internal" href="py/stats.html#egglib.stats.Freq.freq_genotype" title="egglib.stats.Freq.freq_genotype"><code class="xref py py-meth docutils literal"><span class="pre">egglib.stats.Freq.freq_genotype()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/toplevel.html#egglib.Tree.frequency_nodes" title="egglib.Tree.frequency_nodes"><code class="xref py py-meth docutils literal"><span class="pre">egglib.Tree.frequency_nodes()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/io.html#egglib.io.from_clustal" title="egglib.io.from_clustal"><code class="xref py py-func docutils literal"><span class="pre">egglib.io.from_clustal()</span></code></a> [function]</li>
+<li><a class="reference internal" href="py/io.html#egglib.io.from_fasta" title="egglib.io.from_fasta"><code class="xref py py-func docutils literal"><span class="pre">egglib.io.from_fasta()</span></code></a> [function]</li>
+<li><a class="reference internal" href="py/io.html#egglib.io.from_genalys" title="egglib.io.from_genalys"><code class="xref py py-func docutils literal"><span class="pre">egglib.io.from_genalys()</span></code></a> [function]</li>
+<li><a class="reference internal" href="py/io.html#egglib.io.VcfParser.from_header" title="egglib.io.VcfParser.from_header"><code class="xref py py-meth docutils literal"><span class="pre">egglib.io.VcfParser.from_header()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/io.html#egglib.io.from_staden" title="egglib.io.from_staden"><code class="xref py py-func docutils literal"><span class="pre">egglib.io.from_staden()</span></code></a> [function]</li>
+</ul>
+</div></blockquote>
+<p id="keyg"><strong>G</strong></p>
+<blockquote>
+<div><ul class="simple">
+<li><a class="reference internal" href="py/io.html#egglib.io.GFF3" title="egglib.io.GFF3"><code class="xref py py-class docutils literal"><span class="pre">egglib.io.GFF3</span></code></a> [class]</li>
+<li><a class="reference internal" href="py/io.html#egglib.io.GFF3Feature" title="egglib.io.GFF3Feature"><code class="xref py py-class docutils literal"><span class="pre">egglib.io.GFF3Feature</span></code></a> [class]</li>
+<li><a class="reference internal" href="py/io.html#egglib.io.Variant.GL" title="egglib.io.Variant.GL"><code class="xref py py-attr docutils literal"><span class="pre">egglib.io.Variant.GL</span></code></a> [attribute]</li>
+<li><a class="reference internal" href="py/io.html#egglib.io.Variant.GT" title="egglib.io.Variant.GT"><code class="xref py py-attr docutils literal"><span class="pre">egglib.io.Variant.GT</span></code></a> [attribute]</li>
+<li><a class="reference internal" href="py/io.html#egglib.io.Variant.GT_phased" title="egglib.io.Variant.GT_phased"><code class="xref py py-attr docutils literal"><span class="pre">egglib.io.Variant.GT_phased</span></code></a> [attribute]</li>
+<li><a class="reference internal" href="py/io.html#egglib.io.Variant.GT_vcf" title="egglib.io.Variant.GT_vcf"><code class="xref py py-attr docutils literal"><span class="pre">egglib.io.Variant.GT_vcf</span></code></a> [attribute]</li>
+<li><a class="reference internal" href="py/io.html#egglib.io.GenBank" title="egglib.io.GenBank"><code class="xref py py-class docutils literal"><span class="pre">egglib.io.GenBank</span></code></a> [class]</li>
+<li><a class="reference internal" href="py/io.html#egglib.io.GenBankFeature" title="egglib.io.GenBankFeature"><code class="xref py py-class docutils literal"><span class="pre">egglib.io.GenBankFeature</span></code></a> [class]</li>
+<li><a class="reference internal" href="py/io.html#egglib.io.GenBankFeatureLocation" title="egglib.io.GenBankFeatureLocation"><code class="xref py py-class docutils literal"><span class="pre">egglib.io.GenBankFeatureLocation</span></code></a> [class]</li>
+<li><a class="reference internal" href="py/toplevel.html#egglib.GroupView" title="egglib.GroupView"><code class="xref py py-class docutils literal"><span class="pre">egglib.GroupView</span></code></a> [class]</li>
+<li><a class="reference internal" href="py/io.html#egglib.io.GFF3Feature.gap" title="egglib.io.GFF3Feature.gap"><code class="xref py py-attr docutils literal"><span class="pre">egglib.io.GFF3Feature.gap</span></code></a> [attribute]</li>
+<li><a class="reference internal" href="py/stats.html#egglib.stats.Freq.genotype" title="egglib.stats.Freq.genotype"><code class="xref py py-meth docutils literal"><span class="pre">egglib.stats.Freq.genotype()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/tools.html#egglib.tools.Random.geometric" title="egglib.tools.Random.geometric"><code class="xref py py-meth docutils literal"><span class="pre">egglib.tools.Random.geometric()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/coalesce.html#egglib.coalesce.ParamDict.get" title="egglib.coalesce.ParamDict.get"><code class="xref py py-meth docutils literal"><span class="pre">egglib.coalesce.ParamDict.get()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/misc.html#egglib.misc.Pool.get" title="egglib.misc.Pool.get"><code class="xref py py-meth docutils literal"><span class="pre">egglib.misc.Pool.get()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/tools.html#egglib.tools.Discretize.get" title="egglib.tools.Discretize.get"><code class="xref py py-meth docutils literal"><span class="pre">egglib.tools.Discretize.get()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/stats.html#egglib.stats.EHH.get_EHH" title="egglib.stats.EHH.get_EHH"><code class="xref py py-meth docutils literal"><span class="pre">egglib.stats.EHH.get_EHH()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/stats.html#egglib.stats.EHH.get_EHHG" title="egglib.stats.EHH.get_EHHG"><code class="xref py py-meth docutils literal"><span class="pre">egglib.stats.EHH.get_EHHG()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/stats.html#egglib.stats.EHH.get_EHHS" title="egglib.stats.EHH.get_EHHS"><code class="xref py py-meth docutils literal"><span class="pre">egglib.stats.EHH.get_EHHS()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/stats.html#egglib.stats.EHH.get_EHHc" title="egglib.stats.EHH.get_EHHc"><code class="xref py py-meth docutils literal"><span class="pre">egglib.stats.EHH.get_EHHc()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/stats.html#egglib.stats.EHH.get_IHH" title="egglib.stats.EHH.get_IHH"><code class="xref py py-meth docutils literal"><span class="pre">egglib.stats.EHH.get_IHH()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/stats.html#egglib.stats.EHH.get_IHHc" title="egglib.stats.EHH.get_IHHc"><code class="xref py py-meth docutils literal"><span class="pre">egglib.stats.EHH.get_IHHc()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/io.html#egglib.io.VcfParser.get_alt" title="egglib.io.VcfParser.get_alt"><code class="xref py py-meth docutils literal"><span class="pre">egglib.io.VcfParser.get_alt()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/io.html#egglib.io.VcfParser.get_bed_file" title="egglib.io.VcfParser.get_bed_file"><code class="xref py py-meth docutils literal"><span class="pre">egglib.io.VcfParser.get_bed_file()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/io.html#egglib.io.VcfParser.get_contig_index" title="egglib.io.VcfParser.get_contig_index"><code class="xref py py-meth docutils literal"><span class="pre">egglib.io.VcfParser.get_contig_index()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/stats.html#egglib.stats.EHH.get_dEHH" title="egglib.stats.EHH.get_dEHH"><code class="xref py py-meth docutils literal"><span class="pre">egglib.stats.EHH.get_dEHH()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/stats.html#egglib.stats.EHH.get_dEHHG" title="egglib.stats.EHH.get_dEHHG"><code class="xref py py-meth docutils literal"><span class="pre">egglib.stats.EHH.get_dEHHG()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/stats.html#egglib.stats.EHH.get_dEHHS" title="egglib.stats.EHH.get_dEHHS"><code class="xref py py-meth docutils literal"><span class="pre">egglib.stats.EHH.get_dEHHS()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/stats.html#egglib.stats.EHH.get_dEHH_max" title="egglib.stats.EHH.get_dEHH_max"><code class="xref py py-meth docutils literal"><span class="pre">egglib.stats.EHH.get_dEHH_max()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/stats.html#egglib.stats.EHH.get_dEHH_mean" title="egglib.stats.EHH.get_dEHH_mean"><code class="xref py py-meth docutils literal"><span class="pre">egglib.stats.EHH.get_dEHH_mean()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/stats.html#egglib.stats.EHH.get_dEHHc" title="egglib.stats.EHH.get_dEHHc"><code class="xref py py-meth docutils literal"><span class="pre">egglib.stats.EHH.get_dEHHc()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/io.html#egglib.io.get_fgenesh" title="egglib.io.get_fgenesh"><code class="xref py py-func docutils literal"><span class="pre">egglib.io.get_fgenesh()</span></code></a> [function]</li>
+<li><a class="reference internal" href="py/io.html#egglib.io.VcfParser.get_filter" title="egglib.io.VcfParser.get_filter"><code class="xref py py-meth docutils literal"><span class="pre">egglib.io.VcfParser.get_filter()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/io.html#egglib.io.VcfParser.get_format" title="egglib.io.VcfParser.get_format"><code class="xref py py-meth docutils literal"><span class="pre">egglib.io.VcfParser.get_format()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/io.html#egglib.io.VcfParser.get_genotypes" title="egglib.io.VcfParser.get_genotypes"><code class="xref py py-meth docutils literal"><span class="pre">egglib.io.VcfParser.get_genotypes()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/toplevel.html#egglib.Align.get_i" title="egglib.Align.get_i"><code class="xref py py-meth docutils literal"><span class="pre">egglib.Align.get_i()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/toplevel.html#egglib.Container.get_i" title="egglib.Container.get_i"><code class="xref py py-meth docutils literal"><span class="pre">egglib.Container.get_i()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/stats.html#egglib.stats.EHH.get_iEG" title="egglib.stats.EHH.get_iEG"><code class="xref py py-meth docutils literal"><span class="pre">egglib.stats.EHH.get_iEG()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/stats.html#egglib.stats.EHH.get_iES" title="egglib.stats.EHH.get_iES"><code class="xref py py-meth docutils literal"><span class="pre">egglib.stats.EHH.get_iES()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/stats.html#egglib.stats.EHH.get_iHS" title="egglib.stats.EHH.get_iHS"><code class="xref py py-meth docutils literal"><span class="pre">egglib.stats.EHH.get_iHS()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/io.html#egglib.io.VcfParser.get_index" title="egglib.io.VcfParser.get_index"><code class="xref py py-meth docutils literal"><span class="pre">egglib.io.VcfParser.get_index()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/io.html#egglib.io.VcfParser.get_info" title="egglib.io.VcfParser.get_info"><code class="xref py py-meth docutils literal"><span class="pre">egglib.io.VcfParser.get_info()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/toplevel.html#egglib.Align.get_label" title="egglib.Align.get_label"><code class="xref py py-meth docutils literal"><span class="pre">egglib.Align.get_label()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/toplevel.html#egglib.Container.get_label" title="egglib.Container.get_label"><code class="xref py py-meth docutils literal"><span class="pre">egglib.Container.get_label()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/toplevel.html#egglib.Align.get_label_o" title="egglib.Align.get_label_o"><code class="xref py py-meth docutils literal"><span class="pre">egglib.Align.get_label_o()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/toplevel.html#egglib.Container.get_label_o" title="egglib.Container.get_label_o"><code class="xref py py-meth docutils literal"><span class="pre">egglib.Container.get_label_o()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/io.html#egglib.io.VcfParser.get_last_contig_index" title="egglib.io.VcfParser.get_last_contig_index"><code class="xref py py-meth docutils literal"><span class="pre">egglib.io.VcfParser.get_last_contig_index()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/toplevel.html#egglib.Tree.get_leaf" title="egglib.Tree.get_leaf"><code class="xref py py-meth docutils literal"><span class="pre">egglib.Tree.get_leaf()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/io.html#egglib.io.VcfParser.get_meta" title="egglib.io.VcfParser.get_meta"><code class="xref py py-meth docutils literal"><span class="pre">egglib.io.VcfParser.get_meta()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/toplevel.html#egglib.Align.get_name" title="egglib.Align.get_name"><code class="xref py py-meth docutils literal"><span class="pre">egglib.Align.get_name()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/toplevel.html#egglib.Container.get_name" title="egglib.Container.get_name"><code class="xref py py-meth docutils literal"><span class="pre">egglib.Container.get_name()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/toplevel.html#egglib.Align.get_name_o" title="egglib.Align.get_name_o"><code class="xref py py-meth docutils literal"><span class="pre">egglib.Align.get_name_o()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/toplevel.html#egglib.Container.get_name_o" title="egglib.Container.get_name_o"><code class="xref py py-meth docutils literal"><span class="pre">egglib.Container.get_name_o()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/toplevel.html#egglib.Align.get_o" title="egglib.Align.get_o"><code class="xref py py-meth docutils literal"><span class="pre">egglib.Align.get_o()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/toplevel.html#egglib.Container.get_o" title="egglib.Container.get_o"><code class="xref py py-meth docutils literal"><span class="pre">egglib.Container.get_o()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/toplevel.html#egglib.Align.get_outgroup" title="egglib.Align.get_outgroup"><code class="xref py py-meth docutils literal"><span class="pre">egglib.Align.get_outgroup()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/toplevel.html#egglib.Container.get_outgroup" title="egglib.Container.get_outgroup"><code class="xref py py-meth docutils literal"><span class="pre">egglib.Container.get_outgroup()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/io.html#egglib.io.GFF3Feature.get_parent" title="egglib.io.GFF3Feature.get_parent"><code class="xref py py-meth docutils literal"><span class="pre">egglib.io.GFF3Feature.get_parent()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/io.html#egglib.io.GFF3Feature.get_part" title="egglib.io.GFF3Feature.get_part"><code class="xref py py-meth docutils literal"><span class="pre">egglib.io.GFF3Feature.get_part()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/io.html#egglib.io.VcfParser.get_position_index" title="egglib.io.VcfParser.get_position_index"><code class="xref py py-meth docutils literal"><span class="pre">egglib.io.VcfParser.get_position_index()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/stats.html#egglib.stats.EHH.get_rEHH" title="egglib.stats.EHH.get_rEHH"><code class="xref py py-meth docutils literal"><span class="pre">egglib.stats.EHH.get_rEHH()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/toplevel.html#egglib.Align.get_sample" title="egglib.Align.get_sample"><code class="xref py py-meth docutils literal"><span class="pre">egglib.Align.get_sample()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/toplevel.html#egglib.Container.get_sample" title="egglib.Container.get_sample"><code class="xref py py-meth docutils literal"><span class="pre">egglib.Container.get_sample()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/io.html#egglib.io.VcfParser.get_sample" title="egglib.io.VcfParser.get_sample"><code class="xref py py-meth docutils literal"><span class="pre">egglib.io.VcfParser.get_sample()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/stats.html#egglib.stats.Structure.get_samples" title="egglib.stats.Structure.get_samples"><code class="xref py py-meth docutils literal"><span class="pre">egglib.stats.Structure.get_samples()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/tools.html#egglib.tools.Random.get_seed" title="egglib.tools.Random.get_seed"><code class="xref py py-meth docutils literal"><span class="pre">egglib.tools.Random.get_seed()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/toplevel.html#egglib.Align.get_sequence" title="egglib.Align.get_sequence"><code class="xref py py-meth docutils literal"><span class="pre">egglib.Align.get_sequence()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/toplevel.html#egglib.Container.get_sequence" title="egglib.Container.get_sequence"><code class="xref py py-meth docutils literal"><span class="pre">egglib.Container.get_sequence()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/io.html#egglib.io.GenBankFeature.get_sequence" title="egglib.io.GenBankFeature.get_sequence"><code class="xref py py-meth docutils literal"><span class="pre">egglib.io.GenBankFeature.get_sequence()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/toplevel.html#egglib.Align.get_sequence_o" title="egglib.Align.get_sequence_o"><code class="xref py py-meth docutils literal"><span class="pre">egglib.Align.get_sequence_o()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/toplevel.html#egglib.Container.get_sequence_o" title="egglib.Container.get_sequence_o"><code class="xref py py-meth docutils literal"><span class="pre">egglib.Container.get_sequence_o()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/io.html#egglib.io.GenBankFeature.get_start" title="egglib.io.GenBankFeature.get_start"><code class="xref py py-meth docutils literal"><span class="pre">egglib.io.GenBankFeature.get_start()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/io.html#egglib.io.GenBankFeature.get_stop" title="egglib.io.GenBankFeature.get_stop"><code class="xref py py-meth docutils literal"><span class="pre">egglib.io.GenBankFeature.get_stop()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/stats.html#egglib.stats.Structure.get_structure" title="egglib.stats.Structure.get_structure"><code class="xref py py-meth docutils literal"><span class="pre">egglib.stats.Structure.get_structure()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/stats.html#egglib.stats.get_structure" title="egglib.stats.get_structure"><code class="xref py py-func docutils literal"><span class="pre">egglib.stats.get_structure()</span></code></a> [function]</li>
+<li><a class="reference internal" href="py/io.html#egglib.io.GenBankFeature.get_type" title="egglib.io.GenBankFeature.get_type"><code class="xref py py-meth docutils literal"><span class="pre">egglib.io.GenBankFeature.get_type()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/coalesce.html#egglib.coalesce.ParamDict.get_values" title="egglib.coalesce.ParamDict.get_values"><code class="xref py py-meth docutils literal"><span class="pre">egglib.coalesce.ParamDict.get_values()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/coalesce.html#egglib.coalesce.ParamMatrix.get_values" title="egglib.coalesce.ParamMatrix.get_values"><code class="xref py py-meth docutils literal"><span class="pre">egglib.coalesce.ParamMatrix.get_values()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/io.html#egglib.io.VcfParser.get_variant_index" title="egglib.io.VcfParser.get_variant_index"><code class="xref py py-meth docutils literal"><span class="pre">egglib.io.VcfParser.get_variant_index()</span></code></a> [method]</li>
+<li><code class="xref py py-meth docutils literal"><span class="pre">egglib.fit.Nnet.get_weights()</span></code> [method]</li>
+<li><a class="reference internal" href="py/io.html#egglib.io.VcfParser.good" title="egglib.io.VcfParser.good"><code class="xref py py-attr docutils literal"><span class="pre">egglib.io.VcfParser.good</span></code></a> [attribute]</li>
+<li><a class="reference internal" href="py/io.html#egglib.io.VcfParser.goto" title="egglib.io.VcfParser.goto"><code class="xref py py-meth docutils literal"><span class="pre">egglib.io.VcfParser.goto()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/toplevel.html#egglib.SampleView.group" title="egglib.SampleView.group"><code class="xref py py-attr docutils literal"><span class="pre">egglib.SampleView.group</span></code></a> [attribute]</li>
+<li><a class="reference internal" href="py/toplevel.html#egglib.Align.group_mapping" title="egglib.Align.group_mapping"><code class="xref py py-meth docutils literal"><span class="pre">egglib.Align.group_mapping()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/toplevel.html#egglib.Container.group_mapping" title="egglib.Container.group_mapping"><code class="xref py py-meth docutils literal"><span class="pre">egglib.Container.group_mapping()</span></code></a> [method]</li>
+</ul>
+</div></blockquote>
+<p id="keyh"><strong>H</strong></p>
+<blockquote>
+<div><ul class="simple">
+<li><a class="reference internal" href="py/stats.html#egglib.stats.haplotypes" title="egglib.stats.haplotypes"><code class="xref py py-func docutils literal"><span class="pre">egglib.stats.haplotypes()</span></code></a> [function]</li>
+<li><a class="reference internal" href="py/toplevel.html#egglib.Node.has_descendant" title="egglib.Node.has_descendant"><code class="xref py py-meth docutils literal"><span class="pre">egglib.Node.has_descendant()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/io.html#egglib.io.VcfParser.has_index" title="egglib.io.VcfParser.has_index"><code class="xref py py-attr docutils literal"><span class="pre">egglib.io.VcfParser.has_index</span></code></a> [attribute]</li>
+<li><a class="reference internal" href="py/coalesce.html#egglib.coalesce.ParamDict.has_key" title="egglib.coalesce.ParamDict.has_key"><code class="xref py py-meth docutils literal"><span class="pre">egglib.coalesce.ParamDict.has_key()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/tools.html#egglib.tools.has_stop" title="egglib.tools.has_stop"><code class="xref py py-func docutils literal"><span class="pre">egglib.tools.has_stop()</span></code></a> [function]</li>
+</ul>
+</div></blockquote>
+<p id="keyi"><strong>I</strong></p>
+<blockquote>
+<div><ul class="simple">
+<li><a class="reference internal" href="py/io.html#egglib.io.GFF3Feature.ID" title="egglib.io.GFF3Feature.ID"><code class="xref py py-attr docutils literal"><span class="pre">egglib.io.GFF3Feature.ID</span></code></a> [attribute]</li>
+<li><a class="reference internal" href="py/io.html#egglib.io.Variant.ID" title="egglib.io.Variant.ID"><code class="xref py py-attr docutils literal"><span class="pre">egglib.io.Variant.ID</span></code></a> [attribute]</li>
+<li><a class="reference internal" href="py/toplevel.html#egglib.SampleView.index" title="egglib.SampleView.index"><code class="xref py py-attr docutils literal"><span class="pre">egglib.SampleView.index</span></code></a> [attribute]</li>
+<li><a class="reference internal" href="py/coalesce.html#egglib.coalesce.ParamList.index" title="egglib.coalesce.ParamList.index"><code class="xref py py-meth docutils literal"><span class="pre">egglib.coalesce.ParamList.index()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/coalesce.html#egglib.coalesce.ParamMatrix.index" title="egglib.coalesce.ParamMatrix.index"><code class="xref py py-meth docutils literal"><span class="pre">egglib.coalesce.ParamMatrix.index()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/io.html#egglib.io.Variant.info" title="egglib.io.Variant.info"><code class="xref py py-attr docutils literal"><span class="pre">egglib.io.Variant.info</span></code></a> [attribute]</li>
+<li><a class="reference internal" href="py/stats.html#egglib.stats.Site.ingroup" title="egglib.stats.Site.ingroup"><code class="xref py py-meth docutils literal"><span class="pre">egglib.stats.Site.ingroup()</span></code></a> [method]</li>
+<li><code class="xref py py-meth docutils literal"><span class="pre">egglib.fit.Nnet.init_network()</span></code> [method]</li>
+<li><a class="reference internal" href="py/toplevel.html#egglib.SequenceView.insert" title="egglib.SequenceView.insert"><code class="xref py py-meth docutils literal"><span class="pre">egglib.SequenceView.insert()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/toplevel.html#egglib.Align.insert_columns" title="egglib.Align.insert_columns"><code class="xref py py-meth docutils literal"><span class="pre">egglib.Align.insert_columns()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/toplevel.html#egglib.Container.insert_sites" title="egglib.Container.insert_sites"><code class="xref py py-meth docutils literal"><span class="pre">egglib.Container.insert_sites()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/toplevel.html#egglib.Container.insert_sites_o" title="egglib.Container.insert_sites_o"><code class="xref py py-meth docutils literal"><span class="pre">egglib.Container.insert_sites_o()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/tools.html#egglib.tools.int2codon" title="egglib.tools.int2codon"><code class="xref py py-func docutils literal"><span class="pre">egglib.tools.int2codon()</span></code></a> [function]</li>
+<li><a class="reference internal" href="py/tools.html#egglib.tools.Random.integer" title="egglib.tools.Random.integer"><code class="xref py py-meth docutils literal"><span class="pre">egglib.tools.Random.integer()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/tools.html#egglib.tools.Random.integer_32bit" title="egglib.tools.Random.integer_32bit"><code class="xref py py-meth docutils literal"><span class="pre">egglib.tools.Random.integer_32bit()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/toplevel.html#egglib.Align.intersperse" title="egglib.Align.intersperse"><code class="xref py py-meth docutils literal"><span class="pre">egglib.Align.intersperse()</span></code></a> [method]</li>
+<li><code class="xref py py-mod docutils literal"><span class="pre">egglib.io</span></code> [module]</li>
+<li><a class="reference internal" href="py/toplevel.html#egglib.Node.is_child" title="egglib.Node.is_child"><code class="xref py py-meth docutils literal"><span class="pre">egglib.Node.is_child()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/io.html#egglib.io.GFF3Feature.is_circular" title="egglib.io.GFF3Feature.is_circular"><code class="xref py py-attr docutils literal"><span class="pre">egglib.io.GFF3Feature.is_circular</span></code></a> [attribute]</li>
+<li><a class="reference internal" href="py/io.html#egglib.io.GenBankFeatureLocation.is_complement" title="egglib.io.GenBankFeatureLocation.is_complement"><code class="xref py py-meth docutils literal"><span class="pre">egglib.io.GenBankFeatureLocation.is_complement()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/toplevel.html#egglib.Align.is_matrix" title="egglib.Align.is_matrix"><code class="xref py py-attr docutils literal"><span class="pre">egglib.Align.is_matrix</span></code></a> [attribute]</li>
+<li><a class="reference internal" href="py/toplevel.html#egglib.Container.is_matrix" title="egglib.Container.is_matrix"><code class="xref py py-attr docutils literal"><span class="pre">egglib.Container.is_matrix</span></code></a> [attribute]</li>
+<li><a class="reference internal" href="py/toplevel.html#egglib.Node.is_parent" title="egglib.Node.is_parent"><code class="xref py py-meth docutils literal"><span class="pre">egglib.Node.is_parent()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/io.html#egglib.io.GenBankFeatureLocation.is_range" title="egglib.io.GenBankFeatureLocation.is_range"><code class="xref py py-meth docutils literal"><span class="pre">egglib.io.GenBankFeatureLocation.is_range()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/coalesce.html#egglib.coalesce.ParamDict.items" title="egglib.coalesce.ParamDict.items"><code class="xref py py-meth docutils literal"><span class="pre">egglib.coalesce.ParamDict.items()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/stats.html#egglib.stats.CodingDiversity.iter_NS" title="egglib.stats.CodingDiversity.iter_NS"><code class="xref py py-meth docutils literal"><span class="pre">egglib.stats.CodingDiversity.iter_NS()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/stats.html#egglib.stats.CodingDiversity.iter_S" title="egglib.stats.CodingDiversity.iter_S"><code class="xref py py-meth docutils literal"><span class="pre">egglib.stats.CodingDiversity.iter_S()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/tools.html#egglib.tools.ReadingFrame.iter_codons" title="egglib.tools.ReadingFrame.iter_codons"><code class="xref py py-meth docutils literal"><span class="pre">egglib.tools.ReadingFrame.iter_codons()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/tools.html#egglib.tools.ReadingFrame.iter_exon_bounds" title="egglib.tools.ReadingFrame.iter_exon_bounds"><code class="xref py py-meth docutils literal"><span class="pre">egglib.tools.ReadingFrame.iter_exon_bounds()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/toplevel.html#egglib.Tree.iter_leaves" title="egglib.Tree.iter_leaves"><code class="xref py py-meth docutils literal"><span class="pre">egglib.Tree.iter_leaves()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/toplevel.html#egglib.Align.iter_outgroup" title="egglib.Align.iter_outgroup"><code class="xref py py-meth docutils literal"><span class="pre">egglib.Align.iter_outgroup()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/toplevel.html#egglib.Container.iter_outgroup" title="egglib.Container.iter_outgroup"><code class="xref py py-meth docutils literal"><span class="pre">egglib.Container.iter_outgroup()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/toplevel.html#egglib.Align.iter_samples" title="egglib.Align.iter_samples"><code class="xref py py-meth docutils literal"><span class="pre">egglib.Align.iter_samples()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/toplevel.html#egglib.Container.iter_samples" title="egglib.Container.iter_samples"><code class="xref py py-meth docutils literal"><span class="pre">egglib.Container.iter_samples()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/coalesce.html#egglib.coalesce.Simulator.iter_simul" title="egglib.coalesce.Simulator.iter_simul"><code class="xref py py-meth docutils literal"><span class="pre">egglib.coalesce.Simulator.iter_simul()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/tools.html#egglib.tools.iter_stops" title="egglib.tools.iter_stops"><code class="xref py py-func docutils literal"><span class="pre">egglib.tools.iter_stops()</span></code></a> [function]</li>
+<li><a class="reference internal" href="py/coalesce.html#egglib.coalesce.ParamDict.iteritems" title="egglib.coalesce.ParamDict.iteritems"><code class="xref py py-meth docutils literal"><span class="pre">egglib.coalesce.ParamDict.iteritems()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/coalesce.html#egglib.coalesce.ParamDict.iterkeys" title="egglib.coalesce.ParamDict.iterkeys"><code class="xref py py-meth docutils literal"><span class="pre">egglib.coalesce.ParamDict.iterkeys()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/coalesce.html#egglib.coalesce.ParamDict.itervalues" title="egglib.coalesce.ParamDict.itervalues"><code class="xref py py-meth docutils literal"><span class="pre">egglib.coalesce.ParamDict.itervalues()</span></code></a> [method]</li>
+</ul>
+</div></blockquote>
+<p id="keyk"><strong>K</strong></p>
+<blockquote>
+<div><ul class="simple">
+<li><a class="reference internal" href="py/coalesce.html#egglib.coalesce.ParamDict.keys" title="egglib.coalesce.ParamDict.keys"><code class="xref py py-meth docutils literal"><span class="pre">egglib.coalesce.ParamDict.keys()</span></code></a> [method]</li>
+</ul>
+</div></blockquote>
+<p id="keyl"><strong>L</strong></p>
+<blockquote>
+<div><ul class="simple">
+<li><a class="reference internal" href="py/toplevel.html#egglib.Node.label" title="egglib.Node.label"><code class="xref py py-attr docutils literal"><span class="pre">egglib.Node.label</span></code></a> [attribute]</li>
+<li><a class="reference internal" href="py/io.html#egglib.io.VcfParser.last_variant" title="egglib.io.VcfParser.last_variant"><code class="xref py py-meth docutils literal"><span class="pre">egglib.io.VcfParser.last_variant()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/toplevel.html#egglib.Tree.lateralize" title="egglib.Tree.lateralize"><code class="xref py py-meth docutils literal"><span class="pre">egglib.Tree.lateralize()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/toplevel.html#egglib.Node.leaves_down" title="egglib.Node.leaves_down"><code class="xref py py-meth docutils literal"><span class="pre">egglib.Node.leaves_down()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/toplevel.html#egglib.Node.leaves_up" title="egglib.Node.leaves_up"><code class="xref py py-meth docutils literal"><span class="pre">egglib.Node.leaves_up()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/tools.html#egglib.tools.Discretize.left" title="egglib.tools.Discretize.left"><code class="xref py py-meth docutils literal"><span class="pre">egglib.tools.Discretize.left()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/stats.html#egglib.stats.ComputeStats.list_stats" title="egglib.stats.ComputeStats.list_stats"><code class="xref py py-meth docutils literal"><span class="pre">egglib.stats.ComputeStats.list_stats()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/toplevel.html#egglib.Container.lo" title="egglib.Container.lo"><code class="xref py py-meth docutils literal"><span class="pre">egglib.Container.lo()</span></code></a> [method]</li>
+<li><code class="xref py py-meth docutils literal"><span class="pre">egglib.fit.Nnet.load()</span></code> [method]</li>
+<li><a class="reference internal" href="py/stats.html#egglib.stats.ProbaMisoriented.load_align" title="egglib.stats.ProbaMisoriented.load_align"><code class="xref py py-meth docutils literal"><span class="pre">egglib.stats.ProbaMisoriented.load_align()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/stats.html#egglib.stats.EHH.load_distant" title="egglib.stats.EHH.load_distant"><code class="xref py py-meth docutils literal"><span class="pre">egglib.stats.EHH.load_distant()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/stats.html#egglib.stats.ProbaMisoriented.load_site" title="egglib.stats.ProbaMisoriented.load_site"><code class="xref py py-meth docutils literal"><span class="pre">egglib.stats.ProbaMisoriented.load_site()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/tools.html#egglib.tools.longest_orf" title="egglib.tools.longest_orf"><code class="xref py py-func docutils literal"><span class="pre">egglib.tools.longest_orf()</span></code></a> [function]</li>
+<li><a class="reference internal" href="py/toplevel.html#egglib.Align.ls" title="egglib.Align.ls"><code class="xref py py-attr docutils literal"><span class="pre">egglib.Align.ls</span></code></a> [attribute]</li>
+<li><a class="reference internal" href="py/toplevel.html#egglib.Container.ls" title="egglib.Container.ls"><code class="xref py py-meth docutils literal"><span class="pre">egglib.Container.ls()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/toplevel.html#egglib.SampleView.ls" title="egglib.SampleView.ls"><code class="xref py py-attr docutils literal"><span class="pre">egglib.SampleView.ls</span></code></a> [attribute]</li>
+</ul>
+</div></blockquote>
+<p id="keym"><strong>M</strong></p>
+<blockquote>
+<div><ul class="simple">
+<li><a class="reference internal" href="py/stats.html#egglib.stats.Structure.make_auxiliary" title="egglib.stats.Structure.make_auxiliary"><code class="xref py py-meth docutils literal"><span class="pre">egglib.stats.Structure.make_auxiliary()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/io.html#egglib.io.VcfParser.make_index" title="egglib.io.VcfParser.make_index"><code class="xref py py-meth docutils literal"><span class="pre">egglib.io.VcfParser.make_index()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/stats.html#egglib.stats.Structure.make_structure" title="egglib.stats.Structure.make_structure"><code class="xref py py-meth docutils literal"><span class="pre">egglib.stats.Structure.make_structure()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/stats.html#egglib.stats.make_structure" title="egglib.stats.make_structure"><code class="xref py py-func docutils literal"><span class="pre">egglib.stats.make_structure()</span></code></a> [function]</li>
+<li><code class="xref py py-func docutils literal"><span class="pre">egglib.wrappers.makeblastdb()</span></code> [function]</li>
+<li><a class="reference internal" href="py/toplevel.html#egglib.Tree.map_descendants" title="egglib.Tree.map_descendants"><code class="xref py py-meth docutils literal"><span class="pre">egglib.Tree.map_descendants()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/stats.html#egglib.stats.matrix_LD" title="egglib.stats.matrix_LD"><code class="xref py py-func docutils literal"><span class="pre">egglib.stats.matrix_LD()</span></code></a> [function]</li>
+<li><code class="xref py py-attr docutils literal"><span class="pre">egglib.tools.BackalignError.message</span></code> [attribute]</li>
+<li><a class="reference internal" href="py/io.html#egglib.io.GFF3.metadata" title="egglib.io.GFF3.metadata"><code class="xref py py-attr docutils literal"><span class="pre">egglib.io.GFF3.metadata</span></code></a> [attribute]</li>
+<li><a class="reference internal" href="py/tools.html#egglib.tools.Discretize.mget" title="egglib.tools.Discretize.mget"><code class="xref py py-meth docutils literal"><span class="pre">egglib.tools.Discretize.mget()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/tools.html#egglib.tools.Discretize.mid" title="egglib.tools.Discretize.mid"><code class="xref py py-meth docutils literal"><span class="pre">egglib.tools.Discretize.mid()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/toplevel.html#egglib.Tree.midroot" title="egglib.Tree.midroot"><code class="xref py py-meth docutils literal"><span class="pre">egglib.Tree.midroot()</span></code></a> [method]</li>
+<li><code class="xref py py-mod docutils literal"><span class="pre">egglib.misc</span></code> [module]</li>
+<li><a class="reference internal" href="py/stats.html#egglib.stats.Filter.missing" title="egglib.stats.Filter.missing"><code class="xref py py-meth docutils literal"><span class="pre">egglib.stats.Filter.missing()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/stats.html#egglib.stats.CodingDiversity.mk_align_NS" title="egglib.stats.CodingDiversity.mk_align_NS"><code class="xref py py-meth docutils literal"><span class="pre">egglib.stats.CodingDiversity.mk_align_NS()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/stats.html#egglib.stats.CodingDiversity.mk_align_S" title="egglib.stats.CodingDiversity.mk_align_S"><code class="xref py py-meth docutils literal"><span class="pre">egglib.stats.CodingDiversity.mk_align_S()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/coalesce.html#egglib.coalesce.ParamDict.mk_structure" title="egglib.coalesce.ParamDict.mk_structure"><code class="xref py py-meth docutils literal"><span class="pre">egglib.coalesce.ParamDict.mk_structure()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/tools.html#egglib.tools.motif_iter" title="egglib.tools.motif_iter"><code class="xref py py-func docutils literal"><span class="pre">egglib.tools.motif_iter()</span></code></a> [function]</li>
+<li><a class="reference internal" href="py/wrappers.html#egglib.wrappers.muscle" title="egglib.wrappers.muscle"><code class="xref py py-func docutils literal"><span class="pre">egglib.wrappers.muscle()</span></code></a> [function]</li>
+</ul>
+</div></blockquote>
+<p id="keyn"><strong>N</strong></p>
+<blockquote>
+<div><ul class="simple">
+<li><code class="xref py py-class docutils literal"><span class="pre">egglib.fit.Nnet</span></code> [class]</li>
+<li><a class="reference internal" href="py/toplevel.html#egglib.Node" title="egglib.Node"><code class="xref py py-class docutils literal"><span class="pre">egglib.Node</span></code></a> [class]</li>
+<li><a class="reference internal" href="py/toplevel.html#egglib.SampleView.name" title="egglib.SampleView.name"><code class="xref py py-attr docutils literal"><span class="pre">egglib.SampleView.name</span></code></a> [attribute]</li>
+<li><a class="reference internal" href="py/io.html#egglib.io.GFF3Feature.name" title="egglib.io.GFF3Feature.name"><code class="xref py py-attr docutils literal"><span class="pre">egglib.io.GFF3Feature.name</span></code></a> [attribute]</li>
+<li><a class="reference internal" href="py/tools.html#egglib.tools.BackalignError.name" title="egglib.tools.BackalignError.name"><code class="xref py py-attr docutils literal"><span class="pre">egglib.tools.BackalignError.name</span></code></a> [attribute]</li>
+<li><a class="reference internal" href="py/toplevel.html#egglib.Align.name_mapping" title="egglib.Align.name_mapping"><code class="xref py py-meth docutils literal"><span class="pre">egglib.Align.name_mapping()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/toplevel.html#egglib.Container.name_mapping" title="egglib.Container.name_mapping"><code class="xref py py-meth docutils literal"><span class="pre">egglib.Container.name_mapping()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/toplevel.html#egglib.Align.names" title="egglib.Align.names"><code class="xref py py-meth docutils literal"><span class="pre">egglib.Align.names()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/toplevel.html#egglib.Container.names" title="egglib.Container.names"><code class="xref py py-meth docutils literal"><span class="pre">egglib.Container.names()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/toplevel.html#egglib.Align.names_outgroup" title="egglib.Align.names_outgroup"><code class="xref py py-meth docutils literal"><span class="pre">egglib.Align.names_outgroup()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/toplevel.html#egglib.Container.names_outgroup" title="egglib.Container.names_outgroup"><code class="xref py py-meth docutils literal"><span class="pre">egglib.Container.names_outgroup()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/tools.html#egglib.tools.Discretize.ncat" title="egglib.tools.Discretize.ncat"><code class="xref py py-attr docutils literal"><span class="pre">egglib.tools.Discretize.ncat</span></code></a> [attribute]</li>
+<li><a class="reference internal" href="py/tools.html#egglib.tools.Discretize.ndata" title="egglib.tools.Discretize.ndata"><code class="xref py py-attr docutils literal"><span class="pre">egglib.tools.Discretize.ndata</span></code></a> [attribute]</li>
+<li><a class="reference internal" href="py/tools.html#egglib.tools.Discretize.ndim" title="egglib.tools.Discretize.ndim"><code class="xref py py-attr docutils literal"><span class="pre">egglib.tools.Discretize.ndim</span></code></a> [attribute]</li>
+<li><a class="reference internal" href="py/toplevel.html#egglib.Node.newick" title="egglib.Node.newick"><code class="xref py py-meth docutils literal"><span class="pre">egglib.Node.newick()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/toplevel.html#egglib.Tree.newick" title="egglib.Tree.newick"><code class="xref py py-meth docutils literal"><span class="pre">egglib.Tree.newick()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/io.html#egglib.io.VcfParser.next" title="egglib.io.VcfParser.next"><code class="xref py py-meth docutils literal"><span class="pre">egglib.io.VcfParser.next()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/io.html#egglib.io.fasta_iter.next" title="egglib.io.fasta_iter.next"><code class="xref py py-meth docutils literal"><span class="pre">egglib.io.fasta_iter.next()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/toplevel.html#egglib.Align.nexus" title="egglib.Align.nexus"><code class="xref py py-meth docutils literal"><span class="pre">egglib.Align.nexus()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/toplevel.html#egglib.Align.ng" title="egglib.Align.ng"><code class="xref py py-attr docutils literal"><span class="pre">egglib.Align.ng</span></code></a> [attribute]</li>
+<li><a class="reference internal" href="py/toplevel.html#egglib.Container.ng" title="egglib.Container.ng"><code class="xref py py-attr docutils literal"><span class="pre">egglib.Container.ng</span></code></a> [attribute]</li>
+<li><a class="reference internal" href="py/stats.html#egglib.stats.Freq.nieff" title="egglib.stats.Freq.nieff"><code class="xref py py-meth docutils literal"><span class="pre">egglib.stats.Freq.nieff()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/toplevel.html#egglib.Align.no" title="egglib.Align.no"><code class="xref py py-attr docutils literal"><span class="pre">egglib.Align.no</span></code></a> [attribute]</li>
+<li><a class="reference internal" href="py/toplevel.html#egglib.Container.no" title="egglib.Container.no"><code class="xref py py-attr docutils literal"><span class="pre">egglib.Container.no</span></code></a> [attribute]</li>
+<li><a class="reference internal" href="py/stats.html#egglib.stats.Site.no" title="egglib.stats.Site.no"><code class="xref py py-attr docutils literal"><span class="pre">egglib.stats.Site.no</span></code></a> [attribute]</li>
+<li><a class="reference internal" href="py/stats.html#egglib.stats.Structure.no" title="egglib.stats.Structure.no"><code class="xref py py-attr docutils literal"><span class="pre">egglib.stats.Structure.no</span></code></a> [attribute]</li>
+<li><a class="reference internal" href="py/tools.html#egglib.tools.Random.normal" title="egglib.tools.Random.normal"><code class="xref py py-meth docutils literal"><span class="pre">egglib.tools.Random.normal()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/io.html#egglib.io.GFF3Feature.notes" title="egglib.io.GFF3Feature.notes"><code class="xref py py-attr docutils literal"><span class="pre">egglib.io.GFF3Feature.notes</span></code></a> [attribute]</li>
+<li><a class="reference internal" href="py/toplevel.html#egglib.Align.ns" title="egglib.Align.ns"><code class="xref py py-attr docutils literal"><span class="pre">egglib.Align.ns</span></code></a> [attribute]</li>
+<li><a class="reference internal" href="py/toplevel.html#egglib.Container.ns" title="egglib.Container.ns"><code class="xref py py-attr docutils literal"><span class="pre">egglib.Container.ns</span></code></a> [attribute]</li>
+<li><a class="reference internal" href="py/stats.html#egglib.stats.Site.ns" title="egglib.stats.Site.ns"><code class="xref py py-attr docutils literal"><span class="pre">egglib.stats.Site.ns</span></code></a> [attribute]</li>
+<li><a class="reference internal" href="py/stats.html#egglib.stats.Structure.ns" title="egglib.stats.Structure.ns"><code class="xref py py-attr docutils literal"><span class="pre">egglib.stats.Structure.ns</span></code></a> [attribute]</li>
+<li><a class="reference internal" href="py/stats.html#egglib.stats.EHH.nsam" title="egglib.stats.EHH.nsam"><code class="xref py py-attr docutils literal"><span class="pre">egglib.stats.EHH.nsam</span></code></a> [attribute]</li>
+<li><a class="reference internal" href="py/stats.html#egglib.stats.EHH.nsam_core" title="egglib.stats.EHH.nsam_core"><code class="xref py py-meth docutils literal"><span class="pre">egglib.stats.EHH.nsam_core()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/stats.html#egglib.stats.EHH.nsam_hap" title="egglib.stats.EHH.nsam_hap"><code class="xref py py-meth docutils literal"><span class="pre">egglib.stats.EHH.nsam_hap()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/stats.html#egglib.stats.Freq.nseff" title="egglib.stats.Freq.nseff"><code class="xref py py-meth docutils literal"><span class="pre">egglib.stats.Freq.nseff()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/tools.html#egglib.tools.Discretize.nskipped" title="egglib.tools.Discretize.nskipped"><code class="xref py py-attr docutils literal"><span class="pre">egglib.tools.Discretize.nskipped</span></code></a> [attribute]</li>
+<li><a class="reference internal" href="py/io.html#egglib.io.Variant.num_alleles" title="egglib.io.Variant.num_alleles"><code class="xref py py-attr docutils literal"><span class="pre">egglib.io.Variant.num_alleles</span></code></a> [attribute]</li>
+<li><a class="reference internal" href="py/stats.html#egglib.stats.Freq.num_alleles" title="egglib.stats.Freq.num_alleles"><code class="xref py py-attr docutils literal"><span class="pre">egglib.stats.Freq.num_alleles</span></code></a> [attribute]</li>
+<li><a class="reference internal" href="py/stats.html#egglib.stats.Site.num_alleles" title="egglib.stats.Site.num_alleles"><code class="xref py py-attr docutils literal"><span class="pre">egglib.stats.Site.num_alleles</span></code></a> [attribute]</li>
+<li><a class="reference internal" href="py/io.html#egglib.io.VcfParser.num_alt" title="egglib.io.VcfParser.num_alt"><code class="xref py py-attr docutils literal"><span class="pre">egglib.io.VcfParser.num_alt</span></code></a> [attribute]</li>
+<li><a class="reference internal" href="py/io.html#egglib.io.Variant.num_alternate" title="egglib.io.Variant.num_alternate"><code class="xref py py-attr docutils literal"><span class="pre">egglib.io.Variant.num_alternate</span></code></a> [attribute]</li>
+<li><a class="reference internal" href="py/toplevel.html#egglib.Node.num_children" title="egglib.Node.num_children"><code class="xref py py-attr docutils literal"><span class="pre">egglib.Node.num_children</span></code></a> [attribute]</li>
+<li><a class="reference internal" href="py/stats.html#egglib.stats.Structure.num_clust" title="egglib.stats.Structure.num_clust"><code class="xref py py-attr docutils literal"><span class="pre">egglib.stats.Structure.num_clust</span></code></a> [attribute]</li>
+<li><a class="reference internal" href="py/stats.html#egglib.stats.Freq.num_clusters" title="egglib.stats.Freq.num_clusters"><code class="xref py py-attr docutils literal"><span class="pre">egglib.stats.Freq.num_clusters</span></code></a> [attribute]</li>
+<li><a class="reference internal" href="py/tools.html#egglib.tools.ReadingFrame.num_codons" title="egglib.tools.ReadingFrame.num_codons"><code class="xref py py-attr docutils literal"><span class="pre">egglib.tools.ReadingFrame.num_codons</span></code></a> [attribute]</li>
+<li><a class="reference internal" href="py/stats.html#egglib.stats.CodingDiversity.num_codons_eff" title="egglib.stats.CodingDiversity.num_codons_eff"><code class="xref py py-attr docutils literal"><span class="pre">egglib.stats.CodingDiversity.num_codons_eff</span></code></a> [attribute]</li>
+<li><a class="reference internal" href="py/stats.html#egglib.stats.CodingDiversity.num_codons_stop" title="egglib.stats.CodingDiversity.num_codons_stop"><code class="xref py py-attr docutils literal"><span class="pre">egglib.stats.CodingDiversity.num_codons_stop</span></code></a> [attribute]</li>
+<li><a class="reference internal" href="py/stats.html#egglib.stats.CodingDiversity.num_codons_tot" title="egglib.stats.CodingDiversity.num_codons_tot"><code class="xref py py-attr docutils literal"><span class="pre">egglib.stats.CodingDiversity.num_codons_tot</span></code></a> [attribute]</li>
+<li><code class="xref py py-attr docutils literal"><span class="pre">egglib.fit.ABC.num_ds</span></code> [attribute]</li>
+<li><a class="reference internal" href="py/tools.html#egglib.tools.ReadingFrame.num_exon_bases" title="egglib.tools.ReadingFrame.num_exon_bases"><code class="xref py py-attr docutils literal"><span class="pre">egglib.tools.ReadingFrame.num_exon_bases</span></code></a> [attribute]</li>
+<li><a class="reference internal" href="py/tools.html#egglib.tools.ReadingFrame.num_exons" title="egglib.tools.ReadingFrame.num_exons"><code class="xref py py-attr docutils literal"><span class="pre">egglib.tools.ReadingFrame.num_exons</span></code></a> [attribute]</li>
+<li><a class="reference internal" href="py/io.html#egglib.io.VcfParser.num_filter" title="egglib.io.VcfParser.num_filter"><code class="xref py py-attr docutils literal"><span class="pre">egglib.io.VcfParser.num_filter</span></code></a> [attribute]</li>
+<li><a class="reference internal" href="py/io.html#egglib.io.VcfParser.num_format" title="egglib.io.VcfParser.num_format"><code class="xref py py-attr docutils literal"><span class="pre">egglib.io.VcfParser.num_format</span></code></a> [attribute]</li>
+<li><a class="reference internal" href="py/io.html#egglib.io.GFF3Feature.num_fragments" title="egglib.io.GFF3Feature.num_fragments"><code class="xref py py-attr docutils literal"><span class="pre">egglib.io.GFF3Feature.num_fragments</span></code></a> [attribute]</li>
+<li><a class="reference internal" href="py/tools.html#egglib.tools.ReadingFrame.num_full_codons" title="egglib.tools.ReadingFrame.num_full_codons"><code class="xref py py-attr docutils literal"><span class="pre">egglib.tools.ReadingFrame.num_full_codons</span></code></a> [attribute]</li>
+<li><a class="reference internal" href="py/io.html#egglib.io.Variant.num_genotypes" title="egglib.io.Variant.num_genotypes"><code class="xref py py-attr docutils literal"><span class="pre">egglib.io.Variant.num_genotypes</span></code></a> [attribute]</li>
+<li><a class="reference internal" href="py/stats.html#egglib.stats.Freq.num_genotypes" title="egglib.stats.Freq.num_genotypes"><code class="xref py py-attr docutils literal"><span class="pre">egglib.stats.Freq.num_genotypes</span></code></a> [attribute]</li>
+<li><a class="reference internal" href="py/stats.html#egglib.stats.EHH.num_haplotypes" title="egglib.stats.EHH.num_haplotypes"><code class="xref py py-attr docutils literal"><span class="pre">egglib.stats.EHH.num_haplotypes</span></code></a> [attribute]</li>
+<li><a class="reference internal" href="py/io.html#egglib.io.VcfParser.num_index" title="egglib.io.VcfParser.num_index"><code class="xref py py-attr docutils literal"><span class="pre">egglib.io.VcfParser.num_index</span></code></a> [attribute]</li>
+<li><a class="reference internal" href="py/stats.html#egglib.stats.Structure.num_indiv_ingroup" title="egglib.stats.Structure.num_indiv_ingroup"><code class="xref py py-attr docutils literal"><span class="pre">egglib.stats.Structure.num_indiv_ingroup</span></code></a> [attribute]</li>
+<li><a class="reference internal" href="py/stats.html#egglib.stats.Structure.num_indiv_outgroup" title="egglib.stats.Structure.num_indiv_outgroup"><code class="xref py py-attr docutils literal"><span class="pre">egglib.stats.Structure.num_indiv_outgroup</span></code></a> [attribute]</li>
+<li><a class="reference internal" href="py/io.html#egglib.io.VcfParser.num_info" title="egglib.io.VcfParser.num_info"><code class="xref py py-attr docutils literal"><span class="pre">egglib.io.VcfParser.num_info</span></code></a> [attribute]</li>
+<li><a class="reference internal" href="py/stats.html#egglib.stats.Site.num_ingroup" title="egglib.stats.Site.num_ingroup"><code class="xref py py-attr docutils literal"><span class="pre">egglib.stats.Site.num_ingroup</span></code></a> [attribute]</li>
+<li><a class="reference internal" href="py/toplevel.html#egglib.Tree.num_leaves" title="egglib.Tree.num_leaves"><code class="xref py py-attr docutils literal"><span class="pre">egglib.Tree.num_leaves</span></code></a> [attribute]</li>
+<li><a class="reference internal" href="py/io.html#egglib.io.VcfParser.num_meta" title="egglib.io.VcfParser.num_meta"><code class="xref py py-attr docutils literal"><span class="pre">egglib.io.VcfParser.num_meta</span></code></a> [attribute]</li>
+<li><a class="reference internal" href="py/stats.html#egglib.stats.Site.num_missing" title="egglib.stats.Site.num_missing"><code class="xref py py-attr docutils literal"><span class="pre">egglib.stats.Site.num_missing</span></code></a> [attribute]</li>
+<li><a class="reference internal" href="py/stats.html#egglib.stats.Site.num_missing_ingroup" title="egglib.stats.Site.num_missing_ingroup"><code class="xref py py-attr docutils literal"><span class="pre">egglib.stats.Site.num_missing_ingroup</span></code></a> [attribute]</li>
+<li><a class="reference internal" href="py/stats.html#egglib.stats.Site.num_missing_outgroup" title="egglib.stats.Site.num_missing_outgroup"><code class="xref py py-attr docutils literal"><span class="pre">egglib.stats.Site.num_missing_outgroup</span></code></a> [attribute]</li>
+<li><a class="reference internal" href="py/stats.html#egglib.stats.CodingDiversity.num_multiple_alleles" title="egglib.stats.CodingDiversity.num_multiple_alleles"><code class="xref py py-attr docutils literal"><span class="pre">egglib.stats.CodingDiversity.num_multiple_alleles</span></code></a> [attribute]</li>
+<li><a class="reference internal" href="py/stats.html#egglib.stats.CodingDiversity.num_multiple_hits" title="egglib.stats.CodingDiversity.num_multiple_hits"><code class="xref py py-attr docutils literal"><span class="pre">egglib.stats.CodingDiversity.num_multiple_hits</span></code></a> [attribute]</li>
+<li><a class="reference internal" href="py/tools.html#egglib.tools.ReadingFrame.num_needed_bases" title="egglib.tools.ReadingFrame.num_needed_bases"><code class="xref py py-attr docutils literal"><span class="pre">egglib.tools.ReadingFrame.num_needed_bases</span></code></a> [attribute]</li>
+<li><a class="reference internal" href="py/toplevel.html#egglib.Tree.num_nodes" title="egglib.Tree.num_nodes"><code class="xref py py-attr docutils literal"><span class="pre">egglib.Tree.num_nodes</span></code></a> [attribute]</li>
+<li><a class="reference internal" href="py/stats.html#egglib.stats.Site.num_outgroup" title="egglib.stats.Site.num_outgroup"><code class="xref py py-attr docutils literal"><span class="pre">egglib.stats.Site.num_outgroup</span></code></a> [attribute]</li>
+<li><a class="reference internal" href="py/io.html#egglib.io.GFF3Feature.num_parents" title="egglib.io.GFF3Feature.num_parents"><code class="xref py py-attr docutils literal"><span class="pre">egglib.io.GFF3Feature.num_parents</span></code></a> [attribute]</li>
+<li><a class="reference internal" href="py/io.html#egglib.io.GFF3Feature.num_parts" title="egglib.io.GFF3Feature.num_parts"><code class="xref py py-attr docutils literal"><span class="pre">egglib.io.GFF3Feature.num_parts</span></code></a> [attribute]</li>
+<li><a class="reference internal" href="py/stats.html#egglib.stats.CodingDiversity.num_pol_NS" title="egglib.stats.CodingDiversity.num_pol_NS"><code class="xref py py-attr docutils literal"><span class="pre">egglib.stats.CodingDiversity.num_pol_NS</span></code></a> [attribute]</li>
+<li><a class="reference internal" href="py/stats.html#egglib.stats.CodingDiversity.num_pol_S" title="egglib.stats.CodingDiversity.num_pol_S"><code class="xref py py-attr docutils literal"><span class="pre">egglib.stats.CodingDiversity.num_pol_S</span></code></a> [attribute]</li>
+<li><a class="reference internal" href="py/stats.html#egglib.stats.CodingDiversity.num_pol_single" title="egglib.stats.CodingDiversity.num_pol_single"><code class="xref py py-attr docutils literal"><span class="pre">egglib.stats.CodingDiversity.num_pol_single</span></code></a> [attribute]</li>
+<li><a class="reference internal" href="py/stats.html#egglib.stats.Structure.num_pop" title="egglib.stats.Structure.num_pop"><code class="xref py py-attr docutils literal"><span class="pre">egglib.stats.Structure.num_pop</span></code></a> [attribute]</li>
+<li><a class="reference internal" href="py/stats.html#egglib.stats.Freq.num_populations" title="egglib.stats.Freq.num_populations"><code class="xref py py-attr docutils literal"><span class="pre">egglib.stats.Freq.num_populations</span></code></a> [attribute]</li>
+<li><code class="xref py py-attr docutils literal"><span class="pre">egglib.fit.ABC.num_samples</span></code> [attribute]</li>
+<li><a class="reference internal" href="py/io.html#egglib.io.Variant.num_samples" title="egglib.io.Variant.num_samples"><code class="xref py py-attr docutils literal"><span class="pre">egglib.io.Variant.num_samples</span></code></a> [attribute]</li>
+<li><a class="reference internal" href="py/io.html#egglib.io.VcfParser.num_samples" title="egglib.io.VcfParser.num_samples"><code class="xref py py-attr docutils literal"><span class="pre">egglib.io.VcfParser.num_samples</span></code></a> [attribute]</li>
+<li><a class="reference internal" href="py/stats.html#egglib.stats.ParalogPi.num_sites" title="egglib.stats.ParalogPi.num_sites"><code class="xref py py-meth docutils literal"><span class="pre">egglib.stats.ParalogPi.num_sites()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/stats.html#egglib.stats.CodingDiversity.num_sites_NS" title="egglib.stats.CodingDiversity.num_sites_NS"><code class="xref py py-attr docutils literal"><span class="pre">egglib.stats.CodingDiversity.num_sites_NS</span></code></a> [attribute]</li>
+<li><a class="reference internal" href="py/stats.html#egglib.stats.CodingDiversity.num_sites_S" title="egglib.stats.CodingDiversity.num_sites_S"><code class="xref py py-attr docutils literal"><span class="pre">egglib.stats.CodingDiversity.num_sites_S</span></code></a> [attribute]</li>
+<li><a class="reference internal" href="py/io.html#egglib.io.GFF3.num_top_features" title="egglib.io.GFF3.num_top_features"><code class="xref py py-attr docutils literal"><span class="pre">egglib.io.GFF3.num_top_features</span></code></a> [attribute]</li>
+<li><a class="reference internal" href="py/tools.html#egglib.tools.ReadingFrame.num_tot_bases" title="egglib.tools.ReadingFrame.num_tot_bases"><code class="xref py py-attr docutils literal"><span class="pre">egglib.tools.ReadingFrame.num_tot_bases</span></code></a> [attribute]</li>
+<li><a class="reference internal" href="py/io.html#egglib.io.GFF3.num_tot_features" title="egglib.io.GFF3.num_tot_features"><code class="xref py py-attr docutils literal"><span class="pre">egglib.io.GFF3.num_tot_features</span></code></a> [attribute]</li>
+<li><a class="reference internal" href="py/io.html#egglib.io.GenBank.number_of_features" title="egglib.io.GenBank.number_of_features"><code class="xref py py-meth docutils literal"><span class="pre">egglib.io.GenBank.number_of_features()</span></code></a> [method]</li>
+</ul>
+</div></blockquote>
+<p id="keyo"><strong>O</strong></p>
+<blockquote>
+<div><ul class="simple">
+<li><a class="reference internal" href="py/io.html#egglib.io.GFF3Feature.ontology_terms" title="egglib.io.GFF3Feature.ontology_terms"><code class="xref py py-attr docutils literal"><span class="pre">egglib.io.GFF3Feature.ontology_terms</span></code></a> [attribute]</li>
+<li><a class="reference internal" href="py/tools.html#egglib.tools.orf_iter" title="egglib.tools.orf_iter"><code class="xref py py-func docutils literal"><span class="pre">egglib.tools.orf_iter()</span></code></a> [function]</li>
+<li><a class="reference internal" href="py/toplevel.html#egglib.GroupView.outgroup" title="egglib.GroupView.outgroup"><code class="xref py py-attr docutils literal"><span class="pre">egglib.GroupView.outgroup</span></code></a> [attribute]</li>
+<li><a class="reference internal" href="py/toplevel.html#egglib.SampleView.outgroup" title="egglib.SampleView.outgroup"><code class="xref py py-attr docutils literal"><span class="pre">egglib.SampleView.outgroup</span></code></a> [attribute]</li>
+<li><a class="reference internal" href="py/stats.html#egglib.stats.Site.outgroup" title="egglib.stats.Site.outgroup"><code class="xref py py-meth docutils literal"><span class="pre">egglib.stats.Site.outgroup()</span></code></a> [method]</li>
+</ul>
+</div></blockquote>
+<p id="keyp"><strong>P</strong></p>
+<blockquote>
+<div><ul class="simple">
+<li><a class="reference internal" href="py/io.html#egglib.io.Variant.PL" title="egglib.io.Variant.PL"><code class="xref py py-attr docutils literal"><span class="pre">egglib.io.Variant.PL</span></code></a> [attribute]</li>
+<li><a class="reference internal" href="py/stats.html#egglib.stats.ParalogPi" title="egglib.stats.ParalogPi"><code class="xref py py-class docutils literal"><span class="pre">egglib.stats.ParalogPi</span></code></a> [class]</li>
+<li><a class="reference internal" href="py/coalesce.html#egglib.coalesce.ParamDict" title="egglib.coalesce.ParamDict"><code class="xref py py-class docutils literal"><span class="pre">egglib.coalesce.ParamDict</span></code></a> [class]</li>
+<li><a class="reference internal" href="py/coalesce.html#egglib.coalesce.ParamList" title="egglib.coalesce.ParamList"><code class="xref py py-class docutils literal"><span class="pre">egglib.coalesce.ParamList</span></code></a> [class]</li>
+<li><a class="reference internal" href="py/coalesce.html#egglib.coalesce.ParamMatrix" title="egglib.coalesce.ParamMatrix"><code class="xref py py-class docutils literal"><span class="pre">egglib.coalesce.ParamMatrix</span></code></a> [class]</li>
+<li><a class="reference internal" href="py/stats.html#egglib.stats.ParalogPi.Pib" title="egglib.stats.ParalogPi.Pib"><code class="xref py py-meth docutils literal"><span class="pre">egglib.stats.ParalogPi.Pib()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/stats.html#egglib.stats.ParalogPi.Piw" title="egglib.stats.ParalogPi.Piw"><code class="xref py py-meth docutils literal"><span class="pre">egglib.stats.ParalogPi.Piw()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/misc.html#egglib.misc.Pool" title="egglib.misc.Pool"><code class="xref py py-class docutils literal"><span class="pre">egglib.misc.Pool</span></code></a> [class]</li>
+<li><a class="reference internal" href="py/stats.html#egglib.stats.ProbaMisoriented" title="egglib.stats.ProbaMisoriented"><code class="xref py py-class docutils literal"><span class="pre">egglib.stats.ProbaMisoriented</span></code></a> [class]</li>
+<li><a class="reference internal" href="py/stats.html#egglib.stats.ProbaMisoriented.pM" title="egglib.stats.ProbaMisoriented.pM"><code class="xref py py-attr docutils literal"><span class="pre">egglib.stats.ProbaMisoriented.pM</span></code></a> [attribute]</li>
+<li><a class="reference internal" href="py/stats.html#egglib.stats.pairwise_LD" title="egglib.stats.pairwise_LD"><code class="xref py py-func docutils literal"><span class="pre">egglib.stats.pairwise_LD()</span></code></a> [function]</li>
+<li><a class="reference internal" href="py/stats.html#egglib.stats.paralog_pi" title="egglib.stats.paralog_pi"><code class="xref py py-func docutils literal"><span class="pre">egglib.stats.paralog_pi()</span></code></a> [function]</li>
+<li><a class="reference internal" href="py/coalesce.html#egglib.coalesce.Simulator.params" title="egglib.coalesce.Simulator.params"><code class="xref py py-attr docutils literal"><span class="pre">egglib.coalesce.Simulator.params</span></code></a> [attribute]</li>
+<li><a class="reference internal" href="py/toplevel.html#egglib.Node.parent" title="egglib.Node.parent"><code class="xref py py-attr docutils literal"><span class="pre">egglib.Node.parent</span></code></a> [attribute]</li>
+<li><a class="reference internal" href="py/toplevel.html#egglib.SampleView.parent" title="egglib.SampleView.parent"><code class="xref py py-attr docutils literal"><span class="pre">egglib.SampleView.parent</span></code></a> [attribute]</li>
+<li><a class="reference internal" href="py/toplevel.html#egglib.Node.parent_branch" title="egglib.Node.parent_branch"><code class="xref py py-attr docutils literal"><span class="pre">egglib.Node.parent_branch</span></code></a> [attribute]</li>
+<li><code class="xref py py-meth docutils literal"><span class="pre">egglib.fit.Nnet.parse()</span></code> [method]</li>
+<li><a class="reference internal" href="py/io.html#egglib.io.GenBankFeature.parse" title="egglib.io.GenBankFeature.parse"><code class="xref py py-meth docutils literal"><span class="pre">egglib.io.GenBankFeature.parse()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/io.html#egglib.io.GFF3Feature.phase" title="egglib.io.GFF3Feature.phase"><code class="xref py py-attr docutils literal"><span class="pre">egglib.io.GFF3Feature.phase</span></code></a> [attribute]</li>
+<li><a class="reference internal" href="py/toplevel.html#egglib.Align.phylip" title="egglib.Align.phylip"><code class="xref py py-meth docutils literal"><span class="pre">egglib.Align.phylip()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/toplevel.html#egglib.Align.phyml" title="egglib.Align.phyml"><code class="xref py py-meth docutils literal"><span class="pre">egglib.Align.phyml()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/wrappers.html#egglib.wrappers.phyml" title="egglib.wrappers.phyml"><code class="xref py py-func docutils literal"><span class="pre">egglib.wrappers.phyml()</span></code></a> [function]</li>
+<li><a class="reference internal" href="py/io.html#egglib.io.Variant.ploidy" title="egglib.io.Variant.ploidy"><code class="xref py py-attr docutils literal"><span class="pre">egglib.io.Variant.ploidy</span></code></a> [attribute]</li>
+<li><a class="reference internal" href="py/stats.html#egglib.stats.Freq.ploidy" title="egglib.stats.Freq.ploidy"><code class="xref py py-attr docutils literal"><span class="pre">egglib.stats.Freq.ploidy</span></code></a> [attribute]</li>
+<li><a class="reference internal" href="py/stats.html#egglib.stats.Site.ploidy" title="egglib.stats.Site.ploidy"><code class="xref py py-attr docutils literal"><span class="pre">egglib.stats.Site.ploidy</span></code></a> [attribute]</li>
+<li><a class="reference internal" href="py/stats.html#egglib.stats.Structure.ploidy" title="egglib.stats.Structure.ploidy"><code class="xref py py-attr docutils literal"><span class="pre">egglib.stats.Structure.ploidy</span></code></a> [attribute]</li>
+<li><a class="reference internal" href="py/tools.html#egglib.tools.Random.poisson" title="egglib.tools.Random.poisson"><code class="xref py py-meth docutils literal"><span class="pre">egglib.tools.Random.poisson()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/io.html#egglib.io.Variant.position" title="egglib.io.Variant.position"><code class="xref py py-attr docutils literal"><span class="pre">egglib.io.Variant.position</span></code></a> [attribute]</li>
+<li><a class="reference internal" href="py/io.html#egglib.io.GFF3Feature.positions" title="egglib.io.GFF3Feature.positions"><code class="xref py py-attr docutils literal"><span class="pre">egglib.io.GFF3Feature.positions</span></code></a> [attribute]</li>
+<li><code class="xref py py-attr docutils literal"><span class="pre">egglib.fit.ABC.posterior</span></code> [attribute]</li>
+<li><code class="xref py py-meth docutils literal"><span class="pre">egglib.fit.Nnet.predict()</span></code> [method]</li>
+<li><code class="xref py py-attr docutils literal"><span class="pre">egglib.fit.ABC.proba</span></code> [attribute]</li>
+<li><a class="reference internal" href="py/stats.html#egglib.stats.CodingDiversity.process" title="egglib.stats.CodingDiversity.process"><code class="xref py py-meth docutils literal"><span class="pre">egglib.stats.CodingDiversity.process()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/tools.html#egglib.tools.Discretize.process" title="egglib.tools.Discretize.process"><code class="xref py py-meth docutils literal"><span class="pre">egglib.tools.Discretize.process()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/tools.html#egglib.tools.ReadingFrame.process" title="egglib.tools.ReadingFrame.process"><code class="xref py py-meth docutils literal"><span class="pre">egglib.tools.ReadingFrame.process()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/stats.html#egglib.stats.ComputeStats.process_align" title="egglib.stats.ComputeStats.process_align"><code class="xref py py-meth docutils literal"><span class="pre">egglib.stats.ComputeStats.process_align()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/stats.html#egglib.stats.ParalogPi.process_align" title="egglib.stats.ParalogPi.process_align"><code class="xref py py-meth docutils literal"><span class="pre">egglib.stats.ParalogPi.process_align()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/stats.html#egglib.stats.Site.process_align" title="egglib.stats.Site.process_align"><code class="xref py py-meth docutils literal"><span class="pre">egglib.stats.Site.process_align()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/stats.html#egglib.stats.ComputeStats.process_freq" title="egglib.stats.ComputeStats.process_freq"><code class="xref py py-meth docutils literal"><span class="pre">egglib.stats.ComputeStats.process_freq()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/stats.html#egglib.stats.Freq.process_list" title="egglib.stats.Freq.process_list"><code class="xref py py-meth docutils literal"><span class="pre">egglib.stats.Freq.process_list()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/stats.html#egglib.stats.Site.process_list" title="egglib.stats.Site.process_list"><code class="xref py py-meth docutils literal"><span class="pre">egglib.stats.Site.process_list()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/stats.html#egglib.stats.ComputeStats.process_site" title="egglib.stats.ComputeStats.process_site"><code class="xref py py-meth docutils literal"><span class="pre">egglib.stats.ComputeStats.process_site()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/stats.html#egglib.stats.Freq.process_site" title="egglib.stats.Freq.process_site"><code class="xref py py-meth docutils literal"><span class="pre">egglib.stats.Freq.process_site()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/stats.html#egglib.stats.ParalogPi.process_site" title="egglib.stats.ParalogPi.process_site"><code class="xref py py-meth docutils literal"><span class="pre">egglib.stats.ParalogPi.process_site()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/stats.html#egglib.stats.ComputeStats.process_sites" title="egglib.stats.ComputeStats.process_sites"><code class="xref py py-meth docutils literal"><span class="pre">egglib.stats.ComputeStats.process_sites()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/stats.html#egglib.stats.Freq.process_vcf" title="egglib.stats.Freq.process_vcf"><code class="xref py py-meth docutils literal"><span class="pre">egglib.stats.Freq.process_vcf()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/stats.html#egglib.stats.Site.process_vcf" title="egglib.stats.Site.process_vcf"><code class="xref py py-meth docutils literal"><span class="pre">egglib.stats.Site.process_vcf()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/misc.html#egglib.misc.Pool.put" title="egglib.misc.Pool.put"><code class="xref py py-meth docutils literal"><span class="pre">egglib.misc.Pool.put()</span></code></a> [method]</li>
+</ul>
+</div></blockquote>
+<p id="keyq"><strong>Q</strong></p>
+<blockquote>
+<div><ul class="simple">
+<li><a class="reference internal" href="py/io.html#egglib.io.GenBankFeature.qualifiers" title="egglib.io.GenBankFeature.qualifiers"><code class="xref py py-meth docutils literal"><span class="pre">egglib.io.GenBankFeature.qualifiers()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/io.html#egglib.io.Variant.quality" title="egglib.io.Variant.quality"><code class="xref py py-attr docutils literal"><span class="pre">egglib.io.Variant.quality</span></code></a> [attribute]</li>
+</ul>
+</div></blockquote>
+<p id="keyr"><strong>R</strong></p>
+<blockquote>
+<div><ul class="simple">
+<li><a class="reference internal" href="py/tools.html#egglib.tools.Random" title="egglib.tools.Random"><code class="xref py py-class docutils literal"><span class="pre">egglib.tools.Random</span></code></a> [class]</li>
+<li><a class="reference internal" href="py/tools.html#egglib.tools.ReadingFrame" title="egglib.tools.ReadingFrame"><code class="xref py py-class docutils literal"><span class="pre">egglib.tools.ReadingFrame</span></code></a> [class]</li>
+<li><a class="reference internal" href="py/toplevel.html#egglib.Align.random_missing" title="egglib.Align.random_missing"><code class="xref py py-meth docutils literal"><span class="pre">egglib.Align.random_missing()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/io.html#egglib.io.GenBank.rc" title="egglib.io.GenBank.rc"><code class="xref py py-meth docutils literal"><span class="pre">egglib.io.GenBank.rc()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/io.html#egglib.io.GenBankFeature.rc" title="egglib.io.GenBankFeature.rc"><code class="xref py py-meth docutils literal"><span class="pre">egglib.io.GenBankFeature.rc()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/io.html#egglib.io.GenBankFeatureLocation.rc" title="egglib.io.GenBankFeatureLocation.rc"><code class="xref py py-meth docutils literal"><span class="pre">egglib.io.GenBankFeatureLocation.rc()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/tools.html#egglib.tools.rc" title="egglib.tools.rc"><code class="xref py py-func docutils literal"><span class="pre">egglib.tools.rc()</span></code></a> [function]</li>
+<li><a class="reference internal" href="py/io.html#egglib.io.VcfParser.read_index" title="egglib.io.VcfParser.read_index"><code class="xref py py-meth docutils literal"><span class="pre">egglib.io.VcfParser.read_index()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/io.html#egglib.io.VcfParser.read_line" title="egglib.io.VcfParser.read_line"><code class="xref py py-meth docutils literal"><span class="pre">egglib.io.VcfParser.read_line()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/tools.html#egglib.tools.regex" title="egglib.tools.regex"><code class="xref py py-func docutils literal"><span class="pre">egglib.tools.regex()</span></code></a> [function]</li>
+<li><a class="reference internal" href="py/toplevel.html#egglib.Align.remove_duplicates" title="egglib.Align.remove_duplicates"><code class="xref py py-meth docutils literal"><span class="pre">egglib.Align.remove_duplicates()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/toplevel.html#egglib.Container.remove_duplicates" title="egglib.Container.remove_duplicates"><code class="xref py py-meth docutils literal"><span class="pre">egglib.Container.remove_duplicates()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/toplevel.html#egglib.Tree.remove_node" title="egglib.Tree.remove_node"><code class="xref py py-meth docutils literal"><span class="pre">egglib.Tree.remove_node()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/toplevel.html#egglib.Align.rename" title="egglib.Align.rename"><code class="xref py py-meth docutils literal"><span class="pre">egglib.Align.rename()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/toplevel.html#egglib.Container.rename" title="egglib.Container.rename"><code class="xref py py-meth docutils literal"><span class="pre">egglib.Container.rename()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/coalesce.html#egglib.coalesce.EventList.replace" title="egglib.coalesce.EventList.replace"><code class="xref py py-meth docutils literal"><span class="pre">egglib.coalesce.EventList.replace()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/stats.html#egglib.stats.Structure.req_no" title="egglib.stats.Structure.req_no"><code class="xref py py-attr docutils literal"><span class="pre">egglib.stats.Structure.req_no</span></code></a> [attribute]</li>
+<li><a class="reference internal" href="py/stats.html#egglib.stats.Structure.req_ns" title="egglib.stats.Structure.req_ns"><code class="xref py py-attr docutils literal"><span class="pre">egglib.stats.Structure.req_ns</span></code></a> [attribute]</li>
+<li><a class="reference internal" href="py/toplevel.html#egglib.Align.reserve" title="egglib.Align.reserve"><code class="xref py py-meth docutils literal"><span class="pre">egglib.Align.reserve()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/toplevel.html#egglib.Container.reserve" title="egglib.Container.reserve"><code class="xref py py-meth docutils literal"><span class="pre">egglib.Container.reserve()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/toplevel.html#egglib.Align.reset" title="egglib.Align.reset"><code class="xref py py-meth docutils literal"><span class="pre">egglib.Align.reset()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/toplevel.html#egglib.Container.reset" title="egglib.Container.reset"><code class="xref py py-meth docutils literal"><span class="pre">egglib.Container.reset()</span></code></a> [method]</li>
+<li><code class="xref py py-meth docutils literal"><span class="pre">egglib.fit.ABC.reset()</span></code> [method]</li>
+<li><code class="xref py py-meth docutils literal"><span class="pre">egglib.fit.Nnet.reset()</span></code> [method]</li>
+<li><a class="reference internal" href="py/stats.html#egglib.stats.ComputeStats.reset" title="egglib.stats.ComputeStats.reset"><code class="xref py py-meth docutils literal"><span class="pre">egglib.stats.ComputeStats.reset()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/stats.html#egglib.stats.ProbaMisoriented.reset" title="egglib.stats.ProbaMisoriented.reset"><code class="xref py py-meth docutils literal"><span class="pre">egglib.stats.ProbaMisoriented.reset()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/stats.html#egglib.stats.Site.reset" title="egglib.stats.Site.reset"><code class="xref py py-meth docutils literal"><span class="pre">egglib.stats.Site.reset()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/tools.html#egglib.tools.Discretize.reset" title="egglib.tools.Discretize.reset"><code class="xref py py-meth docutils literal"><span class="pre">egglib.tools.Discretize.reset()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/stats.html#egglib.stats.ComputeStats.results" title="egglib.stats.ComputeStats.results"><code class="xref py py-meth docutils literal"><span class="pre">egglib.stats.ComputeStats.results()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/io.html#egglib.io.VcfParser.rewind" title="egglib.io.VcfParser.rewind"><code class="xref py py-meth docutils literal"><span class="pre">egglib.io.VcfParser.rewind()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/tools.html#egglib.tools.Discretize.right" title="egglib.tools.Discretize.right"><code class="xref py py-meth docutils literal"><span class="pre">egglib.tools.Discretize.right()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/stats.html#egglib.stats.Filter.rng" title="egglib.stats.Filter.rng"><code class="xref py py-meth docutils literal"><span class="pre">egglib.stats.Filter.rng()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/toplevel.html#egglib.Tree.root" title="egglib.Tree.root"><code class="xref py py-meth docutils literal"><span class="pre">egglib.Tree.root()</span></code></a> [method]</li>
+</ul>
+</div></blockquote>
+<p id="keys"><strong>S</strong></p>
+<blockquote>
+<div><ul class="simple">
+<li><a class="reference internal" href="py/stats.html#egglib.stats.ProbaMisoriented.S" title="egglib.stats.ProbaMisoriented.S"><code class="xref py py-attr docutils literal"><span class="pre">egglib.stats.ProbaMisoriented.S</span></code></a> [attribute]</li>
+<li><a class="reference internal" href="py/toplevel.html#egglib.SampleView" title="egglib.SampleView"><code class="xref py py-class docutils literal"><span class="pre">egglib.SampleView</span></code></a> [class]</li>
+<li><a class="reference internal" href="py/toplevel.html#egglib.SequenceView" title="egglib.SequenceView"><code class="xref py py-class docutils literal"><span class="pre">egglib.SequenceView</span></code></a> [class]</li>
+<li><a class="reference internal" href="py/coalesce.html#egglib.coalesce.Simulator" title="egglib.coalesce.Simulator"><code class="xref py py-class docutils literal"><span class="pre">egglib.coalesce.Simulator</span></code></a> [class]</li>
+<li><a class="reference internal" href="py/stats.html#egglib.stats.Site" title="egglib.stats.Site"><code class="xref py py-class docutils literal"><span class="pre">egglib.stats.Site</span></code></a> [class]</li>
+<li><a class="reference internal" href="py/stats.html#egglib.stats.Structure" title="egglib.stats.Structure"><code class="xref py py-class docutils literal"><span class="pre">egglib.stats.Structure</span></code></a> [class]</li>
+<li><a class="reference internal" href="py/io.html#egglib.io.Variant.samples" title="egglib.io.Variant.samples"><code class="xref py py-attr docutils literal"><span class="pre">egglib.io.Variant.samples</span></code></a> [attribute]</li>
+<li><a class="reference internal" href="py/io.html#egglib.io.GFF3Feature.score" title="egglib.io.GFF3Feature.score"><code class="xref py py-attr docutils literal"><span class="pre">egglib.io.GFF3Feature.score</span></code></a> [attribute]</li>
+<li><a class="reference internal" href="py/io.html#egglib.io.GFF3.seqid" title="egglib.io.GFF3.seqid"><code class="xref py py-attr docutils literal"><span class="pre">egglib.io.GFF3.seqid</span></code></a> [attribute]</li>
+<li><a class="reference internal" href="py/io.html#egglib.io.GFF3Feature.seqid" title="egglib.io.GFF3Feature.seqid"><code class="xref py py-attr docutils literal"><span class="pre">egglib.io.GFF3Feature.seqid</span></code></a> [attribute]</li>
+<li><a class="reference internal" href="py/toplevel.html#egglib.SampleView.sequence" title="egglib.SampleView.sequence"><code class="xref py py-attr docutils literal"><span class="pre">egglib.SampleView.sequence</span></code></a> [attribute]</li>
+<li><a class="reference internal" href="py/io.html#egglib.io.GenBank.sequence" title="egglib.io.GenBank.sequence"><code class="xref py py-attr docutils literal"><span class="pre">egglib.io.GenBank.sequence</span></code></a> [attribute]</li>
+<li><a class="reference internal" href="py/toplevel.html#egglib.Node.set_branch_to" title="egglib.Node.set_branch_to"><code class="xref py py-meth docutils literal"><span class="pre">egglib.Node.set_branch_to()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/io.html#egglib.io.GenBankFeatureLocation.set_complement" title="egglib.io.GenBankFeatureLocation.set_complement"><code class="xref py py-meth docutils literal"><span class="pre">egglib.io.GenBankFeatureLocation.set_complement()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/stats.html#egglib.stats.EHH.set_core" title="egglib.stats.EHH.set_core"><code class="xref py py-meth docutils literal"><span class="pre">egglib.stats.EHH.set_core()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/io.html#egglib.io.GenBankFeatureLocation.set_forward" title="egglib.io.GenBankFeatureLocation.set_forward"><code class="xref py py-meth docutils literal"><span class="pre">egglib.io.GenBankFeatureLocation.set_forward()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/toplevel.html#egglib.Align.set_i" title="egglib.Align.set_i"><code class="xref py py-meth docutils literal"><span class="pre">egglib.Align.set_i()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/toplevel.html#egglib.Container.set_i" title="egglib.Container.set_i"><code class="xref py py-meth docutils literal"><span class="pre">egglib.Container.set_i()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/toplevel.html#egglib.Align.set_label" title="egglib.Align.set_label"><code class="xref py py-meth docutils literal"><span class="pre">egglib.Align.set_label()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/toplevel.html#egglib.Container.set_label" title="egglib.Container.set_label"><code class="xref py py-meth docutils literal"><span class="pre">egglib.Container.set_label()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/toplevel.html#egglib.Align.set_label_o" title="egglib.Align.set_label_o"><code class="xref py py-meth docutils literal"><span class="pre">egglib.Align.set_label_o()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/toplevel.html#egglib.Container.set_label_o" title="egglib.Container.set_label_o"><code class="xref py py-meth docutils literal"><span class="pre">egglib.Container.set_label_o()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/coalesce.html#egglib.coalesce.ParamDict.set_migr" title="egglib.coalesce.ParamDict.set_migr"><code class="xref py py-meth docutils literal"><span class="pre">egglib.coalesce.ParamDict.set_migr()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/toplevel.html#egglib.Align.set_name" title="egglib.Align.set_name"><code class="xref py py-meth docutils literal"><span class="pre">egglib.Align.set_name()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/toplevel.html#egglib.Container.set_name" title="egglib.Container.set_name"><code class="xref py py-meth docutils literal"><span class="pre">egglib.Container.set_name()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/toplevel.html#egglib.Align.set_name_o" title="egglib.Align.set_name_o"><code class="xref py py-meth docutils literal"><span class="pre">egglib.Align.set_name_o()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/toplevel.html#egglib.Container.set_name_o" title="egglib.Container.set_name_o"><code class="xref py py-meth docutils literal"><span class="pre">egglib.Container.set_name_o()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/toplevel.html#egglib.Align.set_o" title="egglib.Align.set_o"><code class="xref py py-meth docutils literal"><span class="pre">egglib.Align.set_o()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/toplevel.html#egglib.Container.set_o" title="egglib.Container.set_o"><code class="xref py py-meth docutils literal"><span class="pre">egglib.Container.set_o()</span></code></a> [method]</li>
+<li><code class="xref py py-meth docutils literal"><span class="pre">egglib.fit.ABC.set_outf()</span></code> [method]</li>
+<li><a class="reference internal" href="py/toplevel.html#egglib.Align.set_outgroup" title="egglib.Align.set_outgroup"><code class="xref py py-meth docutils literal"><span class="pre">egglib.Align.set_outgroup()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/toplevel.html#egglib.Container.set_outgroup" title="egglib.Container.set_outgroup"><code class="xref py py-meth docutils literal"><span class="pre">egglib.Container.set_outgroup()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/toplevel.html#egglib.Align.set_sample" title="egglib.Align.set_sample"><code class="xref py py-meth docutils literal"><span class="pre">egglib.Align.set_sample()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/toplevel.html#egglib.Container.set_sample" title="egglib.Container.set_sample"><code class="xref py py-meth docutils literal"><span class="pre">egglib.Container.set_sample()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/tools.html#egglib.tools.Random.set_seed" title="egglib.tools.Random.set_seed"><code class="xref py py-meth docutils literal"><span class="pre">egglib.tools.Random.set_seed()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/toplevel.html#egglib.Align.set_sequence" title="egglib.Align.set_sequence"><code class="xref py py-meth docutils literal"><span class="pre">egglib.Align.set_sequence()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/toplevel.html#egglib.Container.set_sequence" title="egglib.Container.set_sequence"><code class="xref py py-meth docutils literal"><span class="pre">egglib.Container.set_sequence()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/toplevel.html#egglib.Align.set_sequence_o" title="egglib.Align.set_sequence_o"><code class="xref py py-meth docutils literal"><span class="pre">egglib.Align.set_sequence_o()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/toplevel.html#egglib.Container.set_sequence_o" title="egglib.Container.set_sequence_o"><code class="xref py py-meth docutils literal"><span class="pre">egglib.Container.set_sequence_o()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/stats.html#egglib.stats.ParalogPi.setup" title="egglib.stats.ParalogPi.setup"><code class="xref py py-meth docutils literal"><span class="pre">egglib.stats.ParalogPi.setup()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/io.html#egglib.io.GenBankFeature.shift" title="egglib.io.GenBankFeature.shift"><code class="xref py py-meth docutils literal"><span class="pre">egglib.io.GenBankFeature.shift()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/io.html#egglib.io.GenBankFeatureLocation.shift" title="egglib.io.GenBankFeatureLocation.shift"><code class="xref py py-meth docutils literal"><span class="pre">egglib.io.GenBankFeatureLocation.shift()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/toplevel.html#egglib.Align.shuffle" title="egglib.Align.shuffle"><code class="xref py py-meth docutils literal"><span class="pre">egglib.Align.shuffle()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/toplevel.html#egglib.Container.shuffle" title="egglib.Container.shuffle"><code class="xref py py-meth docutils literal"><span class="pre">egglib.Container.shuffle()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/toplevel.html#egglib.Node.siblings" title="egglib.Node.siblings"><code class="xref py py-meth docutils literal"><span class="pre">egglib.Node.siblings()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/coalesce.html#egglib.coalesce.Simulator.simul" title="egglib.coalesce.Simulator.simul"><code class="xref py py-meth docutils literal"><span class="pre">egglib.coalesce.Simulator.simul()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/stats.html#egglib.stats.site_from_align" title="egglib.stats.site_from_align"><code class="xref py py-func docutils literal"><span class="pre">egglib.stats.site_from_align()</span></code></a> [function]</li>
+<li><a class="reference internal" href="py/stats.html#egglib.stats.site_from_list" title="egglib.stats.site_from_list"><code class="xref py py-func docutils literal"><span class="pre">egglib.stats.site_from_list()</span></code></a> [function]</li>
+<li><a class="reference internal" href="py/stats.html#egglib.stats.site_from_vcf" title="egglib.stats.site_from_vcf"><code class="xref py py-func docutils literal"><span class="pre">egglib.stats.site_from_vcf()</span></code></a> [function]</li>
+<li><a class="reference internal" href="py/toplevel.html#egglib.Align.slider" title="egglib.Align.slider"><code class="xref py py-meth docutils literal"><span class="pre">egglib.Align.slider()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/io.html#egglib.io.VcfParser.slider" title="egglib.io.VcfParser.slider"><code class="xref py py-meth docutils literal"><span class="pre">egglib.io.VcfParser.slider()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/io.html#egglib.io.GFF3Feature.source" title="egglib.io.GFF3Feature.source"><code class="xref py py-attr docutils literal"><span class="pre">egglib.io.GFF3Feature.source</span></code></a> [attribute]</li>
+<li><a class="reference internal" href="py/io.html#egglib.io.GFF3Feature.start" title="egglib.io.GFF3Feature.start"><code class="xref py py-attr docutils literal"><span class="pre">egglib.io.GFF3Feature.start</span></code></a> [attribute]</li>
+<li><code class="xref py py-mod docutils literal"><span class="pre">egglib.stats</span></code> [module]</li>
+<li><a class="reference internal" href="py/toplevel.html#egglib.SequenceView.string" title="egglib.SequenceView.string"><code class="xref py py-meth docutils literal"><span class="pre">egglib.SequenceView.string()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/toplevel.html#egglib.SequenceView.strip" title="egglib.SequenceView.strip"><code class="xref py py-meth docutils literal"><span class="pre">egglib.SequenceView.strip()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/toplevel.html#egglib.Align.subgroup" title="egglib.Align.subgroup"><code class="xref py py-meth docutils literal"><span class="pre">egglib.Align.subgroup()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/toplevel.html#egglib.Container.subgroup" title="egglib.Container.subgroup"><code class="xref py py-meth docutils literal"><span class="pre">egglib.Container.subgroup()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/toplevel.html#egglib.Align.subset" title="egglib.Align.subset"><code class="xref py py-meth docutils literal"><span class="pre">egglib.Align.subset()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/toplevel.html#egglib.Container.subset" title="egglib.Container.subset"><code class="xref py py-meth docutils literal"><span class="pre">egglib.Container.subset()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/coalesce.html#egglib.coalesce.ParamDict.summary" title="egglib.coalesce.ParamDict.summary"><code class="xref py py-meth docutils literal"><span class="pre">egglib.coalesce.ParamDict.summary()</span></code></a> [method]</li>
+</ul>
+</div></blockquote>
+<p id="keyt"><strong>T</strong></p>
+<blockquote>
+<div><ul class="simple">
+<li><a class="reference internal" href="py/misc.html#egglib.misc.TempFile" title="egglib.misc.TempFile"><code class="xref py py-class docutils literal"><span class="pre">egglib.misc.TempFile</span></code></a> [class]</li>
+<li><a class="reference internal" href="py/stats.html#egglib.stats.ProbaMisoriented.TiTv" title="egglib.stats.ProbaMisoriented.TiTv"><code class="xref py py-attr docutils literal"><span class="pre">egglib.stats.ProbaMisoriented.TiTv</span></code></a> [attribute]</li>
+<li><a class="reference internal" href="py/tools.html#egglib.tools.Translator" title="egglib.tools.Translator"><code class="xref py py-class docutils literal"><span class="pre">egglib.tools.Translator</span></code></a> [class]</li>
+<li><a class="reference internal" href="py/toplevel.html#egglib.Tree" title="egglib.Tree"><code class="xref py py-class docutils literal"><span class="pre">egglib.Tree</span></code></a> [class]</li>
+<li><a class="reference internal" href="py/io.html#egglib.io.GFF3Feature.target" title="egglib.io.GFF3Feature.target"><code class="xref py py-attr docutils literal"><span class="pre">egglib.io.GFF3Feature.target</span></code></a> [attribute]</li>
+<li><code class="xref py py-func docutils literal"><span class="pre">egglib.wrappers.tblastn()</span></code> [function]</li>
+<li><code class="xref py py-func docutils literal"><span class="pre">egglib.wrappers.tblastx()</span></code> [function]</li>
+<li><a class="reference internal" href="py/toplevel.html#egglib.Align.to_fasta" title="egglib.Align.to_fasta"><code class="xref py py-meth docutils literal"><span class="pre">egglib.Align.to_fasta()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/toplevel.html#egglib.Container.to_fasta" title="egglib.Container.to_fasta"><code class="xref py py-meth docutils literal"><span class="pre">egglib.Container.to_fasta()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/toplevel.html#egglib.SequenceView.to_lower" title="egglib.SequenceView.to_lower"><code class="xref py py-meth docutils literal"><span class="pre">egglib.SequenceView.to_lower()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/io.html#egglib.io.to_ms" title="egglib.io.to_ms"><code class="xref py py-func docutils literal"><span class="pre">egglib.io.to_ms()</span></code></a> [function]</li>
+<li><a class="reference internal" href="py/toplevel.html#egglib.Align.to_outgroup" title="egglib.Align.to_outgroup"><code class="xref py py-meth docutils literal"><span class="pre">egglib.Align.to_outgroup()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/toplevel.html#egglib.Container.to_outgroup" title="egglib.Container.to_outgroup"><code class="xref py py-meth docutils literal"><span class="pre">egglib.Container.to_outgroup()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/toplevel.html#egglib.SequenceView.to_upper" title="egglib.SequenceView.to_upper"><code class="xref py py-meth docutils literal"><span class="pre">egglib.SequenceView.to_upper()</span></code></a> [method]</li>
+<li><code class="xref py py-mod docutils literal"><span class="pre">egglib.tools</span></code> [module]</li>
+<li><code class="xref py py-attr docutils literal"><span class="pre">egglib.fit.ABC.tot_samples</span></code> [attribute]</li>
+<li><a class="reference internal" href="py/toplevel.html#egglib.Tree.total_length" title="egglib.Tree.total_length"><code class="xref py py-meth docutils literal"><span class="pre">egglib.Tree.total_length()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/tools.html#egglib.tools.trailing_stops" title="egglib.tools.trailing_stops"><code class="xref py py-func docutils literal"><span class="pre">egglib.tools.trailing_stops()</span></code></a> [function]</li>
+<li><code class="xref py py-meth docutils literal"><span class="pre">egglib.fit.Nnet.train()</span></code> [method]</li>
+<li><a class="reference internal" href="py/tools.html#egglib.tools.translate" title="egglib.tools.translate"><code class="xref py py-func docutils literal"><span class="pre">egglib.tools.translate()</span></code></a> [function]</li>
+<li><a class="reference internal" href="py/tools.html#egglib.tools.Translator.translate_align" title="egglib.tools.Translator.translate_align"><code class="xref py py-meth docutils literal"><span class="pre">egglib.tools.Translator.translate_align()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/tools.html#egglib.tools.Translator.translate_codon" title="egglib.tools.Translator.translate_codon"><code class="xref py py-meth docutils literal"><span class="pre">egglib.tools.Translator.translate_codon()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/tools.html#egglib.tools.Translator.translate_container" title="egglib.tools.Translator.translate_container"><code class="xref py py-meth docutils literal"><span class="pre">egglib.tools.Translator.translate_container()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/tools.html#egglib.tools.Translator.translate_sequence" title="egglib.tools.Translator.translate_sequence"><code class="xref py py-meth docutils literal"><span class="pre">egglib.tools.Translator.translate_sequence()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/io.html#egglib.io.GFF3Feature.type" title="egglib.io.GFF3Feature.type"><code class="xref py py-attr docutils literal"><span class="pre">egglib.io.GFF3Feature.type</span></code></a> [attribute]</li>
+<li><a class="reference internal" href="py/io.html#egglib.io.GFF3.types" title="egglib.io.GFF3.types"><code class="xref py py-attr docutils literal"><span class="pre">egglib.io.GFF3.types</span></code></a> [attribute]</li>
+</ul>
+</div></blockquote>
+<p id="keyu"><strong>U</strong></p>
+<blockquote>
+<div><ul class="simple">
+<li><a class="reference internal" href="py/tools.html#egglib.tools.ungap" title="egglib.tools.ungap"><code class="xref py py-func docutils literal"><span class="pre">egglib.tools.ungap()</span></code></a> [function]</li>
+<li><a class="reference internal" href="py/tools.html#egglib.tools.Random.uniform" title="egglib.tools.Random.uniform"><code class="xref py py-meth docutils literal"><span class="pre">egglib.tools.Random.uniform()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/tools.html#egglib.tools.Random.uniform_53bit" title="egglib.tools.Random.uniform_53bit"><code class="xref py py-meth docutils literal"><span class="pre">egglib.tools.Random.uniform_53bit()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/tools.html#egglib.tools.Random.uniform_closed" title="egglib.tools.Random.uniform_closed"><code class="xref py py-meth docutils literal"><span class="pre">egglib.tools.Random.uniform_closed()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/tools.html#egglib.tools.Random.uniform_open" title="egglib.tools.Random.uniform_open"><code class="xref py py-meth docutils literal"><span class="pre">egglib.tools.Random.uniform_open()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/io.html#egglib.io.VcfParser.unread" title="egglib.io.VcfParser.unread"><code class="xref py py-meth docutils literal"><span class="pre">egglib.io.VcfParser.unread()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/toplevel.html#egglib.Tree.unroot" title="egglib.Tree.unroot"><code class="xref py py-meth docutils literal"><span class="pre">egglib.Tree.unroot()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/coalesce.html#egglib.coalesce.EventList.update" title="egglib.coalesce.EventList.update"><code class="xref py py-meth docutils literal"><span class="pre">egglib.coalesce.EventList.update()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/coalesce.html#egglib.coalesce.ParamDict.update" title="egglib.coalesce.ParamDict.update"><code class="xref py py-meth docutils literal"><span class="pre">egglib.coalesce.ParamDict.update()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/io.html#egglib.io.GenBankFeature.update" title="egglib.io.GenBankFeature.update"><code class="xref py py-meth docutils literal"><span class="pre">egglib.io.GenBankFeature.update()</span></code></a> [method]</li>
+</ul>
+</div></blockquote>
+<p id="keyv"><strong>V</strong></p>
+<blockquote>
+<div><ul class="simple">
+<li><a class="reference internal" href="py/io.html#egglib.io.Variant" title="egglib.io.Variant"><code class="xref py py-class docutils literal"><span class="pre">egglib.io.Variant</span></code></a> [class]</li>
+<li><a class="reference internal" href="py/io.html#egglib.io.VcfParser" title="egglib.io.VcfParser"><code class="xref py py-class docutils literal"><span class="pre">egglib.io.VcfParser</span></code></a> [class]</li>
+<li><a class="reference internal" href="py/coalesce.html#egglib.coalesce.ParamDict.values" title="egglib.coalesce.ParamDict.values"><code class="xref py py-meth docutils literal"><span class="pre">egglib.coalesce.ParamDict.values()</span></code></a> [method]</li>
+</ul>
+</div></blockquote>
+<p id="keyw"><strong>W</strong></p>
+<blockquote>
+<div><ul class="simple">
+<li><code class="xref py py-mod docutils literal"><span class="pre">egglib.wrappers</span></code> [module]</li>
+<li><a class="reference internal" href="py/io.html#egglib.io.GenBank.write" title="egglib.io.GenBank.write"><code class="xref py py-meth docutils literal"><span class="pre">egglib.io.GenBank.write()</span></code></a> [method]</li>
+<li><a class="reference internal" href="py/io.html#egglib.io.GenBank.write_stream" title="egglib.io.GenBank.write_stream"><code class="xref py py-meth docutils literal"><span class="pre">egglib.io.GenBank.write_stream()</span></code></a> [method]</li>
+</ul>
+</div></blockquote>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="history.html" title="History"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="manual/wrappers.html" title="Integration of external software"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="contents.html">EggLib&#39;s documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="toc.html" >Contents</a> &#187;</li> 
+      </ul>
+    </div>
+<!--
+        <address style="text-align: right;"><small>Hosted by&nbsp;
+        <a href="http://sourceforge.net/projects/egglib"><img src="http://sflogo.sourceforge.net/sflogo.php?group_id=232965&amp;type=8" width="80" height="15" alt="Get EggLib at SourceForge.net. Fast, secure and Free Open Source software downloads" / ALIGN=RIGHT BORDER=0></a>
+        </address>
+-->
+
+  </body>
+</html>

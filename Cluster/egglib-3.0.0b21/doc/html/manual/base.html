@@ -1,0 +1,200 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>The Align and Container classes &#8212; EggLib&#39;s documentation</title>
+    <link rel="stylesheet" href="../_static/egglibdoc.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '3.0.0b21',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="shortcut icon" href="../_static/icon.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Importing sequences in the Fasta format" href="base-1.html" />
+    <link rel="prev" title="Manual" href="index.html" />
+    <script type="text/javascript">
+      // intelligent scrolling of the sidebar content
+      $(window).scroll(function() {
+        var sb = $('.sphinxsidebarwrapper');
+        var win = $(window);
+        var sbh = sb.height();
+        var offset = $('.sphinxsidebar').position()['top'];
+        var wintop = win.scrollTop();
+        var winbot = wintop + win.innerHeight();
+        var curtop = sb.position()['top'];
+        var curbot = curtop + sbh;
+        // does sidebar fit in window?
+        if (sbh < win.innerHeight()) {
+          // yes: easy case -- always keep at the top
+          sb.css('top', $u.min([$u.max([0, wintop - offset - 10]),
+                                $(document).height() - sbh - 200]));
+        } else {
+          // no: only scroll if top/bottom edge of sidebar is at
+          // top/bottom edge of window
+          if (curtop > wintop && curbot > winbot) {
+            sb.css('top', $u.max([wintop - offset - 10, 0]));
+          } else if (curtop < wintop && curbot < winbot) {
+            sb.css('top', $u.min([winbot - sbh - offset - 20,
+                                  $(document).height() - sbh - 200]));
+          }
+        }
+      });
+    </script>
+  </head>
+  <body>
+<div style="background-color: white; text-align: left; padding: 0px 0px 0px 0px">
+<a href="../index.html"><img src="../_static/banner.png" border="0" alt="EggLib"/></a>
+</div>
+
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="base-1.html" title="Importing sequences in the Fasta format"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="Manual"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../contents.html">EggLib&#39;s documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../toc.html" >Contents</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="index.html" accesskey="U">Manual</a> &#187;</li> 
+      </ul>
+    </div>
+
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../contents.html">
+              <img class="logo" src="../_static/egglib_small.bmp" alt="Logo"/>
+            </a></p>
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="index.html"
+                        title="previous chapter">Manual</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="base-1.html"
+                        title="next chapter">Importing sequences in the Fasta format</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/manual/base.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="the-align-and-container-classes">
+<h1>The <a class="reference internal" href="../py/toplevel.html#egglib.Align" title="egglib.Align"><code class="xref py py-class docutils literal"><span class="pre">Align</span></code></a> and <a class="reference internal" href="../py/toplevel.html#egglib.Container" title="egglib.Container"><code class="xref py py-class docutils literal"><span class="pre">Container</span></code></a> classes<a class="headerlink" href="#the-align-and-container-classes" title="Permalink to this headline">¶</a></h1>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="base-1.html">Importing sequences in the Fasta format</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="base-1.html#simplest-case">Simplest case</a></li>
+<li class="toctree-l2"><a class="reference internal" href="base-1.html#alignments-and-containers">Alignments and containers</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="base-1.html#exporting-data">Exporting data</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="base-1.html#exporting-as-fasta">Exporting as Fasta</a></li>
+<li class="toctree-l2"><a class="reference internal" href="base-1.html#other-formats">Other formats</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="base-1.html#structure-and-group-labels">Structure and group labels</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="base-1.html#principle">Principle</a></li>
+<li class="toctree-l2"><a class="reference internal" href="base-1.html#group-labels-in-fasta-files">Group labels in Fasta files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="base-1.html#outgroup">Outgroup</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="base-1.html#iteration">Iteration</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="base-1.html#principle-of-proxy-types">Principle of proxy types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="base-1.html#default-iteration">Default iteration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="base-1.html#controlling-iterations">Controlling iterations</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="base-2.html">Accessing and editing data</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="base-2.html#accessing-a-given-sample">Accessing a given sample</a></li>
+<li class="toctree-l2"><a class="reference internal" href="base-2.html#editing-names">Editing names</a></li>
+<li class="toctree-l2"><a class="reference internal" href="base-2.html#editing-sequences-or-data-entries">Editing sequences or data entries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="base-2.html#editing-group-labels">Editing group labels</a></li>
+<li class="toctree-l2"><a class="reference internal" href="base-2.html#initializing-objects">Initializing objects</a></li>
+<li class="toctree-l2"><a class="reference internal" href="base-2.html#add-remove-samples">Add/remove samples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="base-2.html#editing-alignments">Editing alignments</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="base-3.html">Encoding of data</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="base-3.html#the-ascii-code">The ASCII code</a></li>
+<li class="toctree-l2"><a class="reference internal" href="base-3.html#converting-integers-from-to-characters">Converting integers from/to characters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="base-3.html#facilities-available-in-align-container-objects">Facilities available in <code class="docutils literal"><span class="pre">Align</span></code>/<code class="docutils literal"><span class="pre">Container</span></code> objects</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="base-3.html#protein-translation">Protein translation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="base-3.html#the-tools-translate-function">The <code class="docutils literal"><span class="pre">tools.translate()</span></code> function</a></li>
+<li class="toctree-l2"><a class="reference internal" href="base-3.html#the-tools-translator-class">The <code class="docutils literal"><span class="pre">tools.Translator</span></code> class</a></li>
+<li class="toctree-l2"><a class="reference internal" href="base-3.html#detecting-open-reading-frames-and-processing-stop-codons">Detecting open reading frames and processing stop codons</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="base-1.html" title="Importing sequences in the Fasta format"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="Manual"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../contents.html">EggLib&#39;s documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../toc.html" >Contents</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="index.html" >Manual</a> &#187;</li> 
+      </ul>
+    </div>
+<!--
+        <address style="text-align: right;"><small>Hosted by&nbsp;
+        <a href="http://sourceforge.net/projects/egglib"><img src="http://sflogo.sourceforge.net/sflogo.php?group_id=232965&amp;type=8" width="80" height="15" alt="Get EggLib at SourceForge.net. Fast, secure and Free Open Source software downloads" / ALIGN=RIGHT BORDER=0></a>
+        </address>
+-->
+
+  </body>
+</html>

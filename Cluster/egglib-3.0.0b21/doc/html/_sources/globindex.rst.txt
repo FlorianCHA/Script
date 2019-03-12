@@ -1,0 +1,1286 @@
+.. _globindex:
+
+*****
+Index
+*****
+
+.. _keyA:
+
+**A**
+
+    * :attr:`.egglib.io.Variant.AA` [attribute]
+
+    * :class:`.egglib.fit.ABC` [class]
+
+    * :attr:`.egglib.io.Variant.AC` [attribute]
+
+    * :attr:`.egglib.io.Variant.AF` [attribute]
+
+    * :attr:`.egglib.io.Variant.AN` [attribute]
+
+    * :class:`.egglib.Align` [class]
+
+    * :meth:`.egglib.coalesce.EventList.add` [method]
+
+    * :meth:`.egglib.io.GenBankFeatureLocation.add_base_choice` [method]
+
+    * :meth:`.egglib.io.GenBankFeatureLocation.add_base_range` [method]
+
+    * :meth:`.egglib.io.GenBankFeatureLocation.add_between_base` [method]
+
+    * :meth:`.egglib.fit.ABC.add_data` [method]
+
+    * :meth:`.egglib.coalesce.ParamDict.add_event` [method]
+
+    * :meth:`.egglib.io.GenBank.add_feature` [method]
+
+    * :meth:`.egglib.fit.ABC.add_inf` [method]
+
+    * :meth:`.egglib.Tree.add_node` [method]
+
+    * :meth:`.egglib.Align.add_outgroup` [method]
+
+    * :meth:`.egglib.Container.add_outgroup` [method]
+
+    * :meth:`.egglib.io.GenBankFeature.add_qualifier` [method]
+
+    * :meth:`.egglib.Align.add_sample` [method]
+
+    * :meth:`.egglib.Container.add_sample` [method]
+
+    * :meth:`.egglib.Align.add_samples` [method]
+
+    * :meth:`.egglib.Container.add_samples` [method]
+
+    * :meth:`.egglib.io.GenBankFeatureLocation.add_single_base` [method]
+
+    * :meth:`.egglib.stats.ComputeStats.add_stats` [method]
+
+    * :attr:`.egglib.io.GFF3Feature.aliases` [attribute]
+
+    * :attr:`.egglib.coalesce.Simulator.align` [attribute]
+
+    * :attr:`.egglib.tools.BackalignError.alignment` [attribute]
+
+    * :meth:`.egglib.stats.ComputeStats.all_stats` [method]
+
+    * :attr:`.egglib.io.Variant.alleles` [attribute]
+
+    * :meth:`.egglib.stats.Site.alleles` [method]
+
+    * :attr:`.egglib.io.Variant.alternate_types` [attribute]
+
+    * :attr:`.egglib.tools.BackalignError.args` [attribute]
+
+    * :meth:`.egglib.stats.Structure.as_dict` [method]
+
+    * :meth:`.egglib.stats.Site.as_list` [method]
+
+    * :meth:`.egglib.io.GenBankFeatureLocation.as_order` [method]
+
+    * :meth:`.egglib.io.GenBankFeatureLocation.as_range` [method]
+
+    * :attr:`.egglib.io.GFF3Feature.attributes` [attribute]
+
+.. _keyB:
+
+**B**
+
+    * :class:`.egglib.tools.BackalignError` [class]
+
+    * :func:`.egglib.tools.backalign` [function]
+
+    * :attr:`.egglib.Tree.base` [attribute]
+
+    * :meth:`.egglib.io.VcfParser.bed_slider` [method]
+
+    * :meth:`.egglib.tools.Random.bernoulli` [method]
+
+    * :meth:`.egglib.tools.Random.binomial` [method]
+
+    * :func:`.egglib.wrappers.blast_config` [function]
+
+    * :func:`.egglib.wrappers.blastn` [function]
+
+    * :func:`.egglib.wrappers.blastp` [function]
+
+    * :func:`.egglib.wrappers.blastx` [function]
+
+    * :meth:`.egglib.tools.Random.boolean` [method]
+
+    * :attr:`.egglib.tools.Discretize.bounds` [attribute]
+
+    * :meth:`.egglib.Node.branch_to` [method]
+
+    * :meth:`.egglib.Tree.breadth_iter` [method]
+
+.. _keyC:
+
+**C**
+
+    * :class:`.egglib.stats.CodingDiversity` [class]
+
+    * :class:`.egglib.stats.ComputeStats` [class]
+
+    * :class:`.egglib.Container` [class]
+
+    * :meth:`.egglib.Node.child` [method]
+
+    * :meth:`.egglib.Node.children` [method]
+
+    * :attr:`.egglib.io.Variant.chromosome` [attribute]
+
+    * :meth:`.egglib.misc.TempFile.clean` [method]
+
+    * :meth:`.egglib.Tree.clean_branch_lengths` [method]
+
+    * :meth:`.egglib.Tree.clean_internal_labels` [method]
+
+    * :meth:`.egglib.Align.clear` [method]
+
+    * :meth:`.egglib.Container.clear` [method]
+
+    * :meth:`.egglib.coalesce.EventList.clear` [method]
+
+    * :meth:`.egglib.misc.Pool.clear` [method]
+
+    * :meth:`.egglib.fit.ABC.clear_data` [method]
+
+    * :meth:`.egglib.fit.ABC.clear_io` [method]
+
+    * :meth:`.egglib.stats.ComputeStats.clear_stats` [method]
+
+    * :func:`.egglib.wrappers.clustal` [function]
+
+    * :mod:`.egglib.coalesce` [module]
+
+    * :func:`.egglib.wrappers.codeml` [function]
+
+    * :meth:`.egglib.tools.ReadingFrame.codon_bases` [method]
+
+    * :meth:`.egglib.tools.ReadingFrame.codon_index` [method]
+
+    * :meth:`.egglib.tools.ReadingFrame.codon_position` [method]
+
+    * :meth:`.egglib.Tree.collapse` [method]
+
+    * :meth:`.egglib.Align.column` [method]
+
+    * :func:`.egglib.tools.compare` [function]
+
+    * :meth:`.egglib.stats.ProbaMisoriented.compute` [method]
+
+    * :func:`.egglib.tools.concat` [function]
+
+    * :meth:`.egglib.stats.ComputeStats.configure` [method]
+
+    * :meth:`.egglib.Align.consensus` [method]
+
+    * :meth:`.egglib.Tree.copy` [method]
+
+    * :meth:`.egglib.coalesce.ParamDict.copy` [method]
+
+    * :meth:`.egglib.io.GenBankFeature.copy` [method]
+
+    * :meth:`.egglib.io.GenBankFeatureLocation.copy` [method]
+
+    * :meth:`.egglib.coalesce.ParamList.count` [method]
+
+    * :meth:`.egglib.coalesce.ParamMatrix.count` [method]
+
+    * :meth:`.egglib.Align.create` [method]
+
+    * :meth:`.egglib.Container.create` [method]
+
+    * :attr:`.egglib.stats.EHH.cur_haplotypes` [attribute]
+
+.. _keyD:
+
+**D**
+
+    * :attr:`.egglib.stats.ProbaMisoriented.D` [attribute]
+
+    * :class:`.egglib.tools.Discretize` [class]
+
+    * :attr:`.egglib.io.GFF3Feature.dbxref` [attribute]
+
+    * :meth:`.egglib.Align.del_columns` [method]
+
+    * :meth:`.egglib.Align.del_outgroup` [method]
+
+    * :meth:`.egglib.Container.del_outgroup` [method]
+
+    * :meth:`.egglib.Align.del_sample` [method]
+
+    * :meth:`.egglib.Container.del_sample` [method]
+
+    * :meth:`.egglib.Container.del_sites` [method]
+
+    * :meth:`.egglib.Container.del_sites_o` [method]
+
+    * :attr:`.egglib.tools.Translator.delete_truncated` [attribute]
+
+    * :meth:`.egglib.Tree.depth_iter` [method]
+
+    * :attr:`.egglib.io.GFF3Feature.derives_from` [attribute]
+
+    * :attr:`.egglib.fit.Nnet.dim` [attribute]
+
+    * :meth:`.egglib.coalesce.ParamDict.disable_trans_matrix` [method]
+
+    * :meth:`.egglib.stats.EHH.done_EHH` [method]
+
+    * :meth:`.egglib.stats.EHH.done_EHHc` [method]
+
+.. _keyE:
+
+**E**
+
+    * :class:`.egglib.stats.EHH` [class]
+
+    * :class:`.egglib.coalesce.EventList` [class]
+
+    * :meth:`.egglib.Align.encode` [method]
+
+    * :meth:`.egglib.Container.encode` [method]
+
+    * :attr:`.egglib.io.GFF3Feature.end` [attribute]
+
+    * :meth:`.egglib.Container.equalize` [method]
+
+    * :meth:`.egglib.tools.ReadingFrame.exon_index` [method]
+
+    * :meth:`.egglib.stats.Filter.exploitable` [method]
+
+    * :meth:`.egglib.tools.Random.exponential` [method]
+
+    * :meth:`.egglib.Align.extract` [method]
+
+    * :meth:`.egglib.Tree.extract` [method]
+
+    * :meth:`.egglib.io.GenBank.extract` [method]
+
+.. _keyF:
+
+**F**
+
+    * :class:`.egglib.stats.Filter` [class]
+
+    * :class:`.egglib.stats.Freq` [class]
+
+    * :attr:`.egglib.io.Variant.failed_tests` [attribute]
+
+    * :class:`.egglib.io.fasta_iter` [class]
+
+    * :meth:`.egglib.io.GFF3.feature_iter` [method]
+
+    * :attr:`.egglib.io.VcfParser.file_format` [attribute]
+
+    * :meth:`.egglib.Align.filter` [method]
+
+    * :meth:`.egglib.Align.find` [method]
+
+    * :meth:`.egglib.Container.find` [method]
+
+    * :meth:`.egglib.SequenceView.find` [method]
+
+    * :meth:`.egglib.Tree.find_clade` [method]
+
+    * :meth:`.egglib.Align.find_motif` [method]
+
+    * :meth:`.egglib.Container.find_motif` [method]
+
+    * :meth:`.egglib.Align.find_motif_o` [method]
+
+    * :meth:`.egglib.Container.find_motif_o` [method]
+
+    * :meth:`.egglib.fit.ABC.fit` [method]
+
+    * :mod:`.egglib.fit` [module]
+
+    * :meth:`.egglib.Align.fix_ends` [method]
+
+    * :attr:`.egglib.misc.TempFile.fname` [attribute]
+
+    * :attr:`.egglib.io.Variant.format_fields` [attribute]
+
+    * :meth:`.egglib.stats.Freq.freq_allele` [method]
+
+    * :func:`.egglib.stats.freq_from_list` [function]
+
+    * :func:`.egglib.stats.freq_from_site` [function]
+
+    * :func:`.egglib.stats.freq_from_vcf` [function]
+
+    * :meth:`.egglib.stats.Freq.freq_genotype` [method]
+
+    * :meth:`.egglib.Tree.frequency_nodes` [method]
+
+    * :func:`.egglib.io.from_clustal` [function]
+
+    * :func:`.egglib.io.from_fasta` [function]
+
+    * :func:`.egglib.io.from_genalys` [function]
+
+    * :meth:`.egglib.io.VcfParser.from_header` [method]
+
+    * :func:`.egglib.io.from_staden` [function]
+
+.. _keyG:
+
+**G**
+
+    * :class:`.egglib.io.GFF3` [class]
+
+    * :class:`.egglib.io.GFF3Feature` [class]
+
+    * :attr:`.egglib.io.Variant.GL` [attribute]
+
+    * :attr:`.egglib.io.Variant.GT` [attribute]
+
+    * :attr:`.egglib.io.Variant.GT_phased` [attribute]
+
+    * :attr:`.egglib.io.Variant.GT_vcf` [attribute]
+
+    * :class:`.egglib.io.GenBank` [class]
+
+    * :class:`.egglib.io.GenBankFeature` [class]
+
+    * :class:`.egglib.io.GenBankFeatureLocation` [class]
+
+    * :class:`.egglib.GroupView` [class]
+
+    * :attr:`.egglib.io.GFF3Feature.gap` [attribute]
+
+    * :meth:`.egglib.stats.Freq.genotype` [method]
+
+    * :meth:`.egglib.tools.Random.geometric` [method]
+
+    * :meth:`.egglib.coalesce.ParamDict.get` [method]
+
+    * :meth:`.egglib.misc.Pool.get` [method]
+
+    * :meth:`.egglib.tools.Discretize.get` [method]
+
+    * :meth:`.egglib.stats.EHH.get_EHH` [method]
+
+    * :meth:`.egglib.stats.EHH.get_EHHG` [method]
+
+    * :meth:`.egglib.stats.EHH.get_EHHS` [method]
+
+    * :meth:`.egglib.stats.EHH.get_EHHc` [method]
+
+    * :meth:`.egglib.stats.EHH.get_IHH` [method]
+
+    * :meth:`.egglib.stats.EHH.get_IHHc` [method]
+
+    * :meth:`.egglib.io.VcfParser.get_alt` [method]
+
+    * :meth:`.egglib.io.VcfParser.get_bed_file` [method]
+
+    * :meth:`.egglib.io.VcfParser.get_contig_index` [method]
+
+    * :meth:`.egglib.stats.EHH.get_dEHH` [method]
+
+    * :meth:`.egglib.stats.EHH.get_dEHHG` [method]
+
+    * :meth:`.egglib.stats.EHH.get_dEHHS` [method]
+
+    * :meth:`.egglib.stats.EHH.get_dEHH_max` [method]
+
+    * :meth:`.egglib.stats.EHH.get_dEHH_mean` [method]
+
+    * :meth:`.egglib.stats.EHH.get_dEHHc` [method]
+
+    * :func:`.egglib.io.get_fgenesh` [function]
+
+    * :meth:`.egglib.io.VcfParser.get_filter` [method]
+
+    * :meth:`.egglib.io.VcfParser.get_format` [method]
+
+    * :meth:`.egglib.io.VcfParser.get_genotypes` [method]
+
+    * :meth:`.egglib.Align.get_i` [method]
+
+    * :meth:`.egglib.Container.get_i` [method]
+
+    * :meth:`.egglib.stats.EHH.get_iEG` [method]
+
+    * :meth:`.egglib.stats.EHH.get_iES` [method]
+
+    * :meth:`.egglib.stats.EHH.get_iHS` [method]
+
+    * :meth:`.egglib.io.VcfParser.get_index` [method]
+
+    * :meth:`.egglib.io.VcfParser.get_info` [method]
+
+    * :meth:`.egglib.Align.get_label` [method]
+
+    * :meth:`.egglib.Container.get_label` [method]
+
+    * :meth:`.egglib.Align.get_label_o` [method]
+
+    * :meth:`.egglib.Container.get_label_o` [method]
+
+    * :meth:`.egglib.io.VcfParser.get_last_contig_index` [method]
+
+    * :meth:`.egglib.Tree.get_leaf` [method]
+
+    * :meth:`.egglib.io.VcfParser.get_meta` [method]
+
+    * :meth:`.egglib.Align.get_name` [method]
+
+    * :meth:`.egglib.Container.get_name` [method]
+
+    * :meth:`.egglib.Align.get_name_o` [method]
+
+    * :meth:`.egglib.Container.get_name_o` [method]
+
+    * :meth:`.egglib.Align.get_o` [method]
+
+    * :meth:`.egglib.Container.get_o` [method]
+
+    * :meth:`.egglib.Align.get_outgroup` [method]
+
+    * :meth:`.egglib.Container.get_outgroup` [method]
+
+    * :meth:`.egglib.io.GFF3Feature.get_parent` [method]
+
+    * :meth:`.egglib.io.GFF3Feature.get_part` [method]
+
+    * :meth:`.egglib.io.VcfParser.get_position_index` [method]
+
+    * :meth:`.egglib.stats.EHH.get_rEHH` [method]
+
+    * :meth:`.egglib.Align.get_sample` [method]
+
+    * :meth:`.egglib.Container.get_sample` [method]
+
+    * :meth:`.egglib.io.VcfParser.get_sample` [method]
+
+    * :meth:`.egglib.stats.Structure.get_samples` [method]
+
+    * :meth:`.egglib.tools.Random.get_seed` [method]
+
+    * :meth:`.egglib.Align.get_sequence` [method]
+
+    * :meth:`.egglib.Container.get_sequence` [method]
+
+    * :meth:`.egglib.io.GenBankFeature.get_sequence` [method]
+
+    * :meth:`.egglib.Align.get_sequence_o` [method]
+
+    * :meth:`.egglib.Container.get_sequence_o` [method]
+
+    * :meth:`.egglib.io.GenBankFeature.get_start` [method]
+
+    * :meth:`.egglib.io.GenBankFeature.get_stop` [method]
+
+    * :meth:`.egglib.stats.Structure.get_structure` [method]
+
+    * :func:`.egglib.stats.get_structure` [function]
+
+    * :meth:`.egglib.io.GenBankFeature.get_type` [method]
+
+    * :meth:`.egglib.coalesce.ParamDict.get_values` [method]
+
+    * :meth:`.egglib.coalesce.ParamMatrix.get_values` [method]
+
+    * :meth:`.egglib.io.VcfParser.get_variant_index` [method]
+
+    * :meth:`.egglib.fit.Nnet.get_weights` [method]
+
+    * :attr:`.egglib.io.VcfParser.good` [attribute]
+
+    * :meth:`.egglib.io.VcfParser.goto` [method]
+
+    * :attr:`.egglib.SampleView.group` [attribute]
+
+    * :meth:`.egglib.Align.group_mapping` [method]
+
+    * :meth:`.egglib.Container.group_mapping` [method]
+
+.. _keyH:
+
+**H**
+
+    * :func:`.egglib.stats.haplotypes` [function]
+
+    * :meth:`.egglib.Node.has_descendant` [method]
+
+    * :attr:`.egglib.io.VcfParser.has_index` [attribute]
+
+    * :meth:`.egglib.coalesce.ParamDict.has_key` [method]
+
+    * :func:`.egglib.tools.has_stop` [function]
+
+.. _keyI:
+
+**I**
+
+    * :attr:`.egglib.io.GFF3Feature.ID` [attribute]
+
+    * :attr:`.egglib.io.Variant.ID` [attribute]
+
+    * :attr:`.egglib.SampleView.index` [attribute]
+
+    * :meth:`.egglib.coalesce.ParamList.index` [method]
+
+    * :meth:`.egglib.coalesce.ParamMatrix.index` [method]
+
+    * :attr:`.egglib.io.Variant.info` [attribute]
+
+    * :meth:`.egglib.stats.Site.ingroup` [method]
+
+    * :meth:`.egglib.fit.Nnet.init_network` [method]
+
+    * :meth:`.egglib.SequenceView.insert` [method]
+
+    * :meth:`.egglib.Align.insert_columns` [method]
+
+    * :meth:`.egglib.Container.insert_sites` [method]
+
+    * :meth:`.egglib.Container.insert_sites_o` [method]
+
+    * :func:`.egglib.tools.int2codon` [function]
+
+    * :meth:`.egglib.tools.Random.integer` [method]
+
+    * :meth:`.egglib.tools.Random.integer_32bit` [method]
+
+    * :meth:`.egglib.Align.intersperse` [method]
+
+    * :mod:`.egglib.io` [module]
+
+    * :meth:`.egglib.Node.is_child` [method]
+
+    * :attr:`.egglib.io.GFF3Feature.is_circular` [attribute]
+
+    * :meth:`.egglib.io.GenBankFeatureLocation.is_complement` [method]
+
+    * :attr:`.egglib.Align.is_matrix` [attribute]
+
+    * :attr:`.egglib.Container.is_matrix` [attribute]
+
+    * :meth:`.egglib.Node.is_parent` [method]
+
+    * :meth:`.egglib.io.GenBankFeatureLocation.is_range` [method]
+
+    * :meth:`.egglib.coalesce.ParamDict.items` [method]
+
+    * :meth:`.egglib.stats.CodingDiversity.iter_NS` [method]
+
+    * :meth:`.egglib.stats.CodingDiversity.iter_S` [method]
+
+    * :meth:`.egglib.tools.ReadingFrame.iter_codons` [method]
+
+    * :meth:`.egglib.tools.ReadingFrame.iter_exon_bounds` [method]
+
+    * :meth:`.egglib.Tree.iter_leaves` [method]
+
+    * :meth:`.egglib.Align.iter_outgroup` [method]
+
+    * :meth:`.egglib.Container.iter_outgroup` [method]
+
+    * :meth:`.egglib.Align.iter_samples` [method]
+
+    * :meth:`.egglib.Container.iter_samples` [method]
+
+    * :meth:`.egglib.coalesce.Simulator.iter_simul` [method]
+
+    * :func:`.egglib.tools.iter_stops` [function]
+
+    * :meth:`.egglib.coalesce.ParamDict.iteritems` [method]
+
+    * :meth:`.egglib.coalesce.ParamDict.iterkeys` [method]
+
+    * :meth:`.egglib.coalesce.ParamDict.itervalues` [method]
+
+.. _keyK:
+
+**K**
+
+    * :meth:`.egglib.coalesce.ParamDict.keys` [method]
+
+.. _keyL:
+
+**L**
+
+    * :attr:`.egglib.Node.label` [attribute]
+
+    * :meth:`.egglib.io.VcfParser.last_variant` [method]
+
+    * :meth:`.egglib.Tree.lateralize` [method]
+
+    * :meth:`.egglib.Node.leaves_down` [method]
+
+    * :meth:`.egglib.Node.leaves_up` [method]
+
+    * :meth:`.egglib.tools.Discretize.left` [method]
+
+    * :meth:`.egglib.stats.ComputeStats.list_stats` [method]
+
+    * :meth:`.egglib.Container.lo` [method]
+
+    * :meth:`.egglib.fit.Nnet.load` [method]
+
+    * :meth:`.egglib.stats.ProbaMisoriented.load_align` [method]
+
+    * :meth:`.egglib.stats.EHH.load_distant` [method]
+
+    * :meth:`.egglib.stats.ProbaMisoriented.load_site` [method]
+
+    * :func:`.egglib.tools.longest_orf` [function]
+
+    * :attr:`.egglib.Align.ls` [attribute]
+
+    * :meth:`.egglib.Container.ls` [method]
+
+    * :attr:`.egglib.SampleView.ls` [attribute]
+
+.. _keyM:
+
+**M**
+
+    * :meth:`.egglib.stats.Structure.make_auxiliary` [method]
+
+    * :meth:`.egglib.io.VcfParser.make_index` [method]
+
+    * :meth:`.egglib.stats.Structure.make_structure` [method]
+
+    * :func:`.egglib.stats.make_structure` [function]
+
+    * :func:`.egglib.wrappers.makeblastdb` [function]
+
+    * :meth:`.egglib.Tree.map_descendants` [method]
+
+    * :func:`.egglib.stats.matrix_LD` [function]
+
+    * :attr:`.egglib.tools.BackalignError.message` [attribute]
+
+    * :attr:`.egglib.io.GFF3.metadata` [attribute]
+
+    * :meth:`.egglib.tools.Discretize.mget` [method]
+
+    * :meth:`.egglib.tools.Discretize.mid` [method]
+
+    * :meth:`.egglib.Tree.midroot` [method]
+
+    * :mod:`.egglib.misc` [module]
+
+    * :meth:`.egglib.stats.Filter.missing` [method]
+
+    * :meth:`.egglib.stats.CodingDiversity.mk_align_NS` [method]
+
+    * :meth:`.egglib.stats.CodingDiversity.mk_align_S` [method]
+
+    * :meth:`.egglib.coalesce.ParamDict.mk_structure` [method]
+
+    * :func:`.egglib.tools.motif_iter` [function]
+
+    * :func:`.egglib.wrappers.muscle` [function]
+
+.. _keyN:
+
+**N**
+
+    * :class:`.egglib.fit.Nnet` [class]
+
+    * :class:`.egglib.Node` [class]
+
+    * :attr:`.egglib.SampleView.name` [attribute]
+
+    * :attr:`.egglib.io.GFF3Feature.name` [attribute]
+
+    * :attr:`.egglib.tools.BackalignError.name` [attribute]
+
+    * :meth:`.egglib.Align.name_mapping` [method]
+
+    * :meth:`.egglib.Container.name_mapping` [method]
+
+    * :meth:`.egglib.Align.names` [method]
+
+    * :meth:`.egglib.Container.names` [method]
+
+    * :meth:`.egglib.Align.names_outgroup` [method]
+
+    * :meth:`.egglib.Container.names_outgroup` [method]
+
+    * :attr:`.egglib.tools.Discretize.ncat` [attribute]
+
+    * :attr:`.egglib.tools.Discretize.ndata` [attribute]
+
+    * :attr:`.egglib.tools.Discretize.ndim` [attribute]
+
+    * :meth:`.egglib.Node.newick` [method]
+
+    * :meth:`.egglib.Tree.newick` [method]
+
+    * :meth:`.egglib.io.VcfParser.next` [method]
+
+    * :meth:`.egglib.io.fasta_iter.next` [method]
+
+    * :meth:`.egglib.Align.nexus` [method]
+
+    * :attr:`.egglib.Align.ng` [attribute]
+
+    * :attr:`.egglib.Container.ng` [attribute]
+
+    * :meth:`.egglib.stats.Freq.nieff` [method]
+
+    * :attr:`.egglib.Align.no` [attribute]
+
+    * :attr:`.egglib.Container.no` [attribute]
+
+    * :attr:`.egglib.stats.Site.no` [attribute]
+
+    * :attr:`.egglib.stats.Structure.no` [attribute]
+
+    * :meth:`.egglib.tools.Random.normal` [method]
+
+    * :attr:`.egglib.io.GFF3Feature.notes` [attribute]
+
+    * :attr:`.egglib.Align.ns` [attribute]
+
+    * :attr:`.egglib.Container.ns` [attribute]
+
+    * :attr:`.egglib.stats.Site.ns` [attribute]
+
+    * :attr:`.egglib.stats.Structure.ns` [attribute]
+
+    * :attr:`.egglib.stats.EHH.nsam` [attribute]
+
+    * :meth:`.egglib.stats.EHH.nsam_core` [method]
+
+    * :meth:`.egglib.stats.EHH.nsam_hap` [method]
+
+    * :meth:`.egglib.stats.Freq.nseff` [method]
+
+    * :attr:`.egglib.tools.Discretize.nskipped` [attribute]
+
+    * :attr:`.egglib.io.Variant.num_alleles` [attribute]
+
+    * :attr:`.egglib.stats.Freq.num_alleles` [attribute]
+
+    * :attr:`.egglib.stats.Site.num_alleles` [attribute]
+
+    * :attr:`.egglib.io.VcfParser.num_alt` [attribute]
+
+    * :attr:`.egglib.io.Variant.num_alternate` [attribute]
+
+    * :attr:`.egglib.Node.num_children` [attribute]
+
+    * :attr:`.egglib.stats.Structure.num_clust` [attribute]
+
+    * :attr:`.egglib.stats.Freq.num_clusters` [attribute]
+
+    * :attr:`.egglib.tools.ReadingFrame.num_codons` [attribute]
+
+    * :attr:`.egglib.stats.CodingDiversity.num_codons_eff` [attribute]
+
+    * :attr:`.egglib.stats.CodingDiversity.num_codons_stop` [attribute]
+
+    * :attr:`.egglib.stats.CodingDiversity.num_codons_tot` [attribute]
+
+    * :attr:`.egglib.fit.ABC.num_ds` [attribute]
+
+    * :attr:`.egglib.tools.ReadingFrame.num_exon_bases` [attribute]
+
+    * :attr:`.egglib.tools.ReadingFrame.num_exons` [attribute]
+
+    * :attr:`.egglib.io.VcfParser.num_filter` [attribute]
+
+    * :attr:`.egglib.io.VcfParser.num_format` [attribute]
+
+    * :attr:`.egglib.io.GFF3Feature.num_fragments` [attribute]
+
+    * :attr:`.egglib.tools.ReadingFrame.num_full_codons` [attribute]
+
+    * :attr:`.egglib.io.Variant.num_genotypes` [attribute]
+
+    * :attr:`.egglib.stats.Freq.num_genotypes` [attribute]
+
+    * :attr:`.egglib.stats.EHH.num_haplotypes` [attribute]
+
+    * :attr:`.egglib.io.VcfParser.num_index` [attribute]
+
+    * :attr:`.egglib.stats.Structure.num_indiv_ingroup` [attribute]
+
+    * :attr:`.egglib.stats.Structure.num_indiv_outgroup` [attribute]
+
+    * :attr:`.egglib.io.VcfParser.num_info` [attribute]
+
+    * :attr:`.egglib.stats.Site.num_ingroup` [attribute]
+
+    * :attr:`.egglib.Tree.num_leaves` [attribute]
+
+    * :attr:`.egglib.io.VcfParser.num_meta` [attribute]
+
+    * :attr:`.egglib.stats.Site.num_missing` [attribute]
+
+    * :attr:`.egglib.stats.Site.num_missing_ingroup` [attribute]
+
+    * :attr:`.egglib.stats.Site.num_missing_outgroup` [attribute]
+
+    * :attr:`.egglib.stats.CodingDiversity.num_multiple_alleles` [attribute]
+
+    * :attr:`.egglib.stats.CodingDiversity.num_multiple_hits` [attribute]
+
+    * :attr:`.egglib.tools.ReadingFrame.num_needed_bases` [attribute]
+
+    * :attr:`.egglib.Tree.num_nodes` [attribute]
+
+    * :attr:`.egglib.stats.Site.num_outgroup` [attribute]
+
+    * :attr:`.egglib.io.GFF3Feature.num_parents` [attribute]
+
+    * :attr:`.egglib.io.GFF3Feature.num_parts` [attribute]
+
+    * :attr:`.egglib.stats.CodingDiversity.num_pol_NS` [attribute]
+
+    * :attr:`.egglib.stats.CodingDiversity.num_pol_S` [attribute]
+
+    * :attr:`.egglib.stats.CodingDiversity.num_pol_single` [attribute]
+
+    * :attr:`.egglib.stats.Structure.num_pop` [attribute]
+
+    * :attr:`.egglib.stats.Freq.num_populations` [attribute]
+
+    * :attr:`.egglib.fit.ABC.num_samples` [attribute]
+
+    * :attr:`.egglib.io.Variant.num_samples` [attribute]
+
+    * :attr:`.egglib.io.VcfParser.num_samples` [attribute]
+
+    * :meth:`.egglib.stats.ParalogPi.num_sites` [method]
+
+    * :attr:`.egglib.stats.CodingDiversity.num_sites_NS` [attribute]
+
+    * :attr:`.egglib.stats.CodingDiversity.num_sites_S` [attribute]
+
+    * :attr:`.egglib.io.GFF3.num_top_features` [attribute]
+
+    * :attr:`.egglib.tools.ReadingFrame.num_tot_bases` [attribute]
+
+    * :attr:`.egglib.io.GFF3.num_tot_features` [attribute]
+
+    * :meth:`.egglib.io.GenBank.number_of_features` [method]
+
+.. _keyO:
+
+**O**
+
+    * :attr:`.egglib.io.GFF3Feature.ontology_terms` [attribute]
+
+    * :func:`.egglib.tools.orf_iter` [function]
+
+    * :attr:`.egglib.GroupView.outgroup` [attribute]
+
+    * :attr:`.egglib.SampleView.outgroup` [attribute]
+
+    * :meth:`.egglib.stats.Site.outgroup` [method]
+
+.. _keyP:
+
+**P**
+
+    * :attr:`.egglib.io.Variant.PL` [attribute]
+
+    * :class:`.egglib.stats.ParalogPi` [class]
+
+    * :class:`.egglib.coalesce.ParamDict` [class]
+
+    * :class:`.egglib.coalesce.ParamList` [class]
+
+    * :class:`.egglib.coalesce.ParamMatrix` [class]
+
+    * :meth:`.egglib.stats.ParalogPi.Pib` [method]
+
+    * :meth:`.egglib.stats.ParalogPi.Piw` [method]
+
+    * :class:`.egglib.misc.Pool` [class]
+
+    * :class:`.egglib.stats.ProbaMisoriented` [class]
+
+    * :attr:`.egglib.stats.ProbaMisoriented.pM` [attribute]
+
+    * :func:`.egglib.stats.pairwise_LD` [function]
+
+    * :func:`.egglib.stats.paralog_pi` [function]
+
+    * :attr:`.egglib.coalesce.Simulator.params` [attribute]
+
+    * :attr:`.egglib.Node.parent` [attribute]
+
+    * :attr:`.egglib.SampleView.parent` [attribute]
+
+    * :attr:`.egglib.Node.parent_branch` [attribute]
+
+    * :meth:`.egglib.fit.Nnet.parse` [method]
+
+    * :meth:`.egglib.io.GenBankFeature.parse` [method]
+
+    * :attr:`.egglib.io.GFF3Feature.phase` [attribute]
+
+    * :meth:`.egglib.Align.phylip` [method]
+
+    * :meth:`.egglib.Align.phyml` [method]
+
+    * :func:`.egglib.wrappers.phyml` [function]
+
+    * :attr:`.egglib.io.Variant.ploidy` [attribute]
+
+    * :attr:`.egglib.stats.Freq.ploidy` [attribute]
+
+    * :attr:`.egglib.stats.Site.ploidy` [attribute]
+
+    * :attr:`.egglib.stats.Structure.ploidy` [attribute]
+
+    * :meth:`.egglib.tools.Random.poisson` [method]
+
+    * :attr:`.egglib.io.Variant.position` [attribute]
+
+    * :attr:`.egglib.io.GFF3Feature.positions` [attribute]
+
+    * :attr:`.egglib.fit.ABC.posterior` [attribute]
+
+    * :meth:`.egglib.fit.Nnet.predict` [method]
+
+    * :attr:`.egglib.fit.ABC.proba` [attribute]
+
+    * :meth:`.egglib.stats.CodingDiversity.process` [method]
+
+    * :meth:`.egglib.tools.Discretize.process` [method]
+
+    * :meth:`.egglib.tools.ReadingFrame.process` [method]
+
+    * :meth:`.egglib.stats.ComputeStats.process_align` [method]
+
+    * :meth:`.egglib.stats.ParalogPi.process_align` [method]
+
+    * :meth:`.egglib.stats.Site.process_align` [method]
+
+    * :meth:`.egglib.stats.ComputeStats.process_freq` [method]
+
+    * :meth:`.egglib.stats.Freq.process_list` [method]
+
+    * :meth:`.egglib.stats.Site.process_list` [method]
+
+    * :meth:`.egglib.stats.ComputeStats.process_site` [method]
+
+    * :meth:`.egglib.stats.Freq.process_site` [method]
+
+    * :meth:`.egglib.stats.ParalogPi.process_site` [method]
+
+    * :meth:`.egglib.stats.ComputeStats.process_sites` [method]
+
+    * :meth:`.egglib.stats.Freq.process_vcf` [method]
+
+    * :meth:`.egglib.stats.Site.process_vcf` [method]
+
+    * :meth:`.egglib.misc.Pool.put` [method]
+
+.. _keyQ:
+
+**Q**
+
+    * :meth:`.egglib.io.GenBankFeature.qualifiers` [method]
+
+    * :attr:`.egglib.io.Variant.quality` [attribute]
+
+.. _keyR:
+
+**R**
+
+    * :class:`.egglib.tools.Random` [class]
+
+    * :class:`.egglib.tools.ReadingFrame` [class]
+
+    * :meth:`.egglib.Align.random_missing` [method]
+
+    * :meth:`.egglib.io.GenBank.rc` [method]
+
+    * :meth:`.egglib.io.GenBankFeature.rc` [method]
+
+    * :meth:`.egglib.io.GenBankFeatureLocation.rc` [method]
+
+    * :func:`.egglib.tools.rc` [function]
+
+    * :meth:`.egglib.io.VcfParser.read_index` [method]
+
+    * :meth:`.egglib.io.VcfParser.read_line` [method]
+
+    * :func:`.egglib.tools.regex` [function]
+
+    * :meth:`.egglib.Align.remove_duplicates` [method]
+
+    * :meth:`.egglib.Container.remove_duplicates` [method]
+
+    * :meth:`.egglib.Tree.remove_node` [method]
+
+    * :meth:`.egglib.Align.rename` [method]
+
+    * :meth:`.egglib.Container.rename` [method]
+
+    * :meth:`.egglib.coalesce.EventList.replace` [method]
+
+    * :attr:`.egglib.stats.Structure.req_no` [attribute]
+
+    * :attr:`.egglib.stats.Structure.req_ns` [attribute]
+
+    * :meth:`.egglib.Align.reserve` [method]
+
+    * :meth:`.egglib.Container.reserve` [method]
+
+    * :meth:`.egglib.Align.reset` [method]
+
+    * :meth:`.egglib.Container.reset` [method]
+
+    * :meth:`.egglib.fit.ABC.reset` [method]
+
+    * :meth:`.egglib.fit.Nnet.reset` [method]
+
+    * :meth:`.egglib.stats.ComputeStats.reset` [method]
+
+    * :meth:`.egglib.stats.ProbaMisoriented.reset` [method]
+
+    * :meth:`.egglib.stats.Site.reset` [method]
+
+    * :meth:`.egglib.tools.Discretize.reset` [method]
+
+    * :meth:`.egglib.stats.ComputeStats.results` [method]
+
+    * :meth:`.egglib.io.VcfParser.rewind` [method]
+
+    * :meth:`.egglib.tools.Discretize.right` [method]
+
+    * :meth:`.egglib.stats.Filter.rng` [method]
+
+    * :meth:`.egglib.Tree.root` [method]
+
+.. _keyS:
+
+**S**
+
+    * :attr:`.egglib.stats.ProbaMisoriented.S` [attribute]
+
+    * :class:`.egglib.SampleView` [class]
+
+    * :class:`.egglib.SequenceView` [class]
+
+    * :class:`.egglib.coalesce.Simulator` [class]
+
+    * :class:`.egglib.stats.Site` [class]
+
+    * :class:`.egglib.stats.Structure` [class]
+
+    * :attr:`.egglib.io.Variant.samples` [attribute]
+
+    * :attr:`.egglib.io.GFF3Feature.score` [attribute]
+
+    * :attr:`.egglib.io.GFF3.seqid` [attribute]
+
+    * :attr:`.egglib.io.GFF3Feature.seqid` [attribute]
+
+    * :attr:`.egglib.SampleView.sequence` [attribute]
+
+    * :attr:`.egglib.io.GenBank.sequence` [attribute]
+
+    * :meth:`.egglib.Node.set_branch_to` [method]
+
+    * :meth:`.egglib.io.GenBankFeatureLocation.set_complement` [method]
+
+    * :meth:`.egglib.stats.EHH.set_core` [method]
+
+    * :meth:`.egglib.io.GenBankFeatureLocation.set_forward` [method]
+
+    * :meth:`.egglib.Align.set_i` [method]
+
+    * :meth:`.egglib.Container.set_i` [method]
+
+    * :meth:`.egglib.Align.set_label` [method]
+
+    * :meth:`.egglib.Container.set_label` [method]
+
+    * :meth:`.egglib.Align.set_label_o` [method]
+
+    * :meth:`.egglib.Container.set_label_o` [method]
+
+    * :meth:`.egglib.coalesce.ParamDict.set_migr` [method]
+
+    * :meth:`.egglib.Align.set_name` [method]
+
+    * :meth:`.egglib.Container.set_name` [method]
+
+    * :meth:`.egglib.Align.set_name_o` [method]
+
+    * :meth:`.egglib.Container.set_name_o` [method]
+
+    * :meth:`.egglib.Align.set_o` [method]
+
+    * :meth:`.egglib.Container.set_o` [method]
+
+    * :meth:`.egglib.fit.ABC.set_outf` [method]
+
+    * :meth:`.egglib.Align.set_outgroup` [method]
+
+    * :meth:`.egglib.Container.set_outgroup` [method]
+
+    * :meth:`.egglib.Align.set_sample` [method]
+
+    * :meth:`.egglib.Container.set_sample` [method]
+
+    * :meth:`.egglib.tools.Random.set_seed` [method]
+
+    * :meth:`.egglib.Align.set_sequence` [method]
+
+    * :meth:`.egglib.Container.set_sequence` [method]
+
+    * :meth:`.egglib.Align.set_sequence_o` [method]
+
+    * :meth:`.egglib.Container.set_sequence_o` [method]
+
+    * :meth:`.egglib.stats.ParalogPi.setup` [method]
+
+    * :meth:`.egglib.io.GenBankFeature.shift` [method]
+
+    * :meth:`.egglib.io.GenBankFeatureLocation.shift` [method]
+
+    * :meth:`.egglib.Align.shuffle` [method]
+
+    * :meth:`.egglib.Container.shuffle` [method]
+
+    * :meth:`.egglib.Node.siblings` [method]
+
+    * :meth:`.egglib.coalesce.Simulator.simul` [method]
+
+    * :func:`.egglib.stats.site_from_align` [function]
+
+    * :func:`.egglib.stats.site_from_list` [function]
+
+    * :func:`.egglib.stats.site_from_vcf` [function]
+
+    * :meth:`.egglib.Align.slider` [method]
+
+    * :meth:`.egglib.io.VcfParser.slider` [method]
+
+    * :attr:`.egglib.io.GFF3Feature.source` [attribute]
+
+    * :attr:`.egglib.io.GFF3Feature.start` [attribute]
+
+    * :mod:`.egglib.stats` [module]
+
+    * :meth:`.egglib.SequenceView.string` [method]
+
+    * :meth:`.egglib.SequenceView.strip` [method]
+
+    * :meth:`.egglib.Align.subgroup` [method]
+
+    * :meth:`.egglib.Container.subgroup` [method]
+
+    * :meth:`.egglib.Align.subset` [method]
+
+    * :meth:`.egglib.Container.subset` [method]
+
+    * :meth:`.egglib.coalesce.ParamDict.summary` [method]
+
+.. _keyT:
+
+**T**
+
+    * :class:`.egglib.misc.TempFile` [class]
+
+    * :attr:`.egglib.stats.ProbaMisoriented.TiTv` [attribute]
+
+    * :class:`.egglib.tools.Translator` [class]
+
+    * :class:`.egglib.Tree` [class]
+
+    * :attr:`.egglib.io.GFF3Feature.target` [attribute]
+
+    * :func:`.egglib.wrappers.tblastn` [function]
+
+    * :func:`.egglib.wrappers.tblastx` [function]
+
+    * :meth:`.egglib.Align.to_fasta` [method]
+
+    * :meth:`.egglib.Container.to_fasta` [method]
+
+    * :meth:`.egglib.SequenceView.to_lower` [method]
+
+    * :func:`.egglib.io.to_ms` [function]
+
+    * :meth:`.egglib.Align.to_outgroup` [method]
+
+    * :meth:`.egglib.Container.to_outgroup` [method]
+
+    * :meth:`.egglib.SequenceView.to_upper` [method]
+
+    * :mod:`.egglib.tools` [module]
+
+    * :attr:`.egglib.fit.ABC.tot_samples` [attribute]
+
+    * :meth:`.egglib.Tree.total_length` [method]
+
+    * :func:`.egglib.tools.trailing_stops` [function]
+
+    * :meth:`.egglib.fit.Nnet.train` [method]
+
+    * :func:`.egglib.tools.translate` [function]
+
+    * :meth:`.egglib.tools.Translator.translate_align` [method]
+
+    * :meth:`.egglib.tools.Translator.translate_codon` [method]
+
+    * :meth:`.egglib.tools.Translator.translate_container` [method]
+
+    * :meth:`.egglib.tools.Translator.translate_sequence` [method]
+
+    * :attr:`.egglib.io.GFF3Feature.type` [attribute]
+
+    * :attr:`.egglib.io.GFF3.types` [attribute]
+
+.. _keyU:
+
+**U**
+
+    * :func:`.egglib.tools.ungap` [function]
+
+    * :meth:`.egglib.tools.Random.uniform` [method]
+
+    * :meth:`.egglib.tools.Random.uniform_53bit` [method]
+
+    * :meth:`.egglib.tools.Random.uniform_closed` [method]
+
+    * :meth:`.egglib.tools.Random.uniform_open` [method]
+
+    * :meth:`.egglib.io.VcfParser.unread` [method]
+
+    * :meth:`.egglib.Tree.unroot` [method]
+
+    * :meth:`.egglib.coalesce.EventList.update` [method]
+
+    * :meth:`.egglib.coalesce.ParamDict.update` [method]
+
+    * :meth:`.egglib.io.GenBankFeature.update` [method]
+
+.. _keyV:
+
+**V**
+
+    * :class:`.egglib.io.Variant` [class]
+
+    * :class:`.egglib.io.VcfParser` [class]
+
+    * :meth:`.egglib.coalesce.ParamDict.values` [method]
+
+.. _keyW:
+
+**W**
+
+    * :mod:`.egglib.wrappers` [module]
+
+    * :meth:`.egglib.io.GenBank.write` [method]
+
+    * :meth:`.egglib.io.GenBank.write_stream` [method]
+

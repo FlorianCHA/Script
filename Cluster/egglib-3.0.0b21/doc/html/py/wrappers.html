@@ -1,0 +1,931 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>External application tools &#8212; EggLib&#39;s documentation</title>
+    <link rel="stylesheet" href="../_static/egglibdoc.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '3.0.0b21',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="shortcut icon" href="../_static/icon.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Miscellaneous utilities" href="misc.html" />
+    <link rel="prev" title="Coalescence simulator" href="coalesce.html" />
+    <script type="text/javascript">
+      // intelligent scrolling of the sidebar content
+      $(window).scroll(function() {
+        var sb = $('.sphinxsidebarwrapper');
+        var win = $(window);
+        var sbh = sb.height();
+        var offset = $('.sphinxsidebar').position()['top'];
+        var wintop = win.scrollTop();
+        var winbot = wintop + win.innerHeight();
+        var curtop = sb.position()['top'];
+        var curbot = curtop + sbh;
+        // does sidebar fit in window?
+        if (sbh < win.innerHeight()) {
+          // yes: easy case -- always keep at the top
+          sb.css('top', $u.min([$u.max([0, wintop - offset - 10]),
+                                $(document).height() - sbh - 200]));
+        } else {
+          // no: only scroll if top/bottom edge of sidebar is at
+          // top/bottom edge of window
+          if (curtop > wintop && curbot > winbot) {
+            sb.css('top', $u.max([wintop - offset - 10, 0]));
+          } else if (curtop < wintop && curbot < winbot) {
+            sb.css('top', $u.min([winbot - sbh - offset - 20,
+                                  $(document).height() - sbh - 200]));
+          }
+        }
+      });
+    </script>
+  </head>
+  <body>
+<div style="background-color: white; text-align: left; padding: 0px 0px 0px 0px">
+<a href="../index.html"><img src="../_static/banner.png" border="0" alt="EggLib"/></a>
+</div>
+
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="misc.html" title="Miscellaneous utilities"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="coalesce.html" title="Coalescence simulator"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../contents.html">EggLib&#39;s documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../toc.html" >Contents</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="index.html" accesskey="U">Python Module</a> &#187;</li> 
+      </ul>
+    </div>
+
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../contents.html">
+              <img class="logo" src="../_static/egglib_small.bmp" alt="Logo"/>
+            </a></p>
+  <h3><a href="../contents.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">External application tools</a><ul>
+<li><a class="reference internal" href="#application-paths">Application paths</a></li>
+<li><a class="reference internal" href="#phylogeny">Phylogeny</a></li>
+<li><a class="reference internal" href="#multiple-alignment">Multiple alignment</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="coalesce.html"
+                        title="previous chapter">Coalescence simulator</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="misc.html"
+                        title="next chapter">Miscellaneous utilities</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/py/wrappers.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="external-application-tools">
+<span id="wrappers"></span><h1>External application tools<a class="headerlink" href="#external-application-tools" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="application-paths">
+<span id="paths"></span><h2>Application paths<a class="headerlink" href="#application-paths" title="Permalink to this headline">¶</a></h2>
+<p>Application paths can be set using the following syntax. A
+<a class="reference external" href="https://docs.python.org/2.7/library/exceptions.html#exceptions.ValueError" title="(in Python v2.7)"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code></a> is raised if the automatic test fails.
+The change is valid for the current session only unless <a class="reference internal" href="#egglib.wrappers.path.save" title="egglib.wrappers.path.save"><code class="xref py py-meth docutils literal"><span class="pre">save()</span></code></a> is
+used:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">egglib</span><span class="o">.</span><span class="n">wrappers</span><span class="o">.</span><span class="n">paths</span><span class="p">[</span><span class="n">app</span><span class="p">]</span> <span class="o">=</span> <span class="n">path</span>
+</pre></div>
+</div>
+<p>And application paths are accessed as followed:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">egglib</span><span class="o">.</span><span class="n">wrappers</span><span class="o">.</span><span class="n">paths</span><span class="p">[</span><span class="n">app</span><span class="p">]</span>
+</pre></div>
+</div>
+<dl class="method">
+<dt id="egglib.wrappers.paths.autodetect">
+<code class="descclassname">egglib.wrappers.paths.</code><code class="descname">autodetect</code><span class="sig-paren">(</span><em>verbose=False</em><span class="sig-paren">)</span><a class="headerlink" href="#egglib.wrappers.paths.autodetect" title="Permalink to this definition">¶</a></dt>
+<dd><p>Auto-configure application paths based on default command names.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>verbose</strong> – if <code class="docutils literal"><span class="pre">True</span></code>, print running information and test
+results.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.wrappers.path.load">
+<code class="descclassname">egglib.wrappers.path.</code><code class="descname">load</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#egglib.wrappers.path.load" title="Permalink to this definition">¶</a></dt>
+<dd><p>Load values of application paths from the configuration file
+located within the package. All values currently set are discarded.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.wrappers.path.save">
+<code class="descclassname">egglib.wrappers.path.</code><code class="descname">save</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#egglib.wrappers.path.save" title="Permalink to this definition">¶</a></dt>
+<dd><p>Save current values of application paths in the configuration file
+located within the package. This action may require administrator
+rights. All values currently set will be reloaded at next import of
+the package.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="phylogeny">
+<h2>Phylogeny<a class="headerlink" href="#phylogeny" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="egglib.wrappers.phyml">
+<code class="descclassname">egglib.wrappers.</code><code class="descname">phyml</code><span class="sig-paren">(</span><em>align</em>, <em>model</em>, <em>include_outgroup=True</em>, <em>export_labels=True</em>, <em>rates=1</em>, <em>boot=0</em>, <em>start_tree='nj'</em>, <em>fixed_topology=False</em>, <em>fixed_brlens=False</em>, <em>search='NNI'</em>, <em>num_rand_start=5</em>, <em>freq=None</em>, <em>TiTv=4.0</em>, <em>pinv=0.0</em>, <em>alpha=None</em>, <em>use_median=False</em>, <em>free_rates=False</em>, <em>seed=None</em>, <em>verbose=False</em><span class="sig-paren">)</span><a class="headerlink" href="#egglib.wrappers.phyml" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reconstruct maximum-likelihood phylogeny using <a class="reference external" href="http://www.atgc-montpellier.fr/phyml/">PhyML</a>.</p>
+<p>PhyML is a program performing maximum-likelihood phylogeny
+estimation using nucleotide or amino acid sequence alignments.
+<strong>Ref.:</strong> Guindon S., J.-F. Dufayard, V. Lefort, M. Animisova, W.
+Hordijk, and O. Gascuel. 2010. New algorithms and methods to
+estimate maximum-likelihood phylogenies: assessing the performance
+of PhyML 3.0. <em>Syst. Biol.</em> <strong>59</strong>: 307-321.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>align</strong> – input sequence alignment as an <a class="reference internal" href="toplevel.html#egglib.Align" title="egglib.Align"><code class="xref py py-class docutils literal"><span class="pre">Align</span></code></a>
+instance.</li>
+<li><strong>model</strong> – substitution model to use (see list below).</li>
+<li><strong>include_ougroup</strong> – boolean indicating whether sequences from
+the outgroup should be used for the phylogeny estimation.</li>
+<li><strong>export_labels</strong> – boolean indicating whether the group labels
+should be included in the names of sequences (such as they will
+appear in the resulting tree).</li>
+<li><strong>rates</strong> – number of discrete categories of evolutionary rate. If
+different of 1, fits a gamma distribution of rates.</li>
+<li><strong>boot</strong> – number of bootstrap repetitions. Values of -1, -2 and
+-4 activate one the test-based branch support evaluation methods
+that provide faster alternatives to bootstrap repetitions (-1:
+aLRT statistics, -2: Chi2-based parametric tests, -4: Shimodaira
+and Hasegawa-like statistics). A value of 0 provides no branch
+support at all.</li>
+<li><strong>start_tree</strong> – starting topology used by the program. Possible
+values are the string <code class="docutils literal"><span class="pre">nj</span></code> (neighbour-joining tree), the
+string <code class="docutils literal"><span class="pre">pars</span></code> (maximum-parsimony tree), the string <code class="docutils literal"><span class="pre">rand</span></code>
+(random tree, only if <em>search</em> is <code class="docutils literal"><span class="pre">SPR</span></code>), and a
+<a class="reference internal" href="toplevel.html#egglib.Tree" title="egglib.Tree"><code class="xref py py-class docutils literal"><span class="pre">Tree</span></code></a> instance containing a user-provided topology. In
+the latter case, the names of leaves of the tree must match the
+names of the input alignment (without group labels), implying
+that names cannot be repeated.</li>
+<li><strong>fixed_topology</strong> – boolean indicating whether the topology
+provided in the <a class="reference internal" href="toplevel.html#egglib.Tree" title="egglib.Tree"><code class="xref py py-class docutils literal"><span class="pre">Tree</span></code></a> instance passed as <em>start_tree</em>
+argument should be NOT be improved.</li>
+<li><strong>fixed_brlens</strong> – boolean indicating whether the branch lengths
+provided in the <a class="reference internal" href="toplevel.html#egglib.Tree" title="egglib.Tree"><code class="xref py py-class docutils literal"><span class="pre">Tree</span></code></a> instance passed as <em>start_tree</em>
+argument should be NOT be improved. All branch lengths must be
+specified. Automatically sets <em>fixed_topology</em> to <code class="docutils literal"><span class="pre">True</span></code>.</li>
+<li><strong>search</strong> – search method.  Available modes are: <code class="docutils literal"><span class="pre">NNI</span></code>
+(nearest- neighbour interchange, fastest), <code class="docutils literal"><span class="pre">SPR</span></code> (subtree
+pruning and regrafting), and <code class="docutils literal"><span class="pre">BEST</span></code> (best of both methods).</li>
+<li><strong>num_rand_start</strong> – number of random start trees (only considered
+if <em>search</em> is <code class="docutils literal"><span class="pre">SPR</span></code> and <em>start_tree</em> is <code class="docutils literal"><span class="pre">rand</span></code>).</li>
+<li><strong>freq</strong> – nucleotide or amino acid frequencies. Possible values
+are the string <code class="docutils literal"><span class="pre">o</span></code> (observed, frequencies measured from the
+data), the string <code class="docutils literal"><span class="pre">m</span></code> (estimated by maximum likelihood for
+nucleotides, or retrieved from the substitution model for amino
+acids), or a four-item tuples provided the relative frequencies
+of A, C, G and T respectively (only for nucleotides). By
+default, use <code class="docutils literal"><span class="pre">o</span></code>  for nucleotides and <code class="docutils literal"><span class="pre">m</span></code> for amino acids.</li>
+<li><strong>TiTv</strong> – transition/transversion ratio. If <code class="docutils literal"><span class="pre">None</span></code>, estimated
+by maximum likelihood. Otherwise, must be a stricly positive
+value. Ignored if data are not nucleotides or if the model does
+not support</li>
+<li><strong>pinv</strong> – proportion of invariable sites. If <code class="docutils literal"><span class="pre">None</span></code> estimated
+by maximum likelihood. Otherwise, must be in the range [0, 1].</li>
+<li><strong>alpha</strong> – gamma shape parameter. If <code class="docutils literal"><span class="pre">None</span></code>, estimated by
+maximum likelihood. Otherwise, must be a strictly positive
+value. Ignored if <em>rates</em> is 1 or if <em>free_rates</em> is <code class="docutils literal"><span class="pre">True</span></code>.</li>
+<li><strong>use_median</strong> – boolean indicating whether the median (instead of
+the mean) should be use to report values for rate from the
+discretized gamma distribution. Ignored if <em>rates</em> is 1 or if
+<em>free_rates</em> is <code class="docutils literal"><span class="pre">True</span></code>.</li>
+<li><strong>free_rates</strong> – boolean indicating whether a mixture model should
+be used for substitution rate categories instead of the
+discretized gamma. In this case all reates and their frequencies
+will be estimated. Requires that <em>rates</em> is larger than 1.</li>
+<li><strong>seed</strong> – pseudo-random number generator seed. Must be a stricly
+positive integer, preferably large.</li>
+<li><strong>verbose</strong> – boolean indicating whether standard output of PhyML
+should be displayed.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><p>A <code class="docutils literal"><span class="pre">(tree,</span> <span class="pre">stats)</span></code> tuple where <em>tree</em> is a <a class="reference internal" href="toplevel.html#egglib.Tree" title="egglib.Tree"><code class="xref py py-class docutils literal"><span class="pre">Tree</span></code></a>
+instance and <em>stats</em> is a <a class="reference external" href="https://docs.python.org/2.7/library/stdtypes.html#dict" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">dict</span></code></a> containing the following
+statistics or estimated parameters:</p>
+<blockquote>
+<div><ul class="simple">
+<li><code class="docutils literal"><span class="pre">lk</span></code> – log-likelihood of the returned tree and model.</li>
+<li><code class="docutils literal"><span class="pre">pars</span></code> – parsimony score of the returned tree.</li>
+<li><code class="docutils literal"><span class="pre">size</span></code> –  length of the returned tree.</li>
+<li><code class="docutils literal"><span class="pre">rates</span></code> – relative substitution rates, as a list
+providing values in the following order: A↔C,
+A↔G, A↔T, C↔G, C↔T,
+and G↔T (only available if model is <code class="docutils literal"><span class="pre">GTR</span></code> or
+custom, only for nucleotide sequences).</li>
+<li><code class="docutils literal"><span class="pre">alpha</span></code> – gamma shape parameter (only if the number of
+rate categories is larger than 1 and if <code class="docutils literal"><span class="pre">free_rates</span></code> was
+<code class="docutils literal"><span class="pre">False</span></code>).</li>
+<li><code class="docutils literal"><span class="pre">cats</span></code> – list of <code class="docutils literal"><span class="pre">(rate,</span> <span class="pre">proportion)</span></code> tuples for each
+discrete rate category (only if <code class="docutils literal"><span class="pre">free_rates</span></code> was
+<code class="docutils literal"><span class="pre">True</span></code>, implying that the number of rates was larger
+than 1).</li>
+<li><code class="docutils literal"><span class="pre">freq</span></code> – list of the relative base frequencies, in the
+following order: A, C, G, and T (only for nucleotide
+sequences).</li>
+<li><code class="docutils literal"><span class="pre">ti/tv</span></code> – transition/transversion ratio (available for
+the models <code class="docutils literal"><span class="pre">K80</span></code>, <code class="docutils literal"><span class="pre">HKY85</span></code>, <code class="docutils literal"><span class="pre">F84</span></code>, and <code class="docutils literal"><span class="pre">TN93</span></code>). For
+the <code class="docutils literal"><span class="pre">TN93</span></code> model, the resulting value is a pair of
+transition/transversion ratios, one for purines and one
+for pyrimidines (in that order).</li>
+<li><code class="docutils literal"><span class="pre">pinv</span></code> – proportion of invariable sites (only if the
+corresponding option was not set to 0).</li>
+</ul>
+</div></blockquote>
+</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p>The choice of the model defines the type of data that are expected.
+The available models are:</p>
+<ul>
+<li><p class="first">Nucleotides:</p>
+<blockquote>
+<div><table border="1" class="docutils">
+<colgroup>
+<col width="15%" />
+<col width="49%" />
+<col width="8%" />
+<col width="27%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Code</th>
+<th class="head">Full name</th>
+<th class="head">Rates</th>
+<th class="head">Base frequencies</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">JC69</span></code></td>
+<td>Jukes and Cantor 1969</td>
+<td>one</td>
+<td>equal</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">K80</span></code></td>
+<td>Kimura 1980</td>
+<td>two</td>
+<td>equal</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">F81</span></code></td>
+<td>Felsenstein 1981</td>
+<td>one</td>
+<td>unequal</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">HKY85</span></code></td>
+<td>Hasegawa, Kishino &amp; Yano 1985</td>
+<td>two</td>
+<td>unequal</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">F84</span></code></td>
+<td>Felsenstein 1984</td>
+<td>two</td>
+<td>unequal</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">TN93</span></code></td>
+<td>Tamura and Nei 1993</td>
+<td>three</td>
+<td>unequal</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">GTR</span></code></td>
+<td>general time reversible</td>
+<td>six</td>
+<td>unequal</td>
+</tr>
+</tbody>
+</table>
+<p>In addition, custom nucleotide substitution models can be
+specified. In that case, <em>model</em> must be a six-character
+strings of numeric characters specifying which of the six
+(reversable) substitution rates are allowed to vary. The
+one-rate model is specified by the string <code class="docutils literal"><span class="pre">000000</span></code>, the
+two-rate model (separate transition and transversion rates)
+is specified by <code class="docutils literal"><span class="pre">010010</span></code>, and the GTR model is specified
+by <code class="docutils literal"><span class="pre">012345</span></code>. The substitution rates are specified in the
+following order: A↔C, A↔G, A↔T,
+C↔G, C↔T, and G↔T.</p>
+</div></blockquote>
+</li>
+<li><p class="first">Amino acids:</p>
+<blockquote>
+<div><table border="1" class="docutils">
+<colgroup>
+<col width="15%" />
+<col width="85%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Code</th>
+<th class="head">Authors</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">LG</span></code></td>
+<td>Le &amp; Gascuel (<em>Mol. Biol. Evol.</em> 2008)</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">WAG</span></code></td>
+<td>Whelan &amp; Goldman (<em>Mol. Biol. Evol.</em> 2001)</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">JTT</span></code></td>
+<td>Jones, Taylor &amp; Thornton (<em>CABIOS</em> 1992)</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">MtREV</span></code></td>
+<td>Adachi &amp; Hasegawa (<em>in</em> <em>Computer Science Monographs</em> 1996)</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">Dayhoff</span></code></td>
+<td>Dayhoff <em>et al.</em> (<em>in</em> <em>Atlas of Protein Sequence and Structure</em> 1978)</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">DCMut</span></code></td>
+<td>Kosiol &amp; Goldman (<em>Mol. Biol. Evol.</em> 2004)</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">RtREV</span></code></td>
+<td>Dimmic <em>et al.</em> (<em>J. Mol. Evol.</em> 2002)</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">CpREV</span></code></td>
+<td>Adachi <em>et al.</em> (<em>J. Mol. Evol.</em> 2000)</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">VT</span></code></td>
+<td>Muller &amp; Vingron (<em>J. Comput. Biol.</em> 2000)</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">Blosum62</span></code></td>
+<td>Henikoff &amp; Henikoff (<em>PNAS</em> 1992)</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">MtMam</span></code></td>
+<td>Cao <em>et al.</em> (<em>J. Mol. Evol.</em> 1998)</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">MtArt</span></code></td>
+<td>Abascal, Posada &amp; Zardoya (<em>Mol. Biol. Evol.</em> 2007)</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">HIVw</span></code></td>
+<td>Nickle <em>et al.</em> (<em>PLoS One</em> 2007)</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">HIVb</span></code></td>
+<td><em>ibid.</em></td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</li>
+</ul>
+<div class="versionchanged">
+<p><span class="versionmodified">Changed in version 3.0.0: </span>No more default value for <em>model</em> option. Added custom model for
+nucleotides. Changed SH pseudo-bootstrap option flag from -3 to
+-4. <em>quiet</em> function replaced by <em>verbose</em>. Several additional
+options are added. The syntax for input a user tree is modified.
+The second item in the returned tuple is a dictionary of
+statistics.</p>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="egglib.wrappers.codeml">
+<code class="descclassname">egglib.wrappers.</code><code class="descname">codeml</code><span class="sig-paren">(</span><em>align</em>, <em>tree</em>, <em>model</em>, <em>code=1</em>, <em>ncat=None</em>, <em>codon_freq=2</em>, <em>include_outgroup=True</em>, <em>verbose=False</em>, <em>get_files=False</em>, <em>kappa=2.0</em>, <em>fix_kappa=False</em>, <em>omega=0.4</em><span class="sig-paren">)</span><a class="headerlink" href="#egglib.wrappers.codeml" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fit nucleotide substitution models using the CodeML program from the
+<a class="reference external" href="http://abacus.gene.ucl.ac.uk/software/paml.html">PAML</a> package.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>align</strong> – an <a class="reference internal" href="toplevel.html#egglib.Align" title="egglib.Align"><code class="xref py py-class docutils literal"><span class="pre">Align</span></code></a> containing a coding sequence
+alignment. The number of sequences must be at least 3, the
+length of the alignment is required to be a multiple of 3, there
+must be no stop codons (even final stop codons) and there must
+not be any duplicated sequence name.</li>
+<li><strong>tree</strong> – a <a class="reference internal" href="toplevel.html#egglib.Tree" title="egglib.Tree"><code class="xref py py-class docutils literal"><span class="pre">Tree</span></code></a> providing the phylogenetic
+relationships between samples. The name of the sequences in the
+<code class="xref py py-class docutils literal"><span class="pre">Align</span></code> and in the <code class="xref py py-class docutils literal"><span class="pre">Tree</span></code> are required to match.
+If <em>tree</em> is <code class="docutils literal"><span class="pre">None</span></code>, a star topology is used. If the tree
+contains branch length or node labels, they are discounted,
+except for PAML node tags (<code class="docutils literal"><span class="pre">#x</span></code> and <code class="docutils literal"><span class="pre">$x</span></code> where <code class="docutils literal"><span class="pre">x</span></code> is an
+integer) that are allowed both as nodel labels. If one wants to
+label a terminal branch of the tree, they can add the label at
+the end of the sample name (with an optional separating white
+space). The tree must not be rooted (if there is a birfurcation
+at the base, an error will be caused).</li>
+<li><strong>model</strong> – <p>model. The list of model names appears below:</p>
+<ul>
+<li><code class="docutils literal"><span class="pre">M0</span></code> – one-ratio model (1 parameter).</li>
+<li><code class="docutils literal"><span class="pre">free</span></code> – all branches have a different ratio (1 parameter
+per branch).</li>
+<li><code class="docutils literal"><span class="pre">nW</span></code> – several sets of branches. Requires labelling of
+branches of the tree (1 parameter per set of branches).</li>
+<li><code class="docutils literal"><span class="pre">M1a</span></code> – nearly-neutral model (2 parameters).</li>
+<li><code class="docutils literal"><span class="pre">M2a</span></code> – positive selection model (4 parameters).</li>
+<li><code class="docutils literal"><span class="pre">M3</span></code> – discrete model. Requires setting <em>ncat</em>  (2 * <em>ncat</em>
+- 1 parameters).</li>
+<li><code class="docutils literal"><span class="pre">M4</span></code> – frequencies model. Requires setting <em>ncat</em> (<em>ncat</em> -
+1 parameters).</li>
+<li><code class="docutils literal"><span class="pre">M7</span></code> – beta-distribution model. Requires setting <em>ncat</em> (2
+parameters).</li>
+<li><code class="docutils literal"><span class="pre">M8a</span></code> – beta + single ratio, additional ratio fixed to 1.
+Requires setting <em>ncat</em> (3 parameters).</li>
+<li><code class="docutils literal"><span class="pre">M8</span></code> – beta + single ratio. Requires setting <em>ncat</em> (4
+parameters).</li>
+<li><code class="docutils literal"><span class="pre">A0</span></code> – null branch-site model. Requires labelling of
+branches of the tree with two different labels (3 parameters).</li>
+<li><code class="docutils literal"><span class="pre">A</span></code> – branch-site model with positive selection. Requires
+labelling of branches of the tree with two different labels (4
+parameters).</li>
+<li><code class="docutils literal"><span class="pre">C0</span></code> – null model for model C (M2a_rel). Does not require
+branch labelling (4 parameters).</li>
+<li><code class="docutils literal"><span class="pre">C</span></code> – branch-site model. Requires labelling of branches (5
+parameters).</li>
+<li><code class="docutils literal"><span class="pre">D</span></code> – discrete branch-site model. Requires labelling of
+branches and requires setting <em>ncat</em> to either 2 or 3 (4 or
+6 parameters, respectively).</li>
+</ul>
+<p>The number of parameters given for each model concern the
+<em>dN/dS</em> ratios only. Refer to PAML documentation or the
+following references for more details and recommendations:
+Bielawski, J.P. &amp; Z. Yang. 2004. A maximum likelihood method for
+detecting functional divergence at individual codon sites, with
+application to gene family evolution. <em>J. Mol. Evol.</em>
+<strong>59</strong>:121-132; Yang Z., R. Nielsen, N. Goldman &amp; A.M.K.
+Pedersen. 2000; Codon-substitution models for heterogeneous
+selection pressure at amino acid sites. <em>Genetics</em>
+<strong>155</strong>:431-449. Yang, Z., and R. Nielsen. 2002.
+Codon-substitution models for detecting molecular adaptation at
+individual sites along specific lineages. <em>Mol. Biol. Evol.</em>
+<strong>19</strong>:908-917; Zhang, J., R. Nielsen &amp; Z. Yang. 2005.
+Evaluation of an improved branch-site lieklihood method for
+detecting positive selection at the molecular level. <em>Mol. Biol.
+Evol.</em> <strong>22</strong>:472-2479.</p>
+</li>
+<li><strong>code</strong> – genetic code identifier (see <a class="reference internal" href="tools.html#genetic-codes"><span class="std std-ref">Available genetic codes</span></a>).
+Required to be an integer among the valid values. The default
+value is the standard genetic code. Only codes 1-11 are
+available.</li>
+<li><strong>ncat</strong> – number of <em>dN/dS</em> categories. Only a subset of models
+require that the number of categories to be specified. See
+<em>models</em>.</li>
+<li><strong>codon_freq</strong> – <p>an integer specifying the model for codon
+frequencies. Must be one of:</p>
+<ul>
+<li>0 – equal frequencies.</li>
+<li>1 – codon frequencies from base frequencies (3 degrees of
+liberty).</li>
+<li>2 – codon frequencies from base frequencies at three codon
+positions (9 degrees of liberty).</li>
+<li>3 – independent codon frequencies (60 degrees of liberty).</li>
+</ul>
+</li>
+<li><strong>include_outgroup</strong> – boolean indicating whether sequences from
+the outgroup should be used for the phylogeny estimation.</li>
+<li><strong>verbose</strong> – boolean indicating whether standard output of CodeML
+should be displayed.</li>
+<li><strong>get_files</strong> – boolean indicating whether the raw content of
+CodeML output files should be included in the returned data.</li>
+<li><strong>kappa</strong> – starting value for the transition/transversion
+rate ratio.</li>
+<li><strong>fix_kappa</strong> – tell if the transition/transversion rate ratio
+should be fixed to its starting value (otherwise, it is
+estimated as a free parameter).</li>
+<li><strong>omega</strong> – starting value for the <em>dN/dS</em> ratio (strictly
+positive value).</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><p>A <a class="reference external" href="https://docs.python.org/2.7/library/stdtypes.html#dict" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">dict</span></code></a> holding results. The keys defined in the
+returned dictionary are:</p>
+<ul class="simple">
+<li><code class="docutils literal"><span class="pre">model</span></code> – model name.</li>
+<li><code class="docutils literal"><span class="pre">lk</span></code> – log-likelihood.</li>
+<li><code class="docutils literal"><span class="pre">np</span></code> – number of parameters of the model.</li>
+<li><code class="docutils literal"><span class="pre">kappa</span></code> – fixed or estimated value of the
+transition/transversion rate ratio.</li>
+<li><code class="docutils literal"><span class="pre">beta</span></code> – if model is <code class="docutils literal"><span class="pre">M7</span></code>, <code class="docutils literal"><span class="pre">M8a</span></code>, or <code class="docutils literal"><span class="pre">M8</span></code>, a
+<code class="xref py py-class docutils literal"><span class="pre">tuple</span></code> with the <em>p</em> and <em>q</em> parameters of the beta
+distribution of neutral dN/dS ratios; otherwise, <code class="docutils literal"><span class="pre">None</span></code>.</li>
+<li><code class="docutils literal"><span class="pre">K</span></code> – number of dN/dS ratio categories. Equals to 0 for the
+<code class="docutils literal"><span class="pre">free</span></code> model, to the number of branch categories for the
+<code class="docutils literal"><span class="pre">nW</span></code> model, and to the number of site categories otherwise.
+This value is not necessarily equal to the <em>ncat</em> argument
+because <code class="docutils literal"><span class="pre">M8a</span></code> and <code class="docutils literal"><span class="pre">M8</span></code> models add a category, and because
+it has a different meaning for model <code class="docutils literal"><span class="pre">nW</span></code>.</li>
+<li><code class="docutils literal"><span class="pre">num_tags</span></code> – number of branch categories detected from the
+imported tree (irrespective to the model that has been
+fitted). If the star topology has been used (<code class="docutils literal"><span class="pre">tree=None</span></code>),
+this value is 1.</li>
+<li><code class="docutils literal"><span class="pre">omega</span></code> – estimated dN/dS ratio or ratios. The structure of
+the value depends on the model:<ul>
+<li><code class="docutils literal"><span class="pre">M0</span></code> model – a single value.</li>
+<li><code class="docutils literal"><span class="pre">free</span></code> model – <code class="docutils literal"><span class="pre">None</span></code> (ratios are available as node
+labels in the tree available as <code class="docutils literal"><span class="pre">tree_ratios</span></code>).</li>
+<li><code class="docutils literal"><span class="pre">nW</span></code> model – a <code class="xref py py-class docutils literal"><span class="pre">list</span></code> of dN/dS ratios for all
+branch categories (they are listed in the order
+corresponding to branch labels).</li>
+<li>Discrete models (<code class="docutils literal"><span class="pre">M1a</span></code>, <code class="docutils literal"><span class="pre">M2a</span></code>, <code class="docutils literal"><span class="pre">M3</span></code>, <code class="docutils literal"><span class="pre">M4</span></code>, <code class="docutils literal"><span class="pre">C0</span></code>,
+<code class="docutils literal"><span class="pre">M7</span></code>, <code class="docutils literal"><span class="pre">M8a</span></code>, and <code class="docutils literal"><span class="pre">M8</span></code>) – a <code class="xref py py-class docutils literal"><span class="pre">list</span></code> of <code class="docutils literal"><span class="pre">K</span></code>
+dN/dS ratios. The frequency of each dN/dS category is
+available is <code class="docutils literal"><span class="pre">freq</span></code>.</li>
+<li><code class="docutils literal"><span class="pre">A0</span></code> and <code class="docutils literal"><span class="pre">A</span></code> models – a <code class="xref py py-class docutils literal"><span class="pre">tuple</span></code> of two
+<code class="xref py py-class docutils literal"><span class="pre">list</span></code> of 4 items each, containing respectively the
+background and foreground dN/dS ratios. The frequency of
+each dN/dS category is available is <code class="docutils literal"><span class="pre">freq</span></code>.</li>
+<li><code class="docutils literal"><span class="pre">C</span></code> and <code class="docutils literal"><span class="pre">D</span></code> models – a <code class="xref py py-class docutils literal"><span class="pre">tuple</span></code> of <code class="docutils literal"><span class="pre">num_tags</span></code>
+<code class="xref py py-class docutils literal"><span class="pre">list</span></code> (one <code class="xref py py-class docutils literal"><span class="pre">list</span></code> for each set of branches,
+as defined by branch labels found in the provided tree),
+each of them containing <code class="docutils literal"><span class="pre">K</span></code> dN/dS ratios.  The frequency
+of each dN/dS category is available is <code class="docutils literal"><span class="pre">freq</span></code>.</li>
+</ul>
+</li>
+<li><code class="docutils literal"><span class="pre">freq</span></code> – the frequency of dN/dS ratio categories. If
+defined, it is a <code class="xref py py-class docutils literal"><span class="pre">list</span></code> of <code class="docutils literal"><span class="pre">K</span></code> values. This entry is
+<code class="docutils literal"><span class="pre">None</span></code> for models <code class="docutils literal"><span class="pre">M0</span></code>, <code class="docutils literal"><span class="pre">free</span></code>, and <code class="docutils literal"><span class="pre">nW</span></code>.</li>
+<li><code class="docutils literal"><span class="pre">length</span></code> – total length of tree after estimating branch
+lengths with the specified model.</li>
+<li><code class="docutils literal"><span class="pre">tree</span></code> – the tree with fitted branch lengths, as a
+<a class="reference internal" href="toplevel.html#egglib.Tree" title="egglib.Tree"><code class="xref py py-class docutils literal"><span class="pre">Tree</span></code></a> instance. Branch lengths are expressed in terms
+of the model of codon evolution.</li>
+<li><code class="docutils literal"><span class="pre">length_dS</span></code> – total length of tree in terms of synonymous
+substitutions. Only available with <code class="docutils literal"><span class="pre">M0</span></code>, <code class="docutils literal"><span class="pre">free</span></code>, and
+<code class="docutils literal"><span class="pre">nW</span></code> models.</li>
+<li><code class="docutils literal"><span class="pre">length_dN</span></code> – total length of tree in terms of
+non-synonymous substitutions. Only available with <code class="docutils literal"><span class="pre">M0</span></code>,
+<code class="docutils literal"><span class="pre">free</span></code>, and <code class="docutils literal"><span class="pre">nW</span></code> models.</li>
+<li><code class="docutils literal"><span class="pre">tree_dS</span></code> – a <code class="xref py py-class docutils literal"><span class="pre">Tree</span></code> instance with branch lengths
+expressed in terms of synonymous substitutions. Only available
+with <code class="docutils literal"><span class="pre">free</span></code> and <code class="docutils literal"><span class="pre">nW</span></code> models.</li>
+<li><code class="docutils literal"><span class="pre">tree_dN</span></code> – a <code class="xref py py-class docutils literal"><span class="pre">Tree</span></code> instance with branch lengths
+expressed in terms of non-synonymous substitutions. Only
+available with <code class="docutils literal"><span class="pre">free</span></code> and <code class="docutils literal"><span class="pre">nW</span></code> models.</li>
+<li><code class="docutils literal"><span class="pre">tree_ratios</span></code> – a <code class="xref py py-class docutils literal"><span class="pre">Tree</span></code> instance with the dN/dS
+ratios included as branch labels. Only available with <code class="docutils literal"><span class="pre">free</span></code>
+and <code class="docutils literal"><span class="pre">nW</span></code> models.</li>
+<li><code class="docutils literal"><span class="pre">site_w</span></code> – a <a class="reference external" href="https://docs.python.org/2.7/library/stdtypes.html#dict" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">dict</span></code></a> containing posterior predictions
+of site dN/dS ratios. Not available for models <code class="docutils literal"><span class="pre">M0</span></code>,
+<code class="docutils literal"><span class="pre">free</span></code>, and <code class="docutils literal"><span class="pre">nW</span></code> (in that cases, the value is <code class="docutils literal"><span class="pre">None</span></code>).
+The <code class="xref py py-class docutils literal"><span class="pre">dict</span></code> contains the following keys:<ul>
+<li><code class="docutils literal"><span class="pre">method</span></code> – on the strings <code class="docutils literal"><span class="pre">NEB</span></code> and <code class="docutils literal"><span class="pre">BEB</span></code>.</li>
+<li><code class="docutils literal"><span class="pre">aminoacid</span></code> – the list of reference amino acids for all
+amino acid sites of the alignment (they are taken from the
+first sequence in the original alignment).</li>
+<li><code class="docutils literal"><span class="pre">proba</span></code> – the list of posterior probabilites of the dN/dS
+categories for all amino acid sites of the alignment. For
+each site, a <code class="xref py py-class docutils literal"><span class="pre">tuple</span></code> of <code class="docutils literal"><span class="pre">K</span></code> (the number of dN/dS
+categories) is provided.</li>
+<li><code class="docutils literal"><span class="pre">best</span></code> – the index of the best category for each site.</li>
+<li><code class="docutils literal"><span class="pre">postw</span></code> – list of the posterior dN/dS estimate for all
+sites (<code class="docutils literal"><span class="pre">None</span></code> if not available).</li>
+<li><code class="docutils literal"><span class="pre">postwsd</span></code> – list of the standard deviation of the dN/dS
+estimate for all sites (always available if <code class="docutils literal"><span class="pre">postw</span></code> is
+available and the method is <code class="docutils literal"><span class="pre">BEB</span></code>, <code class="docutils literal"><span class="pre">None</span></code> otherwise).</li>
+<li><code class="docutils literal"><span class="pre">P(w&gt;1)</span></code> – probability that the dN/dS ratio is greater
+than 1 for all sites (<code class="docutils literal"><span class="pre">None</span></code> if not available).</li>
+</ul>
+</li>
+<li><code class="docutils literal"><span class="pre">main_output</span></code> – raw content of the main CodeML output file.
+This key is not present if the option <em>get_files</em> is not set
+to <code class="docutils literal"><span class="pre">True</span></code>.</li>
+<li><code class="docutils literal"><span class="pre">rst_output</span></code> – raw content of the <code class="docutils literal"><span class="pre">rst</span></code> detailed CodeML
+output file. This key is not present if the option <em>get_files</em>
+is not set to <code class="docutils literal"><span class="pre">True</span></code>.</li>
+</ul>
+</p>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="versionchanged">
+<p><span class="versionmodified">Changed in version 3.0.0: </span>Turned into a singe function, interface changes (more models,
+more options, more results).</p>
+</div>
+</dd></dl>
+
+</div>
+<div class="section" id="multiple-alignment">
+<h2>Multiple alignment<a class="headerlink" href="#multiple-alignment" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="egglib.wrappers.clustal">
+<code class="descclassname">egglib.wrappers.</code><code class="descname">clustal</code><span class="sig-paren">(</span><em>source</em>, <em>ref=None</em>, <em>data_type=None</em>, <em>include_outgroup=True</em>, <em>full=False</em>, <em>full_iter=False</em>, <em>cluster_size=100</em>, <em>use_kimura=True</em>, <em>num_iter=1</em>, <em>threads=1</em>, <em>keep_order=False</em>, <em>verbose=False</em><span class="sig-paren">)</span><a class="headerlink" href="#egglib.wrappers.clustal" title="Permalink to this definition">¶</a></dt>
+<dd><p>Multiple sequence alignment using <a class="reference external" href="http://www.clustal.org/omega/">Clustal Omega</a>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>source</strong> – <p>a <a class="reference internal" href="toplevel.html#egglib.Container" title="egglib.Container"><code class="xref py py-class docutils literal"><span class="pre">Container</span></code></a> or <a class="reference internal" href="toplevel.html#egglib.Align" title="egglib.Align"><code class="xref py py-class docutils literal"><span class="pre">Align</span></code></a> containing
+the sequences to align. If a <code class="xref py py-class docutils literal"><span class="pre">Container</span></code> is provided,
+sequences are assumed to be unaligned, and, if a <code class="xref py py-class docutils literal"><span class="pre">Align</span></code>
+is provided, sequences are assumed to be aligned. The list below
+explains what is done based on the type of <em>source</em> and whether
+a value is provided for <em>ref</em>:</p>
+<ul>
+<li>If <em>source</em> is a <code class="xref py py-class docutils literal"><span class="pre">Container</span></code> and <em>ref</em> is <code class="docutils literal"><span class="pre">None</span></code>,
+the sequences in <em>source</em> are aligned.</li>
+<li>If <em>source</em> is an <code class="xref py py-class docutils literal"><span class="pre">Align</span></code> and <em>ref</em> is <code class="docutils literal"><span class="pre">None</span></code>, a
+hidden Markov model is built from the alignment, then the
+alignment is reset and sequences are realigned.</li>
+<li>If <em>source</em> is an <code class="xref py py-class docutils literal"><span class="pre">Align</span></code> and an alignment is
+provided as  <em>ref</em>, the two alignments are preversed (their
+columns are left unchanged), and they aligned with respect to
+each other.</li>
+<li>If <em>source</em> is a <code class="xref py py-class docutils literal"><span class="pre">Container</span></code> and an alignment is
+provided as <em>ref</em>, a hidden Markov model is built from <em>ref</em>,
+then <em>source</em> is aligned using it, and finally the resulting
+alignment is aligned with respect to <em>ref</em> as described for
+the previous case.</li>
+</ul>
+<p><em>source</em> must contain at least two sequences unless it is an
+<code class="xref py py-class docutils literal"><span class="pre">Align</span></code> and a value is provided for <em>ref</em> (in that case,
+it must contain at least one sequence).</p>
+</li>
+<li><strong>ref</strong> – an <a class="reference internal" href="toplevel.html#egglib.Align" title="egglib.Align"><code class="xref py py-class docutils literal"><span class="pre">Align</span></code></a> instance providing an external
+alignment. See avobe for more details. <em>ref</em> must contain at
+least one sequence. Sequences must be aligned.</li>
+<li><strong>data_type</strong> – one of the strings <code class="docutils literal"><span class="pre">Protein</span></code>, <code class="docutils literal"><span class="pre">DNA</span></code> or
+<code class="docutils literal"><span class="pre">RNA</span></code>. If <code class="docutils literal"><span class="pre">None</span></code>, let Clustal Omega guess.</li>
+<li><strong>include_ougroup</strong> – boolean indicating whether sequences from
+the outgroup should be included in the alignment.</li>
+<li><strong>full</strong> – use full distance matrix to determine guide tree (the
+default is using the faster and less memory-intensive mBed
+approximation).</li>
+<li><strong>full_iter</strong> – use full distance matrix to determine guide tree
+during iterations.</li>
+<li><strong>cluster_size</strong> – size of clusters (as a number of sequences)
+used in the mBed algorithm.</li>
+<li><strong>use_kimura</strong> – use Kimura correction for estimating
+whole-alignment distance (only available if a protein alignment
+has been provided as <em>source</em> and the option <em>data_type</em> has
+been set to <code class="docutils literal"><span class="pre">Protein</span></code>).</li>
+<li><strong>num_iter</strong> – number of iterations allowing to improve the
+quality of the alignment. Must be a number ≥1 or a pair
+of numbers ≥1. If the value is a pair of numbers, they
+specify the number of guide tree iterations and hidden Markov
+model iterations, respectively. If a single value is provided,
+iterations couple guide tree and hidden Markov model.</li>
+<li><strong>threads</strong> – number of threads for parallelization (available for
+parts of the program).</li>
+<li><strong>keep_order</strong> – return the sequences in the same order as they
+were loaded.</li>
+<li><strong>verbose</strong> – display Clustal Omega’s console output.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">An <a class="reference internal" href="toplevel.html#egglib.Align" title="egglib.Align"><code class="xref py py-class docutils literal"><span class="pre">Align</span></code></a> instance containing aligned sequences.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="versionchanged">
+<p><span class="versionmodified">Changed in version 3.0.0: </span>Ported to Clustal Omega and added support for more options.</p>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="egglib.wrappers.muscle">
+<code class="descclassname">egglib.wrappers.</code><code class="descname">muscle</code><span class="sig-paren">(</span><em>source</em>, <em>ref=None</em>, <em>include_outgroup=True</em>, <em>verbose=False</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#egglib.wrappers.muscle" title="Permalink to this definition">¶</a></dt>
+<dd><p>Performs multiple alignment using <a class="reference external" href="http://www.drive5.com/muscle/">Muscle</a>.</p>
+<p>Muscle’s default options tend to produce high-quality alignments but
+may be long to run on large data set. Muscle’s author recommends
+using the option <code class="docutils literal"><span class="pre">maxiters=2</span></code> for large data sets, and, for fast
+alignment (in particular of closely related sequences):
+<code class="docutils literal"><span class="pre">maxiters=1</span> <span class="pre">diags=True</span> <span class="pre">aa_profile='sv'</span> <span class="pre">distance1='kbit20_3'</span></code> (for
+amino acid sequences) and <code class="docutils literal"><span class="pre">maxiters=1</span> <span class="pre">diags=True</span></code> (for nucleotide
+sequences).</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>source</strong> – a <a class="reference internal" href="toplevel.html#egglib.Container" title="egglib.Container"><code class="xref py py-class docutils literal"><span class="pre">Container</span></code></a> or <a class="reference internal" href="toplevel.html#egglib.Align" title="egglib.Align"><code class="xref py py-class docutils literal"><span class="pre">Align</span></code></a> containing
+sequences to align. If an <code class="xref py py-class docutils literal"><span class="pre">Align</span></code> is provided, sequences
+are assumed to be already aligned and alignment will be refined
+(using the <code class="docutils literal"><span class="pre">-refine</span></code> option of Muscle), unless an alignment is
+also provided as <em>ref</em>. In the latter case,  the two alignments
+are preversed (their columns are left unchanged), and they
+aligned with respect to each other.</li>
+<li><strong>ref</strong> – an <a class="reference internal" href="toplevel.html#egglib.Align" title="egglib.Align"><code class="xref py py-class docutils literal"><span class="pre">Align</span></code></a> instance providing an alignement that
+should be aligned with respect to the alignment provided as
+<em>source</em>. If <em>ref</em> is provided, it is required both <em>source</em> and
+<em>ref</em> are <code class="xref py py-class docutils literal"><span class="pre">Align</span></code> instances.</li>
+<li><strong>include_outgroup</strong> – boolean indicating whether sequences from
+the outgroup should be included in the alignment.</li>
+<li><strong>verbose</strong> – display Muscle’s console output.</li>
+<li><strong>kwargs</strong> – <p>other keyword arguments are passed to Muscle. The
+available options are listed below:</p>
+<blockquote>
+<div><table border="1" class="docutils">
+<colgroup>
+<col width="19%" />
+<col width="81%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">option value</th>
+<th class="head">&#160;</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">anchors</span></code></td>
+<td>a boolean</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">brenner</span></code></td>
+<td>a boolean</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">cluster</span></code></td>
+<td>a boolean</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">diags</span></code></td>
+<td>a boolean</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">diags1</span></code></td>
+<td>a boolean</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">diags2</span></code></td>
+<td>a boolean</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">dimer</span></code></td>
+<td>a boolean</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">teamgaps4</span></code></td>
+<td>a boolean</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">SUEFF</span></code></td>
+<td>a float</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">aa_profile</span></code></td>
+<td>one of: <code class="docutils literal"><span class="pre">le</span></code>, <code class="docutils literal"><span class="pre">sp</span></code>, <code class="docutils literal"><span class="pre">sv</span></code></td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">anchorspacing</span></code></td>
+<td>an integer</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">center</span></code></td>
+<td>a float</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">cluster1</span></code></td>
+<td>one of: <code class="docutils literal"><span class="pre">upgma</span></code>, <code class="docutils literal"><span class="pre">upgmb</span></code>, <code class="docutils literal"><span class="pre">neighborjoining</span></code></td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">diagbreak</span></code></td>
+<td>an integer</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">diaglength</span></code></td>
+<td>an integer</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">diagmargin</span></code></td>
+<td>an integer</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">distance1</span></code></td>
+<td>one of: <code class="docutils literal"><span class="pre">kmer6_6</span></code>, <code class="docutils literal"><span class="pre">kmer20_3</span></code>, <code class="docutils literal"><span class="pre">kmer20_4</span></code>, <code class="docutils literal"><span class="pre">kbit20_3</span></code>, <code class="docutils literal"><span class="pre">kmer4_6</span></code></td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">distance2</span></code></td>
+<td>one of: <code class="docutils literal"><span class="pre">pctidkimura</span></code>, <code class="docutils literal"><span class="pre">pctidlog</span></code></td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">gapopen</span></code></td>
+<td>a float</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">hydro</span></code></td>
+<td>an integer</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">hydrofactor</span></code></td>
+<td>a float</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">maxiters</span></code></td>
+<td>an integer</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">maxtrees</span></code></td>
+<td>an integer</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">minbestcolscore</span></code></td>
+<td>a float</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">minsmoothscore</span></code></td>
+<td>a float</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">nt_profile</span></code></td>
+<td>one of: <code class="docutils literal"><span class="pre">spn</span></code></td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">objscore</span></code></td>
+<td>one of: <code class="docutils literal"><span class="pre">sp</span></code>, <code class="docutils literal"><span class="pre">ps</span></code>, <code class="docutils literal"><span class="pre">dp</span></code>, <code class="docutils literal"><span class="pre">xp</span></code>, <code class="docutils literal"><span class="pre">spf</span></code>, <code class="docutils literal"><span class="pre">spm</span></code></td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">refinewindow</span></code></td>
+<td>an integer</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">root1</span></code></td>
+<td>one of: <code class="docutils literal"><span class="pre">pseudo</span></code>, <code class="docutils literal"><span class="pre">midlongestspan</span></code>, <code class="docutils literal"><span class="pre">minavgleafdist</span></code></td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">seqtype</span></code></td>
+<td>one of: <code class="docutils literal"><span class="pre">protein</span></code>, <code class="docutils literal"><span class="pre">dna</span></code>, <code class="docutils literal"><span class="pre">rna</span></code>, <code class="docutils literal"><span class="pre">auto</span></code></td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">smoothscoreceil</span></code></td>
+<td>a float</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">weight1</span></code></td>
+<td>one of: <code class="docutils literal"><span class="pre">none</span></code>, <code class="docutils literal"><span class="pre">henikoff</span></code>, <code class="docutils literal"><span class="pre">henikoffpb</span></code>, <code class="docutils literal"><span class="pre">gsc</span></code>, <code class="docutils literal"><span class="pre">clustalw</span></code>, <code class="docutils literal"><span class="pre">threeway</span></code></td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">weight2</span></code></td>
+<td>one of: <code class="docutils literal"><span class="pre">none</span></code>, <code class="docutils literal"><span class="pre">henikoff</span></code>, <code class="docutils literal"><span class="pre">henikoffpb</span></code>, <code class="docutils literal"><span class="pre">gsc</span></code>, <code class="docutils literal"><span class="pre">clustalw</span></code>, <code class="docutils literal"><span class="pre">threeway</span></code></td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+<p>For a description of options, see the <a class="reference external" href="http://www.drive5.com/muscle/manual/options.html">Muscle manual</a>.
+Most of Muscle’s options are available. Note that function takes
+no flag option, and Muscle’s flag options are passed as boolean
+keyword arguments (except options relative to the amino acid or
+nucleotide profile score options, that are passed as string as
+<code class="docutils literal"><span class="pre">aa_profile</span></code> and <code class="docutils literal"><span class="pre">nt_profile</span></code>, respectively. The order of
+options is preserved.</p>
+</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">An <a class="reference internal" href="toplevel.html#egglib.Align" title="egglib.Align"><code class="xref py py-class docutils literal"><span class="pre">Align</span></code></a> containing aligned sequences.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="versionchanged">
+<p><span class="versionmodified">Changed in version 3.0.0: </span>Added support for most options.</p>
+</div>
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="misc.html" title="Miscellaneous utilities"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="coalesce.html" title="Coalescence simulator"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../contents.html">EggLib&#39;s documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../toc.html" >Contents</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="index.html" >Python Module</a> &#187;</li> 
+      </ul>
+    </div>
+<!--
+        <address style="text-align: right;"><small>Hosted by&nbsp;
+        <a href="http://sourceforge.net/projects/egglib"><img src="http://sflogo.sourceforge.net/sflogo.php?group_id=232965&amp;type=8" width="80" height="15" alt="Get EggLib at SourceForge.net. Fast, secure and Free Open Source software downloads" / ALIGN=RIGHT BORDER=0></a>
+        </address>
+-->
+
+  </body>
+</html>

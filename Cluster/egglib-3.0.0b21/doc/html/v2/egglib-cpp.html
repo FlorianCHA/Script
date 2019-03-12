@@ -1,0 +1,226 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>C++ library &mdash; EggLib</title>
+    
+    <link rel="stylesheet" href="_static/sphinxdoc.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '2.1.11',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="shortcut icon" href="_static/icon.ico"/>
+    <link rel="top" title="EggLib" href="index.html" />
+    <link rel="next" title="Python module" href="egglib-py.html" />
+    <link rel="prev" title="eggstats" href="eggstats.html" /> 
+  </head>
+  <body>
+
+<div style="background-color: white; text-align: left; padding: 0px 0px 0px 0px">
+<a href="index.html"><img src="_static/egglib_banniere5.png" border="0" alt="EggLib"/></a>
+</div>
+
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="egglib-py.html" title="Python module"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="eggstats.html" title="eggstats"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">EggLib</a> &raquo;</li> 
+      </ul>
+    </div>
+<div style="background-color: grey; text-align: left; padding: 0px 0px 0px 10px; border-bottom: 1px solid #2d2e91">
+<font color="white" ><b>EggLib version 2.1 is archived.</b></font></div>
+
+
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">C++ library</a><ul>
+<li><a class="reference internal" href="#documentation">Documentation</a></li>
+<li><a class="reference internal" href="#writing-c-programs-using-egglib-cpp">Writing C++ programs using egglib-cpp</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="eggstats.html"
+                        title="previous chapter">eggstats</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="egglib-py.html"
+                        title="next chapter">Python module</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/egglib-cpp.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="c-library">
+<span id="egglib-cpp"></span><h1>C++ library<a class="headerlink" href="#c-library" title="Permalink to this headline">¶</a></h1>
+<p>The <strong>egglib-cpp</strong> package contains a fully object-oriented C++ library
+providing efficient implementation of task related with sequence data
+storage, simulation and polymorphism analysis.</p>
+<div class="section" id="documentation">
+<h2>Documentation<a class="headerlink" href="#documentation" title="Permalink to this headline">¶</a></h2>
+<p>The documentation is available as a separate
+<a class="reference external" href="cpp/index.html">doxygen-generated reference manual</a>.</p>
+</div>
+<div class="section" id="writing-c-programs-using-egglib-cpp">
+<h2>Writing C++ programs using egglib-cpp<a class="headerlink" href="#writing-c-programs-using-egglib-cpp" title="Permalink to this headline">¶</a></h2>
+<p>Here are the recommendations for using egglib-cpp in C++ applications:</p>
+<blockquote>
+<div><ul class="simple">
+<li>egglib-cpp headers will be available in a <tt class="docutils literal"><span class="pre">egglib-cpp/</span></tt>
+directory so it is necessary to include them as in the following
+C++ code:</li>
+</ul>
+<div class="highlight-c++"><div class="highlight"><pre><span class="cp">#include &lt;egglib-cpp/Align.hpp&gt;</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>Link your program against <tt class="docutils literal"><span class="pre">egglib-cpp</span></tt> (as in <tt class="docutils literal"><span class="pre">-legglib-cpp</span></tt>).
+The library is static.</li>
+<li>All egglib-cpp objects are defined in an <tt class="docutils literal"><span class="pre">egglib</span></tt> namespace.</li>
+</ul>
+</div></blockquote>
+<p>The following example shows how to perform coalescent simulations to
+obtain and display the average and standard deviation of Tajima&#8217;s D over
+a pre-defined number of replicates and with a fixed number of
+segregating sites</p>
+<div class="highlight-c++"><div class="highlight"><pre><span class="c1">// test.cpp</span>
+
+<span class="cp">#include &lt;iostream&gt;</span>
+<span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+
+<span class="cp">#include &lt;egglib-cpp/Arg.hpp&gt;</span>
+<span class="cp">#include &lt;egglib-cpp/Controller.hpp&gt;</span>
+<span class="cp">#include &lt;egglib-cpp/DataMatrix.hpp&gt;</span>
+<span class="cp">#include &lt;egglib-cpp/EggException.hpp&gt;</span>
+<span class="cp">#include &lt;egglib-cpp/Mutator.hpp&gt;</span>
+<span class="cp">#include &lt;egglib-cpp/NucleotideDiversity.hpp&gt;</span>
+<span class="cp">#include &lt;egglib-cpp/ParamSet.hpp&gt;</span>
+<span class="cp">#include &lt;egglib-cpp/Random.hpp&gt;</span>
+<span class="k">using</span> <span class="k">namespace</span> <span class="n">egglib</span><span class="p">;</span>
+
+<span class="k">const</span> <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">NREPETS</span> <span class="o">=</span> <span class="mi">1000</span><span class="p">;</span>
+<span class="k">const</span> <span class="kt">double</span> <span class="n">S</span> <span class="o">=</span> <span class="mi">20</span><span class="p">;</span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argn</span><span class="p">,</span> <span class="kt">char</span><span class="o">*</span> <span class="n">argv</span><span class="p">[])</span> <span class="p">{</span>
+
+    <span class="n">try</span> <span class="p">{</span>
+        <span class="n">ParamSet</span> <span class="n">paramSet</span><span class="p">;</span>      <span class="c1">// creates a parameter holder</span>
+        <span class="n">paramSet</span><span class="p">.</span><span class="n">singles</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">20</span><span class="p">);</span>  <span class="c1">// sets the number of samples</span>
+        <span class="n">Random</span> <span class="n">random</span><span class="p">;</span>          <span class="c1">// creates a random number generator</span>
+        <span class="n">Controller</span> <span class="n">controller</span><span class="p">(</span><span class="o">&amp;</span><span class="n">paramSet</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">random</span><span class="p">);</span>  <span class="c1">// creates the coalescent simulator</span>
+        <span class="n">Arg</span><span class="o">*</span> <span class="n">arg</span><span class="p">;</span>     <span class="c1">// creates a Ancestral Recombination Graph pointer</span>
+        <span class="n">Mutator</span> <span class="n">mutator</span><span class="p">;</span>    <span class="c1">// polymorphism generator</span>
+        <span class="n">mutator</span><span class="p">.</span><span class="n">fixedNumberOfMutations</span><span class="p">(</span><span class="n">S</span><span class="p">);</span>  <span class="c1">// fix number of polymorphic sites</span>
+        <span class="n">NucleotideDiversity</span> <span class="n">pol</span><span class="p">;</span> <span class="c1">// polymorphism computer</span>
+        <span class="n">DataMatrix</span> <span class="n">data</span><span class="p">;</span>    <span class="c1">// alignment object</span>
+
+        <span class="kt">double</span> <span class="n">sum</span><span class="o">=</span><span class="mf">0.</span><span class="p">;</span>
+        <span class="kt">double</span> <span class="n">sum2</span><span class="o">=</span><span class="mf">0.</span><span class="p">;</span>
+
+        <span class="k">for</span> <span class="p">(</span><span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="n">i</span><span class="o">&lt;</span><span class="n">NREPETS</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">controller</span><span class="p">.</span><span class="n">reset</span><span class="p">();</span>
+            <span class="k">while</span> <span class="p">(</span><span class="n">controller</span><span class="p">.</span><span class="n">step</span><span class="p">()</span><span class="o">&gt;</span><span class="mi">1</span><span class="p">);</span>    <span class="c1">// performs simulations</span>
+            <span class="n">arg</span> <span class="o">=</span> <span class="n">controller</span><span class="p">.</span><span class="n">getArg</span><span class="p">();</span>      <span class="c1">// gets the tree address</span>
+            <span class="n">data</span> <span class="o">=</span> <span class="n">mutator</span><span class="p">.</span><span class="n">mute</span><span class="p">(</span><span class="n">arg</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">random</span><span class="p">);</span>  <span class="c1">// performs simulations</span>
+            <span class="n">pol</span><span class="p">.</span><span class="n">load</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="nb">false</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="s">&quot;01&quot;</span><span class="p">,</span> <span class="nb">false</span><span class="p">);</span>  <span class="c1">// analyzes binary data</span>
+            <span class="n">sum</span> <span class="o">+=</span> <span class="n">pol</span><span class="p">.</span><span class="n">D</span><span class="p">();</span>
+            <span class="n">sum2</span> <span class="o">+=</span> <span class="n">pol</span><span class="p">.</span><span class="n">D</span><span class="p">()</span><span class="o">*</span><span class="n">pol</span><span class="p">.</span><span class="n">D</span><span class="p">();</span>
+        <span class="p">}</span>
+
+        <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Tajima&#39;s D: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">sum</span><span class="o">/</span><span class="n">NREPETS</span><span class="p">;</span>
+        <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; [+- &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">sum2</span><span class="o">/</span><span class="n">NREPETS</span> <span class="o">-</span> <span class="p">(</span><span class="n">sum</span> <span class="o">*</span> <span class="n">sum</span> <span class="o">/</span><span class="p">(</span><span class="n">NREPETS</span><span class="o">*</span><span class="n">NREPETS</span><span class="p">))</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;]&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">catch</span> <span class="p">(</span><span class="n">EggException</span> <span class="n">e</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">cerr</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;The following error occurred: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">e</span><span class="p">.</span><span class="n">what</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+        <span class="k">return</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>This program can be compiled with the following commands:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">g</span><span class="o">++</span> <span class="o">-</span><span class="n">c</span> <span class="n">test</span><span class="o">.</span><span class="n">cpp</span>
+<span class="n">g</span><span class="o">++</span> <span class="o">-</span><span class="n">o</span> <span class="n">test</span> <span class="n">test</span><span class="o">.</span><span class="n">o</span> <span class="o">-</span><span class="n">legglib</span><span class="o">-</span><span class="n">cpp</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="egglib-py.html" title="Python module"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="eggstats.html" title="eggstats"
+             >previous</a> |</li>
+        <li><a href="index.html">EggLib</a> &raquo;</li> 
+      </ul>
+    </div>
+        <address style="text-align: right;"><small>Hosted by&nbsp;
+        <a href="http://sourceforge.net/projects/seqlib"><img src="http://sflogo.sourceforge.net/sflogo.php?group_id=232965&amp;type=8" width="80" height="15" alt="Get seqlib at SourceForge.net. Fast, secure and Free Open Source software downloads" / ALIGN=RIGHT BORDER=0></a>
+        </address>
+
+  </body>
+</html>

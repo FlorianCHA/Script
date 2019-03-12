@@ -1,0 +1,2020 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Import/export utilities &#8212; EggLib&#39;s documentation</title>
+    <link rel="stylesheet" href="../_static/egglibdoc.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '3.0.0b21',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="shortcut icon" href="../_static/icon.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Diversity statistics" href="stats.html" />
+    <link rel="prev" title="Generic tools" href="tools.html" />
+    <script type="text/javascript">
+      // intelligent scrolling of the sidebar content
+      $(window).scroll(function() {
+        var sb = $('.sphinxsidebarwrapper');
+        var win = $(window);
+        var sbh = sb.height();
+        var offset = $('.sphinxsidebar').position()['top'];
+        var wintop = win.scrollTop();
+        var winbot = wintop + win.innerHeight();
+        var curtop = sb.position()['top'];
+        var curbot = curtop + sbh;
+        // does sidebar fit in window?
+        if (sbh < win.innerHeight()) {
+          // yes: easy case -- always keep at the top
+          sb.css('top', $u.min([$u.max([0, wintop - offset - 10]),
+                                $(document).height() - sbh - 200]));
+        } else {
+          // no: only scroll if top/bottom edge of sidebar is at
+          // top/bottom edge of window
+          if (curtop > wintop && curbot > winbot) {
+            sb.css('top', $u.max([wintop - offset - 10, 0]));
+          } else if (curtop < wintop && curbot < winbot) {
+            sb.css('top', $u.min([winbot - sbh - offset - 20,
+                                  $(document).height() - sbh - 200]));
+          }
+        }
+      });
+    </script>
+  </head>
+  <body>
+<div style="background-color: white; text-align: left; padding: 0px 0px 0px 0px">
+<a href="../index.html"><img src="../_static/banner.png" border="0" alt="EggLib"/></a>
+</div>
+
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="stats.html" title="Diversity statistics"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="tools.html" title="Generic tools"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../contents.html">EggLib&#39;s documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../toc.html" >Contents</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="index.html" accesskey="U">Python Module</a> &#187;</li> 
+      </ul>
+    </div>
+
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../contents.html">
+              <img class="logo" src="../_static/egglib_small.bmp" alt="Logo"/>
+            </a></p>
+  <h3><a href="../contents.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Import/export utilities</a><ul>
+<li><a class="reference internal" href="#ms-format">ms format</a></li>
+<li><a class="reference internal" href="#fasta-format">Fasta format</a></li>
+<li><a class="reference internal" href="#gff3-format">GFF3 format</a></li>
+<li><a class="reference internal" href="#vcf-format">VCF format</a></li>
+<li><a class="reference internal" href="#legacy-parsers">Legacy parsers</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="tools.html"
+                        title="previous chapter">Generic tools</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="stats.html"
+                        title="next chapter">Diversity statistics</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/py/io.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="import-export-utilities">
+<span id="io"></span><h1>Import/export utilities<a class="headerlink" href="#import-export-utilities" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="ms-format">
+<h2>ms format<a class="headerlink" href="#ms-format" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="egglib.io.to_ms">
+<code class="descclassname">egglib.io.</code><code class="descname">to_ms</code><span class="sig-paren">(</span><em>data</em>, <em>fname=None</em>, <em>positions=None</em>, <em>spacer=None</em>, <em>include_outgroup=False</em>, <em>recode=False</em><span class="sig-paren">)</span><a class="headerlink" href="#egglib.io.to_ms" title="Permalink to this definition">¶</a></dt>
+<dd><p>Export data in the format used by the ms program (Hudson 2002
+<em>Bioinformatics</em> <strong>18</strong>: 337-338). The original format is designed
+for binary (0/1) allelic values. This implementation will export any
+allelic values that are present in the provided alignment (but
+always as integers; if sequence data is included, they will be
+represented by their corresponding integer values). In addition, it
+is possible to insert spaces between all loci to accomodate allelic
+values exceeding the range [0,9] (outside this range, it is not
+possible anymore to discriminate loci using the standard format).
+See the <em>spacer</em> option.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>data</strong> – Alignments to export, either as a <a class="reference internal" href="toplevel.html#egglib.Align" title="egglib.Align"><code class="xref py py-class docutils literal"><span class="pre">Align</span></code></a>
+instance or as an iterable of <a class="reference internal" href="toplevel.html#egglib.Align" title="egglib.Align"><code class="xref py py-class docutils literal"><span class="pre">Align</span></code></a> instances. In the
+latter case, all instances are exported consecutively.</li>
+<li><strong>fname</strong> – Name of the file to export data to. By default, the
+file is created (or overwritten if it already exists). If the
+option <em>append</em> is <code class="docutils literal"><span class="pre">True</span></code>, data is appended at the end of the
+file (and it must exist). If <em>fname</em> is <code class="docutils literal"><span class="pre">None</span></code> (default), no
+file is created and the formatted data is returned as a
+<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">str</span></code></a>. In the alternative case, nothing is returned.</li>
+<li><strong>positions</strong> – The list of site positions, with length matching
+the alignment length. Positions are required to be in the [0,1]
+range but the order is not checked. By default (if the argument
+value is <code class="docutils literal"><span class="pre">None</span></code>, sites are supposed to be evenly spread over
+the [0,1] interval. The value for this argument should match
+exactly the value for the argument <em>data</em>: if <em>data</em> is a single
+<a class="reference internal" href="toplevel.html#egglib.Align" title="egglib.Align"><code class="xref py py-class docutils literal"><span class="pre">Align</span></code></a>, <em>positions</em> should be a single list of
+positions and if <em>data</em> is a list of <a class="reference internal" href="toplevel.html#egglib.Align" title="egglib.Align"><code class="xref py py-class docutils literal"><span class="pre">Align</span></code></a> instances
+(even if the length of this list is one), then <em>positions</em>
+should be a list (of lists of positions) of the same length. If
+a list is provided, any of its items (supposed to represent a
+list of positions) can be replaced by <code class="docutils literal"><span class="pre">None</span></code>.</li>
+<li><strong>spacer</strong> – Define if a space must be inserted between each
+allelic value. If <code class="docutils literal"><span class="pre">None</span></code>, the space is inserted only if at
+least one allele at any locus is outside the range [0,9]. If
+<code class="docutils literal"><span class="pre">True</span></code>, the space is always inserted. If <code class="docutils literal"><span class="pre">False</span></code>, the space
+is not inserted. The automatic detection of out-of-range allelic
+values comes with the cost of increased running time.</li>
+<li><strong>include_outgroup</strong> – A boolean: if <code class="docutils literal"><span class="pre">True</span></code>, the outgroup is
+exported after the ingroup. Otherwise, the outgroup is skipped.</li>
+<li><strong>recode</strong> – If <code class="docutils literal"><span class="pre">True</span></code>, all allelic values are recoded such as
+the first encountered values is 0, the second is 1, and so on.
+The original alignments are left unmodified.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p>The format is as follows:</p>
+<ul class="simple">
+<li>One line with two slashes.</li>
+<li>One line with the number of sites</li>
+<li><dl class="first docutils">
+<dt>One line with the positions, or an empty line if the number of</dt>
+<dd>sites is zero.</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>The matrix of genotypes (one line per sample), only if the number</dt>
+<dd>of sites is larger than zero.</dd>
+</dl>
+</li>
+</ul>
+</dd></dl>
+
+</div>
+<div class="section" id="fasta-format">
+<span id="id1"></span><h2>Fasta format<a class="headerlink" href="#fasta-format" title="Permalink to this headline">¶</a></h2>
+<p>Here is the description of the fasta format used in EggLib:</p>
+<ul class="simple">
+<li>Each sequence is preceded by a header limited to a single line and
+starting by a <code class="docutils literal"><span class="pre">&gt;</span></code> character.</li>
+<li>The header length is not limited and all characters are allowed but
+white spaces and special characters are discouraged. The header is
+terminated by a newline character.</li>
+<li>Group labels are specified a special markup system placed at the end
+of the header line. The labels are specified by an at sign (<code class="docutils literal"><span class="pre">&#64;</span></code>)
+followed by any integer value (<code class="docutils literal"><span class="pre">&#64;0</span></code>, <code class="docutils literal"><span class="pre">&#64;1</span></code>, <code class="docutils literal"><span class="pre">&#64;2</span></code> and so on). It
+is allowed to define several group labels for any sequence. In that
+case, integer values must be enter consecutively after the at sign,
+separated by commas, as in <code class="docutils literal"><span class="pre">&#64;1,3,2</span></code> for a sequence belonging to
+groups 1, 3 and 2 in three different grouping levels. Multiple
+grouping levels can be used to specify hierarchical structure, but
+not only (independent grouping structure can be freely specified). The
+markup <code class="docutils literal"><span class="pre">&#64;#</span></code> (at sign or hash sign) specifies an outgroup sequence.
+The hash sign may be followed by a single integer to specify a unique
+group label. Multiple grouping levels are not allowed for the
+outgroup. The group labels of the ingroup and the outgroup are
+independent, so the same labels may be used. The at sign can be
+preceded by a unique space. In that case, the parser automatically
+discards one space before the at sign (both <code class="docutils literal"><span class="pre">&gt;name&#64;1</span></code> and
+<code class="docutils literal"><span class="pre">&gt;name</span> <span class="pre">&#64;1</span></code> are read as <code class="docutils literal"><span class="pre">name</span></code>) but if there are more than one
+space, additional spaces are considered to be part of the name. By
+default, no grouping structure is assumed and all sequences are
+assumed to be part of the ingroup.</li>
+<li>The sequence itself continues on following lines until the next <code class="docutils literal"><span class="pre">&gt;</span></code>
+character or the end of the file.</li>
+<li>White spaces, tab and carriage returns are allowed at any position.
+They are ignored unless for terminating the header line. There is no
+limitation in length and different sequences can have different
+lengths.</li>
+<li>Characters case is preserved and significant (although polymorphism
+analysis can be configured to take case-differing characters as
+synonyms).</li>
+</ul>
+<dl class="function">
+<dt id="egglib.io.from_fasta">
+<code class="descclassname">egglib.io.</code><code class="descname">from_fasta</code><span class="sig-paren">(</span><em>source</em>, <em>groups=False</em>, <em>string=False</em>, <em>cls=None</em><span class="sig-paren">)</span><a class="headerlink" href="#egglib.io.from_fasta" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a new instance of either <a class="reference internal" href="toplevel.html#egglib.Align" title="egglib.Align"><code class="xref py py-class docutils literal"><span class="pre">Align</span></code></a> or
+<a class="reference internal" href="toplevel.html#egglib.Container" title="egglib.Container"><code class="xref py py-class docutils literal"><span class="pre">Container</span></code></a> from data read from the file whose name is
+provided as argument (or, if <em>string</em> is set to <code class="docutils literal"><span class="pre">True</span></code>, from
+the string passed as first argument).</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>source</strong> – name of a fasta-formatted sequence file. If the
+<em>string</em> argument is <code class="docutils literal"><span class="pre">True</span></code>, read <em>source</em> as a
+fasta-formatted string. If the returned type if
+<a class="reference internal" href="toplevel.html#egglib.Align" title="egglib.Align"><code class="xref py py-class docutils literal"><span class="pre">Align</span></code></a>, the sequence are required to be aligned.</li>
+<li><strong>groups</strong> – boolean indicating whether group labels should be
+imported. If so, they are not actually required to be
+present for each (or any) sequence. If not, the labels are
+ignored and considered to be part of the sequence.</li>
+<li><strong>string</strong> – boolean indicating whether the first argument is
+an explicit fasta-formatted string (by default, it is taken
+as the name of a fasta-formatted file).</li>
+<li><strong>cls</strong> – type that should be generated. Possible values are:
+<a class="reference internal" href="toplevel.html#egglib.Align" title="egglib.Align"><code class="xref py py-class docutils literal"><span class="pre">Align</span></code></a> (then, data must be aligned),
+<a class="reference internal" href="toplevel.html#egglib.Container" title="egglib.Container"><code class="xref py py-class docutils literal"><span class="pre">Container</span></code></a> or <code class="docutils literal"><span class="pre">None</span></code>. In the latter case, an
+<code class="xref py py-class docutils literal"><span class="pre">Align</span></code> is returned if data are found to be aligned or
+if the data set is empty, and otherwise a <a class="reference internal" href="toplevel.html#egglib.Container" title="egglib.Container"><code class="xref py py-class docutils literal"><span class="pre">Container</span></code></a> is
+returned.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">A new <a class="reference internal" href="toplevel.html#egglib.Container" title="egglib.Container"><code class="xref py py-class docutils literal"><span class="pre">Container</span></code></a> or <a class="reference internal" href="toplevel.html#egglib.Align" title="egglib.Align"><code class="xref py py-class docutils literal"><span class="pre">Align</span></code></a> instance
+depending on the value of the <em>cls</em> option.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="class">
+<dt id="egglib.io.fasta_iter">
+<em class="property">class </em><code class="descclassname">egglib.io.</code><code class="descname">fasta_iter</code><span class="sig-paren">(</span><em>fname</em>, <em>groups=False</em><span class="sig-paren">)</span><a class="headerlink" href="#egglib.io.fasta_iter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Iterative sequence-by-sequence fasta parser. Return an object that
+can be iterated over:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">egglib</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">fasta_iter</span><span class="p">(</span><span class="n">fname</span><span class="p">):</span>
+    <span class="n">do</span> <span class="n">things</span>
+</pre></div>
+</div>
+<p><a class="reference internal" href="#egglib.io.fasta_iter" title="egglib.io.fasta_iter"><code class="xref py py-class docutils literal"><span class="pre">fasta_iter</span></code></a> objects support the <code class="docutils literal"><span class="pre">with</span></code> statement:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">egglib</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">fasta_iter</span><span class="p">(</span><span class="n">fname</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">f</span><span class="p">:</span>
+        <span class="n">do</span> <span class="n">things</span>
+</pre></div>
+</div>
+<p>Each iteration yields a <a class="reference internal" href="toplevel.html#egglib.SampleView" title="egglib.SampleView"><code class="xref py py-class docutils literal"><span class="pre">SampleView</span></code></a> instance (which is
+valid only during the iteration round, see the warning below). It is
+also possible to iterate manually using <a class="reference internal" href="#egglib.io.fasta_iter.next" title="egglib.io.fasta_iter.next"><code class="xref py py-meth docutils literal"><span class="pre">next()</span></code></a>.
+The number of groups is defined by the current sample (if the number
+of defined groups varies among samples, it is reset at each
+iteration).</p>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">The aim of this iterator is to iterator over large fasta files
+without actually storing all data in memory at the same time.
+<a class="reference internal" href="toplevel.html#egglib.SampleView" title="egglib.SampleView"><code class="xref py py-class docutils literal"><span class="pre">SampleView</span></code></a> provided for each iteration are a proxy to
+a local <a class="reference internal" href="toplevel.html#egglib.Container" title="egglib.Container"><code class="xref py py-class docutils literal"><span class="pre">Container</span></code></a> instance that is recycled at each
+iteration step. They should be used immediately and never stored
+as this. If one want to store data accessible through any
+<a class="reference internal" href="toplevel.html#egglib.SampleView" title="egglib.SampleView"><code class="xref py py-class docutils literal"><span class="pre">SampleView</span></code></a>, they should copy this data to another data
+structure (typically using <a class="reference internal" href="toplevel.html#egglib.Container.add_sample" title="egglib.Container.add_sample"><code class="xref py py-meth docutils literal"><span class="pre">Container.add_sample()</span></code></a>).</p>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>fname</strong> – name of a fasta-formatted file.</li>
+<li><strong>groups</strong> – if <code class="docutils literal"><span class="pre">True</span></code>, import group labels from sequence names
+(by default, they are considered as part of the name).</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="versionadded">
+<p><span class="versionmodified">New in version 3.0.0.</span></p>
+</div>
+<dl class="method">
+<dt id="egglib.io.fasta_iter.next">
+<code class="descname">next</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#egglib.io.fasta_iter.next" title="Permalink to this definition">¶</a></dt>
+<dd><p>Perform an iteration round. Raise a
+<a class="reference external" href="https://docs.python.org/2.7/library/exceptions.html#exceptions.StopIteration" title="(in Python v2.7)"><code class="xref py py-exc docutils literal"><span class="pre">StopIteration</span></code></a> exception if the file is
+exhausted. The normal usage of this type of objects is with the
+<code class="docutils literal"><span class="pre">for</span></code> statement.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="gff3-format">
+<h2>GFF3 format<a class="headerlink" href="#gff3-format" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="egglib.io.GFF3">
+<em class="property">class </em><code class="descclassname">egglib.io.</code><code class="descname">GFF3</code><span class="sig-paren">(</span><em>source</em>, <em>from_string=False</em>, <em>liberal=False</em>, <em>only_genes=False</em><span class="sig-paren">)</span><a class="headerlink" href="#egglib.io.GFF3" title="Permalink to this definition">¶</a></dt>
+<dd><p>Read General Feature Format (GFF)-formatted (version 3) genome
+annotation data from a file specified by name or from a provided
+string.</p>
+<p>See the description of the GFF3 format <a class="reference external" href="http://www.sequenceontology.org/gff3.shtml">http://www.sequenceontology.org/gff3.shtml</a>.</p>
+<p>This class supports segmented features but only if they are
+consecutive in the file. All features are loaded into memory and can
+be processed interactively.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>source</strong> – name of GFF3-formatted data file, or a GFF3-formatted
+string is <em>from_string</em> is <code class="docutils literal"><span class="pre">True</span></code>.</li>
+<li><strong>from_string</strong> – if <code class="docutils literal"><span class="pre">True</span></code>, the first argument is a
+GFF3-formatted string; if <code class="docutils literal"><span class="pre">False</span></code>, the first argument is a
+file name.</li>
+<li><strong>liberal</strong> – if <code class="docutils literal"><span class="pre">True</span></code>, support some violations of the GFF3
+format.</li>
+<li><strong>only_genes</strong> – if <code class="docutils literal"><span class="pre">True</span></code>, only index top-level features that
+have <code class="docutils literal"><span class="pre">gene</span></code> as type. This does not reduce memory usage, but it
+reduces access time.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p>The <code class="docutils literal"><span class="pre">liberal</span></code> argument allows to support a few violations from the
+canonical GFF3 format. The current list of violations is:</p>
+<ul class="simple">
+<li>CDS features may lack a phase.</li>
+</ul>
+<p>The list of supported violations may change in the future between
+minor versions of EggLib. It is recommended to use <code class="docutils literal"><span class="pre">liberal=True</span></code>
+only for exploratory analyses. Otherwise, it is better to fix the
+original file so that it complies with the format.</p>
+<div class="versionadded">
+<p><span class="versionmodified">New in version 3.0.0.</span></p>
+</div>
+<dl class="method">
+<dt id="egglib.io.GFF3.feature_iter">
+<code class="descname">feature_iter</code><span class="sig-paren">(</span><em>seqid</em>, <em>start</em>, <em>end</em>, <em>feat_type=None</em><span class="sig-paren">)</span><a class="headerlink" href="#egglib.io.GFF3.feature_iter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return an iterator over features, returned as
+<a class="reference internal" href="#egglib.io.GFF3Feature" title="egglib.io.GFF3Feature"><code class="xref py py-class docutils literal"><span class="pre">GFF3Feature</span></code></a> instances. Only top features complying
+with arguments are considered.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>seqid</strong> – seqid identifier (only features associated with
+this seqid are yielded.</li>
+<li><strong>start</strong> – start position on the considered seqid (only
+features whose start position is &gt;= this value are yielded).</li>
+<li><strong>end</strong> – end position on the considered seqid (only features
+whose end position is &lt;= this value are yielded. One can use
+<code class="docutils literal"><span class="pre">None</span></code> to process features until the end of the seqid.</li>
+<li><strong>feat_type</strong> – process only features whose type is equal to
+this value. By default, process all features within range.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p>If <em>seqid</em> is not valid for this data file, raise a
+<a class="reference external" href="https://docs.python.org/2.7/library/exceptions.html#exceptions.ValueError" title="(in Python v2.7)"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code></a>.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="egglib.io.GFF3.metadata">
+<code class="descname">metadata</code><a class="headerlink" href="#egglib.io.GFF3.metadata" title="Permalink to this definition">¶</a></dt>
+<dd><p>Metadata of the imported file (information present in the file
+header). Metadata are available as a <code class="xref py py-class docutils literal"><span class="pre">list</span></code> of
+<code class="docutils literal"><span class="pre">(key,</span> <span class="pre">value)</span></code> <a class="reference external" href="https://docs.python.org/2.7/library/functions.html#tuple" title="(in Python v2.7)"><code class="xref py py-func docutils literal"><span class="pre">tuple()</span></code></a> ‘s. It is not possible to replace
+the list by another object, but it is allowed to modify the
+returned object.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="egglib.io.GFF3.num_top_features">
+<code class="descname">num_top_features</code><a class="headerlink" href="#egglib.io.GFF3.num_top_features" title="Permalink to this definition">¶</a></dt>
+<dd><p>Number of features that are directly accessible (that is, those
+who don’t have a parent).</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="egglib.io.GFF3.num_tot_features">
+<code class="descname">num_tot_features</code><a class="headerlink" href="#egglib.io.GFF3.num_tot_features" title="Permalink to this definition">¶</a></dt>
+<dd><p>Total number of features of the input file, included lower-level
+features and features that have not been indexed, if any.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="egglib.io.GFF3.seqid">
+<code class="descname">seqid</code><a class="headerlink" href="#egglib.io.GFF3.seqid" title="Permalink to this definition">¶</a></dt>
+<dd><p>All seqid values present in the imported file, as a
+<a class="reference external" href="https://docs.python.org/2.7/library/stdtypes.html#frozenset" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">frozenset</span></code></a> instance.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="egglib.io.GFF3.types">
+<code class="descname">types</code><a class="headerlink" href="#egglib.io.GFF3.types" title="Permalink to this definition">¶</a></dt>
+<dd><p>Number of top features of each of the encountered types. This
+does not include lower-level features (that is, those who have
+a parent). Value is a <a class="reference external" href="https://docs.python.org/2.7/library/stdtypes.html#dict" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">dict</span></code></a> (there is no good reaon to
+modify it).</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="egglib.io.GFF3Feature">
+<em class="property">class </em><code class="descclassname">egglib.io.</code><code class="descname">GFF3Feature</code><a class="headerlink" href="#egglib.io.GFF3Feature" title="Permalink to this definition">¶</a></dt>
+<dd><p>Provide information related to a given feature. Currently, instances
+cannot be created by the user and are read-only. Data are available
+as read-only properties; some of these are lists and can be modified
+but it does not make any sense to do so.</p>
+<dl class="attribute">
+<dt id="egglib.io.GFF3Feature.ID">
+<code class="descname">ID</code><a class="headerlink" href="#egglib.io.GFF3Feature.ID" title="Permalink to this definition">¶</a></dt>
+<dd><p>Value of the ID attribute, or <code class="docutils literal"><span class="pre">None</span></code> if this attribute was not
+defined.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="egglib.io.GFF3Feature.aliases">
+<code class="descname">aliases</code><a class="headerlink" href="#egglib.io.GFF3Feature.aliases" title="Permalink to this definition">¶</a></dt>
+<dd><p>List of Alias attributes.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="egglib.io.GFF3Feature.attributes">
+<code class="descname">attributes</code><a class="headerlink" href="#egglib.io.GFF3Feature.attributes" title="Permalink to this definition">¶</a></dt>
+<dd><p>List of non-predefined attributes, as <code class="docutils literal"><span class="pre">(key,</span> <span class="pre">items)</span></code> tuples,
+where <code class="docutils literal"><span class="pre">items</span></code> is itself a list.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="egglib.io.GFF3Feature.dbxref">
+<code class="descname">dbxref</code><a class="headerlink" href="#egglib.io.GFF3Feature.dbxref" title="Permalink to this definition">¶</a></dt>
+<dd><p>List of Dbxref attributes.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="egglib.io.GFF3Feature.derives_from">
+<code class="descname">derives_from</code><a class="headerlink" href="#egglib.io.GFF3Feature.derives_from" title="Permalink to this definition">¶</a></dt>
+<dd><p>Value of the Derives_from attribute, or <code class="docutils literal"><span class="pre">None</span></code> if this
+attribute was not defined.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="egglib.io.GFF3Feature.end">
+<code class="descname">end</code><a class="headerlink" href="#egglib.io.GFF3Feature.end" title="Permalink to this definition">¶</a></dt>
+<dd><p>End position.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="egglib.io.GFF3Feature.gap">
+<code class="descname">gap</code><a class="headerlink" href="#egglib.io.GFF3Feature.gap" title="Permalink to this definition">¶</a></dt>
+<dd><p>Value of the Gap attribute, or <code class="docutils literal"><span class="pre">None</span></code> if this attribute was
+not defined.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.io.GFF3Feature.get_parent">
+<code class="descname">get_parent</code><span class="sig-paren">(</span><em>idx</em><span class="sig-paren">)</span><a class="headerlink" href="#egglib.io.GFF3Feature.get_parent" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get a parent, as a <a class="reference internal" href="#egglib.io.GFF3Feature" title="egglib.io.GFF3Feature"><code class="xref py py-class docutils literal"><span class="pre">GFF3Feature</span></code></a> instance. The index
+should be within range.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.io.GFF3Feature.get_part">
+<code class="descname">get_part</code><span class="sig-paren">(</span><em>idx</em><span class="sig-paren">)</span><a class="headerlink" href="#egglib.io.GFF3Feature.get_part" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get a part (descending feature), as a <a class="reference internal" href="#egglib.io.GFF3Feature" title="egglib.io.GFF3Feature"><code class="xref py py-class docutils literal"><span class="pre">GFF3Feature</span></code></a>
+instance. The index should be within range.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="egglib.io.GFF3Feature.is_circular">
+<code class="descname">is_circular</code><a class="headerlink" href="#egglib.io.GFF3Feature.is_circular" title="Permalink to this definition">¶</a></dt>
+<dd><p>Value of the Is_circular attribute, as a boolean.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="egglib.io.GFF3Feature.name">
+<code class="descname">name</code><a class="headerlink" href="#egglib.io.GFF3Feature.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>Value of the Name attribute, or <code class="docutils literal"><span class="pre">None</span></code> if this attribute was
+not defined.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="egglib.io.GFF3Feature.notes">
+<code class="descname">notes</code><a class="headerlink" href="#egglib.io.GFF3Feature.notes" title="Permalink to this definition">¶</a></dt>
+<dd><p>List of Note attributes.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="egglib.io.GFF3Feature.num_fragments">
+<code class="descname">num_fragments</code><a class="headerlink" href="#egglib.io.GFF3Feature.num_fragments" title="Permalink to this definition">¶</a></dt>
+<dd><p>Number of fragments.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="egglib.io.GFF3Feature.num_parents">
+<code class="descname">num_parents</code><a class="headerlink" href="#egglib.io.GFF3Feature.num_parents" title="Permalink to this definition">¶</a></dt>
+<dd><p>Number of parents.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="egglib.io.GFF3Feature.num_parts">
+<code class="descname">num_parts</code><a class="headerlink" href="#egglib.io.GFF3Feature.num_parts" title="Permalink to this definition">¶</a></dt>
+<dd><p>Number of parts (descending features).</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="egglib.io.GFF3Feature.ontology_terms">
+<code class="descname">ontology_terms</code><a class="headerlink" href="#egglib.io.GFF3Feature.ontology_terms" title="Permalink to this definition">¶</a></dt>
+<dd><p>List of Ontology_term attributes.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="egglib.io.GFF3Feature.phase">
+<code class="descname">phase</code><a class="headerlink" href="#egglib.io.GFF3Feature.phase" title="Permalink to this definition">¶</a></dt>
+<dd><p>Value of the Phase attribute. Possible values are: 0, 1, 2 and
+<code class="docutils literal"><span class="pre">None</span></code> (if undefined).</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="egglib.io.GFF3Feature.positions">
+<code class="descname">positions</code><a class="headerlink" href="#egglib.io.GFF3Feature.positions" title="Permalink to this definition">¶</a></dt>
+<dd><p>List of start/end positions of all fragments.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="egglib.io.GFF3Feature.score">
+<code class="descname">score</code><a class="headerlink" href="#egglib.io.GFF3Feature.score" title="Permalink to this definition">¶</a></dt>
+<dd><p>Value of the Score attribute, or <code class="docutils literal"><span class="pre">None</span></code> if this attribute was
+not defined.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="egglib.io.GFF3Feature.seqid">
+<code class="descname">seqid</code><a class="headerlink" href="#egglib.io.GFF3Feature.seqid" title="Permalink to this definition">¶</a></dt>
+<dd><p>Value of seqid for this feature.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="egglib.io.GFF3Feature.source">
+<code class="descname">source</code><a class="headerlink" href="#egglib.io.GFF3Feature.source" title="Permalink to this definition">¶</a></dt>
+<dd><p>Source of this feature.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="egglib.io.GFF3Feature.start">
+<code class="descname">start</code><a class="headerlink" href="#egglib.io.GFF3Feature.start" title="Permalink to this definition">¶</a></dt>
+<dd><p>Start position.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="egglib.io.GFF3Feature.target">
+<code class="descname">target</code><a class="headerlink" href="#egglib.io.GFF3Feature.target" title="Permalink to this definition">¶</a></dt>
+<dd><p>Value of The Target attribute, or <code class="docutils literal"><span class="pre">None</span></code> if this attribute was
+not defined. The target value is no processed and is provided as
+a single string.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="egglib.io.GFF3Feature.type">
+<code class="descname">type</code><a class="headerlink" href="#egglib.io.GFF3Feature.type" title="Permalink to this definition">¶</a></dt>
+<dd><p>Type of this feature.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="vcf-format">
+<h2>VCF format<a class="headerlink" href="#vcf-format" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="egglib.io.VcfParser">
+<em class="property">class </em><code class="descclassname">egglib.io.</code><code class="descname">VcfParser</code><span class="sig-paren">(</span><em>fname</em>, <em>allow_X=False</em>, <em>allow_gap=False</em>, <em>find_index=True</em>, <em>threshold_PL=None</em>, <em>threshold_GL=None</em>, <em>outgroup=None</em>, <em>outgroup_AA=False</em><span class="sig-paren">)</span><a class="headerlink" href="#egglib.io.VcfParser" title="Permalink to this definition">¶</a></dt>
+<dd><p>Read Variant Call Format (VCF)-formatted data for genomic
+polymorphism information from a file specified by name or from a
+strings.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>fname</strong> – name of a properly formatted VCF file. The header
+section will be processed upon instance creation, and lines will
+be read later, when the user iterates over the instance (or call
+<a class="reference internal" href="#egglib.io.VcfParser.next" title="egglib.io.VcfParser.next"><code class="xref py py-meth docutils literal"><span class="pre">next()</span></code></a>).</li>
+<li><strong>allow_X</strong> – if <code class="docutils literal"><span class="pre">True</span></code>, the characters <code class="docutils literal"><span class="pre">X</span></code> and <code class="docutils literal"><span class="pre">x</span></code> can be
+used instead of a base in alternate alleles. This is not allowed
+in the VCF specification but some software has actually used it.
+If <code class="docutils literal"><span class="pre">X</span></code> is allowed and one is found, the alternate type will be
+set to an <em>ad hoc</em> type and the corresponding allele string will
+be <code class="docutils literal"><span class="pre">X</span></code> (regardless of the original case).</li>
+<li><strong>allow_gap</strong> – if <code class="docutils literal"><span class="pre">True</span></code>, the gap symbol <code class="docutils literal"><span class="pre">-</span></code> is accepted as a
+valid base for the specification of both reference and alternate
+alleles. This is not allowed in the VCF specification which
+follows a different convention to represent insertions and
+deletions.</li>
+<li><strong>find_index</strong> – if <code class="docutils literal"><span class="pre">True</span></code>, the <a class="reference internal" href="#egglib.io.VcfParser" title="egglib.io.VcfParser"><code class="xref py py-class docutils literal"><span class="pre">VcfParser</span></code></a> instance will 
+find a index file linked to the Vcf data (by a default name), and
+will save it, in the attribut “_index” as <cite>:class:VcfIndex</cite> instance.
+If no file was found or the file found doesn’t match with the Vcf
+data, the attribut “_index” will be “None”.</li>
+<li><strong>threshold_PL</strong> – this parameter controls how genotype calling (GT field) is
+performed from the PL (phred-scaled genotype likelihood) field.
+By default (<code class="docutils literal"><span class="pre">None</span></code>), this conversion is never performed. It is
+only performed if GT is not available and PL is available. The
+genotype with the lowest PL value is selected. The parameter gives the
+minimum acceptable gap between the best genotype and the second one.
+If the second genotype has a too good score, based on this parameter,
+the genotype is called unknown. The parameter must be at least 1.</li>
+<li><strong>outgroup</strong> – list of samples (identified by their index in the
+sample list of this VCF file) that are supposed to belong to the
+outgroup. By default (<code class="docutils literal"><span class="pre">None</span></code>), same the as an empty list.</li>
+<li><strong>outgroup_AA</strong> – a boolean indicating whether the <code class="docutils literal"><span class="pre">AA</span></code> field of
+the VCF file should be used as outgroup when populating <code class="xref py py-class docutils literal"><span class="pre">Site</span></code>
+object. If the field is absent, the outgroup is set to missing
+data. Otherwise, its value is imported as outgroup. The outgroup is
+assumed to be homozygote for the allele indicated by <code class="docutils literal"><span class="pre">AA</span></code>. When
+this option is used, it always sets it before all samples specified
+by <em>outgroup</em> for a given VCF file (there may be several VCF files
+loaded in the same <code class="xref py py-class docutils literal"><span class="pre">Site</span></code> object in some situations).</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p>See the <a class="reference external" href="http://www.1000genomes.org/wiki/Analysis/Variant%20Call%20Format/vcf-variant-call-format-version-41">description of the VCF format.</a></p>
+<p>There are two ways to process VCF data: one is using a static file
+that is iteratively parsed, using the standard constructor
+<code class="docutils literal"><span class="pre">VcfParser(fname)</span></code> and then iterate over lines in a <code class="docutils literal"><span class="pre">for</span></code> loop
+(alternatively, one can use <code class="docutils literal"><span class="pre">VcfParser.next()</span></code> directly), and the
+other way is to use the class factory method
+<code class="docutils literal"><span class="pre">VcfParser.from_header(string)</span></code> and then feed manually each line
+as a string using <code class="docutils literal"><span class="pre">VcfParser.read_line(string)</span></code>.</p>
+<p><a class="reference internal" href="#egglib.io.VcfParser" title="egglib.io.VcfParser"><code class="xref py py-class docutils literal"><span class="pre">VcfParser</span></code></a> instances are iterable (with support for the
+<code class="docutils literal"><span class="pre">for</span></code> statement and the <a class="reference internal" href="#egglib.io.VcfParser.next" title="egglib.io.VcfParser.next"><code class="xref py py-meth docutils literal"><span class="pre">next()</span></code></a> method) only if
+they are created with a file to process. Otherwise they must be fed
+line-by-line with the <a class="reference internal" href="#egglib.io.VcfParser.read_line" title="egglib.io.VcfParser.read_line"><code class="xref py py-meth docutils literal"><span class="pre">read_line()</span></code></a> method. Every loop in a
+<code class="docutils literal"><span class="pre">for</span></code> loop or call to <a class="reference internal" href="#egglib.io.VcfParser.next" title="egglib.io.VcfParser.next"><code class="xref py py-meth docutils literal"><span class="pre">next()</span></code></a> or
+<a class="reference internal" href="#egglib.io.VcfParser.read_line" title="egglib.io.VcfParser.read_line"><code class="xref py py-meth docutils literal"><span class="pre">read_line()</span></code></a> yields a <code class="docutils literal"><span class="pre">(chromosome,</span> <span class="pre">position,</span> <span class="pre">num_all)</span></code>
+tuples that allows the user to determines if the variant is of
+interest. Note that the position is considered as an index and therefore
+has been decremented compared with the value found in the file.</p>
+<blockquote>
+<div>If the variant is of interest, the <a class="reference internal" href="#egglib.io.VcfParser" title="egglib.io.VcfParser"><code class="xref py py-class docutils literal"><span class="pre">VcfParser</span></code></a> object provides methods to</div></blockquote>
+<p>extract all data for this variant (which can be time-consuming and
+should be restricted to pre-filtered lines to improve efficiency.</p>
+<div class="versionadded">
+<p><span class="versionmodified">New in version 3.0.0.</span></p>
+</div>
+<dl class="method">
+<dt id="egglib.io.VcfParser.bed_slider">
+<code class="descname">bed_slider</code><span class="sig-paren">(</span><em>miss_pv</em>, <em>fill=False</em>, <em>start_pv=0</em>, <em>end_pv=None</em><span class="sig-paren">)</span><a class="headerlink" href="#egglib.io.VcfParser.bed_slider" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>start_pv</strong> – if a subset of samples must be considered,
+index of the first sample to consider (by default,
+all samples are considered).</li>
+<li><strong>end_pv</strong> – if a subset of samples must be considered,
+index of the last sample to consider (by default,
+all samples are considered).</li>
+<li><strong>miss_pv</strong> – maximum number of missing alleles.
+If this proportion is processing is stopped and
+get_missing() returns max_missing + 1. Only missing
+data in this data set are considered.
+The starting point of the sliding window depends of the
+stream of the Vcf Parser passed in parameter.</li>
+<li><strong>ploidy</strong> – the ploidy must be a strictly positive number.</li>
+<li><strong>fill</strong> – if <code class="docutils literal"><span class="pre">True</span></code>, the sliding window will read the first window,
+else no data will be loaded in the <a class="reference internal" href="#egglib.io._vcf.VcfWindow" title="egglib.io._vcf.VcfWindow"><code class="xref py py-class docutils literal"><span class="pre">VcfWindow</span></code></a> instance before 
+call <a class="reference internal" href="#egglib.io._vcf.VcfWindow.next" title="egglib.io._vcf.VcfWindow.next"><code class="xref py py-meth docutils literal"><span class="pre">VcfWindow.next()</span></code></a></li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p>To use the method bed_slider, you must load a bed file with the method
+‘get_bed_file’ before.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="egglib.io.VcfParser.file_format">
+<code class="descname">file_format</code><a class="headerlink" href="#egglib.io.VcfParser.file_format" title="Permalink to this definition">¶</a></dt>
+<dd><p>File format present in the read header.</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="egglib.io.VcfParser.from_header">
+<em class="property">classmethod </em><code class="descname">from_header</code><span class="sig-paren">(</span><em>string</em>, <em>allow_X=False</em>, <em>allow_gap=False</em>, <em>outgroup=None</em>, <em>outgroup_AA=False</em><span class="sig-paren">)</span><a class="headerlink" href="#egglib.io.VcfParser.from_header" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create and return a new <a class="reference internal" href="#egglib.io.VcfParser" title="egglib.io.VcfParser"><code class="xref py py-class docutils literal"><span class="pre">VcfParser</span></code></a> instance reading
+the header passed as the <em>string</em> argument.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>string</strong> – single string including system-consistent line
+endings, the first line being the file format specification
+and the last line being the header line (starting with
+<code class="docutils literal"><span class="pre">#CHROM</span></code>). This function allows leading and trailing white
+spaces (spaces, tabs, empty lines).</li>
+<li><strong>allow_X</strong> – see class description.</li>
+<li><strong>allow_gap</strong> – see class description.</li>
+<li><strong>outgroup</strong> – list of samples (identified by their index in the
+sample list of this VCF file) that are supposed to belong to the
+outgroup. By default (<code class="docutils literal"><span class="pre">None</span></code>), same the as an empty list.</li>
+<li><strong>outgroup_AA</strong> – a boolean indicating whether the <code class="docutils literal"><span class="pre">AA</span></code> field of
+the VCF file should be used as outgroup when populating <code class="xref py py-class docutils literal"><span class="pre">Site</span></code>
+object. If the field is absent,
+the outgroup is set to missing data. Otherwise, its value is
+imported as outgroup. If data should be exported as genotypes,
+the outgroup is assumed to be homozygote for the allele indicated
+by <code class="docutils literal"><span class="pre">AA</span></code>. Otherwise, only one outgroup genotype is created. When
+this option is used, it always sets the first outgroup sample.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.io.VcfParser.get_alt">
+<code class="descname">get_alt</code><span class="sig-paren">(</span><em>idx</em><span class="sig-paren">)</span><a class="headerlink" href="#egglib.io.VcfParser.get_alt" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get data for a given ALT field defined in the VCF header. The
+passed index must be smaller than <a class="reference internal" href="#egglib.io.VcfParser.num_alt" title="egglib.io.VcfParser.num_alt"><code class="xref py py-attr docutils literal"><span class="pre">num_alt</span></code></a>. Return a
+<a class="reference external" href="https://docs.python.org/2.7/library/stdtypes.html#dict" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">dict</span></code></a> containing the following data:</p>
+<ul class="simple">
+<li><code class="docutils literal"><span class="pre">id</span></code>: ID string.</li>
+<li><code class="docutils literal"><span class="pre">description</span></code>: description string.</li>
+<li><code class="docutils literal"><span class="pre">extra</span></code>: all extra qualifiers, presented as a <code class="xref py py-class docutils literal"><span class="pre">list</span></code>
+of <code class="docutils literal"><span class="pre">(key,</span> <span class="pre">value)</span></code> tuples.</li>
+</ul>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.io.VcfParser.get_bed_file">
+<code class="descname">get_bed_file</code><span class="sig-paren">(</span><em>fname</em><span class="sig-paren">)</span><a class="headerlink" href="#egglib.io.VcfParser.get_bed_file" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method allows to load a “.bed” file in an object “VcfParser”. 
+In a “VcfParser” a bed file is used to get somes variants in a “.vcf”
+file according to chromosomals coordinates saved in a “.bed” file loaded.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.io.VcfParser.get_contig_index">
+<code class="descname">get_contig_index</code><span class="sig-paren">(</span><em>chromosome</em><span class="sig-paren">)</span><a class="headerlink" href="#egglib.io.VcfParser.get_contig_index" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets the index of the first variant of a chromosome inf the index file.
+:param chromosome: This function expects the name of a desired chromosome (string)
+Beware: an index file must be loaded in <code class="xref py py-class docutils literal"><span class="pre">VcfIndex</span></code> instance, with the function “set_index_file”</p>
+<blockquote>
+<div>before use the method “get_contigu_index</div></blockquote>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.io.VcfParser.get_filter">
+<code class="descname">get_filter</code><span class="sig-paren">(</span><em>idx</em><span class="sig-paren">)</span><a class="headerlink" href="#egglib.io.VcfParser.get_filter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get data for a given FILTER field defined in the VCF header. The
+passed index must be smaller than <a class="reference internal" href="#egglib.io.VcfParser.num_filter" title="egglib.io.VcfParser.num_filter"><code class="xref py py-attr docutils literal"><span class="pre">num_filter</span></code></a>. Return a
+<a class="reference external" href="https://docs.python.org/2.7/library/stdtypes.html#dict" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">dict</span></code></a> containing the following data:</p>
+<ul class="simple">
+<li><code class="docutils literal"><span class="pre">id</span></code>: ID string.</li>
+<li><code class="docutils literal"><span class="pre">description</span></code>: description string.</li>
+<li><code class="docutils literal"><span class="pre">extra</span></code>: all extra qualifiers, presented as a <code class="xref py py-class docutils literal"><span class="pre">list</span></code>
+of <code class="docutils literal"><span class="pre">(key,</span> <span class="pre">value)</span></code> tuples.</li>
+</ul>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.io.VcfParser.get_format">
+<code class="descname">get_format</code><span class="sig-paren">(</span><em>idx</em><span class="sig-paren">)</span><a class="headerlink" href="#egglib.io.VcfParser.get_format" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get data for a given FORMAT field defined in the VCF header. The
+passed index must be smaller than <a class="reference internal" href="#egglib.io.VcfParser.num_format" title="egglib.io.VcfParser.num_format"><code class="xref py py-attr docutils literal"><span class="pre">num_format</span></code></a>. Return a
+<a class="reference external" href="https://docs.python.org/2.7/library/stdtypes.html#dict" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">dict</span></code></a> containing the following data:</p>
+<ul class="simple">
+<li><code class="docutils literal"><span class="pre">id</span></code>: ID string.</li>
+<li><code class="docutils literal"><span class="pre">type</span></code>: one of <code class="docutils literal"><span class="pre">&quot;Integer&quot;</span></code>, <code class="docutils literal"><span class="pre">&quot;Float&quot;</span></code>, <code class="docutils literal"><span class="pre">&quot;Character&quot;</span></code>,
+and <code class="docutils literal"><span class="pre">&quot;String&quot;</span></code>.</li>
+<li><code class="docutils literal"><span class="pre">description</span></code>: description string.</li>
+<li><code class="docutils literal"><span class="pre">number</span></code>: expected number of items. Special values are
+<code class="docutils literal"><span class="pre">None</span></code> (if undefined), <code class="docutils literal"><span class="pre">&quot;NUM_GENOTYPES&quot;</span></code> (number matching
+the number of genotypes for any particular variant),
+<code class="docutils literal"><span class="pre">&quot;NUM_ALTERNATE&quot;</span></code> (number matching the number of alternate
+alleles for any particular variant), and <code class="docutils literal"><span class="pre">&quot;NUM_ALLELES&quot;</span></code>
+(number matching the number of alleles–including the
+reference–for any particular variant).</li>
+<li><code class="docutils literal"><span class="pre">extra</span></code>: all extra qualifiers, presented as a <code class="xref py py-class docutils literal"><span class="pre">list</span></code>
+of <code class="docutils literal"><span class="pre">(key,</span> <span class="pre">value)</span></code> tuples.</li>
+</ul>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.io.VcfParser.get_genotypes">
+<code class="descname">get_genotypes</code><span class="sig-paren">(</span><span class="optional">[</span><em>parser1</em>, <span class="optional">[</span><em>parser2</em>, <span class="optional">]</span><span class="optional">]</span><em>...</em>, <em>dest=None</em><span class="sig-paren">)</span><a class="headerlink" href="#egglib.io.VcfParser.get_genotypes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Process genotype data loaded into one or more
+<a class="reference internal" href="#egglib.io.VcfParser" title="egglib.io.VcfParser"><code class="xref py py-class docutils literal"><span class="pre">VcfParser</span></code></a> instances and return them as a single
+<a class="reference internal" href="stats.html#egglib.stats.Site" title="egglib.stats.Site"><code class="xref py py-class docutils literal"><span class="pre">Site</span></code></a> instance.</p>
+<p>There are two ways to use this method:</p>
+<ol class="arabic simple">
+<li>As an instance method, to process a single parser, as in:
+<code class="docutils literal"><span class="pre">parser.get_genotypes()</span></code> (if <code class="docutils literal"><span class="pre">parser</span></code> is a
+<a class="reference internal" href="#egglib.io.VcfParser" title="egglib.io.VcfParser"><code class="xref py py-class docutils literal"><span class="pre">VcfParser</span></code></a> instance).</li>
+<li>As a class method, to process several parsers, as in:
+<code class="docutils literal"><span class="pre">VcfParser.get_genotypes(parser1,</span> <span class="pre">parser2,</span> <span class="pre">parser3)</span></code> (where
+<code class="docutils literal"><span class="pre">parser1</span></code>, <code class="docutils literal"><span class="pre">parser2</span></code> and <code class="docutils literal"><span class="pre">parser3</span></code> are three
+<a class="reference internal" href="#egglib.io.VcfParser" title="egglib.io.VcfParser"><code class="xref py py-class docutils literal"><span class="pre">VcfParser</span></code></a> instances).</li>
+</ol>
+<p>This method requires that all parsers have been used to process
+valid data.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>parser</strong> – a <a class="reference internal" href="#egglib.io.VcfParser" title="egglib.io.VcfParser"><code class="xref py py-class docutils literal"><span class="pre">VcfParser</span></code></a> instance (only required if
+used as a class method). This argument can be repeated
+several times, but can not be passed as a keyword argument.</li>
+<li><strong>dest</strong> – if specified, it must be a <a class="reference internal" href="stats.html#egglib.stats.Site" title="egglib.stats.Site"><code class="xref py py-class docutils literal"><span class="pre">Site</span></code></a>
+instance that will be recycled and used to place results.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">A <a class="reference internal" href="stats.html#egglib.stats.Site" title="egglib.stats.Site"><code class="xref py py-class docutils literal"><span class="pre">Site</span></code></a> instance by default, or
+<code class="docutils literal"><span class="pre">None</span></code> if <em>dest</em> was specified.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.io.VcfParser.get_index">
+<code class="descname">get_index</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#egglib.io.VcfParser.get_index" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method allows to get the index of the current position of a <a class="reference internal" href="#egglib.io.VcfParser" title="egglib.io.VcfParser"><code class="xref py py-class docutils literal"><span class="pre">VcfParser</span></code></a> instance.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.io.VcfParser.get_info">
+<code class="descname">get_info</code><span class="sig-paren">(</span><em>idx</em><span class="sig-paren">)</span><a class="headerlink" href="#egglib.io.VcfParser.get_info" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get data for a given INFO field defined in the VCF header. The
+passed index must be smaller than <a class="reference internal" href="#egglib.io.VcfParser.num_info" title="egglib.io.VcfParser.num_info"><code class="xref py py-attr docutils literal"><span class="pre">num_info</span></code></a>. Return a
+<a class="reference external" href="https://docs.python.org/2.7/library/stdtypes.html#dict" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">dict</span></code></a> containing the following data:</p>
+<ul class="simple">
+<li><code class="docutils literal"><span class="pre">id</span></code>: ID string.</li>
+<li><code class="docutils literal"><span class="pre">type</span></code>: one of <code class="docutils literal"><span class="pre">&quot;Integer&quot;</span></code>, <code class="docutils literal"><span class="pre">&quot;Float&quot;</span></code>, <code class="docutils literal"><span class="pre">&quot;Flag&quot;</span></code>,
+<code class="docutils literal"><span class="pre">&quot;Character&quot;</span></code>, and <code class="docutils literal"><span class="pre">&quot;String&quot;</span></code>.</li>
+<li><code class="docutils literal"><span class="pre">description</span></code>: description string.</li>
+<li><code class="docutils literal"><span class="pre">number</span></code>: expected number of items. Special values are
+<code class="docutils literal"><span class="pre">None</span></code> (if undefined), <code class="docutils literal"><span class="pre">&quot;NUM_GENOTYPES&quot;</span></code> (number matching
+the number of genotypes for any particular variant),
+<code class="docutils literal"><span class="pre">&quot;NUM_ALTERNATE&quot;</span></code> (number matching the number of alternate
+alleles for any particular variant), and <code class="docutils literal"><span class="pre">&quot;NUM_ALLELES&quot;</span></code>
+(number matching the number of alleles–including the
+reference–for any particular variant).</li>
+<li><code class="docutils literal"><span class="pre">extra</span></code>: all extra qualifiers, presented as a <code class="xref py py-class docutils literal"><span class="pre">list</span></code>
+of <code class="docutils literal"><span class="pre">(key,</span> <span class="pre">value)</span></code> tuples.</li>
+</ul>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.io.VcfParser.get_last_contig_index">
+<code class="descname">get_last_contig_index</code><span class="sig-paren">(</span><em>chromosome</em><span class="sig-paren">)</span><a class="headerlink" href="#egglib.io.VcfParser.get_last_contig_index" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the start stream position of the first variant linked to the last chromosome.
+:beware : A index file must be loaded in the object “VcfIndex”, with the function “set_index_file”</p>
+<blockquote>
+<div>before use the method “get_contigu_index</div></blockquote>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.io.VcfParser.get_meta">
+<code class="descname">get_meta</code><span class="sig-paren">(</span><em>idx</em><span class="sig-paren">)</span><a class="headerlink" href="#egglib.io.VcfParser.get_meta" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get data for a given META field defined in the VCF header. The
+passed index must be smaller than <a class="reference internal" href="#egglib.io.VcfParser.num_meta" title="egglib.io.VcfParser.num_meta"><code class="xref py py-attr docutils literal"><span class="pre">num_meta</span></code></a>. Return a
+<code class="xref py py-class docutils literal"><span class="pre">tuple</span></code> containing the key and the value of the META
+field.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.io.VcfParser.get_position_index">
+<code class="descname">get_position_index</code><span class="sig-paren">(</span><em>chromosome</em>, <em>position</em><span class="sig-paren">)</span><a class="headerlink" href="#egglib.io.VcfParser.get_position_index" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets the index of a variant according to a chromosome and a chromosomal position.
+:param chromosome: This function expects the name of a desired chromosome (string)
+:param position: This function expects an chromosomal position, linked to the chromosome passed as argument</p>
+<blockquote>
+<div>according the Index file. (int)</div></blockquote>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Beware:</th><td class="field-body">An index file must be loaded in the object “VcfIndex”, with the function “set_index_file”
+before use the method “get_contigu_index</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.io.VcfParser.get_sample">
+<code class="descname">get_sample</code><span class="sig-paren">(</span><em>idx</em><span class="sig-paren">)</span><a class="headerlink" href="#egglib.io.VcfParser.get_sample" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the name of a sample read from the header. The passed index
+must be smaller than <a class="reference internal" href="#egglib.io.VcfParser.num_samples" title="egglib.io.VcfParser.num_samples"><code class="xref py py-attr docutils literal"><span class="pre">num_samples</span></code></a>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.io.VcfParser.get_variant_index">
+<code class="descname">get_variant_index</code><span class="sig-paren">(</span><em>line</em><span class="sig-paren">)</span><a class="headerlink" href="#egglib.io.VcfParser.get_variant_index" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets the index of a variant according to an indice (variant’s position in the vcf file).
+:param line: This function expects a line number smaller of equal of the number</p>
+<blockquote>
+<div>of indice in the file index loaded. (int)</div></blockquote>
+<dl class="docutils">
+<dt>:beware <span class="classifier-delimiter">:</span> <span class="classifier">A index file must be loaded in <a class="reference internal" href="#egglib.io.VcfParser" title="egglib.io.VcfParser"><code class="xref py py-class docutils literal"><span class="pre">VcfParser</span></code></a> instance, with the function</span></dt>
+<dd>“read_index” before use the method ‘get_indice_index’.</dd>
+</dl>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="egglib.io.VcfParser.good">
+<code class="descname">good</code><a class="headerlink" href="#egglib.io.VcfParser.good" title="Permalink to this definition">¶</a></dt>
+<dd><p>Tell if the file is good for reading (available valid stream,
+and not end of file).</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.io.VcfParser.goto">
+<code class="descname">goto</code><span class="sig-paren">(</span><em>chromosome</em>, <em>position=None</em><span class="sig-paren">)</span><a class="headerlink" href="#egglib.io.VcfParser.goto" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method allows to move  a <a class="reference internal" href="#egglib.io.VcfParser" title="egglib.io.VcfParser"><code class="xref py py-class docutils literal"><span class="pre">VcfParser</span></code></a> instance  at a specific position
+in the vcf file according to a chromosome and a chromosomal position.
+:param chromosome: a string with a name of the chromosome desired
+:param position: a int with a chromosomal position linked to the chromosome.
+If only a chromosome is passed as argument or the position argument is None, the
+<a class="reference internal" href="#egglib.io.VcfParser" title="egglib.io.VcfParser"><code class="xref py py-class docutils literal"><span class="pre">VcfParser</span></code></a> instance will moved at the position of the first variant of this 
+chromosome in the VcfFile.</p>
+<p>Load an index file in a <a class="reference internal" href="#egglib.io.VcfParser" title="egglib.io.VcfParser"><code class="xref py py-class docutils literal"><span class="pre">VcfParser</span></code></a> instance allows to increase the execution’s speed
+of the method <code class="xref py py-meth docutils literal"><span class="pre">VcfWindow.goto()</span></code></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="egglib.io.VcfParser.has_index">
+<code class="descname">has_index</code><a class="headerlink" href="#egglib.io.VcfParser.has_index" title="Permalink to this definition">¶</a></dt>
+<dd><p>Checks if the :class:VcfParser` instance has an index file linked loaded.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.io.VcfParser.last_variant">
+<code class="descname">last_variant</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#egglib.io.VcfParser.last_variant" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a <a class="reference internal" href="#egglib.io.Variant" title="egglib.io.Variant"><code class="xref py py-class docutils literal"><span class="pre">Variant</span></code></a> instance containing all data available
+for the last variant processed by this instance. It is required
+that a variant has been effectively processed.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.io.VcfParser.make_index">
+<code class="descname">make_index</code><span class="sig-paren">(</span><em>fname=None</em>, <em>load=False</em><span class="sig-paren">)</span><a class="headerlink" href="#egglib.io.VcfParser.make_index" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method allows to create a Index File.
+:param output: Name of the index file created.If the output argument is None,</p>
+<blockquote>
+<div>the created Index file will be named with a default name. The extension of
+an Index file is “vcfi”.</div></blockquote>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>load</strong> – if <code class="docutils literal"><span class="pre">True</span></code>, the VcfParser will loaded the index file created in the <code class="xref py py-class docutils literal"><span class="pre">VcfIndex</span></code> instance,
+else no data will be loaded after its creation. 
+call <a class="reference internal" href="#egglib.io._vcf.VcfWindow.next" title="egglib.io._vcf.VcfWindow.next"><code class="xref py py-meth docutils literal"><span class="pre">VcfWindow.next()</span></code></a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.io.VcfParser.next">
+<code class="descname">next</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#egglib.io.VcfParser.next" title="Permalink to this definition">¶</a></dt>
+<dd><p>Read one variant. Raise a <a class="reference external" href="https://docs.python.org/2.7/library/exceptions.html#exceptions.StopIteration" title="(in Python v2.7)"><code class="xref py py-exc docutils literal"><span class="pre">StopIteration</span></code></a>
+exception if no data is available.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The same as an iteration loop (see class description).</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="egglib.io.VcfParser.num_alt">
+<code class="descname">num_alt</code><a class="headerlink" href="#egglib.io.VcfParser.num_alt" title="Permalink to this definition">¶</a></dt>
+<dd><p>Number of defined ALT fields.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="egglib.io.VcfParser.num_filter">
+<code class="descname">num_filter</code><a class="headerlink" href="#egglib.io.VcfParser.num_filter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Number of defined FILTER fields.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="egglib.io.VcfParser.num_format">
+<code class="descname">num_format</code><a class="headerlink" href="#egglib.io.VcfParser.num_format" title="Permalink to this definition">¶</a></dt>
+<dd><p>Number of defined FORMAT fields.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="egglib.io.VcfParser.num_index">
+<code class="descname">num_index</code><a class="headerlink" href="#egglib.io.VcfParser.num_index" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets the number of index loaded in the :class:VcfParser` instance.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="egglib.io.VcfParser.num_info">
+<code class="descname">num_info</code><a class="headerlink" href="#egglib.io.VcfParser.num_info" title="Permalink to this definition">¶</a></dt>
+<dd><p>Number of defined INFO fields.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="egglib.io.VcfParser.num_meta">
+<code class="descname">num_meta</code><a class="headerlink" href="#egglib.io.VcfParser.num_meta" title="Permalink to this definition">¶</a></dt>
+<dd><p>Number of defined META fields.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="egglib.io.VcfParser.num_samples">
+<code class="descname">num_samples</code><a class="headerlink" href="#egglib.io.VcfParser.num_samples" title="Permalink to this definition">¶</a></dt>
+<dd><p>Number of samples read from header.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.io.VcfParser.read_index">
+<code class="descname">read_index</code><span class="sig-paren">(</span><em>fname</em><span class="sig-paren">)</span><a class="headerlink" href="#egglib.io.VcfParser.read_index" title="Permalink to this definition">¶</a></dt>
+<dd><p>An index file allows to increase the execution’s speed of the progression of the :class:VcfParser` instance
+on the variants of a Vcf file. In Fact this binary file contains all start line position of each variant,
+linked to the chromosome and chromosomal position. That’s allows to move the parser at a specific position
+according to a chromosome or/and chromosomal position given.</p>
+<p>This method allows to find, read and load as an VcfIndex an Index file linked to the current
+:class:VcfParser` instance.  The search of the index file, is done with a default name generated from the name
+of the Vcf file loaded in the current VcfParser.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>fname</strong> – name of a properly formatted Index file. The Index file must be linked to the vcf
+data of the :class:VcfParser` instance. In fact in the header on an index file, there are printed the “EOF”
+index of the vcf file behind it. The “EOF”  indexes, of the index file and of the Vcf file
+passed in the VcfParser, must match.
+EOF*: End Of File.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.io.VcfParser.read_line">
+<code class="descname">read_line</code><span class="sig-paren">(</span><em>string</em><span class="sig-paren">)</span><a class="headerlink" href="#egglib.io.VcfParser.read_line" title="Permalink to this definition">¶</a></dt>
+<dd><p>Read one variant from a user-provided single line. The string
+should contain a single line of VCF-formatted data (no header).
+All field specifications and sample information should be
+consistent with the information contained in the header that
+has been provided at creation-time to this instance (whichever
+it was read from a file or also provided as a string).</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The same as an iteration loop (see class description).</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.io.VcfParser.rewind">
+<code class="descname">rewind</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#egglib.io.VcfParser.rewind" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method allows to move a <a class="reference internal" href="#egglib.io.VcfParser" title="egglib.io.VcfParser"><code class="xref py py-class docutils literal"><span class="pre">VcfParser</span></code></a> instance to the first variant of the Vcffile loaded.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.io.VcfParser.slider">
+<code class="descname">slider</code><span class="sig-paren">(</span><em>size</em>, <em>step</em>, <em>as_bp=True</em>, <em>start=0</em>, <em>stop=None</em>, <em>max_missing=0</em><span class="sig-paren">)</span><a class="headerlink" href="#egglib.io.VcfParser.slider" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method allows to create a sliding window from the current position.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>size</strong> – size of the sliding window (by default, in base pairs).</li>
+<li><strong>step</strong> – increment of the sliding window (by default, in base pairs).</li>
+<li><strong>as_bp</strong> – toggle size/step from base pairs to number of sites.</li>
+<li><strong>start</strong> – start position of the sliding window.</li>
+<li><strong>stop</strong> – stop position of the sliding window.</li>
+<li><strong>max_missing</strong> – maximum number of missing alleles.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">A <a class="reference internal" href="#egglib.io._vcf.VcfWindow" title="egglib.io._vcf.VcfWindow"><code class="xref py py-class docutils literal"><span class="pre">VcfWindow</span></code></a> instance.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.io.VcfParser.unread">
+<code class="descname">unread</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#egglib.io.VcfParser.unread" title="Permalink to this definition">¶</a></dt>
+<dd><p>This methods allows to unread the last variant read by the VcfParser with
+the method ‘next’</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="egglib.io.Variant">
+<em class="property">class </em><code class="descclassname">egglib.io.</code><code class="descname">Variant</code><a class="headerlink" href="#egglib.io.Variant" title="Permalink to this definition">¶</a></dt>
+<dd><p>Represent a single variant (one line from a VCF-formatted data
+file). The user cannot create instances of this class himself
+(instances are generated by <a class="reference internal" href="#egglib.io.VcfParser" title="egglib.io.VcfParser"><code class="xref py py-class docutils literal"><span class="pre">VcfParser</span></code></a>) and instances are
+not modifiable in principle (however, some attributes provide
+mutable objects, as mentioned).</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The <code class="docutils literal"><span class="pre">AA</span></code> (ancestral allele), <code class="docutils literal"><span class="pre">AN</span></code> (allele number),
+<code class="docutils literal"><span class="pre">AC</span></code> (allele count), and <code class="docutils literal"><span class="pre">AF</span></code> (allele frequency) INFO fields
+as well as the <code class="docutils literal"><span class="pre">GT</span></code> (deduced genotype) FORMAT are
+automatically extracted if they are present in the the file and
+if their definition matches the format specification (meaning
+that they were not re-defined with different number/type) in
+the header. If present, they are available through the dedicated
+attributes <a class="reference internal" href="#egglib.io.Variant.AN" title="egglib.io.Variant.AN"><code class="xref py py-attr docutils literal"><span class="pre">AN</span></code></a>, <a class="reference internal" href="#egglib.io.Variant.AA" title="egglib.io.Variant.AA"><code class="xref py py-attr docutils literal"><span class="pre">AA</span></code></a>, <a class="reference internal" href="#egglib.io.Variant.AC" title="egglib.io.Variant.AC"><code class="xref py py-attr docutils literal"><span class="pre">AC</span></code></a>, <a class="reference internal" href="#egglib.io.Variant.AF" title="egglib.io.Variant.AF"><code class="xref py py-attr docutils literal"><span class="pre">AF</span></code></a>,
+<a class="reference internal" href="#egglib.io.Variant.GT" title="egglib.io.Variant.GT"><code class="xref py py-attr docutils literal"><span class="pre">GT</span></code></a>, <a class="reference internal" href="#egglib.io.Variant.ploidy" title="egglib.io.Variant.ploidy"><code class="xref py py-attr docutils literal"><span class="pre">ploidy</span></code></a> and <a class="reference internal" href="#egglib.io.Variant.GT_phased" title="egglib.io.Variant.GT_phased"><code class="xref py py-attr docutils literal"><span class="pre">GT_phased</span></code></a>. However,
+they are still available in the respective <a class="reference internal" href="#egglib.io.Variant.info" title="egglib.io.Variant.info"><code class="xref py py-attr docutils literal"><span class="pre">info</span></code></a> and
+<a class="reference internal" href="#egglib.io.Variant.samples" title="egglib.io.Variant.samples"><code class="xref py py-attr docutils literal"><span class="pre">samples</span></code></a> (sub)-dictionaries.</p>
+</div>
+<dl class="attribute">
+<dt id="egglib.io.Variant.AA">
+<code class="descname">AA</code><a class="headerlink" href="#egglib.io.Variant.AA" title="Permalink to this definition">¶</a></dt>
+<dd><p>Value of the AA info field (<code class="docutils literal"><span class="pre">None</span></code> if missing).</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="egglib.io.Variant.AC">
+<code class="descname">AC</code><a class="headerlink" href="#egglib.io.Variant.AC" title="Permalink to this definition">¶</a></dt>
+<dd><p>Value of the AC info field, as a tuple (<code class="docutils literal"><span class="pre">None</span></code> if missing).</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="egglib.io.Variant.AF">
+<code class="descname">AF</code><a class="headerlink" href="#egglib.io.Variant.AF" title="Permalink to this definition">¶</a></dt>
+<dd><p>Value of the AF info field, as a tuple (<code class="docutils literal"><span class="pre">None</span></code> if missing).</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="egglib.io.Variant.AN">
+<code class="descname">AN</code><a class="headerlink" href="#egglib.io.Variant.AN" title="Permalink to this definition">¶</a></dt>
+<dd><p>Value of the AN info field (<code class="docutils literal"><span class="pre">None</span></code> if missing).</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="egglib.io.Variant.GL">
+<code class="descname">GL</code><a class="headerlink" href="#egglib.io.Variant.GL" title="Permalink to this definition">¶</a></dt>
+<dd><p>GL values for all samples</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="egglib.io.Variant.GT">
+<code class="descname">GT</code><a class="headerlink" href="#egglib.io.Variant.GT" title="Permalink to this definition">¶</a></dt>
+<dd><p>Genotypes from GT
+fields (only if this format field is available), provided as a tuple of
+sub-tuples. The number of sub-tuples is equal to the number of samples
+(<a class="reference internal" href="#egglib.io.Variant.num_samples" title="egglib.io.Variant.num_samples"><code class="xref py py-attr docutils literal"><span class="pre">num_samples</span></code></a>). The number of items within each
+sub-tuples is equal to the ploidy (<a class="reference internal" href="#egglib.io.Variant.ploidy" title="egglib.io.Variant.ploidy"><code class="xref py py-attr docutils literal"><span class="pre">ploidy</span></code></a>). These items are
+allele expression (as found in <a class="reference internal" href="#egglib.io.Variant.alleles" title="egglib.io.Variant.alleles"><code class="xref py py-attr docutils literal"><span class="pre">alleles</span></code></a>), or <code class="docutils literal"><span class="pre">None</span></code> (for
+missing values). This attribute is <code class="docutils literal"><span class="pre">None</span></code> if GT is not available.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="egglib.io.Variant.GT_phased">
+<code class="descname">GT_phased</code><a class="headerlink" href="#egglib.io.Variant.GT_phased" title="Permalink to this definition">¶</a></dt>
+<dd><p>Boolean indicating whether the genotype for each sample is phased (<code class="docutils literal"><span class="pre">None</span></code> if GT is not available).</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="egglib.io.Variant.GT_vcf">
+<code class="descname">GT_vcf</code><a class="headerlink" href="#egglib.io.Variant.GT_vcf" title="Permalink to this definition">¶</a></dt>
+<dd><p>GT field as written in a vcf file</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="egglib.io.Variant.ID">
+<code class="descname">ID</code><a class="headerlink" href="#egglib.io.Variant.ID" title="Permalink to this definition">¶</a></dt>
+<dd><p>Tuple containing all IDs (even if just one or none).</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="egglib.io.Variant.PL">
+<code class="descname">PL</code><a class="headerlink" href="#egglib.io.Variant.PL" title="Permalink to this definition">¶</a></dt>
+<dd><p>PL values for all samples</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="egglib.io.Variant.alleles">
+<code class="descname">alleles</code><a class="headerlink" href="#egglib.io.Variant.alleles" title="Permalink to this definition">¶</a></dt>
+<dd><p>Variant alleles (the first is the reference and is not guaranteed to be present in samples), as a tuple.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="egglib.io.Variant.alt_type_breakend">
+<code class="descname">alt_type_breakend</code><em class="property"> = 3</em><a class="headerlink" href="#egglib.io.Variant.alt_type_breakend" title="Permalink to this definition">¶</a></dt>
+<dd><p>Alternate allele symbolizing a breakend (see VCF description for more details).</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="egglib.io.Variant.alt_type_default">
+<code class="descname">alt_type_default</code><em class="property"> = 0</em><a class="headerlink" href="#egglib.io.Variant.alt_type_default" title="Permalink to this definition">¶</a></dt>
+<dd><p>Explicit alternate allele (the string represents the nucleotide sequence of the allele).</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="egglib.io.Variant.alt_type_referred">
+<code class="descname">alt_type_referred</code><em class="property"> = 2</em><a class="headerlink" href="#egglib.io.Variant.alt_type_referred" title="Permalink to this definition">¶</a></dt>
+<dd><p>Alternate allele referring to a pre-defined allele (the string provides the ID of the allele).</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="egglib.io.Variant.alternate_types">
+<code class="descname">alternate_types</code><a class="headerlink" href="#egglib.io.Variant.alternate_types" title="Permalink to this definition">¶</a></dt>
+<dd><p>Alternate alleles types, as a tuple.
+One value is provided for each alternate allele. The provided values are
+integers whose values should always be compared to class attributes
+<a class="reference internal" href="#egglib.io.Variant.alt_type_default" title="egglib.io.Variant.alt_type_default"><code class="xref py py-attr docutils literal"><span class="pre">alt_type_default</span></code></a>, <a class="reference internal" href="#egglib.io.Variant.alt_type_referred" title="egglib.io.Variant.alt_type_referred"><code class="xref py py-attr docutils literal"><span class="pre">alt_type_referred</span></code></a> and
+<a class="reference internal" href="#egglib.io.Variant.alt_type_breakend" title="egglib.io.Variant.alt_type_breakend"><code class="xref py py-attr docutils literal"><span class="pre">alt_type_breakend</span></code></a>, as in (for the type of the first alternate
+allele):</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">type_</span> <span class="o">=</span> <span class="n">variant</span><span class="o">.</span><span class="n">alternate_types</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="k">if</span> <span class="n">type_</span> <span class="o">==</span> <span class="n">variant</span><span class="o">.</span><span class="n">alt_type_default</span><span class="p">:</span>
+    <span class="n">allele</span> <span class="o">=</span> <span class="n">variant</span><span class="o">.</span><span class="n">allele</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="n">rewind</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="egglib.io.Variant.chromosome">
+<code class="descname">chromosome</code><a class="headerlink" href="#egglib.io.Variant.chromosome" title="Permalink to this definition">¶</a></dt>
+<dd><p>Chromosome name (<code class="docutils literal"><span class="pre">None</span></code> if missing).</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="egglib.io.Variant.failed_tests">
+<code class="descname">failed_tests</code><a class="headerlink" href="#egglib.io.Variant.failed_tests" title="Permalink to this definition">¶</a></dt>
+<dd><p>Named of filters at which this variant failed, as a tuple (<code class="docutils literal"><span class="pre">None</span></code> if no filters applied).</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="egglib.io.Variant.format_fields">
+<code class="descname">format_fields</code><a class="headerlink" href="#egglib.io.Variant.format_fields" title="Permalink to this definition">¶</a></dt>
+<dd><p>Available FORMAT fields ID’s available for each sample, as a <a class="reference external" href="https://docs.python.org/2.7/library/stdtypes.html#frozenset" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">frozenset</span></code></a> (empty if no sample data is available).</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="egglib.io.Variant.info">
+<code class="descname">info</code><a class="headerlink" href="#egglib.io.Variant.info" title="Permalink to this definition">¶</a></dt>
+<dd><p>Dictionary of INFO
+fields for this variant. Keys are ID of INFO fields available for this
+variant, and values are always a tuple of items. For flag INFO types,
+the value is always an empty tuple.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This <a class="reference external" href="https://docs.python.org/2.7/library/stdtypes.html#dict" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">dict</span></code></a> is mutable, which enables the user to modify the
+data contained in the instance. Note that this will modify the data
+contained in this <a class="reference internal" href="#egglib.io.Variant" title="egglib.io.Variant"><code class="xref py py-class docutils literal"><span class="pre">Variant</span></code></a> instance, although not in the
+related <a class="reference internal" href="#egglib.io.VcfParser" title="egglib.io.VcfParser"><code class="xref py py-class docutils literal"><span class="pre">VcfParser</span></code></a> instance.</p>
+</div>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="egglib.io.Variant.num_alleles">
+<code class="descname">num_alleles</code><a class="headerlink" href="#egglib.io.Variant.num_alleles" title="Permalink to this definition">¶</a></dt>
+<dd><p>Number of alleles (including the reference in all cases).</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="egglib.io.Variant.num_alternate">
+<code class="descname">num_alternate</code><a class="headerlink" href="#egglib.io.Variant.num_alternate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Number of alternate. Equal to <a class="reference internal" href="#egglib.io.Variant.num_alleles" title="egglib.io.Variant.num_alleles"><code class="xref py py-attr docutils literal"><span class="pre">num_alleles</span></code></a> minus 1.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="egglib.io.Variant.num_genotypes">
+<code class="descname">num_genotypes</code><a class="headerlink" href="#egglib.io.Variant.num_genotypes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Number of genotypes.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="egglib.io.Variant.num_samples">
+<code class="descname">num_samples</code><a class="headerlink" href="#egglib.io.Variant.num_samples" title="Permalink to this definition">¶</a></dt>
+<dd><p>Number of samples (equivalent to <code class="docutils literal"><span class="pre">len(Variant.samples)</span></code>).</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="egglib.io.Variant.ploidy">
+<code class="descname">ploidy</code><a class="headerlink" href="#egglib.io.Variant.ploidy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Ploidy among genotypes (always 2 if GT is not available).</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="egglib.io.Variant.position">
+<code class="descname">position</code><a class="headerlink" href="#egglib.io.Variant.position" title="Permalink to this definition">¶</a></dt>
+<dd><p>Position (as an index; first value is 0) (<code class="docutils literal"><span class="pre">None</span></code> if missing).</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="egglib.io.Variant.quality">
+<code class="descname">quality</code><a class="headerlink" href="#egglib.io.Variant.quality" title="Permalink to this definition">¶</a></dt>
+<dd><p>Variant quality (<code class="docutils literal"><span class="pre">None</span></code> if missing).</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="egglib.io.Variant.samples">
+<code class="descname">samples</code><a class="headerlink" href="#egglib.io.Variant.samples" title="Permalink to this definition">¶</a></dt>
+<dd><p>List of
+information available for each sample (empty list if no samples are
+defined). The list contains one <a class="reference external" href="https://docs.python.org/2.7/library/stdtypes.html#dict" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">dict</span></code></a> for each sample: keys of
+these dictionary are FORMAT fields ID (the keys are always the same as
+the content of <a class="reference internal" href="#egglib.io.Variant.format_fields" title="egglib.io.Variant.format_fields"><code class="xref py py-attr docutils literal"><span class="pre">format_fields</span></code></a>), and their values are tuples in
+all cases.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This <code class="xref py py-class docutils literal"><span class="pre">list</span></code> and the <a class="reference external" href="https://docs.python.org/2.7/library/stdtypes.html#dict" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">dict</span></code></a> instances it contains are
+all mutable, which enables the user to modify the data contained in
+the instance. Note that this will modify the data contained in this
+<a class="reference internal" href="#egglib.io.Variant" title="egglib.io.Variant"><code class="xref py py-class docutils literal"><span class="pre">Variant</span></code></a> instance, although not in the related
+<a class="reference internal" href="#egglib.io.VcfParser" title="egglib.io.VcfParser"><code class="xref py py-class docutils literal"><span class="pre">VcfParser</span></code></a> instance.</p>
+</div>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="egglib.io._vcf.VcfWindow">
+<em class="property">class </em><code class="descclassname">egglib.io._vcf.</code><code class="descname">VcfWindow</code><a class="headerlink" href="#egglib.io._vcf.VcfWindow" title="Permalink to this definition">¶</a></dt>
+<dd><p>This class manages sliding Windows on <a class="reference internal" href="#egglib.io.VcfParser" title="egglib.io.VcfParser"><code class="xref py py-class docutils literal"><span class="pre">VcfParser</span></code></a> 
+instances. This class cannot be instanciated directly: instances are
+returned by the method <a class="reference internal" href="#egglib.io.VcfParser.slider" title="egglib.io.VcfParser.slider"><code class="xref py py-meth docutils literal"><span class="pre">VcfParser.slider()</span></code></a>.</p>
+<p><a class="reference internal" href="#egglib.io._vcf.VcfWindow" title="egglib.io._vcf.VcfWindow"><code class="xref py py-class docutils literal"><span class="pre">VcfWindow</span></code></a> instances support the <code class="docutils literal"><span class="pre">for</span></code> statement).
+The iteration is concern the sites of the current sliding window. Each 
+itteration step returns a <code class="xref py py-class docutils literal"><span class="pre">Site</span></code> instance.
+<a class="reference internal" href="#egglib.io._vcf.VcfWindow" title="egglib.io._vcf.VcfWindow"><code class="xref py py-class docutils literal"><span class="pre">VcfWindow</span></code></a> instances also support access using the <code class="docutils literal"><span class="pre">[]</span></code> operator
+as well as <code class="docutils literal"><span class="pre">len()</span></code>.</p>
+<dl class="attribute">
+<dt id="egglib.io._vcf.VcfWindow.chromosome">
+<code class="descname">chromosome</code><a class="headerlink" href="#egglib.io._vcf.VcfWindow.chromosome" title="Permalink to this definition">¶</a></dt>
+<dd><p>get the chromosome in the current <a class="reference internal" href="#egglib.io._vcf.VcfWindow" title="egglib.io._vcf.VcfWindow"><code class="xref py py-class docutils literal"><span class="pre">VcfWindow</span></code></a> instance</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.io._vcf.VcfWindow.configure">
+<code class="descname">configure</code><span class="sig-paren">(</span><em>size</em>, <em>step</em>, <em>as_bp</em>, <em>start</em>, <em>stop</em>, <em>max_missing</em><span class="sig-paren">)</span><a class="headerlink" href="#egglib.io._vcf.VcfWindow.configure" title="Permalink to this definition">¶</a></dt>
+<dd><p>Configure a sliding window (see <code class="xref py py-meth docutils literal"><span class="pre">VcfParser.slider()</span></code> for arguments)</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="egglib.io._vcf.VcfWindow.end_bound">
+<code class="descname">end_bound</code><a class="headerlink" href="#egglib.io._vcf.VcfWindow.end_bound" title="Permalink to this definition">¶</a></dt>
+<dd><p>Last position of the current window (last site if the unit is not bp)</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="egglib.io._vcf.VcfWindow.first_site">
+<code class="descname">first_site</code><a class="headerlink" href="#egglib.io._vcf.VcfWindow.first_site" title="Permalink to this definition">¶</a></dt>
+<dd><p>Position of the first actual site in the current window (<code class="docutils literal"><span class="pre">None</span></code> if no sites)</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="egglib.io._vcf.VcfWindow.good">
+<code class="descname">good</code><a class="headerlink" href="#egglib.io._vcf.VcfWindow.good" title="Permalink to this definition">¶</a></dt>
+<dd><p>Checks if <a class="reference internal" href="#egglib.io._vcf.VcfWindow" title="egglib.io._vcf.VcfWindow"><code class="xref py py-class docutils literal"><span class="pre">VcfWindow</span></code></a> instance can continue on the 
+<a class="reference internal" href="#egglib.io.VcfParser" title="egglib.io.VcfParser"><code class="xref py py-class docutils literal"><span class="pre">VcfParser</span></code></a> instance</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="egglib.io._vcf.VcfWindow.last_site">
+<code class="descname">last_site</code><a class="headerlink" href="#egglib.io._vcf.VcfWindow.last_site" title="Permalink to this definition">¶</a></dt>
+<dd><p>Position of the last actual site in the current window (<code class="docutils literal"><span class="pre">None</span></code> if no sites)</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.io._vcf.VcfWindow.next">
+<code class="descname">next</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#egglib.io._vcf.VcfWindow.next" title="Permalink to this definition">¶</a></dt>
+<dd><p>Allows to move forward the sliding window, from the initial position of the
+vcfparser to a chromosomial position passed as parameter ‘stop’ in the configuration
+method, until the last variant of the <a class="reference internal" href="#egglib.io.VcfParser" title="egglib.io.VcfParser"><code class="xref py py-class docutils literal"><span class="pre">VcfParser</span></code></a> instance or of 
+the chromosome read by the sliding window.
+This progression depends of the size window and the increment.  
+To start the sliding window at a specific position, use the method <a class="reference internal" href="#egglib.io.VcfParser.goto" title="egglib.io.VcfParser.goto"><code class="xref py py-meth docutils literal"><span class="pre">VcfParser.goto()</span></code></a>
+method of the <a class="reference internal" href="#egglib.io.VcfParser" title="egglib.io.VcfParser"><code class="xref py py-class docutils literal"><span class="pre">VcfParser</span></code></a> before call the the method <a class="reference internal" href="#egglib.io.VcfParser.slider" title="egglib.io.VcfParser.slider"><code class="xref py py-meth docutils literal"><span class="pre">VcfParser.slider()</span></code></a> 
+of the <a class="reference internal" href="#egglib.io.VcfParser" title="egglib.io.VcfParser"><code class="xref py py-class docutils literal"><span class="pre">VcfParser</span></code></a></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="egglib.io._vcf.VcfWindow.num_samples">
+<code class="descname">num_samples</code><a class="headerlink" href="#egglib.io._vcf.VcfWindow.num_samples" title="Permalink to this definition">¶</a></dt>
+<dd><p>number of samples used by this window</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="egglib.io._vcf.VcfWindow.num_sites">
+<code class="descname">num_sites</code><a class="headerlink" href="#egglib.io._vcf.VcfWindow.num_sites" title="Permalink to this definition">¶</a></dt>
+<dd><p>get the number of sites in the current <a class="reference internal" href="#egglib.io._vcf.VcfWindow" title="egglib.io._vcf.VcfWindow"><code class="xref py py-class docutils literal"><span class="pre">VcfWindow</span></code></a> instance</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="egglib.io._vcf.VcfWindow.start_bound">
+<code class="descname">start_bound</code><a class="headerlink" href="#egglib.io._vcf.VcfWindow.start_bound" title="Permalink to this definition">¶</a></dt>
+<dd><p>First position of the current window (first site if the unit is not bp)</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="legacy-parsers">
+<h2>Legacy parsers<a class="headerlink" href="#legacy-parsers" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="egglib.io.from_clustal">
+<code class="descclassname">egglib.io.</code><code class="descname">from_clustal</code><span class="sig-paren">(</span><em>string</em><span class="sig-paren">)</span><a class="headerlink" href="#egglib.io.from_clustal" title="Permalink to this definition">¶</a></dt>
+<dd><p>Imports a clustal-formatted alignment. The input format is the one
+generated and used by CLUSTALW (see <a class="reference external" href="http://web.mit.edu/meme_v4.9.0/doc/clustalw-format.html">http://web.mit.edu/meme_v4.9.0/doc/clustalw-format.html</a>).</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>string</strong> – input clustal-formatted sequence alignment.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">A new <a class="reference internal" href="toplevel.html#egglib.Align" title="egglib.Align"><code class="xref py py-class docutils literal"><span class="pre">Align</span></code></a> instance.</td>
+</tr>
+</tbody>
+</table>
+<div class="versionchanged">
+<p><span class="versionmodified">Changed in version 3.0.0: </span>Renamed (previous name was <code class="xref py py-func docutils literal"><span class="pre">aln2fas()</span></code>). Input argument is
+a string rather than a file.</p>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="egglib.io.from_staden">
+<code class="descclassname">egglib.io.</code><code class="descname">from_staden</code><span class="sig-paren">(</span><em>string</em>, <em>delete_consensus=True</em><span class="sig-paren">)</span><a class="headerlink" href="#egglib.io.from_staden" title="Permalink to this definition">¶</a></dt>
+<dd><p>Import the output file of the GAP4 program of the
+<a class="reference external" href="http://staden.sourceforge.net/">Staden</a> package.</p>
+<p>The input file should have been generated from a contig alignment by
+the GAP4 contig editor, using the command “dump contig to file”. The
+sequence named <code class="docutils literal"><span class="pre">CONSENSUS</span></code>, if present, is automatically removed
+unless the option <em>delete_consensus</em> is <code class="docutils literal"><span class="pre">False</span></code>.</p>
+<p>Staden’s default convention is followed:</p>
+<ul class="simple">
+<li><code class="docutils literal"><span class="pre">-</span></code> codes for an unknown base and is replaced by <code class="docutils literal"><span class="pre">N</span></code>.</li>
+<li><code class="docutils literal"><span class="pre">*</span></code> codes for an alignment gap and is replaced by <code class="docutils literal"><span class="pre">-</span></code>.</li>
+<li><code class="docutils literal"><span class="pre">.</span></code> represents the same sequence than the consensus at that
+position.</li>
+<li>White space represents missing data and is replaced by <code class="docutils literal"><span class="pre">?</span></code>.</li>
+</ul>
+<div class="versionadded">
+<p><span class="versionmodified">New in version 2.0.1: </span>Add argument <em>delete_consensus</em>.</p>
+</div>
+<div class="versionchanged">
+<p><span class="versionmodified">Changed in version 2.1.0: </span>Read from string or fname.</p>
+</div>
+<div class="versionchanged">
+<p><span class="versionmodified">Changed in version 3.0.0: </span>Renamed <a class="reference internal" href="#egglib.io.from_staden" title="egglib.io.from_staden"><code class="xref py py-func docutils literal"><span class="pre">from_staden()</span></code></a>. Only string input is supported
+now.</p>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="egglib.io.from_genalys">
+<code class="descclassname">egglib.io.</code><code class="descname">from_genalys</code><span class="sig-paren">(</span><em>string</em><span class="sig-paren">)</span><a class="headerlink" href="#egglib.io.from_genalys" title="Permalink to this definition">¶</a></dt>
+<dd><p>Converts Genalys-formatted sequence alignment files to fasta. This
+function imports files generated through the option <em>Save SNPs</em> of
+Genalys 2.8.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>string</strong> – input data as a Genalys-formatted string.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">An <a class="reference internal" href="toplevel.html#egglib.Align" title="egglib.Align"><code class="xref py py-class docutils literal"><span class="pre">Align</span></code></a> instance.</td>
+</tr>
+</tbody>
+</table>
+<div class="versionchanged">
+<p><span class="versionmodified">Changed in version 3.0.0: </span>Renamed <a class="reference internal" href="#egglib.io.from_genalys" title="egglib.io.from_genalys"><code class="xref py py-func docutils literal"><span class="pre">from_genalys()</span></code></a>. Only string input is supported
+now.</p>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="egglib.io.get_fgenesh">
+<code class="descclassname">egglib.io.</code><code class="descname">get_fgenesh</code><span class="sig-paren">(</span><em>string</em>, <em>locus='locus'</em><span class="sig-paren">)</span><a class="headerlink" href="#egglib.io.get_fgenesh" title="Permalink to this definition">¶</a></dt>
+<dd><p>Imports fgenesh output.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>fname</strong> – a string containing fgenesh ouput.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Parma locus:</th><td class="field-body">locus name.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">A <code class="xref py py-class docutils literal"><span class="pre">list</span></code> of <code class="docutils literal"><span class="pre">gene</span></code> and <code class="docutils literal"><span class="pre">CDS</span></code> features
+represented by dictionaries. Note that 5’ partial features
+might not be in the appropriate frame and that it can be
+necessary to add a <code class="docutils literal"><span class="pre">codon_start</span></code> qualifier.</td>
+</tr>
+</tbody>
+</table>
+<div class="versionchanged">
+<p><span class="versionmodified">Changed in version 3.0.0: </span>Input as string. Added <em>locus</em> argument.</p>
+</div>
+</dd></dl>
+
+<dl class="class">
+<dt id="egglib.io.GenBank">
+<em class="property">class </em><code class="descclassname">egglib.io.</code><code class="descname">GenBank</code><span class="sig-paren">(</span><em>fname=None</em>, <em>string=None</em><span class="sig-paren">)</span><a class="headerlink" href="#egglib.io.GenBank" title="Permalink to this definition">¶</a></dt>
+<dd><p>This class represents a GenBank-formatted DNA sequence record.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>fname</strong> – input file name.</li>
+<li><strong>string</strong> – GenBank-formatted string.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Only one of the two arguments <em>fname</em> and <em>string</em> can be
+non-<code class="docutils literal"><span class="pre">None</span></code>. If both are <code class="docutils literal"><span class="pre">None</span></code>, the constructor generates an
+empty instance with sequence of length 0. If <em>fname</em> is
+non-<code class="docutils literal"><span class="pre">None</span></code>, a GenBank record is read from the file with this name.
+If <code class="docutils literal"><span class="pre">string</span></code> is non-<code class="docutils literal"><span class="pre">None</span></code>, a GenBank record is read directly
+from this string. The following variables are read from the parsed
+input if present: <em>accession</em>, <em>definition</em>, <em>title</em>, <em>version</em>,
+<em>GI</em>, <em>keywords</em>, <em>source</em>, <em>references</em> (which is a list), <em>locus</em>
+and <em>others</em>. Their default value is <code class="docutils literal"><span class="pre">None</span></code> except for
+<em>references</em> and <em>others</em> for which default is an empty list.
+<em>source</em> is a (<em>description</em>, <em>species</em>, <em>taxonomy</em>) tuple. Each of
+<em>references</em> is a (<em>header</em>, <em>raw reference</em>) tuple and each of
+<em>others</em> is a (<em>key</em>, <em>raw</em>) tuple.</p>
+<p>In addition to methods documented below, the following operations
+are supported for <code class="docutils literal"><span class="pre">gb</span></code> if it is a <a class="reference internal" href="#egglib.io.GenBank" title="egglib.io.GenBank"><code class="xref py py-class docutils literal"><span class="pre">GenBank</span></code></a> instance:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="28%" />
+<col width="72%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Expression</th>
+<th class="head">Action</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">len(gb)</span></code></td>
+<td>Length of the sequence attached to this record</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">str(gb)</span></code></td>
+<td>GenBank representation of the record</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">for</span> <span class="pre">feat</span> <span class="pre">in</span> <span class="pre">gb</span></code></td>
+<td>Iterate over <a class="reference internal" href="#egglib.io.GenBankFeature" title="egglib.io.GenBankFeature"><code class="xref py py-class docutils literal"><span class="pre">GenBankFeature</span></code></a> instances
+of this record</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="egglib.io.GenBank.add_feature">
+<code class="descname">add_feature</code><span class="sig-paren">(</span><em>feature</em><span class="sig-paren">)</span><a class="headerlink" href="#egglib.io.GenBank.add_feature" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add a feature to the instance. The argument <em>feature</em> must be a
+well-formed <a class="reference internal" href="#egglib.io.GenBankFeature" title="egglib.io.GenBankFeature"><code class="xref py py-class docutils literal"><span class="pre">GenBankFeature</span></code></a> instance.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.io.GenBank.extract">
+<code class="descname">extract</code><span class="sig-paren">(</span><em>from_pos</em>, <em>to_pos</em><span class="sig-paren">)</span><a class="headerlink" href="#egglib.io.GenBank.extract" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a new <a class="reference internal" href="#egglib.io.GenBank" title="egglib.io.GenBank"><code class="xref py py-class docutils literal"><span class="pre">GenBank</span></code></a> instance representing a subset of
+the current instance, from position <em>from_pos</em>  to <em>to_pos</em>. All
+(and only) features that are completely included in the
+specified range are exported.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.io.GenBank.number_of_features">
+<code class="descname">number_of_features</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#egglib.io.GenBank.number_of_features" title="Permalink to this definition">¶</a></dt>
+<dd><p>Give the number of features contained in the instance.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.io.GenBank.rc">
+<code class="descname">rc</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#egglib.io.GenBank.rc" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reverse-complement the instance (in place). All features
+positions and the sequence will be reverted and applied to the
+complementary strand. The features will be sorted in increasing
+start position (after reverting). This method should be applied
+only on genuine nucleotide sequences.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="egglib.io.GenBank.sequence">
+<code class="descname">sequence</code><a class="headerlink" href="#egglib.io.GenBank.sequence" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sequence string (can be modified). Note that changing the
+record’s string might obsolete the features (meaning that the
+setting an invalid sequence might cause the features to point to
+incorrect or out-of-bounds regions of the sequence).</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.io.GenBank.write">
+<code class="descname">write</code><span class="sig-paren">(</span><em>fname</em><span class="sig-paren">)</span><a class="headerlink" href="#egglib.io.GenBank.write" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a file named <em>fname</em> and write the formatted record in.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.io.GenBank.write_stream">
+<code class="descname">write_stream</code><span class="sig-paren">(</span><em>stream</em><span class="sig-paren">)</span><a class="headerlink" href="#egglib.io.GenBank.write_stream" title="Permalink to this definition">¶</a></dt>
+<dd><p>Writes the content of the instance as a Genbank-formatted
+string within the passed file (or file-compatible) stream.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="egglib.io.GenBankFeature">
+<em class="property">class </em><code class="descclassname">egglib.io.</code><code class="descname">GenBankFeature</code><span class="sig-paren">(</span><em>parent</em><span class="sig-paren">)</span><a class="headerlink" href="#egglib.io.GenBankFeature" title="Permalink to this definition">¶</a></dt>
+<dd><p>Instances of this class represent features associated to a GenBank
+instance. They should not be instantiated or used separatedly of a
+<a class="reference internal" href="#egglib.io.GenBank" title="egglib.io.GenBank"><code class="xref py py-class docutils literal"><span class="pre">GenBank</span></code></a> instance. The constructor creates an empty
+instance (although a <a class="reference internal" href="#egglib.io.GenBank" title="egglib.io.GenBank"><code class="xref py py-class docutils literal"><span class="pre">GenBank</span></code></a> instance must be passed as
+<em>parent</em>) and either <code class="xref py py-meth docutils literal"><span class="pre">set()</span></code> or <a class="reference internal" href="#egglib.io.GenBankFeature.parse" title="egglib.io.GenBankFeature.parse"><code class="xref py py-meth docutils literal"><span class="pre">parse()</span></code></a> must be used
+subsequently.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>parent</strong> – a <a class="reference internal" href="#egglib.io.GenBank" title="egglib.io.GenBank"><code class="xref py py-class docutils literal"><span class="pre">GenBank</span></code></a> instance to which the feature
+should be attached.</td>
+</tr>
+</tbody>
+</table>
+<p>In addition to methods documented below, the following operations
+are supported for <code class="docutils literal"><span class="pre">feat</span></code> if it is a <a class="reference internal" href="#egglib.io.GenBankFeature" title="egglib.io.GenBankFeature"><code class="xref py py-class docutils literal"><span class="pre">GenBankFeature</span></code></a>
+instance:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="26%" />
+<col width="74%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Expression</th>
+<th class="head">Action</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">str(feat)</span></code></td>
+<td>GenBank representation of the feature</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="egglib.io.GenBankFeature.add_qualifier">
+<code class="descname">add_qualifier</code><span class="sig-paren">(</span><em>key</em>, <em>value</em><span class="sig-paren">)</span><a class="headerlink" href="#egglib.io.GenBankFeature.add_qualifier" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add a qualifier to the instance’s qualifiers.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.io.GenBankFeature.copy">
+<code class="descname">copy</code><span class="sig-paren">(</span><em>genbank</em><span class="sig-paren">)</span><a class="headerlink" href="#egglib.io.GenBankFeature.copy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a copy of the current instance, connected to the
+<a class="reference internal" href="#egglib.io.GenBank" title="egglib.io.GenBank"><code class="xref py py-class docutils literal"><span class="pre">GenBank</span></code></a> instance <em>genbank</em>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.io.GenBankFeature.get_sequence">
+<code class="descname">get_sequence</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#egglib.io.GenBankFeature.get_sequence" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the string corresponding to this feature. If the
+positions pass beyond the end of the parent’s sequence, a
+<a class="reference external" href="https://docs.python.org/2.7/library/exceptions.html#exceptions.RuntimeError" title="(in Python v2.7)"><code class="xref py py-exc docutils literal"><span class="pre">RuntimeError</span></code></a> (and not an
+<a class="reference external" href="https://docs.python.org/2.7/library/exceptions.html#exceptions.IndexError" title="(in Python v2.7)"><code class="xref py py-exc docutils literal"><span class="pre">IndexError</span></code></a>) is raised.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.io.GenBankFeature.get_start">
+<code class="descname">get_start</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#egglib.io.GenBankFeature.get_start" title="Permalink to this definition">¶</a></dt>
+<dd><p>First position of the first (or unique) segment, in such a way
+that <code class="docutils literal"><span class="pre">start()</span></code> is always smaller than <code class="docutils literal"><span class="pre">stop()</span></code>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.io.GenBankFeature.get_stop">
+<code class="descname">get_stop</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#egglib.io.GenBankFeature.get_stop" title="Permalink to this definition">¶</a></dt>
+<dd><p>Last position of the last (or unique) segment, in such a way
+that <code class="docutils literal"><span class="pre">start()</span></code> is always smaller than <code class="docutils literal"><span class="pre">stop()</span></code>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.io.GenBankFeature.get_type">
+<code class="descname">get_type</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#egglib.io.GenBankFeature.get_type" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the type string of the instance.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.io.GenBankFeature.parse">
+<code class="descname">parse</code><span class="sig-paren">(</span><em>string</em><span class="sig-paren">)</span><a class="headerlink" href="#egglib.io.GenBankFeature.parse" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update feature information from information read in a
+GenBank-formatted string.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.io.GenBankFeature.qualifiers">
+<code class="descname">qualifiers</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#egglib.io.GenBankFeature.qualifiers" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a dictionary with all qualifier values. This method
+cannot be used to change data within the instance. Note that
+changes of the returned dictionary don’t affect data contained
+in the instance.</p>
+<div class="versionchanged">
+<p><span class="versionmodified">Changed in version 2.1.0: </span>Meaning changed.</p>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.io.GenBankFeature.rc">
+<code class="descname">rc</code><span class="sig-paren">(</span><em>length=None</em><span class="sig-paren">)</span><a class="headerlink" href="#egglib.io.GenBankFeature.rc" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reverse-complement the feature: apply it to the complement
+strand and reverse positions counting from the end. The <em>length</em>
+argument specifies the length of the complete sequence and is
+usually not required.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.io.GenBankFeature.shift">
+<code class="descname">shift</code><span class="sig-paren">(</span><em>offset</em><span class="sig-paren">)</span><a class="headerlink" href="#egglib.io.GenBankFeature.shift" title="Permalink to this definition">¶</a></dt>
+<dd><p>Shift all positions according to the (positive of negative)
+argument.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.io.GenBankFeature.update">
+<code class="descname">update</code><span class="sig-paren">(</span><em>feat_type</em>, <em>location</em>, <em>**qualifiers</em><span class="sig-paren">)</span><a class="headerlink" href="#egglib.io.GenBankFeature.update" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update feature information.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>feat_type</strong> – a string identifying the feature type (such as
+<code class="docutils literal"><span class="pre">&quot;gene&quot;</span></code>, <code class="docutils literal"><span class="pre">&quot;CDS&quot;</span></code>, <code class="docutils literal"><span class="pre">&quot;misc_feature&quot;</span></code>, etc.). All
+strings are acceppted.</li>
+<li><strong>location</strong> – a <a class="reference internal" href="#egglib.io.GenBankFeatureLocation" title="egglib.io.GenBankFeatureLocation"><code class="xref py py-class docutils literal"><span class="pre">GenBankFeatureLocation</span></code></a> instance
+giving the feature’s location.</li>
+<li><strong>qualifiers</strong> – other qualifiers must be passed as keyword
+arguments. It is not allowed to use <code class="docutils literal"><span class="pre">&quot;type&quot;</span></code> as a
+qualifier keyword.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="egglib.io.GenBankFeatureLocation">
+<em class="property">class </em><code class="descclassname">egglib.io.</code><code class="descname">GenBankFeatureLocation</code><span class="sig-paren">(</span><em>string=None</em><span class="sig-paren">)</span><a class="headerlink" href="#egglib.io.GenBankFeatureLocation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Hold the location of a GenBank feature. Supports various forms of
+location as defined in the GenBank format specification. The
+constructor contains a parser working from a GenBank-formatted
+string. By default, features are on the forward strand and segmented
+features are ranges (not orders).</p>
+<p>In addition to methods documented below, the following operations
+are supported for <code class="docutils literal"><span class="pre">loc</span></code> if it is a
+<a class="reference internal" href="#egglib.io.GenBankFeatureLocation" title="egglib.io.GenBankFeatureLocation"><code class="xref py py-class docutils literal"><span class="pre">GenBankFeatureLocation</span></code></a> instance:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="31%" />
+<col width="69%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Expression</th>
+<th class="head">Action</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">len(loc)</span></code></td>
+<td>Number of segments</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">loc[index]</span></code></td>
+<td>Return the <code class="docutils literal"><span class="pre">(fist,</span> <span class="pre">last)</span></code> tuple for the corresponding segment</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">for</span> <span class="pre">(first,</span> <span class="pre">last)</span> <span class="pre">in</span> <span class="pre">loc</span></code></td>
+<td>Iterator over segments</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">str(params)</span></code></td>
+<td>Generate a GenBank representation</td>
+</tr>
+</tbody>
+</table>
+<p><a class="reference internal" href="#egglib.io.GenBankFeatureLocation" title="egglib.io.GenBankFeatureLocation"><code class="xref py py-class docutils literal"><span class="pre">GenBankFeatureLocation</span></code></a> supports iteration and allows to
+iterate over <code class="docutils literal"><span class="pre">(first,last)</span></code> segments regardless of their types
+(for a single-base segment a position <em>position</em>, the tuple
+<code class="docutils literal"><span class="pre">(position,position)</span></code> is returned; similar 2-item tuples are
+returned for other types of segment as well).</p>
+<dl class="method">
+<dt id="egglib.io.GenBankFeatureLocation.add_base_choice">
+<code class="descname">add_base_choice</code><span class="sig-paren">(</span><em>first</em>, <em>last</em>, <em>left_partial=False</em>, <em>right_partial=False</em><span class="sig-paren">)</span><a class="headerlink" href="#egglib.io.GenBankFeatureLocation.add_base_choice" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add a segment corresponding to a single base chosen within a
+base range. If no segments were previously enter, set the unique
+segment location. <em>first</em> and <em>last</em> must be integers. The
+feature will be set between <em>first</em> and <em>last</em> positions,
+including both limits. If the feature is intended to be placed
+on the complement strand between positions, say, 1127 and 1482,
+one must use <code class="docutils literal"><span class="pre">add_base_choice(1127,1482)</span></code> in combination with
+<code class="docutils literal"><span class="pre">set_complement()</span></code>. All entered positions must be larger than
+any positions entered previously and <em>last</em> must be strictly
+larger than <em>first</em>. <em>left_partial</em> and/or <em>right_partial</em> must
+be set to <code class="docutils literal"><span class="pre">True</span></code> if, respectively, the real start of the
+segment lies 5’ of <em>first</em> and/or the real end of the segment
+lies beyond <em>last</em> (relatively to the forward strand and
+consistently with the numbering system).</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.io.GenBankFeatureLocation.add_base_range">
+<code class="descname">add_base_range</code><span class="sig-paren">(</span><em>first</em>, <em>last</em>, <em>left_partial=False</em>, <em>right_partial=False</em><span class="sig-paren">)</span><a class="headerlink" href="#egglib.io.GenBankFeatureLocation.add_base_range" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add a base range the feature. If no segments were previously
+enter, set the unique segment location. <em>first</em> and <em>last</em> must
+be integers. The feature will be set between <em>first</em> and <em>last</em>
+positions, including both limits. If the feature is intended to
+be placed on the complement strand between positions, say, 1127
+and 1482, one must use <code class="docutils literal"><span class="pre">add_base_range(1127,1482)</span></code> in
+combination with <code class="docutils literal"><span class="pre">set_complement()</span></code>. All entered positions
+must be larger than any positions entered previously and <em>last</em>
+must be larger than <em>first</em> (but can be equal). <em>left_partial</em>
+and/or <em>right_partial</em> must be set to <code class="docutils literal"><span class="pre">True</span></code> if, respectively,
+the real start of the segment lies 5’ of <em>first</em> and/or the real
+end of the segment lies beyond <em>last</em> (relatively to the forward
+strand and consistently with the numbering system).</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.io.GenBankFeatureLocation.add_between_base">
+<code class="descname">add_between_base</code><span class="sig-paren">(</span><em>position</em><span class="sig-paren">)</span><a class="headerlink" href="#egglib.io.GenBankFeatureLocation.add_between_base" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add a segment lying between two consecutive  bases. If no
+segments were entered previously, set the unique segment
+location. <em>position</em> must be an integer. The feature will be set
+between <em>position</em> and <em>position</em> + 1. If the feature is
+intended to be placed on the complement strand between
+positions, say, 1127 and 1128, one must use
+<code class="docutils literal"><span class="pre">add_between_base(1127)</span></code> in combination with
+<code class="docutils literal"><span class="pre">set_complement()</span></code>. All entered positions must be larger than
+any positions entered previously.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.io.GenBankFeatureLocation.add_single_base">
+<code class="descname">add_single_base</code><span class="sig-paren">(</span><em>position</em><span class="sig-paren">)</span><a class="headerlink" href="#egglib.io.GenBankFeatureLocation.add_single_base" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add a single-base segment to the feature. If no segments were
+entered previously, set the unique segment location. <em>position</em>
+must be an integer. All entered positions must be larger than
+any positions entered previously.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.io.GenBankFeatureLocation.as_order">
+<code class="descname">as_order</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#egglib.io.GenBankFeatureLocation.as_order" title="Permalink to this definition">¶</a></dt>
+<dd><p>Define the feature as an order instead of a range.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.io.GenBankFeatureLocation.as_range">
+<code class="descname">as_range</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#egglib.io.GenBankFeatureLocation.as_range" title="Permalink to this definition">¶</a></dt>
+<dd><p>Define the features as a range, with is the default.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.io.GenBankFeatureLocation.copy">
+<code class="descname">copy</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#egglib.io.GenBankFeatureLocation.copy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a deep copy of the current instance.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.io.GenBankFeatureLocation.is_complement">
+<code class="descname">is_complement</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#egglib.io.GenBankFeatureLocation.is_complement" title="Permalink to this definition">¶</a></dt>
+<dd><p><code class="docutils literal"><span class="pre">True</span></code> if the feature is on the complement strand.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.io.GenBankFeatureLocation.is_range">
+<code class="descname">is_range</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#egglib.io.GenBankFeatureLocation.is_range" title="Permalink to this definition">¶</a></dt>
+<dd><p><code class="docutils literal"><span class="pre">True</span></code> if the feature is a range (the default), <code class="docutils literal"><span class="pre">False</span></code> if
+it is an order.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.io.GenBankFeatureLocation.rc">
+<code class="descname">rc</code><span class="sig-paren">(</span><em>length</em><span class="sig-paren">)</span><a class="headerlink" href="#egglib.io.GenBankFeatureLocation.rc" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reverse the feature positions: positions are modified to be
+counted from the end. The <em>length</em> of the complete sequence must
+be passed.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.io.GenBankFeatureLocation.set_complement">
+<code class="descname">set_complement</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#egglib.io.GenBankFeatureLocation.set_complement" title="Permalink to this definition">¶</a></dt>
+<dd><p>Place the feature on the complement strand.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.io.GenBankFeatureLocation.set_forward">
+<code class="descname">set_forward</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#egglib.io.GenBankFeatureLocation.set_forward" title="Permalink to this definition">¶</a></dt>
+<dd><p>Place the feature on the forward (not complement) strand, which
+is the default.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.io.GenBankFeatureLocation.shift">
+<code class="descname">shift</code><span class="sig-paren">(</span><em>offset</em><span class="sig-paren">)</span><a class="headerlink" href="#egglib.io.GenBankFeatureLocation.shift" title="Permalink to this definition">¶</a></dt>
+<dd><p>Shift all positions according to the (positive of negative)
+argument.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="stats.html" title="Diversity statistics"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="tools.html" title="Generic tools"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../contents.html">EggLib&#39;s documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../toc.html" >Contents</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="index.html" >Python Module</a> &#187;</li> 
+      </ul>
+    </div>
+<!--
+        <address style="text-align: right;"><small>Hosted by&nbsp;
+        <a href="http://sourceforge.net/projects/egglib"><img src="http://sflogo.sourceforge.net/sflogo.php?group_id=232965&amp;type=8" width="80" height="15" alt="Get EggLib at SourceForge.net. Fast, secure and Free Open Source software downloads" / ALIGN=RIGHT BORDER=0></a>
+        </address>
+-->
+
+  </body>
+</html>

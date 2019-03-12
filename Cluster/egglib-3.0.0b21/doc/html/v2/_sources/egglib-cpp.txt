@@ -1,0 +1,104 @@
+.. _egglib-cpp:
+
+===========
+C++ library
+===========
+
+The **egglib-cpp** package contains a fully object-oriented C++ library
+providing efficient implementation of task related with sequence data
+storage, simulation and polymorphism analysis.
+
+Documentation
+=============
+
+The documentation is available as a separate
+`doxygen-generated reference manual <cpp/index.html>`_.
+
+
+Writing C++ programs using egglib-cpp
+=====================================
+
+Here are the recommendations for using egglib-cpp in C++ applications:
+
+    * egglib-cpp headers will be available in a ``egglib-cpp/``
+      directory so it is necessary to include them as in the following
+      C++ code:
+
+    .. code-block:: c++
+                
+        #include <egglib-cpp/Align.hpp>
+      
+    * Link your program against ``egglib-cpp`` (as in ``-legglib-cpp``).
+      The library is static.
+      
+    * All egglib-cpp objects are defined in an ``egglib`` namespace.
+
+
+The following example shows how to perform coalescent simulations to
+obtain and display the average and standard deviation of Tajima's D over
+a pre-defined number of replicates and with a fixed number of
+segregating sites
+
+.. code-block:: c++
+
+    // test.cpp
+
+    #include <iostream>
+    using namespace std;
+
+    #include <egglib-cpp/Arg.hpp>
+    #include <egglib-cpp/Controller.hpp>
+    #include <egglib-cpp/DataMatrix.hpp>
+    #include <egglib-cpp/EggException.hpp>
+    #include <egglib-cpp/Mutator.hpp>
+    #include <egglib-cpp/NucleotideDiversity.hpp>
+    #include <egglib-cpp/ParamSet.hpp>
+    #include <egglib-cpp/Random.hpp>
+    using namespace egglib;
+
+    const unsigned int NREPETS = 1000;
+    const double S = 20;
+
+    int main(int argn, char* argv[]) {
+
+        try {
+            ParamSet paramSet;      // creates a parameter holder
+            paramSet.singles(0, 20);  // sets the number of samples
+            Random random;          // creates a random number generator
+            Controller controller(&paramSet, &random);  // creates the coalescent simulator
+            Arg* arg;     // creates a Ancestral Recombination Graph pointer
+            Mutator mutator;    // polymorphism generator
+            mutator.fixedNumberOfMutations(S);  // fix number of polymorphic sites
+            NucleotideDiversity pol; // polymorphism computer
+            DataMatrix data;    // alignment object
+            
+            double sum=0.;
+            double sum2=0.;
+            
+            for (unsigned int i=0; i<NREPETS; i++) {
+                controller.reset();
+                while (controller.step()>1);    // performs simulations
+                arg = controller.getArg();      // gets the tree address
+                data = mutator.mute(arg, &random);  // performs simulations
+                pol.load(data, false, 1, 0, "01", false);  // analyzes binary data
+                sum += pol.D();
+                sum2 += pol.D()*pol.D();
+            }
+            
+            cout << "Tajima's D: " << sum/NREPETS;
+            cout << " [+- " << sum2/NREPETS - (sum * sum /(NREPETS*NREPETS)) << "]" << endl;
+        }
+        catch (EggException e) {
+            cerr << "The following error occurred: " << e.what() << endl;
+            return -1;
+        }
+        return 0;
+    }
+
+
+This program can be compiled with the following commands:
+
+.. code-block:: python
+
+    g++ -c test.cpp
+    g++ -o test test.o -legglib-cpp

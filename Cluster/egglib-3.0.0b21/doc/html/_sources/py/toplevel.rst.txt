@@ -1,0 +1,49 @@
+.. _generic:
+
+-------------------------
+Genetic data holder types
+-------------------------
+
+The classes :class:`~.Align` and :class:`~.Container` allow store and
+manipulates genetic data without restriction on data encoding.
+:class:`~.Tree` allows to store and manipulate trees.
+
+Align
+=====
+
+.. autoclass:: egglib.Align
+    :members:
+    :inherited-members:
+    :show-inheritance:
+
+Container
+=========
+
+.. autoclass:: egglib.Container
+    :members:
+    :inherited-members:
+    :show-inheritance:
+
+Tree
+====
+
+.. autoclass:: egglib.Tree
+    :members:
+
+Helpers
+=======
+
+.. autoclass:: egglib._interface.DataBase
+    :members:
+
+.. autoclass:: egglib.SampleView
+    :members:
+
+.. autoclass:: egglib.SequenceView
+    :members:
+
+.. autoclass:: egglib.GroupView
+    :members:
+
+.. autoclass:: egglib.Node
+    :members:

@@ -1,0 +1,168 @@
+.. egglib documentation master file, created by
+   sphinx-quickstart on Tue Nov 10 21:49:03 2009.
+
+====================
+EggLib documentation
+====================
+
+EggLib is a C++/Python library and program package for evolutionary
+genetics and genomics. Main features are
+sequence data management, sequence polymorphism analysis, coalescent
+simulations and Approximate Bayesian Computation. EggLib is a flexible
+Python module with a performant underlying C++ library (which can be
+used independently), and allows fast and intuitive development of Python
+programs and scripts. A number of pre-programmed applications of EggLib
+possibilities are available interactively. To get an idea of the
+possibilities offered by EggLib, see the :ref:`manual` section.
+
+.. note::
+
+    EggLib version 2.1 is now in archive mode while EggLib version 3.0
+    is in beta. Bugs in EggLib 2.1 will be fixed if they are reported
+    but we encourage users to try the new version of EggLib in order to
+    report bugs or incorrect results.
+
+    `Go to EggLib 3 web site <http://mycor.nancy.inra.fr/egglib>`_.
+
+**Get EggLib:** :ref:`instructions <install>` -- `download <http://sourceforge.net/projects/egglib/files/>`_.
+
+**Citation:** De Mita S. and M. Siol. 2012. EggLib: processing, analysis and simulation tools for population genetics and genomics. *BMC Genet.* **13**:27. `Open access <http://www.biomedcentral.com/1471-2156/13/27/abstract>`_.
+
+------------
+What's new ?
+------------
+
+    * March 4, 2016: Release of version 2.1.11 (in which an occasional
+      bug if eggcoal is fixed).
+
+    * March 23, 2014: Version 2.1.10 supports Bio++ 2.2.0 and higher but
+      does not support earlier versions of Bio++. Note that this version
+      also fix a minor problem with the coalescent simulator that only
+      appears when you deal directly from low-level classes. Only the
+      source code is released.
+
+    * October 04, 2014: Version 2.1.9 is out to fix a rather minor error
+      affecting the Staden parser only (in particular ``staden2fasta``).
+
+    * September 23, 2014: Version 2.1.8 is out to fix a heavy error
+      affecting the ``abc_sample`` command and more precisely the
+      ``TPS``, ``TPF`` and ``TPK`` summary statistics sets. The error
+      was that the program used only the last locus for computing
+      per-population :math:`\pi` (ignoring all previous ones). The three
+      summary statistics sets are fixed. This error did not affect other
+      summary statistics sets or the other statistics of those three
+      summary statistics sets. Since this behaviour was consistent for
+      both observed data sets and simulations, the consequence of the
+      error was, in principle, a complete lack of resolution of these
+      summary statistics sets rather than erroneous results, but it is
+      much likely that results using these summary statistics sets were
+      inaccurate.
+
+      Also: version 2.2.0 has been elevated to version 3 due to
+      large-scale changes in the interface. A preliminary package of
+      version 3 is `out <version3/index.html>`_ (for testing purpose).
+    * November 20, 2013: The pre-compiled package of version 2.1.7 is
+      available for Python 2.7 32 bits.
+    * November 7, 2013: Version 2.1.7 (source only, at the moment) is out
+      to include minor changes. Warning: If you use non-standard genetic
+      codes, you must update because there was an error preventing the code
+      argument to be passed to underlying polymorphism analysis routines in
+      egglib-py.
+..  * April 22, 2013: Version 2.1.6 is out to match version 2.1.0 of Bio++.
+..    No other change has been made. Meanwhile, egglib 2.2.0 is still under
+..    development: the C++ library has been redesigned for improved
+..    performance, VCF and GFF3 support has been included population genomics
+..    analyses and we are now incorporating additional summary statistics.
+..  * October 20, 2012: Release of version 2.1.5 incorporating small
+..    changes. Be careful if you have used or using the SM model in the
+..    ABC framework as the parameters were not named properly.
+..  * September 4, 2012: Release of version 2.1.4 with several bug corrections.
+..    One of the bugs can be a trouble: when outgroup sequences were placed
+..    anywhere else but a the end of the alignment, some statistics (those
+..    computed by HaplotypeDiversity: Fst, Kst, Gst, Hst and Snn) were
+..    incorrect due to failing to consider the last sequences.
+..  * August, 2012: Version 2.2.0 is now in development. The new coalescent
+..    simulator incorporating a number of additional features but mostly
+..    a hopefully faster reimplementation has been written. The rest of the
+..    C++ library is now under similar refactoring with the aim of
+..    improving performance. We will attempt to keep the interface change
+..    at the Python level to the strict minimum.
+..  * May 10, 2012: Release of version 2.1.3 with several bug corrections.
+..    One of the bug concerned the TPF summary statistics set in ABC, and another prevented execution of the Python module in Windows
+..    systems.
+..  * February 8, 2012: Release of version 2.1.2 with several bug corrections (especially one concerning the number of orientable sites).
+..  * January 26, 2012: Release of version 2.1.1 with updated links in the documentation and a single small change.
+..    2.1.1 is still beta and available in the `future <http://sourceforge.net/projects/egglib/files/future/>`_ directory.
+..    The default version (available in the `current <http://sourceforge.net/projects/egglib/files/current/>`_ directory) has the bugs that were fixed in 2.1.0 and 2.1.1 (see :ref:`History <history>`).
+..  * January 26, 2012: EggLib moved from seqlib.sourceforge.net to egglib.sourceforge.net.
+..  * January 24, 2012: Version 2.1.0 is available in the `future <http://sourceforge.net/projects/egglib/files/future/>`_ directory.
+..    This version includes parallel computing, a test suite and a large number of bug fixes. More changes (including programming
+..    interface changes) are planned for the next version 2.1.1.
+..  * November 7, 2011: Release of the slightly improved version 2.0.3.
+..  * September 16, 2011: Release of version 2.0.2: the behaviour of methods :meth:`polymorphism` and :meth:`polymorphismBPP` of :class:`Align` is
+..    changed and some statistics are now longer returned when they are not defined. See :ref:`History <history>` for more details and a full list
+..    of changes.
+..  * May 11, 2011: Pre-compiled Windows modules are available.
+
+--------
+Synopsis
+--------
+
+    - An underlying :ref:`egglib-cpp` which might be used independently.
+    - Two standalone programs:
+        - :ref:`eggcoal`: an extensive coalescent simulator.
+        - :ref:`eggstats`: a simple command line tool for analyzing
+          diversity in fasta files.
+    - A flexible Python module bringing together the C++ library and
+      additional high-level tools: :ref:`egglib-py`.
+    - A script ``egglib`` providing a number of modular tools
+      for processing and analyzing sequence data (and others). See :ref:`apps`.
+
+-------------
+Documentation
+-------------
+
+These pages describe the Python module and the C++ library. They are
+available as an independent downloadable archive from the
+`download site <http://sourceforge.net/projects/egglib/files/current/>`_.
+A pdf version of the general description of EggLib and reference manual
+of egglib-py is available
+`here <http://sourceforge.net/projects/egglib/files/current/egglib.pdf/download>`_
+and a pdf version of the reference manual of the C++ library is available
+`there <http://sourceforge.net/projects/egglib/files/current/egglib-cpp.pdf/download>`_.
+
+=================
+Detailed contents
+=================
+
+.. toctree::
+    :maxdepth: 4
+
+    installation
+
+    manual
+
+    eggcoal
+    
+    eggstats
+
+    egglib-cpp
+
+    egglib-py
+
+    documentation-utils
+
+    authors
+
+    acknowledgments
+
+    history
+
+==================
+Indices and tables
+==================
+
+* :ref:`genindex`
+* :ref:`modindex`
+* :ref:`search`
+

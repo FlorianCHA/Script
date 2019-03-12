@@ -1,0 +1,582 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Encoding of data &#8212; EggLib&#39;s documentation</title>
+    <link rel="stylesheet" href="../_static/egglibdoc.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '3.0.0b21',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="shortcut icon" href="../_static/icon.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Computing diversity statistics" href="stats.html" />
+    <link rel="prev" title="Accessing and editing data" href="base-2.html" />
+    <script type="text/javascript">
+      // intelligent scrolling of the sidebar content
+      $(window).scroll(function() {
+        var sb = $('.sphinxsidebarwrapper');
+        var win = $(window);
+        var sbh = sb.height();
+        var offset = $('.sphinxsidebar').position()['top'];
+        var wintop = win.scrollTop();
+        var winbot = wintop + win.innerHeight();
+        var curtop = sb.position()['top'];
+        var curbot = curtop + sbh;
+        // does sidebar fit in window?
+        if (sbh < win.innerHeight()) {
+          // yes: easy case -- always keep at the top
+          sb.css('top', $u.min([$u.max([0, wintop - offset - 10]),
+                                $(document).height() - sbh - 200]));
+        } else {
+          // no: only scroll if top/bottom edge of sidebar is at
+          // top/bottom edge of window
+          if (curtop > wintop && curbot > winbot) {
+            sb.css('top', $u.max([wintop - offset - 10, 0]));
+          } else if (curtop < wintop && curbot < winbot) {
+            sb.css('top', $u.min([winbot - sbh - offset - 20,
+                                  $(document).height() - sbh - 200]));
+          }
+        }
+      });
+    </script>
+  </head>
+  <body>
+<div style="background-color: white; text-align: left; padding: 0px 0px 0px 0px">
+<a href="../index.html"><img src="../_static/banner.png" border="0" alt="EggLib"/></a>
+</div>
+
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="stats.html" title="Computing diversity statistics"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="base-2.html" title="Accessing and editing data"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../contents.html">EggLib&#39;s documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../toc.html" >Contents</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="index.html" >Manual</a> &#187;</li>
+          <li class="nav-item nav-item-3"><a href="base.html" accesskey="U">The <code class="docutils literal"><span class="pre">Align</span></code> and <code class="docutils literal"><span class="pre">Container</span></code> classes</a> &#187;</li> 
+      </ul>
+    </div>
+
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../contents.html">
+              <img class="logo" src="../_static/egglib_small.bmp" alt="Logo"/>
+            </a></p>
+  <h3><a href="../contents.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Encoding of data</a><ul>
+<li><a class="reference internal" href="#the-ascii-code">The ASCII code</a></li>
+<li><a class="reference internal" href="#converting-integers-from-to-characters">Converting integers from/to characters</a></li>
+<li><a class="reference internal" href="#facilities-available-in-align-container-objects">Facilities available in <code class="docutils literal"><span class="pre">Align</span></code>/<code class="docutils literal"><span class="pre">Container</span></code> objects</a><ul>
+<li><a class="reference internal" href="#automatic-conversion-of-string-input">Automatic conversion of string input</a></li>
+<li><a class="reference internal" href="#functions-allowing-conversion-of-integer-output">Functions allowing conversion of integer output</a></li>
+<li><a class="reference internal" href="#out-of-range-allele-values">Out of range allele values</a></li>
+<li><a class="reference internal" href="#mapping-alleles">Mapping alleles</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#protein-translation">Protein translation</a><ul>
+<li><a class="reference internal" href="#the-tools-translate-function">The <code class="docutils literal"><span class="pre">tools.translate()</span></code> function</a><ul>
+<li><a class="reference internal" href="#smart-translation">“Smart” translation</a></li>
+<li><a class="reference internal" href="#reading-frame">Reading frame</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#the-tools-translator-class">The <code class="docutils literal"><span class="pre">tools.Translator</span></code> class</a></li>
+<li><a class="reference internal" href="#detecting-open-reading-frames-and-processing-stop-codons">Detecting open reading frames and processing stop codons</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="base-2.html"
+                        title="previous chapter">Accessing and editing data</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="stats.html"
+                        title="next chapter">Computing diversity statistics</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/manual/base-3.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="encoding-of-data">
+<span id="encoding"></span><h1>Encoding of data<a class="headerlink" href="#encoding-of-data" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="the-ascii-code">
+<h2>The ASCII code<a class="headerlink" href="#the-ascii-code" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference internal" href="../py/toplevel.html#egglib.Align" title="egglib.Align"><code class="xref py py-class docutils literal"><span class="pre">Align</span></code></a> and <a class="reference internal" href="../py/toplevel.html#egglib.Container" title="egglib.Container"><code class="xref py py-class docutils literal"><span class="pre">Container</span></code></a>, and therefore much of EggLib functionality,
+only consider numeric (integers) data. To increase flexibility, this feature is
+completely exposed, meaning that these classes communicate using integers. Still, as
+sequence (particularly nucleotides) are more frequently used, strings are silently
+processed. The conversion uses the <a class="reference external" href="http://www.asciitable.com/">ASCII table</a> which
+provides a consistent mapping of all characters used in biological sequences to integers.
+One should consider that the data used by EggLib are actually signed integers, but that,
+for convenience, data can be provided as the character equivalent in the ASCII table,
+an automatic conversion to strings is performed by several functions.</p>
+</div>
+<div class="section" id="converting-integers-from-to-characters">
+<h2>Converting integers from/to characters<a class="headerlink" href="#converting-integers-from-to-characters" title="Permalink to this headline">¶</a></h2>
+<p>You may never need to convert characters to integers, since EggLib will do it whenever
+it allows data input. Still, there is a builtin function to do it in Python: <a class="reference external" href="https://docs.python.org/2.7/library/functions.html#ord" title="(in Python v2.7)"><code class="xref py py-func docutils literal"><span class="pre">ord()</span></code></a>.
+The opposite operation is <a class="reference external" href="https://docs.python.org/2.7/library/functions.html#chr" title="(in Python v2.7)"><code class="xref py py-func docutils literal"><span class="pre">chr()</span></code></a>. We will see how it can be used.
+All methods of <code class="xref py py-class docutils literal"><span class="pre">Align</span></code>, <code class="xref py py-class docutils literal"><span class="pre">Container</span></code>, and
+<code class="xref py py-class docutils literal"><span class="pre">SequenceView</span></code> that return individual data entries return them as integers. The
+reason behind this is that this approach is generic to whatever type of variation the data are
+supposed to represent. The example below shows that extracting data using
+<a class="reference internal" href="../py/toplevel.html#egglib.Align.get_i" title="egglib.Align.get_i"><code class="xref py py-meth docutils literal"><span class="pre">Align.get_i()</span></code></a>, <a class="reference internal" href="../py/toplevel.html#egglib.Align.column" title="egglib.Align.column"><code class="xref py py-meth docutils literal"><span class="pre">Align.column()</span></code></a>, or <code class="xref py py-class docutils literal"><span class="pre">SequenceView</span></code> always returns integers, and
+illustrates how one can convert them back to strings:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">aln</span> <span class="o">=</span> <span class="n">egglib</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">from_fasta</span><span class="p">(</span><span class="s1">&#39;align4.fas&#39;</span><span class="p">,</span> <span class="n">groups</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">aln</span><span class="o">.</span><span class="n">get_i</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+<span class="nb">print</span> <span class="n">x</span>
+<span class="nb">print</span> <span class="nb">chr</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="mi">65</span> <span class="n">A</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">site</span> <span class="o">=</span> <span class="n">aln</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">outgroup</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="nb">print</span> <span class="n">site</span>
+<span class="nb">print</span> <span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">chr</span><span class="p">,</span> <span class="n">site</span><span class="p">))</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">[</span><span class="mi">65</span><span class="p">,</span> <span class="mi">65</span><span class="p">,</span> <span class="mi">65</span><span class="p">,</span> <span class="mi">65</span><span class="p">,</span> <span class="mi">65</span><span class="p">,</span> <span class="mi">65</span><span class="p">]</span> <span class="n">AAAAAA</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">seq</span> <span class="o">=</span> <span class="n">aln</span><span class="o">.</span><span class="n">get_sequence</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">motif</span> <span class="o">=</span> <span class="n">seq</span><span class="p">[</span><span class="mi">8</span><span class="p">:</span><span class="mi">12</span><span class="p">]</span>
+<span class="nb">print</span> <span class="n">motif</span>
+<span class="nb">print</span> <span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">chr</span><span class="p">,</span> <span class="n">motif</span><span class="p">))</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">[</span><span class="mi">71</span><span class="p">,</span> <span class="mi">65</span><span class="p">,</span> <span class="mi">71</span><span class="p">,</span> <span class="mi">67</span><span class="p">]</span> <span class="n">GAGC</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="facilities-available-in-align-container-objects">
+<h2>Facilities available in <a class="reference internal" href="../py/toplevel.html#egglib.Align" title="egglib.Align"><code class="xref py py-class docutils literal"><span class="pre">Align</span></code></a>/<a class="reference internal" href="../py/toplevel.html#egglib.Container" title="egglib.Container"><code class="xref py py-class docutils literal"><span class="pre">Container</span></code></a> objects<a class="headerlink" href="#facilities-available-in-align-container-objects" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="automatic-conversion-of-string-input">
+<h3>Automatic conversion of string input<a class="headerlink" href="#automatic-conversion-of-string-input" title="Permalink to this headline">¶</a></h3>
+<p>As mentioned earlier, all functions that allow the user to provide data entries
+support silently one-character strings instead of integers (and multi-character strings
+instead of list of integers). If needed, both type of data can be mixed,
+they are not considered to be different in anyway. Note that integers have a much
+wider range than characters (starting with the possibility of using negative characters).
+Set of valid characters are only implemented when starting to analyze diversity
+(see <a class="reference internal" href="stats-2.html#filters"><span class="std std-ref">Filters</span></a>).</p>
+</div>
+<div class="section" id="functions-allowing-conversion-of-integer-output">
+<h3>Functions allowing conversion of integer output<a class="headerlink" href="#functions-allowing-conversion-of-integer-output" title="Permalink to this headline">¶</a></h3>
+<p>In contrast, exported data are by default integers, requiring using <a class="reference external" href="https://docs.python.org/2.7/library/functions.html#chr" title="(in Python v2.7)"><code class="xref py py-func docutils literal"><span class="pre">chr()</span></code></a> if you
+actually want strings. For example, <a class="reference internal" href="../py/toplevel.html#egglib.SequenceView" title="egglib.SequenceView"><code class="xref py py-class docutils literal"><span class="pre">SequenceView</span></code></a> objects behave in a limited way
+as lists of integers (supporting indexing, slicing, deleting if allowed). But they also have a
+<a class="reference internal" href="../py/toplevel.html#egglib.SequenceView.string" title="egglib.SequenceView.string"><code class="xref py py-meth docutils literal"><span class="pre">SequenceView.string()</span></code></a> that let you convert the whole sequence as a single <a class="reference external" href="https://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">str</span></code></a>.</p>
+<p>There is also the method <a class="reference internal" href="../py/toplevel.html#egglib.Align.to_fasta" title="egglib.Align.to_fasta"><code class="xref py py-meth docutils literal"><span class="pre">to_fasta()</span></code></a> that generates a Fasta string from either an
+<code class="xref py py-class docutils literal"><span class="pre">Align</span></code> or a <code class="xref py py-class docutils literal"><span class="pre">Container</span></code> (either returning it or saving it to a file.
+By default, it performs the integer-to-string conversion based on the ASCII table.</p>
+<p>Using those two methods implies that the data are in the range of printable characters.
+If the object has been initialized  from a Fasta file (and no out-of-range data has been added),
+it is guaranteed that the object is printable to Fasta without issue, and that sequences can be
+converted to string without problem, as shown with the trivial example below:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">aln</span> <span class="o">=</span> <span class="n">egglib</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">from_fasta</span><span class="p">(</span><span class="s1">&#39;align4.fas&#39;</span><span class="p">,</span> <span class="n">groups</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="nb">print</span> <span class="n">aln</span><span class="o">.</span><span class="n">get_sequence</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">string</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>This line produces the expected output:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">ACCGTGGAGAGCGCGTTGCA</span>
+</pre></div>
+</div>
+<p>The curious one may want to have a look to the corresponding integer values.
+The code below extracts all values to a list without converting them to characters:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="nb">print</span> <span class="n">aln</span><span class="o">.</span><span class="n">get_sequence</span><span class="p">(</span><span class="mi">0</span><span class="p">)[:]</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">[</span><span class="mi">65</span><span class="p">,</span> <span class="mi">67</span><span class="p">,</span> <span class="mi">67</span><span class="p">,</span> <span class="mi">71</span><span class="p">,</span> <span class="mi">84</span><span class="p">,</span> <span class="mi">71</span><span class="p">,</span> <span class="mi">71</span><span class="p">,</span> <span class="mi">65</span><span class="p">,</span> <span class="mi">71</span><span class="p">,</span> <span class="mi">65</span><span class="p">,</span> <span class="mi">71</span><span class="p">,</span> <span class="mi">67</span><span class="p">,</span> <span class="mi">71</span><span class="p">,</span> <span class="mi">67</span><span class="p">,</span> <span class="mi">71</span><span class="p">,</span> <span class="mi">84</span><span class="p">,</span> <span class="mi">84</span><span class="p">,</span> <span class="mi">71</span><span class="p">,</span> <span class="mi">67</span><span class="p">,</span> <span class="mi">65</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="out-of-range-allele-values">
+<h3>Out of range allele values<a class="headerlink" href="#out-of-range-allele-values" title="Permalink to this headline">¶</a></h3>
+<p>There are cases when the data will not be encoded in values not associated,
+in the ASCII table, to a character that can be represented. One of these cases
+is the coalescent simulator. The usage of the coalescent simulation module
+will be addressed in <a class="reference internal" href="coal.html#coalesce-manual"><span class="std std-ref">Coalescent simulations</span></a>, so we will use here examples without
+explaining them. For instance, the code below generates a data set (as an <code class="xref py py-class docutils literal"><span class="pre">Align</span></code>)
+based on a stepwise mutation model. Since the allelic start value is 0, there is a
+large probability that negative values occur. Then, eventually, an error will occur:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">coal</span> <span class="o">=</span> <span class="n">egglib</span><span class="o">.</span><span class="n">coalesce</span><span class="o">.</span><span class="n">Simulator</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">num_chrom</span><span class="o">=</span><span class="p">[</span><span class="mi">40</span><span class="p">],</span> <span class="n">num_sites</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">mut_model</span><span class="o">=</span><span class="s1">&#39;SMM&#39;</span><span class="p">,</span> <span class="n">theta</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+<span class="n">aln</span> <span class="o">=</span> <span class="n">coal</span><span class="o">.</span><span class="n">simul</span><span class="p">()</span>
+<span class="n">seq</span> <span class="o">=</span> <span class="n">aln</span><span class="o">.</span><span class="n">get_sequence</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="nb">print</span> <span class="n">seq</span><span class="p">[:]</span>
+<span class="nb">print</span> <span class="n">seq</span><span class="o">.</span><span class="n">string</span><span class="p">()</span> <span class="c1"># causes an error</span>
+</pre></div>
+</div>
+<p>The error states that an allele value cannot be converted in string, which is caused by
+negative values.</p>
+</div>
+<div class="section" id="mapping-alleles">
+<h3>Mapping alleles<a class="headerlink" href="#mapping-alleles" title="Permalink to this headline">¶</a></h3>
+<p>A common situation, while using the coalescent simulators, would be to use the KAM
+model (fixed number of alleles) while considering the alleles to be nucleotides,
+therefore setting the number of alleles to either 2 or 4. In this case, the
+alleles saved in the <code class="xref py py-class docutils literal"><span class="pre">Align</span></code> will be 0 and 1; and 0, 1, 2, 3, and 4,
+respectively. To generate a realistic simulated nucleotide sequence alignment,
+one can use the <em>mapping</em> option of <a class="reference internal" href="../py/toplevel.html#egglib.Align.to_fasta" title="egglib.Align.to_fasta"><code class="xref py py-meth docutils literal"><span class="pre">to_fasta()</span></code></a> as in:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">coal</span> <span class="o">=</span> <span class="n">egglib</span><span class="o">.</span><span class="n">coalesce</span><span class="o">.</span><span class="n">Simulator</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">num_chrom</span><span class="o">=</span><span class="p">[</span><span class="mi">10</span><span class="p">],</span> <span class="n">num_sites</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">mut_model</span><span class="o">=</span><span class="s1">&#39;KAM&#39;</span><span class="p">,</span> <span class="n">num_alleles</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">theta</span><span class="o">=</span><span class="mf">5.0</span><span class="p">,</span> <span class="n">rand_start</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">aln</span> <span class="o">=</span> <span class="n">coal</span><span class="o">.</span><span class="n">simul</span><span class="p">()</span>
+<span class="nb">print</span> <span class="n">aln</span><span class="o">.</span><span class="n">to_fasta</span><span class="p">()</span>
+<span class="nb">print</span> <span class="n">aln</span><span class="o">.</span><span class="n">to_fasta</span><span class="p">(</span><span class="n">mapping</span><span class="o">=</span><span class="s1">&#39;ACGT&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>If you leave the <em>mapping</em> option out, the method will still work, but generate an
+unreadable output, since the first ASCII codes are not meant to be printed.</p>
+</div>
+</div>
+</div>
+<div class="section" id="protein-translation">
+<h1>Protein translation<a class="headerlink" href="#protein-translation" title="Permalink to this headline">¶</a></h1>
+<p>EggLib allows you to translate DNA sequences to proteins. All translation
+tools take DNA sequence as output (no RNA). In all cases, there is not
+validity checking concerning characters, meaning that invalid characters
+will be translated as missing data (although in the future an error might
+be generated).</p>
+<p>EggLib has built-in support for all genetic codes described in USA’s
+National Center for Biotechnology Information (NCBI) database
+(<a class="reference external" href="http://www.ncbi.nlm.nih.gov/Taxonomy/Utils/wprintgc.cgi">http://www.ncbi.nlm.nih.gov/Taxonomy/Utils/wprintgc.cgi</a>). The
+genetic codes and their identifier are listed in <a class="reference internal" href="../py/tools.html#genetic-codes"><span class="std std-ref">Available genetic codes</span></a>.</p>
+<p>Protein translation tools lie in the <code class="xref py py-mod docutils literal"><span class="pre">tools</span></code> module, which gathers
+various functionalities that are described in the following of this section.</p>
+<div class="section" id="the-tools-translate-function">
+<h2>The <a class="reference internal" href="../py/tools.html#egglib.tools.translate" title="egglib.tools.translate"><code class="xref py py-func docutils literal"><span class="pre">tools.translate()</span></code></a> function<a class="headerlink" href="#the-tools-translate-function" title="Permalink to this headline">¶</a></h2>
+<p>The simplest way to translate nucleotide sequences to amino acids with
+EggLib is probably the <a class="reference internal" href="../py/tools.html#egglib.tools.translate" title="egglib.tools.translate"><code class="xref py py-func docutils literal"><span class="pre">tools.translate()</span></code></a> function. This function
+is flexible: it takes as output alignments, sequence sets, or individual
+sequences, and returns a corresponding object, as lists in the table below:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="50%" />
+<col width="50%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Input type</th>
+<th class="head">Returned type</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><a class="reference internal" href="../py/toplevel.html#egglib.Align" title="egglib.Align"><code class="xref py py-class docutils literal"><span class="pre">Align</span></code></a></td>
+<td><a class="reference internal" href="../py/toplevel.html#egglib.Align" title="egglib.Align"><code class="xref py py-class docutils literal"><span class="pre">Align</span></code></a></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="../py/toplevel.html#egglib.Container" title="egglib.Container"><code class="xref py py-class docutils literal"><span class="pre">Container</span></code></a></td>
+<td><a class="reference internal" href="../py/toplevel.html#egglib.Container" title="egglib.Container"><code class="xref py py-class docutils literal"><span class="pre">Container</span></code></a></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="../py/toplevel.html#egglib.SequenceView" title="egglib.SequenceView"><code class="xref py py-class docutils literal"><span class="pre">SequenceView</span></code></a></td>
+<td><a class="reference external" href="https://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">str</span></code></a></td>
+</tr>
+<tr class="row-odd"><td><a class="reference external" href="https://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">str</span></code></a></td>
+<td><a class="reference external" href="https://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">str</span></code></a></td>
+</tr>
+</tbody>
+</table>
+<p>The usage is straightforward, as exemplified below:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">egglib</span>
+<span class="n">aln</span> <span class="o">=</span> <span class="n">egglib</span><span class="o">.</span><span class="n">Align</span><span class="o">.</span><span class="n">create</span><span class="p">([</span>
+    <span class="p">(</span><span class="s1">&#39;sample1&#39;</span><span class="p">,</span>  <span class="s1">&#39;TTGCTAGGTGTATAG&#39;</span><span class="p">),</span>
+    <span class="p">(</span><span class="s1">&#39;sample2&#39;</span><span class="p">,</span>  <span class="s1">&#39;TTCCTAGATGAATAG&#39;</span><span class="p">),</span>
+    <span class="p">(</span><span class="s1">&#39;sample3&#39;</span><span class="p">,</span>  <span class="s1">&#39;ATGCTAGATGAATAG&#39;</span><span class="p">)])</span>
+<span class="n">prot</span> <span class="o">=</span> <span class="n">egglib</span><span class="o">.</span><span class="n">tools</span><span class="o">.</span><span class="n">translate</span><span class="p">(</span><span class="n">aln</span><span class="p">)</span>
+<span class="nb">print</span> <span class="n">prot</span><span class="o">.</span><span class="n">to_fasta</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>The resulting protein alignment will be, for this example:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">&gt;</span><span class="n">sample1</span>
+<span class="n">LLGV</span><span class="o">*</span>
+<span class="o">&gt;</span><span class="n">sample2</span>
+<span class="n">FLDE</span><span class="o">*</span>
+<span class="o">&gt;</span><span class="n">sample3</span>
+<span class="n">MLDE</span><span class="o">*</span>
+</pre></div>
+</div>
+<p>The <em>code</em> option of this function lets you specify the genetic code to be used,
+if it is not the standard one. Among options, the option <em>in_place</em> tells the
+function to overwrite the object you provide, instead of returning a new one.
+This can be useful in memory- or especially time-critical applications:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">aln</span> <span class="o">=</span> <span class="n">egglib</span><span class="o">.</span><span class="n">Align</span><span class="o">.</span><span class="n">create</span><span class="p">([</span>
+    <span class="p">(</span><span class="s1">&#39;sample1&#39;</span><span class="p">,</span>  <span class="s1">&#39;TTGCTAGGTGTATAG&#39;</span><span class="p">),</span>
+    <span class="p">(</span><span class="s1">&#39;sample2&#39;</span><span class="p">,</span>  <span class="s1">&#39;TTCCTAGATGAATAG&#39;</span><span class="p">),</span>
+    <span class="p">(</span><span class="s1">&#39;sample3&#39;</span><span class="p">,</span>  <span class="s1">&#39;ATGCTAGATGAATAG&#39;</span><span class="p">)])</span>
+<span class="n">egglib</span><span class="o">.</span><span class="n">tools</span><span class="o">.</span><span class="n">translate</span><span class="p">(</span><span class="n">aln</span><span class="p">,</span> <span class="n">in_place</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="c1"># returns None</span>
+<span class="nb">print</span> <span class="n">aln</span><span class="o">.</span><span class="n">to_fasta</span><span class="p">()</span>
+</pre></div>
+</div>
+<p><code class="xref py py-func docutils literal"><span class="pre">translate()</span></code> can also translate individual sequences, either provided as
+a <code class="xref py py-class docutils literal"><span class="pre">SequenceView</span></code> or a <a class="reference external" href="https://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">str</span></code></a> (<em>in_place</em> does not work in this
+case, although it might do so in the future in the latter case):</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">egglib</span><span class="o">.</span><span class="n">tools</span><span class="o">.</span><span class="n">translate</span><span class="p">(</span><span class="s1">&#39;CCATTGGTAATGGCC&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Use the <code class="docutils literal"><span class="pre">allow_alt=True</span></code> option to support alternative start codons (a rare
+phenomenon accounted for by all genetic codes).</p>
+<div class="section" id="smart-translation">
+<span id="id1"></span><h3>“Smart” translation<a class="headerlink" href="#smart-translation" title="Permalink to this headline">¶</a></h3>
+<p>By default, codons with any missing data are translated as missing data
+(the <code class="docutils literal"><span class="pre">X</span></code> character). However, in certain cases it might be possible to
+guess: for example (in the standard genetic code), <code class="docutils literal"><span class="pre">CTN</span></code> necessarily
+translates to a Leucine because all four possibilities (<code class="docutils literal"><span class="pre">CTA</span></code>, <code class="docutils literal"><span class="pre">CTC</span></code>,
+<code class="docutils literal"><span class="pre">CTG</span></code>, and <code class="docutils literal"><span class="pre">CTT</span></code>) do. Similarly, both <code class="docutils literal"><span class="pre">AGC</span></code> and <code class="docutils literal"><span class="pre">TGC</span></code> encode a Serine,
+so <code class="docutils literal"><span class="pre">WGC</span></code> also necessarily encodes a Serine. The option <code class="docutils literal"><span class="pre">smart=True</span></code>
+turns on automatic detection of those case, based on the table of ambiguity characters
+in the <a class="reference external" href="http://www.chem.qmul.ac.uk/iubmb/misc/naseq.html">nomenclature for nucleotide codes</a>
+reproduced in the table below:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="31%" />
+<col width="69%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Symbol</th>
+<th class="head">Meaning</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>G</td>
+<td>G</td>
+</tr>
+<tr class="row-odd"><td>A</td>
+<td>A</td>
+</tr>
+<tr class="row-even"><td>T</td>
+<td>T</td>
+</tr>
+<tr class="row-odd"><td>C</td>
+<td>C</td>
+</tr>
+<tr class="row-even"><td>R</td>
+<td>G or A</td>
+</tr>
+<tr class="row-odd"><td>Y</td>
+<td>T or C</td>
+</tr>
+<tr class="row-even"><td>M</td>
+<td>A or C</td>
+</tr>
+<tr class="row-odd"><td>K</td>
+<td>G or T</td>
+</tr>
+<tr class="row-even"><td>S</td>
+<td>G or C</td>
+</tr>
+<tr class="row-odd"><td>W</td>
+<td>A or T</td>
+</tr>
+<tr class="row-even"><td>H</td>
+<td>A or C or T</td>
+</tr>
+<tr class="row-odd"><td>B</td>
+<td>G or T or C</td>
+</tr>
+<tr class="row-even"><td>V</td>
+<td>G or A or C</td>
+</tr>
+<tr class="row-odd"><td>D</td>
+<td>G or A or T</td>
+</tr>
+<tr class="row-even"><td>N</td>
+<td>G or A or T or C</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="reading-frame">
+<h3>Reading frame<a class="headerlink" href="#reading-frame" title="Permalink to this headline">¶</a></h3>
+<p>Unless specified, it is assumed that provided sequences are already an
+open reading frame; that is, that the first three nucleotide positions
+represent the first codon, and so on until the end of the sequence. If the
+number of nucleotides is not a multiple of three, the last codon is assumed
+to be truncated. Therefore, such codon is translated as an <code class="docutils literal"><span class="pre">X</span></code> because
+the identify of the amino acid is unknown:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span> <span class="n">egglib</span><span class="o">.</span><span class="n">tools</span><span class="o">.</span><span class="n">translate</span><span class="p">(</span><span class="s1">&#39;CCATTGGTAATGGCCAA&#39;</span><span class="p">)</span>
+<span class="go">PLVMAX</span>
+</pre></div>
+</div>
+<p>Note that the <em>smart</em> option (<a class="reference internal" href="#smart-translation"><span class="std std-ref">“Smart” translation</span></a>) will not operate in the case of
+truncated codons (only for missing data). If you don’t want to care about
+truncated codons, there is an option to exclude them:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span> <span class="n">egglib</span><span class="o">.</span><span class="n">tools</span><span class="o">.</span><span class="n">translate</span><span class="p">(</span><span class="s1">&#39;CCATTGGTAATGGCCAA&#39;</span><span class="p">,</span> <span class="n">delete_truncated</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="go">PLVMA</span>
+</pre></div>
+</div>
+<p>It is also possible to specify an open reading frame to be used while translating,
+including a segmented reading frame. To do so, one must use the <em>frame</em> option
+of <a class="reference internal" href="../py/tools.html#egglib.tools.translate" title="egglib.tools.translate"><code class="xref py py-func docutils literal"><span class="pre">translate()</span></code></a> and set it to a <a class="reference internal" href="../py/tools.html#egglib.tools.ReadingFrame" title="egglib.tools.ReadingFrame"><code class="xref py py-class docutils literal"><span class="pre">tools.ReadingFrame</span></code></a> object.
+This type of objects holds the start/stop positions of one or more segments
+(exons) and allows processing all codon positions. The example below
+describes the usage:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">s</span> <span class="o">=</span> <span class="s1">&#39;NNNNNCCATTGGTNNNNNNNNNNNNNAATGGCCNNNNN&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">rf</span> <span class="o">=</span> <span class="n">egglib</span><span class="o">.</span><span class="n">tools</span><span class="o">.</span><span class="n">ReadingFrame</span><span class="p">([(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">13</span><span class="p">),</span> <span class="p">(</span><span class="mi">26</span><span class="p">,</span> <span class="mi">33</span><span class="p">)])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span> <span class="n">egglib</span><span class="o">.</span><span class="n">tools</span><span class="o">.</span><span class="n">translate</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">rf</span><span class="p">)</span>
+<span class="go">PLVMA</span>
+</pre></div>
+</div>
+<p>In this example, untranslated regions are represented by stretches of N’s.
+There are two translated regions (exons), are specified in the constructor
+of <code class="xref py py-class docutils literal"><span class="pre">ReadingFrame</span></code> by their start and stop positions. Start and
+stop positions are understood exactly as the arguments of a sequence slice
+(specifically, the stop position is not included). In the example, one
+codon (<code class="docutils literal"><span class="pre">GTA</span></code>) is separated by in intron (<code class="docutils literal"><span class="pre">GT</span></code> at the end of the first
+exon, and <code class="docutils literal"><span class="pre">A</span></code> at the start of the second one). However the translation
+is not affected by the presence of the intron and it is still translated as
+a Valine because, by default, it is assumed that the reading frame is
+continuous over segments.</p>
+<p>Reading frames are allowed to be 3’-partial (see above for truncated
+trailing codons). It is possible to specify a codon start argument for
+the first exon (as a third argument besides start and stop). See
+<a class="reference internal" href="../py/tools.html#egglib.tools.ReadingFrame.process" title="egglib.tools.ReadingFrame.process"><code class="xref py py-meth docutils literal"><span class="pre">tools.ReadingFrame.process()</span></code></a> for details. If the codon start is
+2 or 3, it is assumed that its is 5’ partial and there will be a leading
+truncated codon. The example below shows how we would translate the
+second exon only with the proper codon start:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">s</span> <span class="o">=</span> <span class="s1">&#39;NNNNNCCATTGGTNNNNNNNNNNNNNAATGGCCNNNNN&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">rf</span> <span class="o">=</span> <span class="n">egglib</span><span class="o">.</span><span class="n">tools</span><span class="o">.</span><span class="n">ReadingFrame</span><span class="p">([(</span><span class="mi">26</span><span class="p">,</span> <span class="mi">33</span><span class="p">,</span> <span class="mi">3</span><span class="p">)])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span> <span class="n">egglib</span><span class="o">.</span><span class="n">tools</span><span class="o">.</span><span class="n">translate</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">rf</span><span class="p">)</span>
+<span class="go">XMA</span>
+</pre></div>
+</div>
+<p>The second exon is then: <code class="docutils literal"><span class="pre">A</span> <span class="pre">ATG</span> <span class="pre">GCC</span></code>, the <code class="docutils literal"><span class="pre">A</span></code> being translated as <code class="docutils literal"><span class="pre">X</span></code>
+because the first two bases of the codon are unknown to the translating
+function. It is also possible to specify a codon start for trailing (non-first)
+exons. Whenever codon start is specified as a non-<code class="docutils literal"><span class="pre">None</span></code> value, it is assumed that
+it does not continue the previous exons, <em>even if first codon of the current
+codon is completing the last codon of the previous exon</em>. For example, we can force the
+reading frame to assume that the two exons are not connected (although they
+are in reality):</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">s</span> <span class="o">=</span> <span class="s1">&#39;NNNNNCCATTGGTNNNNNNNNNNNNNAATGGCCNNNNN&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">rf</span> <span class="o">=</span> <span class="n">egglib</span><span class="o">.</span><span class="n">tools</span><span class="o">.</span><span class="n">ReadingFrame</span><span class="p">([(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">13</span><span class="p">),</span> <span class="p">(</span><span class="mi">26</span><span class="p">,</span> <span class="mi">33</span><span class="p">,</span> <span class="mi">3</span><span class="p">)])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span> <span class="n">egglib</span><span class="o">.</span><span class="n">tools</span><span class="o">.</span><span class="n">translate</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">rf</span><span class="p">)</span>
+<span class="go">PLXXMA</span>
+</pre></div>
+</div>
+<p>The <code class="docutils literal"><span class="pre">GTA</span></code> jumping the splicing site is now considered as <code class="docutils literal"><span class="pre">GT?</span> <span class="pre">??A</span></code>, which
+is translated as <code class="docutils literal"><span class="pre">XX</span></code>. This can be left out with <code class="docutils literal"><span class="pre">deleted_truncated=True</span></code>.</p>
+<p>Note also that the <em>frame</em> argument is available for both individual
+sequences and sequence alignments.</p>
+</div>
+</div>
+<div class="section" id="the-tools-translator-class">
+<h2>The <a class="reference internal" href="../py/tools.html#egglib.tools.Translator" title="egglib.tools.Translator"><code class="xref py py-class docutils literal"><span class="pre">tools.Translator</span></code></a> class<a class="headerlink" href="#the-tools-translator-class" title="Permalink to this headline">¶</a></h2>
+<p>There is a <a class="reference internal" href="../py/tools.html#egglib.tools.Translator" title="egglib.tools.Translator"><code class="xref py py-class docutils literal"><span class="pre">Translator</span></code></a> class in the <code class="xref py py-mod docutils literal"><span class="pre">tools</span></code> module
+that perform the same operations as the <a class="reference internal" href="../py/tools.html#egglib.tools.translate" title="egglib.tools.translate"><code class="xref py py-func docutils literal"><span class="pre">translate()</span></code></a> function.
+If you need to translate many data sets in on go, it will probably be faster
+to use this class as in the example below, where we assume that <code class="docutils literal"><span class="pre">aligns</span></code> is
+a <code class="xref py py-class docutils literal"><span class="pre">list</span></code> of <code class="xref py py-class docutils literal"><span class="pre">Align</span></code> instances:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">trans</span> <span class="o">=</span> <span class="n">egglib</span><span class="o">.</span><span class="n">tools</span><span class="o">.</span><span class="n">Translator</span><span class="p">(</span><span class="n">code</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">smart</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">aln</span> <span class="ow">in</span> <span class="n">aligns</span><span class="p">:</span>
+    <span class="n">trans</span><span class="o">.</span><span class="n">translate_align</span><span class="p">(</span><span class="n">aln</span><span class="p">,</span> <span class="n">in_place</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The options <code class="docutils literal"><span class="pre">code=1</span></code> and <code class="docutils literal"><span class="pre">smart=False</span></code> are actually the default. They
+are here to show that options are specified in the class’s constructor.</p>
+</div>
+<div class="section" id="detecting-open-reading-frames-and-processing-stop-codons">
+<h2>Detecting open reading frames and processing stop codons<a class="headerlink" href="#detecting-open-reading-frames-and-processing-stop-codons" title="Permalink to this headline">¶</a></h2>
+<p>There are additionnal tools helping you to manage coding sequences, or
+sequences containing open reading frames:</p>
+<ul>
+<li><p class="first"><a class="reference internal" href="../py/tools.html#egglib.tools.orf_iter" title="egglib.tools.orf_iter"><code class="xref py py-func docutils literal"><span class="pre">tools.orf_iter()</span></code></a> provides an iterator over all possible open reading
+frames of the sequence. It is configurable (see options) and is used as
+this (with default options):</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">start</span><span class="p">,</span> <span class="n">stop</span><span class="p">,</span> <span class="n">length</span><span class="p">,</span> <span class="n">frame</span> <span class="ow">in</span> <span class="n">egglib</span><span class="o">.</span><span class="n">tools</span><span class="o">.</span><span class="n">orf_iter</span><span class="p">(</span><span class="n">seq</span><span class="p">):</span>
+    <span class="nb">print</span> <span class="n">seq</span><span class="p">[</span><span class="n">start</span><span class="p">:</span><span class="n">stop</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>(The example displays the sequence of each open reading frame, although
+some may need to be reverse-complemented.)</p>
+</li>
+<li><p class="first"><a class="reference internal" href="../py/tools.html#egglib.tools.longest_orf" title="egglib.tools.longest_orf"><code class="xref py py-func docutils literal"><span class="pre">tools.longest_orf()</span></code></a> is a shortcut to find the longest possible
+open reading frame. If there is a tie, the function does not take the
+decision for you and raises an exception.</p>
+</li>
+<li><p class="first"><a class="reference internal" href="../py/tools.html#egglib.tools.trailing_stops" title="egglib.tools.trailing_stops"><code class="xref py py-func docutils literal"><span class="pre">tools.trailing_stops()</span></code></a> detect and optionally fixes stop codons
+at the end of sequences of an alignment.</p>
+</li>
+<li><p class="first"><a class="reference internal" href="../py/tools.html#egglib.tools.iter_stops" title="egglib.tools.iter_stops"><code class="xref py py-func docutils literal"><span class="pre">tools.iter_stops()</span></code></a> provides you with an iterator over the
+positions of all stop codons of the alignment.</p>
+</li>
+<li><p class="first"><a class="reference internal" href="../py/tools.html#egglib.tools.has_stop" title="egglib.tools.has_stop"><code class="xref py py-func docutils literal"><span class="pre">tools.has_stop()</span></code></a> is a shortcut to test if an alignment contains
+any stop codons.</p>
+</li>
+</ul>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="stats.html" title="Computing diversity statistics"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="base-2.html" title="Accessing and editing data"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../contents.html">EggLib&#39;s documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../toc.html" >Contents</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="index.html" >Manual</a> &#187;</li>
+          <li class="nav-item nav-item-3"><a href="base.html" >The <code class="docutils literal"><span class="pre">Align</span></code> and <code class="docutils literal"><span class="pre">Container</span></code> classes</a> &#187;</li> 
+      </ul>
+    </div>
+<!--
+        <address style="text-align: right;"><small>Hosted by&nbsp;
+        <a href="http://sourceforge.net/projects/egglib"><img src="http://sflogo.sourceforge.net/sflogo.php?group_id=232965&amp;type=8" width="80" height="15" alt="Get EggLib at SourceForge.net. Fast, secure and Free Open Source software downloads" / ALIGN=RIGHT BORDER=0></a>
+        </address>
+-->
+
+  </body>
+</html>

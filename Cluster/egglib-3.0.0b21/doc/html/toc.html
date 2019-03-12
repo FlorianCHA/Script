@@ -1,0 +1,612 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Contents &#8212; EggLib&#39;s documentation</title>
+    <link rel="stylesheet" href="_static/egglibdoc.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '3.0.0b21',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="shortcut icon" href="_static/icon.ico"/>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Installation" href="install.html" />
+    <link rel="prev" title="Table of Contents" href="contents.html" />
+    <script type="text/javascript">
+      // intelligent scrolling of the sidebar content
+      $(window).scroll(function() {
+        var sb = $('.sphinxsidebarwrapper');
+        var win = $(window);
+        var sbh = sb.height();
+        var offset = $('.sphinxsidebar').position()['top'];
+        var wintop = win.scrollTop();
+        var winbot = wintop + win.innerHeight();
+        var curtop = sb.position()['top'];
+        var curbot = curtop + sbh;
+        // does sidebar fit in window?
+        if (sbh < win.innerHeight()) {
+          // yes: easy case -- always keep at the top
+          sb.css('top', $u.min([$u.max([0, wintop - offset - 10]),
+                                $(document).height() - sbh - 200]));
+        } else {
+          // no: only scroll if top/bottom edge of sidebar is at
+          // top/bottom edge of window
+          if (curtop > wintop && curbot > winbot) {
+            sb.css('top', $u.max([wintop - offset - 10, 0]));
+          } else if (curtop < wintop && curbot < winbot) {
+            sb.css('top', $u.min([winbot - sbh - offset - 20,
+                                  $(document).height() - sbh - 200]));
+          }
+        }
+      });
+    </script>
+  </head>
+  <body>
+<div style="background-color: white; text-align: left; padding: 0px 0px 0px 0px">
+<a href="index.html"><img src="_static/banner.png" border="0" alt="EggLib"/></a>
+</div>
+
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="install.html" title="Installation"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="contents.html" title="Table of Contents"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="contents.html">EggLib&#39;s documentation</a> &#187;</li> 
+      </ul>
+    </div>
+
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="contents.html">
+              <img class="logo" src="_static/egglib_small.bmp" alt="Logo"/>
+            </a></p>
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="contents.html"
+                        title="previous chapter">Table of Contents</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="install.html"
+                        title="next chapter">Installation</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/toc.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="contents">
+<span id="toc"></span><h1>Contents<a class="headerlink" href="#contents" title="Permalink to this headline">¶</a></h1>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="install.html">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="install.html#requirements">Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="install.html#download">Download</a></li>
+<li class="toctree-l2"><a class="reference internal" href="install.html#id1">Installation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="install.html#from-source">From source</a></li>
+<li class="toctree-l3"><a class="reference internal" href="install.html#pre-compiled-package-for-windows">Pre-compiled package for Windows</a></li>
+<li class="toctree-l3"><a class="reference internal" href="install.html#pre-compiled-package-for-macosx">Pre-compiled package for MacOSX</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="install.html#configuring-external-applications">Configuring external applications</a></li>
+<li class="toctree-l2"><a class="reference internal" href="install.html#testing">Testing</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="manual/index.html">Manual</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="manual/base.html">The <code class="docutils literal"><span class="pre">Align</span></code> and <code class="docutils literal"><span class="pre">Container</span></code> classes</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="manual/base-1.html">Importing sequences in the Fasta format</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="manual/base-1.html#simplest-case">Simplest case</a></li>
+<li class="toctree-l4"><a class="reference internal" href="manual/base-1.html#alignments-and-containers">Alignments and containers</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="manual/base-1.html#automatic-detection-of-alignments">Automatic detection of alignments</a></li>
+<li class="toctree-l5"><a class="reference internal" href="manual/base-1.html#enforcing-return-type">Enforcing return type</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="manual/base-1.html#exporting-data">Exporting data</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="manual/base-1.html#exporting-as-fasta">Exporting as Fasta</a></li>
+<li class="toctree-l4"><a class="reference internal" href="manual/base-1.html#other-formats">Other formats</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="manual/base-1.html#structure-and-group-labels">Structure and group labels</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="manual/base-1.html#principle">Principle</a></li>
+<li class="toctree-l4"><a class="reference internal" href="manual/base-1.html#group-labels-in-fasta-files">Group labels in Fasta files</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="manual/base-1.html#single-group-label">Single group label</a></li>
+<li class="toctree-l5"><a class="reference internal" href="manual/base-1.html#multiple-group-labels">Multiple group labels</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="manual/base-1.html#outgroup">Outgroup</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="manual/base-1.html#iteration">Iteration</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="manual/base-1.html#principle-of-proxy-types">Principle of proxy types</a></li>
+<li class="toctree-l4"><a class="reference internal" href="manual/base-1.html#default-iteration">Default iteration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="manual/base-1.html#controlling-iterations">Controlling iterations</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="manual/base-2.html">Accessing and editing data</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="manual/base-2.html#accessing-a-given-sample">Accessing a given sample</a></li>
+<li class="toctree-l4"><a class="reference internal" href="manual/base-2.html#editing-names">Editing names</a></li>
+<li class="toctree-l4"><a class="reference internal" href="manual/base-2.html#editing-sequences-or-data-entries">Editing sequences or data entries</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="manual/base-2.html#the-sequenceview-type">The <code class="docutils literal"><span class="pre">SequenceView</span></code> type</a></li>
+<li class="toctree-l5"><a class="reference internal" href="manual/base-2.html#operations-using-a-sequenceview-as-a-list-like-object">Operations using a <code class="docutils literal"><span class="pre">SequenceView</span></code> as a list-like object</a></li>
+<li class="toctree-l5"><a class="reference internal" href="manual/base-2.html#using-methods-of-align-and-container">Using methods of <code class="docutils literal"><span class="pre">Align</span></code> and <code class="docutils literal"><span class="pre">Container</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="manual/base-2.html#using-external-functions">Using external functions</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="manual/base-2.html#editing-group-labels">Editing group labels</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="manual/base-2.html#using-groupview">Using <code class="docutils literal"><span class="pre">GroupView</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="manual/base-2.html#id1">Using methods of <code class="docutils literal"><span class="pre">Align</span></code> and <code class="docutils literal"><span class="pre">Container</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="manual/base-2.html#initializing-objects">Initializing objects</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="manual/base-2.html#creating-from-empty-instances">Creating from empty instances</a></li>
+<li class="toctree-l5"><a class="reference internal" href="manual/base-2.html#deep-copy-of-align-and-container-objects">Deep copy of <code class="docutils literal"><span class="pre">Align</span></code> and <code class="docutils literal"><span class="pre">Container</span></code> objects</a></li>
+<li class="toctree-l5"><a class="reference internal" href="manual/base-2.html#conversion-between-align-and-container-objects">Conversion between <code class="docutils literal"><span class="pre">Align</span></code> and <code class="docutils literal"><span class="pre">Container</span></code> objects</a></li>
+<li class="toctree-l5"><a class="reference internal" href="manual/base-2.html#creation-from-other-iterable-types">Creation from other iterable types</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="manual/base-2.html#add-remove-samples">Add/remove samples</a></li>
+<li class="toctree-l4"><a class="reference internal" href="manual/base-2.html#editing-alignments">Editing alignments</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="manual/base-3.html">Encoding of data</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="manual/base-3.html#the-ascii-code">The ASCII code</a></li>
+<li class="toctree-l4"><a class="reference internal" href="manual/base-3.html#converting-integers-from-to-characters">Converting integers from/to characters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="manual/base-3.html#facilities-available-in-align-container-objects">Facilities available in <code class="docutils literal"><span class="pre">Align</span></code>/<code class="docutils literal"><span class="pre">Container</span></code> objects</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="manual/base-3.html#automatic-conversion-of-string-input">Automatic conversion of string input</a></li>
+<li class="toctree-l5"><a class="reference internal" href="manual/base-3.html#functions-allowing-conversion-of-integer-output">Functions allowing conversion of integer output</a></li>
+<li class="toctree-l5"><a class="reference internal" href="manual/base-3.html#out-of-range-allele-values">Out of range allele values</a></li>
+<li class="toctree-l5"><a class="reference internal" href="manual/base-3.html#mapping-alleles">Mapping alleles</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="manual/base-3.html#protein-translation">Protein translation</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="manual/base-3.html#the-tools-translate-function">The <code class="docutils literal"><span class="pre">tools.translate()</span></code> function</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="manual/base-3.html#smart-translation">“Smart” translation</a></li>
+<li class="toctree-l5"><a class="reference internal" href="manual/base-3.html#reading-frame">Reading frame</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="manual/base-3.html#the-tools-translator-class">The <code class="docutils literal"><span class="pre">tools.Translator</span></code> class</a></li>
+<li class="toctree-l4"><a class="reference internal" href="manual/base-3.html#detecting-open-reading-frames-and-processing-stop-codons">Detecting open reading frames and processing stop codons</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="manual/stats.html">Computing diversity statistics</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="manual/stats-1.html">The <code class="docutils literal"><span class="pre">stats.ComputeStats</span></code> class</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="manual/stats-1.html#options">Options</a></li>
+<li class="toctree-l4"><a class="reference internal" href="manual/stats-1.html#list-of-statistics">List of statistics</a></li>
+<li class="toctree-l4"><a class="reference internal" href="manual/stats-1.html#processing-data">Processing data</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="manual/stats-1.html#computing-statistics">Computing statistics</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="manual/stats-1.html#single-alignment">Single alignment</a></li>
+<li class="toctree-l4"><a class="reference internal" href="manual/stats-1.html#multiple-alignments">Multiple alignments</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="manual/stats-1.html#phased-data">Phased data</a></li>
+<li class="toctree-l5"><a class="reference internal" href="manual/stats-1.html#alignments-with-different-number-of-samples">Alignments with different number of samples</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="manual/stats-1.html#using-individuals-sites">Using individuals sites</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="manual/stats-1.html#single-site-statistics">Single site statistics</a></li>
+<li class="toctree-l5"><a class="reference internal" href="manual/stats-1.html#multiple-sites-statistics">Multiple sites statistics</a></li>
+<li class="toctree-l5"><a class="reference internal" href="manual/stats-1.html#static-list-of-sites">Static list of sites</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="manual/stats-1.html#stand-alone-allelic-frequencies">Stand-alone allelic frequencies</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="manual/stats-1.html#creation-of-freq-objects-from-a-site">Creation of <code class="docutils literal"><span class="pre">Freq</span></code> objects from a site</a></li>
+<li class="toctree-l5"><a class="reference internal" href="manual/stats-1.html#creation-of-freq-objects-from-user-provided-frequency-data">Creation of <code class="docutils literal"><span class="pre">Freq</span></code> objects from user-provided frequency data</a></li>
+<li class="toctree-l5"><a class="reference internal" href="manual/stats-1.html#computing-diversity-statistics">Computing diversity statistics</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="manual/stats-2.html">Accounting for structure</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="manual/stats-2.html#creating-a-structure-from-an-alignment">Creating a structure from an alignment</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="manual/stats-2.html#dictionary-representation-of-structure-objects">Dictionary representation of <code class="docutils literal"><span class="pre">Structure</span></code> objects</a></li>
+<li class="toctree-l5"><a class="reference internal" href="manual/stats-2.html#alternative-structure">Alternative structure</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="manual/stats-2.html#creating-a-structure-manually">Creating a structure manually</a></li>
+<li class="toctree-l4"><a class="reference internal" href="manual/stats-2.html#using-the-structure">Using the structure</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="manual/stats-2.html#filters">Filters</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="manual/stats-2.html#principle">Principle</a></li>
+<li class="toctree-l4"><a class="reference internal" href="manual/stats-2.html#pre-defined-filters-and-default">Pre-defined filters and default</a></li>
+<li class="toctree-l4"><a class="reference internal" href="manual/stats-2.html#the-case-of-simulated-data">The case of simulated data</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="manual/stats-3.html">Missing data</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="manual/stats-3.html#relationships-with-filters">Relationships with filters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="manual/stats-3.html#supporting-missing-data">Supporting missing data</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="manual/stats-3.html#linkage-disequilibrium-statistics">Linkage disequilibrium statistics</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="manual/stats-3.html#from-computestats">From <code class="docutils literal"><span class="pre">ComputeStats</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="manual/stats-3.html#pairwise-linkage-disequilibrium">Pairwise linkage disequilibrium</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="manual/stats-3.html#the-pairwise-ld-function">The <code class="docutils literal"><span class="pre">pairwise_LD()</span></code> function</a></li>
+<li class="toctree-l5"><a class="reference internal" href="manual/stats-3.html#the-matrix-ld-function">The <code class="docutils literal"><span class="pre">matrix_LD()</span></code> function</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="manual/stats-3.html#ehh-statistics">EHH statistics</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="manual/stats-3.html#loading-the-core-site">Loading the core site</a></li>
+<li class="toctree-l5"><a class="reference internal" href="manual/stats-3.html#loading-the-distant-sites">Loading the distant sites</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="manual/stats-4.html">Using VCF files</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="manual/stats-4.html#short-description-of-the-format">Short description of the format</a></li>
+<li class="toctree-l4"><a class="reference internal" href="manual/stats-4.html#reading-vcf-files">Reading VCF files</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="manual/stats-4.html#iterating-over-variants">Iterating over variants</a></li>
+<li class="toctree-l5"><a class="reference internal" href="manual/stats-4.html#extracting-a-site-from-a-vcf">Extracting a site from a VCF</a></li>
+<li class="toctree-l5"><a class="reference internal" href="manual/stats-4.html#extracting-frequencies-from-a-vcf">Extracting frequencies from a VCF</a></li>
+<li class="toctree-l5"><a class="reference internal" href="manual/stats-4.html#getting-a-variant-as-an-object">Getting a variant as an object</a></li>
+<li class="toctree-l5"><a class="reference internal" href="manual/stats-4.html#reading-compressed-files-or-arbitrary-data">Reading compressed files or arbitrary data</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="manual/coal.html">Coalescent simulations</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="manual/coal-1.html">Coalescent parameters</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="manual/coal-1.html#the-coalescence-theory">The coalescence theory</a></li>
+<li class="toctree-l4"><a class="reference internal" href="manual/coal-1.html#the-basics">The basics</a></li>
+<li class="toctree-l4"><a class="reference internal" href="manual/coal-1.html#note-on-the-number-of-populations">Note on the number of populations</a></li>
+<li class="toctree-l4"><a class="reference internal" href="manual/coal-1.html#the-parameters-dictionary-like">The parameters dictionary-like</a></li>
+<li class="toctree-l4"><a class="reference internal" href="manual/coal-1.html#number-of-populations-and-population-properties">Number of populations and population properties</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="manual/coal-1.html#list-like-parameters">List-like parameters</a></li>
+<li class="toctree-l5"><a class="reference internal" href="manual/coal-1.html#the-migration-matrix">The migration matrix</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="manual/coal-1.html#mutation-models">Mutation models</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="manual/coal-1.html#description-of-models">Description of models</a></li>
+<li class="toctree-l5"><a class="reference internal" href="manual/coal-1.html#number-of-sites">Number of sites</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="manual/coal-1.html#other-parameters">Other parameters</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="manual/coal-1.html#historical-events">Historical events</a></li>
+<li class="toctree-l5"><a class="reference internal" href="manual/coal-1.html#recombination">Recombination</a></li>
+<li class="toctree-l5"><a class="reference internal" href="manual/coal-1.html#controlling-the-random-number-generator">Controlling the random number generator</a></li>
+<li class="toctree-l5"><a class="reference internal" href="manual/coal-1.html#defining-an-outgroup">Defining an outgroup</a></li>
+<li class="toctree-l5"><a class="reference internal" href="manual/coal-1.html#maximum-number-of-iterations">Maximum number of iterations</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="manual/coal-2.html">Use of historical events</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="manual/coal-2.html#bottlenecks">Bottlenecks</a></li>
+<li class="toctree-l4"><a class="reference internal" href="manual/coal-2.html#merge-admixture-and-split-events">Merge, admixture, and split events</a></li>
+<li class="toctree-l4"><a class="reference internal" href="manual/coal-2.html#ghost-populations-and-unsampled-populations">Ghost populations and unsampled populations</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="manual/coal-2.html#completing-simulations">Completing simulations</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="manual/coal-2.html#delayed-samples">Delayed samples</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="manual/coal-3.html">Performing simulations</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="manual/coal-3.html#simplest-case">Simplest case</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="manual/coal-3.html#model-with-populations-individuals-and-outgroup">Model with populations, individuals, and outgroup</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="manual/coal-3.html#the-iterator">The iterator</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="manual/coal-3.html#coupling-simulations-and-statistics">Coupling simulations and statistics</a></li>
+<li class="toctree-l5"><a class="reference internal" href="manual/coal-3.html#varying-parameters-over-simulations">Varying parameters over simulations</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="manual/coal-3.html#accessing-other-data">Accessing other data</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="manual/coal-3.html#getting-simulated-trees">Getting simulated trees</a></li>
+<li class="toctree-l5"><a class="reference internal" href="manual/coal-3.html#getting-the-structure-of-the-model">Getting the structure of the model</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="manual/wrappers.html">Integration of external software</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="manual/wrappers.html#principle">Principle</a></li>
+<li class="toctree-l3"><a class="reference internal" href="manual/wrappers.html#usage">Usage</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="manual/wrappers.html#configuration-of-application-paths">Configuration of application paths</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="manual/wrappers.html#auto-detection-of-applications">Auto-detection of applications</a></li>
+<li class="toctree-l5"><a class="reference internal" href="manual/wrappers.html#setting-application-paths-manually">Setting application paths manually</a></li>
+<li class="toctree-l5"><a class="reference internal" href="manual/wrappers.html#saving-and-loading-paths">Saving and loading paths</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="manual/wrappers.html#using-applications-in-scripts">Using applications in scripts</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="manual/wrappers.html#phyml">PhyML</a></li>
+<li class="toctree-l5"><a class="reference internal" href="manual/wrappers.html#codeml">CodeML</a></li>
+<li class="toctree-l5"><a class="reference internal" href="manual/wrappers.html#clustal-omega-and-muscle">Clustal Omega and Muscle</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="globindex.html">Index</a></li>
+<li class="toctree-l1"><a class="reference internal" href="history.html">History</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="history.html#version-3">Version 3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="history.html#from-version-2-to-version-3">From version 2 to version 3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="history.html#earlier-versions">Earlier versions</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="releases.html">Released versions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="authors.html">Authors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="authors.html#licence">Licence</a></li>
+<li class="toctree-l1"><a class="reference internal" href="training.html">Training workshops</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="training.html#atelier-reseau-efpa-23-juin-2017">Atelier Réseau EFPA 23 juin 2017</a></li>
+<li class="toctree-l2"><a class="reference internal" href="training.html#atelier-gandalf-24-28-avril-2016">Atelier Gandalf 24-28 avril 2016</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="py/index.html">Python Module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="py/toplevel.html">Genetic data holder types</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="py/toplevel.html#align">Align</a></li>
+<li class="toctree-l3"><a class="reference internal" href="py/toplevel.html#container">Container</a></li>
+<li class="toctree-l3"><a class="reference internal" href="py/toplevel.html#tree">Tree</a></li>
+<li class="toctree-l3"><a class="reference internal" href="py/toplevel.html#helpers">Helpers</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="py/tools.html">Generic tools</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="py/tools.html#discretize">Discretize</a></li>
+<li class="toctree-l3"><a class="reference internal" href="py/tools.html#random">Random</a></li>
+<li class="toctree-l3"><a class="reference internal" href="py/tools.html#readingframe">ReadingFrame</a></li>
+<li class="toctree-l3"><a class="reference internal" href="py/tools.html#sequence-manipulation-tools">Sequence manipulation tools</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="py/tools.html#iupac-nomenclature">IUPAC nomenclature</a></li>
+<li class="toctree-l4"><a class="reference internal" href="py/tools.html#concat">concat()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="py/tools.html#ungap">ungap()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="py/tools.html#rc">rc()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="py/tools.html#backalign">backalign()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="py/tools.html#compare">compare()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="py/tools.html#regex">regex()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="py/tools.html#motif-iter">motif_iter()</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="py/tools.html#tools-based-on-the-genetic-code">Tools based on the genetic code</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="py/tools.html#available-genetic-codes">Available genetic codes</a></li>
+<li class="toctree-l4"><a class="reference internal" href="py/tools.html#translator">Translator</a></li>
+<li class="toctree-l4"><a class="reference internal" href="py/tools.html#translate">translate()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="py/tools.html#orf-iter">orf_iter()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="py/tools.html#longest-orf">longest_orf()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="py/tools.html#stop-codon-detection-functions">Stop codon detection functions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="py/tools.html#int2codon">int2codon()</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="py/io.html">Import/export utilities</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="py/io.html#ms-format">ms format</a></li>
+<li class="toctree-l3"><a class="reference internal" href="py/io.html#fasta-format">Fasta format</a></li>
+<li class="toctree-l3"><a class="reference internal" href="py/io.html#gff3-format">GFF3 format</a></li>
+<li class="toctree-l3"><a class="reference internal" href="py/io.html#vcf-format">VCF format</a></li>
+<li class="toctree-l3"><a class="reference internal" href="py/io.html#legacy-parsers">Legacy parsers</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="py/stats.html">Diversity statistics</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="py/stats.html#site">Site</a></li>
+<li class="toctree-l3"><a class="reference internal" href="py/stats.html#freq">Freq</a></li>
+<li class="toctree-l3"><a class="reference internal" href="py/stats.html#diversity-for-gene-families">Diversity for gene families</a></li>
+<li class="toctree-l3"><a class="reference internal" href="py/stats.html#haplotypes">haplotypes()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="py/stats.html#codingdiversity">CodingDiversity</a></li>
+<li class="toctree-l3"><a class="reference internal" href="py/stats.html#linkage-disequilibium">Linkage disequilibium</a></li>
+<li class="toctree-l3"><a class="reference internal" href="py/stats.html#ehh">EHH</a></li>
+<li class="toctree-l3"><a class="reference internal" href="py/stats.html#misorientation-probability">Misorientation probability</a></li>
+<li class="toctree-l3"><a class="reference internal" href="py/stats.html#computestats">ComputeStats</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="py/stats.html#list-of-statistics">List of statistics</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="py/stats.html#structure">Structure</a></li>
+<li class="toctree-l3"><a class="reference internal" href="py/stats.html#filter">Filter</a></li>
+<li class="toctree-l3"><a class="reference internal" href="py/stats.html#constants">Constants</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="py/coalesce.html">Coalescence simulator</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="py/coalesce.html#main-class">Main class</a></li>
+<li class="toctree-l3"><a class="reference internal" href="py/coalesce.html#dictionary-and-list-like-classes">Dictionary- and list-like classes</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="py/coalesce.html#paramdict">ParamDict</a></li>
+<li class="toctree-l4"><a class="reference internal" href="py/coalesce.html#paramlist">ParamList</a></li>
+<li class="toctree-l4"><a class="reference internal" href="py/coalesce.html#parammatrix">ParamMatrix</a></li>
+<li class="toctree-l4"><a class="reference internal" href="py/coalesce.html#eventlist">EventList</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="py/wrappers.html">External application tools</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="py/wrappers.html#application-paths">Application paths</a></li>
+<li class="toctree-l3"><a class="reference internal" href="py/wrappers.html#phylogeny">Phylogeny</a></li>
+<li class="toctree-l3"><a class="reference internal" href="py/wrappers.html#multiple-alignment">Multiple alignment</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="py/misc.html">Miscellaneous utilities</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="cpp/index.html">C++ Library</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="cpp/core.html">Core components</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="cpp/core.html#constants">Constants</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cpp/core.html#basic-classes">Basic classes</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cpp/core.html#dataholder">DataHolder</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cpp/core.html#geneticcode">GeneticCode</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cpp/core.html#random">Random</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cpp/core.html#model-fitting-utilities">Model fitting utilities</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cpp/core.html#abc">ABC</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cpp/core.html#neutral-networks">Neutral networks</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cpp/core.html#utilities">Utilities</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cpp/core.html#interspersealign">IntersperseAlign</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cpp/core.html#vectorint">VectorInt</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cpp/core.html#exceptions">Exceptions</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cpp/core.html#eggexception">EggException</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cpp/core.html#eggargumentvalueerror">EggArgumentValueError</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cpp/core.html#eggformaterror">EggFormatError</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cpp/core.html#egginvalidalleleerror">EggInvalidAlleleError</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cpp/core.html#eggmemoryerror">EggMemoryError</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cpp/core.html#eggopenfileerror">EggOpenFileError</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cpp/core.html#eggploidyerror">EggPloidyError</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cpp/core.html#eggruntimeerror">EggRuntimeError</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cpp/core.html#eggunalignederror">EggUnalignedError</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="cpp/datafiles.html">Data file formats</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="cpp/datafiles.html#exporting-classes">Exporting classes</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cpp/datafiles.html#base-class">Base class</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cpp/datafiles.html#ms-newick">ms &amp; newick</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cpp/datafiles.html#fasta">Fasta</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cpp/datafiles.html#fasta-importing-utilities">Fasta importing utilities</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cpp/datafiles.html#fasta-parsing-class">Fasta parsing class</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cpp/datafiles.html#helper-functions">Helper functions</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cpp/datafiles.html#vcf-importing-class">VCF importing class</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cpp/datafiles.html#vcf-class">VCF class</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cpp/datafiles.html#helper-classes">Helper classes</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cpp/datafiles.html#vcfwindow-class">VcfWindow class</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cpp/datafiles.html#wsite-class">WSite class</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cpp/datafiles.html#others">Others</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cpp/datafiles.html#gff3-class">GFF3 class</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="cpp/coalesce.html">Coalescent simulator</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="cpp/coalesce.html#parameters">Parameters</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cpp/coalesce.html#params-class">Params class</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cpp/coalesce.html#migration-class">Migration class</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cpp/coalesce.html#event-class">Event class</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cpp/coalesce.html#main-class">Main class</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cpp/coalesce.html#arg-representation">ARG representation</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="cpp/diversity.html">Diversity analyses</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="cpp/diversity.html#elementary-classes">Elementary classes</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cpp/diversity.html#filter">Filter</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cpp/diversity.html#structure">Structure</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cpp/diversity.html#classes-analysing-frequencies">Classes analysing frequencies</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cpp/diversity.html#freqholder">FreqHolder</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cpp/diversity.html#freqset">FreqSet</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cpp/diversity.html#site-level-operations">Site-level operations</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cpp/diversity.html#siteholder">SiteHolder</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cpp/diversity.html#sitegeno">SiteGeno</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cpp/diversity.html#sitediversity">SiteDiversity</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cpp/diversity.html#codingsite">CodingSite</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cpp/diversity.html#allelestatus">AlleleStatus</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cpp/diversity.html#computev">ComputeV</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cpp/diversity.html#generic-classes">Generic classes</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cpp/diversity.html#diversity1">Diversity1</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cpp/diversity.html#diversity2">Diversity2</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cpp/diversity.html#other-statistics">Other statistics</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cpp/diversity.html#haplotypes">Haplotypes</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cpp/diversity.html#paralogpi">ParalogPi</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cpp/diversity.html#rd">Rd</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cpp/diversity.html#fu-s-f">Fu’s F</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cpp/diversity.html#linkage-analysis">Linkage analysis</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cpp/diversity.html#pairwiseld">PairwiseLD</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cpp/diversity.html#matrixld">MatrixLD</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cpp/diversity.html#extended-haplotype-homozygosity">Extended haplotype homozygosity</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cpp/diversity.html#helpers">Helpers</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cpp/diversity.html#constants">Constants</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cpp/diversity.html#functions">Functions</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="install.html" title="Installation"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="contents.html" title="Table of Contents"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="contents.html">EggLib&#39;s documentation</a> &#187;</li> 
+      </ul>
+    </div>
+<!--
+        <address style="text-align: right;"><small>Hosted by&nbsp;
+        <a href="http://sourceforge.net/projects/egglib"><img src="http://sflogo.sourceforge.net/sflogo.php?group_id=232965&amp;type=8" width="80" height="15" alt="Get EggLib at SourceForge.net. Fast, secure and Free Open Source software downloads" / ALIGN=RIGHT BORDER=0></a>
+        </address>
+-->
+
+  </body>
+</html>

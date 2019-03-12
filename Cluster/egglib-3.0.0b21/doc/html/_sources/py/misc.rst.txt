@@ -1,0 +1,14 @@
+.. _misc:
+
+-----------------------
+Miscellaneous utilities
+-----------------------
+
+These are tools that, in principle, do not deserve distribution but have
+been implemented for use in other parts of EggLib.
+
+.. autoclass:: egglib.misc.TempFile
+    :members:
+
+.. autoclass:: egglib.misc.Pool
+    :members:

@@ -1,0 +1,268 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Egglib’s documentation &#8212; EggLib&#39;s documentation</title>
+    <link rel="stylesheet" href="_static/egglibdoc.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '3.0.0b21',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="shortcut icon" href="_static/icon.ico"/>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <script type="text/javascript">
+      // intelligent scrolling of the sidebar content
+      $(window).scroll(function() {
+        var sb = $('.sphinxsidebarwrapper');
+        var win = $(window);
+        var sbh = sb.height();
+        var offset = $('.sphinxsidebar').position()['top'];
+        var wintop = win.scrollTop();
+        var winbot = wintop + win.innerHeight();
+        var curtop = sb.position()['top'];
+        var curbot = curtop + sbh;
+        // does sidebar fit in window?
+        if (sbh < win.innerHeight()) {
+          // yes: easy case -- always keep at the top
+          sb.css('top', $u.min([$u.max([0, wintop - offset - 10]),
+                                $(document).height() - sbh - 200]));
+        } else {
+          // no: only scroll if top/bottom edge of sidebar is at
+          // top/bottom edge of window
+          if (curtop > wintop && curbot > winbot) {
+            sb.css('top', $u.max([wintop - offset - 10, 0]));
+          } else if (curtop < wintop && curbot < winbot) {
+            sb.css('top', $u.min([winbot - sbh - offset - 20,
+                                  $(document).height() - sbh - 200]));
+          }
+        }
+      });
+    </script>
+  </head>
+  <body>
+<div style="background-color: white; text-align: left; padding: 0px 0px 0px 0px">
+<a href="#"><img src="_static/banner.png" border="0" alt="EggLib"/></a>
+</div>
+
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="nav-item nav-item-0"><a href="contents.html">EggLib&#39;s documentation</a> &#187;</li> 
+      </ul>
+    </div>
+
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="contents.html">
+              <img class="logo" src="_static/egglib_small.bmp" alt="Logo"/>
+            </a></p>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+
+<style type="text/css">
+</style>
+
+    <div class="section" id="welcome-to-egglib-s-home-page">
+
+    <h1>Welcome to EggLib&#8217;s home page!</h1>
+
+    <p>EggLib is a C++/Python library and program package for
+    evolutionary genetics and genomics. Main features are sequence data
+    management, sequence polymorphism analysis, and coalescent
+    simulations. EggLib is a flexible Python module with a performant
+    underlying C++ library and allows fast and intuitive development of
+    Python programs and scripts.</p>
+
+    <p><strong>Citation:</strong> De Mita S. and M. Siol. 2012. EggLib:
+    processing, analysis and simulation tools for population genetics
+    and genomics. <em>BMC Genet.</em> <strong>13</strong>:27.
+    <a class="reference external" href="http://www.biomedcentral.com/1471-2156/13/27/abstract">Open access</a>.</p>
+
+    <p><strong>Current version:</strong> 3.0.0b21
+
+    <p style="border:3px; border-style:solid; border-color:#FF0000; padding: 1em;">
+    <strong>Beta version</strong>:
+    This is a beta version currently distributed in testing mode.
+    EggLib v3 incorporates major improvements (many more diversity
+    statistics, built-in non-synonymous/synonymous analysis of
+    diversity, new features). A few features still need to be
+    incoporated and much testing is still needed.<br> Beware that <b>you
+    might run into crashes or obtain incorrect results</b>. If you face a
+    crash of the library or if you obtain seemingly incorrect results
+    (in particular a discrepancy between EggLib's output and statistics
+    obtained with another program), we would be extremely grateful if
+    you sent us information allowing to fix the error.
+    <br>
+    In particular, we recommend that you don't rely on results obtained
+    with the classes <tt class="xref py py-class docutils literal"><span class="pre">ABC</span></tt>
+    (which is not available by default) and <tt class="xref py py-class docutils literal"><span class="pre">Nnet</span></tt>.
+    The following statistics provided by <tt class="xref py py-class docutils literal"><span class="pre">ComputeStats</span></tt>
+    have not been tested yet:
+        <tt class="xref py py-class docutils literal"><span class="pre">thetaIAM</span></tt>,
+        <tt class="xref py py-class docutils literal"><span class="pre">thetaSMM</span></tt>,
+        <tt class="xref py py-class docutils literal"><span class="pre">Dj</span></tt> (Jost's D),
+        <tt class="xref py py-class docutils literal"><span class="pre">Gste</span></tt>,
+        <tt class="xref py py-class docutils literal"><span class="pre">R3</span></tt>,
+        <tt class="xref py py-class docutils literal"><span class="pre">R4</span></tt>,
+        <tt class="xref py py-class docutils literal"><span class="pre">Ch</span></tt>,
+        <tt class="xref py py-class docutils literal"><span class="pre">R2E</span></tt>,
+        <tt class="xref py py-class docutils literal"><span class="pre">R3E</span></tt>,
+        <tt class="xref py py-class docutils literal"><span class="pre">R4E</span></tt>,
+        <tt class="xref py py-class docutils literal"><span class="pre">ChE</span></tt>,
+        <tt class="xref py py-class docutils literal"><span class="pre">rD</span></tt> (shown to be incorrect),
+        <tt class="xref py py-class docutils literal"><span class="pre">nPairs</span></tt> and
+        <tt class="xref py py-class docutils literal"><span class="pre">nPairsAdj</span></tt> (but probably correct),
+        <tt class="xref py py-class docutils literal"><span class="pre">Z*nS</span></tt>, and
+        <tt class="xref py py-class docutils literal"><span class="pre">Z*nS*</span></tt>, as well as
+        statistics addressing the rate of misorientation of sites (Baudry and Depaulis's paper).
+    <br>
+    The documentation for EggLib v2 is available <a class="nicelink" href="v2/index.html"> here</a>.
+    </p>
+
+    <h2>News</h2>
+
+    <div><ul class="simple">
+      <li> 2017, June 19: New beta of EggLib v3 (3.0.0b15).</li>
+      <li> 2016, July 17: New beta of EggLib v3 (3.0.0b8).</li>
+      <li> 2016, May 4: New beta of EggLib v3 (3.0.0b6).</li>
+      <li> 2016, March 4: Bug-fix release of EggLib v2 (2.1.11).</li>
+      <li> 2016, March 3: EggLib v3 is now in beta mode (3.0.0b1).</li>
+      <li> 2014, March 23: Bug-fix release of EggLib v2 (2.1.10). If
+           Bio++ is used, Bio++ version 2.2.0 should be used.</li>
+      <li> 2014, Oct. 4: Bug-fix release of EggLib v2 (2.1.9).</li>
+      <li> 2014, Sept. 23: release of preliminary version 3.0.0a1
+           (alpha).</li>
+    </ul></div>
+
+    <h2>Main categories</h2>
+
+    <table class="contentstable" align="center" style="margin-left: 30px">
+    <tr valign="top"><td width="50%">
+        <p class="biglink">
+            <a class="biglink" href="install.html">
+                Installation</a><br>
+            <span class="linkdescr">
+                Download and Install EggLib
+            </span></p>
+
+        <p class="biglink">
+            <a class="biglink" href="toc.html">
+                Full Table of Contents</a><br>
+            <span class="linkdescr">
+                All documentation sections in one page
+            </span></p>
+
+        <p class="biglink">
+            <a class="biglink" href="history.html">
+                History</a><br>
+            <span class="linkdescr">
+                Description of changes for all releases
+            </span></p>
+
+    </td><td width="50%">
+
+        <p class="biglink">
+            <a class="biglink" href="manual/index.html">
+                Manual</a><br>
+            <span class="linkdescr">
+                How to use EggLib
+            </span></p>
+
+        <p class="biglink">
+            <a class="biglink" href="globindex.html">
+                Index</a><br>
+            <span class="linkdescr">
+                Alphabetical index of all functions and classes
+            </span></p>
+
+        <p class="biglink">
+            <a class="biglink" href="authors.html">
+                Authors and Licence</a><br>
+            <span class="linkdescr">
+                Legal information
+            </span></p>
+
+    </td></tr></table>
+
+    <h2>Modules</h2>
+
+    The list below provides a directy access to the documentation for
+    the different modules of EggLib:
+
+    <div><dl class="simple" style="margin-left: 30px;">
+        <dt><a class="nicelink" style="padding-right: 15px;" href="py/toplevel.html">egglib</a></dt>
+            <dd>Generic data holders directly accessible from the <tt class="xref py py-class docutils literal"><span class="pre">egglib</span></tt> namespace</dd>
+        <dt><a class="nicelink" style="padding-right: 15px;" href="py/tools.html">egglib.tools</a></dt>
+            <dd>Generic tools for processing data</dd>
+        <dt><a class="nicelink" style="padding-right: 15px;" href="py/io.html">egglib.io</a></dt>
+            <dd>Input/output operations</dd>
+        <dt><a class="nicelink" style="padding-right: 15px;" href="py/stats.html">egglib.stats</a></dt>
+            <dd>Diversity statistics</dd>
+        <dt><a class="nicelink" style="padding-right: 15px;" href="py/coalesce.html">egglib.coalesce</a></dt>
+            <dd>Coalescent simulator</dd>
+        <dt><a class="nicelink" style="padding-right: 15px;" href="py/wrappers.html">egglib.wrappers</a></dt>
+            <dd>Wrappers of external applications</dd>
+        <dt><a class="nicelink"  style="padding-right: 15px;" href="py/misc.html">egglib.misc</a></dt>
+            <dd>Small module with minor utilities</dd>
+        <dt><a class="nicelink"  style="padding-right: 15px;" href="cpp/index.html">egglib._eggwrapper</a></dt>
+            <dd>C++ library--direct use is strongly discouraged!</dd>
+    </ul></div>
+
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="nav-item nav-item-0"><a href="contents.html">EggLib&#39;s documentation</a> &#187;</li> 
+      </ul>
+    </div>
+<!--
+        <address style="text-align: right;"><small>Hosted by&nbsp;
+        <a href="http://sourceforge.net/projects/egglib"><img src="http://sflogo.sourceforge.net/sflogo.php?group_id=232965&amp;type=8" width="80" height="15" alt="Get EggLib at SourceForge.net. Fast, secure and Free Open Source software downloads" / ALIGN=RIGHT BORDER=0></a>
+        </address>
+-->
+
+  </body>
+</html>

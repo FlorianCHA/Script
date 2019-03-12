@@ -1,0 +1,783 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>The stats.ComputeStats class &#8212; EggLib&#39;s documentation</title>
+    <link rel="stylesheet" href="../_static/egglibdoc.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '3.0.0b21',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="shortcut icon" href="../_static/icon.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Accounting for structure" href="stats-2.html" />
+    <link rel="prev" title="Computing diversity statistics" href="stats.html" />
+    <script type="text/javascript">
+      // intelligent scrolling of the sidebar content
+      $(window).scroll(function() {
+        var sb = $('.sphinxsidebarwrapper');
+        var win = $(window);
+        var sbh = sb.height();
+        var offset = $('.sphinxsidebar').position()['top'];
+        var wintop = win.scrollTop();
+        var winbot = wintop + win.innerHeight();
+        var curtop = sb.position()['top'];
+        var curbot = curtop + sbh;
+        // does sidebar fit in window?
+        if (sbh < win.innerHeight()) {
+          // yes: easy case -- always keep at the top
+          sb.css('top', $u.min([$u.max([0, wintop - offset - 10]),
+                                $(document).height() - sbh - 200]));
+        } else {
+          // no: only scroll if top/bottom edge of sidebar is at
+          // top/bottom edge of window
+          if (curtop > wintop && curbot > winbot) {
+            sb.css('top', $u.max([wintop - offset - 10, 0]));
+          } else if (curtop < wintop && curbot < winbot) {
+            sb.css('top', $u.min([winbot - sbh - offset - 20,
+                                  $(document).height() - sbh - 200]));
+          }
+        }
+      });
+    </script>
+  </head>
+  <body>
+<div style="background-color: white; text-align: left; padding: 0px 0px 0px 0px">
+<a href="../index.html"><img src="../_static/banner.png" border="0" alt="EggLib"/></a>
+</div>
+
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="stats-2.html" title="Accounting for structure"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="stats.html" title="Computing diversity statistics"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../contents.html">EggLib&#39;s documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../toc.html" >Contents</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="index.html" >Manual</a> &#187;</li>
+          <li class="nav-item nav-item-3"><a href="stats.html" accesskey="U">Computing diversity statistics</a> &#187;</li> 
+      </ul>
+    </div>
+
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../contents.html">
+              <img class="logo" src="../_static/egglib_small.bmp" alt="Logo"/>
+            </a></p>
+  <h3><a href="../contents.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">The <code class="docutils literal"><span class="pre">stats.ComputeStats</span></code> class</a><ul>
+<li><a class="reference internal" href="#options">Options</a></li>
+<li><a class="reference internal" href="#list-of-statistics">List of statistics</a></li>
+<li><a class="reference internal" href="#processing-data">Processing data</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#computing-statistics">Computing statistics</a><ul>
+<li><a class="reference internal" href="#single-alignment">Single alignment</a></li>
+<li><a class="reference internal" href="#multiple-alignments">Multiple alignments</a><ul>
+<li><a class="reference internal" href="#phased-data">Phased data</a></li>
+<li><a class="reference internal" href="#alignments-with-different-number-of-samples">Alignments with different number of samples</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#using-individuals-sites">Using individuals sites</a><ul>
+<li><a class="reference internal" href="#single-site-statistics">Single site statistics</a></li>
+<li><a class="reference internal" href="#multiple-sites-statistics">Multiple sites statistics</a></li>
+<li><a class="reference internal" href="#static-list-of-sites">Static list of sites</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#stand-alone-allelic-frequencies">Stand-alone allelic frequencies</a><ul>
+<li><a class="reference internal" href="#creation-of-freq-objects-from-a-site">Creation of <code class="docutils literal"><span class="pre">Freq</span></code> objects from a site</a></li>
+<li><a class="reference internal" href="#creation-of-freq-objects-from-user-provided-frequency-data">Creation of <code class="docutils literal"><span class="pre">Freq</span></code> objects from user-provided frequency data</a></li>
+<li><a class="reference internal" href="#computing-diversity-statistics">Computing diversity statistics</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="stats.html"
+                        title="previous chapter">Computing diversity statistics</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="stats-2.html"
+                        title="next chapter">Accounting for structure</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/manual/stats-1.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="the-stats-computestats-class">
+<h1>The <a class="reference internal" href="../py/stats.html#egglib.stats.ComputeStats" title="egglib.stats.ComputeStats"><code class="xref py py-class docutils literal"><span class="pre">stats.ComputeStats</span></code></a> class<a class="headerlink" href="#the-stats-computestats-class" title="Permalink to this headline">¶</a></h1>
+<p>The <code class="xref py py-mod docutils literal"><span class="pre">stats</span></code> module contains a set of tools to analyze molecular
+variation data, either represented as <a class="reference internal" href="../py/toplevel.html#egglib.Align" title="egglib.Align"><code class="xref py py-class docutils literal"><span class="pre">Align</span></code></a> objects (which
+have been extensively described in the previous part of the manual) or
+<a class="reference internal" href="../py/stats.html#egglib.stats.Site" title="egglib.stats.Site"><code class="xref py py-class docutils literal"><span class="pre">stats.Site</span></code></a> instances (which will be introduced later in this
+page).</p>
+<p>Among those tools, <a class="reference internal" href="../py/stats.html#egglib.stats.ComputeStats" title="egglib.stats.ComputeStats"><code class="xref py py-class docutils literal"><span class="pre">stats.ComputeStats</span></code></a> is the more complex, and
+the more rich with functionalities. Most of the statistics can be computed
+using <code class="xref py py-class docutils literal"><span class="pre">ComputeStats</span></code> (in general, only the most complex statistics
+deserve their own function or class; such as part of linkage disequilibrium
+statistics, which are addressed near the end of this page).</p>
+<p>The rationale for defining <code class="xref py py-class docutils literal"><span class="pre">ComputeStats</span></code> as a class rather than a
+standalone function is that it allows more flexibility (the following
+sections offer an overview of the possibilities) and that it can also be
+more efficient if a lot of items (alignments or sites) need to be processed
+in a row.</p>
+<p>The basic worflow consists in the following steps, which are developped in
+the following paragraphs:</p>
+<blockquote>
+<div><ul class="simple">
+<li>Create an object of the class,</li>
+<li>Set parameters,</li>
+<li>Enter the list of statistics to be computed,</li>
+<li>Process one or several alignments or sites.</li>
+</ul>
+</div></blockquote>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a></h2>
+<p>It is possible to pass parameters values either as constructor arguments or
+through the <a class="reference internal" href="../py/stats.html#egglib.stats.ComputeStats.configure" title="egglib.stats.ComputeStats.configure"><code class="xref py py-meth docutils literal"><span class="pre">ComputeStats.configure()</span></code></a> method. The parameters are
+listed and explained in the documentation of this method. The most important is
+<em>only_diallelic</em>.
+By default, <em>only_diallelic</em> is <code class="docutils literal"><span class="pre">True</span></code>, causing all sites that have more
+than two alleles to be excluded as well. The default parameters might be what
+you want if you use single-nucleotide polymorphism markers or nucleotide
+sequence alignments, but certainly not if you
+use massively multiallelic markers. Other parameters set the behaviour of tools
+computing statistics related to linkage disequilibrium.</p>
+<p>To pass parameters, both syntaxes are equivalent:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">cs</span> <span class="o">=</span> <span class="n">egglib</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">ComputeStats</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cs</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span><span class="n">only_diallelic</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>and</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">cs</span> <span class="o">=</span> <span class="n">egglib</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">ComputeStats</span><span class="p">(</span><span class="n">only_diallelic</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Note also that it is also possible to call <code class="xref py py-meth docutils literal"><span class="pre">configure()</span></code> later at
+any moment in the workflow. In general, try as much as possible to reuse
+objects whenever you perform intensive computations.</p>
+</div>
+<div class="section" id="list-of-statistics">
+<h2>List of statistics<a class="headerlink" href="#list-of-statistics" title="Permalink to this headline">¶</a></h2>
+<p>Statistics can be specified using the object method <a class="reference internal" href="../py/stats.html#egglib.stats.ComputeStats.add_stats" title="egglib.stats.ComputeStats.add_stats"><code class="xref py py-meth docutils literal"><span class="pre">add_stats()</span></code></a>.
+It is possible to call this method several times in a row, it can be
+called at any time even after analysing data sets, and it is also possible
+to enter several statistics at once, as shown in the example below:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">cs</span><span class="o">.</span><span class="n">add_stats</span><span class="p">(</span><span class="s1">&#39;S&#39;</span><span class="p">,</span> <span class="s1">&#39;Pi&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cs</span><span class="o">.</span><span class="n">add_stats</span><span class="p">(</span><span class="s1">&#39;D&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Statistics are represented by a code (as a <a class="reference external" href="https://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">str</span></code></a>). A list of
+tuples matching each code with a short description can be obtained through
+the object method <a class="reference internal" href="../py/stats.html#egglib.stats.ComputeStats.list_stats" title="egglib.stats.ComputeStats.list_stats"><code class="xref py py-meth docutils literal"><span class="pre">list_stats()</span></code></a>. It is also available
+in <a class="reference internal" href="../py/stats.html#list-stats"><span class="std std-ref">List of statistics</span></a>.</p>
+<p>There is a method to add all possible statistics (<a class="reference internal" href="../py/stats.html#egglib.stats.ComputeStats.all_stats" title="egglib.stats.ComputeStats.all_stats"><code class="xref py py-meth docutils literal"><span class="pre">all_stats()</span></code></a>),
+but note that, obviously, only those that can be computed (depending on
+the structure of the provided data set) will be computed (others will be
+set to <code class="docutils literal"><span class="pre">None</span></code>).</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Even if a statistic can be computed, it does not mean that it must be.
+When analysing data, it can be counter-productive to generate huge
+tables of statistics among which some (many) may have too much variance
+to be interpreted anyway.</p>
+</div>
+<p>You can reset the list of statistics using:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">cs</span><span class="o">.</span><span class="n">clear_stats</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>If you are happy with default values of parameters, you are not required
+to call <code class="xref py py-meth docutils literal"><span class="pre">configure()</span></code>. However, it is necessary that you enter parameters
+to be computed, so you have to call <code class="xref py py-meth docutils literal"><span class="pre">add_stats()</span></code>. Still, it is not
+an error to skip this step and proceed with analysing data (but in that
+case you will not get any results).</p>
+</div>
+<div class="section" id="processing-data">
+<h2>Processing data<a class="headerlink" href="#processing-data" title="Permalink to this headline">¶</a></h2>
+<p>Once needed parameters have been set and needed statistics have been
+entered, the user can analyze data using the following methods of
+the <code class="xref py py-class docutils literal"><span class="pre">ComputeStats</span></code> object:</p>
+<blockquote>
+<div><ul class="simple">
+<li><a class="reference internal" href="../py/stats.html#egglib.stats.ComputeStats.process_align" title="egglib.stats.ComputeStats.process_align"><code class="xref py py-meth docutils literal"><span class="pre">process_align()</span></code></a> to process an <a class="reference internal" href="../py/toplevel.html#egglib.Align" title="egglib.Align"><code class="xref py py-class docutils literal"><span class="pre">Align</span></code></a> object.</li>
+<li><a class="reference internal" href="../py/stats.html#egglib.stats.ComputeStats.process_site" title="egglib.stats.ComputeStats.process_site"><code class="xref py py-meth docutils literal"><span class="pre">process_site()</span></code></a> to process a <a class="reference internal" href="../py/stats.html#egglib.stats.Site" title="egglib.stats.Site"><code class="xref py py-class docutils literal"><span class="pre">Site</span></code></a> object.</li>
+<li><a class="reference internal" href="../py/stats.html#egglib.stats.ComputeStats.process_sites" title="egglib.stats.ComputeStats.process_sites"><code class="xref py py-meth docutils literal"><span class="pre">process_sites()</span></code></a> to process several <a class="reference internal" href="../py/stats.html#egglib.stats.Site" title="egglib.stats.Site"><code class="xref py py-class docutils literal"><span class="pre">Site</span></code></a> objects.</li>
+<li><a class="reference internal" href="../py/stats.html#egglib.stats.ComputeStats.process_freq" title="egglib.stats.ComputeStats.process_freq"><code class="xref py py-meth docutils literal"><span class="pre">process_freq()</span></code></a> to process a <a class="reference internal" href="../py/stats.html#egglib.stats.Freq" title="egglib.stats.Freq"><code class="xref py py-class docutils literal"><span class="pre">Freq</span></code></a> object.</li>
+</ul>
+</div></blockquote>
+<p>These methods are addressed in more details in the following section.
+By default, they all return a <a class="reference external" href="https://docs.python.org/2.7/library/stdtypes.html#dict" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">dict</span></code></a> containing computed values
+of statistics corresponding to the analysis of data provided as argument.
+It is also possible to call them several times and access the results of
+the analysis of all passed data eventually (see <a class="reference internal" href="#stats-multiple"><span class="std std-ref">Multiple alignments</span></a>).</p>
+</div>
+</div>
+<div class="section" id="computing-statistics">
+<h1>Computing statistics<a class="headerlink" href="#computing-statistics" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="single-alignment">
+<h2>Single alignment<a class="headerlink" href="#single-alignment" title="Permalink to this headline">¶</a></h2>
+<p>Computing statistics from a single alignment should be rather straightforward.
+Assume with have a Fasta file containing a nucleotide alignment. We
+show below how we would compute a set of standard statistics used in the
+case of nucleotide sequences from this alignment:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">aln1</span> <span class="o">=</span> <span class="n">egglib</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">from_fasta</span><span class="p">(</span><span class="s1">&#39;align1.fas&#39;</span><span class="p">,</span> <span class="bp">cls</span><span class="o">=</span><span class="n">egglib</span><span class="o">.</span><span class="n">Align</span><span class="p">,</span> <span class="n">groups</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cs</span> <span class="o">=</span> <span class="n">egglib</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">ComputeStats</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cs</span><span class="o">.</span><span class="n">add_stats</span><span class="p">(</span><span class="s1">&#39;S&#39;</span><span class="p">,</span> <span class="s1">&#39;thetaW&#39;</span><span class="p">,</span> <span class="s1">&#39;Pi&#39;</span><span class="p">,</span> <span class="s1">&#39;D&#39;</span><span class="p">,</span> <span class="s1">&#39;lseff&#39;</span><span class="p">,</span> <span class="s1">&#39;nseff&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">stats</span> <span class="o">=</span> <span class="n">cs</span><span class="o">.</span><span class="n">process_align</span><span class="p">(</span><span class="n">aln1</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span> <span class="n">aln1</span><span class="o">.</span><span class="n">ns</span><span class="p">,</span> <span class="n">aln1</span><span class="o">.</span><span class="n">ls</span>
+<span class="go">99 8942</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span> <span class="n">stats</span>
+<span class="go">{&#39;lseff&#39;: 3297, &#39;S&#39;: 314, &#39;thetaW&#39;: 60.76702099101937, &#39;nseff&#39;: 99.0, &#39;Pi&#39;: 71.44588744588735, &#39;D&#39;: 0.5939904839741603}</span>
+</pre></div>
+</div>
+<p>As visible in the statistics list, the number of available statistics is
+much larger than that, but many will be irrelevant for this kind of data
+(most of them being reported as <code class="docutils literal"><span class="pre">None</span></code> because they just can’t be computed).
+We first printed the <code class="xref py py-attr docutils literal"><span class="pre">ns</span></code> (number of provided samples) and
+<code class="xref py py-attr docutils literal"><span class="pre">ls</span></code> (alignment length) attributes of the alignment: there are 99
+samples and 8942 sites</p>
+<blockquote>
+<div><ul class="simple">
+<li><code class="docutils literal"><span class="pre">S</span></code> is the number of polymorphic sites. Here we have 314 variable sites.</li>
+<li><code class="docutils literal"><span class="pre">thetaW</span></code> (<span class="math">\hat{\theta}_W</span>) is the so-called Watterson’s estimator of
+<span class="math">\theta = 4N_E\mu</span>. The value is close to 61 which approaches
+0.02 per analysed site (see below).</li>
+<li><code class="docutils literal"><span class="pre">Pi</span></code> (<span class="math">\pi</span>) is the nucleotide diversity, which is a bit
+larger.</li>
+<li><code class="docutils literal"><span class="pre">D</span></code> (Tajima’s <span class="math">D</span>) is positive (+0.59), which is a corollary of
+<code class="docutils literal"><span class="pre">Pi</span></code> being larger than <code class="docutils literal"><span class="pre">thetaW</span></code>.</li>
+<li><code class="docutils literal"><span class="pre">lseff</span></code> is the number of sites used for analysis (excluding those
+with either too many missing data or too many alleles). Here the
+number is 3297, meaning that 5645 sites have been excluded (because
+the default is to exclude all sites with any missing data).</li>
+<li><code class="docutils literal"><span class="pre">nseff</span></code> is the average number of used samples among included sites.
+In our case, since only sites with no missing data at all have been
+used, the number of samples is always 99, but this value can be
+smaller if the parameter <em>max_missing</em> is larger than 0 (see
+example in <a class="reference internal" href="stats-3.html#manual-missing-data"><span class="std std-ref">Missing data</span></a>).</li>
+</ul>
+</div></blockquote>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last"><code class="docutils literal"><span class="pre">thetaW</span></code> and <code class="docutils literal"><span class="pre">Pi</span></code> are given per gene (that is, they are
+summed over the total number of analyzed sites). To be expressed
+per site, they must be divided by <code class="docutils literal"><span class="pre">lseff</span></code>.</p>
+</div>
+</div>
+<div class="section" id="multiple-alignments">
+<span id="stats-multiple"></span><h2>Multiple alignments<a class="headerlink" href="#multiple-alignments" title="Permalink to this headline">¶</a></h2>
+<p>If you have several separate alignments but you want to obtain global
+statistics, the instinctive approach would be to concatenate the alignments
+and use the result in <code class="xref py py-meth docutils literal"><span class="pre">process_align()</span></code>. There is a much more efficient
+way (assuming you want to do so with many alignments), described below.</p>
+<p>There is a <em>multi</em> option which, if toggled, set <code class="xref py py-class docutils literal"><span class="pre">ComputeStats</span></code>
+to load data, and wait for more data before computing statistics. In that
+case, you must call <a class="reference internal" href="../py/stats.html#egglib.stats.ComputeStats.results" title="egglib.stats.ComputeStats.results"><code class="xref py py-meth docutils literal"><span class="pre">results()</span></code></a> to actually compute
+and get statistics:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">alnA</span> <span class="o">=</span> <span class="n">aln1</span><span class="o">.</span><span class="n">extract</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">4500</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">alnB</span> <span class="o">=</span> <span class="n">aln1</span><span class="o">.</span><span class="n">extract</span><span class="p">(</span><span class="mi">4500</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cs</span><span class="o">.</span><span class="n">process_align</span><span class="p">(</span><span class="n">alnA</span><span class="p">,</span> <span class="n">multi</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cs</span><span class="o">.</span><span class="n">process_align</span><span class="p">(</span><span class="n">alnB</span><span class="p">,</span> <span class="n">multi</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">stats</span> <span class="o">=</span> <span class="n">cs</span><span class="o">.</span><span class="n">results</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span> <span class="n">stats</span>
+<span class="go">{&#39;lseff&#39;: 3297, &#39;S&#39;: 314, &#39;thetaW&#39;: 60.76702099101937, &#39;nseff&#39;: 99.0, &#39;Pi&#39;: 71.44588744588735, &#39;D&#39;: 0.5939904839741603}</span>
+</pre></div>
+</div>
+<p>The above example just cut the original alignment in two parts, and then
+processes the two alignments separately. The final dictionary of statistics,
+as expected, is exactly identical to the one obtained with the full
+alignment.</p>
+<div class="section" id="phased-data">
+<h3>Phased data<a class="headerlink" href="#phased-data" title="Permalink to this headline">¶</a></h3>
+<p>Note that some statistics require that data are phased. That’s the case
+of all statistics based on haplotype and linkage disequilibrium. If multiple
+alignments are loaded, it is not ensured that data are phased, even if the number
+of samples matches. By default, it is assumed that data are not phased (and
+thus the concerned statistics will not be computed. That’s the case the
+the <code class="docutils literal"><span class="pre">ZnS</span></code> and <code class="docutils literal"><span class="pre">K</span></code> statistics that are used in the example below:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">cs</span><span class="o">.</span><span class="n">clear_stats</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cs</span><span class="o">.</span><span class="n">add_stats</span><span class="p">(</span><span class="s1">&#39;thetaW&#39;</span><span class="p">,</span> <span class="s1">&#39;Pi&#39;</span><span class="p">,</span> <span class="s1">&#39;ZnS&#39;</span><span class="p">,</span> <span class="s1">&#39;K&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cs</span><span class="o">.</span><span class="n">process_align</span><span class="p">(</span><span class="n">alnA</span><span class="p">,</span> <span class="n">multi</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cs</span><span class="o">.</span><span class="n">process_align</span><span class="p">(</span><span class="n">alnB</span><span class="p">,</span> <span class="n">multi</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">stats</span> <span class="o">=</span> <span class="n">cs</span><span class="o">.</span><span class="n">results</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span> <span class="n">stats</span>
+<span class="go">{&#39;ZnS&#39;: None, &#39;K&#39;: None, &#39;Pi&#39;: 71.44588744588735, &#39;thetaW&#39;: 60.76702099101937}</span>
+</pre></div>
+</div>
+<p>There is an option <em>phased</em> to the method <code class="xref py py-meth docutils literal"><span class="pre">results()</span></code> that allows the
+user to confirm that data is phased (if they are). If it is toggled, and
+if the number of samples is constant, the concerned statistics will be
+computed:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">cs</span><span class="o">.</span><span class="n">process_align</span><span class="p">(</span><span class="n">alnA</span><span class="p">,</span> <span class="n">multi</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cs</span><span class="o">.</span><span class="n">process_align</span><span class="p">(</span><span class="n">alnB</span><span class="p">,</span> <span class="n">multi</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">stats</span> <span class="o">=</span> <span class="n">cs</span><span class="o">.</span><span class="n">results</span><span class="p">(</span><span class="n">phased</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span> <span class="n">stats</span>
+<span class="go">{&#39;ZnS&#39;: 0.0015415339323000112, &#39;K&#39;: 44, &#39;Pi&#39;: 71.44588744588735, &#39;thetaW&#39;: 60.76702099101937}</span>
+</pre></div>
+</div>
+<p>The option is <code class="docutils literal"><span class="pre">False</span></code> by default to avoid computing incorrect statistics
+by mistake if data are not phased and the number of samples matches by chance.</p>
+</div>
+<div class="section" id="alignments-with-different-number-of-samples">
+<h3>Alignments with different number of samples<a class="headerlink" href="#alignments-with-different-number-of-samples" title="Permalink to this headline">¶</a></h3>
+<p>This still works if the number of samples is not constant over alignments.
+Here we make <em>alnB</em> to have less samples than <em>alnA</em> and show that the
+statistics are identical when we process them separately or as a single
+concatenated alignment:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">alnB</span><span class="o">.</span><span class="n">del_sample</span><span class="p">(</span><span class="mi">88</span><span class="p">)</span> <span class="c1"># delete higher index first</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">alnB</span><span class="o">.</span><span class="n">del_sample</span><span class="p">(</span><span class="mi">44</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cs</span><span class="o">.</span><span class="n">process_align</span><span class="p">(</span><span class="n">alnA</span><span class="p">,</span> <span class="n">multi</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">ignore_ns</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">max_missing</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cs</span><span class="o">.</span><span class="n">process_align</span><span class="p">(</span><span class="n">alnB</span><span class="p">,</span> <span class="n">multi</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">ignore_ns</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">max_missing</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span> <span class="n">cs</span><span class="o">.</span><span class="n">results</span><span class="p">()</span>
+<span class="go">{&#39;lseff&#39;: 8880, &#39;S&#39;: 855, &#39;thetaW&#39;: 166.12382880026243, &#39;nseff&#39;: 97.00518018018018, &#39;Pi&#39;: 192.73199154011564, &#39;D&#39;: 0.5466322413908552}</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">aln2</span> <span class="o">=</span> <span class="n">egglib</span><span class="o">.</span><span class="n">tools</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span><span class="n">alnA</span><span class="p">,</span> <span class="n">alnB</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span> <span class="n">cs</span><span class="o">.</span><span class="n">process_align</span><span class="p">(</span><span class="n">aln2</span><span class="p">)</span>
+<span class="go">{&#39;lseff&#39;: 8879, &#39;S&#39;: 855, &#39;thetaW&#39;: 166.12382880026243, &#39;nseff&#39;: 97.00619439126028, &#39;Pi&#39;: 192.73199154011564, &#39;D&#39;: 0.5466322413908552}</span>
+</pre></div>
+</div>
+<p>Note that, to delete the 45th and 89th samples (indexes 44 and 88), we
+delete the one with the higher index first, to avoid the effect of index
+shifting after the first deletion.</p>
+<p>To process alignment with varying number of samples, it is also required
+to set the <em>ignore_ns</em> flag to <code class="docutils literal"><span class="pre">True</span></code>. This ensures that you know what
+you are doing and avoid errors that would be caused by accidentally missing
+samples when the user expects that all alignments have the same number of
+samples.</p>
+<p>As expected, the statistics are identical.</p>
+<p>We will examine the effects of changing the value <em>max_missing</em> in
+<a class="reference internal" href="stats-3.html#manual-missing-data"><span class="std std-ref">Missing data</span></a>.
+Besides, there is a small difference (one more analyzed site when we
+process parts separately). This is because the concatenated alignment has
+missing data instead of the removed data, causing an increased
+probability of excluding sites (the difference is marginal because of the
+relatively large number of samples compared with the difference in
+number of samples).</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Haplotype and linkage disequilibrium statistics are never computed
+when the number of samples is variable over alignments (in that case,
+the value of the <em>phased</em> option is ignored).</p>
+</div>
+</div>
+</div>
+<div class="section" id="using-individuals-sites">
+<h2>Using individuals sites<a class="headerlink" href="#using-individuals-sites" title="Permalink to this headline">¶</a></h2>
+<p>Individual sites can be processed as well. They are represented by the
+class <a class="reference internal" href="../py/stats.html#egglib.stats.Site" title="egglib.stats.Site"><code class="xref py py-class docutils literal"><span class="pre">stats.Site</span></code></a>. This class is aimed to represent data for any
+genetic marker such as a single nucleotide polymorphism (SNP), a
+microsatellite, an encoded insertion/deletion polymorphism, or any other
+form of genetic variation. It handles both ingroup and outgroup data and
+encodes data as integers, just like <code class="xref py py-class docutils literal"><span class="pre">Align</span></code>. The following functions
+allow to create a <code class="xref py py-class docutils literal"><span class="pre">Site</span></code>:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="35%" />
+<col width="65%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Generator functions</th>
+<th class="head">Source of data</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><a class="reference internal" href="../py/stats.html#egglib.stats.site_from_align" title="egglib.stats.site_from_align"><code class="xref py py-func docutils literal"><span class="pre">stats.site_from_align()</span></code></a></td>
+<td>A position in an <code class="xref py py-class docutils literal"><span class="pre">Align</span></code> object.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="../py/stats.html#egglib.stats.site_from_list" title="egglib.stats.site_from_list"><code class="xref py py-func docutils literal"><span class="pre">stats.site_from_list()</span></code></a></td>
+<td>A user-provided <code class="xref py py-class docutils literal"><span class="pre">list</span></code> of data.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="../py/stats.html#egglib.stats.site_from_vcf" title="egglib.stats.site_from_vcf"><code class="xref py py-func docutils literal"><span class="pre">stats.site_from_vcf()</span></code></a></td>
+<td>The current data of a VCF parser (see <a class="reference internal" href="stats-4.html#manual-vcf"><span class="std std-ref">Using VCF files</span></a>).</td>
+</tr>
+</tbody>
+</table>
+<p>Note that each of those functions has a counterpart as a <code class="xref py py-class docutils literal"><span class="pre">Site</span></code>
+method to allow to recycle an existing object if one already exists.</p>
+<p>In the examples of the following paragraphs, we will create sites from
+the same alignment that we have been using in previous examples. However,
+in practice the class <code class="xref py py-class docutils literal"><span class="pre">Site</span></code> is mostly there for cases when
+individual sites are available. The small example below shows how to
+create a <code class="xref py py-class docutils literal"><span class="pre">Site</span></code> from a list of allelic values, which is the most
+simple and intuitive way:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">site</span> <span class="o">=</span> <span class="n">egglib</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">site_from_list</span><span class="p">(</span>
+<span class="go">      ingroup=[(144, 144), (144, 148), (140, 140), (136, 148), (148, 146)],</span>
+<span class="go">      outgroup=[(144, 144)])</span>
+</pre></div>
+</div>
+<p>The data are loaded as two lists (one for the ingroup and the other for
+the outgroup) of individual allelic values, themselves represented by tuples
+or nested lists (in the case, tuples of two values each, assume a diploid
+case). If data are haploid (or ploidy is irrelevant), the inner tuples
+should be of length one. There is a <em>flat</em> option to skip the individual level
+and pass haploid data as single lists, as shown below:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">site</span> <span class="o">=</span> <span class="n">egglib</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">site_from_list</span><span class="p">(</span>
+<span class="go">      ingroup=[144, 144, 144, 148, 140, 140, 136, 148, 148, 146],</span>
+<span class="go">      outgroup=[144, 144],</span>
+<span class="go">      flat=True)</span>
+</pre></div>
+</div>
+<p>Characters are accepted as input instead of integer values (see <a class="reference internal" href="base-3.html#encoding"><span class="std std-ref">Encoding of data</span></a>),
+allowing to pass individual data as two-items strings (for diploid data):</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">site</span> <span class="o">=</span> <span class="n">egglib</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">site_from_list</span><span class="p">([</span><span class="s1">&#39;AA&#39;</span><span class="p">,</span> <span class="s1">&#39;AA&#39;</span><span class="p">,</span> <span class="s1">&#39;AG&#39;</span><span class="p">,</span> <span class="s1">&#39;AA&#39;</span><span class="p">,</span> <span class="s1">&#39;GG&#39;</span><span class="p">],</span> <span class="kc">None</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The example above also shows that <code class="docutils literal"><span class="pre">None</span></code> can be pass instead of the outgroup
+if none is available (it is equivalent to an empty list). <code class="docutils literal"><span class="pre">None</span></code> is also
+accepted within data, to represent missing data.</p>
+<div class="section" id="single-site-statistics">
+<h3>Single site statistics<a class="headerlink" href="#single-site-statistics" title="Permalink to this headline">¶</a></h3>
+<p>The code in the next example will clear the list of statistics and specify
+a list more adapted to single-site analysis, and then will analyse the site
+at position 66:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">cs</span><span class="o">.</span><span class="n">clear_stats</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cs</span><span class="o">.</span><span class="n">add_stats</span><span class="p">(</span><span class="s1">&#39;Aing&#39;</span><span class="p">,</span> <span class="s1">&#39;He&#39;</span><span class="p">,</span> <span class="s1">&#39;R&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">site</span> <span class="o">=</span> <span class="n">egglib</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">site_from_align</span><span class="p">(</span><span class="n">aln1</span><span class="p">,</span> <span class="mi">66</span><span class="p">,</span> <span class="n">egglib</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">filter_dna</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">stats</span> <span class="o">=</span> <span class="n">cs</span><span class="o">.</span><span class="n">process_site</span><span class="p">(</span><span class="n">site</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span> <span class="n">stats</span>
+<span class="go">{&#39;R&#39;: 0.02040816326530612, &#39;Aing&#39;: 3, &#39;He&#39;: 0.6233766233766234}</span>
+</pre></div>
+</div>
+<p>To understand what <code class="docutils literal"><span class="pre">egglib.stats.filter_dna</span></code> is for, see <a class="reference internal" href="stats-2.html#filters"><span class="std std-ref">Filters</span></a>.</p>
+<p>The statistics computed here are:</p>
+<blockquote>
+<div><ul class="simple">
+<li><code class="docutils literal"><span class="pre">Aing</span></code>: the number of alleles in ingroup (this is a relatively unfrequent case
+with a SNP with three alleles within a nucleotide alignment).</li>
+<li><code class="docutils literal"><span class="pre">R</span></code>: the allelic richness.</li>
+<li><code class="docutils literal"><span class="pre">He</span></code>: the heterozygosity (which is above 0.5 only because there are three alleles).</li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="multiple-sites-statistics">
+<h3>Multiple sites statistics<a class="headerlink" href="#multiple-sites-statistics" title="Permalink to this headline">¶</a></h3>
+<p>You might be also interested in statistics over several sites. You can
+load multiple sites in a similar way as for alignments. In the example
+below we compute, in addition to <code class="docutils literal"><span class="pre">Aing</span></code>, <code class="docutils literal"><span class="pre">R</span></code> and <code class="docutils literal"><span class="pre">He</span></code>, the
+per-gene statistic <code class="docutils literal"><span class="pre">D</span></code> over all sites of the alignment:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">cs</span><span class="o">.</span><span class="n">add_stats</span><span class="p">(</span><span class="s1">&#39;D&#39;</span><span class="p">,</span> <span class="s1">&#39;Pi&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">xrange</span><span class="p">(</span><span class="n">aln1</span><span class="o">.</span><span class="n">ls</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="n">site</span><span class="o">.</span><span class="n">process_align</span><span class="p">(</span><span class="n">aln1</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">egglib</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">filter_dna</span><span class="p">)</span>
+<span class="gp">... </span>    <span class="n">cs</span><span class="o">.</span><span class="n">process_site</span><span class="p">(</span><span class="n">site</span><span class="p">)</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span> <span class="n">cs</span><span class="o">.</span><span class="n">results</span><span class="p">()</span>
+<span class="go">{&#39;Pi&#39;: 195.22252571452051, &#39;R&#39;: 0.0010210126233630454, &#39;Aing&#39;: 1.098813786929275, &#39;D&#39;: 0.5726843754717476, &#39;He&#39;: 0.02184674638703229}</span>
+</pre></div>
+</div>
+<p>Rather than creating a new site for each position of the alignment using
+<code class="docutils literal"><span class="pre">egglib.stats.site_from_align()</span></code>, we recycle over and over again the
+same instance using the object method <a class="reference internal" href="../py/stats.html#egglib.stats.Site.process_align" title="egglib.stats.Site.process_align"><code class="xref py py-meth docutils literal"><span class="pre">Site.process_align()</span></code></a> which
+is more efficient. Contrary to <code class="xref py py-meth docutils literal"><span class="pre">process_align()</span></code>, <code class="xref py py-meth docutils literal"><span class="pre">process_site()</span></code>
+does not have an option <em>multi</em> to combine data from different sites (it
+is always possible to combine data). Note that there is also a
+<a class="reference internal" href="../py/stats.html#egglib.stats.ComputeStats.process_sites" title="egglib.stats.ComputeStats.process_sites"><code class="xref py py-meth docutils literal"><span class="pre">process_sites()</span></code></a> method to process a list of sites
+in one call (but this approach does not allow to recycle the same
+<code class="xref py py-class docutils literal"><span class="pre">Site</span></code> instance).</p>
+<p>On average over all sites, the number of alleles is slightly over 1 because
+most sites are fixed and a minority have several alleles (we considered
+in the previous example the rare case of a site with three alleles). The
+average values of <code class="docutils literal"><span class="pre">R</span></code> and <code class="docutils literal"><span class="pre">He</span></code> are, accordingly, much smaller. We
+also showed that it is possible to compute statistics for sequence alignments
+using individuals sites (in this case, <code class="docutils literal"><span class="pre">Pi</span></code> and <code class="docutils literal"><span class="pre">D</span></code>).</p>
+<p>Note that <code class="docutils literal"><span class="pre">Pi</span></code> is equal to the sum of <code class="docutils literal"><span class="pre">He</span></code> values for all sites.
+As a result, the value of <code class="docutils literal"><span class="pre">Pi</span></code> is equal to the averaged value of <code class="docutils literal"><span class="pre">He</span></code>
+multiplied by the actual number of processed sites (which is 8936,
+because all sites with any non-missing data have been processed as long
+as they still have non-missing data). We can
+check that the statistics are identical when
+using <code class="xref py py-meth docutils literal"><span class="pre">process_align()</span></code> with the original alignment (remember that
+we must allow any number of missing data to reproduce what happens when
+will load all sites from the alignment):</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span> <span class="n">cs</span><span class="o">.</span><span class="n">process_align</span><span class="p">(</span><span class="n">aln1</span><span class="p">,</span> <span class="n">max_missing</span><span class="o">=</span><span class="mf">0.999</span><span class="p">)</span>
+<span class="go">{&#39;Pi&#39;: 195.22252571452051, &#39;R&#39;: 0.0010210126233630454, &#39;Aing&#39;: 1.098813786929275, &#39;D&#39;: 0.5726843754717476, &#39;He&#39;: 0.02184674638703229}</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">To compute per-site statistics for sites of an alignment, you can
+use <a class="reference internal" href="../py/stats.html#egglib.stats.ComputeStats.process_align" title="egglib.stats.ComputeStats.process_align"><code class="xref py py-meth docutils literal"><span class="pre">ComputeStats.process_align()</span></code></a> (per-site statistics will be
+averaged as was done for the last example). It makes no sense to
+compute per-gene statistics (such as <code class="docutils literal"><span class="pre">D</span></code>) through sites extracted
+from an <code class="xref py py-class docutils literal"><span class="pre">Align</span></code> rather than using <code class="xref py py-meth docutils literal"><span class="pre">process_align()</span></code>
+directly. However, <code class="xref py py-meth docutils literal"><span class="pre">process_site()</span></code> is useful if sites are
+obtained by other means than from an alignment.</p>
+</div>
+</div>
+<div class="section" id="static-list-of-sites">
+<h3>Static list of sites<a class="headerlink" href="#static-list-of-sites" title="Permalink to this headline">¶</a></h3>
+<p>Linkage disequilibrium statistics, as well as <span class="math">\bar{r}_d</span> (code <code class="docutils literal"><span class="pre">rD</span></code>),
+require that all sites used for analysis are available at the time. Those
+statistics cannot be computed by <code class="xref py py-meth docutils literal"><span class="pre">results()</span></code> if the data have been
+provided by <code class="xref py py-meth docutils literal"><span class="pre">process_site()</span></code> or <code class="xref py py-meth docutils literal"><span class="pre">process_sites()</span></code>, even if
+<em>phased</em> is set to <code class="docutils literal"><span class="pre">True</span></code>. The examples below demonstrate it with the
+case of the <code class="docutils literal"><span class="pre">ZnS</span></code> statistic. Such statistic can be computed if we pass
+an <code class="xref py py-class docutils literal"><span class="pre">Align</span></code>:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">cs</span><span class="o">.</span><span class="n">clear_stats</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cs</span><span class="o">.</span><span class="n">add_stats</span><span class="p">(</span><span class="s1">&#39;ZnS&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span> <span class="n">cs</span><span class="o">.</span><span class="n">process_align</span><span class="p">(</span><span class="n">aln1</span><span class="p">)</span>
+<span class="go">{&#39;ZnS&#39;: 0.0015415339323000112}</span>
+</pre></div>
+</div>
+<p>They can be as well if we pass several fragments, but only if they have
+the same number of samples and we promise that the list of samples is
+matching (data phased):</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">alnA</span> <span class="o">=</span> <span class="n">aln1</span><span class="o">.</span><span class="n">extract</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">4500</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">alnB</span> <span class="o">=</span> <span class="n">aln1</span><span class="o">.</span><span class="n">extract</span><span class="p">(</span><span class="mi">4500</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cs</span><span class="o">.</span><span class="n">process_align</span><span class="p">(</span><span class="n">alnA</span><span class="p">,</span> <span class="n">multi</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cs</span><span class="o">.</span><span class="n">process_align</span><span class="p">(</span><span class="n">alnB</span><span class="p">,</span> <span class="n">multi</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span> <span class="n">cs</span><span class="o">.</span><span class="n">results</span><span class="p">(</span><span class="n">phased</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="go">{&#39;ZnS&#39;: 0.0015415339323000112}</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cs</span><span class="o">.</span><span class="n">process_align</span><span class="p">(</span><span class="n">alnA</span><span class="p">,</span> <span class="n">multi</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cs</span><span class="o">.</span><span class="n">process_align</span><span class="p">(</span><span class="n">alnB</span><span class="p">,</span> <span class="n">multi</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span> <span class="n">cs</span><span class="o">.</span><span class="n">results</span><span class="p">(</span><span class="n">phased</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="go">{&#39;ZnS&#39;: None}</span>
+</pre></div>
+</div>
+<p>To test what happens when we provide the sites individually, we extract
+all sites of the alignment (skipping those with missing data to match
+what <code class="xref py py-meth docutils literal"><span class="pre">process_align()</span></code> does by default):</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">sites</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">xrange</span><span class="p">(</span><span class="n">aln1</span><span class="o">.</span><span class="n">ls</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="n">site</span> <span class="o">=</span> <span class="n">egglib</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">site_from_align</span><span class="p">(</span><span class="n">aln1</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">egglib</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">filter_dna</span><span class="p">)</span>
+<span class="gp">... </span>    <span class="k">if</span> <span class="n">site</span><span class="o">.</span><span class="n">num_missing_ingroup</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+<span class="gp">... </span>        <span class="n">sites</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">site</span><span class="p">)</span>
+<span class="gp">...</span>
+</pre></div>
+</div>
+<p>The statistics in question are not computed if we provide the sites
+individually and one by one, regardless of whether they are phased or not,
+because nothing guarantees that the site objects will be constant until
+statistics are actually computed:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">site</span> <span class="ow">in</span> <span class="n">sites</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="n">cs</span><span class="o">.</span><span class="n">process_site</span><span class="p">(</span><span class="n">site</span><span class="p">)</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span> <span class="n">cs</span><span class="o">.</span><span class="n">results</span><span class="p">(</span><span class="n">phased</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="go">{&#39;ZnS&#39;: None}</span>
+</pre></div>
+</div>
+<p>In that case, it is necessary to pass all sites grouped together in one
+list:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span> <span class="n">cs</span><span class="o">.</span><span class="n">process_sites</span><span class="p">(</span><span class="n">sites</span><span class="p">,</span> <span class="n">phased</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="go">{&#39;ZnS&#39;: 0.0015415339323000112}</span>
+</pre></div>
+</div>
+<p>In that case, the method <code class="xref py py-meth docutils literal"><span class="pre">results()</span></code> does not compute statistics
+because the list of sites are not stored internally. Since they might
+be modified because these statistics are computed, they are skipped in
+this case:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">cs</span><span class="o">.</span><span class="n">process_sites</span><span class="p">(</span><span class="n">sites</span><span class="p">,</span> <span class="n">multi</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">phased</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span> <span class="n">cs</span><span class="o">.</span><span class="n">results</span><span class="p">(</span><span class="n">phased</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="go">{&#39;ZnS&#39;: None}</span>
+</pre></div>
+</div>
+<p>Note that these limitations might be lifted in a future version.</p>
+</div>
+</div>
+<div class="section" id="stand-alone-allelic-frequencies">
+<h2>Stand-alone allelic frequencies<a class="headerlink" href="#stand-alone-allelic-frequencies" title="Permalink to this headline">¶</a></h2>
+<p>It can happen that only allelic frequencies are available (such as with
+bulk sequencing). In that case <code class="xref py py-class docutils literal"><span class="pre">Site</span></code> is not appropriate because
+it requires an ordering of samples. It would be possible to arbitrarily
+create a site from a set of allelic frequencies but this would be a
+pointless waste of computing resources. There is a class in EggLib, named
+<a class="reference internal" href="../py/stats.html#egglib.stats.Freq" title="egglib.stats.Freq"><code class="xref py py-class docutils literal"><span class="pre">stats.Freq</span></code></a>, fulfilling this aim.</p>
+<p>There is a logical relationship between the classes <code class="xref py py-class docutils literal"><span class="pre">Align</span></code>,
+<code class="xref py py-class docutils literal"><span class="pre">Site</span></code>, and <code class="xref py py-class docutils literal"><span class="pre">Freq</span></code>: the latter two can be created based on
+objects of the respective previous one, but they can also be provided by
+external means. In other words, <code class="xref py py-class docutils literal"><span class="pre">Align</span></code> and even <code class="xref py py-class docutils literal"><span class="pre">Site</span></code> can
+be bypassed if the corresponding data is not available. We have seen in the
+previous section that it is not necessary to artifically create an
+<code class="xref py py-class docutils literal"><span class="pre">Align</span></code> instance if only available sites are available. Likewise,
+<code class="xref py py-class docutils literal"><span class="pre">Site</span></code> can be bypassed if only frequencies are available.</p>
+<p>Like <code class="xref py py-class docutils literal"><span class="pre">Site</span></code>, <code class="xref py py-class docutils literal"><span class="pre">Freq</span></code> objects can be created from different types
+of source: from a <code class="xref py py-class docutils literal"><span class="pre">Site</span></code> object, from a user-specified list, or from VCF data.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="34%" />
+<col width="66%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Generator functions</th>
+<th class="head">Source of data</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><a class="reference internal" href="../py/stats.html#egglib.stats.freq_from_site" title="egglib.stats.freq_from_site"><code class="xref py py-func docutils literal"><span class="pre">stats.freq_from_site()</span></code></a></td>
+<td>A <a class="reference internal" href="../py/stats.html#egglib.stats.Site" title="egglib.stats.Site"><code class="xref py py-class docutils literal"><span class="pre">Site</span></code></a> object.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="../py/stats.html#egglib.stats.freq_from_list" title="egglib.stats.freq_from_list"><code class="xref py py-func docutils literal"><span class="pre">stats.freq_from_list()</span></code></a></td>
+<td>A user-provided <code class="xref py py-class docutils literal"><span class="pre">list</span></code> of data.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="../py/stats.html#egglib.stats.freq_from_vcf" title="egglib.stats.freq_from_vcf"><code class="xref py py-func docutils literal"><span class="pre">stats.freq_from_vcf()</span></code></a></td>
+<td>The current data of a VCF parser (see <a class="reference internal" href="stats-4.html#manual-vcf"><span class="std std-ref">Using VCF files</span></a>).</td>
+</tr>
+</tbody>
+</table>
+<p>There are also equivalent methods to recycle an existing object.</p>
+<div class="section" id="creation-of-freq-objects-from-a-site">
+<h3>Creation of <a class="reference internal" href="../py/stats.html#egglib.stats.Freq" title="egglib.stats.Freq"><code class="xref py py-class docutils literal"><span class="pre">Freq</span></code></a> objects from a site<a class="headerlink" href="#creation-of-freq-objects-from-a-site" title="Permalink to this headline">¶</a></h3>
+<p>If we go back to the example site created above, we see that creating a
+<code class="xref py py-class docutils literal"><span class="pre">Freq</span></code> object is rather straighforward (see highlighted line below):</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span> <span class="n">site</span> <span class="o">=</span> <span class="n">egglib</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">site_from_list</span><span class="p">(</span>
+     <span class="n">ingroup</span><span class="o">=</span><span class="p">[(</span><span class="mi">144</span><span class="p">,</span> <span class="mi">144</span><span class="p">),</span> <span class="p">(</span><span class="mi">144</span><span class="p">,</span> <span class="mi">148</span><span class="p">),</span> <span class="p">(</span><span class="mi">140</span><span class="p">,</span> <span class="mi">140</span><span class="p">),</span> <span class="p">(</span><span class="mi">136</span><span class="p">,</span> <span class="mi">148</span><span class="p">),</span> <span class="p">(</span><span class="mi">148</span><span class="p">,</span> <span class="mi">146</span><span class="p">)],</span>
+     <span class="n">outgroup</span><span class="o">=</span><span class="p">[(</span><span class="mi">144</span><span class="p">,</span> <span class="mi">144</span><span class="p">)])</span>
+<span class="hll"> <span class="n">freq</span> <span class="o">=</span> <span class="n">egglib</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">freq_from_site</span><span class="p">(</span><span class="n">site</span><span class="p">)</span>
+</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">xrange</span><span class="p">(</span><span class="n">freq</span><span class="o">.</span><span class="n">num_alleles</span><span class="p">):</span>
+     <span class="k">print</span> <span class="n">freq</span><span class="o">.</span><span class="n">freq_allele</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="creation-of-freq-objects-from-user-provided-frequency-data">
+<h3>Creation of <a class="reference internal" href="../py/stats.html#egglib.stats.Freq" title="egglib.stats.Freq"><code class="xref py py-class docutils literal"><span class="pre">Freq</span></code></a> objects from user-provided frequency data<a class="headerlink" href="#creation-of-freq-objects-from-user-provided-frequency-data" title="Permalink to this headline">¶</a></h3>
+<p>To create a <code class="xref py py-class docutils literal"><span class="pre">Freq</span></code> object from already computed allelic frequencies,
+the syntax is logical but the data format must be followed carefully.
+Here, it is necessary to provide allelic or genotypic frequencies while taking into account
+population structure.
+Formally, <code class="xref py py-func docutils literal"><span class="pre">freq_from_list()</span></code> expects allelic population frequencies for
+an arbitrary number of clusters (at least one). The number of alleles, of
+clusters, and of populations per clusters are deduced from provided data.
+In practice, this require that you provide a nested list of frequencies with
+three levels: clusters, populations, individuals.</p>
+<dl class="docutils">
+<dt>The basic structure of the input nested list is:</dt>
+<dd><ul class="first last simple">
+<li>First level: <code class="docutils literal"><span class="pre">[cluster1,</span> <span class="pre">cluster2,</span> <span class="pre">...]</span></code></li>
+<li>Second level: <code class="docutils literal"><span class="pre">cluster1</span> <span class="pre">=</span> <span class="pre">[pop1,</span> <span class="pre">pop2,</span> <span class="pre">...]</span></code></li>
+<li>Third level: <code class="docutils literal"><span class="pre">pop1</span> <span class="pre">=</span> <span class="pre">[p1,</span> <span class="pre">p2,</span> <span class="pre">...]</span></code> where <code class="docutils literal"><span class="pre">p1</span></code> is the absolute
+frequency of the first allele (the number of allele must match
+over all populations.</li>
+</ul>
+</dd>
+</dl>
+<p>In many cases, there will be no clusters, which is actually equivalent to
+a single cluster. In this case, the first level would be a list containing
+a single item: <code class="docutils literal"><span class="pre">[[pop1,</span> <span class="pre">pop2,</span> <span class="pre">...]]</span></code>.</p>
+<p>It is possible also that there is no population structure. Then this level
+can be also bypassed by using a single-item list.</p>
+<p>The outgroup is loaded as the second argument, and is provided as another
+list that is analogous to an additional population (a list of frequencies
+of all alleles, even if there is only one sample).</p>
+<p>Actually, for simple cases, the syntax is not verbose. The above example,
+assuming a single cluster and a single population, while providing allelic
+frequencies only, writes as follows:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">freq</span> <span class="o">=</span> <span class="n">egglib</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">freq_from_list</span><span class="p">([[[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]]],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+</pre></div>
+</div>
+<p>If your data is based on genotypes, you can provide genotypic frequencies.
+In this case you are required to provided as well a list detailing the
+allele composition of each genotypes considered. In the example above, there
+are also five genotypes, but each is represented by a single copy. We need
+to recode them, and use the <em>geno_list</em> option:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">freq</span> <span class="o">=</span> <span class="n">egglib</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">freq_from_list</span><span class="p">([[[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]]],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+    <span class="n">geno_list</span><span class="o">=</span><span class="p">[(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">)])</span>
+</pre></div>
+</div>
+<p>The allelic frequencies are computed automatically based on the composition
+of genotypes as provided.</p>
+</div>
+<div class="section" id="computing-diversity-statistics">
+<h3>Computing diversity statistics<a class="headerlink" href="#computing-diversity-statistics" title="Permalink to this headline">¶</a></h3>
+<p>Using the same example as above, we can see that we can also compute
+diversity statistics for a single site or from an array of sites when
+only frequencies are available (obviously, statistics requiring
+haplotypic information will not be available). For this we need to use
+the method <a class="reference internal" href="../py/stats.html#egglib.stats.ComputeStats.process_freq" title="egglib.stats.ComputeStats.process_freq"><code class="xref py py-meth docutils literal"><span class="pre">ComputeStats.process_freq()</span></code></a>:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">cs</span><span class="o">.</span><span class="n">clear_stats</span><span class="p">()</span>
+<span class="n">cs</span><span class="o">.</span><span class="n">add_stats</span><span class="p">(</span><span class="s1">&#39;Aing&#39;</span><span class="p">,</span> <span class="s1">&#39;He&#39;</span><span class="p">,</span> <span class="s1">&#39;R&#39;</span><span class="p">)</span>
+<span class="n">site</span> <span class="o">=</span> <span class="n">egglib</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">site_from_align</span><span class="p">(</span><span class="n">aln1</span><span class="p">,</span> <span class="mi">66</span><span class="p">,</span> <span class="n">egglib</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">filter_dna</span><span class="p">)</span>
+<span class="n">freq</span> <span class="o">=</span> <span class="n">egglib</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">freq_from_site</span><span class="p">(</span><span class="n">site</span><span class="p">)</span>
+<span class="nb">print</span> <span class="n">cs</span><span class="o">.</span><span class="n">process_freq</span><span class="p">(</span><span class="n">freq</span><span class="p">)</span>
+
+<span class="n">cs</span><span class="o">.</span><span class="n">add_stats</span><span class="p">(</span><span class="s1">&#39;D&#39;</span><span class="p">,</span> <span class="s1">&#39;Pi&#39;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">xrange</span><span class="p">(</span><span class="n">aln1</span><span class="o">.</span><span class="n">ls</span><span class="p">):</span>
+    <span class="n">site</span><span class="o">.</span><span class="n">process_align</span><span class="p">(</span><span class="n">aln1</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">egglib</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">filter_dna</span><span class="p">)</span>
+    <span class="n">freq</span><span class="o">.</span><span class="n">process_site</span><span class="p">(</span><span class="n">site</span><span class="p">)</span>
+    <span class="n">cs</span><span class="o">.</span><span class="n">process_freq</span><span class="p">(</span><span class="n">freq</span><span class="p">)</span>
+<span class="nb">print</span> <span class="n">cs</span><span class="o">.</span><span class="n">results</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="highlight-none"><div class="highlight"><pre><span></span>{&#39;R&#39;: 0.02040816326530612, &#39;Aing&#39;: 3, &#39;He&#39;: 0.6233766233766234}
+{&#39;Pi&#39;: 195.22252571452051, &#39;R&#39;: 0.0010210126233630454, &#39;Aing&#39;: 1.098813786929275,
+ &#39;D&#39;: 0.5726843754717476, &#39;He&#39;: 0.02184674638703229}
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="stats-2.html" title="Accounting for structure"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="stats.html" title="Computing diversity statistics"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../contents.html">EggLib&#39;s documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../toc.html" >Contents</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="index.html" >Manual</a> &#187;</li>
+          <li class="nav-item nav-item-3"><a href="stats.html" >Computing diversity statistics</a> &#187;</li> 
+      </ul>
+    </div>
+<!--
+        <address style="text-align: right;"><small>Hosted by&nbsp;
+        <a href="http://sourceforge.net/projects/egglib"><img src="http://sflogo.sourceforge.net/sflogo.php?group_id=232965&amp;type=8" width="80" height="15" alt="Get EggLib at SourceForge.net. Fast, secure and Free Open Source software downloads" / ALIGN=RIGHT BORDER=0></a>
+        </address>
+-->
+
+  </body>
+</html>

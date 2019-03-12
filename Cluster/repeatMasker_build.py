@@ -97,7 +97,7 @@ if __name__ == "__main__":
 			createDir(outDir +"result_repeatMasker/"+filesName)
 			SCRIPT = open(bash+'/'+filesName+ "_repeatMasker.sh","w")
 			SCRIPT.write('#$ -o '+outDir+'sge_output/'+filesName+'.out\n#$ -e '+outDir+'sge_error/'+filesName+'.err\nmodule load bioinfo/RepeatMasker/4.0.7;\n')
-			SCRIPT.write("RepeatMasker -gff -pa 4 -s -no_is -nolow "+directory+files+" -lib "+database+" -e ncbi -dir "+ outDir +"result_repeatMasker/"+filesName+";\n")
+			SCRIPT.write("RepeatMasker -gff -pa 4 -s -no_is "+directory+files+" -lib "+database+" -e ncbi -dir "+ outDir +"result_repeatMasker/"+filesName+";\n")
 			SCRIPT.close()
 			os.system("chmod 755 "+outDir+'script_bash/'+filesName+ "_repeatMasker.sh")
 			runJob = open(outDir+"run_repeatMAskerJob.sh","a")

@@ -1,0 +1,148 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>test &mdash; EggLib</title>
+    
+    <link rel="stylesheet" href="_static/sphinxdoc.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '2.1.11',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="shortcut icon" href="_static/icon.ico"/>
+    <link rel="top" title="EggLib" href="index.html" />
+    <link rel="up" title="Python module" href="egglib-py.html" />
+    <link rel="next" title="Directly executable commands" href="documentation-utils.html" />
+    <link rel="prev" title="Utils module" href="utils.html" /> 
+  </head>
+  <body>
+
+<div style="background-color: white; text-align: left; padding: 0px 0px 0px 0px">
+<a href="index.html"><img src="_static/egglib_banniere5.png" border="0" alt="EggLib"/></a>
+</div>
+
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="documentation-utils.html" title="Directly executable commands"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="utils.html" title="Utils module"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">EggLib</a> &raquo;</li>
+          <li><a href="egglib-py.html" accesskey="U">Python module</a> &raquo;</li> 
+      </ul>
+    </div>
+<div style="background-color: grey; text-align: left; padding: 0px 0px 0px 10px; border-bottom: 1px solid #2d2e91">
+<font color="white" ><b>EggLib version 2.1 is archived.</b></font></div>
+
+
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="utils.html"
+                        title="previous chapter">Utils module</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="documentation-utils.html"
+                        title="next chapter">Directly executable commands</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/test.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="module-egglib.test">
+<span id="test"></span><h1>test<a class="headerlink" href="#module-egglib.test" title="Permalink to this headline">¶</a></h1>
+<p>This subpackage contains test functions organized in modules matching
+the module of the EggLib Python package. Use the top-level
+<a class="reference internal" href="#egglib.test.test_all" title="egglib.test.test_all"><tt class="xref py py-meth docutils literal"><span class="pre">test_all()</span></tt></a> function to launch all tests, as in the following:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">egglib</span> <span class="kn">import</span> <span class="n">test</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">test</span><span class="o">.</span><span class="n">test_all</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Note that all optional
+dependencies are required to run the tests, and that test procedures
+make use of unsecure local temporary files that might result of user
+files if they accidently have the same name as one of the test files
+(&#8220;test.fas&#8221;, for example). If you wish to run the test suite, we
+strongly advice you to run them in an empty directory.</p>
+<dl class="function">
+<dt id="egglib.test.test_all">
+<tt class="descclassname">egglib.test.</tt><tt class="descname">test_all</tt><big>(</big><big>)</big><a class="headerlink" href="#egglib.test.test_all" title="Permalink to this definition">¶</a></dt>
+<dd><p>Call all <a class="reference internal" href="#egglib.test.test_all" title="egglib.test.test_all"><tt class="xref py py-meth docutils literal"><span class="pre">test_all()</span></tt></a> functions of test modules.</p>
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="documentation-utils.html" title="Directly executable commands"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="utils.html" title="Utils module"
+             >previous</a> |</li>
+        <li><a href="index.html">EggLib</a> &raquo;</li>
+          <li><a href="egglib-py.html" >Python module</a> &raquo;</li> 
+      </ul>
+    </div>
+        <address style="text-align: right;"><small>Hosted by&nbsp;
+        <a href="http://sourceforge.net/projects/seqlib"><img src="http://sflogo.sourceforge.net/sflogo.php?group_id=232965&amp;type=8" width="80" height="15" alt="Get seqlib at SourceForge.net. Fast, secure and Free Open Source software downloads" / ALIGN=RIGHT BORDER=0></a>
+        </address>
+
+  </body>
+</html>

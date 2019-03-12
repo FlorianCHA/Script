@@ -1,0 +1,100 @@
+.. _io:
+
+-----------------------
+Import/export utilities
+-----------------------
+
+ms format
+=========
+
+.. autofunction:: egglib.io.to_ms
+
+.. _fasta-format:
+
+Fasta format
+============
+
+Here is the description of the fasta format used in EggLib:
+
+* Each sequence is preceded by a header limited to a single line and
+  starting by a ``>`` character.
+    
+* The header length is not limited and all characters are allowed but
+  white spaces and special characters are discouraged. The header is
+  terminated by a newline character.
+
+* Group labels are specified a special markup system placed at the end
+  of the header line. The labels are specified by an at sign (``@``)
+  followed by any integer value (``@0``, ``@1``, ``@2`` and so on). It
+  is allowed to define several group labels for any sequence. In that
+  case, integer values must be enter consecutively after the at sign,
+  separated by commas, as in ``@1,3,2`` for a sequence belonging to
+  groups 1, 3 and 2 in three different grouping levels. Multiple
+  grouping levels can be used to specify hierarchical structure, but
+  not only (independent grouping structure can be freely specified). The
+  markup ``@#`` (at sign or hash sign) specifies an outgroup sequence.
+  The hash sign may be followed by a single integer to specify a unique
+  group label. Multiple grouping levels are not allowed for the
+  outgroup. The group labels of the ingroup and the outgroup are
+  independent, so the same labels may be used. The at sign can be
+  preceded by a unique space. In that case, the parser automatically
+  discards one space before the at sign (both ``>name@1`` and
+  ``>name @1`` are read as ``name``) but if there are more than one
+  space, additional spaces are considered to be part of the name. By
+  default, no grouping structure is assumed and all sequences are
+  assumed to be part of the ingroup.
+
+* The sequence itself continues on following lines until the next ``>``
+  character or the end of the file.
+
+* White spaces, tab and carriage returns are allowed at any position.
+  They are ignored unless for terminating the header line. There is no
+  limitation in length and different sequences can have different
+  lengths.
+
+* Characters case is preserved and significant (although polymorphism
+  analysis can be configured to take case-differing characters as
+  synonyms).
+
+.. autofunction:: egglib.io.from_fasta
+
+.. autoclass:: egglib.io.fasta_iter
+    :members:
+
+GFF3 format
+===========
+
+.. autoclass:: egglib.io.GFF3
+    :members:
+
+.. autoclass:: egglib.io.GFF3Feature
+    :members:
+
+VCF format
+==========
+
+.. autoclass:: egglib.io.VcfParser
+    :members:
+
+.. autoclass:: egglib.io.Variant
+    :members:
+
+.. autoclass:: egglib.io._vcf.VcfWindow
+    :members:
+
+Legacy parsers
+==============
+
+.. autofunction:: egglib.io.from_clustal
+.. autofunction:: egglib.io.from_staden
+.. autofunction:: egglib.io.from_genalys
+.. autofunction:: egglib.io.get_fgenesh
+
+.. autoclass:: egglib.io.GenBank
+    :members:
+
+.. autoclass:: egglib.io.GenBankFeature
+    :members:
+
+.. autoclass:: egglib.io.GenBankFeatureLocation
+    :members:

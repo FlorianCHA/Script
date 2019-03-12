@@ -1,0 +1,143 @@
+.. _stats:
+
+--------------------
+Diversity statistics
+--------------------
+
+Site
+====
+
+.. autoclass:: egglib.stats.Site
+    :members:
+
+.. autofunction:: egglib.stats.site_from_align
+.. autofunction:: egglib.stats.site_from_list
+.. autofunction:: egglib.stats.site_from_vcf
+
+Freq
+====
+
+.. autoclass:: egglib.stats.Freq
+    :members:
+
+.. autofunction:: egglib.stats.freq_from_site
+.. autofunction:: egglib.stats.freq_from_list
+.. autofunction:: egglib.stats.freq_from_vcf
+
+Diversity for gene families
+===========================
+
+.. autofunction:: egglib.stats.paralog_pi
+
+.. autoclass:: egglib.stats.ParalogPi
+    :members:
+
+haplotypes()
+============
+
+.. autofunction:: egglib.stats.haplotypes
+
+CodingDiversity
+===============
+
+.. autoclass:: egglib.stats.CodingDiversity
+    :members:
+
+Linkage disequilibium
+=====================
+
+.. autofunction:: egglib.stats.pairwise_LD
+
+.. autofunction:: egglib.stats.matrix_LD
+
+EHH
+===
+
+.. autoclass:: egglib.stats.EHH
+    :members:
+
+Misorientation probability
+==========================
+
+.. autoclass:: egglib.stats.ProbaMisoriented
+    :members:
+
+ComputeStats
+============
+
+The class :class:`~.egglib.stats.ComputeStats` allows to compute all
+available statistics repeatitively on several loci and is the preferred
+way to perform diversity analyses.
+
+.. autoclass:: egglib.stats.ComputeStats
+    :members:
+
+The statistics available for using with :class:`~.egglib.stats.ComputeStats`
+are listed below:
+
+.. include:: list_stats.txt
+
+Structure
+=========
+
+.. autoclass:: egglib.stats.Structure
+    :members:
+
+.. autofunction:: egglib.stats.get_structure
+.. autofunction:: egglib.stats.make_structure
+
+Filter
+======
+
+This class allows to generate filters for analysis of allele values:
+
+.. autoclass:: egglib.stats.Filter
+    :members:
+
+Pre-defined instances are available. They are all extendable:
+
+.. autodata:: egglib.stats.filter_default
+    :annotation:
+
+.. autodata:: egglib.stats.filter_dna
+    :annotation:
+
+.. autodata:: egglib.stats.filter_rna
+    :annotation:
+
+.. autodata:: egglib.stats.filter_strict
+    :annotation:
+
+.. autodata:: egglib.stats.filter_ssr
+    :annotation:
+
+.. autodata:: egglib.stats.filter_num
+    :annotation:
+
+.. autodata:: egglib.stats.filter_codon
+    :annotation:
+
+.. autodata:: egglib.stats.filter_amino
+    :annotation:
+
+.. autodata:: egglib.stats.filter_codon
+    :annotation:
+
+Constants
+=========
+
+Here are three variables determining what is done for computing linkage
+disequilibrium between a pair of sites of which at least one has more
+than two alleles.
+
+.. py:data:: egglib.stats.multiallelic_ignore
+
+    Skip pairs of sites when at least one has more than two alleles.
+
+.. py:data:: egglib.stats.multiallelic_use_main
+
+    If more than two alleles, use the most frequent one only.
+
+.. py:data:: egglib.stats.multiallelic_use_all
+
+    If more than two alleles, use all possible pairs of alleles.

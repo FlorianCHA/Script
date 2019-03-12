@@ -1,0 +1,14 @@
+.. _eggstats:
+
+========
+eggstats
+========
+
+eggstats is a simple program to rapidly analyze a fasta alignment and
+perform diversity analysis. It can detect population labels from the
+fasta file (in the form of ``@0``, ``@1``, ``@2`` labels. ``@999`` is
+reserved for outgroup sequences. If different populations and/or
+outgroups are present, additional statistics will be computed.
+
+Once the program is installed, type ``eggstats`` to get a short manual
+page.

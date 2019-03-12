@@ -1,0 +1,18 @@
+.. _egglib-cpp:
+
+***********
+C++ Library
+***********
+
+**egglib-cpp** is the underlying C++ library of EggLib. It was designed
+with the aim of improving performance at the expense of safety and
+intuitive design. Therefore it might be difficult to use directly. The
+complete contents are listed below:
+
+.. toctree::
+    :maxdepth: 4
+
+    core
+    datafiles
+    coalesce
+    diversity

@@ -1,0 +1,4 @@
+
+	module load bioinfo/cufflinks/2.2.1
+	cufflinks -g /work/gladieux/magMax_project/5_RNAseq/1_Alignement/IN0059/Genome/IN0059_merge.gff3 /work/gladieux/magMax_project/5_RNAseq/1_Alignement/IN0059/result/bam_file/IN59_b_S19_L006_R1_001_sort.bam -o /work/gladieux/magMax_project/5_RNAseq/1_Alignement/IN0059/result/cufflinks/IN59_b_S19_L006_R1_001
+	

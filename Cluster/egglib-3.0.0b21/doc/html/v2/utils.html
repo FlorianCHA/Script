@@ -1,0 +1,240 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Utils module &mdash; EggLib</title>
+    
+    <link rel="stylesheet" href="_static/sphinxdoc.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '2.1.11',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="shortcut icon" href="_static/icon.ico"/>
+    <link rel="top" title="EggLib" href="index.html" />
+    <link rel="up" title="Python module" href="egglib-py.html" />
+    <link rel="next" title="test" href="test.html" />
+    <link rel="prev" title="fitmodel" href="fitmodel.html" /> 
+  </head>
+  <body>
+
+<div style="background-color: white; text-align: left; padding: 0px 0px 0px 0px">
+<a href="index.html"><img src="_static/egglib_banniere5.png" border="0" alt="EggLib"/></a>
+</div>
+
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="test.html" title="test"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="fitmodel.html" title="fitmodel"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">EggLib</a> &raquo;</li>
+          <li><a href="egglib-py.html" accesskey="U">Python module</a> &raquo;</li> 
+      </ul>
+    </div>
+<div style="background-color: grey; text-align: left; padding: 0px 0px 0px 10px; border-bottom: 1px solid #2d2e91">
+<font color="white" ><b>EggLib version 2.1 is archived.</b></font></div>
+
+
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="fitmodel.html"
+                        title="previous chapter">fitmodel</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="test.html"
+                        title="next chapter">test</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/utils.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="module-egglib.utils">
+<span id="utils-module"></span><span id="utils"></span><h1>Utils module<a class="headerlink" href="#module-egglib.utils" title="Permalink to this headline">¶</a></h1>
+<p>Executable tools. This module defines the classes <a class="reference internal" href="#egglib.utils.Option" title="egglib.utils.Option"><tt class="xref py py-class docutils literal"><span class="pre">Option</span></tt></a> and
+<a class="reference internal" href="#egglib.utils.BaseCommand" title="egglib.utils.BaseCommand"><tt class="xref py py-class docutils literal"><span class="pre">BaseCommand</span></tt></a> that allow to develop automatically executable
+commands. A utilitary script <tt class="docutils literal"><span class="pre">egglib</span></tt> will load this module at runtime
+and let the user run any of this commands as if they were independent
+programs.</p>
+<dl class="class">
+<dt id="egglib.utils.BaseCommand">
+<em class="property">class </em><tt class="descclassname">egglib.utils.</tt><tt class="descname">BaseCommand</tt><a class="headerlink" href="#egglib.utils.BaseCommand" title="Permalink to this definition">¶</a></dt>
+<dd><p>Abstract base class for executable commands. Several members and
+function have to be overriden to provide all information needed by
+the <tt class="docutils literal"><span class="pre">egglib</span></tt> script.</p>
+<dl class="attribute">
+<dt id="egglib.utils.BaseCommand.brief">
+<tt class="descname">brief</tt><em class="property"> = ''</em><a class="headerlink" href="#egglib.utils.BaseCommand.brief" title="Permalink to this definition">¶</a></dt>
+<dd><p>This member must be overriden. One-line summary.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="egglib.utils.BaseCommand.debug">
+<tt class="descname">debug</tt><a class="headerlink" href="#egglib.utils.BaseCommand.debug" title="Permalink to this definition">¶</a></dt>
+<dd><p>Flag indicating whether         full error messages should be returned.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="egglib.utils.BaseCommand.description">
+<tt class="descname">description</tt><em class="property"> = ''</em><a class="headerlink" href="#egglib.utils.BaseCommand.description" title="Permalink to this definition">¶</a></dt>
+<dd><p>This member must be overriden. Full description.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="egglib.utils.BaseCommand.flags">
+<tt class="descname">flags</tt><em class="property"> = []</em><a class="headerlink" href="#egglib.utils.BaseCommand.flags" title="Permalink to this definition">¶</a></dt>
+<dd><p>This member must be overriden. List of flag, each given as a tuple
+of two strings: <tt class="docutils literal"><span class="pre">(label,</span> <span class="pre">description)</span></tt>.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="egglib.utils.BaseCommand.options">
+<tt class="descname">options</tt><em class="property"> = []</em><a class="headerlink" href="#egglib.utils.BaseCommand.options" title="Permalink to this definition">¶</a></dt>
+<dd><p>This member must be overriden. List of <a class="reference internal" href="#egglib.utils.Option" title="egglib.utils.Option"><tt class="xref py py-class docutils literal"><span class="pre">Option</span></tt></a> instances.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.utils.BaseCommand.process_cmdline_arguments">
+<tt class="descname">process_cmdline_arguments</tt><big>(</big><em>arguments</em><big>)</big><a class="headerlink" href="#egglib.utils.BaseCommand.process_cmdline_arguments" title="Permalink to this definition">¶</a></dt>
+<dd><p>Processes <em>arguments</em>; returns a <tt class="docutils literal"><span class="pre">(fargs,</span> <span class="pre">kwargs)</span></tt> tuple.
+Don&#8217;t change anything of the instance (i.e. don&#8217;t set anything).
+Don&#8217;t check anything.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="egglib.utils.BaseCommand.quiet">
+<tt class="descname">quiet</tt><a class="headerlink" href="#egglib.utils.BaseCommand.quiet" title="Permalink to this definition">¶</a></dt>
+<dd><p>Flag indicating whether         information should be displayed in the standard output stream         (if <em>quiet</em> is <tt class="docutils literal"><span class="pre">True</span></tt>, information is not displayed).</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.utils.BaseCommand.run">
+<tt class="descname">run</tt><big>(</big><em>*fargs</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#egglib.utils.BaseCommand.run" title="Permalink to this definition">¶</a></dt>
+<dd><p>Execute commands. <em>fargs</em> are flag arguments and <em>kwargs</em> are
+keyword arguments.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="egglib.utils.Option">
+<em class="property">class </em><tt class="descclassname">egglib.utils.</tt><tt class="descname">Option</tt><big>(</big><em>name</em>, <em>doc</em>, <em>convert=&lt;type 'str'&gt;</em>, <em>default=None</em>, <em>requirements=[]</em><big>)</big><a class="headerlink" href="#egglib.utils.Option" title="Permalink to this definition">¶</a></dt>
+<dd><p>Defines the type, default value and requirements of all program
+options (except flags that are dealt with otherwise).</p>
+<p><em>name</em> is the name of the option, <em>doc</em> must be a string
+providing documentation. <em>convert</em> should be a function
+taking a string and returning a value of the appropriate type
+(can also be classes such as <tt class="xref py py-class docutils literal"><span class="pre">int</span></tt>, <tt class="xref py py-class docutils literal"><span class="pre">float</span></tt> or
+<em>lambda</em> expressions, providing that they take a string and
+process it the appropriate way), <em>default</em> is the default value
+(<tt class="docutils literal"><span class="pre">None</span></tt> means that the option must be specified) and
+<em>requirements</em> is a list of requirements, each of them under the
+form of a function taking a possible option value and returning
+<tt class="docutils literal"><span class="pre">True</span></tt> is the option is valid.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="egglib.utils.execute">
+<tt class="descclassname">egglib.utils.</tt><tt class="descname">execute</tt><big>(</big><em>*fargs</em>, <em>**fkwargs</em><big>)</big><a class="headerlink" href="#egglib.utils.execute" title="Permalink to this definition">¶</a></dt>
+<dd><p>Execute utils commands. This functions takes arguments to specify
+the command name and its options. There must be at least one
+positional argument: the first positional argument gives the
+function name and other (optional) positional arguments give the
+command flags to be activated. The keyword arguments give the
+command options. Flag, option names but also option values should be
+string (option values will be converted automatically). In case
+options are of a simple type (int, float), they can be passed as
+such. But options that are described as a string presenting a list
+of values separated by commas CANNOT be passed as a list using the
+function. If there is no argument whatsoever, arguments will be read
+from <tt class="xref py py-data docutils literal"><span class="pre">sys.argv</span></tt>. In this case, the first argument will be
+ignored; the second argument must be the  command name; and keyword
+arguments must be passed under the form <tt class="docutils literal"><span class="pre">key=value</span></tt> where <em>key</em> is
+the option name.</p>
+<p>For example, running the command:</p>
+<div class="highlight-python"><div class="highlight"><pre>egglib ungap input=file1.fas output=file2.fas threshold=0.5 triplets
+</pre></div>
+</div>
+<p>is the equivalent of calling the function:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">egglib</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s">&#39;ungap&#39;</span><span class="p">,</span> <span class="s">&#39;triplets&#39;</span><span class="p">,</span> <span class="nb">input</span><span class="o">=</span><span class="s">&#39;file1.fas&#39;</span><span class="p">,</span> <span class="n">output</span><span class="o">=</span><span class="s">&#39;file2.fas&#39;</span><span class="p">,</span> <span class="n">threshold</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>where <em>threshold</em> can also take the string <tt class="docutils literal"><span class="pre">&quot;0.5&quot;</span></tt>.</p>
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="test.html" title="test"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="fitmodel.html" title="fitmodel"
+             >previous</a> |</li>
+        <li><a href="index.html">EggLib</a> &raquo;</li>
+          <li><a href="egglib-py.html" >Python module</a> &raquo;</li> 
+      </ul>
+    </div>
+        <address style="text-align: right;"><small>Hosted by&nbsp;
+        <a href="http://sourceforge.net/projects/seqlib"><img src="http://sflogo.sourceforge.net/sflogo.php?group_id=232965&amp;type=8" width="80" height="15" alt="Get seqlib at SourceForge.net. Fast, secure and Free Open Source software downloads" / ALIGN=RIGHT BORDER=0></a>
+        </address>
+
+  </body>
+</html>

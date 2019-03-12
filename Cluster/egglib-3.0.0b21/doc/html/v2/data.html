@@ -1,0 +1,2736 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Top-level Egglib components &mdash; EggLib</title>
+    
+    <link rel="stylesheet" href="_static/sphinxdoc.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '2.1.11',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="shortcut icon" href="_static/icon.ico"/>
+    <link rel="top" title="EggLib" href="index.html" />
+    <link rel="up" title="Python module" href="egglib-py.html" />
+    <link rel="next" title="tools" href="tools.html" />
+    <link rel="prev" title="Low-level binding of C++ library" href="binding.html" /> 
+  </head>
+  <body>
+
+<div style="background-color: white; text-align: left; padding: 0px 0px 0px 0px">
+<a href="index.html"><img src="_static/egglib_banniere5.png" border="0" alt="EggLib"/></a>
+</div>
+
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="tools.html" title="tools"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="binding.html" title="Low-level binding of C++ library"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">EggLib</a> &raquo;</li>
+          <li><a href="egglib-py.html" accesskey="U">Python module</a> &raquo;</li> 
+      </ul>
+    </div>
+<div style="background-color: grey; text-align: left; padding: 0px 0px 0px 10px; border-bottom: 1px solid #2d2e91">
+<font color="white" ><b>EggLib version 2.1 is archived.</b></font></div>
+
+
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Top-level Egglib components</a><ul>
+<li><a class="reference internal" href="#class-container">Class Container</a></li>
+<li><a class="reference internal" href="#class-align">Class Align</a></li>
+<li><a class="reference internal" href="#class-sequenceitem">Class SequenceItem</a></li>
+<li><a class="reference internal" href="#ssr-class">SSR class</a></li>
+<li><a class="reference internal" href="#tigr-class">TIGR class</a></li>
+<li><a class="reference internal" href="#genbank-class">GenBank class</a></li>
+<li><a class="reference internal" href="#tree-class">Tree class</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="binding.html"
+                        title="previous chapter">Low-level binding of C++ library</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="tools.html"
+                        title="next chapter">tools</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/data.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="top-level-egglib-components">
+<h1>Top-level Egglib components<a class="headerlink" href="#top-level-egglib-components" title="Permalink to this headline">¶</a></h1>
+<p>Top-level Egglib utilities consist mostly in data storage classes:
+<a class="reference internal" href="#egglib.Container" title="egglib.Container"><tt class="xref py py-class docutils literal"><span class="pre">Container</span></tt></a> and <a class="reference internal" href="#egglib.Align" title="egglib.Align"><tt class="xref py py-class docutils literal"><span class="pre">Align</span></tt></a> for sequence data,
+<a class="reference internal" href="#egglib.SSR" title="egglib.SSR"><tt class="xref py py-class docutils literal"><span class="pre">SSR</span></tt></a> for microsatellite data, <a class="reference internal" href="#egglib.GenBank" title="egglib.GenBank"><tt class="xref py py-class docutils literal"><span class="pre">GenBank</span></tt></a>
+for annotated sequences and <a class="reference internal" href="#egglib.Tree" title="egglib.Tree"><tt class="xref py py-class docutils literal"><span class="pre">Tree</span></tt></a> for trees.</p>
+<div class="section" id="class-container">
+<h2>Class Container<a class="headerlink" href="#class-container" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="egglib.Container">
+<em class="property">class </em><tt class="descclassname">egglib.</tt><tt class="descname">Container</tt><big>(</big><em>fname=None</em>, <em>string=None</em>, <em>groups=False</em><big>)</big><a class="headerlink" href="#egglib.Container" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">egglib.data.BaseContainer</span></tt></p>
+<p>Holds sequences, without requiring that they have the same
+length. This class is a C++-implemented class providing performant
+storage and access utilies, wrapped within at Python layer that
+interfaces several operations. In particular it allows direct
+instanciation from a fasta-formatted file or from a string stored
+in a Python <tt class="xref py py-class docutils literal"><span class="pre">str</span></tt> instance (see constructor&#8217;s signature
+below).</p>
+<p><a class="reference internal" href="#egglib.Container" title="egglib.Container"><tt class="xref py py-class docutils literal"><span class="pre">Container</span></tt></a> also allow subscript indexing (as in
+<tt class="docutils literal"><span class="pre">container[0]</span></tt>) and iteration (as in <tt class="docutils literal"><span class="pre">for</span> <span class="pre">i</span> <span class="pre">in</span> <span class="pre">container</span></tt>).
+Returned items are <a class="reference internal" href="#egglib.SequenceItem" title="egglib.SequenceItem"><tt class="xref py py-class docutils literal"><span class="pre">SequenceItem</span></tt></a> instances that can be
+either converted in <tt class="docutils literal"><span class="pre">(name,</span> <span class="pre">sequence,</span> <span class="pre">group)</span></tt> tuples or modified
+to modify the underlying instance. For example, the following code
+resets all group indices of the <a class="reference internal" href="#egglib.Container" title="egglib.Container"><tt class="xref py py-class docutils literal"><span class="pre">Container</span></tt></a> instance
+<tt class="docutils literal"><span class="pre">container</span></tt>:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">container</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="n">i</span><span class="o">.</span><span class="n">group</span> <span class="o">=</span> <span class="mi">0</span>
+</pre></div>
+</div>
+<p><a class="reference internal" href="#egglib.Container" title="egglib.Container"><tt class="xref py py-class docutils literal"><span class="pre">Container</span></tt></a> supports call <tt class="docutils literal"><span class="pre">str()</span></tt> and expressions such as
+<tt class="docutils literal"><span class="pre">print</span> <span class="pre">container</span></tt>. In both cases, the result of the <a class="reference internal" href="#egglib.TreeNode.str" title="egglib.TreeNode.str"><tt class="xref py py-meth docutils literal"><span class="pre">str()</span></tt></a>
+method (with default arguments) is returned. The result is a
+fasta-formatted string. Consider using the <a class="reference internal" href="#egglib.TreeNode.str" title="egglib.TreeNode.str"><tt class="xref py py-meth docutils literal"><span class="pre">str()</span></tt></a> method to
+customize and <a class="reference internal" href="#egglib.Align.write" title="egglib.Align.write"><tt class="xref py py-meth docutils literal"><span class="pre">write()</span></tt></a> to export the instance to a file on the
+disk.</p>
+<p><a class="reference internal" href="#egglib.Container" title="egglib.Container"><tt class="xref py py-class docutils literal"><span class="pre">Container</span></tt></a> instances have a <tt class="docutils literal"><span class="pre">len()</span></tt> (the result of
+<a class="reference internal" href="#egglib.Container.ns" title="egglib.Container.ns"><tt class="xref py py-meth docutils literal"><span class="pre">ns()</span></tt></a> is returned) supports expressions such as <tt class="docutils literal"><span class="pre">name</span> <span class="pre">in</span>
+<span class="pre">container</span></tt> which return <tt class="docutils literal"><span class="pre">True</span></tt> if <tt class="docutils literal"><span class="pre">name</span></tt> is the name of one of
+the sequences contained in the instance.</p>
+<div class="versionchanged">
+<p><span class="versionmodified">Changed in version 2.0.1: </span>The <tt class="docutils literal"><span class="pre">[]</span></tt> operators accept only indices.
+<a class="reference internal" href="#egglib.Align.sequenceByName" title="egglib.Align.sequenceByName"><tt class="xref py py-meth docutils literal"><span class="pre">sequenceByName()</span></tt></a> fulfils the dictionary-like behaviour.
+<a class="reference internal" href="#egglib.Align.append" title="egglib.Align.append"><tt class="xref py py-meth docutils literal"><span class="pre">append()</span></tt></a>, <tt class="xref py py-meth docutils literal"><span class="pre">extend()</span></tt> and  <tt class="xref py py-meth docutils literal"><span class="pre">__iadd__()</span></tt>
+(operator <tt class="docutils literal"><span class="pre">+=</span></tt>) are removed. </p>
+</div>
+<p class="rubric">Constructor arguments</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>fname</strong> &#8211; the path of a fasta-formatted file or <tt class="docutils literal"><span class="pre">None</span></tt>.</li>
+<li><strong>string</strong> &#8211; a string containing fasta sequences or <tt class="docutils literal"><span class="pre">None</span></tt>.</li>
+<li><strong>groups</strong> &#8211; whether to import group labels. The labels should appear as strings <tt class="docutils literal"><span class="pre">&#64;0</span></tt>, <tt class="docutils literal"><span class="pre">&#64;1</span></tt>, etc. in the input file.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p>If <em>fname</em> and <em>string</em> are <tt class="docutils literal"><span class="pre">None</span></tt>, the value of <em>groups</em>
+is ignored and an empty instance is built. If both <em>fname</em>
+and <em>string</em> are specified, an error is thrown.</p>
+<div class="versionchanged">
+<p><span class="versionmodified">Changed in version 2.0.1: </span>Doesn&#8217;t accept simultaneous values for <em>fname</em>  and
+<em>string</em>.</p>
+</div>
+<p class="rubric">Methods</p>
+<dl class="method">
+<dt id="egglib.Container.addSequences">
+<tt class="descname">addSequences</tt><big>(</big><em>seqs</em><big>)</big><a class="headerlink" href="#egglib.Container.addSequences" title="Permalink to this definition">¶</a></dt>
+<dd><p>Appends repetitively (name, sequence, group) tuples to the
+end of the object (passed the last sequence. <em>seqs</em> must be
+an iterable returning (name, sequence, group) tuples (such
+as a <a class="reference internal" href="#egglib.Container" title="egglib.Container"><tt class="xref py py-class docutils literal"><span class="pre">Container</span></tt></a> or <a class="reference internal" href="#egglib.Align" title="egglib.Align"><tt class="xref py py-class docutils literal"><span class="pre">Align</span></tt></a> instance). (the group
+item is optional and tuples can be of length 2.) Returns the
+number of sequences after the operation.</p>
+<div class="versionadded">
+<p><span class="versionmodified">New in version 2.0.1.</span></p>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.Container.append">
+<tt class="descname">append</tt><big>(</big><em>name</em>, <em>sequence</em>, <em>group=0</em><big>)</big><a class="headerlink" href="#egglib.Container.append" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adds a sequence to the object. <em>name</em> is the sequence name,
+<em>sequence</em> the sequence string and <em>group</em> is the population
+label. Note that the length of <em>sequence</em> must match the length
+of the alignment, if <em>self</em> is of type <a class="reference internal" href="#egglib.Align" title="egglib.Align"><tt class="xref py py-class docutils literal"><span class="pre">Align</span></tt></a>. Returns
+the number of sequences after the operation.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.Container.appendSequence">
+<tt class="descname">appendSequence</tt><big>(</big><em>pos</em>, <em>sequence</em><big>)</big><a class="headerlink" href="#egglib.Container.appendSequence" title="Permalink to this definition">¶</a></dt>
+<dd><p>Appends the <em>sequence</em> string to the end of the sequence at
+position <em>pos</em> of the instance.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.Container.clear">
+<tt class="descname">clear</tt><big>(</big><big>)</big><a class="headerlink" href="#egglib.Container.clear" title="Permalink to this definition">¶</a></dt>
+<dd><p>Deletes all content of the current instance.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.Container.composition">
+<tt class="descname">composition</tt><big>(</big><big>)</big><a class="headerlink" href="#egglib.Container.composition" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets the composition in characters of each sequence. Returns
+a dictionary with the sequence names as key. Each entry is
+itself a dictionary giving the absolute frequency of each
+character found in the corresponding sequences.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.Container.contains_duplicates">
+<tt class="descname">contains_duplicates</tt><big>(</big><big>)</big><a class="headerlink" href="#egglib.Container.contains_duplicates" title="Permalink to this definition">¶</a></dt>
+<dd><p><tt class="docutils literal"><span class="pre">True</span></tt> if the instance contains at least one duplicate.</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="egglib.Container.create">
+<em class="property">classmethod </em><tt class="descname">create</tt><big>(</big><em>obj</em><big>)</big><a class="headerlink" href="#egglib.Container.create" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates an instance from the object <cite>obj</cite>. The created instance
+will match the type from which the method is called (
+<tt class="docutils literal"><span class="pre">Container.create(obj)</span></tt> will return a <a class="reference internal" href="#egglib.Container" title="egglib.Container"><tt class="xref py py-class docutils literal"><span class="pre">Container</span></tt></a>, and
+<tt class="docutils literal"><span class="pre">Align.create(obj)</span></tt> will return a <a class="reference internal" href="#egglib.Align" title="egglib.Align"><tt class="xref py py-class docutils literal"><span class="pre">Align</span></tt></a>, and the
+same goes if the method is called on an object). In the case of
+<a class="reference internal" href="#egglib.Align" title="egglib.Align"><tt class="xref py py-class docutils literal"><span class="pre">Align</span></tt></a>, the restriction of coherent sequence lengths
+applies (there is not automatic correction). <em>obj</em> is a priori a
+<a class="reference internal" href="#egglib.Container" title="egglib.Container"><tt class="xref py py-class docutils literal"><span class="pre">Container</span></tt></a> or a <a class="reference internal" href="#egglib.Align" title="egglib.Align"><tt class="xref py py-class docutils literal"><span class="pre">Align</span></tt></a>, but the method supports
+any iterable returning <tt class="docutils literal"><span class="pre">(name,sequence,group)</span></tt> or
+<tt class="docutils literal"><span class="pre">(name,sequence)</span></tt> tuples (in the latter case, groups will be
+initialized to <tt class="docutils literal"><span class="pre">0</span></tt>. For example, the following is valid:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">egglib</span>
+<span class="n">data</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">data</span><span class="o">.</span><span class="n">append</span><span class="p">(</span> <span class="p">(</span><span class="s2">&quot;sequence1&quot;</span><span class="p">,</span> <span class="s2">&quot;AAAAAAAAA&quot;</span><span class="p">,</span>     <span class="mi">0</span><span class="p">)</span> <span class="p">)</span>
+<span class="n">data</span><span class="o">.</span><span class="n">append</span><span class="p">(</span> <span class="p">(</span><span class="s2">&quot;sequence2&quot;</span><span class="p">,</span> <span class="s2">&quot;GGGG&quot;</span><span class="p">,</span>          <span class="mi">2</span><span class="p">)</span> <span class="p">)</span>
+<span class="n">data</span><span class="o">.</span><span class="n">append</span><span class="p">(</span> <span class="p">(</span><span class="s2">&quot;sequence3&quot;</span><span class="p">,</span> <span class="s2">&quot;AAAAAAAAAAAAAA&quot;</span><span class="p">)</span> <span class="p">)</span>
+<span class="n">container</span> <span class="o">=</span> <span class="n">egglib</span><span class="o">.</span><span class="n">Container</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="versionadded">
+<p><span class="versionmodified">New in version 2.0.1.</span></p>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.Container.duplicates">
+<tt class="descname">duplicates</tt><big>(</big><big>)</big><a class="headerlink" href="#egglib.Container.duplicates" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the list of sequence names found more than once in
+the instance.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.Container.encode">
+<tt class="descname">encode</tt><big>(</big><em>nbits=10</em><big>)</big><a class="headerlink" href="#egglib.Container.encode" title="Permalink to this definition">¶</a></dt>
+<dd><p>Renames all sequences using a random mapping of names to unique
+keys of lenght <em>nbits</em>. <em>nbits</em> cannot be lower than 4 (which
+should allow renaming several millions of sequence) or larger
+than 63 (which is the number of different characters available).
+Returns a dictionary mapping all the generated keys to the
+actual sequence names. The keys are case-dependent and
+guaranteed not to start with a number. The returned mapping can
+be used to restored the original names using <a class="reference internal" href="#egglib.Align.rename" title="egglib.Align.rename"><tt class="xref py py-meth docutils literal"><span class="pre">rename()</span></tt></a></p>
+<div class="versionadded">
+<p><span class="versionmodified">New in version 2.0.1.</span></p>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.Container.equalize">
+<tt class="descname">equalize</tt><big>(</big><em>ch='?'</em><big>)</big><a class="headerlink" href="#egglib.Container.equalize" title="Permalink to this definition">¶</a></dt>
+<dd><p>Appends character <em>ch</em> to the end of sequences such as all
+sequences have the same length. The length of all sequences will
+be the length of the longest sequence before call. This value is
+returned by the method.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.Container.find">
+<tt class="descname">find</tt><big>(</big><em>string</em>, <em>strict=True</em><big>)</big><a class="headerlink" href="#egglib.Container.find" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the index of the first sequence with the name specified
+by <em>string</em>. If <em>strict</em> is <tt class="docutils literal"><span class="pre">False</span></tt>, then the comparison
+ignores names that are longest than <em>string</em>. In other words,
+the name <tt class="docutils literal"><span class="pre">Alphacaga_tada1</span></tt> will be recognized if <a class="reference internal" href="binding.html#egglib.egglib_binding.Container.find" title="egglib.egglib_binding.Container.find"><tt class="xref py py-meth docutils literal"><span class="pre">find()</span></tt></a>
+is called with <em>string</em> <tt class="docutils literal"><span class="pre">Alphacaga</span></tt> and <em>strict</em> = <tt class="docutils literal"><span class="pre">False</span></tt>.
+If the name is not found, returns <tt class="docutils literal"><span class="pre">None</span></tt>.</p>
+<div class="versionchanged">
+<p><span class="versionmodified">Changed in version 2.1.0: </span>Returns None instead of -1 if the name is not found.</p>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.Container.get">
+<tt class="descname">get</tt><big>(</big><em>s</em>, <em>p</em><big>)</big><a class="headerlink" href="#egglib.Container.get" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets the character value of the sequence <em>s</em> at position
+<em>p</em>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.Container.group">
+<tt class="descname">group</tt><big>(</big><em>pos</em>, <em>group=None</em><big>)</big><a class="headerlink" href="#egglib.Container.group" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets/gets the group label of the sequence at index <em>pos</em>.
+If <em>group</em> is <tt class="docutils literal"><span class="pre">None</span></tt>, returns the current group label.
+Otherwise changes the group label and returns nothing. If not
+<tt class="docutils literal"><span class="pre">None</span></tt>, <em>group</em> must be a positive integer.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.Container.groupByName">
+<tt class="descname">groupByName</tt><big>(</big><em>name</em>, <em>strict=True</em><big>)</big><a class="headerlink" href="#egglib.Container.groupByName" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the group label corresponding to the first match of
+<cite>name</cite>. If the name is not found, raises a <tt class="xref py py-class docutils literal"><span class="pre">KeyError</span></tt>. If <em>strict</em>
+is <tt class="docutils literal"><span class="pre">True</span></tt>, seeks an exact match. If <tt class="docutils literal"><span class="pre">False</span></tt>, compares only
+until the end of the requested name (for example: <tt class="docutils literal"><span class="pre">'ATCFF'</span></tt>
+will match <tt class="docutils literal"><span class="pre">'ATCFF_01'</span></tt> if <em>strict</em> is <tt class="docutils literal"><span class="pre">false</span></tt>).</p>
+<div class="versionadded">
+<p><span class="versionmodified">New in version 2.0.1.</span></p>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.Container.groups">
+<tt class="descname">groups</tt><big>(</big><big>)</big><a class="headerlink" href="#egglib.Container.groups" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets the group structure. Returns a dictionary with the
+group labels (as <tt class="docutils literal"><span class="pre">int</span></tt>) as keys. Values are the lists of
+sequence names corresponding to each group.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.Container.isEqual">
+<tt class="descname">isEqual</tt><big>(</big><big>)</big><a class="headerlink" href="#egglib.Container.isEqual" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns <tt class="docutils literal"><span class="pre">True</span></tt> if all sequences have the same length,
+<tt class="docutils literal"><span class="pre">False</span></tt> otherwise.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.Container.ls">
+<tt class="descname">ls</tt><big>(</big><em>pos</em><big>)</big><a class="headerlink" href="#egglib.Container.ls" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the length of the sequence stringat position <em>pos</em>.</p>
+<div class="versionadded">
+<p><span class="versionmodified">New in version 2.0.1.</span></p>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.Container.matches">
+<tt class="descname">matches</tt><big>(</big><em>format</em><big>)</big><a class="headerlink" href="#egglib.Container.matches" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the <tt class="xref py py-class docutils literal"><span class="pre">list</span></tt> of indices matching the passed format.
+The format is passed as-is the the <tt class="xref py py-mod docutils literal"><span class="pre">re</span></tt> module using the
+function <tt class="xref py py-meth docutils literal"><span class="pre">search()</span></tt> (which doesn&#8217;t necessarily match the
+beginning of the string). If no sequence name matches the passed
+format an empty list is returned.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.Container.name">
+<tt class="descname">name</tt><big>(</big><em>pos</em>, <em>name=None</em><big>)</big><a class="headerlink" href="#egglib.Container.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets/gets the name of the sequence at index <em>pos</em>. If <em>name</em>
+is <tt class="docutils literal"><span class="pre">None</span></tt>, returns the current name. Otherwise changes the
+name and returns nothing.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.Container.names">
+<tt class="descname">names</tt><big>(</big><big>)</big><a class="headerlink" href="#egglib.Container.names" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the list of sequence names</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.Container.no_duplicates">
+<tt class="descname">no_duplicates</tt><big>(</big><big>)</big><a class="headerlink" href="#egglib.Container.no_duplicates" title="Permalink to this definition">¶</a></dt>
+<dd><p>Discards all duplicates: for all sequences with the same
+name, the one with the largest index is removed.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.Container.ns">
+<tt class="descname">ns</tt><big>(</big><big>)</big><a class="headerlink" href="#egglib.Container.ns" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the number of sequences contained in the instance.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.Container.remove">
+<tt class="descname">remove</tt><big>(</big><em>name</em><big>)</big><a class="headerlink" href="#egglib.Container.remove" title="Permalink to this definition">¶</a></dt>
+<dd><p>Removes the first sequence having name <em>name</em>. If no sequence
+has this name, a <tt class="xref py py-class docutils literal"><span class="pre">KeyError</span></tt> is raised. A workaround is
+easy to implement:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">index</span> <span class="o">=</span> <span class="n">align</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">if</span> <span class="n">index</span><span class="o">!=</span><span class="bp">None</span><span class="p">:</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="k">del</span> <span class="n">align</span><span class="p">[</span><span class="n">index</span><span class="p">]</span>
+</pre></div>
+</div>
+<div class="versionchanged">
+<p><span class="versionmodified">Changed in version 2.0.1: </span>New meaning.</p>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.Container.rename">
+<tt class="descname">rename</tt><big>(</big><em>mapping</em>, <em>liberal=False</em><big>)</big><a class="headerlink" href="#egglib.Container.rename" title="Permalink to this definition">¶</a></dt>
+<dd><p>Rename all sequences of the instance using the passed <em>mapping</em>.
+If <em>liberal</em> is <cite>False</cite> and a name does not appear in <em>mapping</em>,
+a <tt class="xref py py-class docutils literal"><span class="pre">ValueError</span></tt> is raised. If <em>liberal</em> is <tt class="docutils literal"><span class="pre">True</span></tt>, names
+that don&#8217;t appear in <em>mapping</em> are left unchanged.</p>
+<div class="versionadded">
+<p><span class="versionmodified">New in version 2.0.1.</span></p>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.Container.sequence">
+<tt class="descname">sequence</tt><big>(</big><em>pos</em>, <em>sequence=None</em><big>)</big><a class="headerlink" href="#egglib.Container.sequence" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets/gets the sequence string at index <em>pos</em>. If <em>sequence</em>
+is <tt class="docutils literal"><span class="pre">None</span></tt>, returns the current sequence. Otherwise changes the
+sequence and returns nothing. If the object is an <a class="reference internal" href="#egglib.Align" title="egglib.Align"><tt class="xref py py-class docutils literal"><span class="pre">Align</span></tt></a>,
+the sequence length must match the alignment length.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.Container.sequenceByName">
+<tt class="descname">sequenceByName</tt><big>(</big><em>name</em>, <em>strict=True</em><big>)</big><a class="headerlink" href="#egglib.Container.sequenceByName" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the sequence string corresponding to the first
+match of <cite>name</cite>. If the name is not found, raises a <tt class="docutils literal"><span class="pre">KeyError</span></tt>.
+If <em>strict</em> is <tt class="docutils literal"><span class="pre">True</span></tt>, seeks an exact match. If <tt class="docutils literal"><span class="pre">False</span></tt>,
+compares only until the end of the requested name (for example:
+<tt class="docutils literal"><span class="pre">'ATCFF'</span></tt> will match <tt class="docutils literal"><span class="pre">'ATCFF_01'</span></tt> if <em>strict</em> is <tt class="docutils literal"><span class="pre">False</span></tt>).</p>
+<div class="versionadded">
+<p><span class="versionmodified">New in version 2.0.1.</span></p>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.Container.set">
+<tt class="descname">set</tt><big>(</big><em>sequence</em>, <em>position</em>, <em>ch</em><big>)</big><a class="headerlink" href="#egglib.Container.set" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets the character value at string position <em>position</em> of
+the sequence at index <em>sequence</em> to value <em>ch</em>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.Container.shuffle">
+<tt class="descname">shuffle</tt><big>(</big><em>maintain_outgroup=True</em><big>)</big><a class="headerlink" href="#egglib.Container.shuffle" title="Permalink to this definition">¶</a></dt>
+<dd><p>Randomly reassigns group labels. Modifies the current object
+and returns nothing. If <em>maintain_outgroup</em> is <tt class="docutils literal"><span class="pre">True</span></tt>, doesn&#8217;t
+reassign the outgroup (group label <tt class="docutils literal"><span class="pre">999</span></tt>).</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.Container.slice">
+<tt class="descname">slice</tt><big>(</big><em>a</em>, <em>b</em><big>)</big><a class="headerlink" href="#egglib.Container.slice" title="Permalink to this definition">¶</a></dt>
+<dd><p>Extracts a selection of sequences. Sequences with indices
+<em>a</em> to <em>b</em>-1 are extracted and returned as a
+new instance. If <em>a</em> is smaller than 0,
+0 is used instead. If <em>b</em> is larger than the number of
+sequences, the latter is used instead. If <em>b</em> is not larger
+than <em>a</em>, the returned instance is empty.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.Container.str">
+<tt class="descname">str</tt><big>(</big><em>exportGroupLabels=False</em>, <em>lineLength=50</em><big>)</big><a class="headerlink" href="#egglib.Container.str" title="Permalink to this definition">¶</a></dt>
+<dd><p>Formats the instance as a fasta string. <em>exportGroupLabels</em>:
+if <tt class="docutils literal"><span class="pre">True</span></tt>, exports group/population membership as <tt class="docutils literal"><span class="pre">&#64;x</span></tt> tags
+placed at the end of sequence names (where <tt class="docutils literal"><span class="pre">x</span></tt> is any positive
+integer). <em>lineLength</em> gives the number of characters to place
+on a single line in the fasta output. If <tt class="docutils literal"><span class="pre">0</span></tt>, no newlines are
+inserted within sequences.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.Container.write">
+<tt class="descname">write</tt><big>(</big><em>fname</em>, <em>exportGroupLabels=False</em>, <em>lineLength=50</em><big>)</big><a class="headerlink" href="#egglib.Container.write" title="Permalink to this definition">¶</a></dt>
+<dd><p>Writes the sequences to a fasta-formatted file. <em>fname</em> is
+the name of the file to create. Other arguments are as for
+<a class="reference internal" href="#egglib.TreeNode.str" title="egglib.TreeNode.str"><tt class="xref py py-meth docutils literal"><span class="pre">str()</span></tt></a>.</p>
+<div class="versionadded">
+<p><span class="versionmodified">New in version 2.0.1.</span></p>
+</div>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="class-align">
+<h2>Class Align<a class="headerlink" href="#class-align" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="egglib.Align">
+<em class="property">class </em><tt class="descclassname">egglib.</tt><tt class="descname">Align</tt><big>(</big><em>fname=None</em>, <em>string=None</em>, <em>groups=False</em><big>)</big><a class="headerlink" href="#egglib.Align" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">egglib.data.BaseContainer</span></tt></p>
+<p>Holds sequences and ensures that they have the same length.
+This class is a C++-implemented class providing performant storage
+and access utilies, wrapped within at Python layer that interfaces
+several operations. In particular it allows direct instanciation
+from a fasta-formatted file or from a string stored in a Python
+<tt class="xref py py-class docutils literal"><span class="pre">str</span></tt> instance (see constructor&#8217;s signature below).</p>
+<p><a class="reference internal" href="#egglib.Align" title="egglib.Align"><tt class="xref py py-class docutils literal"><span class="pre">Align</span></tt></a> also allow subscript indexing (as in
+<tt class="docutils literal"><span class="pre">align[0]</span></tt>) and iteration (as in <tt class="docutils literal"><span class="pre">for</span> <span class="pre">i</span> <span class="pre">in</span> <span class="pre">align</span></tt>).
+Returned items are <a class="reference internal" href="#egglib.SequenceItem" title="egglib.SequenceItem"><tt class="xref py py-class docutils literal"><span class="pre">SequenceItem</span></tt></a> instances that can be
+either converted in <tt class="docutils literal"><span class="pre">(name,</span> <span class="pre">sequence,</span> <span class="pre">group)</span></tt> tuples or modified
+to modify the underlying instance. For example, the following code
+resets all group indices of the <a class="reference internal" href="#egglib.Align" title="egglib.Align"><tt class="xref py py-class docutils literal"><span class="pre">Align</span></tt></a> instance
+<tt class="docutils literal"><span class="pre">align</span></tt>:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">align</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="n">i</span><span class="o">.</span><span class="n">group</span> <span class="o">=</span> <span class="mi">0</span>
+</pre></div>
+</div>
+<p><a class="reference internal" href="#egglib.Align" title="egglib.Align"><tt class="xref py py-class docutils literal"><span class="pre">Align</span></tt></a> supports calls to both <tt class="docutils literal"><span class="pre">str()</span></tt> (and, as a result,
+expressions such as <tt class="docutils literal"><span class="pre">print</span> <span class="pre">align</span></tt>). In both cases, the result of
+the <a class="reference internal" href="#egglib.TreeNode.str" title="egglib.TreeNode.str"><tt class="xref py py-meth docutils literal"><span class="pre">str()</span></tt></a> method (with default arguments) is returned. The
+result is a fasta-formatted string. Consider using the <a class="reference internal" href="#egglib.TreeNode.str" title="egglib.TreeNode.str"><tt class="xref py py-meth docutils literal"><span class="pre">str()</span></tt></a>
+method to customize and <a class="reference internal" href="#egglib.Align.write" title="egglib.Align.write"><tt class="xref py py-meth docutils literal"><span class="pre">write()</span></tt></a> to export the instance to a
+file on the disk.</p>
+<p><a class="reference internal" href="#egglib.Align" title="egglib.Align"><tt class="xref py py-class docutils literal"><span class="pre">Align</span></tt></a> instances have a <tt class="docutils literal"><span class="pre">len()</span></tt> (the result of
+<a class="reference internal" href="#egglib.Container.ns" title="egglib.Container.ns"><tt class="xref py py-meth docutils literal"><span class="pre">ns()</span></tt></a> is returned) supports expressions such as <tt class="docutils literal"><span class="pre">name</span> <span class="pre">in</span>
+<span class="pre">align</span></tt> which return <tt class="docutils literal"><span class="pre">True</span></tt> if <tt class="docutils literal"><span class="pre">name</span></tt> is the name of one of
+the sequences contained in the instance.</p>
+<div class="versionchanged">
+<p><span class="versionmodified">Changed in version 2.0.1: </span>The <tt class="docutils literal"><span class="pre">[]</span></tt> operators accept only indices.
+<a class="reference internal" href="#egglib.Align.sequenceByName" title="egglib.Align.sequenceByName"><tt class="xref py py-meth docutils literal"><span class="pre">sequenceByName()</span></tt></a> fulfils the dictionary-like behaviour.
+<a class="reference internal" href="#egglib.Align.append" title="egglib.Align.append"><tt class="xref py py-meth docutils literal"><span class="pre">append()</span></tt></a>, <tt class="xref py py-meth docutils literal"><span class="pre">extend()</span></tt> and  <tt class="xref py py-meth docutils literal"><span class="pre">__iadd__()</span></tt>
+(operator <tt class="docutils literal"><span class="pre">+=</span></tt>) are removed.</p>
+</div>
+<p class="rubric">Constructor arguments</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>fname</strong> &#8211; the path of a fasta-formatted file or <tt class="docutils literal"><span class="pre">None</span></tt>.</li>
+<li><strong>string</strong> &#8211; a string containing fasta sequences or <tt class="docutils literal"><span class="pre">None</span></tt>.</li>
+<li><strong>groups</strong> &#8211; whether to import group labels. The labels should appear as strings <tt class="docutils literal"><span class="pre">&#64;0</span></tt>, <tt class="docutils literal"><span class="pre">&#64;1</span></tt>, etc. in the input file.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p>If <em>fname</em> and <em>string</em> are <tt class="docutils literal"><span class="pre">None</span></tt>, the value of <em>groups</em>
+is ignored and an empty instance is built. If both <em>fname</em>
+and <em>string</em> are specified, an error is thrown.</p>
+<div class="versionchanged">
+<p><span class="versionmodified">Changed in version 2.0.1: </span>Doesn&#8217;t accept simultaneous values for <em>fname</em>  and
+<em>string</em>.</p>
+</div>
+<p class="rubric">Methods</p>
+<dl class="method">
+<dt id="egglib.Align.Rmin">
+<tt class="descname">Rmin</tt><big>(</big><em>minimumExploitableData=1.0</em>, <em>ignoreFrequency=0</em>, <em>validCharacters='ACGT'</em>, <em>missingData='MRWSYKBDHVN?-'</em><big>)</big><a class="headerlink" href="#egglib.Align.Rmin" title="Permalink to this definition">¶</a></dt>
+<dd><p>Computes the minimal number of recombination events</p>
+<p>The computation is performed as described in Hudson, RR and
+NL Kaplan. 1985. Statistical properties of the number of
+recombination events in the history of a sample of DNA
+sequences. Genetics 111: 147-164. The returned parameter is
+the minimal number of recombination events, given by the
+number of non-overlapping pairs of segregating sites violating
+the rule of the four gamete. Only sites with two alleles are
+considered. Note that homoplasy (multiple mutations) mimicks
+recombination. The result of this function is not stored
+in this instance, and re-computed at each call.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.Align.addSequences">
+<tt class="descname">addSequences</tt><big>(</big><em>seqs</em><big>)</big><a class="headerlink" href="#egglib.Align.addSequences" title="Permalink to this definition">¶</a></dt>
+<dd><p>Appends repetitively (name, sequence, group) tuples to the
+end of the object (passed the last sequence. <em>seqs</em> must be
+an iterable returning (name, sequence, group) tuples (such
+as a <a class="reference internal" href="#egglib.Container" title="egglib.Container"><tt class="xref py py-class docutils literal"><span class="pre">Container</span></tt></a> or <a class="reference internal" href="#egglib.Align" title="egglib.Align"><tt class="xref py py-class docutils literal"><span class="pre">Align</span></tt></a> instance). (the group
+item is optional and tuples can be of length 2.) Returns the
+number of sequences after the operation.</p>
+<div class="versionadded">
+<p><span class="versionmodified">New in version 2.0.1.</span></p>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.Align.append">
+<tt class="descname">append</tt><big>(</big><em>name</em>, <em>sequence</em>, <em>group=0</em><big>)</big><a class="headerlink" href="#egglib.Align.append" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adds a sequence to the object. <em>name</em> is the sequence name,
+<em>sequence</em> the sequence string and <em>group</em> is the population
+label. Note that the length of <em>sequence</em> must match the length
+of the alignment, if <em>self</em> is of type <a class="reference internal" href="#egglib.Align" title="egglib.Align"><tt class="xref py py-class docutils literal"><span class="pre">Align</span></tt></a>. Returns
+the number of sequences after the operation.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.Align.appendSequence">
+<tt class="descname">appendSequence</tt><big>(</big><em>pos</em>, <em>sequence</em><big>)</big><a class="headerlink" href="#egglib.Align.appendSequence" title="Permalink to this definition">¶</a></dt>
+<dd><p>Appends the sequence string <em>sequence</em> to the sequence at
+position <em>pos</em>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.Align.binSwitch">
+<tt class="descname">binSwitch</tt><big>(</big><em>pos</em><big>)</big><a class="headerlink" href="#egglib.Align.binSwitch" title="Permalink to this definition">¶</a></dt>
+<dd><p>Takes all characters at position <em>pos</em>; replaces <tt class="docutils literal"><span class="pre">0</span></tt> by
+<tt class="docutils literal"><span class="pre">1</span></tt> and all the way around, raises an exception if another
+character is found. This method doesn&#8217;t have a return value.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.Align.character">
+<tt class="descname">character</tt><big>(</big><em>s</em>, <em>p</em><big>)</big><a class="headerlink" href="#egglib.Align.character" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fast accessor to a character. Returns character at position
+<em>p</em> of sequence <em>s</em>. This accessor is faster than <a class="reference internal" href="binding.html#egglib.egglib_binding.Container.get" title="egglib.egglib_binding.Container.get"><tt class="xref py py-meth docutils literal"><span class="pre">get()</span></tt></a>
+because it doesn&#8217;t perform out-of-bound check.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.Align.clear">
+<tt class="descname">clear</tt><big>(</big><big>)</big><a class="headerlink" href="#egglib.Align.clear" title="Permalink to this definition">¶</a></dt>
+<dd><p>Deletes all content of the current instance.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.Align.column">
+<tt class="descname">column</tt><big>(</big><em>pos</em><big>)</big><a class="headerlink" href="#egglib.Align.column" title="Permalink to this definition">¶</a></dt>
+<dd><p>Extracts the alignment column at position <em>pos</em> as a list of
+characters.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.Align.composition">
+<tt class="descname">composition</tt><big>(</big><big>)</big><a class="headerlink" href="#egglib.Align.composition" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets the composition in characters of each sequence. Returns
+a dictionary with the sequence names as key. Each entry is
+itself a dictionary giving the absolute frequency of each
+character found in the corresponding sequences.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.Align.consensus">
+<tt class="descname">consensus</tt><big>(</big><big>)</big><a class="headerlink" href="#egglib.Align.consensus" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generates a consensus of the object, assuming nucleotide
+sequences. The consensus is generated based on standard
+ambiguity (IUPAC) codes. A <tt class="docutils literal"><span class="pre">-</span></tt> character is inserted if any
+sequence has a <tt class="docutils literal"><span class="pre">-</span></tt>. A <tt class="docutils literal"><span class="pre">?</span></tt> character is inserted if any
+sequence has a <tt class="docutils literal"><span class="pre">?</span></tt>. Returns the consensus string.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.Align.contains_duplicates">
+<tt class="descname">contains_duplicates</tt><big>(</big><big>)</big><a class="headerlink" href="#egglib.Align.contains_duplicates" title="Permalink to this definition">¶</a></dt>
+<dd><p><tt class="docutils literal"><span class="pre">True</span></tt> if the instance contains at least one duplicate.</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="egglib.Align.create">
+<em class="property">classmethod </em><tt class="descname">create</tt><big>(</big><em>obj</em><big>)</big><a class="headerlink" href="#egglib.Align.create" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates an instance from the object <cite>obj</cite>. The created instance
+will match the type from which the method is called (
+<tt class="docutils literal"><span class="pre">Container.create(obj)</span></tt> will return a <a class="reference internal" href="#egglib.Container" title="egglib.Container"><tt class="xref py py-class docutils literal"><span class="pre">Container</span></tt></a>, and
+<tt class="docutils literal"><span class="pre">Align.create(obj)</span></tt> will return a <a class="reference internal" href="#egglib.Align" title="egglib.Align"><tt class="xref py py-class docutils literal"><span class="pre">Align</span></tt></a>, and the
+same goes if the method is called on an object). In the case of
+<a class="reference internal" href="#egglib.Align" title="egglib.Align"><tt class="xref py py-class docutils literal"><span class="pre">Align</span></tt></a>, the restriction of coherent sequence lengths
+applies (there is not automatic correction). <em>obj</em> is a priori a
+<a class="reference internal" href="#egglib.Container" title="egglib.Container"><tt class="xref py py-class docutils literal"><span class="pre">Container</span></tt></a> or a <a class="reference internal" href="#egglib.Align" title="egglib.Align"><tt class="xref py py-class docutils literal"><span class="pre">Align</span></tt></a>, but the method supports
+any iterable returning <tt class="docutils literal"><span class="pre">(name,sequence,group)</span></tt> or
+<tt class="docutils literal"><span class="pre">(name,sequence)</span></tt> tuples (in the latter case, groups will be
+initialized to <tt class="docutils literal"><span class="pre">0</span></tt>. For example, the following is valid:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">egglib</span>
+<span class="n">data</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">data</span><span class="o">.</span><span class="n">append</span><span class="p">(</span> <span class="p">(</span><span class="s2">&quot;sequence1&quot;</span><span class="p">,</span> <span class="s2">&quot;AAAAAAAAA&quot;</span><span class="p">,</span>     <span class="mi">0</span><span class="p">)</span> <span class="p">)</span>
+<span class="n">data</span><span class="o">.</span><span class="n">append</span><span class="p">(</span> <span class="p">(</span><span class="s2">&quot;sequence2&quot;</span><span class="p">,</span> <span class="s2">&quot;GGGG&quot;</span><span class="p">,</span>          <span class="mi">2</span><span class="p">)</span> <span class="p">)</span>
+<span class="n">data</span><span class="o">.</span><span class="n">append</span><span class="p">(</span> <span class="p">(</span><span class="s2">&quot;sequence3&quot;</span><span class="p">,</span> <span class="s2">&quot;AAAAAAAAAAAAAA&quot;</span><span class="p">)</span> <span class="p">)</span>
+<span class="n">container</span> <span class="o">=</span> <span class="n">egglib</span><span class="o">.</span><span class="n">Container</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="versionadded">
+<p><span class="versionmodified">New in version 2.0.1.</span></p>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.Align.dataMatrix">
+<tt class="descname">dataMatrix</tt><big>(</big><em>mapping='ACGT'</em>, <em>others=999</em><big>)</big><a class="headerlink" href="#egglib.Align.dataMatrix" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a copy of the current instance as a <a class="reference internal" href="binding.html#egglib.egglib_binding.DataMatrix" title="egglib.egglib_binding.DataMatrix"><tt class="xref py py-class docutils literal"><span class="pre">DataMatrix</span></tt></a>
+Mapping must be a string of type &#8216;ACGT&#8217; indicating valid characters
+that will be encoded by their position in the string (ie 0,1,2,3).
+<em>others</em> gives the index to affect to characters not found in
+the mapping string.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.Align.duplicates">
+<tt class="descname">duplicates</tt><big>(</big><big>)</big><a class="headerlink" href="#egglib.Align.duplicates" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the list of sequence names found more than once in
+the instance.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.Align.encode">
+<tt class="descname">encode</tt><big>(</big><em>nbits=10</em><big>)</big><a class="headerlink" href="#egglib.Align.encode" title="Permalink to this definition">¶</a></dt>
+<dd><p>Renames all sequences using a random mapping of names to unique
+keys of lenght <em>nbits</em>. <em>nbits</em> cannot be lower than 4 (which
+should allow renaming several millions of sequence) or larger
+than 63 (which is the number of different characters available).
+Returns a dictionary mapping all the generated keys to the
+actual sequence names. The keys are case-dependent and
+guaranteed not to start with a number. The returned mapping can
+be used to restored the original names using <a class="reference internal" href="#egglib.Align.rename" title="egglib.Align.rename"><tt class="xref py py-meth docutils literal"><span class="pre">rename()</span></tt></a></p>
+<div class="versionadded">
+<p><span class="versionmodified">New in version 2.0.1.</span></p>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.Align.extract">
+<tt class="descname">extract</tt><big>(</big><em>*args</em><big>)</big><a class="headerlink" href="#egglib.Align.extract" title="Permalink to this definition">¶</a></dt>
+<dd><p>Extract given positions (or columns) of the alignment and
+returns a new alignment. There are two ways of using this
+method. The first is by passing a range specification as in
+<tt class="docutils literal"><span class="pre">align.extract(100,</span> <span class="pre">200)</span></tt>. The bounds will be passed as it to
+the slice operator on all sequences. The above example will
+extract columns <tt class="docutils literal"><span class="pre">100</span></tt> to <tt class="docutils literal"><span class="pre">199</span></tt>. As a result, out of bound
+values will be silently supported. The second use of the method
+is as in <tt class="docutils literal"><span class="pre">align.extract([80,</span> <span class="pre">143,</span> <span class="pre">189,</span> <span class="pre">842,</span> <span class="pre">967])</span></tt>. The single
+argument must be an iterable containing positions indices, that
+might contain repetitions and needs not to be sorted. The
+positions will be extracted in the specified order.</p>
+<div class="versionadded">
+<p><span class="versionmodified">New in version 2.0.1.</span></p>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.Align.filter">
+<tt class="descname">filter</tt><big>(</big><em>ratio</em>, <em>valid='ACGT'</em><big>)</big><a class="headerlink" href="#egglib.Align.filter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Removes the sequences with too few valid sites. <em>ratio</em> is
+the limit threshold (relative to the sequence with the largest
+number of valid characters). The user can specify the list of
+valid states through the argument <em>valid</em>. The comparison is
+case-independent. This method modifies the current instance and
+returns nothing.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.Align.find">
+<tt class="descname">find</tt><big>(</big><em>string</em>, <em>strict=True</em><big>)</big><a class="headerlink" href="#egglib.Align.find" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the index of the first sequence with the name specified
+by <em>string</em>. If <em>strict</em> is <tt class="docutils literal"><span class="pre">False</span></tt>, then the comparison
+ignores names that are longest than <em>string</em>. In other words,
+the name <tt class="docutils literal"><span class="pre">Alphacaga_tada1</span></tt> will be recognized if <a class="reference internal" href="binding.html#egglib.egglib_binding.Container.find" title="egglib.egglib_binding.Container.find"><tt class="xref py py-meth docutils literal"><span class="pre">find()</span></tt></a>
+is called with <em>string</em> <tt class="docutils literal"><span class="pre">Alphacaga</span></tt> and <em>strict</em> = <tt class="docutils literal"><span class="pre">False</span></tt>.
+If the name is not found, returns <tt class="docutils literal"><span class="pre">None</span></tt>.</p>
+<div class="versionchanged">
+<p><span class="versionmodified">Changed in version 2.1.0: </span>Returns None instead of -1 if the name is not found.</p>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.Align.fix_gap_ends">
+<tt class="descname">fix_gap_ends</tt><big>(</big><big>)</big><a class="headerlink" href="#egglib.Align.fix_gap_ends" title="Permalink to this definition">¶</a></dt>
+<dd><p>Replaces all leading or trailing alignment gaps (<tt class="docutils literal"><span class="pre">-</span></tt>) by
+missing data symbols (<tt class="docutils literal"><span class="pre">?</span></tt>). Internal alignment gaps (those
+having at least one character other than <tt class="docutils literal"><span class="pre">-</span></tt> and <tt class="docutils literal"><span class="pre">?</span></tt> at each
+side) are left unchanged.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.Align.get">
+<tt class="descname">get</tt><big>(</big><em>s</em>, <em>p</em><big>)</big><a class="headerlink" href="#egglib.Align.get" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets the character value of the sequence <em>s</em> at position
+<em>p</em>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.Align.group">
+<tt class="descname">group</tt><big>(</big><em>pos</em>, <em>group=None</em><big>)</big><a class="headerlink" href="#egglib.Align.group" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets/gets the group label of the sequence at index <em>pos</em>.
+If <em>group</em> is <tt class="docutils literal"><span class="pre">None</span></tt>, returns the current group label.
+Otherwise changes the group label and returns nothing. If not
+<tt class="docutils literal"><span class="pre">None</span></tt>, <em>group</em> must be a positive integer.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.Align.groupByName">
+<tt class="descname">groupByName</tt><big>(</big><em>name</em>, <em>strict=True</em><big>)</big><a class="headerlink" href="#egglib.Align.groupByName" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the group label corresponding to the first match of
+<cite>name</cite>. If the name is not found, raises a <tt class="xref py py-class docutils literal"><span class="pre">KeyError</span></tt>. If <em>strict</em>
+is <tt class="docutils literal"><span class="pre">True</span></tt>, seeks an exact match. If <tt class="docutils literal"><span class="pre">False</span></tt>, compares only
+until the end of the requested name (for example: <tt class="docutils literal"><span class="pre">'ATCFF'</span></tt>
+will match <tt class="docutils literal"><span class="pre">'ATCFF_01'</span></tt> if <em>strict</em> is <tt class="docutils literal"><span class="pre">false</span></tt>).</p>
+<div class="versionadded">
+<p><span class="versionmodified">New in version 2.0.1.</span></p>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.Align.groups">
+<tt class="descname">groups</tt><big>(</big><big>)</big><a class="headerlink" href="#egglib.Align.groups" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets the group structure. Returns a dictionary with the
+group labels (as <tt class="docutils literal"><span class="pre">int</span></tt>) as keys. Values are the lists of
+sequence names corresponding to each group.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.Align.ls">
+<tt class="descname">ls</tt><big>(</big><big>)</big><a class="headerlink" href="#egglib.Align.ls" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the length of the alignment.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.Align.matches">
+<tt class="descname">matches</tt><big>(</big><em>format</em><big>)</big><a class="headerlink" href="#egglib.Align.matches" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the <tt class="xref py py-class docutils literal"><span class="pre">list</span></tt> of indices matching the passed format.
+The format is passed as-is the the <tt class="xref py py-mod docutils literal"><span class="pre">re</span></tt> module using the
+function <tt class="xref py py-meth docutils literal"><span class="pre">search()</span></tt> (which doesn&#8217;t necessarily match the
+beginning of the string). If no sequence name matches the passed
+format an empty list is returned.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.Align.matrixLD">
+<tt class="descname">matrixLD</tt><big>(</big><em>minimumExploitableData=1.0</em>, <em>ignoreFrequency=0</em>, <em>validCharacters='ACGT'</em>, <em>missingData='MRWSYKBDHVN?-'</em><big>)</big><a class="headerlink" href="#egglib.Align.matrixLD" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generates the matrix of linkage disequilibrium between all pairs
+of polymorphic sites. The options have the same meaning as for
+<a class="reference internal" href="#egglib.Align.polymorphism" title="egglib.Align.polymorphism"><tt class="xref py py-meth docutils literal"><span class="pre">polymorphism()</span></tt></a>.</p>
+<dl class="docutils">
+<dt>Returns a dictionary containing the following keys:</dt>
+<dd><ul class="first last simple">
+<li><tt class="docutils literal"><span class="pre">minimumExploitableData</span></tt> (value of input parameter),</li>
+<li><tt class="docutils literal"><span class="pre">ignoreFrequency</span></tt> (value of input parameter),</li>
+<li><tt class="docutils literal"><span class="pre">n</span></tt> (number of pairs of sequences),</li>
+<li><tt class="docutils literal"><span class="pre">d</span></tt> (alignment distance between polymorphic sites),</li>
+<li><tt class="docutils literal"><span class="pre">D</span></tt> (<em>D</em> linkage disequilibrium statistic),</li>
+<li><tt class="docutils literal"><span class="pre">Dp</span></tt> (<em>D&#8217;</em> linkage disequilibrium statistic),</li>
+<li><tt class="docutils literal"><span class="pre">r</span></tt> (Pearson&#8217;s correlation coefficient),</li>
+<li><tt class="docutils literal"><span class="pre">r2</span></tt> (square Pearson&#8217;s correlation coefficient).</li>
+</ul>
+</dd>
+</dl>
+<p><tt class="docutils literal"><span class="pre">D</span></tt>, <tt class="docutils literal"><span class="pre">Dp</span></tt>, <tt class="docutils literal"><span class="pre">r</span></tt> and <tt class="docutils literal"><span class="pre">r2</span></tt> are four possible measures of
+linkage disequilibrium. <tt class="docutils literal"><span class="pre">minimumExploitableData</span></tt>,
+<tt class="docutils literal"><span class="pre">ignoreFrequency</span></tt> and <tt class="docutils literal"><span class="pre">n</span></tt> are provided as integer values.
+<tt class="docutils literal"><span class="pre">d</span></tt>, <tt class="docutils literal"><span class="pre">D</span></tt>, <tt class="docutils literal"><span class="pre">Dp</span></tt>, <tt class="docutils literal"><span class="pre">r</span></tt> and <tt class="docutils literal"><span class="pre">r2</span></tt> are provided as nested
+dictionaries containing the matrix of values of the
+corresponding statistic between all pairs of polymorphic sites.
+The individual values can be accessed as this (example given for
+<tt class="docutils literal"><span class="pre">D</span></tt>): <tt class="docutils literal"><span class="pre">matrixLD()['D'][i][j]</span></tt> where <em>i</em> is the alignment
+position of the first site and <em>j</em> is the alignment position of
+the second site such as <em>i</em> &lt; <em>j</em>. The polymorphic sites as the
+same as those returned by <tt class="docutils literal"><span class="pre">polymorphism()['siteIndices']</span></tt>
+(called on the same object with the same configuration options).</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.Align.name">
+<tt class="descname">name</tt><big>(</big><em>pos</em>, <em>name=None</em><big>)</big><a class="headerlink" href="#egglib.Align.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets/gets the name of the sequence at index <em>pos</em>. If <em>name</em>
+is <tt class="docutils literal"><span class="pre">None</span></tt>, returns the current name. Otherwise changes the
+name and returns nothing.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.Align.names">
+<tt class="descname">names</tt><big>(</big><big>)</big><a class="headerlink" href="#egglib.Align.names" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the list of sequence names</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.Align.nexus">
+<tt class="descname">nexus</tt><big>(</big><em>prot=False</em><big>)</big><a class="headerlink" href="#egglib.Align.nexus" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generates a simple nexus-formatted string. If <em>prot</em> is
+<tt class="docutils literal"><span class="pre">True</span></tt>, adds <tt class="docutils literal"><span class="pre">datatype=protein</span></tt> in the file, allowing it to
+be imported as proteins (but doesn&#8217;t perform further checking).
+Returns a nexus-formatted string. Note: any spaces and tabs in
+sequence names are replaced by underscores. This nexus
+implementation is minimal but will normally suffice to export
+sequences to programs expecting nexus.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.Align.no_duplicates">
+<tt class="descname">no_duplicates</tt><big>(</big><big>)</big><a class="headerlink" href="#egglib.Align.no_duplicates" title="Permalink to this definition">¶</a></dt>
+<dd><p>Discards all duplicates: for all sequences with the same
+name, the one with the largest index is removed.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.Align.ns">
+<tt class="descname">ns</tt><big>(</big><big>)</big><a class="headerlink" href="#egglib.Align.ns" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the number of sequences contained in the instance.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.Align.phylip">
+<tt class="descname">phylip</tt><big>(</big><em>format='I'</em><big>)</big><a class="headerlink" href="#egglib.Align.phylip" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a phyml-formatted string representing the content of the
+instance. The phyml format is suitable as input data for PhyML
+and PAML software. Raises a <tt class="xref py py-class docutils literal"><span class="pre">ValueError</span></tt> is any name of
+the instance contains at least one character of the following
+list: &#8220;<tt class="docutils literal"><span class="pre">()[]{},;</span></tt>&#8221; as well as spaces, tabs, newlines and
+linefeeds. Group labels are never exported. Sequence names
+cannot be longer than 10 characters. A <tt class="xref py py-class docutils literal"><span class="pre">ValueError</span></tt> will
+be raised if a longer name is met. <em>format</em> must be &#8216;I&#8217; or &#8216;S&#8217;
+(case-independent), indicating whether the data should be
+formatted in the sequential (S) or interleaved (I) format (see
+PHYLIP&#8217;s documentation for definitions).</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.Align.phyml">
+<tt class="descname">phyml</tt><big>(</big><big>)</big><a class="headerlink" href="#egglib.Align.phyml" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a phyml-formatted string representing the content of the
+instance. The phyml format is suitable as input data for PhyML
+and PAML software. Raises a <tt class="xref py py-class docutils literal"><span class="pre">ValueError</span></tt> is any name of
+the instance contains at least one character of the following
+list: &#8220;<tt class="docutils literal"><span class="pre">()[]{},;</span></tt>&#8221; as well as spaces, tabs, newlines and
+linefeeds. Group information is never exported.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.Align.polymorphism">
+<tt class="descname">polymorphism</tt><big>(</big><em>allowMultipleMutations=False</em>, <em>minimumExploitableData=1.0</em>, <em>ignoreFrequency=0</em>, <em>validCharacters='ACGT'</em>, <em>missingData='MRWSYKBDHVN?-'</em>, <em>useZeroAsAncestral=False</em>, <em>skipDifferentiationStats=False</em>, <em>skipOutgroupBasedStats=False</em>, <em>skipAllHaplotypeStats=False</em>, <em>skipHaplotypeDifferentiationStats=False</em><big>)</big><a class="headerlink" href="#egglib.Align.polymorphism" title="Permalink to this definition">¶</a></dt>
+<dd><p>Computes nucleotide and haplotype diversity statistics.</p>
+<p>Arguments:</p>
+<blockquote>
+<div><ul class="simple">
+<li><em>minimumExploitableData</em> sites where the non-missing data
+(as defined by mapping strings, see below) are at a
+frequency smaller than this value will be removed from the
+analysis. Use 1. to take only &#8216;complete&#8217; sites into account
+and 0. to use all sites (the option is not considered for
+haplotype-based statistics).</li>
+<li><em>allowMultipleMutations</em>: if <tt class="docutils literal"><span class="pre">False</span></tt>, only sites with 1
+or 2 alleles are considered, and sites with more alleles
+are considered as missing data. The sum of the frequencies
+of all alleles not matching the outgroup will treated as the
+derived allele frequency (for orientable sites).</li>
+<li><em>ignoreFrequency</em>: removes sites that are polymorph because
+of an allele at absolute frequency (as an integer: number of copies) smaller than or equal to
+this value. If ignoreFrequency=0, no sites are removed,
+if ignoreFrequency=1, singleton sites are ignored. Such
+sites are completely removed from the analysis (not counted
+in lseff). Note that if more than one mutation is allowed,
+the site is removed only if all the alleles but one are
+smaller than or equal to this value. For example, an
+alignment column AAAAAAGAAT is ignored with an
+ignoreFrequency of 1, but AAAAAAGGAT is conserved
+(including the third allele T which is a singleton).</li>
+<li><em>validCharacters</em>: a string giving the list of characters
+that should be considered as valid data.</li>
+<li><em>missingData</em>: characters indicating missing data, that is
+tolerated but ignored. All characters that are neither in
+<em>validCharacters</em> nor <em>missingData</em>, but found in the data,
+will cause an error.</li>
+<li><em>useZeroAsAncestral</em>: if true, all outgroups (if present)
+will be ignored and the character &#8220;0&#8221; will be considered as
+ancestral for all sites, whatever the character mapping.</li>
+<li><em>skipDifferentiationStats</em>, <em>skipOutgroupBasedStats</em>,
+<em>skipAllHaplotypeStats</em>, <em>skipHaplotypeDifferentiationStats</em>
+allow the user to skip part of the analysis (in order to
+save time).</li>
+</ul>
+</div></blockquote>
+<p>The method returns a dictionary containing the diversity
+statistics. Some of the statistics will be computed only in
+presence of more than one group in the alignment, or in the
+presence of an outgroup, or depending on the value of other
+statistics and or if skip flags were activated (otherwise, they
+will have a <tt class="docutils literal"><span class="pre">None</span></tt> value).</p>
+<p>These statistics are always computed:</p>
+<blockquote>
+<div><ul class="simple">
+<li><tt class="docutils literal"><span class="pre">nseff</span></tt>: Average number of analyzed sequences per
+analyzed site. It equals to <tt class="docutils literal"><span class="pre">ns()</span></tt> minus the number
+of outgroup sequences unless <em>minimumExploitableData</em> is
+set to a value &lt; 1. In the latter case it can be a fraction.</li>
+<li><tt class="docutils literal"><span class="pre">lseff</span></tt>: Number of analyzed sites.</li>
+<li><tt class="docutils literal"><span class="pre">npop</span></tt>: Number of populations detected in the alignment.</li>
+<li><tt class="docutils literal"><span class="pre">S</span></tt>: Number of polymorphic sites.</li>
+<li><tt class="docutils literal"><span class="pre">eta</span></tt>: Minimal number of mutations (ignores
+<em>allowMultipleMutations</em>).</li>
+<li><tt class="docutils literal"><span class="pre">sites</span></tt>: List of <tt class="xref py py-class docutils literal"><span class="pre">SitePolymorphism</span></tt> instances
+(one for each polymorphic site).</li>
+<li><tt class="docutils literal"><span class="pre">siteIndices</span></tt>: List of alignment position of each
+polymorphic site.</li>
+<li><tt class="docutils literal"><span class="pre">singletons</span></tt>: List of positions of singletons.</li>
+</ul>
+</div></blockquote>
+<p>These statistics are computed only is <tt class="docutils literal"><span class="pre">lseff</span></tt> is &gt; 0:</p>
+<blockquote>
+<div><ul class="simple">
+<li><tt class="docutils literal"><span class="pre">thetaW</span></tt>: Theta estimator of Watterson (<em>Theor. Popul. Biol.</em> <strong>7</strong>:256-276, 1975).</li>
+<li><tt class="docutils literal"><span class="pre">Pi</span></tt>: Nucleotide diversity.</li>
+</ul>
+</div></blockquote>
+<p>This statistic is computed only is <tt class="docutils literal"><span class="pre">S</span></tt> is &gt; 0:</p>
+<blockquote>
+<div><ul class="simple">
+<li><tt class="docutils literal"><span class="pre">D</span></tt>: Tajima statistic (<em>Genetics</em> <strong>123</strong>:585-595, 1989)</li>
+</ul>
+</div></blockquote>
+<p>These statistics are computed only if <em>skipAllHaplotypeStats</em> is
+<tt class="docutils literal"><span class="pre">False</span></tt>:</p>
+<blockquote>
+<div><ul class="simple">
+<li><tt class="docutils literal"><span class="pre">He</span></tt>: Haplotypic diversity.</li>
+<li><tt class="docutils literal"><span class="pre">K</span></tt>: Number of distinct haplotypes.</li>
+<li><tt class="docutils literal"><span class="pre">alleles</span></tt>: A list giving the haplotype index for each
+sequence of the alignment, or -1 when not applicable, such
+as for the outgroup.</li>
+</ul>
+</div></blockquote>
+<p>This statistic is computed only if <em>skipAllHaplotypeStats</em>
+and <em>skipHaplotypeDifferentiationStats</em> are <tt class="docutils literal"><span class="pre">False</span></tt>, <tt class="docutils literal"><span class="pre">npop</span></tt>
+is &gt; 1:</p>
+<blockquote>
+<div><ul class="simple">
+<li><tt class="docutils literal"><span class="pre">Snn</span></tt>: Nearest neighbor statistics (Hudson <em>Genetics</em>
+<strong>155</strong>:2011-2014, 2000).</li>
+</ul>
+</div></blockquote>
+<p>These statistics are computed only if <em>skipAllHaplotypeStats</em>
+and <em>skipHaplotypeDifferentiationStats</em> are <tt class="docutils literal"><span class="pre">False</span></tt>, <tt class="docutils literal"><span class="pre">npop</span></tt>
+is &gt; 1 and <tt class="docutils literal"><span class="pre">S</span></tt> is &gt; 0:</p>
+<blockquote>
+<div><ul class="simple">
+<li><tt class="docutils literal"><span class="pre">Fst</span></tt>: Population differentiation, based on nucleotides
+(Hudson <em>et al.</em> <em>Genetics</em> <strong>132</strong>:583-589, 1992).</li>
+<li><tt class="docutils literal"><span class="pre">Gst</span></tt>: Population differentiation, based on haplotypes
+(Nei version, Hudson <em>et al.</em> <em>Mol. Biol. Evol.</em>
+<strong>9</strong>:138-151, 1992).</li>
+<li><tt class="docutils literal"><span class="pre">Hst</span></tt>: Population differentiation, based on haplotypes
+(Hudson <em>et al.</em> <em>Mol. Biol. Evol.</em> <strong>9</strong>:138-151, 1992).</li>
+<li><tt class="docutils literal"><span class="pre">Kst</span></tt>: Population differentiation, based on nucleotides
+(Hudson <em>et al.</em> <em>Mol. Biol. Evol.</em> <strong>9</strong>:138-151, 1992).</li>
+</ul>
+</div></blockquote>
+<p>These statistics are computed only if <em>skipDifferentiationStats</em>
+is <tt class="docutils literal"><span class="pre">False</span></tt> and <tt class="docutils literal"><span class="pre">npop</span></tt> is &gt; 1:</p>
+<blockquote>
+<div><ul class="simple">
+<li><tt class="docutils literal"><span class="pre">pair_CommonAlleles</span></tt>: For each pair of populations,
+number of sites with at least one allele shared by the
+two populations. Alleles that are fixed in one or both
+populations are taken into account, provided that they are
+polymorphic over the whole sample.</li>
+<li><tt class="docutils literal"><span class="pre">pair_FixedDifferences</span></tt>: For each pair of populations,
+number of sites with a fixed differences between the two
+populations.</li>
+<li><tt class="docutils literal"><span class="pre">pair_SharedAlleles</span></tt>: For each pair of populations,
+number of sites with at least one allee shared by the two
+populations. Only alleles that are segregating in both
+populations are taken into account.</li>
+<li><tt class="docutils literal"><span class="pre">pop_Polymorphisms</span></tt>: For each population, number of
+polymorphic sites in this population.</li>
+<li><tt class="docutils literal"><span class="pre">pop_SpecificAlleles</span></tt>: For each population, number of
+sites with at least one allele specific to this
+population.</li>
+<li><tt class="docutils literal"><span class="pre">pop_SpecificDerivedAlleles</span></tt>: For each population,
+number sites with at least one derived allele specific to
+this population.</li>
+<li><tt class="docutils literal"><span class="pre">CommonAlleles</span></tt>: Number of sites with at least one
+allele shared among at least two populations.</li>
+<li><tt class="docutils literal"><span class="pre">FixedDifferences</span></tt>: Number of sites with at least one
+difference fixed between two populations.</li>
+<li><tt class="docutils literal"><span class="pre">SharedAlleles</span></tt>: Number of sites with at least one
+allele shared by at least two populations.</li>
+<li><tt class="docutils literal"><span class="pre">SpecificAlleles</span></tt>: Number of sites with at least one
+allele specific to one population.</li>
+<li><tt class="docutils literal"><span class="pre">SpecificDerivedAlleles</span></tt>: Number of sites with at least
+one derived allele specific to one population.</li>
+</ul>
+</div></blockquote>
+<p>These statistics are computed only if <em>skipDifferentiationStats</em>
+is <tt class="docutils literal"><span class="pre">False</span></tt>, <tt class="docutils literal"><span class="pre">npop</span></tt> is &gt; 1 and <tt class="docutils literal"><span class="pre">lseff</span></tt> &gt; 0:</p>
+<blockquote>
+<div><ul class="simple">
+<li><tt class="docutils literal"><span class="pre">average_Pi</span></tt>: Average of nucleotide diversity per
+population.</li>
+<li><tt class="docutils literal"><span class="pre">pop_Pi</span></tt>: Vector of nucleotide diversity per population.</li>
+</ul>
+</div></blockquote>
+<p>This statistic is computed only if <em>skipDifferentiationStats</em> is
+<tt class="docutils literal"><span class="pre">False</span></tt> and <tt class="docutils literal"><span class="pre">npop</span></tt> is 3:</p>
+<blockquote>
+<div><ul>
+<li><p class="first"><tt class="docutils literal"><span class="pre">triConfigurations</span></tt>: A list of 13 numbers counting the
+number of sites falling in the possible configurations in
+three populations. Only diallelic loci are considered and
+rooting is not considered. The possible configurations are
+explained using an example below. The order is as in the
+returned list (remember that indices start from 0 in
+Python). Each line gives the allele(s) present in each
+population: A means one allele, G the other allele and A/G
+both alleles (polymorphism within this population). A and
+G can be substituted (A/G, A, A is the same as A/G, G, G).</p>
+<blockquote>
+<div><ul class="simple">
+<li>0: A/G, A, A</li>
+<li>1: A/G, A, G</li>
+<li>2: A, A/G, A</li>
+<li>3: A, A/G, G</li>
+<li>4: A, A, A/G</li>
+<li>5: A, G, A/G</li>
+<li>6: A/G, A/G, A</li>
+<li>7: A/G, A, A/G</li>
+<li>8: A, A/G, A/G</li>
+<li>9: A/G, A/G, A/G</li>
+<li>10: A G G</li>
+<li>11: A G A</li>
+<li>12: A A G</li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+</div></blockquote>
+<p>These statistic are computed only if <em>skipOutgroupBasedStats</em> is
+<tt class="docutils literal"><span class="pre">False</span></tt>:</p>
+<blockquote>
+<div><ul class="simple">
+<li><tt class="docutils literal"><span class="pre">lseffo</span></tt>: Number of oriented sites that were analyzed.</li>
+<li><tt class="docutils literal"><span class="pre">So</span></tt>: Number of polymorphic sites among oriented sites.</li>
+</ul>
+</div></blockquote>
+<p>These statistics are computed only if <em>skipOutgroupBasedStats</em>
+is <tt class="docutils literal"><span class="pre">False</span></tt> and <em>So</em> is &gt; 0:</p>
+<blockquote>
+<div><ul class="simple">
+<li><tt class="docutils literal"><span class="pre">thetaH</span></tt>: Theta estimator of Fay and Wu (<em>Genetics</em>
+<strong>155</strong>:1405-1413, 2000).</li>
+<li><tt class="docutils literal"><span class="pre">thetaL</span></tt>: Theta estimator of Zeng <em>et al.</em> (<em>Genetics</em>
+<strong>174</strong>:1431-1439, 2006).</li>
+<li><tt class="docutils literal"><span class="pre">H</span></tt>: Fay and Wu statistic (<em>Genetics</em> <strong>155</strong>:1405-1413, 2000)</li>
+<li><tt class="docutils literal"><span class="pre">Z</span></tt>: Fay and Wu statistic standardized by Zeng <em>et al.</em>
+<em>Genetics</em> <strong>174</strong>:1431-1439, 2006).</li>
+<li><tt class="docutils literal"><span class="pre">E</span></tt>: Zeng <em>et al.</em> statistic <em>Genetics</em> <strong>174</strong>:1431-1439, 2006).</li>
+</ul>
+</div></blockquote>
+<p>The returned dictionary also contains a nest dictionary <tt class="docutils literal"><span class="pre">options</span></tt>
+which feedbacks the values used at function call.</p>
+<div class="versionchanged">
+<p><span class="versionmodified">Changed in version 2.0.2: </span><tt class="docutils literal"><span class="pre">Polymorphisms</span></tt> is renamed <tt class="docutils literal"><span class="pre">pop_Polymorphisms</span></tt>. The
+following statistics are added: <tt class="docutils literal"><span class="pre">pair_CommonAlleles</span></tt>,
+<tt class="docutils literal"><span class="pre">pair_FixedDifferences</span></tt>, <tt class="docutils literal"><span class="pre">pair_SharedAlleles</span></tt>,
+<tt class="docutils literal"><span class="pre">pop_SpecificAlleles</span></tt>, <tt class="docutils literal"><span class="pre">pop_SpecificDerivedAlleles</span></tt>. The
+following statistic are now computed only if <tt class="docutils literal"><span class="pre">So</span></tt> &gt; 0:
+<tt class="docutils literal"><span class="pre">thetaH</span></tt>, <tt class="docutils literal"><span class="pre">thetaL</span></tt>, <tt class="docutils literal"><span class="pre">E</span></tt>, <tt class="docutils literal"><span class="pre">H</span></tt> and <tt class="docutils literal"><span class="pre">Z</span></tt>. The following
+statistics are now  computed only if <tt class="docutils literal"><span class="pre">lseff</span></tt> &gt; 0: <tt class="docutils literal"><span class="pre">thetaW</span></tt>,
+<tt class="docutils literal"><span class="pre">Pi</span></tt>, <tt class="docutils literal"><span class="pre">pop_Pi</span></tt> and <tt class="docutils literal"><span class="pre">average_Pi</span></tt>. The following statistic
+are computed only if <tt class="docutils literal"><span class="pre">S</span></tt> &gt; 0: <tt class="docutils literal"><span class="pre">D</span></tt>, <tt class="docutils literal"><span class="pre">Fst</span></tt>, <tt class="docutils literal"><span class="pre">Gst</span></tt>,
+<tt class="docutils literal"><span class="pre">Hst</span></tt> and <tt class="docutils literal"><span class="pre">Kst</span></tt>. <tt class="docutils literal"><span class="pre">npop</span></tt> is always returned. For
+consistency, outgroup-based  statistics are computed even if
+<tt class="docutils literal"><span class="pre">lseffo</span></tt> is 0 (except those who require that <tt class="docutils literal"><span class="pre">So</span></tt> &gt; 0).</p>
+</div>
+<div class="versionchanged">
+<p><span class="versionmodified">Changed in version 2.1.0: </span>The statistics not computed are now exported and set to
+<tt class="docutils literal"><span class="pre">None</span></tt>.</p>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.Align.polymorphismBPP">
+<tt class="descname">polymorphismBPP</tt><big>(</big><em>dataType=1</em><big>)</big><a class="headerlink" href="#egglib.Align.polymorphismBPP" title="Permalink to this definition">¶</a></dt>
+<dd><p>Computes diversity statistics using tools provided through the
+Bio++ libraries. Note that attempting to call this method from
+an EggLib module compile without Bio++ support will result in a
+RuntimeError.</p>
+<p>Arguments:</p>
+<blockquote>
+<div><ul class="simple">
+<li><em>dataType</em>: 1 for DNA, 2 for RNA, 3 for protein sequences,
+4 for standard codons, 5 for vertebrate mitochondrial
+codons, 6 for invertebrate mitochondrial codons and 7 for
+echinoderm mitochondrial codons.</li>
+</ul>
+</div></blockquote>
+<p>The method returns a dictionary containing the diversity
+statistics. Some keys will be computed only in the presence of
+an outgroup, or if sequences were specified as coding or
+depending on the value of other statistics (otherwise, they will
+be <tt class="docutils literal"><span class="pre">None</span></tt>).</p>
+<p>The following statistics are always computed:</p>
+<blockquote>
+<div><ul class="simple">
+<li><tt class="docutils literal"><span class="pre">S</span></tt>: Number of polymorphic sites.</li>
+<li><tt class="docutils literal"><span class="pre">Sinf</span></tt>: Number of parsimony informative sites.</li>
+<li><tt class="docutils literal"><span class="pre">Ssin</span></tt>: Number of singleton sites.</li>
+<li><tt class="docutils literal"><span class="pre">eta</span></tt>: Minimal number of mutations.</li>
+<li><tt class="docutils literal"><span class="pre">thetaW</span></tt>: Theta estimator (Watterson <em>Theor. Popul.
+Biol.</em> <strong>7</strong>:256-276, 1975).</li>
+<li><tt class="docutils literal"><span class="pre">T83</span></tt>: Theta estimator (Tajima <em>Genetics</em> <strong>105</strong>:437-460, 1983)</li>
+<li><tt class="docutils literal"><span class="pre">He</span></tt>: Heterozygosity.</li>
+<li><tt class="docutils literal"><span class="pre">Ti</span></tt>: Number of transitions.</li>
+<li><tt class="docutils literal"><span class="pre">Tv</span></tt>: Number of transversions.</li>
+<li><tt class="docutils literal"><span class="pre">K</span></tt>: Number of haplotypes.</li>
+<li><tt class="docutils literal"><span class="pre">H</span></tt>: Haplotypic diversity.</li>
+<li><tt class="docutils literal"><span class="pre">rhoH</span></tt>: Hudson&#8217;s estimator of rho (<em>Genet. Res.</em>
+<strong>50</strong>:245-250, 1987).</li>
+</ul>
+</div></blockquote>
+<p>The following statistic is computed only if <tt class="docutils literal"><span class="pre">Tv</span></tt> &gt; 0:</p>
+<blockquote>
+<div><ul class="simple">
+<li><tt class="docutils literal"><span class="pre">TiTv</span></tt>: Transition/transversion ratio.</li>
+</ul>
+</div></blockquote>
+<p>The following statistic is computed only if <tt class="docutils literal"><span class="pre">S</span></tt> &gt; 0:</p>
+<blockquote>
+<div><ul class="simple">
+<li><tt class="docutils literal"><span class="pre">D</span></tt>: Tajima statistic (<em>Genetics</em> <strong>123</strong>:585-595, 1989).</li>
+</ul>
+</div></blockquote>
+<p>The following statistics are computed only if <tt class="docutils literal"><span class="pre">eta</span></tt> &gt; 0:</p>
+<blockquote>
+<div><ul class="simple">
+<li><tt class="docutils literal"><span class="pre">Deta</span></tt>: Tajima&#8217;s D computed with <tt class="docutils literal"><span class="pre">eta</span></tt> instead of <tt class="docutils literal"><span class="pre">S</span></tt>.</li>
+<li><tt class="docutils literal"><span class="pre">Dflstar</span></tt>: Fu and Li&#8217;s D* (without outgroup; <em>Genetics</em> <strong>133</strong>:693-709).</li>
+<li><tt class="docutils literal"><span class="pre">Fstar</span></tt>: Fu and Li&#8217;s F* (without ougroup; <em>Genetics</em> <strong>133</strong>:693-709).</li>
+</ul>
+</div></blockquote>
+<p>The following statistic is computed only if an outgroup is found:</p>
+<blockquote>
+<div><ul class="simple">
+<li><tt class="docutils literal"><span class="pre">Sext</span></tt>: Mutations on external branches.</li>
+</ul>
+</div></blockquote>
+<p>The following statistics are computed only if an outgroup is
+found and <tt class="docutils literal"><span class="pre">eta</span></tt> &gt; 0:</p>
+<blockquote>
+<div><ul class="simple">
+<li><tt class="docutils literal"><span class="pre">Dfl</span></tt>: Fu and Li&#8217;s D (<em>Genetics</em> <strong>133</strong>:693-709).</li>
+<li><tt class="docutils literal"><span class="pre">F</span></tt>: Fu and Li&#8217;s F (<em>Genetics</em> <strong>133</strong>:693-709).</li>
+</ul>
+</div></blockquote>
+<p>The following statistics are computed only if sequences are
+coding <em>dataType</em> = 4-7:</p>
+<blockquote>
+<div><ul class="simple">
+<li><tt class="docutils literal"><span class="pre">ncodon1mut</span></tt>: Number of codon sites with exactly one mutation.</li>
+<li><tt class="docutils literal"><span class="pre">NSsites</span></tt>: Average number of non-synonymous sites.</li>
+<li><tt class="docutils literal"><span class="pre">nstop</span></tt>: Number of codon sites with a stop codon.</li>
+<li><tt class="docutils literal"><span class="pre">nsyn</span></tt>: Number of codon sites with a synonymous change.</li>
+<li><tt class="docutils literal"><span class="pre">PiNS</span></tt>: Nucleotide diversity computed on non-synonymous sites.</li>
+<li><tt class="docutils literal"><span class="pre">PiS</span></tt>: Nucleotide diversity computed on synonymous sites.</li>
+<li><tt class="docutils literal"><span class="pre">SNS</span></tt>: Number of non-synonymous polymorphic sites.</li>
+<li><tt class="docutils literal"><span class="pre">SS</span></tt>: Number of synonymous polymorphic sites.</li>
+<li><tt class="docutils literal"><span class="pre">Ssites</span></tt>: Number of synonymous sites.</li>
+<li><tt class="docutils literal"><span class="pre">tWNS</span></tt>: Watterson&#8217;s theta computed on non-synonymous sites.</li>
+<li><tt class="docutils literal"><span class="pre">tWS</span></tt>: Watterson&#8217;s theta computed on synonymous sites.</li>
+</ul>
+</div></blockquote>
+<p>The following statistics are computed only if sequences are
+coding <em>dataType</em> = 4-7 and an outgroup is found:</p>
+<blockquote>
+<div><ul class="simple">
+<li><tt class="docutils literal"><span class="pre">MK</span></tt>: McDonald-Kreitman test table (<em>Nature</em>
+<strong>351</strong>:652-654, 1991).</li>
+<li><tt class="docutils literal"><span class="pre">NI</span></tt>: Neutrality index (Rand and Kann <em>Mol. Biol. Evol.</em>
+<strong>13</strong>:735-748).</li>
+</ul>
+</div></blockquote>
+<p>The returned dictionary also contains a nest dictionary <tt class="docutils literal"><span class="pre">options</span></tt>
+which feedbacks the values used at function call.</p>
+<div class="versionchanged">
+<p><span class="versionmodified">Changed in version 2.0.2: </span>The following statistics are now computed only if <tt class="docutils literal"><span class="pre">S</span></tt> &gt; 0:
+<tt class="docutils literal"><span class="pre">D</span></tt>, <tt class="docutils literal"><span class="pre">Deta</span></tt>, <tt class="docutils literal"><span class="pre">Dflstar</span></tt>, <tt class="docutils literal"><span class="pre">Fstar</span></tt>, <tt class="docutils literal"><span class="pre">Dfl</span></tt>, <tt class="docutils literal"><span class="pre">F</span></tt>.</p>
+</div>
+<div class="versionchanged">
+<p><span class="versionmodified">Changed in version 2.1.0: </span>The statistics not computed are now exported and set to
+<tt class="docutils literal"><span class="pre">None</span></tt>.</p>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.Align.remove">
+<tt class="descname">remove</tt><big>(</big><em>name</em><big>)</big><a class="headerlink" href="#egglib.Align.remove" title="Permalink to this definition">¶</a></dt>
+<dd><p>Removes the first sequence having name <em>name</em>. If no sequence
+has this name, a <tt class="xref py py-class docutils literal"><span class="pre">KeyError</span></tt> is raised. A workaround is
+easy to implement:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">index</span> <span class="o">=</span> <span class="n">align</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">if</span> <span class="n">index</span><span class="o">!=</span><span class="bp">None</span><span class="p">:</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="k">del</span> <span class="n">align</span><span class="p">[</span><span class="n">index</span><span class="p">]</span>
+</pre></div>
+</div>
+<div class="versionchanged">
+<p><span class="versionmodified">Changed in version 2.0.1: </span>New meaning.</p>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.Align.removePosition">
+<tt class="descname">removePosition</tt><big>(</big><em>pos</em><big>)</big><a class="headerlink" href="#egglib.Align.removePosition" title="Permalink to this definition">¶</a></dt>
+<dd><p>Removes character at position <em>pos</em> of all sequences
+(effectively removing a column of the alignment. Returns the
+new length of the alignment.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.Align.rename">
+<tt class="descname">rename</tt><big>(</big><em>mapping</em>, <em>liberal=False</em><big>)</big><a class="headerlink" href="#egglib.Align.rename" title="Permalink to this definition">¶</a></dt>
+<dd><p>Rename all sequences of the instance using the passed <em>mapping</em>.
+If <em>liberal</em> is <cite>False</cite> and a name does not appear in <em>mapping</em>,
+a <tt class="xref py py-class docutils literal"><span class="pre">ValueError</span></tt> is raised. If <em>liberal</em> is <tt class="docutils literal"><span class="pre">True</span></tt>, names
+that don&#8217;t appear in <em>mapping</em> are left unchanged.</p>
+<div class="versionadded">
+<p><span class="versionmodified">New in version 2.0.1.</span></p>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.Align.sequence">
+<tt class="descname">sequence</tt><big>(</big><em>pos</em>, <em>sequence=None</em><big>)</big><a class="headerlink" href="#egglib.Align.sequence" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets/gets the sequence string at index <em>pos</em>. If <em>sequence</em>
+is <tt class="docutils literal"><span class="pre">None</span></tt>, returns the current sequence. Otherwise changes the
+sequence and returns nothing. If the object is an <a class="reference internal" href="#egglib.Align" title="egglib.Align"><tt class="xref py py-class docutils literal"><span class="pre">Align</span></tt></a>,
+the sequence length must match the alignment length.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.Align.sequenceByName">
+<tt class="descname">sequenceByName</tt><big>(</big><em>name</em>, <em>strict=True</em><big>)</big><a class="headerlink" href="#egglib.Align.sequenceByName" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the sequence string corresponding to the first
+match of <cite>name</cite>. If the name is not found, raises a <tt class="docutils literal"><span class="pre">KeyError</span></tt>.
+If <em>strict</em> is <tt class="docutils literal"><span class="pre">True</span></tt>, seeks an exact match. If <tt class="docutils literal"><span class="pre">False</span></tt>,
+compares only until the end of the requested name (for example:
+<tt class="docutils literal"><span class="pre">'ATCFF'</span></tt> will match <tt class="docutils literal"><span class="pre">'ATCFF_01'</span></tt> if <em>strict</em> is <tt class="docutils literal"><span class="pre">False</span></tt>).</p>
+<div class="versionadded">
+<p><span class="versionmodified">New in version 2.0.1.</span></p>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.Align.set">
+<tt class="descname">set</tt><big>(</big><em>sequence</em>, <em>position</em>, <em>ch</em><big>)</big><a class="headerlink" href="#egglib.Align.set" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets the character value at string position <em>position</em> of
+the sequence at index <em>sequence</em> to value <em>ch</em>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.Align.shuffle">
+<tt class="descname">shuffle</tt><big>(</big><em>maintain_outgroup=True</em><big>)</big><a class="headerlink" href="#egglib.Align.shuffle" title="Permalink to this definition">¶</a></dt>
+<dd><p>Randomly reassigns group labels. Modifies the current object
+and returns nothing. If <em>maintain_outgroup</em> is <tt class="docutils literal"><span class="pre">True</span></tt>, doesn&#8217;t
+reassign the outgroup (group label <tt class="docutils literal"><span class="pre">999</span></tt>).</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.Align.simErrors">
+<tt class="descname">simErrors</tt><big>(</big><em>rate</em><big>)</big><a class="headerlink" href="#egglib.Align.simErrors" title="Permalink to this definition">¶</a></dt>
+<dd><p>Randomly introduces missing data. <em>rate</em> is the desired
+proportion of missing data. Replaces random valid positions by
+<tt class="docutils literal"><span class="pre">N</span></tt>. There should be not missing data in the original object.
+Note that the module <tt class="xref py py-mod docutils literal"><span class="pre">numpy</span></tt> is required, and that this
+method might be inefficient for large error rates. Changes the
+current object and returns nothing.</p>
+<div class="versionchanged">
+<p><span class="versionmodified">Changed in version 2.1.0: </span>Restricted to :class:<a href="#id1"><span class="problematic" id="id2">`</span></a>~egglib.Align instances.</p>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.Align.slice">
+<tt class="descname">slice</tt><big>(</big><em>a</em>, <em>b</em><big>)</big><a class="headerlink" href="#egglib.Align.slice" title="Permalink to this definition">¶</a></dt>
+<dd><p>Extracts a selection of sequences. Sequences with indices
+<tt class="docutils literal"><span class="pre">a</span></tt> to <tt class="docutils literal"><span class="pre">b-1</span></tt> are extracted and returned as an
+<a class="reference internal" href="#egglib.Align" title="egglib.Align"><tt class="xref py py-class docutils literal"><span class="pre">Align</span></tt></a> instance. If <tt class="docutils literal"><span class="pre">a</span></tt> is smaller than <tt class="docutils literal"><span class="pre">0</span></tt>,
+<tt class="docutils literal"><span class="pre">0</span></tt> is used instead. If <tt class="docutils literal"><span class="pre">b</span></tt> is larger than the number of
+sequences, the latter is used instead. If <tt class="docutils literal"><span class="pre">b</span></tt> is not larger
+than <tt class="docutils literal"><span class="pre">a</span></tt>, the returned instance is emptry.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.Align.slider">
+<tt class="descname">slider</tt><big>(</big><em>wwidth</em>, <em>wstep</em><big>)</big><a class="headerlink" href="#egglib.Align.slider" title="Permalink to this definition">¶</a></dt>
+<dd><p>Provides a means to perform sliding-windows analysis over the
+alignment. This method returns a generator that can be used as
+in <tt class="docutils literal"><span class="pre">for</span> <span class="pre">window</span> <span class="pre">in</span> <span class="pre">align.slider(wwidth,wstep)</span></tt>, where each
+step <em>window</em> of the iteration will be a <a class="reference internal" href="#egglib.Align" title="egglib.Align"><tt class="xref py py-class docutils literal"><span class="pre">Align</span></tt></a> instance
+of length <em>wwidth</em> (or less if not enough sequence is available
+near the end of the alignment). Each step moves forward
+following the value of <em>wstep</em>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.Align.str">
+<tt class="descname">str</tt><big>(</big><em>exportGroupLabels=False</em>, <em>lineLength=50</em><big>)</big><a class="headerlink" href="#egglib.Align.str" title="Permalink to this definition">¶</a></dt>
+<dd><p>Formats the instance as a fasta string. <em>exportGroupLabels</em>:
+if <tt class="docutils literal"><span class="pre">True</span></tt>, exports group/population membership as <tt class="docutils literal"><span class="pre">&#64;x</span></tt> tags
+placed at the end of sequence names (where <tt class="docutils literal"><span class="pre">x</span></tt> is any positive
+integer). <em>lineLength</em> gives the number of characters to place
+on a single line in the fasta output. If <tt class="docutils literal"><span class="pre">0</span></tt>, no newlines are
+inserted within sequences.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.Align.write">
+<tt class="descname">write</tt><big>(</big><em>fname</em>, <em>exportGroupLabels=False</em>, <em>lineLength=50</em><big>)</big><a class="headerlink" href="#egglib.Align.write" title="Permalink to this definition">¶</a></dt>
+<dd><p>Writes the sequences to a fasta-formatted file. <em>fname</em> is
+the name of the file to create. Other arguments are as for
+<a class="reference internal" href="#egglib.TreeNode.str" title="egglib.TreeNode.str"><tt class="xref py py-meth docutils literal"><span class="pre">str()</span></tt></a>.</p>
+<div class="versionadded">
+<p><span class="versionmodified">New in version 2.0.1.</span></p>
+</div>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="class-sequenceitem">
+<h2>Class SequenceItem<a class="headerlink" href="#class-sequenceitem" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="egglib.SequenceItem">
+<em class="property">class </em><tt class="descclassname">egglib.</tt><tt class="descname">SequenceItem</tt><big>(</big><em>parent</em>, <em>index</em><big>)</big><a class="headerlink" href="#egglib.SequenceItem" title="Permalink to this definition">¶</a></dt>
+<dd><p>Item managing the <tt class="docutils literal"><span class="pre">name</span></tt>, <tt class="docutils literal"><span class="pre">sequence</span></tt> and <tt class="docutils literal"><span class="pre">group</span></tt> values of a
+given index of a <a class="reference internal" href="#egglib.Container" title="egglib.Container"><tt class="xref py py-class docutils literal"><span class="pre">Container</span></tt></a> or <a class="reference internal" href="#egglib.Align" title="egglib.Align"><tt class="xref py py-class docutils literal"><span class="pre">Align</span></tt></a> instance. Any
+change applied to the <a class="reference internal" href="#egglib.SequenceItem" title="egglib.SequenceItem"><tt class="xref py py-class docutils literal"><span class="pre">SequenceItem</span></tt></a> instance are immediately
+propagated to the <a class="reference internal" href="#egglib.Container" title="egglib.Container"><tt class="xref py py-class docutils literal"><span class="pre">Container</span></tt></a> or <a class="reference internal" href="#egglib.Align" title="egglib.Align"><tt class="xref py py-class docutils literal"><span class="pre">Align</span></tt></a> instance
+(generating the corresponding exception in case of misuse). It is
+important to note that some of errors might be generated when
+attempting to access data and not upon object creation. The
+<tt class="docutils literal"><span class="pre">print</span> <span class="pre">item</span></tt> statement (where <tt class="docutils literal"><span class="pre">item</span></tt> is a <a class="reference internal" href="#egglib.SequenceItem" title="egglib.SequenceItem"><tt class="xref py py-class docutils literal"><span class="pre">SequenceItem</span></tt></a>
+instance) returns a specially formatted string
+<tt class="docutils literal"><span class="pre">&quot;name&quot;,sequence,group</span></tt> where <tt class="docutils literal"><span class="pre">name</span></tt>, <tt class="docutils literal"><span class="pre">sequence</span></tt> and <tt class="docutils literal"><span class="pre">group</span></tt>
+are name string, sequence string and group index for the index
+corresponding to the instance (note the double quotes around the
+name and the commas separating the three items). The instance also
+supports iteration and index-based accessing, but note that
+<a class="reference internal" href="#egglib.SequenceItem" title="egglib.SequenceItem"><tt class="xref py py-class docutils literal"><span class="pre">SequenceItem</span></tt></a> instance contain always three items: the 
+name, the sequence and the group (in that order).
+<a class="reference internal" href="#egglib.SequenceItem" title="egglib.SequenceItem"><tt class="xref py py-class docutils literal"><span class="pre">SequenceItem</span></tt></a> also supports indexing (item 0 is the name,
+item 1 the sequence and item 2 the group index).</p>
+<div class="versionadded">
+<p><span class="versionmodified">New in version 2.0.1.</span></p>
+</div>
+<p><em>parent</em> must be a <a class="reference internal" href="#egglib.Container" title="egglib.Container"><tt class="xref py py-class docutils literal"><span class="pre">Container</span></tt></a> or <a class="reference internal" href="#egglib.Align" title="egglib.Align"><tt class="xref py py-class docutils literal"><span class="pre">Align</span></tt></a> instance
+and <em>index</em> an index lying in the range of <tt class="docutils literal"><span class="pre">len(parent)</span></tt>.</p>
+<dl class="attribute">
+<dt id="egglib.SequenceItem.group">
+<tt class="descname">group</tt><a class="headerlink" href="#egglib.SequenceItem.group" title="Permalink to this definition">¶</a></dt>
+<dd><p>Group label</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="egglib.SequenceItem.name">
+<tt class="descname">name</tt><a class="headerlink" href="#egglib.SequenceItem.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>Name string</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="egglib.SequenceItem.sequence">
+<tt class="descname">sequence</tt><a class="headerlink" href="#egglib.SequenceItem.sequence" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sequence string</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="ssr-class">
+<h2>SSR class<a class="headerlink" href="#ssr-class" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="egglib.SSR">
+<em class="property">class </em><tt class="descclassname">egglib.</tt><tt class="descname">SSR</tt><a class="headerlink" href="#egglib.SSR" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<p>SSR data container. This class is essentially a wrapper for the
+lower-level class <a class="reference internal" href="binding.html#egglib.egglib_binding.DataMatrix" title="egglib.egglib_binding.DataMatrix"><tt class="xref py py-class docutils literal"><span class="pre">DataMatrix</span></tt></a> with
+parser/formatter methods.</p>
+<p>The user doesn&#8217;nt normally need to manipulate directly the class
+attributes described below.</p>
+<p>The class attribute <tt class="xref py py-attr docutils literal"><span class="pre">dataMatrix</span></tt> holds the <a class="reference internal" href="binding.html#egglib.egglib_binding.DataMatrix" title="egglib.egglib_binding.DataMatrix"><tt class="xref py py-class docutils literal"><span class="pre">DataMatrix</span></tt></a>
+instance contained by this instance. <tt class="xref py py-attr docutils literal"><span class="pre">loci</span></tt> contains the list
+(in the correct order) of locus names. <tt class="xref py py-attr docutils literal"><span class="pre">individuals</span></tt> stores
+the names of individuals (or automatically-generated names if they
+were not available) and maps them to 1 or 2 (for diploid data)
+indices of dataMatrix. <tt class="xref py py-attr docutils literal"><span class="pre">individuals</span></tt> maps individuals to
+populations names. <tt class="xref py py-attr docutils literal"><span class="pre">populations</span></tt> stores the population
+names. The labels used in the <a class="reference internal" href="binding.html#egglib.egglib_binding.DataMatrix" title="egglib.egglib_binding.DataMatrix"><tt class="xref py py-class docutils literal"><span class="pre">DataMatrix</span></tt></a>
+instance are the indices of this   list. <tt class="xref py py-attr docutils literal"><span class="pre">missing</span></tt> stores the
+value used to identify missing data (<tt class="docutils literal"><span class="pre">None</span></tt> if missing data are
+not allowed).</p>
+<div class="versionadded">
+<p><span class="versionmodified">New in version 2.0.1.</span></p>
+</div>
+<div class="versionchanged">
+<p><span class="versionmodified">Changed in version 2.1.0: </span>Individual to population mapping and string formatting added.</p>
+</div>
+<p>The constructor initializes an empty instance.</p>
+<dl class="method">
+<dt id="egglib.SSR.Fstats">
+<tt class="descname">Fstats</tt><big>(</big><em>locus=None</em><big>)</big><a class="headerlink" href="#egglib.SSR.Fstats" title="Permalink to this definition">¶</a></dt>
+<dd><p>Computes F-statistics from the currently loaded data, using
+Weir and Cockheram (1984) method. If <em>locus</em> is an integer, the
+statistics for that locus are returned. If <em>locus</em> is <tt class="docutils literal"><span class="pre">None</span></tt>,
+the multi-locus version of the statistics are returned. This
+method returns a <tt class="docutils literal"><span class="pre">(Fis,</span> <span class="pre">Fst,</span> <span class="pre">Fit)</span></tt> tuple. If one or several
+values cannot be computed (due to lack of one or more components
+of the variance), the corresponding value is replaced by
+<tt class="docutils literal"><span class="pre">None</span></tt>. This method requires that all genotypes have two
+alleles. In case of missing data, complete genotypes (i.e. data
+for one individual at a given locus) are removed.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.SSR.clear">
+<tt class="descname">clear</tt><big>(</big><big>)</big><a class="headerlink" href="#egglib.SSR.clear" title="Permalink to this definition">¶</a></dt>
+<dd><p>Removes all data from the instance.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.SSR.load">
+<tt class="descname">load</tt><big>(</big><em>dataMatrix</em>, <em>sampleConfiguration=None</em><big>)</big><a class="headerlink" href="#egglib.SSR.load" title="Permalink to this definition">¶</a></dt>
+<dd><p>Imports the data present in the
+<a class="reference internal" href="binding.html#egglib.egglib_binding.DataMatrix" title="egglib.egglib_binding.DataMatrix"><tt class="xref py py-class docutils literal"><span class="pre">DataMatrix</span></tt></a> instance passed as
+<em>dataMatrix</em>. Note that the <tt class="xref py py-class docutils literal"><span class="pre">SSR</span></tt> instance is supposed to
+take ownership of the <a class="reference internal" href="binding.html#egglib.egglib_binding.DataMatrix" title="egglib.egglib_binding.DataMatrix"><tt class="xref py py-class docutils literal"><span class="pre">DataMatrix</span></tt></a>
+instance that should not be modified outside the class and that
+will be clear if the <tt class="xref py py-class docutils literal"><span class="pre">SSR</span></tt> is cleared. The appropriate
+behaviour is to delete any outside reference to <em>dataMatrix</em>
+after passing it to this method. The argument
+<em>sampleConfiguration</em> is an iterable indicating the number of
+samples per population. There must be one item per population.
+If items are integers, they give the number of diploid samples
+(one random chromosome per individual), otherwise they must be a
+sequence of two integers giving the number of diploid and
+haploid samples (in this order). The total sum of given integers
+must match the number of genotypes of <em>dataMatrix</em>. If
+<em>sampleConfiguration</em> is <tt class="docutils literal"><span class="pre">None</span></tt>, it it assumed that all
+samples are haploid samples. The population labels from the
+passed <a class="reference internal" href="binding.html#egglib.egglib_binding.DataMatrix" title="egglib.egglib_binding.DataMatrix"><tt class="xref py py-class docutils literal"><span class="pre">DataMatrix</span></tt></a> are discarded
+unless <em>sampleConfiguration</em> is <tt class="docutils literal"><span class="pre">None</span></tt>. Below are some
+examples of accepted values for the second argument. 20</p>
+<blockquote>
+<div>individuals from 4 populations with boths chromosomes sampled:</div></blockquote>
+<p><tt class="docutils literal"><span class="pre">[10,</span> <span class="pre">10,</span> <span class="pre">10,</span> <span class="pre">10]</span></tt>. 10 individuals from 4 populations with
+one chromosome sampled: <tt class="docutils literal"><span class="pre">[(0,20),</span> <span class="pre">(0,20),</span> <span class="pre">(0,20),</span> <span class="pre">(0,20)]</span></tt>.
+A mixture of samples: <tt class="docutils literal"><span class="pre">[10,</span> <span class="pre">(0,20),</span> <span class="pre">(5,10),</span> <span class="pre">(1,18)]</span></tt>. In all 
+these three examples, 20 chromosomes are sampled from each
+population, suming up to a total of 80 samples.</p>
+<div class="versionchanged">
+<p><span class="versionmodified">Changed in version 2.1.0: </span>Population names were previously integers, they now are
+converted to strings.</p>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.SSR.numberOfGenotypes">
+<tt class="descname">numberOfGenotypes</tt><big>(</big><big>)</big><a class="headerlink" href="#egglib.SSR.numberOfGenotypes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the number of genotypes of the data currently
+loaded.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.SSR.numberOfLoci">
+<tt class="descname">numberOfLoci</tt><big>(</big><big>)</big><a class="headerlink" href="#egglib.SSR.numberOfLoci" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the number of loci of the data currently loaded.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.SSR.parse">
+<tt class="descname">parse</tt><big>(</big><em>string</em>, <em>diploid=True</em>, <em>genotypeSeparator=None</em>, <em>alleleSeparator='/'</em>, <em>header=True</em>, <em>missing='999'</em><big>)</big><a class="headerlink" href="#egglib.SSR.parse" title="Permalink to this definition">¶</a></dt>
+<dd><p>Imports data from the string <em>string</em>. The data should
+follow the following format: one line containing locus names
+(if <em>header</em> is <tt class="docutils literal"><span class="pre">True</span></tt>) and then one line per individual. The
+header needs not to be aligned with the data matrix. It is only
+required that the number of items on the first line matches the
+number of genotypes given for each individual. Each line is made
+of a population name (if <em>groups</em> is <tt class="docutils literal"><span class="pre">True</span></tt>), the individual
+name followed by the appropriate number of genotype values. A
+given genotype is coded by two (if <em>diploids</em> is <tt class="docutils literal"><span class="pre">True</span></tt>) or
+one (otherwise) integer. If the latter case, the two values must
+be separated by <em>alleleSeparator</em>. <em>genotypeSeparator</em> gives the
+separator between values for one individual. The default value
+of <em>genotypeSeparator</em> matches all white spaces (including space
+and tabulation). The same separator is used between population
+and individual labels. The user must specify another value for
+<em>genotypeSeparator</em> to be able to import data with that have
+spaces in names. Unless using the default separator, ensure that
+the separator is not duplicated in the string (e.g. two spaces
+in a row between header items): this is supported only for the
+default (refer to the standard library <tt class="xref py py-meth docutils literal"><span class="pre">str.split()</span></tt> method
+for more details. Missing data are coded by the string or the
+integer given by <em>missing</em>.</p>
+<p>Example (to be read with default argument values):</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span>          locus1  locus2   locus3
+pop1 ind1 001/001 001/002  001/003
+pop1 ind2 002/002 001/001  001/001
+pop1 ind3 002/002 001/001  002/002
+pop1 ind4 001/002 001/002  003/002
+pop2 ind5 001/002 003/003  000/000
+pop2 ind6 003/004 004/004  002/003
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.SSR.stats">
+<tt class="descname">stats</tt><big>(</big><big>)</big><a class="headerlink" href="#egglib.SSR.stats" title="Permalink to this definition">¶</a></dt>
+<dd><p>Computes diversity statistics from the currently loaded
+data. Returns a dictionary containing the following values:</p>
+<ul class="simple">
+<li><em>k</em>, the number of alleles.</li>
+<li><em>V</em>, the variance of allele size.</li>
+<li><em>He</em>, the expected heterozygosity.</li>
+<li><em>thetaI</em>, theta assuming IAM.</li>
+<li><em>thetaHe</em>, theta from <em>He</em> (assuming SMM).</li>
+<li><em>thetaV</em>, theta from <em>V</em> (assuming SMM).</li>
+</ul>
+<p>Each entry is a list of the corresponding statistics computed
+for the corresponding locus.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.SSR.str">
+<tt class="descname">str</tt><big>(</big><big>)</big><a class="headerlink" href="#egglib.SSR.str" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a string representation of the object. The string can
+be parsed by the method <a class="reference internal" href="fitmodel.html#egglib.fitmodel.PriorDiscrete.parse" title="egglib.fitmodel.PriorDiscrete.parse"><tt class="xref py py-meth docutils literal"><span class="pre">parse()</span></tt></a> using default options.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="tigr-class">
+<h2>TIGR class<a class="headerlink" href="#tigr-class" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="egglib.TIGR">
+<em class="property">class </em><tt class="descclassname">egglib.</tt><tt class="descname">TIGR</tt><big>(</big><em>fname=None</em>, <em>string=None</em><big>)</big><a class="headerlink" href="#egglib.TIGR" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<p>Automatic wrapper around the TIGR XML format for storing genome
+annotation data.</p>
+<p>Object initialization: <tt class="docutils literal"><span class="pre">TIGR(fname=None,</span> <span class="pre">string=None)</span></tt></p>
+<p><em>fname</em> must be the name of a file containing TIGR-formatted
+XML data. <em>string</em> should be directly a string containing
+TIGR-formatted XML data. It is not allowed to specify both
+<em>fname</em>  and <em>string</em> to non-<tt class="docutils literal"><span class="pre">None</span></tt> values, but at least one
+of the two arguments must be specified (it is currently
+impossible to create an empty instance).</p>
+<dl class="method">
+<dt id="egglib.TIGR.extract">
+<tt class="descname">extract</tt><big>(</big><em>start</em>, <em>stop</em><big>)</big><a class="headerlink" href="#egglib.TIGR.extract" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a GenBank instance containing the sequence of the
+range [<em>start</em>, <em>stop</em>] and the features that are completely
+included in that range. Note that positions must be expressed
+in the TIGR system own coordinate system.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="genbank-class">
+<h2>GenBank class<a class="headerlink" href="#genbank-class" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="egglib.GenBank">
+<em class="property">class </em><tt class="descclassname">egglib.</tt><tt class="descname">GenBank</tt><big>(</big><em>fname=None</em>, <em>string=None</em><big>)</big><a class="headerlink" href="#egglib.GenBank" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<p><a class="reference internal" href="#egglib.GenBank" title="egglib.GenBank"><tt class="xref py py-class docutils literal"><span class="pre">GenBank</span></tt></a> represents a GenBank-formatted DNA sequence
+record.</p>
+<p>Constructor signature: <tt class="docutils literal"><span class="pre">GenBank(fname=None,</span> <span class="pre">string=None)</span></tt>.
+Only one of the two arguments <em>fname</em> and <em>string</em> can be
+non-<tt class="docutils literal"><span class="pre">None</span></tt>. If both are <tt class="docutils literal"><span class="pre">None</span></tt>, the constructor generates
+an empty instance with sequence of length 0. If <em>fname</em> is
+non-<tt class="docutils literal"><span class="pre">None</span></tt>, a GenBank record is read from the file with this
+name. If <tt class="docutils literal"><span class="pre">string</span></tt> is non-<tt class="docutils literal"><span class="pre">None</span></tt>, a GenBank record is read
+directly from this string. The following variables are read from
+the parsed input if present: <em>accession</em>, <em>definition</em>, <em>title</em>,
+<em>version</em>, <em>GI</em>, <em>keywords</em>, <em>source</em>, <em>references</em> (which is a
+list), <em>locus</em> and <em>others</em>. Their default value is <tt class="docutils literal"><span class="pre">None</span></tt>
+except for <em>references</em> and <em>others</em> for which it is an empty
+list. <em>source</em> is a (<em>description</em>, <em>species</em>, <em>taxonomy</em>)
+tuple. Each of <em>references</em> is a (<em>header</em>, <em>raw reference</em>)
+tuple and each of <em>others</em> is a (<em>key</em>, <em>raw</em>) tuple.</p>
+<dl class="method">
+<dt id="egglib.GenBank.add_feature">
+<tt class="descname">add_feature</tt><big>(</big><em>feature</em><big>)</big><a class="headerlink" href="#egglib.GenBank.add_feature" title="Permalink to this definition">¶</a></dt>
+<dd><p>Pushes a feature to the instance. The argument <em>feature</em> must
+be a well-formed <a class="reference internal" href="#egglib.GenBankFeature" title="egglib.GenBankFeature"><tt class="xref py py-class docutils literal"><span class="pre">GenBankFeature</span></tt></a> instance.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.GenBank.extract">
+<tt class="descname">extract</tt><big>(</big><em>from_pos</em>, <em>to_pos</em><big>)</big><a class="headerlink" href="#egglib.GenBank.extract" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a new GenBank instance representing a subset of the
+current instance, from position <em>from_pos</em>  to <em>to_pos</em>. All
+features that are completely included in the specified range are
+exported.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.GenBank.get_sequence">
+<tt class="descname">get_sequence</tt><big>(</big><big>)</big><a class="headerlink" href="#egglib.GenBank.get_sequence" title="Permalink to this definition">¶</a></dt>
+<dd><p>Access to the sequence string.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.GenBank.number_of_features">
+<tt class="descname">number_of_features</tt><big>(</big><big>)</big><a class="headerlink" href="#egglib.GenBank.number_of_features" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gives the number of features contained in the instance.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.GenBank.rc">
+<tt class="descname">rc</tt><big>(</big><big>)</big><a class="headerlink" href="#egglib.GenBank.rc" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reverse-complement the instance (in place). All features
+positions and the sequence will be reverted and applied to the
+complementary strand. The features will be sorted in increasing
+start position (after reverting). This method should be applied
+only on genuine nucleotide sequences.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.GenBank.set_sequence">
+<tt class="descname">set_sequence</tt><big>(</big><em>string</em><big>)</big><a class="headerlink" href="#egglib.GenBank.set_sequence" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets the sequence string. Note that changing the record&#8217;s
+string might obsolete the features.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.GenBank.write">
+<tt class="descname">write</tt><big>(</big><em>fname</em><big>)</big><a class="headerlink" href="#egglib.GenBank.write" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a file named <em>fname</em> and writes the formatted record in.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.GenBank.write_stream">
+<tt class="descname">write_stream</tt><big>(</big><em>stream</em><big>)</big><a class="headerlink" href="#egglib.GenBank.write_stream" title="Permalink to this definition">¶</a></dt>
+<dd><p>Writes the content of the instance as a Genbank-formatted
+string within the passed file (or file-compatible) stream.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="egglib.GenBankFeature">
+<em class="property">class </em><tt class="descclassname">egglib.</tt><tt class="descname">GenBankFeature</tt><big>(</big><em>parent</em><big>)</big><a class="headerlink" href="#egglib.GenBankFeature" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<p>GenBankFeature contains a feature associated to a GenBank instance.
+Instances of this class should not be instantiated or used
+separatedly from a GenBank instance. The constructor creates an
+empty instance (athough a <a class="reference internal" href="#egglib.GenBank" title="egglib.GenBank"><tt class="xref py py-class docutils literal"><span class="pre">GenBank</span></tt></a> instance must be passed
+as <em>parent</em>) and either <a class="reference internal" href="#egglib.Align.set" title="egglib.Align.set"><tt class="xref py py-meth docutils literal"><span class="pre">set()</span></tt></a> or <a class="reference internal" href="fitmodel.html#egglib.fitmodel.PriorDiscrete.parse" title="egglib.fitmodel.PriorDiscrete.parse"><tt class="xref py py-meth docutils literal"><span class="pre">parse()</span></tt></a> must be used
+subsequently.</p>
+<dl class="method">
+<dt id="egglib.GenBankFeature.add_qualifier">
+<tt class="descname">add_qualifier</tt><big>(</big><em>key</em>, <em>value</em><big>)</big><a class="headerlink" href="#egglib.GenBankFeature.add_qualifier" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adds a qualifier to the instance&#8217;s qualifiers.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.GenBankFeature.copy">
+<tt class="descname">copy</tt><big>(</big><em>genbank</em><big>)</big><a class="headerlink" href="#egglib.GenBankFeature.copy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a copy of the current instance, connected to the
+<a class="reference internal" href="#egglib.GenBank" title="egglib.GenBank"><tt class="xref py py-class docutils literal"><span class="pre">GenBank</span></tt></a> instance <em>genbank</em>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.GenBankFeature.get_sequence">
+<tt class="descname">get_sequence</tt><big>(</big><big>)</big><a class="headerlink" href="#egglib.GenBankFeature.get_sequence" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the string corresponding to this feature. If the
+positions pass beyond the end of the parent&#8217; sequence, a
+RuntimeError (instead of IndexError) is raised.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.GenBankFeature.parse">
+<tt class="descname">parse</tt><big>(</big><em>string</em><big>)</big><a class="headerlink" href="#egglib.GenBankFeature.parse" title="Permalink to this definition">¶</a></dt>
+<dd><p>Updates feature information from information read in a
+GenBank-formatted string.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.GenBankFeature.qualifiers">
+<tt class="descname">qualifiers</tt><big>(</big><big>)</big><a class="headerlink" href="#egglib.GenBankFeature.qualifiers" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a dictionary with all qualifier values. This method
+cannot be used to change data within the instance.</p>
+<div class="versionchanged">
+<p><span class="versionmodified">Changed in version 2.1.0: </span>Meaning changed.        </p>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.GenBankFeature.rc">
+<tt class="descname">rc</tt><big>(</big><em>length=None</em><big>)</big><a class="headerlink" href="#egglib.GenBankFeature.rc" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reverse-complement the feature: apply it to the complement
+strand and reverse positions counting from the end. The <em>length</em>
+argument specifies the length of the complete sequence and is
+usually not required.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.GenBankFeature.set">
+<tt class="descname">set</tt><big>(</big><em>type</em>, <em>location</em>, <em>**qualifiers</em><big>)</big><a class="headerlink" href="#egglib.GenBankFeature.set" title="Permalink to this definition">¶</a></dt>
+<dd><p>Updates feature information: <em>type</em> is a string identifying
+the feature type (such as gene, CDS, misc_feature, etc.); 
+location must be a <a class="reference internal" href="#egglib.GenBankFeatureLocation" title="egglib.GenBankFeatureLocation"><tt class="xref py py-class docutils literal"><span class="pre">GenBankFeatureLocation</span></tt></a> instance
+giving the feature&#8217;s location. Other qualifiers must be passed
+as keyword arguments. Note that <em>type</em> can be any string and
+that it is not allowed to use &#8220;type&#8221; as a qualifier keyword.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.GenBankFeature.shift">
+<tt class="descname">shift</tt><big>(</big><em>shift</em><big>)</big><a class="headerlink" href="#egglib.GenBankFeature.shift" title="Permalink to this definition">¶</a></dt>
+<dd><p>Shift all positions according to the (positive of
+negative) argument.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.GenBankFeature.start">
+<tt class="descname">start</tt><big>(</big><big>)</big><a class="headerlink" href="#egglib.GenBankFeature.start" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the first position of the (first) segment, such
+as <tt class="docutils literal"><span class="pre">start()</span></tt> is always smaller than <tt class="docutils literal"><span class="pre">stop()</span></tt>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.GenBankFeature.stop">
+<tt class="descname">stop</tt><big>(</big><big>)</big><a class="headerlink" href="#egglib.GenBankFeature.stop" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the first position of the (first) segment, such
+as <tt class="docutils literal"><span class="pre">start()</span></tt> is always smaller than <tt class="docutils literal"><span class="pre">stop()</span></tt>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.GenBankFeature.type">
+<tt class="descname">type</tt><big>(</big><big>)</big><a class="headerlink" href="#egglib.GenBankFeature.type" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the type string of the instance.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="egglib.GenBankFeatureLocation">
+<em class="property">class </em><tt class="descclassname">egglib.</tt><tt class="descname">GenBankFeatureLocation</tt><big>(</big><em>string=None</em><big>)</big><a class="headerlink" href="#egglib.GenBankFeatureLocation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<p>Holds the location of a GenBank feature. Supports various forms
+of location as defined in the GenBank format specification. The
+constructor contains a parser working from a GenBank-formatted
+string. By default, features are on the forward strand and segmented
+features are ranges (not orders). <a class="reference internal" href="#egglib.GenBankFeatureLocation" title="egglib.GenBankFeatureLocation"><tt class="xref py py-class docutils literal"><span class="pre">GenBankFeatureLocation</span></tt></a>
+supports iteration and allows to iterate over <tt class="docutils literal"><span class="pre">(first,last)</span></tt>
+segments regardless of their types (for a single-base segment a
+position <em>position</em>, the tuple <tt class="docutils literal"><span class="pre">(position,position)</span></tt> is returned;
+similar 2-item tuples are returned for other types of segment as
+well). <a class="reference internal" href="#egglib.GenBankFeatureLocation" title="egglib.GenBankFeatureLocation"><tt class="xref py py-class docutils literal"><span class="pre">GenBankFeatureLocation</span></tt></a> also supports access (but
+not assignation nor deletion) thought the <tt class="docutils literal"><span class="pre">[]</span></tt> operator. A
+<tt class="docutils literal"><span class="pre">(first,last)</span></tt> tuple is returned as for the iterator. Finally, the
+instance can be GenBank-formatted using <tt class="xref py py-func docutils literal"><span class="pre">str()</span></tt>. The length of
+the instance is the number of segments.</p>
+<dl class="method">
+<dt id="egglib.GenBankFeatureLocation.addBaseChoice">
+<tt class="descname">addBaseChoice</tt><big>(</big><em>first</em>, <em>last</em>, <em>left_partial=False</em>, <em>right_partial=False</em><big>)</big><a class="headerlink" href="#egglib.GenBankFeatureLocation.addBaseChoice" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adds a segment corresponding to a single base chosen within
+a base range. If no segments were previously enter, set the
+unique segment location. <em>first</em> and <em>last</em> must be integers.
+The feature will be set between <em>first</em> and <em>last</em> positions,
+including both limits. If the feature is intended to be placed
+on the complement strand between positions, say, 1127 and 1482,
+one must use <tt class="docutils literal"><span class="pre">addBaseChoice(1127,1482)</span></tt> in combination with
+<tt class="docutils literal"><span class="pre">setComplement()</span></tt>. All entered positions must be larger than
+any positions entered previously and <em>last</em> must be strictly
+larger than <em>first</em>. <em>left_partial</em> and/or <em>right_partial</em> must
+be set to <tt class="docutils literal"><span class="pre">True</span></tt> if, respectively, the real start of the
+segment lies 5&#8217; of <em>first</em> and/or the real end of the segment
+lies beyond <em>last</em> (relatively to the forward strand and
+consistently with the numbering system).</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.GenBankFeatureLocation.addBaseRange">
+<tt class="descname">addBaseRange</tt><big>(</big><em>first</em>, <em>last</em>, <em>left_partial=False</em>, <em>right_partial=False</em><big>)</big><a class="headerlink" href="#egglib.GenBankFeatureLocation.addBaseRange" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adds a base range the feature. If no segments were
+previously enter, set the unique segment location. <em>first</em> and
+<em>last</em> must be integers. The feature will be set between <em>first</em>
+and <em>last</em> positions, including both limits. If the feature
+is intended to be placed on the complement strand between
+positions, say, 1127 and 1482, one must use <tt class="docutils literal"><span class="pre">addBaseRange(1127,1482)</span></tt>
+in combination with <tt class="docutils literal"><span class="pre">setComplement()</span></tt>. All entered positions 
+must be larger than any positions entered previously and <em>last</em>
+must be larger than <em>first</em> (but can be equal). <em>left_partial</em>
+and/or <em>right_partial</em> must be set to <tt class="docutils literal"><span class="pre">True</span></tt> if, respectively,
+the real start of the segment lies 5&#8217; of <em>first</em> and/or the real
+end of the segment lies beyond <em>last</em> (relatively to the forward
+strand and consistently with the numbering system).</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.GenBankFeatureLocation.addBetweenBase">
+<tt class="descname">addBetweenBase</tt><big>(</big><em>position</em><big>)</big><a class="headerlink" href="#egglib.GenBankFeatureLocation.addBetweenBase" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adds a segment lying between two consecutive  bases. If no
+segments were entered previously, set the unique segment
+location. <em>position</em> must be an integer. The feature will be set
+between <em>position</em> and <em>position</em> + 1. If the feature is intended
+to be placed on the complement strand between positions, say,
+1127 and 1128, one must use <tt class="docutils literal"><span class="pre">addBetweenBase(1127)</span></tt> in
+combination with <tt class="docutils literal"><span class="pre">setComplement()</span></tt>. All entered positions must
+be larger than any positions entered previously.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.GenBankFeatureLocation.addSingleBase">
+<tt class="descname">addSingleBase</tt><big>(</big><em>position</em><big>)</big><a class="headerlink" href="#egglib.GenBankFeatureLocation.addSingleBase" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adds a single-base segment to the feature. If no segments
+were entered previously, set the unique segment location.
+<em>position</em> must be an integer. All entered positions must be
+larger than any positions entered previously.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.GenBankFeatureLocation.asOrder">
+<tt class="descname">asOrder</tt><big>(</big><big>)</big><a class="headerlink" href="#egglib.GenBankFeatureLocation.asOrder" title="Permalink to this definition">¶</a></dt>
+<dd><p>Defines the feature as an order instead of a range.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.GenBankFeatureLocation.asRange">
+<tt class="descname">asRange</tt><big>(</big><big>)</big><a class="headerlink" href="#egglib.GenBankFeatureLocation.asRange" title="Permalink to this definition">¶</a></dt>
+<dd><p>Defines the features as a range, with is the default.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.GenBankFeatureLocation.copy">
+<tt class="descname">copy</tt><big>(</big><big>)</big><a class="headerlink" href="#egglib.GenBankFeatureLocation.copy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a deep copy of the current instance.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.GenBankFeatureLocation.isComplement">
+<tt class="descname">isComplement</tt><big>(</big><big>)</big><a class="headerlink" href="#egglib.GenBankFeatureLocation.isComplement" title="Permalink to this definition">¶</a></dt>
+<dd><p>True if the feature is on the complement strand.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.GenBankFeatureLocation.isRange">
+<tt class="descname">isRange</tt><big>(</big><big>)</big><a class="headerlink" href="#egglib.GenBankFeatureLocation.isRange" title="Permalink to this definition">¶</a></dt>
+<dd><p>True if the feature is a range (the default), False if it is
+an order.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.GenBankFeatureLocation.rc">
+<tt class="descname">rc</tt><big>(</big><em>length</em><big>)</big><a class="headerlink" href="#egglib.GenBankFeatureLocation.rc" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reverse the feature positions: positions are modified to be
+counted from the end. The <em>length</em> of the complete sequence must
+be passed.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.GenBankFeatureLocation.setComplement">
+<tt class="descname">setComplement</tt><big>(</big><big>)</big><a class="headerlink" href="#egglib.GenBankFeatureLocation.setComplement" title="Permalink to this definition">¶</a></dt>
+<dd><p>Places the feature on the complement strand.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.GenBankFeatureLocation.setNotComplement">
+<tt class="descname">setNotComplement</tt><big>(</big><big>)</big><a class="headerlink" href="#egglib.GenBankFeatureLocation.setNotComplement" title="Permalink to this definition">¶</a></dt>
+<dd><p>Places the feature on the forward (not complement) strand,
+which is the default.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.GenBankFeatureLocation.shift">
+<tt class="descname">shift</tt><big>(</big><em>shift</em><big>)</big><a class="headerlink" href="#egglib.GenBankFeatureLocation.shift" title="Permalink to this definition">¶</a></dt>
+<dd><p>Shift all positions according to the (positive of negative)
+argument.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="tree-class">
+<h2>Tree class<a class="headerlink" href="#tree-class" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="egglib.Tree">
+<em class="property">class </em><tt class="descclassname">egglib.</tt><tt class="descname">Tree</tt><big>(</big><em>fname=None</em>, <em>string=None</em><big>)</big><a class="headerlink" href="#egglib.Tree" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<p>Handles phylogenetic trees. A tree is a linked collection of nodes
+which all have at least one ascendant and any number of descendants.
+Nodes are implemented as <a class="reference internal" href="#egglib.TreeNode" title="egglib.TreeNode"><tt class="xref py py-class docutils literal"><span class="pre">TreeNode</span></tt></a> instances. A node without
+descendants is a <em>leaf</em>. A node with exactly one ascendant and one
+descendant is generally meaningless, but is allowed. All nodes
+(internal nodes as well as leaves) have a <em>label</em> which in the case
+of leaves can be used as leaf name. It is not possible to apply a
+name <em>and</em> a label to leaf node, accordingly to the newick format.
+All connections are oriented and lengthed (although the lengths can
+be omitted) but note that labels are applied to nodes, not edges
+(aka branches). All <a class="reference internal" href="#egglib.Tree" title="egglib.Tree"><tt class="xref py py-class docutils literal"><span class="pre">Tree</span></tt></a> instances have at least one root
+node which is the only one allowed not to have an ascendant. This
+class allows network-like structures, but note that some operations
+are available only for genuine trees (ie without closed paths).
+Import and export to/from strings and files are in the bracket-based
+newick format, and is concerned by this limitation. <a class="reference internal" href="#egglib.Tree" title="egglib.Tree"><tt class="xref py py-class docutils literal"><span class="pre">Tree</span></tt></a>
+instances can be exported using the built-in <tt class="xref py py-func docutils literal"><span class="pre">str()</span></tt> function,
+and the methods <a class="reference internal" href="#egglib.Tree.newick" title="egglib.Tree.newick"><tt class="xref py py-meth docutils literal"><span class="pre">newick()</span></tt></a> and <a class="reference internal" href="#egglib.Align.write" title="egglib.Align.write"><tt class="xref py py-meth docutils literal"><span class="pre">write()</span></tt></a>. <a class="reference internal" href="#egglib.Tree" title="egglib.Tree"><tt class="xref py py-class docutils literal"><span class="pre">Tree</span></tt></a>
+instances are iterable. Each step yields a <a class="reference internal" href="#egglib.TreeNode" title="egglib.TreeNode"><tt class="xref py py-class docutils literal"><span class="pre">TreeNode</span></tt></a>
+instance, starting with the root node but without a defined order.</p>
+<p>The instance can be initialized as an empty tree (with only a
+root node), or from a newick-formatted string. By default, the
+string is read from the file name <em>fname</em>, but it can be passed
+directly through the argument <em>string</em>. It is not allowed to
+set both <em>fname</em> and <em>string</em> at the same time. The
+newick parser expects a well-formed newick string (including
+the trailing semicolon).</p>
+<div class="versionchanged">
+<p><span class="versionmodified">Changed in version 2.0.1: </span>Imports directly from a file. If a string is passed, it is
+interpreted as a file name by default.        </p>
+</div>
+<dl class="method">
+<dt id="egglib.Tree.add_node">
+<tt class="descname">add_node</tt><big>(</big><em>parent</em>, <em>label=None</em>, <em>brlen=None</em><big>)</big><a class="headerlink" href="#egglib.Tree.add_node" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adds a node to the tree. <em>parent</em> must be a <a class="reference internal" href="#egglib.TreeNode" title="egglib.TreeNode"><tt class="xref py py-class docutils literal"><span class="pre">TreeNode</span></tt></a>
+instance already present in the instance; <em>label</em> is the label
+to apply to the tree (or the taxon name if the node is intended
+to be terminal); <em>brlen</em> the length of the edge connecting
+<em>parent</em> to the new node. Their is no formal difference between
+introducing a new internal node and a terminal node (or leaf).
+The new node has initially no descendant and is therefore a
+leaf until it is itself connected to a new node. The newly
+created node can be accessed through <a class="reference internal" href="#egglib.Tree.last_node" title="egglib.Tree.last_node"><tt class="xref py py-meth docutils literal"><span class="pre">last_node()</span></tt></a>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.Tree.all_leaves">
+<tt class="descname">all_leaves</tt><big>(</big><big>)</big><a class="headerlink" href="#egglib.Tree.all_leaves" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns all leaves of the tree (nodes without descendant), as a
+list of <a class="reference internal" href="#egglib.TreeNode" title="egglib.TreeNode"><tt class="xref py py-class docutils literal"><span class="pre">TreeNode</span></tt></a> instances. If the tree is empty (that
+is, contains only a root node), this method returns an empty
+list.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.Tree.clean_edge_lengths">
+<tt class="descname">clean_edge_lengths</tt><big>(</big><big>)</big><a class="headerlink" href="#egglib.Tree.clean_edge_lengths" title="Permalink to this definition">¶</a></dt>
+<dd><p>Ensures that all edge lengths are not different than None.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.Tree.clean_internal_labels">
+<tt class="descname">clean_internal_labels</tt><big>(</big><big>)</big><a class="headerlink" href="#egglib.Tree.clean_internal_labels" title="Permalink to this definition">¶</a></dt>
+<dd><p>Ensures that all internal labels are not different than None.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.Tree.collapse">
+<tt class="descname">collapse</tt><big>(</big><em>node</em><big>)</big><a class="headerlink" href="#egglib.Tree.collapse" title="Permalink to this definition">¶</a></dt>
+<dd><p>Collapses a branch. <em>node</em> must be one of the nodes contained in
+the tree (as a <a class="reference internal" href="#egglib.TreeNode" title="egglib.TreeNode"><tt class="xref py py-class docutils literal"><span class="pre">TreeNode</span></tt></a> instance). It must have a
+unique ascendant. If not, a ValueError is raised. Obviously, the
+tree&#8217;s root cannot be collapsed. The destruction of the node
+might discard the information of its label. This information
+will be transfered to the ascending node. The ascending node&#8217;s
+label will carry the information of either one whichever is not
+<tt class="docutils literal"><span class="pre">None</span></tt>. If the two labels are identical, nothing will be done.
+If the two labels are different and different from <tt class="docutils literal"><span class="pre">None</span></tt>,
+they will be concatenated (ascending node first), separated by a
+semicolon like in <tt class="docutils literal"><span class="pre">oldlabel;newlabel</span></tt>. The length of the
+removed edge will be spread equally among all its descendants
+(see example below).</p>
+<p>Collapsing node <tt class="docutils literal"><span class="pre">[4]</span></tt> on the following tree:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span> /-------------------------------------------&gt;[1]
+ |
+ |             /-----------------------------&gt;[3]
+ |             |
+ |-----------&gt;[2]             /--------------&gt;[5]
+ |             |              |
+ |             \------------&gt;[4]
+[0]                           |
+ |                            \--------------&gt;[6]
+ |
+ |              /----------------------------&gt;[8]
+ |              | 
+ \------------&gt;[7]            /-------------&gt;[10]
+                |             |
+                \-----------&gt;[9]
+                              |
+                              \-------------&gt;[11]
+</pre></div>
+</div>
+<p>will generate the following tree, with the correction of edge
+lengths as  depicted:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span> /-------------------------------------------&gt;[1]
+ |
+ |             /-----------------------------&gt;[3]
+ |             |
+ |-----------&gt;[2]
+ |             |
+ |             |--------------------&gt;[5]        L5 = L5+L4/2
+[0]            |
+ |             \--------------------&gt;[6]        L6 = L6+L4/2
+ |
+ |              /----------------------------&gt;[8]
+ |              | 
+ \------------&gt;[7]            /-------------&gt;[10]
+                |             |
+                \-----------&gt;[9]
+                              |
+                              \-------------&gt;[11]
+</pre></div>
+</div>
+<p>Although the total edge length of the tree is not modified, the
+relationships will be altered: the distance between the
+descendants of the collapsed node (nodes 5 and 6 in the example
+above) will be artificially increased.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.Tree.copy">
+<tt class="descname">copy</tt><big>(</big><big>)</big><a class="headerlink" href="#egglib.Tree.copy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a deep copy of self.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.Tree.findGroup">
+<tt class="descname">findGroup</tt><big>(</big><em>taxa</em><big>)</big><a class="headerlink" href="#egglib.Tree.findGroup" title="Permalink to this definition">¶</a></dt>
+<dd><p>Checks whether a group is one of the groups defined by the tree,
+regardless of the orientation of the tree. If so, returns the
+first node found as a <a class="reference internal" href="#egglib.TreeNode" title="egglib.TreeNode"><tt class="xref py py-class docutils literal"><span class="pre">TreeNode</span></tt></a> instance. Returns
+<tt class="docutils literal"><span class="pre">None</span></tt> if no such group is found. <em>taxa</em> is an iterable of
+leaf label strings. It is not required that all  labels are
+unique. This method returns the first node encountered whose
+list of descending leaves matches exactly the list <em>taxa</em> or
+the whose list of ascending leaves (that is all leaves of the
+tree that are not among the descending leaves) matches exactly
+the list <em>taxa</em>. This method disregards the tree orientation;
+for a tree represented by <tt class="docutils literal"><span class="pre">((A,B),(C,(D,E)),((F,G),(H,I))))</span></tt>,
+the call <tt class="docutils literal"><span class="pre">findGroup(['A','B','C','D','E'])</span></tt> will succeed and
+return the node placed at the root of <tt class="docutils literal"><span class="pre">((F,G),(H,I))</span></tt>. If a
+monophyletic group must be explicitely searched for, consider
+using <a class="reference internal" href="#egglib.Tree.findMonophyleticGroup" title="egglib.Tree.findMonophyleticGroup"><tt class="xref py py-meth docutils literal"><span class="pre">findMonophyleticGroup()</span></tt></a> instead. The order of
+leaves is irrelevant. This method returns  the root node if
+<em>taxa</em> is the list of all tree&#8217;s leaves. If <em>taxa</em> contains a
+single label matching a leaf of this tree, then the result will
+be the same as with <a class="reference internal" href="#egglib.Tree.get_node" title="egglib.Tree.get_node"><tt class="xref py py-meth docutils literal"><span class="pre">get_node()</span></tt></a>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.Tree.findMonophyleticGroup">
+<tt class="descname">findMonophyleticGroup</tt><big>(</big><em>taxa</em><big>)</big><a class="headerlink" href="#egglib.Tree.findMonophyleticGroup" title="Permalink to this definition">¶</a></dt>
+<dd><p>Checks whether a group is one of the monophyletic groups defined
+by the tree. If so, returns the first such node found as a
+<a class="reference internal" href="#egglib.TreeNode" title="egglib.TreeNode"><tt class="xref py py-class docutils literal"><span class="pre">TreeNode</span></tt></a> instance. Returns <tt class="docutils literal"><span class="pre">None</span></tt> if no such group
+is found. <em>taxa</em> is an iterable of leaf label strings. It is not
+required that all labels are unique. This method returns the
+first node encountered whose list of descending leaves matches
+exactly the passed list. This method assumes that the tree is
+rooted, ie the orientation of branches is irrelevant: for a tree
+represented by <tt class="docutils literal"><span class="pre">((A,B),(C,(D,E)),((F,G),(H,I))))</span></tt>, the call
+<tt class="docutils literal"><span class="pre">findMonophyleticGroup(['A','B','C','D','E'])</span></tt> will not
+succeed (technically because the group is overlapping the root).
+If the group is searched regardless of the orientation of the
+tree, typically for unrooted trees, consider using <a class="reference internal" href="#egglib.Tree.findGroup" title="egglib.Tree.findGroup"><tt class="xref py py-meth docutils literal"><span class="pre">findGroup()</span></tt></a>
+instead. The order of leaves is irrelevant. This method returns
+the root node if <em>taxa</em> is the list of all tree&#8217;s leaves. If
+<em>taxa</em> contains a single label matching a leaf of this tree,
+then the result will be the same as with <a class="reference internal" href="#egglib.Tree.get_node" title="egglib.Tree.get_node"><tt class="xref py py-meth docutils literal"><span class="pre">get_node()</span></tt></a>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.Tree.frequency_nodes">
+<tt class="descname">frequency_nodes</tt><big>(</big><em>trees</em>, <em>relative=False</em><big>)</big><a class="headerlink" href="#egglib.Tree.frequency_nodes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Labels all nodes of the current instances by integers counting
+the number of trees where the same node exists among the trees
+in the iterable <em>trees</em>. Each item must be a <a class="reference internal" href="#egglib.Tree" title="egglib.Tree"><tt class="xref py py-class docutils literal"><span class="pre">Tree</span></tt></a>
+instance defining exactly the same set of leaf lables. In case
+<em>relative</em> is <tt class="docutils literal"><span class="pre">True</span></tt>, the numbers are expressed as fractions.
+The label is converted to a string in both cases.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.Tree.get_node">
+<tt class="descname">get_node</tt><big>(</big><em>name</em><big>)</big><a class="headerlink" href="#egglib.Tree.get_node" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the first node of the tree bearing the given label. The
+returned object is a <a class="reference internal" href="#egglib.TreeNode" title="egglib.TreeNode"><tt class="xref py py-class docutils literal"><span class="pre">TreeNode</span></tt></a>. If no nodes of the tree
+match the passed name, <tt class="docutils literal"><span class="pre">None</span></tt> is returned. The order in which
+the nodes are examined is not defined. <em>name</em> can be of any
+type, including <tt class="docutils literal"><span class="pre">None</span></tt> (comparison is performed without
+conversion).</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.Tree.get_node_re">
+<tt class="descname">get_node_re</tt><big>(</big><em>regex</em><big>)</big><a class="headerlink" href="#egglib.Tree.get_node_re" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the first node of the tree matching the regular
+expression <em>regex</em>. <em>regex</em> should be a valid regular expression
+(refer to the documentation of the <tt class="xref py py-mod docutils literal"><span class="pre">re</span></tt> module of the 
+standard Python library). If no nodes of the tree match the
+regular expression, <tt class="docutils literal"><span class="pre">None</span></tt> is returned. The order in which
+the nodes are examined is not defined.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.Tree.get_nodes">
+<tt class="descname">get_nodes</tt><big>(</big><em>name</em><big>)</big><a class="headerlink" href="#egglib.Tree.get_nodes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns all nodes of the tree that bear the given label. The
+returned object is always a list of zero or more
+<a class="reference internal" href="#egglib.TreeNode" title="egglib.TreeNode"><tt class="xref py py-class docutils literal"><span class="pre">TreeNode</span></tt></a> instances.  The order in which nodes are
+sorted is not defined. <em>name</em> can be of any type, including
+<tt class="docutils literal"><span class="pre">None</span></tt> (comparison is performed without conversion).</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.Tree.get_nodes_re">
+<tt class="descname">get_nodes_re</tt><big>(</big><em>regex</em><big>)</big><a class="headerlink" href="#egglib.Tree.get_nodes_re" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns all nodes of the tree matching the regular expression
+<em>regex</em>. <em>regex</em> should be a valid regular expression (refer to
+the documentation of the <tt class="xref py py-mod docutils literal"><span class="pre">re</span></tt> module of the standard Python
+library). The returned object is always a list of zero or more
+<a class="reference internal" href="#egglib.TreeNode" title="egglib.TreeNode"><tt class="xref py py-class docutils literal"><span class="pre">TreeNode</span></tt></a> instances.  The order in which nodes are
+sorted is not defined.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.Tree.get_terminal_nodes">
+<tt class="descname">get_terminal_nodes</tt><big>(</big><big>)</big><a class="headerlink" href="#egglib.Tree.get_terminal_nodes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the list of all <a class="reference internal" href="#egglib.TreeNode" title="egglib.TreeNode"><tt class="xref py py-class docutils literal"><span class="pre">TreeNode</span></tt></a> instances of this tree
+that don&#8217;t have descendants. In case of an empty tree, an empty
+list is returned (ie the root is never returned).</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.Tree.last_node">
+<tt class="descname">last_node</tt><big>(</big><big>)</big><a class="headerlink" href="#egglib.Tree.last_node" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the last loaded node (as a <a class="reference internal" href="#egglib.TreeNode" title="egglib.TreeNode"><tt class="xref py py-class docutils literal"><span class="pre">TreeNode</span></tt></a> instance).
+If no nodes were loaded, the root is returned.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.Tree.lateralize">
+<tt class="descname">lateralize</tt><big>(</big><big>)</big><a class="headerlink" href="#egglib.Tree.lateralize" title="Permalink to this definition">¶</a></dt>
+<dd><p>At each node of the tree, sorts the descendants based on the
+number of leaves that descend from them. The result is a tree
+where the richest branches are pushed to the back.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.Tree.midroot">
+<tt class="descname">midroot</tt><big>(</big><big>)</big><a class="headerlink" href="#egglib.Tree.midroot" title="Permalink to this definition">¶</a></dt>
+<dd><p>Automatic rooting of the tree using the midpoint method. The
+tree must not be previously rooted, there must be not closed
+path or network-like structures, and must edges must have an
+available length value.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.Tree.newick">
+<tt class="descname">newick</tt><big>(</big><em>labels=True</em>, <em>brlens=True</em><big>)</big><a class="headerlink" href="#egglib.Tree.newick" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the newick-formatted string representing the instance.
+If <em>labels</em> is <tt class="docutils literal"><span class="pre">False</span></tt>, omits the internal branch labels. If
+<em>brlens</em> is <tt class="docutils literal"><span class="pre">False</span></tt>, omits the branch lengths. Doesn&#8217;t support
+closed paths.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.Tree.number_of_leaves">
+<tt class="descname">number_of_leaves</tt><big>(</big><big>)</big><a class="headerlink" href="#egglib.Tree.number_of_leaves" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gives the number of leaves (terminal nodes) of the tree. Returns
+0 if the tree contains the root only.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.Tree.number_of_nodes">
+<tt class="descname">number_of_nodes</tt><big>(</big><big>)</big><a class="headerlink" href="#egglib.Tree.number_of_nodes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gives the number of nodes of the tree (including leaves and root).</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.Tree.remove_node">
+<tt class="descname">remove_node</tt><big>(</big><em>node</em><big>)</big><a class="headerlink" href="#egglib.Tree.remove_node" title="Permalink to this definition">¶</a></dt>
+<dd><p>Removes the node from the tree and all its descendants. Any
+node can be removed, including nodes without descendants,
+provided that the root is not among the nodes removed. The node
+in question must have only one ascendant. In case its ascendant
+had previously only two descendants and only one ascendant, it
+will be automatically removed.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.Tree.reoriente">
+<tt class="descname">reoriente</tt><big>(</big><em>new_root</em><big>)</big><a class="headerlink" href="#egglib.Tree.reoriente" title="Permalink to this definition">¶</a></dt>
+<dd><p>Moves the root location of the tree. This method is solely
+intended to alter the representation of unrooted trees
+(trees that have a trifurcation at the root). <em>new_root</em> must be
+a <a class="reference internal" href="#egglib.TreeNode" title="egglib.TreeNode"><tt class="xref py py-class docutils literal"><span class="pre">TreeNode</span></tt></a> instance contained in this tree and
+representing the position of the new root. It might be the
+current root.It is illegal to call this method on trees that
+have a closed path between the current root and the new root. A
+<tt class="xref py py-class docutils literal"><span class="pre">ValueError</span></tt> is raised whenever the tree cannot be
+reoriented.</p>
+<p>If the original tree has this structure:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span> /------------------------------------------&gt;[1]
+ |
+ |             /----------------------------&gt;[3]
+ |             |
+ |-----------&gt;[2]             /-------------&gt;[5]
+ |             |              |
+ |             \------------&gt;[4]
+[0]                           |
+ |                            \-------------&gt;[6]
+ |
+ |              /---------------------------&gt;[8]
+ |              | 
+ \------------&gt;[7]            /------------&gt;[10]
+                |             |
+                \-----------&gt;[9]
+                              |
+                              \------------&gt;[11]
+</pre></div>
+</div>
+<p>And rooting is requested at node <tt class="docutils literal"><span class="pre">[7]</span></tt>, the outcome will be as
+depicted below, the edge lengths being ignored:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span>             /--------------------------------[1]
+             |
+ /----------[0]         /---------------------[3]
+ |           |          |
+ |           \---------[2]        /-----------[5]
+ |                      |         |       
+ |                      \--------[4]
+ |                                |
+[7]                               \-----------[6]
+ |
+ |--------------------------------------------[8]
+ |
+ |                     /---------------------[10]
+ |                     |
+ \--------------------[9]
+                       |
+                       \---------------------[11]
+</pre></div>
+</div>
+<p>If the length of the branch on which the root is placed (<em>L0</em>)
+is not <tt class="docutils literal"><span class="pre">None</span></tt>, the length of the edge <tt class="docutils literal"><span class="pre">[E1]</span></tt> will be
+<em>branshsplit</em> * <em>L0</em> and the length of <tt class="docutils literal"><span class="pre">[E2]</span></tt> will be
+(1 - <em>branshsplit</em> ) * <em>L0</em> .</p>
+<p>Note that the label of outgroup node is copied to the node at
+the other side of the root where the root is placed. The
+rationale is that information attached to the root edge might
+have to be applied to both basal edges. In case the original
+root (or basal node) had a specified label, it will be retained
+and the outgroup label will not be copied.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.Tree.root">
+<tt class="descname">root</tt><big>(</big><em>outgroup</em>, <em>branchsplit=0.5</em><big>)</big><a class="headerlink" href="#egglib.Tree.root" title="Permalink to this definition">¶</a></dt>
+<dd><p>Roots the tree. <em>outgroup</em> must be a <a class="reference internal" href="#egglib.TreeNode" title="egglib.TreeNode"><tt class="xref py py-class docutils literal"><span class="pre">TreeNode</span></tt></a> instance
+contained in this tree. The root will be placed somewhere on the
+branch that leads to this node (between the current root and the
+node). If this branch doesn&#8217;t have a branch length, the
+<em>branchsplit</em> argument is ignored. Otherwise, <em>branchsplit</em> must
+be a real number between 0. and 1. and gives the proportion of
+the branch that must be allocated to the basal branch leading to
+the outgroup, the complement being allocated to the branch
+leading to the rest of the tree. It is illegal to call this
+method ons tree that are already rooted (have a trifurcation at
+the root) or on trees that that have a closed path between the
+current root (or base of the tree) and the intended root. A
+<tt class="xref py py-class docutils literal"><span class="pre">ValueError</span></tt> is raised whenever the tree cannot be
+rooted.</p>
+<p>If the original tree has this structure:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span> /-------------------------------------------&gt;[1]
+ |
+ |             /-----------------------------&gt;[3]
+ |             |
+ |-----------&gt;[2]             /--------------&gt;[5]
+ |             |              |
+ |             \------------&gt;[4]
+[0]                           |
+ |                            \--------------&gt;[6]
+ |
+ |              /----------------------------&gt;[8]
+ |              | 
+ \------------&gt;[7]            /-------------&gt;[10]
+                |             |
+                \-----------&gt;[9]
+                              |
+                              \-------------&gt;[11]
+</pre></div>
+</div>
+<p>And rooting is requested at node <tt class="docutils literal"><span class="pre">[9]</span></tt>, the root will be
+placed on the edge marked by <tt class="docutils literal"><span class="pre">[ROOT]</span></tt> below:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span> /-------------------------------------------&gt;[1]
+ |
+ |             /-----------------------------&gt;[3]
+ |             |
+ |-----------&gt;[2]             /--------------&gt;[5]
+ |             |              |
+ |             \------------&gt;[4]
+[0]                           |
+ |                            \--------------&gt;[6]
+ |
+ |              /----------------------------&gt;[8]
+ |              | 
+ \------------&gt;[7]            /-------------&gt;[10]
+                |             |
+                \---[ROOT]--&gt;[9]
+                              |
+                              \-------------&gt;[11]
+</pre></div>
+</div>
+<p>And the outcome will be as depicted below, with the introduction
+of a new node (which would be <tt class="docutils literal"><span class="pre">[12]</span></tt> here) at the root:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span>                     /-------------------------[1]
+                     |
+              /-----[0]     /------------------[3]
+              |      |      |
+              |      \-----[2]      /----------[5]
+              |             |       |
+  /----------[7]            \------[4]
+  |           |                     |
+  |           |                     \----------[6]
+  |           |
+[ROOT]        \--------------------------------[8]
+  |
+  |                     /---------------------[10]
+  |                     |
+  \--------[E1]--------[9]
+                        |
+                        \---------------------[11]
+</pre></div>
+</div>
+<p>If the length of the branch on which the root is placed (<em>L0</em>)
+is not <tt class="docutils literal"><span class="pre">None</span></tt>, the length of the edge <tt class="docutils literal"><span class="pre">[E1]</span></tt> will be
+<em>branshsplit</em> * <em>L0</em> and the length of <tt class="docutils literal"><span class="pre">[E2]</span></tt> will be
+(1 - <em>branshsplit</em> ) * <em>L0</em> .</p>
+<p>Note that the label of outgroup node is copied to the node at
+the other side of the root where the root is placed. The
+rationale is that information attached to the root edge might
+have to be applied to both basal edges. In case the original
+root (or basal node) had a specified label, it will be retained
+and the outgroup label will not be copied.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.Tree.root_node">
+<tt class="descname">root_node</tt><big>(</big><big>)</big><a class="headerlink" href="#egglib.Tree.root_node" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the root node as a <a class="reference internal" href="#egglib.TreeNode" title="egglib.TreeNode"><tt class="xref py py-class docutils literal"><span class="pre">TreeNode</span></tt></a> instance.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.Tree.smallest_group">
+<tt class="descname">smallest_group</tt><big>(</big><em>taxa</em>, <em>threshold=None</em>, <em>minimum=1</em><big>)</big><a class="headerlink" href="#egglib.Tree.smallest_group" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the smallest clade containing a set of leaves, as a
+<a class="reference internal" href="#egglib.TreeNode" title="egglib.TreeNode"><tt class="xref py py-class docutils literal"><span class="pre">TreeNode</span></tt></a> instance, without regard to the orientation of
+the tree. The node returned corresponds to the smallest clade
+fulfilling the criteria. <em>taxa</em> must be a list of leaf labels.
+All labels must be found either within the clade, or in the rest
+of the tree (all tree leaves not in this clade). Duplicates are
+included whenever appropriate. <em>threshold</em> is the minimum
+numerical label the node must exhibit to be returned. If
+threshold is <tt class="docutils literal"><span class="pre">None</span></tt>, this criterion is not applied. Otherwise,
+nodes that have a label not convertible to float or whose label
+is inferior than <em>threshold</em> are not returned. <em>minimum</em> is the
+smallest number of descending leaf a clade must have to be
+returned. The root is never returned. Returns <tt class="docutils literal"><span class="pre">None</span></tt> if no
+valid node can be found.</p>
+<div class="versionchanged">
+<p><span class="versionmodified">Changed in version 2.0.1: </span>The root is never returned; duplicates are supported; the
+<em>minimum</em> argument is not checked; and nodes that don&#8217;t have
+a numeric label are supported when <em>threshold</em> is not
+<tt class="docutils literal"><span class="pre">None</span></tt> (but they are excluded).</p>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.Tree.smallest_monophyleticGroup">
+<tt class="descname">smallest_monophyleticGroup</tt><big>(</big><em>taxa</em>, <em>threshold=None</em>, <em>minimum=1</em><big>)</big><a class="headerlink" href="#egglib.Tree.smallest_monophyleticGroup" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the most recent common ancestor of a set of leaves, as a
+<a class="reference internal" href="#egglib.TreeNode" title="egglib.TreeNode"><tt class="xref py py-class docutils literal"><span class="pre">TreeNode</span></tt></a> instance. The node returned corresponds to the
+smallest clade fulfilling the criteria. <em>taxa</em> must be a list of
+leaf labels. All labels must be found within the clade,
+including duplicates whenever appropriate. <em>threshold</em> is the
+minimum numerical label the node must exhibit to be returned.
+If threshold is <tt class="docutils literal"><span class="pre">None</span></tt>, this criterion is not applied.
+Otherwise, nodes that have a label not convertible to float or
+whose label is inferior than <em>threshold</em> are not returned.
+<em>minimum</em> is the smallest number of descending leaf a clade must
+have to be returned. The root is never returned. Returns <tt class="docutils literal"><span class="pre">None</span></tt>
+if no valid node can be found.</p>
+<div class="versionchanged">
+<p><span class="versionmodified">Changed in version 2.0.1: </span>The root is never returned; duplicates are supported; the
+<em>minimum</em> argument is not checked; and nodes that don&#8217;t have
+a numeric label are supported when <em>threshold</em> is not
+<tt class="docutils literal"><span class="pre">None</span></tt> (but they are excluded).</p>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.Tree.total_length">
+<tt class="descname">total_length</tt><big>(</big><big>)</big><a class="headerlink" href="#egglib.Tree.total_length" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the sum of all branch lengths across all nodes. All
+branch lengths must be defined, otherwise a <tt class="xref py py-class docutils literal"><span class="pre">ValueError</span></tt>
+will be raised.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.Tree.write">
+<tt class="descname">write</tt><big>(</big><em>fname</em>, <em>labels=True</em>, <em>brlens=True</em><big>)</big><a class="headerlink" href="#egglib.Tree.write" title="Permalink to this definition">¶</a></dt>
+<dd><p>Write the newick-formatted string representing the instance to
+a file named <em>fname</em>. If <em>labels</em> is <tt class="docutils literal"><span class="pre">False</span></tt>, omits the
+internal branch labels. If <em>brlens</em> is <tt class="docutils literal"><span class="pre">False</span></tt>, omits the
+branch lengths. Doesn&#8217;t support closed paths.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="egglib.TreeNode">
+<em class="property">class </em><tt class="descclassname">egglib.</tt><tt class="descname">TreeNode</tt><a class="headerlink" href="#egglib.TreeNode" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<p>This class provides an interface to a <a class="reference internal" href="#egglib.Tree" title="egglib.Tree"><tt class="xref py py-class docutils literal"><span class="pre">Tree</span></tt></a> instance&#8217;s nodes
+and allows access and modification of data attached to a given node
+as well as the tree descending from that node. A node must be
+understood as the point <em>below</em> a branch. Edges (connections between
+nodes) have a direction: they go <em>from</em> a node <em>to</em> another node.
+Nodes have therefore <em>descendants</em>  and <em>ascendants</em>. Connecting a
+node to itself or making a two-way edge (to edges connecting the
+same two nodes in opposite directions) is not explicitly forbidden.
+Duplicate edges (between the same two nodes and in the same
+direction) are however illegal.</p>
+<p>The constructor instantiates a tree node with default value.</p>
+<dl class="method">
+<dt id="egglib.TreeNode.add_son">
+<tt class="descname">add_son</tt><big>(</big><em>label=None</em>, <em>brlen=None</em><big>)</big><a class="headerlink" href="#egglib.TreeNode.add_son" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generates a new <a class="reference internal" href="#egglib.TreeNode" title="egglib.TreeNode"><tt class="xref py py-class docutils literal"><span class="pre">TreeNode</span></tt></a> instance descending
+from the current instance. <em>label</em> is to be applied to the new
+node. <em>brlen</em> is the length of the edge connecting the two nodes.
+Note that each node will refer to the other, generating a
+circular reference loop and preventing garbage collection of the
+node instances. It is therefore required to disconnect all nodes
+using the method <tt class="xref py py-meth docutils literal"><span class="pre">disconnect()</span></tt>. Return the
+newly created node.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.TreeNode.ascendants">
+<tt class="descname">ascendants</tt><big>(</big><big>)</big><a class="headerlink" href="#egglib.TreeNode.ascendants" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the list of all ascendants as <a class="reference internal" href="#egglib.TreeNode" title="egglib.TreeNode"><tt class="xref py py-class docutils literal"><span class="pre">TreeNode</span></tt></a>
+instances.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.TreeNode.branch_from">
+<tt class="descname">branch_from</tt><big>(</big><em>node</em><big>)</big><a class="headerlink" href="#egglib.TreeNode.branch_from" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the length of the branch connecting <em>node</em> to this node.
+<em>node</em> but be a <a class="reference internal" href="#egglib.TreeNode" title="egglib.TreeNode"><tt class="xref py py-class docutils literal"><span class="pre">TreeNode</span></tt></a> instance present amongst this
+node&#8217;s ascendants. This method returns <tt class="docutils literal"><span class="pre">None</span></tt> if the value is
+not defined.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.TreeNode.branch_to">
+<tt class="descname">branch_to</tt><big>(</big><em>node</em><big>)</big><a class="headerlink" href="#egglib.TreeNode.branch_to" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the length of the branch connecting this node to <em>node</em>.
+<em>node</em> but be a <a class="reference internal" href="#egglib.TreeNode" title="egglib.TreeNode"><tt class="xref py py-class docutils literal"><span class="pre">TreeNode</span></tt></a> instance present amongst this
+node&#8217;s descendants. This method returns <tt class="docutils literal"><span class="pre">None</span></tt> if the value is
+not defined.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.TreeNode.connect">
+<tt class="descname">connect</tt><big>(</big><em>node</em>, <em>brlen=None</em><big>)</big><a class="headerlink" href="#egglib.TreeNode.connect" title="Permalink to this definition">¶</a></dt>
+<dd><p>Connect this node to an other, existing, node. The orientation
+of the link is <em>from</em> the current instance <em>to</em> the passed
+instance. <em>brlen</em> is the length of the newly created edge. Note
+that each node will refer to the other, generating a circular
+reference loop and preventing garbage collection of the node
+instances. It is therefore required to disconnect all nodes
+using the method <tt class="xref py py-meth docutils literal"><span class="pre">disconnect()</span></tt>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.TreeNode.descendants">
+<tt class="descname">descendants</tt><big>(</big><big>)</big><a class="headerlink" href="#egglib.TreeNode.descendants" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the list of all descendants as <a class="reference internal" href="#egglib.TreeNode" title="egglib.TreeNode"><tt class="xref py py-class docutils literal"><span class="pre">TreeNode</span></tt></a>
+instances.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.TreeNode.get_label">
+<tt class="descname">get_label</tt><big>(</big><big>)</big><a class="headerlink" href="#egglib.TreeNode.get_label" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the node&#8217;s label.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.TreeNode.is_ascendant">
+<tt class="descname">is_ascendant</tt><big>(</big><em>node</em><big>)</big><a class="headerlink" href="#egglib.TreeNode.is_ascendant" title="Permalink to this definition">¶</a></dt>
+<dd><p><tt class="docutils literal"><span class="pre">True</span></tt> if the <a class="reference internal" href="#egglib.TreeNode" title="egglib.TreeNode"><tt class="xref py py-class docutils literal"><span class="pre">TreeNode</span></tt></a> instance <em>node</em> is one of this
+node&#8217;s ascendants.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.TreeNode.is_descendant">
+<tt class="descname">is_descendant</tt><big>(</big><em>node</em><big>)</big><a class="headerlink" href="#egglib.TreeNode.is_descendant" title="Permalink to this definition">¶</a></dt>
+<dd><p><tt class="docutils literal"><span class="pre">True</span></tt> if the <a class="reference internal" href="#egglib.TreeNode" title="egglib.TreeNode"><tt class="xref py py-class docutils literal"><span class="pre">TreeNode</span></tt></a> instance <em>node</em> is one of this
+node&#8217;s descendants.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.TreeNode.leaves_down">
+<tt class="descname">leaves_down</tt><big>(</big><big>)</big><a class="headerlink" href="#egglib.TreeNode.leaves_down" title="Permalink to this definition">¶</a></dt>
+<dd><p>Recursively gets all leaf labels descending from that node. This
+method supports closed paths (networks) and nodes are never
+processed more than once.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.TreeNode.leaves_up">
+<tt class="descname">leaves_up</tt><big>(</big><big>)</big><a class="headerlink" href="#egglib.TreeNode.leaves_up" title="Permalink to this definition">¶</a></dt>
+<dd><p>Recursively gets all leaf labels contained on the other side of
+the tree. In case of a network, the results of this method and
+<tt class="xref py py-meth docutils literal"><span class="pre">leaves_down()</span></tt> might overlap. However, there can be no
+redundancy within the results returned by one of the methods</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.TreeNode.numberOfAscendants">
+<tt class="descname">numberOfAscendants</tt><big>(</big><big>)</big><a class="headerlink" href="#egglib.TreeNode.numberOfAscendants" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets the number of nodes descending to this one.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.TreeNode.numberOfDescendants">
+<tt class="descname">numberOfDescendants</tt><big>(</big><big>)</big><a class="headerlink" href="#egglib.TreeNode.numberOfDescendants" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets the number of nodes descending from this one.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.TreeNode.numberOfRelatives">
+<tt class="descname">numberOfRelatives</tt><big>(</big><big>)</big><a class="headerlink" href="#egglib.TreeNode.numberOfRelatives" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets the number of nodes connected to this one.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.TreeNode.remove_ascendant">
+<tt class="descname">remove_ascendant</tt><big>(</big><em>node</em><big>)</big><a class="headerlink" href="#egglib.TreeNode.remove_ascendant" title="Permalink to this definition">¶</a></dt>
+<dd><p>Removes the edges between this node and the node represented by
+the <a class="reference internal" href="#egglib.TreeNode" title="egglib.TreeNode"><tt class="xref py py-class docutils literal"><span class="pre">TreeNode</span></tt></a> instance <em>node</em>. <em>node</em> must be one of
+this node&#8217;s ascendants. Note that this method removes also this
+node from <em>node</em>&#8216;s descendants.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.TreeNode.remove_descendant">
+<tt class="descname">remove_descendant</tt><big>(</big><em>node</em><big>)</big><a class="headerlink" href="#egglib.TreeNode.remove_descendant" title="Permalink to this definition">¶</a></dt>
+<dd><p>Removes the edges between this node and the node represented by
+the <a class="reference internal" href="#egglib.TreeNode" title="egglib.TreeNode"><tt class="xref py py-class docutils literal"><span class="pre">TreeNode</span></tt></a> instance <em>node</em>. <em>node</em> must be one of
+this node&#8217;s descendants. Note that this method removes also this
+node from <em>node</em>&#8216;s ascendants.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.TreeNode.reverse">
+<tt class="descname">reverse</tt><big>(</big><em>node</em>, <em>exchange_labels</em><big>)</big><a class="headerlink" href="#egglib.TreeNode.reverse" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reverse an edge&#8217;s orientation between this node and the node
+given by <em>node</em>, as a <a class="reference internal" href="#egglib.TreeNode" title="egglib.TreeNode"><tt class="xref py py-class docutils literal"><span class="pre">TreeNode</span></tt></a> instance. The two nodes
+must be connected by exactly one edge. If <em>exchange_labels</em> is
+<tt class="docutils literal"><span class="pre">True</span></tt>, the node labels are exchanged.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.TreeNode.set_branch_from">
+<tt class="descname">set_branch_from</tt><big>(</big><em>node</em>, <em>value</em><big>)</big><a class="headerlink" href="#egglib.TreeNode.set_branch_from" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets the length of the branch connecting <em>node</em> to this node.
+<em>node</em> but be a <a class="reference internal" href="#egglib.TreeNode" title="egglib.TreeNode"><tt class="xref py py-class docutils literal"><span class="pre">TreeNode</span></tt></a> instance present amongst this
+node&#8217;s ascendants. <em>value</em> might be a float or <tt class="docutils literal"><span class="pre">None</span></tt>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.TreeNode.set_branch_to">
+<tt class="descname">set_branch_to</tt><big>(</big><em>node</em>, <em>value</em><big>)</big><a class="headerlink" href="#egglib.TreeNode.set_branch_to" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets the length of the branch connecting this node to <em>node</em>.
+<em>node</em> but be a <a class="reference internal" href="#egglib.TreeNode" title="egglib.TreeNode"><tt class="xref py py-class docutils literal"><span class="pre">TreeNode</span></tt></a> instance present amongst this
+node&#8217;s descendants. <em>value</em> might be a float or <tt class="docutils literal"><span class="pre">None</span></tt>. Note 
+that this methods affects both nodes.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.TreeNode.set_label">
+<tt class="descname">set_label</tt><big>(</big><em>value</em><big>)</big><a class="headerlink" href="#egglib.TreeNode.set_label" title="Permalink to this definition">¶</a></dt>
+<dd><p>Change the label <em>value</em>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.TreeNode.sort">
+<tt class="descname">sort</tt><big>(</big><big>)</big><a class="headerlink" href="#egglib.TreeNode.sort" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sorts the descendants based on their number of leaves.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.TreeNode.str">
+<tt class="descname">str</tt><big>(</big><em>labels=True</em>, <em>brlens=True</em><big>)</big><a class="headerlink" href="#egglib.TreeNode.str" title="Permalink to this definition">¶</a></dt>
+<dd><p>Formats the node and the subtree descending from is as a
+newick string. If <em>labels</em> is <tt class="docutils literal"><span class="pre">False</span></tt>, omits the internal
+branch labels. If <em>brlens</em> is <tt class="docutils literal"><span class="pre">False</span></tt>, omits the branch
+lengths. Doesn&#8217;t support closed path.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.TreeNode.unlink">
+<tt class="descname">unlink</tt><big>(</big><big>)</big><a class="headerlink" href="#egglib.TreeNode.unlink" title="Permalink to this definition">¶</a></dt>
+<dd><p>Clears all references to other <a class="reference internal" href="#egglib.TreeNode" title="egglib.TreeNode"><tt class="xref py py-class docutils literal"><span class="pre">TreeNode</span></tt></a> instances
+contained in this instance.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="tools.html" title="tools"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="binding.html" title="Low-level binding of C++ library"
+             >previous</a> |</li>
+        <li><a href="index.html">EggLib</a> &raquo;</li>
+          <li><a href="egglib-py.html" >Python module</a> &raquo;</li> 
+      </ul>
+    </div>
+        <address style="text-align: right;"><small>Hosted by&nbsp;
+        <a href="http://sourceforge.net/projects/seqlib"><img src="http://sflogo.sourceforge.net/sflogo.php?group_id=232965&amp;type=8" width="80" height="15" alt="Get seqlib at SourceForge.net. Fast, secure and Free Open Source software downloads" / ALIGN=RIGHT BORDER=0></a>
+        </address>
+
+  </body>
+</html>

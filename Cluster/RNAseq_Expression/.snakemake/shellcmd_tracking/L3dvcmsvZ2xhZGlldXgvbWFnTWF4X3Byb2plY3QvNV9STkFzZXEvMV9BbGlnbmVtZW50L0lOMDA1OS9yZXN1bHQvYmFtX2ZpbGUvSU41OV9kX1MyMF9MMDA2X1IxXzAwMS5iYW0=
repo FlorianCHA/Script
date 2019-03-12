@@ -1,0 +1,5 @@
+
+	module load bioinfo/samtools/1.9
+	samtools view -b /work/gladieux/magMax_project/5_RNAseq/1_Alignement/IN0059/result/sam_file/IN59_d_S20_L006_R1_001.sam > /work/gladieux/magMax_project/5_RNAseq/1_Alignement/IN0059/result/bam_file/IN59_d_S20_L006_R1_001.bam
+	samtools sort -o /work/gladieux/magMax_project/5_RNAseq/1_Alignement/IN0059/result/bam_file/IN59_d_S20_L006_R1_001_sort.bam /work/gladieux/magMax_project/5_RNAseq/1_Alignement/IN0059/result/bam_file/IN59_d_S20_L006_R1_001.bam
+	

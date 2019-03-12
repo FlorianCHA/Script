@@ -1,0 +1,395 @@
+.. _encoding:
+
+----------------
+Encoding of data
+----------------
+
+The ASCII code
+==============
+
+:class:`.Align` and :class:`.Container`, and therefore much of EggLib functionality,
+only consider numeric (integers) data. To increase flexibility, this feature is
+completely exposed, meaning that these classes communicate using integers. Still, as
+sequence (particularly nucleotides) are more frequently used, strings are silently
+processed. The conversion uses the `ASCII table <http://www.asciitable.com/>`_ which
+provides a consistent mapping of all characters used in biological sequences to integers.
+One should consider that the data used by EggLib are actually signed integers, but that,
+for convenience, data can be provided as the character equivalent in the ASCII table,
+an automatic conversion to strings is performed by several functions.
+
+Converting integers from/to characters
+======================================
+
+You may never need to convert characters to integers, since EggLib will do it whenever
+it allows data input. Still, there is a builtin function to do it in Python: :func:`ord`.
+The opposite operation is :func:`chr`. We will see how it can be used.
+All methods of :class:`!Align`, :class:`!Container`, and
+:class:`!SequenceView` that return individual data entries return them as integers. The
+reason behind this is that this approach is generic to whatever type of variation the data are
+supposed to represent. The example below shows that extracting data using
+:meth:`.Align.get_i`, :meth:`.Align.column`, or :class:`!SequenceView` always returns integers, and
+illustrates how one can convert them back to strings::
+
+    aln = egglib.io.from_fasta('align4.fas', groups=True)
+    x = aln.get_i(0, 0)
+    print x
+    print chr(x)
+
+::
+
+    65 A
+
+::
+
+    site = aln.column(0, outgroup=False)
+    print site
+    print ''.join(map(chr, site))
+
+::
+
+    [65, 65, 65, 65, 65, 65] AAAAAA
+
+::
+
+    seq = aln.get_sequence(0)
+    motif = seq[8:12]
+    print motif
+    print ''.join(map(chr, motif))
+
+::
+
+    [71, 65, 71, 67] GAGC
+
+Facilities available in :class:`.Align`/:class:`.Container` objects
+===================================================================
+
+Automatic conversion of string input
+************************************
+
+As mentioned earlier, all functions that allow the user to provide data entries
+support silently one-character strings instead of integers (and multi-character strings
+instead of list of integers). If needed, both type of data can be mixed,
+they are not considered to be different in anyway. Note that integers have a much
+wider range than characters (starting with the possibility of using negative characters).
+Set of valid characters are only implemented when starting to analyze diversity
+(see :ref:`filters`).
+
+Functions allowing conversion of integer output
+***********************************************
+
+In contrast, exported data are by default integers, requiring using :func:`chr` if you
+actually want strings. For example, :class:`.SequenceView` objects behave in a limited way
+as lists of integers (supporting indexing, slicing, deleting if allowed). But they also have a
+:meth:`.SequenceView.string` that let you convert the whole sequence as a single :class:`str`.
+
+There is also the method :meth:`~.Align.to_fasta` that generates a Fasta string from either an
+:class:`!Align` or a :class:`!Container` (either returning it or saving it to a file.
+By default, it performs the integer-to-string conversion based on the ASCII table.
+
+Using those two methods implies that the data are in the range of printable characters.
+If the object has been initialized  from a Fasta file (and no out-of-range data has been added),
+it is guaranteed that the object is printable to Fasta without issue, and that sequences can be
+converted to string without problem, as shown with the trivial example below::
+
+    aln = egglib.io.from_fasta('align4.fas', groups=True)
+    print aln.get_sequence(0).string()
+
+This line produces the expected output::
+
+    ACCGTGGAGAGCGCGTTGCA
+
+The curious one may want to have a look to the corresponding integer values.
+The code below extracts all values to a list without converting them to characters::
+
+    print aln.get_sequence(0)[:]
+
+::
+
+    [65, 67, 67, 71, 84, 71, 71, 65, 71, 65, 71, 67, 71, 67, 71, 84, 84, 71, 67, 65]
+
+Out of range allele values
+**************************
+
+There are cases when the data will not be encoded in values not associated,
+in the ASCII table, to a character that can be represented. One of these cases
+is the coalescent simulator. The usage of the coalescent simulation module
+will be addressed in :ref:`coalesce-manual`, so we will use here examples without
+explaining them. For instance, the code below generates a data set (as an :class:`!Align`)
+based on a stepwise mutation model. Since the allelic start value is 0, there is a
+large probability that negative values occur. Then, eventually, an error will occur::
+
+    coal = egglib.coalesce.Simulator(1, num_chrom=[40], num_sites=100, mut_model='SMM', theta=100)
+    aln = coal.simul()
+    seq = aln.get_sequence(0)
+    print seq[:]
+    print seq.string() # causes an error
+
+The error states that an allele value cannot be converted in string, which is caused by
+negative values.
+
+Mapping alleles
+***************
+
+A common situation, while using the coalescent simulators, would be to use the KAM
+model (fixed number of alleles) while considering the alleles to be nucleotides,
+therefore setting the number of alleles to either 2 or 4. In this case, the
+alleles saved in the :class:`!Align` will be 0 and 1; and 0, 1, 2, 3, and 4,
+respectively. To generate a realistic simulated nucleotide sequence alignment,
+one can use the *mapping* option of :meth:`~.Align.to_fasta` as in::
+
+    coal = egglib.coalesce.Simulator(1, num_chrom=[10], num_sites=50, mut_model='KAM', num_alleles=4, theta=5.0, rand_start=True)
+    aln = coal.simul()
+    print aln.to_fasta()
+    print aln.to_fasta(mapping='ACGT')
+
+If you leave the *mapping* option out, the method will still work, but generate an
+unreadable output, since the first ASCII codes are not meant to be printed.
+
+-------------------
+Protein translation
+-------------------
+
+EggLib allows you to translate DNA sequences to proteins. All translation
+tools take DNA sequence as output (no RNA). In all cases, there is not
+validity checking concerning characters, meaning that invalid characters
+will be translated as missing data (although in the future an error might
+be generated).
+
+EggLib has built-in support for all genetic codes described in USA's
+National Center for Biotechnology Information (NCBI) database
+(`<http://www.ncbi.nlm.nih.gov/Taxonomy/Utils/wprintgc.cgi>`_). The
+genetic codes and their identifier are listed in :ref:`genetic-codes`.
+
+Protein translation tools lie in the :mod:`.tools` module, which gathers
+various functionalities that are described in the following of this section.
+
+The :func:`.tools.translate` function
+=====================================
+
+The simplest way to translate nucleotide sequences to amino acids with
+EggLib is probably the :func:`.tools.translate` function. This function
+is flexible: it takes as output alignments, sequence sets, or individual
+sequences, and returns a corresponding object, as lists in the table below:
+
++------------------------+------------------------+
+| Input type             | Returned type          |
++========================+========================+
+| :class:`.Align`        | :class:`.Align`        |
++------------------------+------------------------+
+| :class:`.Container`    | :class:`.Container`    |
++------------------------+------------------------+
+| :class:`.SequenceView` | :class:`str`           |
++------------------------+------------------------+
+| :class:`str`           | :class:`str`           |
++------------------------+------------------------+
+
+The usage is straightforward, as exemplified below::
+
+    import egglib
+    aln = egglib.Align.create([
+        ('sample1',  'TTGCTAGGTGTATAG'),
+        ('sample2',  'TTCCTAGATGAATAG'),
+        ('sample3',  'ATGCTAGATGAATAG')])
+    prot = egglib.tools.translate(aln)
+    print prot.to_fasta()
+
+The resulting protein alignment will be, for this example::
+
+    >sample1
+    LLGV*
+    >sample2
+    FLDE*
+    >sample3
+    MLDE*
+
+The *code* option of this function lets you specify the genetic code to be used,
+if it is not the standard one. Among options, the option *in_place* tells the
+function to overwrite the object you provide, instead of returning a new one.
+This can be useful in memory- or especially time-critical applications::
+
+    aln = egglib.Align.create([
+        ('sample1',  'TTGCTAGGTGTATAG'),
+        ('sample2',  'TTCCTAGATGAATAG'),
+        ('sample3',  'ATGCTAGATGAATAG')])
+    egglib.tools.translate(aln, in_place=True) # returns None
+    print aln.to_fasta()
+
+:func:`!translate` can also translate individual sequences, either provided as
+a :class:`!SequenceView` or a :class:`str` (*in_place* does not work in this
+case, although it might do so in the future in the latter case)::
+
+    egglib.tools.translate('CCATTGGTAATGGCC')
+
+Use the ``allow_alt=True`` option to support alternative start codons (a rare
+phenomenon accounted for by all genetic codes).
+
+.. _smart-translation:
+
+"Smart" translation
+*******************
+
+By default, codons with any missing data are translated as missing data
+(the ``X`` character). However, in certain cases it might be possible to
+guess: for example (in the standard genetic code), ``CTN`` necessarily
+translates to a Leucine because all four possibilities (``CTA``, ``CTC``,
+``CTG``, and ``CTT``) do. Similarly, both ``AGC`` and ``TGC`` encode a Serine,
+so ``WGC`` also necessarily encodes a Serine. The option ``smart=True``
+turns on automatic detection of those case, based on the table of ambiguity characters
+in the `nomenclature for nucleotide codes <http://www.chem.qmul.ac.uk/iubmb/misc/naseq.html>`_
+reproduced in the table below:
+
++--------+------------------+
+| Symbol | Meaning          |
++========+==================+
+| G      | G                |
++--------+------------------+
+| A      | A                |
++--------+------------------+
+| T      | T                |
++--------+------------------+
+| C      | C                |
++--------+------------------+
+| R      | G or A           |
++--------+------------------+
+| Y      | T or C           |
++--------+------------------+
+| M      | A or C           |
++--------+------------------+
+| K      | G or T           |
++--------+------------------+
+| S      | G or C           |
++--------+------------------+
+| W      | A or T           |
++--------+------------------+
+| H      | A or C or T      |
++--------+------------------+
+| B      | G or T or C      |
++--------+------------------+
+| V      | G or A or C      |
++--------+------------------+
+| D      | G or A or T      |
++--------+------------------+
+| N      | G or A or T or C |
++--------+------------------+
+
+Reading frame
+*************
+
+Unless specified, it is assumed that provided sequences are already an
+open reading frame; that is, that the first three nucleotide positions
+represent the first codon, and so on until the end of the sequence. If the
+number of nucleotides is not a multiple of three, the last codon is assumed
+to be truncated. Therefore, such codon is translated as an ``X`` because
+the identify of the amino acid is unknown::
+
+    >>> print egglib.tools.translate('CCATTGGTAATGGCCAA')
+    PLVMAX
+
+Note that the *smart* option (:ref:`smart-translation`) will not operate in the case of
+truncated codons (only for missing data). If you don't want to care about
+truncated codons, there is an option to exclude them::
+
+    >>> print egglib.tools.translate('CCATTGGTAATGGCCAA', delete_truncated=True)
+    PLVMA
+
+It is also possible to specify an open reading frame to be used while translating,
+including a segmented reading frame. To do so, one must use the *frame* option
+of :func:`~.tools.translate` and set it to a :class:`.tools.ReadingFrame` object.
+This type of objects holds the start/stop positions of one or more segments
+(exons) and allows processing all codon positions. The example below
+describes the usage::
+
+    >>> s = 'NNNNNCCATTGGTNNNNNNNNNNNNNAATGGCCNNNNN'
+    >>> rf = egglib.tools.ReadingFrame([(5, 13), (26, 33)])
+    >>> print egglib.tools.translate(s, rf)
+    PLVMA
+
+In this example, untranslated regions are represented by stretches of N's.
+There are two translated regions (exons), are specified in the constructor
+of :class:`!ReadingFrame` by their start and stop positions. Start and
+stop positions are understood exactly as the arguments of a sequence slice
+(specifically, the stop position is not included). In the example, one
+codon (``GTA``) is separated by in intron (``GT`` at the end of the first
+exon, and ``A`` at the start of the second one). However the translation
+is not affected by the presence of the intron and it is still translated as
+a Valine because, by default, it is assumed that the reading frame is
+continuous over segments.
+
+Reading frames are allowed to be 3'-partial (see above for truncated
+trailing codons). It is possible to specify a codon start argument for
+the first exon (as a third argument besides start and stop). See
+:meth:`.tools.ReadingFrame.process` for details. If the codon start is
+2 or 3, it is assumed that its is 5' partial and there will be a leading
+truncated codon. The example below shows how we would translate the
+second exon only with the proper codon start::
+
+    >>> s = 'NNNNNCCATTGGTNNNNNNNNNNNNNAATGGCCNNNNN'
+    >>> rf = egglib.tools.ReadingFrame([(26, 33, 3)])
+    >>> print egglib.tools.translate(s, rf)
+    XMA
+
+The second exon is then: ``A ATG GCC``, the ``A`` being translated as ``X``
+because the first two bases of the codon are unknown to the translating
+function. It is also possible to specify a codon start for trailing (non-first)
+exons. Whenever codon start is specified as a non-``None`` value, it is assumed that
+it does not continue the previous exons, *even if first codon of the current
+codon is completing the last codon of the previous exon*. For example, we can force the
+reading frame to assume that the two exons are not connected (although they
+are in reality)::
+
+    >>> s = 'NNNNNCCATTGGTNNNNNNNNNNNNNAATGGCCNNNNN'
+    >>> rf = egglib.tools.ReadingFrame([(5, 13), (26, 33, 3)])
+    >>> print egglib.tools.translate(s, rf)
+    PLXXMA
+
+The ``GTA`` jumping the splicing site is now considered as ``GT? ??A``, which
+is translated as ``XX``. This can be left out with ``deleted_truncated=True``.
+
+Note also that the *frame* argument is available for both individual
+sequences and sequence alignments.
+
+The :class:`.tools.Translator` class
+====================================
+
+There is a :class:`~.tools.Translator` class in the :mod:`.tools` module
+that perform the same operations as the :func:`~.tools.translate` function.
+If you need to translate many data sets in on go, it will probably be faster
+to use this class as in the example below, where we assume that ``aligns`` is
+a :class:`list` of :class:`Align` instances::
+
+    trans = egglib.tools.Translator(code=1, smart=False)
+    for aln in aligns:
+        trans.translate_align(aln, in_place=True)
+
+The options ``code=1`` and ``smart=False`` are actually the default. They
+are here to show that options are specified in the class's constructor.
+
+Detecting open reading frames and processing stop codons
+========================================================
+
+There are additionnal tools helping you to manage coding sequences, or
+sequences containing open reading frames:
+
+* :func:`.tools.orf_iter` provides an iterator over all possible open reading
+  frames of the sequence. It is configurable (see options) and is used as
+  this (with default options)::
+
+      for start, stop, length, frame in egglib.tools.orf_iter(seq):
+          print seq[start:stop]
+
+  (The example displays the sequence of each open reading frame, although
+  some may need to be reverse-complemented.)
+
+* :func:`.tools.longest_orf` is a shortcut to find the longest possible
+  open reading frame. If there is a tie, the function does not take the
+  decision for you and raises an exception.
+
+* :func:`.tools.trailing_stops` detect and optionally fixes stop codons
+  at the end of sequences of an alignment.
+
+* :func:`.tools.iter_stops` provides you with an iterator over the
+  positions of all stop codons of the alignment.
+
+* :func:`.tools.has_stop` is a shortcut to test if an alignment contains
+  any stop codons.
+

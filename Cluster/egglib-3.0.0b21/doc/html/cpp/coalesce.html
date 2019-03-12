@@ -1,0 +1,1777 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Coalescent simulator &#8212; EggLib&#39;s documentation</title>
+    <link rel="stylesheet" href="../_static/egglibdoc.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '3.0.0b21',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="shortcut icon" href="../_static/icon.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Diversity analyses" href="diversity.html" />
+    <link rel="prev" title="Data file formats" href="datafiles.html" />
+    <script type="text/javascript">
+      // intelligent scrolling of the sidebar content
+      $(window).scroll(function() {
+        var sb = $('.sphinxsidebarwrapper');
+        var win = $(window);
+        var sbh = sb.height();
+        var offset = $('.sphinxsidebar').position()['top'];
+        var wintop = win.scrollTop();
+        var winbot = wintop + win.innerHeight();
+        var curtop = sb.position()['top'];
+        var curbot = curtop + sbh;
+        // does sidebar fit in window?
+        if (sbh < win.innerHeight()) {
+          // yes: easy case -- always keep at the top
+          sb.css('top', $u.min([$u.max([0, wintop - offset - 10]),
+                                $(document).height() - sbh - 200]));
+        } else {
+          // no: only scroll if top/bottom edge of sidebar is at
+          // top/bottom edge of window
+          if (curtop > wintop && curbot > winbot) {
+            sb.css('top', $u.max([wintop - offset - 10, 0]));
+          } else if (curtop < wintop && curbot < winbot) {
+            sb.css('top', $u.min([winbot - sbh - offset - 20,
+                                  $(document).height() - sbh - 200]));
+          }
+        }
+      });
+    </script>
+  </head>
+  <body>
+<div style="background-color: white; text-align: left; padding: 0px 0px 0px 0px">
+<a href="../index.html"><img src="../_static/banner.png" border="0" alt="EggLib"/></a>
+</div>
+
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="diversity.html" title="Diversity analyses"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="datafiles.html" title="Data file formats"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../contents.html">EggLib&#39;s documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../toc.html" >Contents</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="index.html" accesskey="U">C++ Library</a> &#187;</li> 
+      </ul>
+    </div>
+
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../contents.html">
+              <img class="logo" src="../_static/egglib_small.bmp" alt="Logo"/>
+            </a></p>
+  <h3><a href="../contents.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Coalescent simulator</a><ul>
+<li><a class="reference internal" href="#parameters">Parameters</a><ul>
+<li><a class="reference internal" href="#params-class">Params class</a></li>
+<li><a class="reference internal" href="#migration-class">Migration class</a></li>
+<li><a class="reference internal" href="#event-class">Event class</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#main-class">Main class</a></li>
+<li><a class="reference internal" href="#arg-representation">ARG representation</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="datafiles.html"
+                        title="previous chapter">Data file formats</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="diversity.html"
+                        title="next chapter">Diversity analyses</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/cpp/coalesce.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="coalescent-simulator">
+<span id="coalesce"></span><h1>Coalescent simulator<a class="headerlink" href="#coalescent-simulator" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="parameters">
+<h2>Parameters<a class="headerlink" href="#parameters" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="params-class">
+<h3>Params class<a class="headerlink" href="#params-class" title="Permalink to this headline">¶</a></h3>
+<dl class="class">
+<dt id="_CPPv2N6egglib6ParamsE">
+<span id="egglib::Params"></span><span class="target" id="project0classegglib_1_1Params"></span><em class="property">class </em></dt>
+<dd><p>Coalescence simulation parameters holder. </p>
+<p>Holds parameters for a coalescence simulation. Default values are: <ul class="simple">
+<li>k: 1 </li>
+<li>L: 0 </li>
+<li>R: 0. </li>
+<li>theta: 0. </li>
+<li>fixed: 0 </li>
+<li>mutmodel: KAM </li>
+<li>TPMproba: 0.5 </li>
+<li>TPMparam: 0.5 </li>
+<li>K: 2 </li>
+<li>random_start_allele: false </li>
+<li>n1: 0 for any population </li>
+<li>n2: 0 for any population </li>
+<li>N: 1. for any population </li>
+<li>G: 0. for any population </li>
+<li>s: 0. for any population </li>
+<li>sitePos: not initialized (beware!) </li>
+<li>siteW: 1. for any site </li>
+<li>M: all rates at 0.0 </li>
+<li>transW_matrix: false </li>
+<li>transW: 1. for any combination </li>
+<li>changes: none </li>
+<li>max_iter: 100000</li>
+</ul>
+
+See the corresponding setter methods for more details on the signification of parameters. Note that every population has an independent size, growth/decline rate and selfing rate (in addition to numbers of samples, obviously).</p>
+<p>Header: &lt;egglib-cpp/Params.hpp&gt; </p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">Public Types</p>
+<dl class="type">
+<dt id="_CPPv2N6egglib6Params13MutationModelE">
+<span id="egglib::Params::MutationModel"></span><span class="target" id="project0classegglib_1_1Params_1a7aea85cbc360427cb6e234bc15b380cc"></span>enum <code class="descclassname">egglib::Params::</code><code class="descname">MutationModel</code><a class="headerlink" href="#_CPPv2N6egglib6Params13MutationModelE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Specification for mutation models. </p>
+<p>The possible values are: <ul class="simple">
+<li>KAM: fixed finite number of alleles. </li>
+<li>IAM: infinite number of alleles. </li>
+<li>SMM: stepwise mutation model. </li>
+<li>TPM: two phase mutation model.</li>
+</ul>
+
+All models are constrained by the mutation parameter (theta or, if theta is 0, fixed). TPM is the only model that requires additional parameters (TPMproba and TPMparam see below).</p>
+<p>Nucleotide sequences can be simulated using the KAM with K=2 or 4 (the latter should be used with models with a finite number of sites, to control homoplasy). When using an infinite site model, each site cannot experience more than one mutation. Therefore, it makes little sense to use any other mutation model than KAM with K=2.</p>
+<p>In the KAM, each mutation cause a transition to one of the other alleles. Transition biases can be controlled using the tranW matrix (if tranW_matrix is true). The allele values are integers in the range 0, 1, …, K-1.</p>
+<p>In the IAM, each mutation generate a new allele. Alleles values are integers in the range 0, 1, …, S-1 where S is the number of mutations having occurred for a particular site. The allele value indicates the rank of occurrence of the mutation, and should not be taken as having any biological signification.</p>
+<p>In the SMM, each mutation change the allele value by a step of -1 or +1 (with equal probabilities). Alleles values can therefore have any negative or positive values.</p>
+<p>In the TPM, each mutation change the allele value by a step of -n or +n (with equal probabilities). n is either 1 or drawn from a geometric distribution. TPMproba gives the probability that n follows a geometric distribution (that is, of not following a SMM) and TPMparam gives the shape parameter of the geometric distribution. The GSM (generalized stepwise model) can be obtained using the TPM by setting TPMproba to 1.0. </p>
+<p><em>Values:</em></p>
+<dl class="member">
+<dt id="_CPPv2N6egglib6Params3KAME">
+<span id="egglib::Params::KAM"></span><span class="target" id="project0classegglib_1_1Params_1a7aea85cbc360427cb6e234bc15b380ccaa3a7ad65c5f617ff592c7fb893a9e804"></span></dt>
+<dd></dd></dl>
+
+<dl class="member">
+<dt id="_CPPv2N6egglib6Params3IAME">
+<span id="egglib::Params::IAM"></span><span class="target" id="project0classegglib_1_1Params_1a7aea85cbc360427cb6e234bc15b380cca1f1e11715c2feb98ed32ccb1efcae703"></span></dt>
+<dd></dd></dl>
+
+<dl class="member">
+<dt id="_CPPv2N6egglib6Params3SMME">
+<span id="egglib::Params::SMM"></span><span class="target" id="project0classegglib_1_1Params_1a7aea85cbc360427cb6e234bc15b380ccad4ab7e965dacaf2b8306ea828c47d8ca"></span></dt>
+<dd></dd></dl>
+
+<dl class="member">
+<dt id="_CPPv2N6egglib6Params3TPME">
+<span id="egglib::Params::TPM"></span><span class="target" id="project0classegglib_1_1Params_1a7aea85cbc360427cb6e234bc15b380cca112b2ccd53059d8d66e2827938407485"></span></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">Public Functions</p>
+<dl class="function">
+<dt id="_CPPv2N6egglib6Params6ParamsEv">
+<span id="egglib::Params::Params"></span><span class="target" id="project0classegglib_1_1Params_1a7974597e9d3c848fd265d9445f7cf8cb"></span><code class="descclassname">egglib::Params::</code><code class="descname">Params</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv2N6egglib6Params6ParamsEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Default constructor. </p>
+<p>Parameters are initialized to default values. The number of populations is 1. </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv2N6egglib6Params6ParamsEjd">
+<span id="egglib::Params::Params__unsigned-i.double"></span><span class="target" id="project0classegglib_1_1Params_1a024e1d82b9b8f5521f9f7898a3a2a434"></span><code class="descclassname">egglib::Params::</code><code class="descname">Params</code><span class="sig-paren">(</span>unsigned int <em>npop</em>, double <em>migr</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv2N6egglib6Params6ParamsEjd" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Standard constructor. </p>
+<p>Except the number of populations, the parameters are initialized to default values. The number of populations must be at least 1. All pairwise migration rates can be specified later (the optional argument is the per-population migration rate to be applied to all populations. </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv2N6egglib6ParamsD0Ev">
+<span id="egglib::Params::~Params"></span><span class="target" id="project0classegglib_1_1Params_1a04be831eb85e22162efb00444f643358"></span><code class="descclassname">egglib::Params::</code><code class="descname">~Params</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv2N6egglib6ParamsD0Ev" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Destructor. </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv2N6egglib6Params9addChangeEP5Event">
+<span id="egglib::Params::addChange__EventP"></span><span class="target" id="project0classegglib_1_1Params_1ab1bf18d83c311a5190cca431d0c0efca"></span>void <code class="descclassname">egglib::Params::</code><code class="descname">addChange</code><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv2N6egglib5EventE" title="egglib::Event">Event</a> *<em>e</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv2N6egglib6Params9addChangeEP5Event" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Add a demographic change. </p>
+<p>The argument must be an instance of <a class="reference internal" href="#project0classegglib_1_1Event"><span class="std std-ref">Event</span></a> (but not of the none type). Each of the types represents a given type of demographic change (meaning is broad). All changes have a date parameter, specifying at what date the change should occur (in backward, coalescent time). The unit is 4N generations, where N is the number of diploi individuals of a population. Multiple changes can be specified (just call this method repetitively). Changes can be entered in any order (they are automatically sorted). However, if two changes appear to occur to the same date, the first entered will also be the first to be applied. Note that many parameters imply constraints on values: all dates must be &gt;= 0, population indices must refer to a valid population, pairwise migration rate population indices must be different, selfing rate (and other probabilities must be &gt;= 0 and &lt;= 1, migration rates must be &gt; 0. Beware that final coalescence of all sample must be allowed (beware of null migration rates and exponential decline rates). As a rule, the change, <a class="reference internal" href="#project0classegglib_1_1Params"><span class="std std-ref">Params</span></a> and Coal classes DO NOT perform sanity checks, so most invalid values will result in program crash, incorrect results or exceptions. The user should carefully check passed values or ensure passed values are valid for all change type used. Note that <a class="reference internal" href="#project0classegglib_1_1Params"><span class="std std-ref">Params</span></a> does not take ownership of the <a class="reference internal" href="#project0classegglib_1_1Event"><span class="std std-ref">Event</span></a> pointer and will not delete the object at destruction time. </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv2N6egglib6Params11autoSitePosEv">
+<span id="egglib::Params::autoSitePos"></span><span class="target" id="project0classegglib_1_1Params_1ae6147b4ed48d05c057b9c2d6d16516e8"></span>void <code class="descclassname">egglib::Params::</code><code class="descname">autoSitePos</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv2N6egglib6Params11autoSitePosEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Automatically set site positions. </p>
+<p>Set all site positions such as they use all possible span over the simulated chromosome. If there only one site, it is set at position 0.5. If there are two sites, there are set a positions 0.0 and 1.0. If there are three sites, at 0.0, 0.5, 1.0, and so on. </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv2N6egglib6Params12clearChangesEv">
+<span id="egglib::Params::clearChanges"></span><span class="target" id="project0classegglib_1_1Params_1a625612756598fa4635da16c488d1421e"></span>void <code class="descclassname">egglib::Params::</code><code class="descname">clearChanges</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv2N6egglib6Params12clearChangesEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Clear the event list. </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv2N6egglib6Params11firstChangeEv">
+<span id="egglib::Params::firstChange"></span><span class="target" id="project0classegglib_1_1Params_1aec092e989a6de7ce3ca638c120630494"></span><a class="reference internal" href="#_CPPv2N6egglib5EventE" title="egglib::Event">Event</a> *<code class="descclassname">egglib::Params::</code><code class="descname">firstChange</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv2N6egglib6Params11firstChangeEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Get the first change. </p>
+<p>Returns the first event of the queue (irrespective of the internal event counter). The value is NULL if there is no event loaded. </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv2N6egglib6Params3G_REjdd">
+<span id="egglib::Params::G_R__unsigned-i.double.double"></span><span class="target" id="project0classegglib_1_1Params_1ae17a6a98602b4bec15f01f545d779d57"></span>void <code class="descclassname">egglib::Params::</code><code class="descname">G_R</code><span class="sig-paren">(</span>unsigned int <em>pop</em>, double <em>value</em>, double <em>t</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv2N6egglib6Params3G_REjdd" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Set a population relative growth/decline rate(reversible) </p>
+<p><dl class="docutils">
+<dt><strong>Parameters</strong></dt>
+<dd><ul class="breatheparameterlist first last">
+<li><code class="first docutils literal"><span class="pre">pop</span></code> - <p>population index. </p>
+</li>
+<li><code class="first docutils literal"><span class="pre">value</span></code> - <p>growth/decline rate. </p>
+</li>
+<li><code class="first docutils literal"><span class="pre">t</span></code> - <p>time of the change. </p>
+</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv2N6egglib6Params9get_fixedEv">
+<span id="egglib::Params::get_fixed"></span><span class="target" id="project0classegglib_1_1Params_1a692f95fd08e7a9e23d073a86f27173d1"></span>unsigned int <code class="descclassname">egglib::Params::</code><code class="descname">get_fixed</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv2N6egglib6Params9get_fixedEv" title="Permalink to this definition">¶</a><br /> const</dt>
+<dd><p>Get the fixed number of mutations. </p>
+<p>This parameter is ignored if theta is different of 0. </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv2N6egglib6Params5get_GEj">
+<span id="egglib::Params::get_G__unsigned-i"></span><span class="target" id="project0classegglib_1_1Params_1a1daac26c1db4bc3126367b15b2afeb5d"></span>double <code class="descclassname">egglib::Params::</code><code class="descname">get_G</code><span class="sig-paren">(</span>unsigned int <em>pop</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv2N6egglib6Params5get_GEj" title="Permalink to this definition">¶</a><br /> const</dt>
+<dd><p>Get a population growth/decline rate. </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv2N6egglib6Params5get_KEv">
+<span id="egglib::Params::get_K"></span><span class="target" id="project0classegglib_1_1Params_1a0e77160b317fd25e34af4cb993dd01f5"></span>unsigned int <code class="descclassname">egglib::Params::</code><code class="descname">get_K</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv2N6egglib6Params5get_KEv" title="Permalink to this definition">¶</a><br /> const</dt>
+<dd><p>Get the number of alleles. </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv2N6egglib6Params5get_LEv">
+<span id="egglib::Params::get_L"></span><span class="target" id="project0classegglib_1_1Params_1af2c1ad57c619c4b5b59e9e0713df8db6"></span>unsigned int <code class="descclassname">egglib::Params::</code><code class="descname">get_L</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv2N6egglib6Params5get_LEv" title="Permalink to this definition">¶</a><br /> const</dt>
+<dd><p>Get number of mutable sites. </p>
+<p>A value of 0 denotes an infinite number of sites. </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv2N6egglib6Params12get_max_iterEv">
+<span id="egglib::Params::get_max_iter"></span><span class="target" id="project0classegglib_1_1Params_1aa652c9a829dd8d63d6470f416f6f9f68"></span>unsigned long <code class="descclassname">egglib::Params::</code><code class="descname">get_max_iter</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv2N6egglib6Params12get_max_iterEv" title="Permalink to this definition">¶</a><br /> const</dt>
+<dd><p>Maximum number of iterations. </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv2N6egglib6Params12get_mutmodelEv">
+<span id="egglib::Params::get_mutmodel"></span><span class="target" id="project0classegglib_1_1Params_1a264920553243fff18d1f7800fc14ae38"></span><a class="reference internal" href="#_CPPv2N6egglib6ParamsE" title="egglib::Params">Params</a>::<a class="reference internal" href="#_CPPv2N6egglib6Params13MutationModelE" title="egglib::Params::MutationModel">MutationModel</a> <code class="descclassname">egglib::Params::</code><code class="descname">get_mutmodel</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv2N6egglib6Params12get_mutmodelEv" title="Permalink to this definition">¶</a><br /> const</dt>
+<dd><p>Get the mutation model value. </p>
+<p>Detailed information is provided within the documentation of the enum type MutationModel. </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv2N6egglib6Params5get_NEj">
+<span id="egglib::Params::get_N__unsigned-i"></span><span class="target" id="project0classegglib_1_1Params_1a7d29ef02ae64f961e6367171582ae683"></span>double <code class="descclassname">egglib::Params::</code><code class="descname">get_N</code><span class="sig-paren">(</span>unsigned int <em>pop</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv2N6egglib6Params5get_NEj" title="Permalink to this definition">¶</a><br /> const</dt>
+<dd><p>Get a population relative size. </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv2N6egglib6Params6get_n1Ej">
+<span id="egglib::Params::get_n1__unsigned-i"></span><span class="target" id="project0classegglib_1_1Params_1a2a0867914f8bedcea7e3b8fd471465c6"></span>unsigned int <code class="descclassname">egglib::Params::</code><code class="descname">get_n1</code><span class="sig-paren">(</span>unsigned int <em>pop</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv2N6egglib6Params6get_n1Ej" title="Permalink to this definition">¶</a><br /> const</dt>
+<dd><p>Get the number of single samples in a population. </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv2N6egglib6Params6get_n2Ej">
+<span id="egglib::Params::get_n2__unsigned-i"></span><span class="target" id="project0classegglib_1_1Params_1a1cc8b71afdfcecf02af5c34eed90680f"></span>unsigned int <code class="descclassname">egglib::Params::</code><code class="descname">get_n2</code><span class="sig-paren">(</span>unsigned int <em>pop</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv2N6egglib6Params6get_n2Ej" title="Permalink to this definition">¶</a><br /> const</dt>
+<dd><p>Get the number of double samples in a population. </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv2N6egglib6Params8get_nsamERjRj">
+<span id="egglib::Params::get_nsam__unsigned-iR.unsigned-iR"></span><span class="target" id="project0classegglib_1_1Params_1adf4871efbb5fa1b7931cdf436516b0cc"></span>void <code class="descclassname">egglib::Params::</code><code class="descname">get_nsam</code><span class="sig-paren">(</span>unsigned int &amp;<em>ns</em>, unsigned int &amp;<em>no</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv2N6egglib6Params8get_nsamERjRj" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Gives the number of ingroup/outgroup samples (including delayed samples) </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv2N6egglib6Params12get_outgroupEv">
+<span id="egglib::Params::get_outgroup"></span><span class="target" id="project0classegglib_1_1Params_1a22bb32da49ccd3355d84b632b36861e2"></span>unsigned int <code class="descclassname">egglib::Params::</code><code class="descname">get_outgroup</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv2N6egglib6Params12get_outgroupEv" title="Permalink to this definition">¶</a><br /> const</dt>
+<dd><p>Get label identifying outgroup samples. </p>
+<p>MISSING for none. </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv2N6egglib6Params5get_REv">
+<span id="egglib::Params::get_R"></span><span class="target" id="project0classegglib_1_1Params_1a517df00d263725d478df779cb2379370"></span>double <code class="descclassname">egglib::Params::</code><code class="descname">get_R</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv2N6egglib6Params5get_REv" title="Permalink to this definition">¶</a><br /> const</dt>
+<dd><p>Get the recombination rate. </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv2N6egglib6Params23get_random_start_alleleEv">
+<span id="egglib::Params::get_random_start_allele"></span><span class="target" id="project0classegglib_1_1Params_1a77c2e11c4e4c65869080481d74e43551"></span>bool <code class="descclassname">egglib::Params::</code><code class="descname">get_random_start_allele</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv2N6egglib6Params23get_random_start_alleleEv" title="Permalink to this definition">¶</a><br /> const</dt>
+<dd><p>Get random start allele boolean. </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv2N6egglib6Params5get_sEj">
+<span id="egglib::Params::get_s__unsigned-i"></span><span class="target" id="project0classegglib_1_1Params_1a300fb1215f6ac9aa96e794264f7feb0c"></span>double <code class="descclassname">egglib::Params::</code><code class="descname">get_s</code><span class="sig-paren">(</span>unsigned int <em>pop</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv2N6egglib6Params5get_sEj" title="Permalink to this definition">¶</a><br /> const</dt>
+<dd><p>Get a population selfing rate. </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv2N6egglib6Params11get_sitePosEj">
+<span id="egglib::Params::get_sitePos__unsigned-i"></span><span class="target" id="project0classegglib_1_1Params_1a4149b3e21026d07864cc6e35a5efd238"></span>double <code class="descclassname">egglib::Params::</code><code class="descname">get_sitePos</code><span class="sig-paren">(</span>unsigned int <em>site</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv2N6egglib6Params11get_sitePosEj" title="Permalink to this definition">¶</a><br /> const</dt>
+<dd><p>Get a site position. </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv2N6egglib6Params9get_siteWEj">
+<span id="egglib::Params::get_siteW__unsigned-i"></span><span class="target" id="project0classegglib_1_1Params_1a3348324dce566d5a6b44338fe6ca19fe"></span>double <code class="descclassname">egglib::Params::</code><code class="descname">get_siteW</code><span class="sig-paren">(</span>unsigned int <em>site</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv2N6egglib6Params9get_siteWEj" title="Permalink to this definition">¶</a><br /> const</dt>
+<dd><p>Get a site weight. </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv2N6egglib6Params9get_thetaEv">
+<span id="egglib::Params::get_theta"></span><span class="target" id="project0classegglib_1_1Params_1aa784d7f8ac02e9c4e26e7fe9f177a7aa"></span>double <code class="descclassname">egglib::Params::</code><code class="descname">get_theta</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv2N6egglib6Params9get_thetaEv" title="Permalink to this definition">¶</a><br /> const</dt>
+<dd><p>Get the mutation rate. </p>
+<p>If theta is 0, the value of fixed is considered. </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv2N6egglib6Params12get_TPMparamEv">
+<span id="egglib::Params::get_TPMparam"></span><span class="target" id="project0classegglib_1_1Params_1a82e110d97f9d1c92ef72e45900b4f585"></span>double <code class="descclassname">egglib::Params::</code><code class="descname">get_TPMparam</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv2N6egglib6Params12get_TPMparamEv" title="Permalink to this definition">¶</a><br /> const</dt>
+<dd><p>Get the shape parameter of the TPM distribution. </p>
+<p>This parameter is ignored if the mutation model is any other than TPM. This parameter sets the shape of the geometric distribution from which mutation steps are drawn with probability given by TPMproba. </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv2N6egglib6Params12get_TPMprobaEv">
+<span id="egglib::Params::get_TPMproba"></span><span class="target" id="project0classegglib_1_1Params_1a8f12d560f50edd70dc92d0d2a33ac0d3"></span>double <code class="descclassname">egglib::Params::</code><code class="descname">get_TPMproba</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv2N6egglib6Params12get_TPMprobaEv" title="Permalink to this definition">¶</a><br /> const</dt>
+<dd><p>Get the TPM probability parameter. </p>
+<p>This parameter is ignored if the mutation model is any other than TPM. The probability gives the probability that mutation steps are drawn from a geometric distribution (otherwise, they are set to 1). </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv2N6egglib6Params17get_transW_matrixEv">
+<span id="egglib::Params::get_transW_matrix"></span><span class="target" id="project0classegglib_1_1Params_1a5980d00522ba4071bac482b08d40e50f"></span>bool <code class="descclassname">egglib::Params::</code><code class="descname">get_transW_matrix</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv2N6egglib6Params17get_transW_matrixEv" title="Permalink to this definition">¶</a><br /> const</dt>
+<dd><p>Allele transition matrix flag </p>
+<p>If true, transition weights between alleles are taken from a matrix (values must be set using method transW). </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv2N6egglib6Params15get_transW_pairEjj">
+<span id="egglib::Params::get_transW_pair__unsigned-i.unsigned-i"></span><span class="target" id="project0classegglib_1_1Params_1abac5972f46374ec9d1d6307830419d2f"></span>double <code class="descclassname">egglib::Params::</code><code class="descname">get_transW_pair</code><span class="sig-paren">(</span>unsigned int <em>i</em>, unsigned int <em>j</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv2N6egglib6Params15get_transW_pairEjj" title="Permalink to this definition">¶</a><br /> const</dt>
+<dd><p>Get an allele transition matrix entry. </p>
+<p>This method should not be used to access to diagonal items. If transW_matrix() is false, this method always return 1. </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv2N6egglib6Params14get_transW_rowEj">
+<span id="egglib::Params::get_transW_row__unsigned-i"></span><span class="target" id="project0classegglib_1_1Params_1a06c14be5cca2a4ff6af7457db78d5ce1"></span>double <code class="descclassname">egglib::Params::</code><code class="descname">get_transW_row</code><span class="sig-paren">(</span>unsigned int <em>i</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv2N6egglib6Params14get_transW_rowEj" title="Permalink to this definition">¶</a><br /> const</dt>
+<dd><p>Get transition weight sum for an allele. </p>
+<p>If transW_matrix() is false, this method always return the number of alleles minus one (the weight is always 1). </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv2N6egglib6Params1kEv">
+<span id="egglib::Params::k"></span><span class="target" id="project0classegglib_1_1Params_1a8055bbb029e54fb9d21d92d29fabdf23"></span>unsigned int <code class="descclassname">egglib::Params::</code><code class="descname">k</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv2N6egglib6Params1kEv" title="Permalink to this definition">¶</a><br /> const</dt>
+<dd><p>Get the number of populations. </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv2N6egglib6Params10lastChangeEj">
+<span id="egglib::Params::lastChange__unsigned-i"></span><span class="target" id="project0classegglib_1_1Params_1aacc60464b45d54cca829d939ec1e792a"></span>double <code class="descclassname">egglib::Params::</code><code class="descname">lastChange</code><span class="sig-paren">(</span>unsigned int <em>pop</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv2N6egglib6Params10lastChangeEj" title="Permalink to this definition">¶</a><br /> const</dt>
+<dd><p>Date of the last size change for a given pop. </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv2N6egglib6Params1MEv">
+<span id="egglib::Params::M"></span><span class="target" id="project0classegglib_1_1Params_1a89f6ca584e001d191c5230a96d1ea669"></span><a class="reference internal" href="#_CPPv2N6egglib9MigrationE" title="egglib::Migration">Migration</a> &amp;<code class="descclassname">egglib::Params::</code><code class="descname">M</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv2N6egglib6Params1MEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Get the migration matrix. </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv2N6egglib6Params3N_REjdd">
+<span id="egglib::Params::N_R__unsigned-i.double.double"></span><span class="target" id="project0classegglib_1_1Params_1a80a0d293dde73084f2002b1a86284813"></span>void <code class="descclassname">egglib::Params::</code><code class="descname">N_R</code><span class="sig-paren">(</span>unsigned int <em>pop</em>, double <em>value</em>, double <em>t</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv2N6egglib6Params3N_REjdd" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Set a population relative size (reversible) </p>
+<p><dl class="docutils">
+<dt><strong>Parameters</strong></dt>
+<dd><ul class="breatheparameterlist first last">
+<li><code class="first docutils literal"><span class="pre">pop</span></code> - <p>population index. </p>
+</li>
+<li><code class="first docutils literal"><span class="pre">value</span></code> - <p>population size. </p>
+</li>
+<li><code class="first docutils literal"><span class="pre">t</span></code> - <p>time of the change. </p>
+</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv2N6egglib6Params10nDSChangesEv">
+<span id="egglib::Params::nDSChanges"></span><span class="target" id="project0classegglib_1_1Params_1ac56e9d8e7015931e0e58b3ab4c7dbb98"></span>unsigned int <code class="descclassname">egglib::Params::</code><code class="descname">nDSChanges</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv2N6egglib6Params10nDSChangesEv" title="Permalink to this definition">¶</a><br /> const</dt>
+<dd><p>Number of delayed sample changes left to apply. </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv2N6egglib6Params14nextChangeDateEv">
+<span id="egglib::Params::nextChangeDate"></span><span class="target" id="project0classegglib_1_1Params_1ad18928b943ff7712eb940879d7b4e390"></span>double <code class="descclassname">egglib::Params::</code><code class="descname">nextChangeDate</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv2N6egglib6Params14nextChangeDateEv" title="Permalink to this definition">¶</a><br /> const</dt>
+<dd><p>Get the date of the next change. </p>
+<p>Returns the date of the next change to be applied. The number will be &gt;= 0 if there is at least one change, and <a class="reference internal" href="core.html#project0namespaceegglib_1af63e6c601f26236998fb4c3e1181aeec"><span class="std std-ref">egglib::UNDEF</span></a> otherwise. </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv2N6egglib6Params12nextChangeDoEP8Coalesce">
+<span id="egglib::Params::nextChangeDo__CoalesceP"></span><span class="target" id="project0classegglib_1_1Params_1aecb18cc734f8f0e32cd7b37404fa442f"></span>void <code class="descclassname">egglib::Params::</code><code class="descname">nextChangeDo</code><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv2N6egglib8CoalesceE" title="egglib::Coalesce">Coalesce</a> *<em>coal</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv2N6egglib6Params12nextChangeDoEP8Coalesce" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Apply next change. </p>
+<p>The argument must be the address of the <a class="reference internal" href="#project0classegglib_1_1Coalesce"><span class="std std-ref">Coalesce</span></a> instance that should be modified (note that not all change types will require affecting the <a class="reference internal" href="#project0classegglib_1_1Coalesce"><span class="std std-ref">Coalesce</span></a> instance directly). </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv2N6egglib6Params10numChangesEv">
+<span id="egglib::Params::numChanges"></span><span class="target" id="project0classegglib_1_1Params_1abd55bafafa47b51fc5602f9082f73c21"></span>unsigned int <code class="descclassname">egglib::Params::</code><code class="descname">numChanges</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv2N6egglib6Params10numChangesEv" title="Permalink to this definition">¶</a><br /> const</dt>
+<dd><p>Get the number of changes. </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv2N6egglib6Params3R_REd">
+<span id="egglib::Params::R_R__double"></span><span class="target" id="project0classegglib_1_1Params_1a7a7b02a0e4c8bba9cb162be9d0dfe88e"></span>void <code class="descclassname">egglib::Params::</code><code class="descname">R_R</code><span class="sig-paren">(</span>double <em>value</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv2N6egglib6Params3R_REd" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Set the recombination rate (reversible) </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv2N6egglib6Params7restoreEv">
+<span id="egglib::Params::restore"></span><span class="target" id="project0classegglib_1_1Params_1afd3595051be2709847c2de4352f27cf5"></span>void <code class="descclassname">egglib::Params::</code><code class="descname">restore</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv2N6egglib6Params7restoreEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Restore object to the initial state. </p>
+<p>All variable parameters (that is, those who have a reversible method, and the number of populations) will be reset to the last value set using a normal setter (or to the default value). </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv2N6egglib6Params3s_REjdd">
+<span id="egglib::Params::s_R__unsigned-i.double.double"></span><span class="target" id="project0classegglib_1_1Params_1a40f3f5068f0c76682bb4b3708c6d5c25"></span>void <code class="descclassname">egglib::Params::</code><code class="descname">s_R</code><span class="sig-paren">(</span>unsigned int <em>pop</em>, double <em>value</em>, double <em>t</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv2N6egglib6Params3s_REjdd" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Set a population selfing rate (reversible) </p>
+<p><dl class="docutils">
+<dt><strong>Parameters</strong></dt>
+<dd><ul class="breatheparameterlist first last">
+<li><code class="first docutils literal"><span class="pre">pop</span></code> - <p>population index. </p>
+</li>
+<li><code class="first docutils literal"><span class="pre">value</span></code> - <p>selfing rate. </p>
+</li>
+<li><code class="first docutils literal"><span class="pre">t</span></code> - <p>time of the change. </p>
+</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv2N6egglib6Params9set_fixedEj">
+<span id="egglib::Params::set_fixed__unsigned-i"></span><span class="target" id="project0classegglib_1_1Params_1aae8bab10c0bfdb974c52ac3cf7aa633b"></span>void <code class="descclassname">egglib::Params::</code><code class="descname">set_fixed</code><span class="sig-paren">(</span>unsigned int <em>value</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv2N6egglib6Params9set_fixedEj" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Set the fixed number of mutations. </p>
+<p>This parameter is ignored if theta is different of 0. The value can be 0. </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv2N6egglib6Params5set_GEjd">
+<span id="egglib::Params::set_G__unsigned-i.double"></span><span class="target" id="project0classegglib_1_1Params_1ac311244cb87b7f4e86cdf8fe8db264de"></span>void <code class="descclassname">egglib::Params::</code><code class="descname">set_G</code><span class="sig-paren">(</span>unsigned int <em>pop</em>, double <em>value</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv2N6egglib6Params5set_GEjd" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Set a population relative growth/decline rate. </p>
+<p>
+The population index must be smaller than the last number of population specified. If the rate is &gt; 0, then the population is experiencing an exponential growth (was smaller in the past). If the rate is &lt; 0, then the population is experiencing an exponential decline (was bigger in the past). Caution is required when using exponential population decline. Going back in time, population size can grow to excessive size and cause infinite coalescence time (this will cause a runtime error). To prevent this, always ensure that population decline stops at some point in the past and that coalescence of remaining lineages can occur. <dl class="docutils">
+<dt><strong>Parameters</strong></dt>
+<dd><ul class="breatheparameterlist first last">
+<li><code class="first docutils literal"><span class="pre">pop</span></code> - <p>population index. </p>
+</li>
+<li><code class="first docutils literal"><span class="pre">value</span></code> - <p>growth/decline rate.</p>
+</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv2N6egglib6Params5set_KEj">
+<span id="egglib::Params::set_K__unsigned-i"></span><span class="target" id="project0classegglib_1_1Params_1ab34055ff0f3e09bd64c5db70505dc9c8"></span>void <code class="descclassname">egglib::Params::</code><code class="descname">set_K</code><span class="sig-paren">(</span>unsigned int <em>value</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv2N6egglib6Params5set_KEj" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Set the number of alleles. </p>
+<p>The value must be at least 2. If the transition matrix flag is on, calling this method will reset all weights to default value (all weights to 1, sum to number of alleles minus one). Also if the new value is smaller than or equal to the previous one. </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv2N6egglib6Params5set_LEj">
+<span id="egglib::Params::set_L__unsigned-i"></span><span class="target" id="project0classegglib_1_1Params_1a2d6fe2742be38a49d17dc88547ce2fcb"></span>void <code class="descclassname">egglib::Params::</code><code class="descname">set_L</code><span class="sig-paren">(</span>unsigned int <em>value</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv2N6egglib6Params5set_LEj" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Set number of mutable sites. </p>
+<p>A value of 0 denotes an infinite number of sites. The site weights are initialized to 1, but the site positions are not initialized.</p>
+<p><dl class="docutils">
+<dt><strong>Parameters</strong></dt>
+<dd><ul class="breatheparameterlist first last">
+<li><code class="first docutils literal"><span class="pre">value</span></code> - <p>new number. </p>
+</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv2N6egglib6Params12set_max_iterEm">
+<span id="egglib::Params::set_max_iter__unsigned-l"></span><span class="target" id="project0classegglib_1_1Params_1aaaa1261ce148e22131f0bf0740e7401a"></span>void <code class="descclassname">egglib::Params::</code><code class="descname">set_max_iter</code><span class="sig-paren">(</span>unsigned long<span class="sig-paren">)</span><a class="headerlink" href="#_CPPv2N6egglib6Params12set_max_iterEm" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Maximum number of iterations. </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv2N6egglib6Params12set_mutmodelE13MutationModel">
+<span id="egglib::Params::set_mutmodel__MutationModel"></span><span class="target" id="project0classegglib_1_1Params_1a1fbe86de112aab1e1e8fa86ce9f37f58"></span>void <code class="descclassname">egglib::Params::</code><code class="descname">set_mutmodel</code><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv2N6egglib6Params13MutationModelE" title="egglib::Params::MutationModel">MutationModel</a> <em>value</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv2N6egglib6Params12set_mutmodelE13MutationModel" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Set the mutation model. </p>
+<p>Detailed information is provided within the documentation of the enum type MutationModel. </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv2N6egglib6Params5set_NEjd">
+<span id="egglib::Params::set_N__unsigned-i.double"></span><span class="target" id="project0classegglib_1_1Params_1aafcb4cff3e412cb517f9b6d71feaec8b"></span>void <code class="descclassname">egglib::Params::</code><code class="descname">set_N</code><span class="sig-paren">(</span>unsigned int <em>pop</em>, double <em>value</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv2N6egglib6Params5set_NEjd" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Set a population relative size. </p>
+<p>
+The population index must be smaller than the last number of population specified. The population size must be larger than 0. <dl class="docutils">
+<dt><strong>Parameters</strong></dt>
+<dd><ul class="breatheparameterlist first last">
+<li><code class="first docutils literal"><span class="pre">pop</span></code> - <p>population index. </p>
+</li>
+<li><code class="first docutils literal"><span class="pre">value</span></code> - <p>population size.</p>
+</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv2N6egglib6Params6set_n1Ejj">
+<span id="egglib::Params::set_n1__unsigned-i.unsigned-i"></span><span class="target" id="project0classegglib_1_1Params_1a849ce89aa28f43dd6eccfb566cb3ae7f"></span>void <code class="descclassname">egglib::Params::</code><code class="descname">set_n1</code><span class="sig-paren">(</span>unsigned int <em>pop</em>, unsigned int <em>value</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv2N6egglib6Params6set_n1Ejj" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Set the number of single samples in a population. </p>
+<p>
+The population index must be smaller than the last number of populations specified. Single samples are individuals in which only one allele is sampled. If the selfing rate is 0, there is no difference between 2n single samples and n double samples (or any combination summing up to a total of 2n alleles). <dl class="docutils">
+<dt><strong>Parameters</strong></dt>
+<dd><ul class="breatheparameterlist first last">
+<li><code class="first docutils literal"><span class="pre">pop</span></code> - <p>population index. </p>
+</li>
+<li><code class="first docutils literal"><span class="pre">value</span></code> - <p>number of single samples.</p>
+</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv2N6egglib6Params6set_n2Ejj">
+<span id="egglib::Params::set_n2__unsigned-i.unsigned-i"></span><span class="target" id="project0classegglib_1_1Params_1a33bc23fc3b3152d17b7e0aa12b8f0cfe"></span>void <code class="descclassname">egglib::Params::</code><code class="descname">set_n2</code><span class="sig-paren">(</span>unsigned int <em>pop</em>, unsigned int <em>value</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv2N6egglib6Params6set_n2Ejj" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Set the number of double samples in a population. </p>
+<p>
+The population index must be smaller than the last number of populations specified. Double samples are individuals in which both alleles are sampled. They therefore actually represent two samples (which are correlated whenever the selfing rate is larger than 0). If the selfing rate is 0, there is no difference between 2n single samples and n double samples (or any combination summing up to a total of 2n alleles). <dl class="docutils">
+<dt><strong>Parameters</strong></dt>
+<dd><ul class="breatheparameterlist first last">
+<li><code class="first docutils literal"><span class="pre">pop</span></code> - <p>population index. </p>
+</li>
+<li><code class="first docutils literal"><span class="pre">value</span></code> - <p>number of double samples.</p>
+</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv2N6egglib6Params12set_outgroupEj">
+<span id="egglib::Params::set_outgroup__unsigned-i"></span><span class="target" id="project0classegglib_1_1Params_1a697d1b0d716793ef8dcd1b7955684c1b"></span>void <code class="descclassname">egglib::Params::</code><code class="descname">set_outgroup</code><span class="sig-paren">(</span>unsigned int <em>lbl</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv2N6egglib6Params12set_outgroupEj" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Set label identifying outgroup samples. </p>
+<p>MISSING for none. </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv2N6egglib6Params5set_REd">
+<span id="egglib::Params::set_R__double"></span><span class="target" id="project0classegglib_1_1Params_1a5f50e46c3d808903f5478d41e69f2630"></span>void <code class="descclassname">egglib::Params::</code><code class="descname">set_R</code><span class="sig-paren">(</span>double <em>value</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv2N6egglib6Params5set_REd" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Set the recombination rate. </p>
+<p>The value must be at least 0. </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv2N6egglib6Params23set_random_start_alleleEb">
+<span id="egglib::Params::set_random_start_allele__b"></span><span class="target" id="project0classegglib_1_1Params_1afdb62da382fbf7f670d383858b165dc9"></span>void <code class="descclassname">egglib::Params::</code><code class="descname">set_random_start_allele</code><span class="sig-paren">(</span>bool <em>value</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv2N6egglib6Params23set_random_start_alleleEb" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Set random start allele boolean. </p>
+<p>If true, the coalescent simulator will use as start allele a random value in the range [0, K-1]. If false, it will use 0. </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv2N6egglib6Params5set_sEjd">
+<span id="egglib::Params::set_s__unsigned-i.double"></span><span class="target" id="project0classegglib_1_1Params_1a10755f3cf224d25a494af7b2be74d58c"></span>void <code class="descclassname">egglib::Params::</code><code class="descname">set_s</code><span class="sig-paren">(</span>unsigned int <em>pop</em>, double <em>value</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv2N6egglib6Params5set_sEjd" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Set a population selfing rate. </p>
+<p>
+The population index must be smaller than the last number of population specified. The selfing rate must be &gt;= 0 and &lt;= 1. <dl class="docutils">
+<dt><strong>Parameters</strong></dt>
+<dd><ul class="breatheparameterlist first last">
+<li><code class="first docutils literal"><span class="pre">pop</span></code> - <p>population index. </p>
+</li>
+<li><code class="first docutils literal"><span class="pre">value</span></code> - <p>selfing rate.</p>
+</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv2N6egglib6Params11set_sitePosEjd">
+<span id="egglib::Params::set_sitePos__unsigned-i.double"></span><span class="target" id="project0classegglib_1_1Params_1a9d42f51119baffac5ee637a3fb3f5d8e"></span>void <code class="descclassname">egglib::Params::</code><code class="descname">set_sitePos</code><span class="sig-paren">(</span>unsigned int <em>site</em>, double <em>value</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv2N6egglib6Params11set_sitePosEjd" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Set a site position. </p>
+<p>
+The site index must be smaller than L. The site position must be &gt;= 0 and &lt;= 1. It is assumed that sites are ranked by increased site position, but this is not enforced. <dl class="docutils">
+<dt><strong>Parameters</strong></dt>
+<dd><ul class="breatheparameterlist first last">
+<li><code class="first docutils literal"><span class="pre">site</span></code> - <p>site index. </p>
+</li>
+<li><code class="first docutils literal"><span class="pre">value</span></code> - <p>site position.</p>
+</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv2N6egglib6Params9set_siteWEjd">
+<span id="egglib::Params::set_siteW__unsigned-i.double"></span><span class="target" id="project0classegglib_1_1Params_1a2c87efdbfdc7bfdc3d4ef36747302d20"></span>void <code class="descclassname">egglib::Params::</code><code class="descname">set_siteW</code><span class="sig-paren">(</span>unsigned int <em>site</em>, double <em>value</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv2N6egglib6Params9set_siteWEjd" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Set a site weight. </p>
+<p>Site weights give the relative mutation probability of sites. The higher the site weight, the more likely that a mutation will hit this site. Note that the sum of weights is not required to sum up to one. Weights don’t affect the total mutation rate. Once a mutation occurs, they determine which site is affected.</p>
+<p>
+The site index must be smaller than L. The site weight can be any strictly positive value. <dl class="docutils">
+<dt><strong>Parameters</strong></dt>
+<dd><ul class="breatheparameterlist first last">
+<li><code class="first docutils literal"><span class="pre">site</span></code> - <p>site index. </p>
+</li>
+<li><code class="first docutils literal"><span class="pre">value</span></code> - <p>site weight.</p>
+</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv2N6egglib6Params9set_thetaEd">
+<span id="egglib::Params::set_theta__double"></span><span class="target" id="project0classegglib_1_1Params_1a3a8031b33bdaa89b9701fe9d7dd5d50f"></span>void <code class="descclassname">egglib::Params::</code><code class="descname">set_theta</code><span class="sig-paren">(</span>double <em>value</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv2N6egglib6Params9set_thetaEd" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Set the mutation rate. </p>
+<p>If theta is 0, the value of fixed is considered. The value cannot be less than 0. </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv2N6egglib6Params12set_TPMparamEd">
+<span id="egglib::Params::set_TPMparam__double"></span><span class="target" id="project0classegglib_1_1Params_1a20d154f4766db7784569920fc2b0a0df"></span>void <code class="descclassname">egglib::Params::</code><code class="descname">set_TPMparam</code><span class="sig-paren">(</span>double <em>value</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv2N6egglib6Params12set_TPMparamEd" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Set the shape parameter of the TPM distribution. </p>
+<p>This parameter is ignored if the mutation model is any other than TPM. This parameter sets the shape of the geometric distribution from which mutation steps are drawn with probability given by TPMproba. The passed value should be &gt;= 0 and &lt;= 1. </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv2N6egglib6Params12set_TPMprobaEd">
+<span id="egglib::Params::set_TPMproba__double"></span><span class="target" id="project0classegglib_1_1Params_1a47d2e38927e1a8b260696d95a48028f9"></span>void <code class="descclassname">egglib::Params::</code><code class="descname">set_TPMproba</code><span class="sig-paren">(</span>double <em>value</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv2N6egglib6Params12set_TPMprobaEd" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Set the TPM probability parameter. </p>
+<p>This parameter is ignored if the mutation model is any other than TPM. The probability gives the probability that mutation steps are drawn from a geometric distribution (otherwise, they are set to 1). The value must be at least 0. and at most 1. </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv2N6egglib6Params17set_transW_matrixEb">
+<span id="egglib::Params::set_transW_matrix__b"></span><span class="target" id="project0classegglib_1_1Params_1a52b0ef9ce8afc40678c62b19242c9ba3"></span>void <code class="descclassname">egglib::Params::</code><code class="descname">set_transW_matrix</code><span class="sig-paren">(</span>bool <em>flag</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv2N6egglib6Params17set_transW_matrixEb" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Allele transition matrix flag </p>
+<p>If true, transition weights between alleles are taken from a matrix (values must be set using method transW). Setting the flag to true will reset all weights to default values: all weights to 1, sum to number of alleles minus one. Also if the new value is smaller than or equal to the previous one (even if the flag was already true). </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv2N6egglib6Params15set_transW_pairEjjd">
+<span id="egglib::Params::set_transW_pair__unsigned-i.unsigned-i.double"></span><span class="target" id="project0classegglib_1_1Params_1af5b404d441ba1e1f78aa95a746dbacd1"></span>void <code class="descclassname">egglib::Params::</code><code class="descname">set_transW_pair</code><span class="sig-paren">(</span>unsigned int <em>i</em>, unsigned int <em>j</em>, double <em>value</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv2N6egglib6Params15set_transW_pairEjjd" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Set an allele transition matrix entry. </p>
+<p>Set transition weights from allele i to allele j to value. Transition weights are not required to sum up to 1. If the sum is different of 1, it will not affect the overall mutation rate. If a mutation occur and if the current allele is the one given by i, the value will determine the relative probability of mutating to the allele given by j. The value must be strictly larger than 0. Both i and j must be smaller than the number of alleles (K), and they must be different to each other. It is not allowed to call this method if transW_matrix() is false (and it will likely result in a crash). </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv2N6egglib6Params7summaryEv">
+<span id="egglib::Params::summary"></span><span class="target" id="project0classegglib_1_1Params_1abe902ccaea71fa92e24f1c8f1f7c0404"></span>std::string <code class="descclassname">egglib::Params::</code><code class="descname">summary</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv2N6egglib6Params7summaryEv" title="Permalink to this definition">¶</a><br /> const</dt>
+<dd><p>String summary of the parameter values. </p>
+<p>The string is generated each time this method is called. </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv2N6egglib6Params10totalSiteWEv">
+<span id="egglib::Params::totalSiteW"></span><span class="target" id="project0classegglib_1_1Params_1a2da9935b79a1d1d79768fff248ac2402"></span>double <code class="descclassname">egglib::Params::</code><code class="descname">totalSiteW</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv2N6egglib6Params10totalSiteWEv" title="Permalink to this definition">¶</a><br /> const</dt>
+<dd><p>Get the sum of site weights. </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv2N6egglib6Params8validateEv">
+<span id="egglib::Params::validate"></span><span class="target" id="project0classegglib_1_1Params_1ab3a68a01a1c7c22bfbd9f3f6d20e7d5a"></span>void <code class="descclassname">egglib::Params::</code><code class="descname">validate</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv2N6egglib6Params8validateEv" title="Permalink to this definition">¶</a><br /> const</dt>
+<dd><p>Check consistency of entered parameters. </p>
+<p>This methods ensures that the number of populations of the migration matrix is consistent with the one of the current <a class="reference internal" href="#project0classegglib_1_1Params"><span class="std std-ref">Params</span></a> instance, and that all changes have valid parameter values (increase date, valid indices, etc.). The method throws an <a class="reference internal" href="core.html#project0classegglib_1_1EggArgumentValueError"><span class="std std-ref">EggArgumentValueError</span></a> for the first encounterer problem. </p>
+</dd></dl>
+
+</div>
+</dd></dl>
+
+</div>
+<div class="section" id="migration-class">
+<h3>Migration class<a class="headerlink" href="#migration-class" title="Permalink to this headline">¶</a></h3>
+<dl class="class">
+<dt id="_CPPv2N6egglib9MigrationE">
+<span id="egglib::Migration"></span><span class="target" id="project0classegglib_1_1Migration"></span><em class="property">class </em></dt>
+<dd><p>Arbitrary migration matrix type. </p>
+<p>This class represents an arbitrary migration model where any pairwise can be specified independently.</p>
+<p>Header: &lt;egglib-cpp/Params.hpp&gt; </p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">Public Functions</p>
+<dl class="function">
+<dt id="_CPPv2N6egglib9Migration9MigrationEjd">
+<span id="egglib::Migration::Migration__unsigned-i.double"></span><span class="target" id="project0classegglib_1_1Migration_1a2d7a69f338f8b9879becf283efc8cb7b"></span><code class="descclassname">egglib::Migration::</code><code class="descname">Migration</code><span class="sig-paren">(</span>unsigned int <em>n</em>, double <em>M</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv2N6egglib9Migration9MigrationEjd" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Constructor. </p>
+<p>
+The migration rate argument is per population. By default, all pairwise migration rates are M/(n-1). <dl class="docutils">
+<dt><strong>Parameters</strong></dt>
+<dd><ul class="breatheparameterlist first last">
+<li><code class="first docutils literal"><span class="pre">n</span></code> - <p>number of populations. </p>
+</li>
+<li><code class="first docutils literal"><span class="pre">M</span></code> - <p>migration rate.</p>
+</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv2N6egglib9MigrationD0Ev">
+<span id="egglib::Migration::~Migration"></span><span class="target" id="project0classegglib_1_1Migration_1a784e8cbf3be163ab9636d9d4d53c0613"></span><code class="descclassname">egglib::Migration::</code><code class="descname">~Migration</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv2N6egglib9MigrationD0Ev" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Destructor. </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv2N6egglib9Migration8get_pairEjj">
+<span id="egglib::Migration::get_pair__unsigned-i.unsigned-i"></span><span class="target" id="project0classegglib_1_1Migration_1ac350c595246cbcb44095c5a3b26f5a47"></span>double <code class="descclassname">egglib::Migration::</code><code class="descname">get_pair</code><span class="sig-paren">(</span>unsigned int <em>i</em>, unsigned int <em>j</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv2N6egglib9Migration8get_pairEjj" title="Permalink to this definition">¶</a><br /> const</dt>
+<dd><p>Get a pairwise migration rate. </p>
+<p>Return the pairwise migration from population i to population j. Both arguments should be smaller than n and i should be different of j. It is not guaranteed that all errors will properly generate an exception. </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv2N6egglib9Migration7get_rowEj">
+<span id="egglib::Migration::get_row__unsigned-i"></span><span class="target" id="project0classegglib_1_1Migration_1a9351a4d39c658b710b1a3ae75434bb91"></span>double <code class="descclassname">egglib::Migration::</code><code class="descname">get_row</code><span class="sig-paren">(</span>unsigned int <em>i</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv2N6egglib9Migration7get_rowEj" title="Permalink to this definition">¶</a><br /> const</dt>
+<dd><p>Get a population migration rate. </p>
+<p>Return the sum of pairwise migration rates from this population. If i&gt;=n1*n2, the behaviour is undefined. </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv2N6egglib9Migration1nEv">
+<span id="egglib::Migration::n"></span><span class="target" id="project0classegglib_1_1Migration_1ad18cbb5b82525075146306c9232f2d1e"></span>unsigned int <code class="descclassname">egglib::Migration::</code><code class="descname">n</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv2N6egglib9Migration1nEv" title="Permalink to this definition">¶</a><br /> const</dt>
+<dd><p>Number of populations. </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv2N6egglib9Migration7restoreEv">
+<span id="egglib::Migration::restore"></span><span class="target" id="project0classegglib_1_1Migration_1afd3595051be2709847c2de4352f27cf5"></span>void <code class="descclassname">egglib::Migration::</code><code class="descname">restore</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv2N6egglib9Migration7restoreEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Restore to initial state. </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv2N6egglib9Migration7set_allEd">
+<span id="egglib::Migration::set_all__double"></span><span class="target" id="project0classegglib_1_1Migration_1ab4bbc0fa3369619f8f8cd1c642b9a367"></span>void <code class="descclassname">egglib::Migration::</code><code class="descname">set_all</code><span class="sig-paren">(</span>double <em>M</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv2N6egglib9Migration7set_allEd" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Set all migration rates. </p>
+<p>The migration rate argument is per population. Change all pairwise migration rates to the value M/(n-1). This method is definitive - the previous value is lost. </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv2N6egglib9Migration9set_all_REd">
+<span id="egglib::Migration::set_all_R__double"></span><span class="target" id="project0classegglib_1_1Migration_1a7a2b2bb46597aee6c861ac4ca2d5d1de"></span>void <code class="descclassname">egglib::Migration::</code><code class="descname">set_all_R</code><span class="sig-paren">(</span>double <em>M</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv2N6egglib9Migration9set_all_REd" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Set all migration rates (recursive) </p>
+<p>The migration rate argument is per population. Change all pairwise migration rates to the value M/(n-1). This method is reversible by the restore method. </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv2N6egglib9Migration8set_pairEjjd">
+<span id="egglib::Migration::set_pair__unsigned-i.unsigned-i.double"></span><span class="target" id="project0classegglib_1_1Migration_1a5fd954725884398368b59b3fe9ed6cf4"></span>void <code class="descclassname">egglib::Migration::</code><code class="descname">set_pair</code><span class="sig-paren">(</span>unsigned int <em>i</em>, unsigned int <em>j</em>, double <em>m</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv2N6egglib9Migration8set_pairEjjd" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Set a given pairwise migration rate. </p>
+<p>The migration rate argument is the pairwise value. The diagonal sum is automatically updated. i and j should both be smaller than n, and should not be equal. If any of these conditions is not met, the behaviour is not defined and is likely to be unpleasant. The user is prompted to be particularly vigilant regarding the fact that i and j must be different. This method is definitive - the previous value is lost. </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv2N6egglib9Migration10set_pair_REjjd">
+<span id="egglib::Migration::set_pair_R__unsigned-i.unsigned-i.double"></span><span class="target" id="project0classegglib_1_1Migration_1a2ae235b6739d6a840faea124c6de6b91"></span>void <code class="descclassname">egglib::Migration::</code><code class="descname">set_pair_R</code><span class="sig-paren">(</span>unsigned int <em>i</em>, unsigned int <em>j</em>, double <em>m</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv2N6egglib9Migration10set_pair_REjjd" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Set a pairwise migration rate (reversible) </p>
+<p>The migration rate argument is the pairwise value. The diagonal sum is automatically updated. i and j should both be smaller than n, and should not be equal. If any of these conditions is not met, the behaviour is not defined and is likely to be unpleasant. The user is prompted to be particularly vigilant regarding the fact that i and j must be different. This method is definitive - the previous value is lost. This method is reversible by the restore method. </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv2N6egglib9Migration7set_rowEjd">
+<span id="egglib::Migration::set_row__unsigned-i.double"></span><span class="target" id="project0classegglib_1_1Migration_1ab56dcd16bfe664a320784f2159b9727f"></span>void <code class="descclassname">egglib::Migration::</code><code class="descname">set_row</code><span class="sig-paren">(</span>unsigned int <em>i</em>, double <em>M</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv2N6egglib9Migration7set_rowEjd" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Set migration rates of a given source population. </p>
+<p>Change all pairwise migration rates originating from the specified population. The migration rate argument is per population. Change all pairwise migration rates to the value M/(n-1). population should be smaller than n. If this condition is not met, the behaviour is not defined. This method is definitive - the previous value is lost. </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv2N6egglib9Migration9set_row_REjd">
+<span id="egglib::Migration::set_row_R__unsigned-i.double"></span><span class="target" id="project0classegglib_1_1Migration_1ace83e96e1446b34242ef46610f092de1"></span>void <code class="descclassname">egglib::Migration::</code><code class="descname">set_row_R</code><span class="sig-paren">(</span>unsigned int <em>i</em>, double <em>M</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv2N6egglib9Migration9set_row_REjd" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Set migration rates from a pop (recursive) </p>
+<p>Change all pairwise migration rates originating from the specified population. The migration rate argument is per population. Change all pairwise migration rates to the value M/(n-1). population should be smaller than n. If this condition is not met, the behaviour is not defined. This method is reversible by the restore method. In M/(n-1). </p>
+</dd></dl>
+
+</div>
+</dd></dl>
+
+</div>
+<div class="section" id="event-class">
+<h3>Event class<a class="headerlink" href="#event-class" title="Permalink to this headline">¶</a></h3>
+<dl class="class">
+<dt id="_CPPv2N6egglib5EventE">
+<span id="egglib::Event"></span><span class="target" id="project0classegglib_1_1Event"></span><em class="property">class </em></dt>
+<dd><p>Generic class for all historical events. </p>
+<p>All types of events are implemented by this class. To create an event of a given type, pass the date and the appropriate flag to the constructor and then set the correct parameters. The table below gives the meaning of parameters for all types of events (blank when the parameter is undefined).</p>
+<p><div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">*</span> <span class="o">|</span> <span class="nb">type</span>       <span class="o">|</span> <span class="n">date</span> <span class="o">|</span> <span class="n">param</span>             <span class="o">|</span> <span class="n">index</span>       <span class="o">|</span> <span class="n">dest</span>     <span class="o">|</span> <span class="n">number1</span>         <span class="o">|</span> <span class="n">number2</span>         <span class="o">|</span>
+<span class="o">*</span> <span class="o">|</span> <span class="p">:</span><span class="o">---------</span> <span class="o">|</span> <span class="p">:</span><span class="o">--</span><span class="p">:</span> <span class="o">|</span> <span class="p">:</span><span class="o">---------------</span><span class="p">:</span> <span class="o">|</span> <span class="p">:</span><span class="o">---------</span><span class="p">:</span> <span class="o">|</span> <span class="p">:</span><span class="o">------</span><span class="p">:</span> <span class="o">|</span> <span class="p">:</span><span class="o">-------------</span><span class="p">:</span> <span class="o">|</span> <span class="p">:</span><span class="o">-------------</span><span class="p">:</span> <span class="o">|</span>
+<span class="o">*</span> <span class="o">|</span> <span class="n">none</span>       <span class="o">|</span> <span class="o">+</span>    <span class="o">|</span>                   <span class="o">|</span>             <span class="o">|</span>          <span class="o">|</span>                 <span class="o">|</span>                 <span class="o">|</span>
+<span class="o">*</span> <span class="o">|</span> <span class="n">change_N</span>   <span class="o">|</span> <span class="o">+</span>    <span class="o">|</span> <span class="n">new</span> <span class="n">size</span>          <span class="o">|</span> <span class="n">population</span><span class="o">*</span> <span class="o">|</span>          <span class="o">|</span>                 <span class="o">|</span>                 <span class="o">|</span>
+<span class="o">*</span> <span class="o">|</span> <span class="n">change_M</span>   <span class="o">|</span> <span class="o">+</span>    <span class="o">|</span> <span class="n">new</span> <span class="n">popwise</span> <span class="n">rate</span>  <span class="o">|</span>             <span class="o">|</span>          <span class="o">|</span>                 <span class="o">|</span>                 <span class="o">|</span>
+<span class="o">*</span> <span class="o">|</span> <span class="n">change_Mp</span>  <span class="o">|</span> <span class="o">+</span>    <span class="o">|</span> <span class="n">new</span> <span class="n">pairwise</span> <span class="n">rate</span> <span class="o">|</span> <span class="n">population</span>  <span class="o">|</span> <span class="n">dest</span> <span class="n">pop</span> <span class="o">|</span>                 <span class="o">|</span>                 <span class="o">|</span>
+<span class="o">*</span> <span class="o">|</span> <span class="n">change_G</span>   <span class="o">|</span> <span class="o">+</span>    <span class="o">|</span> <span class="n">new</span> <span class="n">rate</span>          <span class="o">|</span> <span class="n">population</span><span class="o">*</span> <span class="o">|</span>          <span class="o">|</span>                 <span class="o">|</span>                 <span class="o">|</span>
+<span class="o">*</span> <span class="o">|</span> <span class="n">change_s</span>   <span class="o">|</span> <span class="o">+</span>    <span class="o">|</span> <span class="n">new</span> <span class="n">rate</span>          <span class="o">|</span> <span class="n">population</span><span class="o">*</span> <span class="o">|</span>          <span class="o">|</span>                 <span class="o">|</span>                 <span class="o">|</span>
+<span class="o">*</span> <span class="o">|</span> <span class="n">change_R</span>   <span class="o">|</span> <span class="o">+</span>    <span class="o">|</span> <span class="n">new</span> <span class="n">rate</span>          <span class="o">|</span>             <span class="o">|</span>          <span class="o">|</span>                 <span class="o">|</span>                 <span class="o">|</span>
+<span class="o">*</span> <span class="o">|</span> <span class="n">delayed</span>    <span class="o">|</span> <span class="o">+</span>    <span class="o">|</span>                   <span class="o">|</span> <span class="n">population</span>  <span class="o">|</span> <span class="n">label</span>    <span class="o">|</span> <span class="n">haploid</span> <span class="n">samples</span> <span class="o">|</span> <span class="n">diploid</span> <span class="n">samples</span> <span class="o">|</span>
+<span class="o">*</span> <span class="o">|</span> <span class="n">admixture</span>  <span class="o">|</span> <span class="o">+</span>    <span class="o">|</span> <span class="n">migr</span> <span class="n">proba</span>        <span class="o">|</span> <span class="n">source</span> <span class="n">pop</span>  <span class="o">|</span> <span class="n">dest</span> <span class="n">pop</span> <span class="o">|</span>                 <span class="o">|</span>                 <span class="o">|</span>
+<span class="o">*</span> <span class="o">|</span> <span class="n">bottleneck</span> <span class="o">|</span> <span class="o">+</span>    <span class="o">|</span> <span class="n">strength</span>          <span class="o">|</span> <span class="n">population</span><span class="o">*</span> <span class="o">|</span>          <span class="o">|</span>                 <span class="o">|</span>                 <span class="o">|</span>
+<span class="o">*</span>
+</pre></div>
+</div>
+</p>
+<p>(*) for those events (and them only), it is possible to use <code class="docutils literal"><a class="reference internal" href="core.html#project0namespaceegglib_1ab498891cdf034be8678af906644e6dc1"><span class="std std-ref"><span class="pre">egglib::MAX</span></span></a></code> as population index to specify “all populations”. </p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">Public Types</p>
+<dl class="type">
+<dt id="_CPPv2N6egglib5Event4TypeE">
+<span id="egglib::Event::Type"></span><span class="target" id="project0classegglib_1_1Event_1a1d1cfd8ffb84e947f82999c682b666a7"></span>enum <code class="descclassname">egglib::Event::</code><code class="descname">Type</code><a class="headerlink" href="#_CPPv2N6egglib5Event4TypeE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Type of the event. </p>
+<p><em>Values:</em></p>
+<dl class="member">
+<dt id="_CPPv2N6egglib5Event4noneE">
+<span id="egglib::Event::none"></span><span class="target" id="project0classegglib_1_1Event_1a1d1cfd8ffb84e947f82999c682b666a7ab7e4e0120a041dbe6528b050c04269e0"></span></dt>
+<dd><p>no event (use only as list head) </p>
+</dd></dl>
+
+<dl class="member">
+<dt id="_CPPv2N6egglib5Event8change_NE">
+<span id="egglib::Event::change_N"></span><span class="target" id="project0classegglib_1_1Event_1a1d1cfd8ffb84e947f82999c682b666a7a53161e96e20b22f8e326477c1b1dcc2d"></span></dt>
+<dd><p>change population size </p>
+</dd></dl>
+
+<dl class="member">
+<dt id="_CPPv2N6egglib5Event8change_ME">
+<span id="egglib::Event::change_M"></span><span class="target" id="project0classegglib_1_1Event_1a1d1cfd8ffb84e947f82999c682b666a7af3f05d27fa0a29f98065ba807eead91b"></span></dt>
+<dd><p>change all migration rates </p>
+</dd></dl>
+
+<dl class="member">
+<dt id="_CPPv2N6egglib5Event9change_MpE">
+<span id="egglib::Event::change_Mp"></span><span class="target" id="project0classegglib_1_1Event_1a1d1cfd8ffb84e947f82999c682b666a7a891acef16ac59306ca2cad9adaf0dcaf"></span></dt>
+<dd><p>change a pairwise migration rate </p>
+</dd></dl>
+
+<dl class="member">
+<dt id="_CPPv2N6egglib5Event8change_GE">
+<span id="egglib::Event::change_G"></span><span class="target" id="project0classegglib_1_1Event_1a1d1cfd8ffb84e947f82999c682b666a7a5a85a5b1b96ee0d613faf2aedfe3a4fa"></span></dt>
+<dd><p>change exponential growth rate/decline </p>
+</dd></dl>
+
+<dl class="member">
+<dt id="_CPPv2N6egglib5Event8change_sE">
+<span id="egglib::Event::change_s"></span><span class="target" id="project0classegglib_1_1Event_1a1d1cfd8ffb84e947f82999c682b666a7a797a6376b6031eb4360113e21ef122b7"></span></dt>
+<dd><p>change autofertilization rate </p>
+</dd></dl>
+
+<dl class="member">
+<dt id="_CPPv2N6egglib5Event8change_RE">
+<span id="egglib::Event::change_R"></span><span class="target" id="project0classegglib_1_1Event_1a1d1cfd8ffb84e947f82999c682b666a7a2c615bb98d254dcbb05f8f872f5610c9"></span></dt>
+<dd><p>change recombination rate </p>
+</dd></dl>
+
+<dl class="member">
+<dt id="_CPPv2N6egglib5Event10bottleneckE">
+<span id="egglib::Event::bottleneck"></span><span class="target" id="project0classegglib_1_1Event_1a1d1cfd8ffb84e947f82999c682b666a7abd972c41ab20ac9be22af0f7c069fc87"></span></dt>
+<dd><p>cause immediate coalescences in a population </p>
+</dd></dl>
+
+<dl class="member">
+<dt id="_CPPv2N6egglib5Event9admixtureE">
+<span id="egglib::Event::admixture"></span><span class="target" id="project0classegglib_1_1Event_1a1d1cfd8ffb84e947f82999c682b666a7a954a66140dbbb32a6ec8fc0064078421"></span></dt>
+<dd><p>move lineages from a population to another </p>
+</dd></dl>
+
+<dl class="member">
+<dt id="_CPPv2N6egglib5Event7delayedE">
+<span id="egglib::Event::delayed"></span><span class="target" id="project0classegglib_1_1Event_1a1d1cfd8ffb84e947f82999c682b666a7aa490a755308baf08ebf675684c02c5b2"></span></dt>
+<dd><p>delayed sample </p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">Public Functions</p>
+<dl class="function">
+<dt id="_CPPv2N6egglib5Event5EventE4Typed">
+<span id="egglib::Event::Event__Type.double"></span><span class="target" id="project0classegglib_1_1Event_1ad8522a6046eca2c5012da9e56bc9494e"></span><code class="descclassname">egglib::Event::</code><code class="descname">Event</code><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv2N6egglib5Event4TypeE" title="egglib::Event::Type">Type</a> <em>type</em>, double <em>date</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv2N6egglib5Event5EventE4Typed" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Constructor. </p>
+<p>Depending on the object type, it is required to specify at least one other parameter in addition to the date. </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv2N6egglib5Event4copyERK5Event">
+<span id="egglib::Event::copy__EventCR"></span><span class="target" id="project0classegglib_1_1Event_1a5c87a18b816fee02f6e26313d49d2ae3"></span>void <code class="descclassname">egglib::Event::</code><code class="descname">copy</code><span class="sig-paren">(</span><em class="property">const</em> <a class="reference internal" href="#_CPPv2N6egglib5EventE" title="egglib::Event">Event</a> &amp;<em>src</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv2N6egglib5Event4copyERK5Event" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Copy all members (except links) from a source. </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv2N6egglib5Event4dateEv">
+<span id="egglib::Event::date"></span><span class="target" id="project0classegglib_1_1Event_1a349fa20af420e2b286ce18bbfc44ddc2"></span>double <code class="descclassname">egglib::Event::</code><code class="descname">date</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv2N6egglib5Event4dateEv" title="Permalink to this definition">¶</a><br /> const</dt>
+<dd><p>Get date. </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv2N6egglib5Event10disconnectEv">
+<span id="egglib::Event::disconnect"></span><span class="target" id="project0classegglib_1_1Event_1a960705de531a20389fb29928d43258c3"></span>void <code class="descclassname">egglib::Event::</code><code class="descname">disconnect</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv2N6egglib5Event10disconnectEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Disconnect all events in chain (this and down) </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv2N6egglib5Event10event_typeEv">
+<span id="egglib::Event::event_type"></span><span class="target" id="project0classegglib_1_1Event_1a8faf1d0688fbbf5423e9bb0f87246afb"></span><a class="reference internal" href="#_CPPv2N6egglib5EventE" title="egglib::Event">Event</a>::<a class="reference internal" href="#_CPPv2N6egglib5Event4TypeE" title="egglib::Event::Type">Type</a> <code class="descclassname">egglib::Event::</code><code class="descname">event_type</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv2N6egglib5Event10event_typeEv" title="Permalink to this definition">¶</a><br /> const</dt>
+<dd><p>Get type. </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv2N6egglib5Event8get_destEv">
+<span id="egglib::Event::get_dest"></span><span class="target" id="project0classegglib_1_1Event_1ada2b95e78c40e0fea1401c17c00a66d1"></span>unsigned int <code class="descclassname">egglib::Event::</code><code class="descname">get_dest</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv2N6egglib5Event8get_destEv" title="Permalink to this definition">¶</a><br /> const</dt>
+<dd><p>Get destination population index or label for delayed events. </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv2N6egglib5Event9get_indexEv">
+<span id="egglib::Event::get_index"></span><span class="target" id="project0classegglib_1_1Event_1a0a0224e8314fe05a3633b040c3060a28"></span>unsigned int <code class="descclassname">egglib::Event::</code><code class="descname">get_index</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv2N6egglib5Event9get_indexEv" title="Permalink to this definition">¶</a><br /> const</dt>
+<dd><p>Get locus or main population index. </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv2N6egglib5Event11get_number1Ev">
+<span id="egglib::Event::get_number1"></span><span class="target" id="project0classegglib_1_1Event_1a019a0f4a31e5a2f86075abb168756e30"></span>unsigned int <code class="descclassname">egglib::Event::</code><code class="descname">get_number1</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv2N6egglib5Event11get_number1Ev" title="Permalink to this definition">¶</a><br /> const</dt>
+<dd><p>Get first number. </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv2N6egglib5Event11get_number2Ev">
+<span id="egglib::Event::get_number2"></span><span class="target" id="project0classegglib_1_1Event_1ac76e43cbcb6633fecb82fa8e65f39e52"></span>unsigned int <code class="descclassname">egglib::Event::</code><code class="descname">get_number2</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv2N6egglib5Event11get_number2Ev" title="Permalink to this definition">¶</a><br /> const</dt>
+<dd><p>Get second number. </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv2N6egglib5Event9get_paramEv">
+<span id="egglib::Event::get_param"></span><span class="target" id="project0classegglib_1_1Event_1a96236bd94d53b725d0820074f3bf46e3"></span>double <code class="descclassname">egglib::Event::</code><code class="descname">get_param</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv2N6egglib5Event9get_paramEv" title="Permalink to this definition">¶</a><br /> const</dt>
+<dd><p>Get parameter. </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv2N6egglib5Event6insertEP5Event">
+<span id="egglib::Event::insert__EventP"></span><span class="target" id="project0classegglib_1_1Event_1ad8e469f292d876af9e2ec380e8e7e51e"></span>void <code class="descclassname">egglib::Event::</code><code class="descname">insert</code><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv2N6egglib5EventE" title="egglib::Event">Event</a> *<em>event</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv2N6egglib5Event6insertEP5Event" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Insert an event in the chain. </p>
+<p>The current previous and next links value of the passed instance (if any) will be ignored and overwritten. This method should be called only on the head item of a chain. It is illegal to load a none type. </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv2N6egglib5Event4moveEd">
+<span id="egglib::Event::move__double"></span><span class="target" id="project0classegglib_1_1Event_1a56236c80c184c01229323dbd26fdacd6"></span>void <code class="descclassname">egglib::Event::</code><code class="descname">move</code><span class="sig-paren">(</span>double <em>date</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv2N6egglib5Event4moveEd" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Change the date and update position. </p>
+<p>The event is moved either up or down the chain of events until its date is at the right location.</p>
+<p>It is possible to call this method on an unconnected instance. </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv2N6egglib5Event4nextEv">
+<span id="egglib::Event::next"></span><span class="target" id="project0classegglib_1_1Event_1a0fe25271d4a674b62806caf01105f2f7"></span><a class="reference internal" href="#_CPPv2N6egglib5EventE" title="egglib::Event">Event</a> *<code class="descclassname">egglib::Event::</code><code class="descname">next</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv2N6egglib5Event4nextEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Next event (NULL if end) </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv2N6egglib5Event7performEP6ParamsP8Coalesce">
+<span id="egglib::Event::perform__ParamsP.CoalesceP"></span><span class="target" id="project0classegglib_1_1Event_1a60616e9f2306c5086ea9443341658757"></span>void <code class="descclassname">egglib::Event::</code><code class="descname">perform</code><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv2N6egglib6ParamsE" title="egglib::Params">Params</a> *<em>param</em>, <a class="reference internal" href="#_CPPv2N6egglib8CoalesceE" title="egglib::Coalesce">Coalesce</a> *<em>coal</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv2N6egglib5Event7performEP6ParamsP8Coalesce" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Apply the event. </p>
+<p>The parameter set is modified and (for some events only) the coalesce instance as well. It is illegal to call this on an event of none type. </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv2N6egglib5Event4prevEv">
+<span id="egglib::Event::prev"></span><span class="target" id="project0classegglib_1_1Event_1a98ffc332b5e154e260de1bdf4b113188"></span><a class="reference internal" href="#_CPPv2N6egglib5EventE" title="egglib::Event">Event</a> *<code class="descclassname">egglib::Event::</code><code class="descname">prev</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv2N6egglib5Event4prevEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>previous event (NULL if end) </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv2N6egglib5Event8set_destEj">
+<span id="egglib::Event::set_dest__unsigned-i"></span><span class="target" id="project0classegglib_1_1Event_1a0973eab2061cce10c66c56747d8a3e62"></span>void <code class="descclassname">egglib::Event::</code><code class="descname">set_dest</code><span class="sig-paren">(</span>unsigned int <em>d</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv2N6egglib5Event8set_destEj" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Set the event destination population. </p>
+<p>For admixture and pairwise migration rate change events: sets the index of the destination population. For delayed sample events: set the value used as population label for this sample. </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv2N6egglib5Event9set_indexEj">
+<span id="egglib::Event::set_index__unsigned-i"></span><span class="target" id="project0classegglib_1_1Event_1a8edcd9a20b3e8fd58fd180992bc5e6cc"></span>void <code class="descclassname">egglib::Event::</code><code class="descname">set_index</code><span class="sig-paren">(</span>unsigned int <em>i</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv2N6egglib5Event9set_indexEj" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Set the event index. </p>
+<p>Sets the population (for event types that support it) that should be affected by the event. All events except recombination rate changes and global migration rate changes must have a value for this parameter (except the type “none” that must not be used as a genuine event). The value <a class="reference internal" href="core.html#project0namespaceegglib_1ab498891cdf034be8678af906644e6dc1"><span class="std std-ref">egglib::MAX</span></a> may be used (but only for some kinds of events; see class description) to specify “all
+populations”. </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv2N6egglib5Event11set_number1Ej">
+<span id="egglib::Event::set_number1__unsigned-i"></span><span class="target" id="project0classegglib_1_1Event_1a8ac0fe5a0c0431ae5b3de2f0714cf443"></span>void <code class="descclassname">egglib::Event::</code><code class="descname">set_number1</code><span class="sig-paren">(</span>unsigned int <em>n</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv2N6egglib5Event11set_number1Ej" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Set the number of haploid samples. </p>
+<p>Number of samples with one sampled allele (for delayed sample events). </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv2N6egglib5Event11set_number2Ej">
+<span id="egglib::Event::set_number2__unsigned-i"></span><span class="target" id="project0classegglib_1_1Event_1a3d585669a35bc867398bee2d3db9bf84"></span>void <code class="descclassname">egglib::Event::</code><code class="descname">set_number2</code><span class="sig-paren">(</span>unsigned int <em>n</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv2N6egglib5Event11set_number2Ej" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Set the number of diploid samples. </p>
+<p>Number of samples with both sampled alleles (for delayed sample events). </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv2N6egglib5Event9set_paramEd">
+<span id="egglib::Event::set_param__double"></span><span class="target" id="project0classegglib_1_1Event_1a544d65d1a9215608341c8fca7662e273"></span>void <code class="descclassname">egglib::Event::</code><code class="descname">set_param</code><span class="sig-paren">(</span>double <em>p</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv2N6egglib5Event9set_paramEd" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Set the event parameter. </p>
+<p>Most types have a value for this, but the meaning varies: it is generally a new rate (migration, recombination, selfing) or a new size (population size) and also the strength for bottleneck and instant emigration for admixture. </p>
+</dd></dl>
+
+</div>
+</dd></dl>
+
+</div>
+</div>
+<div class="section" id="main-class">
+<h2>Main class<a class="headerlink" href="#main-class" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="_CPPv2N6egglib8CoalesceE">
+<span id="egglib::Coalesce"></span><span class="target" id="project0classegglib_1_1Coalesce"></span><em class="property">class </em></dt>
+<dd><p>Coalescence simulation manager. </p>
+<p>The coalesce object must take a <a class="reference internal" href="#project0classegglib_1_1Params"><span class="std std-ref">Params</span></a> address. The <a class="reference internal" href="#project0classegglib_1_1Params"><span class="std std-ref">Params</span></a> object will not modified. <a class="reference internal" href="#project0classegglib_1_1Coalesce"><span class="std std-ref">Coalesce</span></a> objects cannot be created without passing a valid <a class="reference internal" href="#project0classegglib_1_1Params"><span class="std std-ref">Params</span></a> address (NULL is out of question) and cannot be copied either. Not that all action must be effected using the simul method, including setting parameters. The other methods such as coalescence, delayedSample and so on are meant to be called by change types and should not be used directly. This does not apply, of course, to <a class="reference internal" href="core.html#project0classegglib_1_1DataHolder"><span class="std std-ref">DataHolder</span></a> and tree getters.</p>
+<p>Header: &lt;egglib-cpp/Coalesce.hpp&gt; </p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">Public Functions</p>
+<dl class="function">
+<dt id="_CPPv2N6egglib8Coalesce8CoalesceEv">
+<span id="egglib::Coalesce::Coalesce"></span><span class="target" id="project0classegglib_1_1Coalesce_1a763c1d08119f0762896cbc28f2ca2e71"></span><code class="descclassname">egglib::Coalesce::</code><code class="descname">Coalesce</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv2N6egglib8Coalesce8CoalesceEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Constructor. </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv2N6egglib8CoalesceD0Ev">
+<span id="egglib::Coalesce::~Coalesce"></span><span class="target" id="project0classegglib_1_1Coalesce_1ae694fd261ae104d48a3c7345964c3caf"></span><code class="descclassname">egglib::Coalesce::</code><code class="descname">~Coalesce</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv2N6egglib8CoalesceD0Ev" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Destructor. </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv2N6egglib8Coalesce6admixtEjjd">
+<span id="egglib::Coalesce::admixt__unsigned-i.unsigned-i.double"></span><span class="target" id="project0classegglib_1_1Coalesce_1a9921cb438d0e0c9ab5db80eda87cde77"></span>void <code class="descclassname">egglib::Coalesce::</code><code class="descname">admixt</code><span class="sig-paren">(</span>unsigned int <em>source</em>, unsigned int <em>dest</em>, double <em>proba</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv2N6egglib8Coalesce6admixtEjjd" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Admixture. </p>
+<p>Instant migration of lineages from a given population to another.</p>
+<p>
+It is legal to provide a probability equal to 0 or 1, and to use a source population which does not actually have migrants. It is not leage to use equal source and dest indexes. <dl class="docutils">
+<dt><strong>Parameters</strong></dt>
+<dd><ul class="breatheparameterlist first last">
+<li><code class="first docutils literal"><span class="pre">source</span></code> - <p>index of the population providing migrants. </p>
+</li>
+<li><code class="first docutils literal"><span class="pre">dest</span></code> - <p>index of the population accepting migrants. </p>
+</li>
+<li><code class="first docutils literal"><span class="pre">proba</span></code> - <p>migration probability.</p>
+</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv2N6egglib8Coalesce10bottleneckEjd">
+<span id="egglib::Coalesce::bottleneck__unsigned-i.double"></span><span class="target" id="project0classegglib_1_1Coalesce_1ab1c05460f0ee43b66e6e8096cd24413d"></span>void <code class="descclassname">egglib::Coalesce::</code><code class="descname">bottleneck</code><span class="sig-paren">(</span>unsigned int <em>pop</em>, double <em>duration</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv2N6egglib8Coalesce10bottleneckEjd" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Bottleneck. </p>
+<p>Perform coalescence in the specified population during a given amount of time. </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv2N6egglib8Coalesce11coalescenceEjjj">
+<span id="egglib::Coalesce::coalescence__unsigned-i.unsigned-i.unsigned-i"></span><span class="target" id="project0classegglib_1_1Coalesce_1a87e32f609abcbf513aa7b7b0f04bc66d"></span>void <code class="descclassname">egglib::Coalesce::</code><code class="descname">coalescence</code><span class="sig-paren">(</span>unsigned int <em>pop</em>, unsigned int <em>i</em>, unsigned int <em>j</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv2N6egglib8Coalesce11coalescenceEjjj" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Perform a single coalescence event. </p>
+<p>
+It is not required that i&lt;j. However it is required that i!=j and that all indices are within their respective ranges. <dl class="docutils">
+<dt><strong>Parameters</strong></dt>
+<dd><ul class="breatheparameterlist first last">
+<li><code class="first docutils literal"><span class="pre">pop</span></code> - <p>population index. </p>
+</li>
+<li><code class="first docutils literal"><span class="pre">i</span></code> - <p>index of the first lineage to coalesce. </p>
+</li>
+<li><code class="first docutils literal"><span class="pre">j</span></code> - <p>index of the second lineage to coalesce.</p>
+</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv2N6egglib8Coalesce4dataEv">
+<span id="egglib::Coalesce::data"></span><span class="target" id="project0classegglib_1_1Coalesce_1a5a22d40a71a092296e5dba29a09e4b90"></span><a class="reference internal" href="core.html#_CPPv2N6egglib10DataHolderE" title="egglib::DataHolder">DataHolder</a> <em class="property">const</em> *<em class="property">const</em> <code class="descclassname">egglib::Coalesce::</code><code class="descname">data</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv2N6egglib8Coalesce4dataEv" title="Permalink to this definition">¶</a><br /> const</dt>
+<dd><p>Get simulated genotypes. </p>
+<p>Get the <a class="reference internal" href="core.html#project0classegglib_1_1DataHolder"><span class="std std-ref">DataHolder</span></a> (as a matrix object) corresponding to the last simulated data set. Only meaningful if the <a class="reference internal" href="#project0classegglib_1_1Coalesce_1a8acc65eed8f00a14e1e4cea347fededd"><span class="std std-ref">simul()</span></a> method has been called with mutate=true. Otherwise, the returned instance will correspond to the previous simulations, or will be empty. In all cases, there will be two levels of structure, the first corresponding to populations (from 0 to k-1) where k is the number of populations, and the second corresponding to individual indices (ranging from 0 to the total number of sampled individuals over all populations, minus one). An individual is represented by either one or two consecutive samples. The allele values are depending on the mutation model. For FSS, they are restricted to the range [0, K-1] where K is the number of allowed alleles, while for other models unrestricted positive and negative values are allowed. In the infinitely many sites model (that is, if the sites parameter is 0), only the variable sites are exported, and all exported sites are variables. If the number of sites is finite, all sites are exported and there can be invariable sites. Beware that the address to the internally stored object is returned, and the address must be considered invalid after the next call to the simul method. </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv2N6egglib8Coalesce13delayedSampleEdjjj">
+<span id="egglib::Coalesce::delayedSample__double.unsigned-i.unsigned-i.unsigned-i"></span><span class="target" id="project0classegglib_1_1Coalesce_1a88b248689449ef9c65e6f15035658a82"></span>void <code class="descclassname">egglib::Coalesce::</code><code class="descname">delayedSample</code><span class="sig-paren">(</span>double <em>date</em>, unsigned int <em>pop</em>, unsigned int <em>n1</em>, unsigned int <em>n2</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv2N6egglib8Coalesce13delayedSampleEdjjj" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Add a delayed sample to the simulation. </p>
+<p>This method ought to be called by the class DelayedSample.</p>
+<p><dl class="docutils">
+<dt><strong>Parameters</strong></dt>
+<dd><ul class="breatheparameterlist first last">
+<li><code class="first docutils literal"><span class="pre">date</span></code> - <p>date of the event (should be larger than the current date). </p>
+</li>
+<li><code class="first docutils literal"><span class="pre">pop</span></code> - <p>index of the population (should be smaller than the current number of populations). </p>
+</li>
+<li><code class="first docutils literal"><span class="pre">n1</span></code> - <p>number of single samples. </p>
+</li>
+<li><code class="first docutils literal"><span class="pre">n2</span></code> - <p>number of double samples. </p>
+</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv2N6egglib8Coalesce7migrateEjjj">
+<span id="egglib::Coalesce::migrate__unsigned-i.unsigned-i.unsigned-i"></span><span class="target" id="project0classegglib_1_1Coalesce_1a9083f1a2c698710df6b439b592568258"></span>void <code class="descclassname">egglib::Coalesce::</code><code class="descname">migrate</code><span class="sig-paren">(</span>unsigned int <em>source</em>, unsigned int <em>i</em>, unsigned int <em>dest</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv2N6egglib8Coalesce7migrateEjjj" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Perform a single migration event. </p>
+<p>
+It is required that all indices are within their repestive ranges. <dl class="docutils">
+<dt><strong>Parameters</strong></dt>
+<dd><ul class="breatheparameterlist first last">
+<li><code class="first docutils literal"><span class="pre">source</span></code> - <p>source population. </p>
+</li>
+<li><code class="first docutils literal"><span class="pre">i</span></code> - <p>index of the lineage to migrate. </p>
+</li>
+<li><code class="first docutils literal"><span class="pre">dest</span></code> - <p>destination population.</p>
+</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv2N6egglib8Coalesce6mutateEv">
+<span id="egglib::Coalesce::mutate"></span><span class="target" id="project0classegglib_1_1Coalesce_1a20b06591c7f64d50efdb1766ea5f4217"></span>void <code class="descclassname">egglib::Coalesce::</code><code class="descname">mutate</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv2N6egglib8Coalesce6mutateEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Perform mutation only. </p>
+<p>The <a class="reference internal" href="#project0classegglib_1_1Coalesce_1a8acc65eed8f00a14e1e4cea347fededd"><span class="std std-ref">simul()</span></a> method must have been called previous (with the <em>mutate</em> boolean true or false). The <a class="reference internal" href="core.html#project0classegglib_1_1DataHolder"><span class="std std-ref">DataHolder</span></a> will be regenerated. </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv2N6egglib8Coalesce15number_of_treesEv">
+<span id="egglib::Coalesce::number_of_trees"></span><span class="target" id="project0classegglib_1_1Coalesce_1a85d49174ecef1787cd918e08376777e3"></span>unsigned int <code class="descclassname">egglib::Coalesce::</code><code class="descname">number_of_trees</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv2N6egglib8Coalesce15number_of_treesEv" title="Permalink to this definition">¶</a><br /> const</dt>
+<dd><p>Number of trees. </p>
+<p>This method provides access to the number of tree, or number of recombination segments (equal to the number of recombination events plus one). If no recombination event has occurred, the value is 1. If no simulation has been performed, the value is 0. </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv2N6egglib8Coalesce5simulEP6ParamsP6Randomb">
+<span id="egglib::Coalesce::simul__ParamsP.RandomP.b"></span><span class="target" id="project0classegglib_1_1Coalesce_1a8acc65eed8f00a14e1e4cea347fededd"></span>void <code class="descclassname">egglib::Coalesce::</code><code class="descname">simul</code><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv2N6egglib6ParamsE" title="egglib::Params">Params</a> *<em>params</em>, <a class="reference internal" href="core.html#_CPPv2N6egglib6RandomE" title="egglib::Random">Random</a> *<em>random</em>, bool <em>mutate</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv2N6egglib8Coalesce5simulEP6ParamsP6Randomb" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Perform a simulation. </p>
+<p><dl class="docutils">
+<dt><strong>Parameters</strong></dt>
+<dd><ul class="breatheparameterlist first last">
+<li><code class="first docutils literal"><span class="pre">params</span></code> - <p>the address of a <a class="reference internal" href="#project0classegglib_1_1Params"><span class="std std-ref">Params</span></a> instance to provide parameters. The <a class="reference internal" href="#project0classegglib_1_1Params"><span class="std std-ref">Params</span></a> object will be restored after completion of the simulation. </p>
+</li>
+<li><code class="first docutils literal"><span class="pre">random</span></code> - <p>address of a random number generator. </p>
+</li>
+<li><code class="first docutils literal"><span class="pre">mutate</span></code> - <p>if this boolean is false, mutation phase will be skipped and the <a class="reference internal" href="core.html#project0classegglib_1_1DataHolder"><span class="std std-ref">DataHolder</span></a> member will keep any previous value (or will be empty otherwise). In all cases the trees will be generated. </p>
+</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv2N6egglib8Coalesce13site_positionEj">
+<span id="egglib::Coalesce::site_position__unsigned-i"></span><span class="target" id="project0classegglib_1_1Coalesce_1a30a5c50c8fa1b4aeb25231095509c9a4"></span>double <code class="descclassname">egglib::Coalesce::</code><code class="descname">site_position</code><span class="sig-paren">(</span>unsigned int <em>mut</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv2N6egglib8Coalesce13site_positionEj" title="Permalink to this definition">¶</a><br /> const</dt>
+<dd><p>Get the position of a mutation. </p>
+<p>This method must not be called if the number of sites was fixed to a non-zero value in the <a class="reference internal" href="#project0classegglib_1_1Params"><span class="std std-ref">Params</span></a> instances used to configure simulations. This method returns the position of a given mutation when the mutation was randomly drawn. It is guaranteed that positions are in increasing order. It is required that the index is smaller than the number of mutations drawn from the last simulation. </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv2N6egglib8Coalesce4treeEj">
+<span id="egglib::Coalesce::tree__unsigned-i"></span><span class="target" id="project0classegglib_1_1Coalesce_1a10236a557e542a1ffc4e847953f9bb0d"></span><a class="reference internal" href="#_CPPv2N6egglib4TreeE" title="egglib::Tree">Tree</a> <em class="property">const</em> *<em class="property">const</em> <code class="descclassname">egglib::Coalesce::</code><code class="descname">tree</code><span class="sig-paren">(</span>unsigned int <em>i</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv2N6egglib8Coalesce4treeEj" title="Permalink to this definition">¶</a><br /> const</dt>
+<dd><p>Get a tree. </p>
+<p>This method provides access to a given tree. The passed index must be smaller than the value returned by the method <a class="reference internal" href="#project0classegglib_1_1Coalesce_1a85d49174ecef1787cd918e08376777e3"><span class="std std-ref">number_of_trees()</span></a>. Obviously, a simulation must have been performed. The returned pointer refers to an instance which is stored within the <a class="reference internal" href="#project0classegglib_1_1Coalesce"><span class="std std-ref">Coalesce</span></a> object and managed by it. The object can not be modified by any means. Out of range values might result in program crash or even worse. Beware that the address to the internally stored object is returned, and the address must be considered invalid after the next call to the <a class="reference internal" href="#project0classegglib_1_1Coalesce_1a8acc65eed8f00a14e1e4cea347fededd"><span class="std std-ref">simul()</span></a> method. </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv2N6egglib8Coalesce10tree_startEj">
+<span id="egglib::Coalesce::tree_start__unsigned-i"></span><span class="target" id="project0classegglib_1_1Coalesce_1a4c64fdaa20a27dbefe2cd034b8975bb8"></span>double <code class="descclassname">egglib::Coalesce::</code><code class="descname">tree_start</code><span class="sig-paren">(</span>unsigned int <em>i</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv2N6egglib8Coalesce10tree_startEj" title="Permalink to this definition">¶</a><br /> const</dt>
+<dd><p>Get the start position of a tree. </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv2N6egglib8Coalesce9tree_stopEj">
+<span id="egglib::Coalesce::tree_stop__unsigned-i"></span><span class="target" id="project0classegglib_1_1Coalesce_1a3996497548c8a163544f6e582943a8b2"></span>double <code class="descclassname">egglib::Coalesce::</code><code class="descname">tree_stop</code><span class="sig-paren">(</span>unsigned int <em>i</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv2N6egglib8Coalesce9tree_stopEj" title="Permalink to this definition">¶</a><br /> const</dt>
+<dd><p>Get the stop position of a tree. </p>
+</dd></dl>
+
+</div>
+</dd></dl>
+
+</div>
+<div class="section" id="arg-representation">
+<h2>ARG representation<a class="headerlink" href="#arg-representation" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="_CPPv2N6egglib4TreeE">
+<span id="egglib::Tree"></span><span class="target" id="project0classegglib_1_1Tree"></span><em class="property">class </em></dt>
+<dd><p>This class handles a bifurcating tree. </p>
+<p>Each tree corresponds to a given segment of chromosome. The class provides a method for generating allelic data for a given site, and exposes to root node, allowing recursive tree exploration.</p>
+<p>Header: &lt;egglib-cpp/Tree.hpp&gt; </p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">Public Functions</p>
+<dl class="function">
+<dt id="_CPPv2N6egglib4Tree4TreeEjdd">
+<span id="egglib::Tree::Tree__unsigned-i.double.double"></span><span class="target" id="project0classegglib_1_1Tree_1a5a9eed667b2ba954023fa2754d6a1c98"></span><code class="descclassname">egglib::Tree::</code><code class="descname">Tree</code><span class="sig-paren">(</span>unsigned int <em>numberOfLeaves</em>, double <em>start</em>, double <em>stop</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv2N6egglib4Tree4TreeEjdd" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Constructor. </p>
+<p>The constructor builds a preliminary tree consisting of only leaves, all available for coalescence. Leaves are labelled from 0 to (numberOfLeaves - 1).</p>
+<p><dl class="docutils">
+<dt><strong>Parameters</strong></dt>
+<dd><ul class="breatheparameterlist first last">
+<li><code class="first docutils literal"><span class="pre">numberOfLeaves</span></code> - <p>number of leaves (unconnected). </p>
+</li>
+<li><code class="first docutils literal"><span class="pre">start</span></code> - <p>start of the region covered by the tree. </p>
+</li>
+<li><code class="first docutils literal"><span class="pre">stop</span></code> - <p>end of the region covered by the tree </p>
+</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv2N6egglib4Tree4TreeERK4Tree">
+<span id="egglib::Tree::Tree__TreeCR"></span><span class="target" id="project0classegglib_1_1Tree_1a31c99b049944deb1b7846229b1184104"></span><code class="descclassname">egglib::Tree::</code><code class="descname">Tree</code><span class="sig-paren">(</span><em class="property">const</em> <a class="reference internal" href="#_CPPv2N6egglib4Tree4TreeEjdd" title="egglib::Tree::Tree">Tree</a> &amp;<em>tree</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv2N6egglib4Tree4TreeERK4Tree" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Copy constructor. </p>
+<p>Deep copy of the tree structure. </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv2N6egglib4TreeD0Ev">
+<span id="egglib::Tree::~Tree"></span>virtual <span class="target" id="project0classegglib_1_1Tree_1a4d2d4eaa9ac9d347549728060df29842"></span><code class="descclassname">egglib::Tree::</code><code class="descname">~Tree</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv2N6egglib4TreeD0Ev" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Destructor. </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv2N6egglib4Tree7addNodeEdj">
+<span id="egglib::Tree::addNode__double.unsigned-i"></span><span class="target" id="project0classegglib_1_1Tree_1adbc9ce3e417b35601a3bfe5aefe51185"></span>unsigned int <code class="descclassname">egglib::Tree::</code><code class="descname">addNode</code><span class="sig-paren">(</span>double <em>t</em>, unsigned int <em>label</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv2N6egglib4Tree7addNodeEdj" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Add a node and return its index. </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv2N6egglib4Tree15clear_mutationsEv">
+<span id="egglib::Tree::clear_mutations"></span><span class="target" id="project0classegglib_1_1Tree_1ad4162f2f2dfb2d050da0baf77b9baf25"></span>void <code class="descclassname">egglib::Tree::</code><code class="descname">clear_mutations</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv2N6egglib4Tree15clear_mutationsEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Remove already stored mutations. </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv2N6egglib4Tree4coalEjjd">
+<span id="egglib::Tree::coal__unsigned-i.unsigned-i.double"></span><span class="target" id="project0classegglib_1_1Tree_1acf1051f8728f5cb07fd40708acfc2636"></span>unsigned int <code class="descclassname">egglib::Tree::</code><code class="descname">coal</code><span class="sig-paren">(</span>unsigned int <em>nodeIndex1</em>, unsigned int <em>nodeIndex2</em>, double <em>time</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv2N6egglib4Tree4coalEjjd" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Coalesce two lineages </p>
+<p>
+The two indices must be different and be valid indices for this <a class="reference internal" href="#project0classegglib_1_1Tree"><span class="std std-ref">Tree</span></a> object. <dl class="docutils">
+<dt><strong>Return</strong></dt>
+<dd>The index of the parent node.</dd>
+<dt><strong>Parameters</strong></dt>
+<dd><ul class="breatheparameterlist first last">
+<li><code class="first docutils literal"><span class="pre">nodeIndex1</span></code> - <p>first node to coalesce. </p>
+</li>
+<li><code class="first docutils literal"><span class="pre">nodeIndex2</span></code> - <p>second node to coalesce. </p>
+</li>
+<li><code class="first docutils literal"><span class="pre">time</span></code> - <p>absolute time point of the event. </p>
+</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv2N6egglib4Tree3covEv">
+<span id="egglib::Tree::cov"></span><span class="target" id="project0classegglib_1_1Tree_1a678a6415d0f51f12dcea762e70adc0da"></span>double <code class="descclassname">egglib::Tree::</code><code class="descname">cov</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv2N6egglib4Tree3covEv" title="Permalink to this definition">¶</a><br /> const</dt>
+<dd><p>Length of the segment covered by the tree. </p>
+<p>The tree length is not taken into account; this is exactly <a class="reference internal" href="#project0classegglib_1_1Tree_1aabc22ffe8391314066daca7dc49a4032"><span class="std std-ref">stop()</span></a> - <a class="reference internal" href="#project0classegglib_1_1Tree_1a91cab4c1512ddacb76842a42b720d1d3"><span class="std std-ref">start()</span></a>. </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv2N6egglib4Tree1LEv">
+<span id="egglib::Tree::L"></span><span class="target" id="project0classegglib_1_1Tree_1a3c092084ebf313d8862a49c0095a67dd"></span>double <code class="descclassname">egglib::Tree::</code><code class="descname">L</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv2N6egglib4Tree1LEv" title="Permalink to this definition">¶</a><br /> const</dt>
+<dd><p>Total tree length. </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv2N6egglib4Tree6mutateEjR10DataHolderPK6ParamsP6Random">
+<span id="egglib::Tree::mutate__unsigned-i.DataHolderR.ParamsCP.RandomP"></span><span class="target" id="project0classegglib_1_1Tree_1a0cebf4d3cd9150a7b37039c376bd05ee"></span>unsigned int <code class="descclassname">egglib::Tree::</code><code class="descname">mutate</code><span class="sig-paren">(</span>unsigned int <em>site</em>, <a class="reference internal" href="core.html#_CPPv2N6egglib10DataHolderE" title="egglib::DataHolder">DataHolder</a> &amp;<em>data</em>, <em class="property">const</em> <a class="reference internal" href="#_CPPv2N6egglib6ParamsE" title="egglib::Params">Params</a> *<em>params</em>, <a class="reference internal" href="core.html#_CPPv2N6egglib6RandomE" title="egglib::Random">Random</a> *<em>random</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv2N6egglib4Tree6mutateEjR10DataHolderPK6ParamsP6Random" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Generate genetic data for a given site. </p>
+<p>
+The <a class="reference internal" href="core.html#project0classegglib_1_1DataHolder"><span class="std std-ref">DataHolder</span></a> instance should have the correct dimensions but its values do not need to be initialized. <dl class="docutils">
+<dt><strong>Return</strong></dt>
+<dd>The number of mutations (&gt;=0) found at this site.</dd>
+<dt><strong>Parameters</strong></dt>
+<dd><ul class="breatheparameterlist first last">
+<li><code class="first docutils literal"><span class="pre">site</span></code> - <p>index of the site (that is, column of the <a class="reference internal" href="core.html#project0classegglib_1_1DataHolder"><span class="std std-ref">DataHolder</span></a>) for which mutations should be generated. </p>
+</li>
+<li><code class="first docutils literal"><span class="pre">data</span></code> - <p><a class="reference internal" href="core.html#project0classegglib_1_1DataHolder"><span class="std std-ref">DataHolder</span></a> object in which mutations should be placed. </p>
+</li>
+<li><code class="first docutils literal"><span class="pre">params</span></code> - <p>parameters holder (where parameters should be read). </p>
+</li>
+<li><code class="first docutils literal"><span class="pre">random</span></code> - <p>a random number generator. </p>
+</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv2N6egglib4Tree6nnodesEv">
+<span id="egglib::Tree::nnodes"></span><span class="target" id="project0classegglib_1_1Tree_1af380ad09ef19d6cd7830d45ff8080cc6"></span>unsigned int <code class="descclassname">egglib::Tree::</code><code class="descname">nnodes</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv2N6egglib4Tree6nnodesEv" title="Permalink to this definition">¶</a><br /> const</dt>
+<dd><p>Get the number of nodes. </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv2N6egglib4Tree4nodeEj">
+<span id="egglib::Tree::node__unsigned-i"></span><span class="target" id="project0classegglib_1_1Tree_1a48b13526ba267723c983b73dced51c71"></span><a class="reference internal" href="#_CPPv2N6egglib4NodeE" title="egglib::Node">Node</a> *<em class="property">const</em> <code class="descclassname">egglib::Tree::</code><code class="descname">node</code><span class="sig-paren">(</span>unsigned int <em>i</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv2N6egglib4Tree4nodeEj" title="Permalink to this definition">¶</a><br /> const</dt>
+<dd><p>Get a node address by its index. </p>
+<p>The index must be within range. </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv2N6egglib4TreeaSE4Tree">
+<span id="egglib::Tree::assign-operator__Tree"></span><span class="target" id="project0classegglib_1_1Tree_1a2beb311b13087e753664bdcd4d4a4a73"></span><a class="reference internal" href="#_CPPv2N6egglib4TreeE" title="egglib::Tree">Tree</a> &amp;<code class="descclassname">egglib::Tree::</code><code class="descname">operator=</code><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv2N6egglib4TreeE" title="egglib::Tree">Tree</a> <em>tree</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv2N6egglib4TreeaSE4Tree" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Copy assignment operator. </p>
+<p>Deep copy of the tree structure. </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv2N6egglib4Tree6recombEdP4Tree">
+<span id="egglib::Tree::recomb__double.TreeP"></span><span class="target" id="project0classegglib_1_1Tree_1a5078c8146a6d491637fde5eceec2addf"></span>void <code class="descclassname">egglib::Tree::</code><code class="descname">recomb</code><span class="sig-paren">(</span>double <em>point</em>, <a class="reference internal" href="#_CPPv2N6egglib4TreeE" title="egglib::Tree">Tree</a> *<em>new_tree</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv2N6egglib4Tree6recombEdP4Tree" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Generate a new tree by recombination. </p>
+<p>It is assumed that the recombination point lies between the start and stop positions of this tree. This tree is copied to the new tree whose address is passed. The current tree’s interval is shrunk to the what is at the left of the recombination point (from start to point), and the complement to the new tee. </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv2N6egglib4Tree5resetEjdd">
+<span id="egglib::Tree::reset__unsigned-i.double.double"></span><span class="target" id="project0classegglib_1_1Tree_1a2bcc895c16642b074a2fd93d13c26312"></span>void <code class="descclassname">egglib::Tree::</code><code class="descname">reset</code><span class="sig-paren">(</span>unsigned int <em>numberOfLeaves</em>, double <em>start</em>, double <em>stop</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv2N6egglib4Tree5resetEjdd" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Reset to initial state. </p>
+<p>Restore the object as newly created, but retain allocated memory arrays. Leaves are automatically labelled from 0 up to (numberOfLeaves - 1).</p>
+<p><dl class="docutils">
+<dt><strong>Parameters</strong></dt>
+<dd><ul class="breatheparameterlist first last">
+<li><code class="first docutils literal"><span class="pre">numberOfLeaves</span></code> - <p>number of leaves (unconnected). </p>
+</li>
+<li><code class="first docutils literal"><span class="pre">start</span></code> - <p>start of the region covered by the tree. </p>
+</li>
+<li><code class="first docutils literal"><span class="pre">stop</span></code> - <p>end of the region covered by the tree </p>
+</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv2N6egglib4Tree4rootEv">
+<span id="egglib::Tree::root"></span><span class="target" id="project0classegglib_1_1Tree_1a5ee087eeef2d0c1d7f9bf2320c0796ce"></span><a class="reference internal" href="#_CPPv2N6egglib4NodeE" title="egglib::Node">Node</a> *<code class="descclassname">egglib::Tree::</code><code class="descname">root</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv2N6egglib4Tree4rootEv" title="Permalink to this definition">¶</a><br /> const</dt>
+<dd><p>Get the root of the tree. </p>
+<p>It is mandatory that the tree is completed (all coalescence has been performed, with only one lineage left) before using this method. In this case, recursing over node descendants allows to explore the tree. </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv2N6egglib4Tree5startEv">
+<span id="egglib::Tree::start"></span><span class="target" id="project0classegglib_1_1Tree_1a91cab4c1512ddacb76842a42b720d1d3"></span>double <code class="descclassname">egglib::Tree::</code><code class="descname">start</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv2N6egglib4Tree5startEv" title="Permalink to this definition">¶</a><br /> const</dt>
+<dd><p>Start position of the segment covered by the tree. </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv2N6egglib4Tree4stopEv">
+<span id="egglib::Tree::stop"></span><span class="target" id="project0classegglib_1_1Tree_1aabc22ffe8391314066daca7dc49a4032"></span>double <code class="descclassname">egglib::Tree::</code><code class="descname">stop</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv2N6egglib4Tree4stopEv" title="Permalink to this definition">¶</a><br /> const</dt>
+<dd><p>End position of the segment covered by the tree. </p>
+</dd></dl>
+
+</div>
+</dd></dl>
+
+<dl class="class">
+<dt id="_CPPv2N6egglib4NodeE">
+<span id="egglib::Node"></span><span class="target" id="project0classegglib_1_1Node"></span><em class="property">class </em></dt>
+<dd><p>Implements a node of bifurcating tree. </p>
+<p>Companion of the class <a class="reference internal" href="#project0classegglib_1_1Tree"><span class="std std-ref">Tree</span></a>. A given <a class="reference internal" href="#project0classegglib_1_1Node"><span class="std std-ref">Node</span></a> instance is connected to either no or two other instances (“sons”). Sons addresses are lost by calling the destructor or the assignment operator. The sons are never destroyed.</p>
+<p>The member default values are: <ul class="simple">
+<li>t: 0 </li>
+<li>L: 0 </li>
+<li>nmut: 0 </li>
+<li>label: <a class="reference internal" href="core.html#project0namespaceegglib_1a6b564311a87de05e515ec65480ebc236"><span class="std std-ref">egglib::UNKNOWN</span></a> </li>
+<li>son1: <a class="reference internal" href="core.html#project0namespaceegglib_1a6b564311a87de05e515ec65480ebc236"><span class="std std-ref">egglib::UNKNOWN</span></a> </li>
+<li>son2: <a class="reference internal" href="core.html#project0namespaceegglib_1a6b564311a87de05e515ec65480ebc236"><span class="std std-ref">egglib::UNKNOWN</span></a></li>
+</ul>
+
+Header: &lt;egglib-cpp/Tree.hpp&gt; </p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">Public Functions</p>
+<dl class="function">
+<dt id="_CPPv2N6egglib4Node4NodeEv">
+<span id="egglib::Node::Node"></span><span class="target" id="project0classegglib_1_1Node_1a0d313fac56abd7ebe58a17f1530b879e"></span><code class="descclassname">egglib::Node::</code><code class="descname">Node</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv2N6egglib4Node4NodeEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Default constructor. </p>
+<p>Initialize members to default values. </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv2N6egglib4Node4NodeERK4Node">
+<span id="egglib::Node::Node__NodeCR"></span><span class="target" id="project0classegglib_1_1Node_1a3c356c1dcaa1c68f71ebf23d6999487b"></span><code class="descclassname">egglib::Node::</code><code class="descname">Node</code><span class="sig-paren">(</span><em class="property">const</em> <a class="reference internal" href="#_CPPv2N6egglib4Node4NodeEv" title="egglib::Node::Node">Node</a> &amp;<em>src</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv2N6egglib4Node4NodeERK4Node" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Copy constructor. </p>
+<p>Copy members values and sons addresses. </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv2N6egglib4NodeD0Ev">
+<span id="egglib::Node::~Node"></span>virtual <span class="target" id="project0classegglib_1_1Node_1a6fa6bf60f34f1e3efb0e59333428c9c8"></span><code class="descclassname">egglib::Node::</code><code class="descname">~Node</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv2N6egglib4NodeD0Ev" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Destructor. </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv2N6egglib4Node11addMutationEjd">
+<span id="egglib::Node::addMutation__unsigned-i.double"></span><span class="target" id="project0classegglib_1_1Node_1a9f05c472fb9f2cbcf5a3e3deb0a89409"></span>void <code class="descclassname">egglib::Node::</code><code class="descname">addMutation</code><span class="sig-paren">(</span>unsigned int <em>site</em>, double <em>pos</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv2N6egglib4Node11addMutationEjd" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Add a mutation. </p>
+<p><dl class="docutils">
+<dt><strong>Parameters</strong></dt>
+<dd><ul class="breatheparameterlist first last">
+<li><code class="first docutils literal"><span class="pre">site</span></code> - <p>site index </p>
+</li>
+<li><code class="first docutils literal"><span class="pre">pos</span></code> - <p>site position (between 0 and 1) </p>
+</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv2N6egglib4Node15clear_mutationsEv">
+<span id="egglib::Node::clear_mutations"></span><span class="target" id="project0classegglib_1_1Node_1ad4162f2f2dfb2d050da0baf77b9baf25"></span>void <code class="descclassname">egglib::Node::</code><code class="descname">clear_mutations</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv2N6egglib4Node15clear_mutationsEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Remove already stored mutations. </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv2N6egglib4Node4dateEv">
+<span id="egglib::Node::date"></span><span class="target" id="project0classegglib_1_1Node_1a349fa20af420e2b286ce18bbfc44ddc2"></span>double <code class="descclassname">egglib::Node::</code><code class="descname">date</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv2N6egglib4Node4dateEv" title="Permalink to this definition">¶</a><br /> const</dt>
+<dd><p>Get node date. </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv2N6egglib4Node5get_LEv">
+<span id="egglib::Node::get_L"></span><span class="target" id="project0classegglib_1_1Node_1a2328eb4d21621e0fa21214b5eaf3dde6"></span>double <code class="descclassname">egglib::Node::</code><code class="descname">get_L</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv2N6egglib4Node5get_LEv" title="Permalink to this definition">¶</a><br /> const</dt>
+<dd><p>Get branch length. </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv2N6egglib4Node11is_terminalEv">
+<span id="egglib::Node::is_terminal"></span><span class="target" id="project0classegglib_1_1Node_1ac7a4d20a58ee5f2e12d049c608348ffb"></span>bool <code class="descclassname">egglib::Node::</code><code class="descname">is_terminal</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv2N6egglib4Node11is_terminalEv" title="Permalink to this definition">¶</a><br /> const</dt>
+<dd><p>Internal or terminal node. </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv2N6egglib4Node5labelEv">
+<span id="egglib::Node::label"></span><span class="target" id="project0classegglib_1_1Node_1a2d5a41740e2c636e1a3165857764ba1c"></span>unsigned int <code class="descclassname">egglib::Node::</code><code class="descname">label</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv2N6egglib4Node5labelEv" title="Permalink to this definition">¶</a><br /> const</dt>
+<dd><p>Gets label. </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv2N6egglib4Node11mutationPosEj">
+<span id="egglib::Node::mutationPos__unsigned-i"></span><span class="target" id="project0classegglib_1_1Node_1ab09f5170864d0b62cc4c195365bdc1e7"></span>double <code class="descclassname">egglib::Node::</code><code class="descname">mutationPos</code><span class="sig-paren">(</span>unsigned int <em>mut</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv2N6egglib4Node11mutationPosEj" title="Permalink to this definition">¶</a><br /> const</dt>
+<dd><p>Get the site position of a mutation. </p>
+<p>Warning: no out-of-bound check is performed!</p>
+<p>TODO check if this method is needed anyway </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv2N6egglib4Node12mutationSiteEj">
+<span id="egglib::Node::mutationSite__unsigned-i"></span><span class="target" id="project0classegglib_1_1Node_1a01ffc8ae77df7c690a102065a7710c77"></span>unsigned int <code class="descclassname">egglib::Node::</code><code class="descname">mutationSite</code><span class="sig-paren">(</span>unsigned int <em>mut</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv2N6egglib4Node12mutationSiteEj" title="Permalink to this definition">¶</a><br /> const</dt>
+<dd><p>Get the site index of a mutation. </p>
+<p>Warning: no out-of-bound check is performed! </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv2N6egglib4Node4nmutEv">
+<span id="egglib::Node::nmut"></span><span class="target" id="project0classegglib_1_1Node_1a93e2ea2dc5ac4c9f525ad8ac9df54828"></span>unsigned int <code class="descclassname">egglib::Node::</code><code class="descname">nmut</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv2N6egglib4Node4nmutEv" title="Permalink to this definition">¶</a><br /> const</dt>
+<dd><p>Number of mutations borne by this node. </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv2N6egglib4NodeaSERK4Node">
+<span id="egglib::Node::assign-operator__NodeCR"></span><span class="target" id="project0classegglib_1_1Node_1a9e4fba04bb431641b2bf9e1697914b6c"></span><a class="reference internal" href="#_CPPv2N6egglib4NodeE" title="egglib::Node">Node</a> &amp;<code class="descclassname">egglib::Node::</code><code class="descname">operator=</code><span class="sig-paren">(</span><em class="property">const</em> <a class="reference internal" href="#_CPPv2N6egglib4NodeE" title="egglib::Node">Node</a> &amp;<em>src</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv2N6egglib4NodeaSERK4Node" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Assignment operator. </p>
+<p>Copy members values and sons addresses. </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv2N6egglib4Node5resetEv">
+<span id="egglib::Node::reset"></span><span class="target" id="project0classegglib_1_1Node_1ad20897c5c8bd47f5d4005989bead0e55"></span>void <code class="descclassname">egglib::Node::</code><code class="descname">reset</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv2N6egglib4Node5resetEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Restore initial state. </p>
+<p>Deliver object as new, but retain reserved memory. </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv2N6egglib4Node12set_internalEdjj">
+<span id="egglib::Node::set_internal__double.unsigned-i.unsigned-i"></span><span class="target" id="project0classegglib_1_1Node_1ab0dd2f63d559d1bb597a8ef3d41d7fed"></span>void <code class="descclassname">egglib::Node::</code><code class="descname">set_internal</code><span class="sig-paren">(</span>double <em>t</em>, unsigned int <em>son1</em>, unsigned int <em>son2</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv2N6egglib4Node12set_internalEdjj" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Specify an internal node. </p>
+<p>Other members than those specified by argument are not changed (except boolean is_terminal).</p>
+<p><dl class="docutils">
+<dt><strong>Parameters</strong></dt>
+<dd><ul class="breatheparameterlist first last">
+<li><code class="first docutils literal"><span class="pre">t</span></code> - <p>node time. </p>
+</li>
+<li><code class="first docutils literal"><span class="pre">son1</span></code> - <p>first descending node. </p>
+</li>
+<li><code class="first docutils literal"><span class="pre">son2</span></code> - <p>second descending node. </p>
+</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv2N6egglib4Node5set_LEd">
+<span id="egglib::Node::set_L__double"></span><span class="target" id="project0classegglib_1_1Node_1a80270688f859ec97977b49401ff32a3a"></span>void <code class="descclassname">egglib::Node::</code><code class="descname">set_L</code><span class="sig-paren">(</span>double <em>value</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv2N6egglib4Node5set_LEd" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Set branch length. </p>
+<p>The branch is going from the ancestror node to this node. As a result, the root has a branch length of 0. </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv2N6egglib4Node12set_terminalEdj">
+<span id="egglib::Node::set_terminal__double.unsigned-i"></span><span class="target" id="project0classegglib_1_1Node_1a4e0b4160e0e9096844a068bed324ca51"></span>void <code class="descclassname">egglib::Node::</code><code class="descname">set_terminal</code><span class="sig-paren">(</span>double <em>t</em>, unsigned int <em>label</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv2N6egglib4Node12set_terminalEdj" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Specify a terminal node. </p>
+<p>Other members than those specified by argument are not changed (except boolean is_terminal).</p>
+<p><dl class="docutils">
+<dt><strong>Parameters</strong></dt>
+<dd><ul class="breatheparameterlist first last">
+<li><code class="first docutils literal"><span class="pre">t</span></code> - <p>node time (&gt;=0). </p>
+</li>
+<li><code class="first docutils literal"><span class="pre">label</span></code> - <p>sample label. </p>
+</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv2N6egglib4Node4son1Ev">
+<span id="egglib::Node::son1"></span><span class="target" id="project0classegglib_1_1Node_1a931c40aa252350be4bea04c490f3fc61"></span>unsigned int <code class="descclassname">egglib::Node::</code><code class="descname">son1</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv2N6egglib4Node4son1Ev" title="Permalink to this definition">¶</a><br /> const</dt>
+<dd><p>Get first son. </p>
+<p>If the node is terminal, UNKNOWN is returned. </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv2N6egglib4Node4son2Ev">
+<span id="egglib::Node::son2"></span><span class="target" id="project0classegglib_1_1Node_1a589a062180f1872f16c985fc6348a788"></span>unsigned int <code class="descclassname">egglib::Node::</code><code class="descname">son2</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv2N6egglib4Node4son2Ev" title="Permalink to this definition">¶</a><br /> const</dt>
+<dd><p>Get second son. </p>
+<p>If the node is terminal, UNKNOWN is returned. </p>
+</dd></dl>
+
+</div>
+</dd></dl>
+
+<p>The last one is only for being used during simulations:</p>
+<dl class="class">
+<dt id="_CPPv2N6egglib7LineageE">
+<span id="egglib::Lineage"></span><span class="target" id="project0classegglib_1_1Lineage"></span><em class="property">class </em></dt>
+<dd><p>Implements a single ARG lineage. </p>
+<p>This class implements a (recombinable and coalescable) lineage at the ancestral recombination graph (ARG) level. It essentially points to a node in each of the trees used to model the ARG.</p>
+<p>Header: &lt;egglib-cpp/Lineage.hpp&gt; </p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">Public Functions</p>
+<dl class="function">
+<dt id="_CPPv2N6egglib7Lineage7LineageEj">
+<span id="egglib::Lineage::Lineage__unsigned-i"></span><span class="target" id="project0classegglib_1_1Lineage_1af3a9307e09306b9ba408ea1708d1d512"></span><code class="descclassname">egglib::Lineage::</code><code class="descname">Lineage</code><span class="sig-paren">(</span>unsigned int <em>ntrees</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv2N6egglib7Lineage7LineageEj" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Constructor (no default constructor) </p>
+<p>Initializes the size of the node mapping array (node index in each of the trees of the ARG). The array cells are not initalized.</p>
+<p><dl class="docutils">
+<dt><strong>Parameters</strong></dt>
+<dd><ul class="breatheparameterlist first last">
+<li><code class="first docutils literal"><span class="pre">ntrees</span></code> - <p>number of Trees of the ARG (if the ARG has more trees, excess ones are considered not to be covered by this lineage. </p>
+</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv2N6egglib7LineageD0Ev">
+<span id="egglib::Lineage::~Lineage"></span>virtual <span class="target" id="project0classegglib_1_1Lineage_1a56aa939b93de071272bf6380d2335a11"></span><code class="descclassname">egglib::Lineage::</code><code class="descname">~Lineage</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv2N6egglib7LineageD0Ev" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Destructor. </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv2N6egglib7Lineage7addTreeEjd">
+<span id="egglib::Lineage::addTree__unsigned-i.double"></span><span class="target" id="project0classegglib_1_1Lineage_1a7c58fe63c0a6aefdb5edd9c3296eb01b"></span>void <code class="descclassname">egglib::Lineage::</code><code class="descname">addTree</code><span class="sig-paren">(</span>unsigned int <em>node</em>, double <em>cov</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv2N6egglib7Lineage7addTreeEjd" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Add a cell to the node mapping array. </p>
+<p><dl class="docutils">
+<dt><strong>Parameters</strong></dt>
+<dd><ul class="breatheparameterlist first last">
+<li><code class="first docutils literal"><span class="pre">node</span></code> - <p>node index (with respect to the tree). </p>
+</li>
+<li><code class="first docutils literal"><span class="pre">cov</span></code> - <p>coverage of the tree (increment the total coverage of the lineage). </p>
+</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv2N6egglib7Lineage3covEv">
+<span id="egglib::Lineage::cov"></span><span class="target" id="project0classegglib_1_1Lineage_1a678a6415d0f51f12dcea762e70adc0da"></span>double <code class="descclassname">egglib::Lineage::</code><code class="descname">cov</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv2N6egglib7Lineage3covEv" title="Permalink to this definition">¶</a><br /> const</dt>
+<dd><p>Get total coverage. </p>
+<p>This is the sum of tree coverage (stop-start) for all trees where this lineage is represented. </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv2N6egglib7Lineage8get_nodeEj">
+<span id="egglib::Lineage::get_node__unsigned-i"></span><span class="target" id="project0classegglib_1_1Lineage_1af989ceed7c7e86d710229dc3139544c6"></span>unsigned int <code class="descclassname">egglib::Lineage::</code><code class="descname">get_node</code><span class="sig-paren">(</span>unsigned int <em>treeIndex</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv2N6egglib7Lineage8get_nodeEj" title="Permalink to this definition">¶</a><br /> const</dt>
+<dd><p>Access node mapping cell. </p>
+<p>This methods returns UNKNOWN if the considered tree is not covered. The index must be in range. </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv2N6egglib7Lineage5resetEj">
+<span id="egglib::Lineage::reset__unsigned-i"></span><span class="target" id="project0classegglib_1_1Lineage_1a3ece4a9758efde2f424d766409b47bdf"></span>void <code class="descclassname">egglib::Lineage::</code><code class="descname">reset</code><span class="sig-paren">(</span>unsigned int <em>ntrees</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv2N6egglib7Lineage5resetEj" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Reset the number of tree. </p>
+<p>It allocates the node mapping array (only allocate if no reserved memory available). This method does not initialize the content of the table. It sets the coverage to 0. </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv2N6egglib7Lineage8set_nodeEjjd">
+<span id="egglib::Lineage::set_node__unsigned-i.unsigned-i.double"></span><span class="target" id="project0classegglib_1_1Lineage_1aea10f50e82d0925934a0b6ed9748d16a"></span>void <code class="descclassname">egglib::Lineage::</code><code class="descname">set_node</code><span class="sig-paren">(</span>unsigned int <em>index</em>, unsigned int <em>node</em>, double <em>cov</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv2N6egglib7Lineage8set_nodeEjjd" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Set node mapping cell. </p>
+<p>
+Indices must be valid, except that node must be UNKNOWN for trees that are not covered. <dl class="docutils">
+<dt><strong>Parameters</strong></dt>
+<dd><ul class="breatheparameterlist first last">
+<li><code class="first docutils literal"><span class="pre">index</span></code> - <p>tree index. </p>
+</li>
+<li><code class="first docutils literal"><span class="pre">node</span></code> - <p>node index (with respect to the tree). </p>
+</li>
+<li><code class="first docutils literal"><span class="pre">cov</span></code> - <p>coverage of the tree (increment the total coverage of the lineage).</p>
+</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+</div>
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="diversity.html" title="Diversity analyses"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="datafiles.html" title="Data file formats"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../contents.html">EggLib&#39;s documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../toc.html" >Contents</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="index.html" >C++ Library</a> &#187;</li> 
+      </ul>
+    </div>
+<!--
+        <address style="text-align: right;"><small>Hosted by&nbsp;
+        <a href="http://sourceforge.net/projects/egglib"><img src="http://sflogo.sourceforge.net/sflogo.php?group_id=232965&amp;type=8" width="80" height="15" alt="Get EggLib at SourceForge.net. Fast, secure and Free Open Source software downloads" / ALIGN=RIGHT BORDER=0></a>
+        </address>
+-->
+
+  </body>
+</html>

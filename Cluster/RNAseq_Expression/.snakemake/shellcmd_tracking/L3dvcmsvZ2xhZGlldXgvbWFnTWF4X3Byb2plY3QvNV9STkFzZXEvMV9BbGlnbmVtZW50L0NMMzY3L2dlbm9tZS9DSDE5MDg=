@@ -1,0 +1,5 @@
+
+	module load bioinfo/hisat2/2.1.0
+	hisat2-build /work/gladieux/magMax_project/5_RNAseq/1_Alignement/CL367/genome/CH1908.fasta /work/gladieux/magMax_project/5_RNAseq/1_Alignement/CL367/genome/CH1908
+	touch /work/gladieux/magMax_project/5_RNAseq/1_Alignement/CL367/genome/CH1908
+	

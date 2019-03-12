@@ -1,0 +1,179 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Coalescent simulations &#8212; EggLib&#39;s documentation</title>
+    <link rel="stylesheet" href="../_static/egglibdoc.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '3.0.0b21',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="shortcut icon" href="../_static/icon.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Coalescent parameters" href="coal-1.html" />
+    <link rel="prev" title="Using VCF files" href="stats-4.html" />
+    <script type="text/javascript">
+      // intelligent scrolling of the sidebar content
+      $(window).scroll(function() {
+        var sb = $('.sphinxsidebarwrapper');
+        var win = $(window);
+        var sbh = sb.height();
+        var offset = $('.sphinxsidebar').position()['top'];
+        var wintop = win.scrollTop();
+        var winbot = wintop + win.innerHeight();
+        var curtop = sb.position()['top'];
+        var curbot = curtop + sbh;
+        // does sidebar fit in window?
+        if (sbh < win.innerHeight()) {
+          // yes: easy case -- always keep at the top
+          sb.css('top', $u.min([$u.max([0, wintop - offset - 10]),
+                                $(document).height() - sbh - 200]));
+        } else {
+          // no: only scroll if top/bottom edge of sidebar is at
+          // top/bottom edge of window
+          if (curtop > wintop && curbot > winbot) {
+            sb.css('top', $u.max([wintop - offset - 10, 0]));
+          } else if (curtop < wintop && curbot < winbot) {
+            sb.css('top', $u.min([winbot - sbh - offset - 20,
+                                  $(document).height() - sbh - 200]));
+          }
+        }
+      });
+    </script>
+  </head>
+  <body>
+<div style="background-color: white; text-align: left; padding: 0px 0px 0px 0px">
+<a href="../index.html"><img src="../_static/banner.png" border="0" alt="EggLib"/></a>
+</div>
+
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="coal-1.html" title="Coalescent parameters"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="stats-4.html" title="Using VCF files"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../contents.html">EggLib&#39;s documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../toc.html" >Contents</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="index.html" accesskey="U">Manual</a> &#187;</li> 
+      </ul>
+    </div>
+
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../contents.html">
+              <img class="logo" src="../_static/egglib_small.bmp" alt="Logo"/>
+            </a></p>
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="stats-4.html"
+                        title="previous chapter">Using VCF files</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="coal-1.html"
+                        title="next chapter">Coalescent parameters</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/manual/coal.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="coalescent-simulations">
+<span id="coalesce-manual"></span><h1>Coalescent simulations<a class="headerlink" href="#coalescent-simulations" title="Permalink to this headline">¶</a></h1>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="coal-1.html">Coalescent parameters</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="coal-1.html#the-coalescence-theory">The coalescence theory</a></li>
+<li class="toctree-l2"><a class="reference internal" href="coal-1.html#the-basics">The basics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="coal-1.html#note-on-the-number-of-populations">Note on the number of populations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="coal-1.html#the-parameters-dictionary-like">The parameters dictionary-like</a></li>
+<li class="toctree-l2"><a class="reference internal" href="coal-1.html#number-of-populations-and-population-properties">Number of populations and population properties</a></li>
+<li class="toctree-l2"><a class="reference internal" href="coal-1.html#mutation-models">Mutation models</a></li>
+<li class="toctree-l2"><a class="reference internal" href="coal-1.html#other-parameters">Other parameters</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="coal-2.html">Use of historical events</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="coal-2.html#bottlenecks">Bottlenecks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="coal-2.html#merge-admixture-and-split-events">Merge, admixture, and split events</a></li>
+<li class="toctree-l2"><a class="reference internal" href="coal-2.html#ghost-populations-and-unsampled-populations">Ghost populations and unsampled populations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="coal-2.html#delayed-samples">Delayed samples</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="coal-3.html">Performing simulations</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="coal-3.html#simplest-case">Simplest case</a></li>
+<li class="toctree-l2"><a class="reference internal" href="coal-3.html#the-iterator">The iterator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="coal-3.html#accessing-other-data">Accessing other data</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="coal-1.html" title="Coalescent parameters"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="stats-4.html" title="Using VCF files"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../contents.html">EggLib&#39;s documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../toc.html" >Contents</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="index.html" >Manual</a> &#187;</li> 
+      </ul>
+    </div>
+<!--
+        <address style="text-align: right;"><small>Hosted by&nbsp;
+        <a href="http://sourceforge.net/projects/egglib"><img src="http://sflogo.sourceforge.net/sflogo.php?group_id=232965&amp;type=8" width="80" height="15" alt="Get EggLib at SourceForge.net. Fast, secure and Free Open Source software downloads" / ALIGN=RIGHT BORDER=0></a>
+        </address>
+-->
+
+  </body>
+</html>

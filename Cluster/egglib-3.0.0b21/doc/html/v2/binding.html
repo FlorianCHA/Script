@@ -1,0 +1,2445 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Low-level binding of C++ library &mdash; EggLib</title>
+    
+    <link rel="stylesheet" href="_static/sphinxdoc.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '2.1.11',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="shortcut icon" href="_static/icon.ico"/>
+    <link rel="top" title="EggLib" href="index.html" />
+    <link rel="up" title="Python module" href="egglib-py.html" />
+    <link rel="next" title="Top-level Egglib components" href="data.html" />
+    <link rel="prev" title="Python module" href="egglib-py.html" /> 
+  </head>
+  <body>
+
+<div style="background-color: white; text-align: left; padding: 0px 0px 0px 0px">
+<a href="index.html"><img src="_static/egglib_banniere5.png" border="0" alt="EggLib"/></a>
+</div>
+
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="data.html" title="Top-level Egglib components"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="egglib-py.html" title="Python module"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">EggLib</a> &raquo;</li>
+          <li><a href="egglib-py.html" accesskey="U">Python module</a> &raquo;</li> 
+      </ul>
+    </div>
+<div style="background-color: grey; text-align: left; padding: 0px 0px 0px 10px; border-bottom: 1px solid #2d2e91">
+<font color="white" ><b>EggLib version 2.1 is archived.</b></font></div>
+
+
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Low-level binding of C++ library</a><ul>
+<li><a class="reference internal" href="#data-holders">Data holders</a></li>
+<li><a class="reference internal" href="#conversion-and-parsing">Conversion and parsing</a></li>
+<li><a class="reference internal" href="#analysis-of-polymorphism">Analysis of polymorphism</a></li>
+<li><a class="reference internal" href="#coalescent-simulator">Coalescent simulator</a></li>
+<li><a class="reference internal" href="#approximate-bayesian-computation">Approximate Bayesian Computation</a></li>
+<li><a class="reference internal" href="#random-number-generator">Random number generator</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="egglib-py.html"
+                        title="previous chapter">Python module</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="data.html"
+                        title="next chapter">Top-level Egglib components</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/binding.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="low-level-binding-of-c-library">
+<h1>Low-level binding of C++ library<a class="headerlink" href="#low-level-binding-of-c-library" title="Permalink to this headline">¶</a></h1>
+<p>Besides sequence storage classes <a class="reference internal" href="data.html#egglib.Container" title="egglib.Container"><tt class="xref py py-class docutils literal"><span class="pre">Container</span></tt></a> and
+<a class="reference internal" href="data.html#egglib.Align" title="egglib.Align"><tt class="xref py py-class docutils literal"><span class="pre">Align</span></tt></a>,
+the wrapped C++ library available through the <tt class="xref py py-mod docutils literal"><span class="pre">egglib</span></tt> egglib-py
+module contains several classes that might be of use for Python scripts.
+Still, they are a priori not intended to be used directly and this page
+only provides automated documentation. The user is prompted to refer to
+the doxygen documentation of the C++ library for a more comprehensive
+documentation of these tools.</p>
+<div class="section" id="data-holders">
+<h2>Data holders<a class="headerlink" href="#data-holders" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="egglib.egglib_binding.Align">
+<em class="property">class </em><tt class="descclassname">egglib.egglib_binding.</tt><tt class="descname">Align</tt><big>(</big><em>egglib::Align self</em><big>)</big><a class="headerlink" href="#egglib.egglib_binding.Align" title="Permalink to this definition">¶</a></dt>
+<dd><p>Proxy of C++ egglib::Align class</p>
+<p>__init__(egglib::Align self, unsigned int number_of_sequences, unsigned int alignment_length) -&gt; Align
+__init__(egglib::Align self, Container container) -&gt; Align</p>
+<dl class="method">
+<dt id="egglib.egglib_binding.Align.append">
+<tt class="descname">append</tt><big>(</big><em>Align self</em>, <em>char const * name</em>, <em>char const * sequence</em>, <em>unsigned int group=0</em><big>)</big> &rarr; unsigned int<a class="headerlink" href="#egglib.egglib_binding.Align.append" title="Permalink to this definition">¶</a></dt>
+<dd><p>append(Align self, char const * name, char const * sequence) -&gt; unsigned int</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.Align.appendSequence">
+<tt class="descname">appendSequence</tt><big>(</big><em>Container self</em>, <em>unsigned int pos</em>, <em>char const * sequence</em><big>)</big><a class="headerlink" href="#egglib.egglib_binding.Align.appendSequence" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.Align.binSwitch">
+<tt class="descname">binSwitch</tt><big>(</big><em>Align self</em>, <em>unsigned int pos</em><big>)</big><a class="headerlink" href="#egglib.egglib_binding.Align.binSwitch" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.Align.character">
+<tt class="descname">character</tt><big>(</big><em>Align self</em>, <em>unsigned int s</em>, <em>unsigned int p</em><big>)</big> &rarr; char<a class="headerlink" href="#egglib.egglib_binding.Align.character" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.Align.clear">
+<tt class="descname">clear</tt><big>(</big><em>Align self</em><big>)</big><a class="headerlink" href="#egglib.egglib_binding.Align.clear" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.Align.equalize">
+<tt class="descname">equalize</tt><big>(</big><em>Container self</em>, <em>char ch='?'</em><big>)</big> &rarr; unsigned int<a class="headerlink" href="#egglib.egglib_binding.Align.equalize" title="Permalink to this definition">¶</a></dt>
+<dd><p>equalize(Container self) -&gt; unsigned int</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.Align.find">
+<tt class="descname">find</tt><big>(</big><em>Container self</em>, <em>char const * string</em>, <em>bool strict=True</em><big>)</big> &rarr; int<a class="headerlink" href="#egglib.egglib_binding.Align.find" title="Permalink to this definition">¶</a></dt>
+<dd><p>find(Container self, char const * string) -&gt; int</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.Align.get">
+<tt class="descname">get</tt><big>(</big><em>Align self</em>, <em>unsigned int sequence</em>, <em>unsigned int position</em><big>)</big> &rarr; char<a class="headerlink" href="#egglib.egglib_binding.Align.get" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.Align.group">
+<tt class="descname">group</tt><big>(</big><em>Container self</em>, <em>unsigned int pos</em>, <em>unsigned int group</em><big>)</big><a class="headerlink" href="#egglib.egglib_binding.Align.group" title="Permalink to this definition">¶</a></dt>
+<dd><p>group(Container self, unsigned int pos) -&gt; unsigned int</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.Align.hslice">
+<tt class="descname">hslice</tt><big>(</big><em>Container self</em>, <em>unsigned int a</em>, <em>unsigned int b</em><big>)</big> &rarr; Container<a class="headerlink" href="#egglib.egglib_binding.Align.hslice" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.Align.isEqual">
+<tt class="descname">isEqual</tt><big>(</big><em>Container self</em><big>)</big> &rarr; bool<a class="headerlink" href="#egglib.egglib_binding.Align.isEqual" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.Align.ls">
+<tt class="descname">ls</tt><big>(</big><em>Align self</em><big>)</big> &rarr; unsigned int<a class="headerlink" href="#egglib.egglib_binding.Align.ls" title="Permalink to this definition">¶</a></dt>
+<dd><p>ls(Align self, unsigned int pos) -&gt; unsigned int</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.Align.name">
+<tt class="descname">name</tt><big>(</big><em>Container self</em>, <em>unsigned int pos</em>, <em>char const * name</em><big>)</big><a class="headerlink" href="#egglib.egglib_binding.Align.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>name(Container self, unsigned int pos) -&gt; char const *</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.Align.ns">
+<tt class="descname">ns</tt><big>(</big><em>Container self</em><big>)</big> &rarr; unsigned int<a class="headerlink" href="#egglib.egglib_binding.Align.ns" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.Align.numberOfSequences">
+<tt class="descname">numberOfSequences</tt><big>(</big><em>Align self</em><big>)</big> &rarr; unsigned int<a class="headerlink" href="#egglib.egglib_binding.Align.numberOfSequences" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.Align.numberOfSites">
+<tt class="descname">numberOfSites</tt><big>(</big><em>Align self</em><big>)</big> &rarr; unsigned int<a class="headerlink" href="#egglib.egglib_binding.Align.numberOfSites" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.Align.populationLabel">
+<tt class="descname">populationLabel</tt><big>(</big><em>Align self</em>, <em>unsigned int sequenceIndex</em><big>)</big> &rarr; unsigned int<a class="headerlink" href="#egglib.egglib_binding.Align.populationLabel" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.Align.remove">
+<tt class="descname">remove</tt><big>(</big><em>Align self</em>, <em>unsigned int pos</em><big>)</big> &rarr; unsigned int<a class="headerlink" href="#egglib.egglib_binding.Align.remove" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.Align.removePosition">
+<tt class="descname">removePosition</tt><big>(</big><em>Align self</em>, <em>unsigned int pos</em><big>)</big> &rarr; unsigned int<a class="headerlink" href="#egglib.egglib_binding.Align.removePosition" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.Align.sequence">
+<tt class="descname">sequence</tt><big>(</big><em>Align self</em>, <em>unsigned int pos</em><big>)</big> &rarr; char const<a class="headerlink" href="#egglib.egglib_binding.Align.sequence" title="Permalink to this definition">¶</a></dt>
+<dd><p>sequence(Align self, unsigned int pos, char const * sequence)</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.Align.set">
+<tt class="descname">set</tt><big>(</big><em>Align self</em>, <em>unsigned int sequence</em>, <em>unsigned int position</em>, <em>char ch</em><big>)</big><a class="headerlink" href="#egglib.egglib_binding.Align.set" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.Align.sitePosition">
+<tt class="descname">sitePosition</tt><big>(</big><em>Align self</em>, <em>unsigned int position</em><big>)</big> &rarr; double<a class="headerlink" href="#egglib.egglib_binding.Align.sitePosition" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.Align.vslice">
+<tt class="descname">vslice</tt><big>(</big><em>Align self</em>, <em>vectorui list_of_sites</em><big>)</big> &rarr; Align<a class="headerlink" href="#egglib.egglib_binding.Align.vslice" title="Permalink to this definition">¶</a></dt>
+<dd><p>vslice(Align self, unsigned int a, unsigned int b) -&gt; Align</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="egglib.egglib_binding.CharMatrix">
+<em class="property">class </em><tt class="descclassname">egglib.egglib_binding.</tt><tt class="descname">CharMatrix</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#egglib.egglib_binding.CharMatrix" title="Permalink to this definition">¶</a></dt>
+<dd><p>Proxy of C++ egglib::CharMatrix class</p>
+<dl class="method">
+<dt id="egglib.egglib_binding.CharMatrix.character">
+<tt class="descname">character</tt><big>(</big><em>CharMatrix self</em>, <em>unsigned int sequence</em>, <em>unsigned int site</em><big>)</big> &rarr; char<a class="headerlink" href="#egglib.egglib_binding.CharMatrix.character" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.CharMatrix.numberOfSequences">
+<tt class="descname">numberOfSequences</tt><big>(</big><em>CharMatrix self</em><big>)</big> &rarr; unsigned int<a class="headerlink" href="#egglib.egglib_binding.CharMatrix.numberOfSequences" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.CharMatrix.numberOfSites">
+<tt class="descname">numberOfSites</tt><big>(</big><em>CharMatrix self</em><big>)</big> &rarr; unsigned int<a class="headerlink" href="#egglib.egglib_binding.CharMatrix.numberOfSites" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.CharMatrix.populationLabel">
+<tt class="descname">populationLabel</tt><big>(</big><em>CharMatrix self</em>, <em>unsigned int row</em><big>)</big> &rarr; unsigned int<a class="headerlink" href="#egglib.egglib_binding.CharMatrix.populationLabel" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.CharMatrix.sitePosition">
+<tt class="descname">sitePosition</tt><big>(</big><em>CharMatrix self</em>, <em>unsigned int column</em><big>)</big> &rarr; double<a class="headerlink" href="#egglib.egglib_binding.CharMatrix.sitePosition" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="egglib.egglib_binding.Container">
+<em class="property">class </em><tt class="descclassname">egglib.egglib_binding.</tt><tt class="descname">Container</tt><big>(</big><em>egglib::Container self</em><big>)</big><a class="headerlink" href="#egglib.egglib_binding.Container" title="Permalink to this definition">¶</a></dt>
+<dd><p>Proxy of C++ egglib::Container class</p>
+<p>__init__(egglib::Container self, Container source) -&gt; Container</p>
+<dl class="method">
+<dt id="egglib.egglib_binding.Container.append">
+<tt class="descname">append</tt><big>(</big><em>Container self</em>, <em>char const * name</em>, <em>char const * sequence</em>, <em>unsigned int group=0</em><big>)</big> &rarr; unsigned int<a class="headerlink" href="#egglib.egglib_binding.Container.append" title="Permalink to this definition">¶</a></dt>
+<dd><p>append(Container self, char const * name, char const * sequence) -&gt; unsigned int</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.Container.appendSequence">
+<tt class="descname">appendSequence</tt><big>(</big><em>Container self</em>, <em>unsigned int pos</em>, <em>char const * sequence</em><big>)</big><a class="headerlink" href="#egglib.egglib_binding.Container.appendSequence" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.Container.clear">
+<tt class="descname">clear</tt><big>(</big><em>Container self</em><big>)</big><a class="headerlink" href="#egglib.egglib_binding.Container.clear" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.Container.equalize">
+<tt class="descname">equalize</tt><big>(</big><em>Container self</em>, <em>char ch='?'</em><big>)</big> &rarr; unsigned int<a class="headerlink" href="#egglib.egglib_binding.Container.equalize" title="Permalink to this definition">¶</a></dt>
+<dd><p>equalize(Container self) -&gt; unsigned int</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.Container.find">
+<tt class="descname">find</tt><big>(</big><em>Container self</em>, <em>char const * string</em>, <em>bool strict=True</em><big>)</big> &rarr; int<a class="headerlink" href="#egglib.egglib_binding.Container.find" title="Permalink to this definition">¶</a></dt>
+<dd><p>find(Container self, char const * string) -&gt; int</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.Container.get">
+<tt class="descname">get</tt><big>(</big><em>Container self</em>, <em>unsigned int s</em>, <em>unsigned int p</em><big>)</big> &rarr; char<a class="headerlink" href="#egglib.egglib_binding.Container.get" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.Container.group">
+<tt class="descname">group</tt><big>(</big><em>Container self</em>, <em>unsigned int pos</em>, <em>unsigned int group</em><big>)</big><a class="headerlink" href="#egglib.egglib_binding.Container.group" title="Permalink to this definition">¶</a></dt>
+<dd><p>group(Container self, unsigned int pos) -&gt; unsigned int</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.Container.hslice">
+<tt class="descname">hslice</tt><big>(</big><em>Container self</em>, <em>unsigned int a</em>, <em>unsigned int b</em><big>)</big> &rarr; Container<a class="headerlink" href="#egglib.egglib_binding.Container.hslice" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.Container.isEqual">
+<tt class="descname">isEqual</tt><big>(</big><em>Container self</em><big>)</big> &rarr; bool<a class="headerlink" href="#egglib.egglib_binding.Container.isEqual" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.Container.ls">
+<tt class="descname">ls</tt><big>(</big><em>Container self</em>, <em>unsigned int pos</em><big>)</big> &rarr; unsigned int<a class="headerlink" href="#egglib.egglib_binding.Container.ls" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.Container.name">
+<tt class="descname">name</tt><big>(</big><em>Container self</em>, <em>unsigned int pos</em>, <em>char const * name</em><big>)</big><a class="headerlink" href="#egglib.egglib_binding.Container.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>name(Container self, unsigned int pos) -&gt; char const *</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.Container.ns">
+<tt class="descname">ns</tt><big>(</big><em>Container self</em><big>)</big> &rarr; unsigned int<a class="headerlink" href="#egglib.egglib_binding.Container.ns" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.Container.remove">
+<tt class="descname">remove</tt><big>(</big><em>Container self</em>, <em>unsigned int pos</em><big>)</big> &rarr; unsigned int<a class="headerlink" href="#egglib.egglib_binding.Container.remove" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.Container.sequence">
+<tt class="descname">sequence</tt><big>(</big><em>Container self</em>, <em>unsigned int pos</em>, <em>char const * sequence</em><big>)</big><a class="headerlink" href="#egglib.egglib_binding.Container.sequence" title="Permalink to this definition">¶</a></dt>
+<dd><p>sequence(Container self, unsigned int pos) -&gt; char const *</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.Container.set">
+<tt class="descname">set</tt><big>(</big><em>Container self</em>, <em>unsigned int sequence</em>, <em>unsigned int position</em>, <em>char ch</em><big>)</big><a class="headerlink" href="#egglib.egglib_binding.Container.set" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="egglib.egglib_binding.DataMatrix">
+<em class="property">class </em><tt class="descclassname">egglib.egglib_binding.</tt><tt class="descname">DataMatrix</tt><big>(</big><em>egglib::DataMatrix self</em><big>)</big><a class="headerlink" href="#egglib.egglib_binding.DataMatrix" title="Permalink to this definition">¶</a></dt>
+<dd><p>Proxy of C++ egglib::DataMatrix class</p>
+<p>__init__(egglib::DataMatrix self, unsigned int numberOfSequences, unsigned int numberOfSites) -&gt; DataMatrix
+__init__(egglib::DataMatrix self, DataMatrix arg2) -&gt; DataMatrix</p>
+<dl class="method">
+<dt id="egglib.egglib_binding.DataMatrix.character">
+<tt class="descname">character</tt><big>(</big><em>DataMatrix self</em>, <em>unsigned int sequence</em>, <em>unsigned int site</em><big>)</big> &rarr; char<a class="headerlink" href="#egglib.egglib_binding.DataMatrix.character" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.DataMatrix.clear">
+<tt class="descname">clear</tt><big>(</big><em>DataMatrix self</em><big>)</big><a class="headerlink" href="#egglib.egglib_binding.DataMatrix.clear" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.DataMatrix.get">
+<tt class="descname">get</tt><big>(</big><em>DataMatrix self</em>, <em>unsigned int sequence</em>, <em>unsigned int site</em><big>)</big> &rarr; int<a class="headerlink" href="#egglib.egglib_binding.DataMatrix.get" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.DataMatrix.numberOfSequences">
+<tt class="descname">numberOfSequences</tt><big>(</big><em>DataMatrix self</em><big>)</big> &rarr; unsigned int<a class="headerlink" href="#egglib.egglib_binding.DataMatrix.numberOfSequences" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.DataMatrix.numberOfSites">
+<tt class="descname">numberOfSites</tt><big>(</big><em>DataMatrix self</em><big>)</big> &rarr; unsigned int<a class="headerlink" href="#egglib.egglib_binding.DataMatrix.numberOfSites" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.DataMatrix.populationLabel">
+<tt class="descname">populationLabel</tt><big>(</big><em>DataMatrix self</em>, <em>unsigned int sequence</em>, <em>unsigned int value</em><big>)</big><a class="headerlink" href="#egglib.egglib_binding.DataMatrix.populationLabel" title="Permalink to this definition">¶</a></dt>
+<dd><p>populationLabel(DataMatrix self, unsigned int sequence) -&gt; unsigned int</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.DataMatrix.resize">
+<tt class="descname">resize</tt><big>(</big><em>DataMatrix self</em>, <em>unsigned int newNumberOfSequences</em>, <em>unsigned int newNumberOfSites</em><big>)</big><a class="headerlink" href="#egglib.egglib_binding.DataMatrix.resize" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.DataMatrix.set">
+<tt class="descname">set</tt><big>(</big><em>DataMatrix self</em>, <em>unsigned int sequence</em>, <em>unsigned int site</em>, <em>int value</em><big>)</big><a class="headerlink" href="#egglib.egglib_binding.DataMatrix.set" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.DataMatrix.shift">
+<tt class="descname">shift</tt><big>(</big><em>DataMatrix self</em>, <em>int minimum</em><big>)</big><a class="headerlink" href="#egglib.egglib_binding.DataMatrix.shift" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.DataMatrix.sitePosition">
+<tt class="descname">sitePosition</tt><big>(</big><em>DataMatrix self</em>, <em>unsigned int site</em>, <em>double value</em><big>)</big><a class="headerlink" href="#egglib.egglib_binding.DataMatrix.sitePosition" title="Permalink to this definition">¶</a></dt>
+<dd><p>sitePosition(DataMatrix self, unsigned int site) -&gt; double</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="conversion-and-parsing">
+<h2>Conversion and parsing<a class="headerlink" href="#conversion-and-parsing" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="egglib.egglib_binding.Consensus">
+<em class="property">class </em><tt class="descclassname">egglib.egglib_binding.</tt><tt class="descname">Consensus</tt><big>(</big><em>egglib::Consensus self</em><big>)</big><a class="headerlink" href="#egglib.egglib_binding.Consensus" title="Permalink to this definition">¶</a></dt>
+<dd><p>Proxy of C++ egglib::Consensus class</p>
+<dl class="method">
+<dt id="egglib.egglib_binding.Consensus.ambiguousPositions">
+<tt class="descname">ambiguousPositions</tt><big>(</big><em>Consensus self</em><big>)</big> &rarr; vectori<a class="headerlink" href="#egglib.egglib_binding.Consensus.ambiguousPositions" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.Consensus.atLeastPartiallyResolvedAmbiguities">
+<tt class="descname">atLeastPartiallyResolvedAmbiguities</tt><big>(</big><em>Consensus self</em><big>)</big> &rarr; vectori<a class="headerlink" href="#egglib.egglib_binding.Consensus.atLeastPartiallyResolvedAmbiguities" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.Consensus.check_sequences">
+<tt class="descname">check_sequences</tt><big>(</big><em>Consensus self</em>, <em>Align align</em><big>)</big> &rarr; bool<a class="headerlink" href="#egglib.egglib_binding.Consensus.check_sequences" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.Consensus.complementaryPositions">
+<tt class="descname">complementaryPositions</tt><big>(</big><em>Consensus self</em><big>)</big> &rarr; vectori<a class="headerlink" href="#egglib.egglib_binding.Consensus.complementaryPositions" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.Consensus.consensus">
+<tt class="descname">consensus</tt><big>(</big><em>Consensus self</em>, <em>Align align</em>, <em>char separator='_'</em>, <em>bool rigorous=True</em><big>)</big> &rarr; Align<a class="headerlink" href="#egglib.egglib_binding.Consensus.consensus" title="Permalink to this definition">¶</a></dt>
+<dd><p>consensus(Consensus self, Align align, char separator=&#8217;_&#8217;) -&gt; Align
+consensus(Consensus self, Align align) -&gt; Align</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.Consensus.consistentPositions">
+<tt class="descname">consistentPositions</tt><big>(</big><em>Consensus self</em><big>)</big> &rarr; vectori<a class="headerlink" href="#egglib.egglib_binding.Consensus.consistentPositions" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.Consensus.firstSequenceNames">
+<tt class="descname">firstSequenceNames</tt><big>(</big><em>Consensus self</em><big>)</big> &rarr; vectors<a class="headerlink" href="#egglib.egglib_binding.Consensus.firstSequenceNames" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.Consensus.inconsistentPositions">
+<tt class="descname">inconsistentPositions</tt><big>(</big><em>Consensus self</em><big>)</big> &rarr; vectorvi<a class="headerlink" href="#egglib.egglib_binding.Consensus.inconsistentPositions" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.Consensus.roots">
+<tt class="descname">roots</tt><big>(</big><em>Consensus self</em><big>)</big> &rarr; vectors<a class="headerlink" href="#egglib.egglib_binding.Consensus.roots" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.Consensus.secondSequenceNames">
+<tt class="descname">secondSequenceNames</tt><big>(</big><em>Consensus self</em><big>)</big> &rarr; vectors<a class="headerlink" href="#egglib.egglib_binding.Consensus.secondSequenceNames" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.Consensus.setDisagreement">
+<tt class="descname">setDisagreement</tt><big>(</big><em>Consensus self</em>, <em>char arg2</em><big>)</big><a class="headerlink" href="#egglib.egglib_binding.Consensus.setDisagreement" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.Consensus.setMissing">
+<tt class="descname">setMissing</tt><big>(</big><em>Consensus self</em>, <em>char arg2</em><big>)</big><a class="headerlink" href="#egglib.egglib_binding.Consensus.setMissing" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.Consensus.uninformativePositions">
+<tt class="descname">uninformativePositions</tt><big>(</big><em>Consensus self</em><big>)</big> &rarr; vectori<a class="headerlink" href="#egglib.egglib_binding.Consensus.uninformativePositions" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="egglib.egglib_binding.Convert">
+<em class="property">class </em><tt class="descclassname">egglib.egglib_binding.</tt><tt class="descname">Convert</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#egglib.egglib_binding.Convert" title="Permalink to this definition">¶</a></dt>
+<dd><p>Proxy of C++ egglib::Convert class</p>
+<dl class="staticmethod">
+<dt id="egglib.egglib_binding.Convert.align">
+<em class="property">static </em><tt class="descname">align</tt><big>(</big><em>*args</em><big>)</big><a class="headerlink" href="#egglib.egglib_binding.Convert.align" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="docutils">
+<dt>align(DataMatrix dataMatrix, unsigned int length=0, Random random=None, bool randomizePositions=False, </dt>
+<dd>bool randomizeNonVaryingStates=False, bool randomizeAlleles=False, 
+bool enforceLength=False, std::string mapping=&#8221;ACGT&#8221;, char unknown=&#8217;?&#8217;, 
+char nonVaryingState=&#8217;A&#8217;) -&gt; Align</dd>
+<dt>align(DataMatrix dataMatrix, unsigned int length=0, Random random=None, bool randomizePositions=False, </dt>
+<dd>bool randomizeNonVaryingStates=False, bool randomizeAlleles=False, 
+bool enforceLength=False, std::string mapping=&#8221;ACGT&#8221;, char unknown=&#8217;?&#8217;) -&gt; Align</dd>
+<dt>align(DataMatrix dataMatrix, unsigned int length=0, Random random=None, bool randomizePositions=False, </dt>
+<dd>bool randomizeNonVaryingStates=False, bool randomizeAlleles=False, 
+bool enforceLength=False, std::string mapping=&#8221;ACGT&#8221;) -&gt; Align</dd>
+<dt>align(DataMatrix dataMatrix, unsigned int length=0, Random random=None, bool randomizePositions=False, </dt>
+<dd>bool randomizeNonVaryingStates=False, bool randomizeAlleles=False, 
+bool enforceLength=False) -&gt; Align</dd>
+<dt>align(DataMatrix dataMatrix, unsigned int length=0, Random random=None, bool randomizePositions=False, </dt>
+<dd>bool randomizeNonVaryingStates=False, bool randomizeAlleles=False) -&gt; Align</dd>
+<dt>align(DataMatrix dataMatrix, unsigned int length=0, Random random=None, bool randomizePositions=False, </dt>
+<dd>bool randomizeNonVaryingStates=False) -&gt; Align</dd>
+</dl>
+<p>align(DataMatrix dataMatrix, unsigned int length=0, Random random=None, bool randomizePositions=False) -&gt; Align
+align(DataMatrix dataMatrix, unsigned int length=0, Random random=None) -&gt; Align
+align(DataMatrix dataMatrix, unsigned int length=0) -&gt; Align
+align(DataMatrix dataMatrix) -&gt; Align</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="egglib.egglib_binding.Fasta">
+<em class="property">class </em><tt class="descclassname">egglib.egglib_binding.</tt><tt class="descname">Fasta</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#egglib.egglib_binding.Fasta" title="Permalink to this definition">¶</a></dt>
+<dd><p>Proxy of C++ egglib::Fasta class</p>
+<dl class="staticmethod">
+<dt id="egglib.egglib_binding.Fasta.format">
+<em class="property">static </em><tt class="descname">format</tt><big>(</big><em>Container container</em>, <em>bool exportGroupLabels=False</em>, <em>unsigned int lineLength=50</em><big>)</big> &rarr; std::string<a class="headerlink" href="#egglib.egglib_binding.Fasta.format" title="Permalink to this definition">¶</a></dt>
+<dd><p>format(Container container, bool exportGroupLabels=False) -&gt; std::string
+format(Container container) -&gt; std::string</p>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="egglib.egglib_binding.Fasta.formatf">
+<em class="property">static </em><tt class="descname">formatf</tt><big>(</big><em>char const * fname</em>, <em>Container container</em>, <em>bool exportGroupLabels=False</em>, <em>unsigned int lineLength=50</em><big>)</big><a class="headerlink" href="#egglib.egglib_binding.Fasta.formatf" title="Permalink to this definition">¶</a></dt>
+<dd><p>formatf(char const * fname, Container container, bool exportGroupLabels=False)
+formatf(char const * fname, Container container)</p>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="egglib.egglib_binding.Fasta.parse">
+<em class="property">static </em><tt class="descname">parse</tt><big>(</big><em>std::string const &amp; str</em>, <em>bool importGroupLabels=False</em><big>)</big> &rarr; Container<a class="headerlink" href="#egglib.egglib_binding.Fasta.parse" title="Permalink to this definition">¶</a></dt>
+<dd><p>parse(std::string const &amp; str) -&gt; Container
+parse(std::string const &amp; str, Container container, bool importGroupLabels=False)
+parse(std::string const &amp; str, Container container)</p>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="egglib.egglib_binding.Fasta.parsef">
+<em class="property">static </em><tt class="descname">parsef</tt><big>(</big><em>char const * fname</em>, <em>bool importGroupLabels=False</em><big>)</big> &rarr; Container<a class="headerlink" href="#egglib.egglib_binding.Fasta.parsef" title="Permalink to this definition">¶</a></dt>
+<dd><p>parsef(char const * fname) -&gt; Container
+parsef(char const * fname, Container container, bool importGroupLabels=False)
+parsef(char const * fname, Container container)</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="egglib.egglib_binding.Ms">
+<em class="property">class </em><tt class="descclassname">egglib.egglib_binding.</tt><tt class="descname">Ms</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#egglib.egglib_binding.Ms" title="Permalink to this definition">¶</a></dt>
+<dd><p>Proxy of C++ egglib::Ms class</p>
+<dl class="staticmethod">
+<dt id="egglib.egglib_binding.Ms.format">
+<em class="property">static </em><tt class="descname">format</tt><big>(</big><em>DataMatrix dataMatrix</em>, <em>bool separated=False</em><big>)</big> &rarr; std::string<a class="headerlink" href="#egglib.egglib_binding.Ms.format" title="Permalink to this definition">¶</a></dt>
+<dd><p>format(DataMatrix dataMatrix) -&gt; std::string</p>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="egglib.egglib_binding.Ms.get">
+<em class="property">static </em><tt class="descname">get</tt><big>(</big><em>std::string const arg1</em>, <em>unsigned int ns</em>, <em>bool separated=False</em><big>)</big> &rarr; DataMatrix<a class="headerlink" href="#egglib.egglib_binding.Ms.get" title="Permalink to this definition">¶</a></dt>
+<dd><p>get(std::string const arg1, unsigned int ns) -&gt; DataMatrix</p>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="egglib.egglib_binding.Ms.prob">
+<em class="property">static </em><tt class="descname">prob</tt><big>(</big><big>)</big> &rarr; double<a class="headerlink" href="#egglib.egglib_binding.Ms.prob" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="staticmethod">
+<dt id="egglib.egglib_binding.Ms.tMRCA">
+<em class="property">static </em><tt class="descname">tMRCA</tt><big>(</big><big>)</big> &rarr; double<a class="headerlink" href="#egglib.egglib_binding.Ms.tMRCA" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="staticmethod">
+<dt id="egglib.egglib_binding.Ms.trees">
+<em class="property">static </em><tt class="descname">trees</tt><big>(</big><big>)</big> &rarr; std::string<a class="headerlink" href="#egglib.egglib_binding.Ms.trees" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="egglib.egglib_binding.Staden">
+<em class="property">class </em><tt class="descclassname">egglib.egglib_binding.</tt><tt class="descname">Staden</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#egglib.egglib_binding.Staden" title="Permalink to this definition">¶</a></dt>
+<dd><p>Proxy of C++ egglib::Staden class</p>
+<dl class="staticmethod">
+<dt id="egglib.egglib_binding.Staden.parse">
+<em class="property">static </em><tt class="descname">parse</tt><big>(</big><em>std::string const &amp; string</em>, <em>bool deleteConsensus=True</em><big>)</big> &rarr; Align<a class="headerlink" href="#egglib.egglib_binding.Staden.parse" title="Permalink to this definition">¶</a></dt>
+<dd><p>parse(std::string const &amp; string) -&gt; Align</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="analysis-of-polymorphism">
+<h2>Analysis of polymorphism<a class="headerlink" href="#analysis-of-polymorphism" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="egglib.egglib_binding.BaseDiversity">
+<em class="property">class </em><tt class="descclassname">egglib.egglib_binding.</tt><tt class="descname">BaseDiversity</tt><big>(</big><em>egglib::BaseDiversity self</em><big>)</big><a class="headerlink" href="#egglib.egglib_binding.BaseDiversity" title="Permalink to this definition">¶</a></dt>
+<dd><p>Proxy of C++ egglib::BaseDiversity class</p>
+<dl class="method">
+<dt id="egglib.egglib_binding.BaseDiversity.get_position">
+<tt class="descname">get_position</tt><big>(</big><em>BaseDiversity self</em>, <em>unsigned int index</em><big>)</big> &rarr; unsigned int<a class="headerlink" href="#egglib.egglib_binding.BaseDiversity.get_position" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.BaseDiversity.get_site">
+<tt class="descname">get_site</tt><big>(</big><em>BaseDiversity self</em>, <em>unsigned int index</em><big>)</big> &rarr; SitePolymorphism<a class="headerlink" href="#egglib.egglib_binding.BaseDiversity.get_site" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.BaseDiversity.reserve">
+<tt class="descname">reserve</tt><big>(</big><em>BaseDiversity self</em>, <em>unsigned int numberOfSites</em><big>)</big><a class="headerlink" href="#egglib.egglib_binding.BaseDiversity.reserve" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.BaseDiversity.reset">
+<tt class="descname">reset</tt><big>(</big><em>BaseDiversity self</em><big>)</big><a class="headerlink" href="#egglib.egglib_binding.BaseDiversity.reset" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="egglib.egglib_binding.BppDiversity">
+<em class="property">class </em><tt class="descclassname">egglib.egglib_binding.</tt><tt class="descname">BppDiversity</tt><big>(</big><em>egglib::BppDiversity self</em><big>)</big><a class="headerlink" href="#egglib.egglib_binding.BppDiversity" title="Permalink to this definition">¶</a></dt>
+<dd><p>Proxy of C++ egglib::BppDiversity class</p>
+<dl class="method">
+<dt id="egglib.egglib_binding.BppDiversity.D">
+<tt class="descname">D</tt><big>(</big><em>BppDiversity self</em><big>)</big> &rarr; double<a class="headerlink" href="#egglib.egglib_binding.BppDiversity.D" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.BppDiversity.Deta">
+<tt class="descname">Deta</tt><big>(</big><em>BppDiversity self</em><big>)</big> &rarr; double<a class="headerlink" href="#egglib.egglib_binding.BppDiversity.Deta" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.BppDiversity.Dfl">
+<tt class="descname">Dfl</tt><big>(</big><em>BppDiversity self</em><big>)</big> &rarr; double<a class="headerlink" href="#egglib.egglib_binding.BppDiversity.Dfl" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.BppDiversity.Dflstar">
+<tt class="descname">Dflstar</tt><big>(</big><em>BppDiversity self</em><big>)</big> &rarr; double<a class="headerlink" href="#egglib.egglib_binding.BppDiversity.Dflstar" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.BppDiversity.F">
+<tt class="descname">F</tt><big>(</big><em>BppDiversity self</em><big>)</big> &rarr; double<a class="headerlink" href="#egglib.egglib_binding.BppDiversity.F" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.BppDiversity.Fstar">
+<tt class="descname">Fstar</tt><big>(</big><em>BppDiversity self</em><big>)</big> &rarr; double<a class="headerlink" href="#egglib.egglib_binding.BppDiversity.Fstar" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.BppDiversity.H">
+<tt class="descname">H</tt><big>(</big><em>BppDiversity self</em><big>)</big> &rarr; double<a class="headerlink" href="#egglib.egglib_binding.BppDiversity.H" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.BppDiversity.He">
+<tt class="descname">He</tt><big>(</big><em>BppDiversity self</em><big>)</big> &rarr; double<a class="headerlink" href="#egglib.egglib_binding.BppDiversity.He" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.BppDiversity.He2">
+<tt class="descname">He2</tt><big>(</big><em>BppDiversity self</em><big>)</big> &rarr; double<a class="headerlink" href="#egglib.egglib_binding.BppDiversity.He2" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.BppDiversity.K">
+<tt class="descname">K</tt><big>(</big><em>BppDiversity self</em><big>)</big> &rarr; unsigned int<a class="headerlink" href="#egglib.egglib_binding.BppDiversity.K" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.BppDiversity.MK">
+<tt class="descname">MK</tt><big>(</big><em>BppDiversity self</em><big>)</big> &rarr; vectorui<a class="headerlink" href="#egglib.egglib_binding.BppDiversity.MK" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.BppDiversity.NI">
+<tt class="descname">NI</tt><big>(</big><em>BppDiversity self</em><big>)</big> &rarr; double<a class="headerlink" href="#egglib.egglib_binding.BppDiversity.NI" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.BppDiversity.NSsites">
+<tt class="descname">NSsites</tt><big>(</big><em>BppDiversity self</em><big>)</big> &rarr; double<a class="headerlink" href="#egglib.egglib_binding.BppDiversity.NSsites" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.BppDiversity.PiNS">
+<tt class="descname">PiNS</tt><big>(</big><em>BppDiversity self</em><big>)</big> &rarr; double<a class="headerlink" href="#egglib.egglib_binding.BppDiversity.PiNS" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.BppDiversity.PiS">
+<tt class="descname">PiS</tt><big>(</big><em>BppDiversity self</em><big>)</big> &rarr; double<a class="headerlink" href="#egglib.egglib_binding.BppDiversity.PiS" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.BppDiversity.S">
+<tt class="descname">S</tt><big>(</big><em>BppDiversity self</em><big>)</big> &rarr; unsigned int<a class="headerlink" href="#egglib.egglib_binding.BppDiversity.S" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.BppDiversity.SNS">
+<tt class="descname">SNS</tt><big>(</big><em>BppDiversity self</em><big>)</big> &rarr; unsigned int<a class="headerlink" href="#egglib.egglib_binding.BppDiversity.SNS" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.BppDiversity.SS">
+<tt class="descname">SS</tt><big>(</big><em>BppDiversity self</em><big>)</big> &rarr; unsigned int<a class="headerlink" href="#egglib.egglib_binding.BppDiversity.SS" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.BppDiversity.Sext">
+<tt class="descname">Sext</tt><big>(</big><em>BppDiversity self</em><big>)</big> &rarr; unsigned int<a class="headerlink" href="#egglib.egglib_binding.BppDiversity.Sext" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.BppDiversity.Sinf">
+<tt class="descname">Sinf</tt><big>(</big><em>BppDiversity self</em><big>)</big> &rarr; unsigned int<a class="headerlink" href="#egglib.egglib_binding.BppDiversity.Sinf" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.BppDiversity.Ssin">
+<tt class="descname">Ssin</tt><big>(</big><em>BppDiversity self</em><big>)</big> &rarr; unsigned int<a class="headerlink" href="#egglib.egglib_binding.BppDiversity.Ssin" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.BppDiversity.Ssites">
+<tt class="descname">Ssites</tt><big>(</big><em>BppDiversity self</em><big>)</big> &rarr; double<a class="headerlink" href="#egglib.egglib_binding.BppDiversity.Ssites" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.BppDiversity.T83">
+<tt class="descname">T83</tt><big>(</big><em>BppDiversity self</em><big>)</big> &rarr; double<a class="headerlink" href="#egglib.egglib_binding.BppDiversity.T83" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.BppDiversity.Ti">
+<tt class="descname">Ti</tt><big>(</big><em>BppDiversity self</em><big>)</big> &rarr; unsigned int<a class="headerlink" href="#egglib.egglib_binding.BppDiversity.Ti" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.BppDiversity.TiTv">
+<tt class="descname">TiTv</tt><big>(</big><em>BppDiversity self</em><big>)</big> &rarr; double<a class="headerlink" href="#egglib.egglib_binding.BppDiversity.TiTv" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.BppDiversity.Tv">
+<tt class="descname">Tv</tt><big>(</big><em>BppDiversity self</em><big>)</big> &rarr; unsigned int<a class="headerlink" href="#egglib.egglib_binding.BppDiversity.Tv" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.BppDiversity.eta">
+<tt class="descname">eta</tt><big>(</big><em>BppDiversity self</em><big>)</big> &rarr; unsigned int<a class="headerlink" href="#egglib.egglib_binding.BppDiversity.eta" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.BppDiversity.hasOutgroup">
+<tt class="descname">hasOutgroup</tt><big>(</big><em>BppDiversity self</em><big>)</big> &rarr; bool<a class="headerlink" href="#egglib.egglib_binding.BppDiversity.hasOutgroup" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.BppDiversity.load">
+<tt class="descname">load</tt><big>(</big><em>BppDiversity self</em>, <em>Align align</em>, <em>unsigned int dataType=1</em><big>)</big><a class="headerlink" href="#egglib.egglib_binding.BppDiversity.load" title="Permalink to this definition">¶</a></dt>
+<dd><p>load(BppDiversity self, Align align)</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.BppDiversity.ncodon1mut">
+<tt class="descname">ncodon1mut</tt><big>(</big><em>BppDiversity self</em><big>)</big> &rarr; unsigned int<a class="headerlink" href="#egglib.egglib_binding.BppDiversity.ncodon1mut" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.BppDiversity.nstop">
+<tt class="descname">nstop</tt><big>(</big><em>BppDiversity self</em><big>)</big> &rarr; unsigned int<a class="headerlink" href="#egglib.egglib_binding.BppDiversity.nstop" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.BppDiversity.nsyn">
+<tt class="descname">nsyn</tt><big>(</big><em>BppDiversity self</em><big>)</big> &rarr; unsigned int<a class="headerlink" href="#egglib.egglib_binding.BppDiversity.nsyn" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.BppDiversity.rhoH">
+<tt class="descname">rhoH</tt><big>(</big><em>BppDiversity self</em><big>)</big> &rarr; double<a class="headerlink" href="#egglib.egglib_binding.BppDiversity.rhoH" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.BppDiversity.tW">
+<tt class="descname">tW</tt><big>(</big><em>BppDiversity self</em><big>)</big> &rarr; double<a class="headerlink" href="#egglib.egglib_binding.BppDiversity.tW" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.BppDiversity.tWNS">
+<tt class="descname">tWNS</tt><big>(</big><em>BppDiversity self</em><big>)</big> &rarr; double<a class="headerlink" href="#egglib.egglib_binding.BppDiversity.tWNS" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.BppDiversity.tWS">
+<tt class="descname">tWS</tt><big>(</big><em>BppDiversity self</em><big>)</big> &rarr; double<a class="headerlink" href="#egglib.egglib_binding.BppDiversity.tWS" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="egglib.egglib_binding.FStatistics">
+<em class="property">class </em><tt class="descclassname">egglib.egglib_binding.</tt><tt class="descname">FStatistics</tt><big>(</big><em>egglib::FStatistics self</em><big>)</big><a class="headerlink" href="#egglib.egglib_binding.FStatistics" title="Permalink to this definition">¶</a></dt>
+<dd><p>Proxy of C++ egglib::FStatistics class</p>
+<dl class="method">
+<dt id="egglib.egglib_binding.FStatistics.F">
+<tt class="descname">F</tt><big>(</big><em>FStatistics self</em><big>)</big> &rarr; double<a class="headerlink" href="#egglib.egglib_binding.FStatistics.F" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.FStatistics.Vallele">
+<tt class="descname">Vallele</tt><big>(</big><em>FStatistics self</em><big>)</big> &rarr; double<a class="headerlink" href="#egglib.egglib_binding.FStatistics.Vallele" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.FStatistics.Vindividual">
+<tt class="descname">Vindividual</tt><big>(</big><em>FStatistics self</em><big>)</big> &rarr; double<a class="headerlink" href="#egglib.egglib_binding.FStatistics.Vindividual" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.FStatistics.Vpopulation">
+<tt class="descname">Vpopulation</tt><big>(</big><em>FStatistics self</em><big>)</big> &rarr; double<a class="headerlink" href="#egglib.egglib_binding.FStatistics.Vpopulation" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.FStatistics.alleleFrequencyPerPopulation">
+<tt class="descname">alleleFrequencyPerPopulation</tt><big>(</big><em>FStatistics self</em>, <em>unsigned int populationIndex</em>, <em>unsigned int alleleIndex</em><big>)</big> &rarr; unsigned int<a class="headerlink" href="#egglib.egglib_binding.FStatistics.alleleFrequencyPerPopulation" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.FStatistics.alleleFrequencyTotal">
+<tt class="descname">alleleFrequencyTotal</tt><big>(</big><em>FStatistics self</em>, <em>unsigned int alleleIndex</em><big>)</big> &rarr; unsigned int<a class="headerlink" href="#egglib.egglib_binding.FStatistics.alleleFrequencyTotal" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.FStatistics.alleleValue">
+<tt class="descname">alleleValue</tt><big>(</big><em>FStatistics self</em>, <em>unsigned int alleleIndex</em><big>)</big> &rarr; unsigned int<a class="headerlink" href="#egglib.egglib_binding.FStatistics.alleleValue" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.FStatistics.f">
+<tt class="descname">f</tt><big>(</big><em>FStatistics self</em><big>)</big> &rarr; double<a class="headerlink" href="#egglib.egglib_binding.FStatistics.f" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.FStatistics.genotypeFrequencyPerPopulation">
+<tt class="descname">genotypeFrequencyPerPopulation</tt><big>(</big><em>FStatistics self</em>, <em>unsigned int populationIndex</em>, <em>unsigned int alleleIndex1</em>, <em>unsigned int alleleIndex2</em><big>)</big> &rarr; unsigned int<a class="headerlink" href="#egglib.egglib_binding.FStatistics.genotypeFrequencyPerPopulation" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.FStatistics.genotypeFrequencyTotal">
+<tt class="descname">genotypeFrequencyTotal</tt><big>(</big><em>FStatistics self</em>, <em>unsigned int alleleIndex1</em>, <em>unsigned int alleleIndex2</em><big>)</big> &rarr; unsigned int<a class="headerlink" href="#egglib.egglib_binding.FStatistics.genotypeFrequencyTotal" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.FStatistics.loadIndividual">
+<tt class="descname">loadIndividual</tt><big>(</big><em>FStatistics self</em>, <em>unsigned int genotype1</em>, <em>unsigned int genotype2</em>, <em>unsigned int populationLabel</em><big>)</big><a class="headerlink" href="#egglib.egglib_binding.FStatistics.loadIndividual" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.FStatistics.numberOfAlleles">
+<tt class="descname">numberOfAlleles</tt><big>(</big><em>FStatistics self</em><big>)</big> &rarr; unsigned int<a class="headerlink" href="#egglib.egglib_binding.FStatistics.numberOfAlleles" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.FStatistics.numberOfGenotypes">
+<tt class="descname">numberOfGenotypes</tt><big>(</big><em>FStatistics self</em><big>)</big> &rarr; unsigned int<a class="headerlink" href="#egglib.egglib_binding.FStatistics.numberOfGenotypes" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.FStatistics.numberOfPopulations">
+<tt class="descname">numberOfPopulations</tt><big>(</big><em>FStatistics self</em><big>)</big> &rarr; unsigned int<a class="headerlink" href="#egglib.egglib_binding.FStatistics.numberOfPopulations" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.FStatistics.populationFrequency">
+<tt class="descname">populationFrequency</tt><big>(</big><em>FStatistics self</em>, <em>unsigned int populationIndex</em><big>)</big> &rarr; unsigned int<a class="headerlink" href="#egglib.egglib_binding.FStatistics.populationFrequency" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.FStatistics.populationLabel">
+<tt class="descname">populationLabel</tt><big>(</big><em>FStatistics self</em>, <em>unsigned int populationIndex</em><big>)</big> &rarr; unsigned int<a class="headerlink" href="#egglib.egglib_binding.FStatistics.populationLabel" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.FStatistics.reserve">
+<tt class="descname">reserve</tt><big>(</big><em>FStatistics self</em>, <em>unsigned int numberOfIndividuals</em><big>)</big><a class="headerlink" href="#egglib.egglib_binding.FStatistics.reserve" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.FStatistics.theta">
+<tt class="descname">theta</tt><big>(</big><em>FStatistics self</em><big>)</big> &rarr; double<a class="headerlink" href="#egglib.egglib_binding.FStatistics.theta" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="egglib.egglib_binding.HFStatistics">
+<em class="property">class </em><tt class="descclassname">egglib.egglib_binding.</tt><tt class="descname">HFStatistics</tt><big>(</big><em>egglib::HFStatistics self</em><big>)</big><a class="headerlink" href="#egglib.egglib_binding.HFStatistics" title="Permalink to this definition">¶</a></dt>
+<dd><p>Proxy of C++ egglib::HFStatistics class</p>
+<dl class="method">
+<dt id="egglib.egglib_binding.HFStatistics.T1">
+<tt class="descname">T1</tt><big>(</big><em>HFStatistics self</em><big>)</big> &rarr; double<a class="headerlink" href="#egglib.egglib_binding.HFStatistics.T1" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.HFStatistics.T2">
+<tt class="descname">T2</tt><big>(</big><em>HFStatistics self</em><big>)</big> &rarr; double<a class="headerlink" href="#egglib.egglib_binding.HFStatistics.T2" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.HFStatistics.alleleFrequencyPerPopulation">
+<tt class="descname">alleleFrequencyPerPopulation</tt><big>(</big><em>HFStatistics self</em>, <em>unsigned int populationIndex</em>, <em>unsigned int alleleIndex</em><big>)</big> &rarr; unsigned int<a class="headerlink" href="#egglib.egglib_binding.HFStatistics.alleleFrequencyPerPopulation" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.HFStatistics.alleleFrequencyTotal">
+<tt class="descname">alleleFrequencyTotal</tt><big>(</big><em>HFStatistics self</em>, <em>unsigned int alleleIndex</em><big>)</big> &rarr; unsigned int<a class="headerlink" href="#egglib.egglib_binding.HFStatistics.alleleFrequencyTotal" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.HFStatistics.alleleValue">
+<tt class="descname">alleleValue</tt><big>(</big><em>HFStatistics self</em>, <em>unsigned int alleleIndex</em><big>)</big> &rarr; unsigned int<a class="headerlink" href="#egglib.egglib_binding.HFStatistics.alleleValue" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.HFStatistics.loadIndividual">
+<tt class="descname">loadIndividual</tt><big>(</big><em>HFStatistics self</em>, <em>unsigned int genotype</em>, <em>unsigned int populationLabel</em><big>)</big><a class="headerlink" href="#egglib.egglib_binding.HFStatistics.loadIndividual" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.HFStatistics.numberOfAlleles">
+<tt class="descname">numberOfAlleles</tt><big>(</big><em>HFStatistics self</em><big>)</big> &rarr; unsigned int<a class="headerlink" href="#egglib.egglib_binding.HFStatistics.numberOfAlleles" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.HFStatistics.numberOfGenotypes">
+<tt class="descname">numberOfGenotypes</tt><big>(</big><em>HFStatistics self</em><big>)</big> &rarr; unsigned int<a class="headerlink" href="#egglib.egglib_binding.HFStatistics.numberOfGenotypes" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.HFStatistics.numberOfPopulations">
+<tt class="descname">numberOfPopulations</tt><big>(</big><em>HFStatistics self</em><big>)</big> &rarr; unsigned int<a class="headerlink" href="#egglib.egglib_binding.HFStatistics.numberOfPopulations" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.HFStatistics.populationFrequency">
+<tt class="descname">populationFrequency</tt><big>(</big><em>HFStatistics self</em>, <em>unsigned int populationIndex</em><big>)</big> &rarr; unsigned int<a class="headerlink" href="#egglib.egglib_binding.HFStatistics.populationFrequency" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.HFStatistics.populationLabel">
+<tt class="descname">populationLabel</tt><big>(</big><em>HFStatistics self</em>, <em>unsigned int populationIndex</em><big>)</big> &rarr; unsigned int<a class="headerlink" href="#egglib.egglib_binding.HFStatistics.populationLabel" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.HFStatistics.reserve">
+<tt class="descname">reserve</tt><big>(</big><em>HFStatistics self</em>, <em>unsigned int numberOfIndividuals</em><big>)</big><a class="headerlink" href="#egglib.egglib_binding.HFStatistics.reserve" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.HFStatistics.theta">
+<tt class="descname">theta</tt><big>(</big><em>HFStatistics self</em><big>)</big> &rarr; double<a class="headerlink" href="#egglib.egglib_binding.HFStatistics.theta" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="egglib.egglib_binding.HaplotypeDiversity">
+<em class="property">class </em><tt class="descclassname">egglib.egglib_binding.</tt><tt class="descname">HaplotypeDiversity</tt><big>(</big><em>egglib::HaplotypeDiversity self</em><big>)</big><a class="headerlink" href="#egglib.egglib_binding.HaplotypeDiversity" title="Permalink to this definition">¶</a></dt>
+<dd><p>Proxy of C++ egglib::HaplotypeDiversity class</p>
+<dl class="method">
+<dt id="egglib.egglib_binding.HaplotypeDiversity.Fst">
+<tt class="descname">Fst</tt><big>(</big><em>HaplotypeDiversity self</em><big>)</big> &rarr; double<a class="headerlink" href="#egglib.egglib_binding.HaplotypeDiversity.Fst" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.HaplotypeDiversity.Gst">
+<tt class="descname">Gst</tt><big>(</big><em>HaplotypeDiversity self</em><big>)</big> &rarr; double<a class="headerlink" href="#egglib.egglib_binding.HaplotypeDiversity.Gst" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.HaplotypeDiversity.He">
+<tt class="descname">He</tt><big>(</big><em>HaplotypeDiversity self</em><big>)</big> &rarr; double<a class="headerlink" href="#egglib.egglib_binding.HaplotypeDiversity.He" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.HaplotypeDiversity.Hst">
+<tt class="descname">Hst</tt><big>(</big><em>HaplotypeDiversity self</em><big>)</big> &rarr; double<a class="headerlink" href="#egglib.egglib_binding.HaplotypeDiversity.Hst" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.HaplotypeDiversity.K">
+<tt class="descname">K</tt><big>(</big><em>HaplotypeDiversity self</em><big>)</big> &rarr; unsigned int<a class="headerlink" href="#egglib.egglib_binding.HaplotypeDiversity.K" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.HaplotypeDiversity.Kst">
+<tt class="descname">Kst</tt><big>(</big><em>HaplotypeDiversity self</em><big>)</big> &rarr; double<a class="headerlink" href="#egglib.egglib_binding.HaplotypeDiversity.Kst" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.HaplotypeDiversity.Snn">
+<tt class="descname">Snn</tt><big>(</big><em>HaplotypeDiversity self</em><big>)</big> &rarr; double<a class="headerlink" href="#egglib.egglib_binding.HaplotypeDiversity.Snn" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.HaplotypeDiversity.get_position">
+<tt class="descname">get_position</tt><big>(</big><em>BaseDiversity self</em>, <em>unsigned int index</em><big>)</big> &rarr; unsigned int<a class="headerlink" href="#egglib.egglib_binding.HaplotypeDiversity.get_position" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.HaplotypeDiversity.get_site">
+<tt class="descname">get_site</tt><big>(</big><em>BaseDiversity self</em>, <em>unsigned int index</em><big>)</big> &rarr; SitePolymorphism<a class="headerlink" href="#egglib.egglib_binding.HaplotypeDiversity.get_site" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.HaplotypeDiversity.haplotypeIndex">
+<tt class="descname">haplotypeIndex</tt><big>(</big><em>HaplotypeDiversity self</em>, <em>unsigned int arg2</em><big>)</big> &rarr; unsigned int<a class="headerlink" href="#egglib.egglib_binding.HaplotypeDiversity.haplotypeIndex" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.HaplotypeDiversity.load">
+<tt class="descname">load</tt><big>(</big><em>*args</em><big>)</big><a class="headerlink" href="#egglib.egglib_binding.HaplotypeDiversity.load" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="docutils">
+<dt>load(HaplotypeDiversity self, CharMatrix data, bool allowMultipleMutations=False, unsigned int ignoreFrequency=0, </dt>
+<dd>std::string characterMapping=dnaMapping)</dd>
+</dl>
+<p>load(HaplotypeDiversity self, CharMatrix data, bool allowMultipleMutations=False, unsigned int ignoreFrequency=0)
+load(HaplotypeDiversity self, CharMatrix data, bool allowMultipleMutations=False)
+load(HaplotypeDiversity self, CharMatrix data)</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.HaplotypeDiversity.reserve">
+<tt class="descname">reserve</tt><big>(</big><em>BaseDiversity self</em>, <em>unsigned int numberOfSites</em><big>)</big><a class="headerlink" href="#egglib.egglib_binding.HaplotypeDiversity.reserve" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.HaplotypeDiversity.reset">
+<tt class="descname">reset</tt><big>(</big><em>BaseDiversity self</em><big>)</big><a class="headerlink" href="#egglib.egglib_binding.HaplotypeDiversity.reset" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="egglib.egglib_binding.LinkageDisequilibrium">
+<em class="property">class </em><tt class="descclassname">egglib.egglib_binding.</tt><tt class="descname">LinkageDisequilibrium</tt><big>(</big><em>egglib::LinkageDisequilibrium self</em><big>)</big><a class="headerlink" href="#egglib.egglib_binding.LinkageDisequilibrium" title="Permalink to this definition">¶</a></dt>
+<dd><p>Proxy of C++ egglib::LinkageDisequilibrium class</p>
+<dl class="method">
+<dt id="egglib.egglib_binding.LinkageDisequilibrium.D">
+<tt class="descname">D</tt><big>(</big><em>LinkageDisequilibrium self</em>, <em>unsigned int pair_index</em><big>)</big> &rarr; double<a class="headerlink" href="#egglib.egglib_binding.LinkageDisequilibrium.D" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.LinkageDisequilibrium.Dp">
+<tt class="descname">Dp</tt><big>(</big><em>LinkageDisequilibrium self</em>, <em>unsigned int pair_index</em><big>)</big> &rarr; double<a class="headerlink" href="#egglib.egglib_binding.LinkageDisequilibrium.Dp" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.LinkageDisequilibrium.Rmin">
+<tt class="descname">Rmin</tt><big>(</big><em>LinkageDisequilibrium self</em>, <em>CharMatrix data</em><big>)</big> &rarr; unsigned int<a class="headerlink" href="#egglib.egglib_binding.LinkageDisequilibrium.Rmin" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.LinkageDisequilibrium.correl">
+<tt class="descname">correl</tt><big>(</big><em>LinkageDisequilibrium self</em><big>)</big> &rarr; double<a class="headerlink" href="#egglib.egglib_binding.LinkageDisequilibrium.correl" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.LinkageDisequilibrium.d">
+<tt class="descname">d</tt><big>(</big><em>LinkageDisequilibrium self</em>, <em>unsigned int pair_index</em><big>)</big> &rarr; int<a class="headerlink" href="#egglib.egglib_binding.LinkageDisequilibrium.d" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.LinkageDisequilibrium.get_position">
+<tt class="descname">get_position</tt><big>(</big><em>BaseDiversity self</em>, <em>unsigned int index</em><big>)</big> &rarr; unsigned int<a class="headerlink" href="#egglib.egglib_binding.LinkageDisequilibrium.get_position" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.LinkageDisequilibrium.get_site">
+<tt class="descname">get_site</tt><big>(</big><em>BaseDiversity self</em>, <em>unsigned int index</em><big>)</big> &rarr; SitePolymorphism<a class="headerlink" href="#egglib.egglib_binding.LinkageDisequilibrium.get_site" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.LinkageDisequilibrium.load">
+<tt class="descname">load</tt><big>(</big><em>*args</em><big>)</big><a class="headerlink" href="#egglib.egglib_binding.LinkageDisequilibrium.load" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="docutils">
+<dt>load(LinkageDisequilibrium self, CharMatrix data, double minimumExploitableData=1., unsigned int ignoreFrequency=0, </dt>
+<dd>std::string characterMapping=dnaMapping)</dd>
+</dl>
+<p>load(LinkageDisequilibrium self, CharMatrix data, double minimumExploitableData=1., unsigned int ignoreFrequency=0)
+load(LinkageDisequilibrium self, CharMatrix data, double minimumExploitableData=1.)
+load(LinkageDisequilibrium self, CharMatrix data)</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.LinkageDisequilibrium.numberOfPairs">
+<tt class="descname">numberOfPairs</tt><big>(</big><em>LinkageDisequilibrium self</em><big>)</big> &rarr; unsigned int<a class="headerlink" href="#egglib.egglib_binding.LinkageDisequilibrium.numberOfPairs" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.LinkageDisequilibrium.r">
+<tt class="descname">r</tt><big>(</big><em>LinkageDisequilibrium self</em>, <em>unsigned int pair_index</em><big>)</big> &rarr; double<a class="headerlink" href="#egglib.egglib_binding.LinkageDisequilibrium.r" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.LinkageDisequilibrium.r2">
+<tt class="descname">r2</tt><big>(</big><em>LinkageDisequilibrium self</em>, <em>unsigned int pair_index</em><big>)</big> &rarr; double<a class="headerlink" href="#egglib.egglib_binding.LinkageDisequilibrium.r2" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.LinkageDisequilibrium.reserve">
+<tt class="descname">reserve</tt><big>(</big><em>BaseDiversity self</em>, <em>unsigned int numberOfSites</em><big>)</big><a class="headerlink" href="#egglib.egglib_binding.LinkageDisequilibrium.reserve" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.LinkageDisequilibrium.reset">
+<tt class="descname">reset</tt><big>(</big><em>BaseDiversity self</em><big>)</big><a class="headerlink" href="#egglib.egglib_binding.LinkageDisequilibrium.reset" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.LinkageDisequilibrium.site1">
+<tt class="descname">site1</tt><big>(</big><em>LinkageDisequilibrium self</em>, <em>unsigned int pair_index</em><big>)</big> &rarr; unsigned int<a class="headerlink" href="#egglib.egglib_binding.LinkageDisequilibrium.site1" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.LinkageDisequilibrium.site2">
+<tt class="descname">site2</tt><big>(</big><em>LinkageDisequilibrium self</em>, <em>unsigned int pair_index</em><big>)</big> &rarr; unsigned int<a class="headerlink" href="#egglib.egglib_binding.LinkageDisequilibrium.site2" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="egglib.egglib_binding.MicrosatelliteDiversity">
+<em class="property">class </em><tt class="descclassname">egglib.egglib_binding.</tt><tt class="descname">MicrosatelliteDiversity</tt><big>(</big><em>egglib::MicrosatelliteDiversity self</em><big>)</big><a class="headerlink" href="#egglib.egglib_binding.MicrosatelliteDiversity" title="Permalink to this definition">¶</a></dt>
+<dd><p>Proxy of C++ egglib::MicrosatelliteDiversity class</p>
+<dl class="method">
+<dt id="egglib.egglib_binding.MicrosatelliteDiversity.He">
+<tt class="descname">He</tt><big>(</big><em>MicrosatelliteDiversity self</em>, <em>unsigned int siteIndex</em><big>)</big> &rarr; double<a class="headerlink" href="#egglib.egglib_binding.MicrosatelliteDiversity.He" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.MicrosatelliteDiversity.load">
+<tt class="descname">load</tt><big>(</big><em>MicrosatelliteDiversity self</em>, <em>DataMatrix dataMatrix</em>, <em>int missingData=999</em>, <em>bool noMissingData=False</em><big>)</big><a class="headerlink" href="#egglib.egglib_binding.MicrosatelliteDiversity.load" title="Permalink to this definition">¶</a></dt>
+<dd><p>load(MicrosatelliteDiversity self, DataMatrix dataMatrix, int missingData=999)
+load(MicrosatelliteDiversity self, DataMatrix dataMatrix)</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.MicrosatelliteDiversity.numberOfAlleles">
+<tt class="descname">numberOfAlleles</tt><big>(</big><em>MicrosatelliteDiversity self</em>, <em>unsigned int siteIndex</em><big>)</big> &rarr; unsigned int<a class="headerlink" href="#egglib.egglib_binding.MicrosatelliteDiversity.numberOfAlleles" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.MicrosatelliteDiversity.numberOfSites">
+<tt class="descname">numberOfSites</tt><big>(</big><em>MicrosatelliteDiversity self</em><big>)</big> &rarr; unsigned int<a class="headerlink" href="#egglib.egglib_binding.MicrosatelliteDiversity.numberOfSites" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.MicrosatelliteDiversity.sizeVariance">
+<tt class="descname">sizeVariance</tt><big>(</big><em>MicrosatelliteDiversity self</em>, <em>unsigned int siteIndex</em><big>)</big> &rarr; double<a class="headerlink" href="#egglib.egglib_binding.MicrosatelliteDiversity.sizeVariance" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.MicrosatelliteDiversity.thetaAssumingIAM">
+<tt class="descname">thetaAssumingIAM</tt><big>(</big><em>MicrosatelliteDiversity self</em>, <em>unsigned int siteIndex</em><big>)</big> &rarr; double<a class="headerlink" href="#egglib.egglib_binding.MicrosatelliteDiversity.thetaAssumingIAM" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.MicrosatelliteDiversity.thetaAssumingSMMfromHe">
+<tt class="descname">thetaAssumingSMMfromHe</tt><big>(</big><em>MicrosatelliteDiversity self</em>, <em>unsigned int siteIndex</em><big>)</big> &rarr; double<a class="headerlink" href="#egglib.egglib_binding.MicrosatelliteDiversity.thetaAssumingSMMfromHe" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.MicrosatelliteDiversity.thetaAssumingSMMfromSizeVariance">
+<tt class="descname">thetaAssumingSMMfromSizeVariance</tt><big>(</big><em>MicrosatelliteDiversity self</em>, <em>unsigned int siteIndex</em><big>)</big> &rarr; double<a class="headerlink" href="#egglib.egglib_binding.MicrosatelliteDiversity.thetaAssumingSMMfromSizeVariance" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="egglib.egglib_binding.NucleotideDiversity">
+<em class="property">class </em><tt class="descclassname">egglib.egglib_binding.</tt><tt class="descname">NucleotideDiversity</tt><big>(</big><em>egglib::NucleotideDiversity self</em><big>)</big><a class="headerlink" href="#egglib.egglib_binding.NucleotideDiversity" title="Permalink to this definition">¶</a></dt>
+<dd><p>Proxy of C++ egglib::NucleotideDiversity class</p>
+<dl class="method">
+<dt id="egglib.egglib_binding.NucleotideDiversity.CommonAlleles">
+<tt class="descname">CommonAlleles</tt><big>(</big><em>NucleotideDiversity self</em><big>)</big> &rarr; unsigned int<a class="headerlink" href="#egglib.egglib_binding.NucleotideDiversity.CommonAlleles" title="Permalink to this definition">¶</a></dt>
+<dd><p>CommonAlleles(NucleotideDiversity self, unsigned int pop1, unsigned int pop2) -&gt; unsigned int</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.NucleotideDiversity.D">
+<tt class="descname">D</tt><big>(</big><em>NucleotideDiversity self</em><big>)</big> &rarr; double<a class="headerlink" href="#egglib.egglib_binding.NucleotideDiversity.D" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.NucleotideDiversity.E">
+<tt class="descname">E</tt><big>(</big><em>NucleotideDiversity self</em><big>)</big> &rarr; double<a class="headerlink" href="#egglib.egglib_binding.NucleotideDiversity.E" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.NucleotideDiversity.FixedDifferences">
+<tt class="descname">FixedDifferences</tt><big>(</big><em>NucleotideDiversity self</em><big>)</big> &rarr; unsigned int<a class="headerlink" href="#egglib.egglib_binding.NucleotideDiversity.FixedDifferences" title="Permalink to this definition">¶</a></dt>
+<dd><p>FixedDifferences(NucleotideDiversity self, unsigned int pop1, unsigned int pop2) -&gt; unsigned int</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.NucleotideDiversity.H">
+<tt class="descname">H</tt><big>(</big><em>NucleotideDiversity self</em><big>)</big> &rarr; double<a class="headerlink" href="#egglib.egglib_binding.NucleotideDiversity.H" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.NucleotideDiversity.Pi">
+<tt class="descname">Pi</tt><big>(</big><em>NucleotideDiversity self</em><big>)</big> &rarr; double<a class="headerlink" href="#egglib.egglib_binding.NucleotideDiversity.Pi" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.NucleotideDiversity.Polymorphisms">
+<tt class="descname">Polymorphisms</tt><big>(</big><em>NucleotideDiversity self</em>, <em>unsigned int pop</em><big>)</big> &rarr; unsigned int<a class="headerlink" href="#egglib.egglib_binding.NucleotideDiversity.Polymorphisms" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.NucleotideDiversity.S">
+<tt class="descname">S</tt><big>(</big><em>NucleotideDiversity self</em><big>)</big> &rarr; unsigned int<a class="headerlink" href="#egglib.egglib_binding.NucleotideDiversity.S" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.NucleotideDiversity.SharedAlleles">
+<tt class="descname">SharedAlleles</tt><big>(</big><em>NucleotideDiversity self</em><big>)</big> &rarr; unsigned int<a class="headerlink" href="#egglib.egglib_binding.NucleotideDiversity.SharedAlleles" title="Permalink to this definition">¶</a></dt>
+<dd><p>SharedAlleles(NucleotideDiversity self, unsigned int pop1, unsigned int pop2) -&gt; unsigned int</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.NucleotideDiversity.So">
+<tt class="descname">So</tt><big>(</big><em>NucleotideDiversity self</em><big>)</big> &rarr; unsigned int<a class="headerlink" href="#egglib.egglib_binding.NucleotideDiversity.So" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.NucleotideDiversity.SpecificAlleles">
+<tt class="descname">SpecificAlleles</tt><big>(</big><em>NucleotideDiversity self</em><big>)</big> &rarr; unsigned int<a class="headerlink" href="#egglib.egglib_binding.NucleotideDiversity.SpecificAlleles" title="Permalink to this definition">¶</a></dt>
+<dd><p>SpecificAlleles(NucleotideDiversity self, unsigned int pop) -&gt; unsigned int</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.NucleotideDiversity.SpecificDerivedAlleles">
+<tt class="descname">SpecificDerivedAlleles</tt><big>(</big><em>NucleotideDiversity self</em><big>)</big> &rarr; unsigned int<a class="headerlink" href="#egglib.egglib_binding.NucleotideDiversity.SpecificDerivedAlleles" title="Permalink to this definition">¶</a></dt>
+<dd><p>SpecificDerivedAlleles(NucleotideDiversity self, unsigned int pop) -&gt; unsigned int</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.NucleotideDiversity.Z">
+<tt class="descname">Z</tt><big>(</big><em>NucleotideDiversity self</em><big>)</big> &rarr; double<a class="headerlink" href="#egglib.egglib_binding.NucleotideDiversity.Z" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.NucleotideDiversity.average_Pi">
+<tt class="descname">average_Pi</tt><big>(</big><em>NucleotideDiversity self</em><big>)</big> &rarr; double<a class="headerlink" href="#egglib.egglib_binding.NucleotideDiversity.average_Pi" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.NucleotideDiversity.eta">
+<tt class="descname">eta</tt><big>(</big><em>NucleotideDiversity self</em><big>)</big> &rarr; unsigned int<a class="headerlink" href="#egglib.egglib_binding.NucleotideDiversity.eta" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.NucleotideDiversity.get_position">
+<tt class="descname">get_position</tt><big>(</big><em>BaseDiversity self</em>, <em>unsigned int index</em><big>)</big> &rarr; unsigned int<a class="headerlink" href="#egglib.egglib_binding.NucleotideDiversity.get_position" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.NucleotideDiversity.get_site">
+<tt class="descname">get_site</tt><big>(</big><em>BaseDiversity self</em>, <em>unsigned int index</em><big>)</big> &rarr; SitePolymorphism<a class="headerlink" href="#egglib.egglib_binding.NucleotideDiversity.get_site" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.NucleotideDiversity.load">
+<tt class="descname">load</tt><big>(</big><em>*args</em><big>)</big><a class="headerlink" href="#egglib.egglib_binding.NucleotideDiversity.load" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="docutils">
+<dt>load(NucleotideDiversity self, CharMatrix data, bool allowMultipleMutations=False, double minimumExploitableData=1., </dt>
+<dd>unsigned int ignoreFrequency=0, std::string characterMapping=dnaMapping, 
+bool useZeroAsAncestral=False)</dd>
+<dt>load(NucleotideDiversity self, CharMatrix data, bool allowMultipleMutations=False, double minimumExploitableData=1., </dt>
+<dd>unsigned int ignoreFrequency=0, std::string characterMapping=dnaMapping)</dd>
+<dt>load(NucleotideDiversity self, CharMatrix data, bool allowMultipleMutations=False, double minimumExploitableData=1., </dt>
+<dd>unsigned int ignoreFrequency=0)</dd>
+</dl>
+<p>load(NucleotideDiversity self, CharMatrix data, bool allowMultipleMutations=False, double minimumExploitableData=1.)
+load(NucleotideDiversity self, CharMatrix data, bool allowMultipleMutations=False)
+load(NucleotideDiversity self, CharMatrix data)</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.NucleotideDiversity.lseff">
+<tt class="descname">lseff</tt><big>(</big><em>NucleotideDiversity self</em><big>)</big> &rarr; unsigned int<a class="headerlink" href="#egglib.egglib_binding.NucleotideDiversity.lseff" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.NucleotideDiversity.lseffo">
+<tt class="descname">lseffo</tt><big>(</big><em>NucleotideDiversity self</em><big>)</big> &rarr; unsigned int<a class="headerlink" href="#egglib.egglib_binding.NucleotideDiversity.lseffo" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.NucleotideDiversity.npop">
+<tt class="descname">npop</tt><big>(</big><em>NucleotideDiversity self</em><big>)</big> &rarr; unsigned int<a class="headerlink" href="#egglib.egglib_binding.NucleotideDiversity.npop" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.NucleotideDiversity.nseff">
+<tt class="descname">nseff</tt><big>(</big><em>NucleotideDiversity self</em><big>)</big> &rarr; double<a class="headerlink" href="#egglib.egglib_binding.NucleotideDiversity.nseff" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.NucleotideDiversity.nseffo">
+<tt class="descname">nseffo</tt><big>(</big><em>NucleotideDiversity self</em><big>)</big> &rarr; double<a class="headerlink" href="#egglib.egglib_binding.NucleotideDiversity.nseffo" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.NucleotideDiversity.polymorphic_positions">
+<tt class="descname">polymorphic_positions</tt><big>(</big><em>NucleotideDiversity self</em><big>)</big> &rarr; vectorui<a class="headerlink" href="#egglib.egglib_binding.NucleotideDiversity.polymorphic_positions" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.NucleotideDiversity.popLabel">
+<tt class="descname">popLabel</tt><big>(</big><em>NucleotideDiversity self</em>, <em>unsigned int popIndex</em><big>)</big> &rarr; unsigned int<a class="headerlink" href="#egglib.egglib_binding.NucleotideDiversity.popLabel" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.NucleotideDiversity.pop_Pi">
+<tt class="descname">pop_Pi</tt><big>(</big><em>NucleotideDiversity self</em>, <em>unsigned int popIndex</em><big>)</big> &rarr; double<a class="headerlink" href="#egglib.egglib_binding.NucleotideDiversity.pop_Pi" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.NucleotideDiversity.reserve">
+<tt class="descname">reserve</tt><big>(</big><em>BaseDiversity self</em>, <em>unsigned int numberOfSites</em><big>)</big><a class="headerlink" href="#egglib.egglib_binding.NucleotideDiversity.reserve" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.NucleotideDiversity.reset">
+<tt class="descname">reset</tt><big>(</big><em>BaseDiversity self</em><big>)</big><a class="headerlink" href="#egglib.egglib_binding.NucleotideDiversity.reset" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.NucleotideDiversity.singleton_positions">
+<tt class="descname">singleton_positions</tt><big>(</big><em>NucleotideDiversity self</em><big>)</big> &rarr; vectorui<a class="headerlink" href="#egglib.egglib_binding.NucleotideDiversity.singleton_positions" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.NucleotideDiversity.thetaH">
+<tt class="descname">thetaH</tt><big>(</big><em>NucleotideDiversity self</em><big>)</big> &rarr; double<a class="headerlink" href="#egglib.egglib_binding.NucleotideDiversity.thetaH" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.NucleotideDiversity.thetaL">
+<tt class="descname">thetaL</tt><big>(</big><em>NucleotideDiversity self</em><big>)</big> &rarr; double<a class="headerlink" href="#egglib.egglib_binding.NucleotideDiversity.thetaL" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.NucleotideDiversity.thetaW">
+<tt class="descname">thetaW</tt><big>(</big><em>NucleotideDiversity self</em><big>)</big> &rarr; double<a class="headerlink" href="#egglib.egglib_binding.NucleotideDiversity.thetaW" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.NucleotideDiversity.triConfiguration">
+<tt class="descname">triConfiguration</tt><big>(</big><em>NucleotideDiversity self</em>, <em>unsigned int index</em><big>)</big> &rarr; unsigned int<a class="headerlink" href="#egglib.egglib_binding.NucleotideDiversity.triConfiguration" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="egglib.egglib_binding.SitePolymorphism">
+<em class="property">class </em><tt class="descclassname">egglib.egglib_binding.</tt><tt class="descname">SitePolymorphism</tt><big>(</big><em>egglib::SitePolymorphism self</em><big>)</big><a class="headerlink" href="#egglib.egglib_binding.SitePolymorphism" title="Permalink to this definition">¶</a></dt>
+<dd><p>Proxy of C++ egglib::SitePolymorphism class</p>
+<p>__init__(egglib::SitePolymorphism self, unsigned int npop) -&gt; SitePolymorphism
+__init__(egglib::SitePolymorphism self, SitePolymorphism source) -&gt; SitePolymorphism</p>
+<dl class="method">
+<dt id="egglib.egglib_binding.SitePolymorphism.allele">
+<tt class="descname">allele</tt><big>(</big><em>SitePolymorphism self</em>, <em>unsigned int index</em><big>)</big> &rarr; char<a class="headerlink" href="#egglib.egglib_binding.SitePolymorphism.allele" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.SitePolymorphism.alleleFrequency">
+<tt class="descname">alleleFrequency</tt><big>(</big><em>SitePolymorphism self</em>, <em>unsigned int alleleIndex</em><big>)</big> &rarr; unsigned int<a class="headerlink" href="#egglib.egglib_binding.SitePolymorphism.alleleFrequency" title="Permalink to this definition">¶</a></dt>
+<dd><p>alleleFrequency(SitePolymorphism self, unsigned int popIndex, unsigned int alleleIndex) -&gt; unsigned int</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.SitePolymorphism.derivedAlleleFrequency">
+<tt class="descname">derivedAlleleFrequency</tt><big>(</big><em>SitePolymorphism self</em><big>)</big> &rarr; unsigned int<a class="headerlink" href="#egglib.egglib_binding.SitePolymorphism.derivedAlleleFrequency" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.SitePolymorphism.hasSpecificAllele">
+<tt class="descname">hasSpecificAllele</tt><big>(</big><em>SitePolymorphism self</em>, <em>unsigned int popIndex</em>, <em>bool restrictToDerived</em><big>)</big> &rarr; bool<a class="headerlink" href="#egglib.egglib_binding.SitePolymorphism.hasSpecificAllele" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.SitePolymorphism.haveCommonAllele">
+<tt class="descname">haveCommonAllele</tt><big>(</big><em>SitePolymorphism self</em>, <em>unsigned int pop1</em>, <em>unsigned int pop2</em><big>)</big> &rarr; bool<a class="headerlink" href="#egglib.egglib_binding.SitePolymorphism.haveCommonAllele" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.SitePolymorphism.haveFixedDifference">
+<tt class="descname">haveFixedDifference</tt><big>(</big><em>SitePolymorphism self</em>, <em>unsigned int pop1</em>, <em>unsigned int pop2</em><big>)</big> &rarr; bool<a class="headerlink" href="#egglib.egglib_binding.SitePolymorphism.haveFixedDifference" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.SitePolymorphism.haveSharedAllele">
+<tt class="descname">haveSharedAllele</tt><big>(</big><em>SitePolymorphism self</em>, <em>unsigned int pop1</em>, <em>unsigned int pop2</em><big>)</big> &rarr; bool<a class="headerlink" href="#egglib.egglib_binding.SitePolymorphism.haveSharedAllele" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.SitePolymorphism.isOrientable">
+<tt class="descname">isOrientable</tt><big>(</big><em>SitePolymorphism self</em><big>)</big> &rarr; bool<a class="headerlink" href="#egglib.egglib_binding.SitePolymorphism.isOrientable" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.SitePolymorphism.isPolymorphic">
+<tt class="descname">isPolymorphic</tt><big>(</big><em>SitePolymorphism self</em>, <em>unsigned int popIndex</em><big>)</big> &rarr; bool<a class="headerlink" href="#egglib.egglib_binding.SitePolymorphism.isPolymorphic" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.SitePolymorphism.load">
+<tt class="descname">load</tt><big>(</big><em>SitePolymorphism self</em>, <em>unsigned int populationIndex</em>, <em>char character</em><big>)</big><a class="headerlink" href="#egglib.egglib_binding.SitePolymorphism.load" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.SitePolymorphism.ns">
+<tt class="descname">ns</tt><big>(</big><em>SitePolymorphism self</em><big>)</big> &rarr; unsigned int<a class="headerlink" href="#egglib.egglib_binding.SitePolymorphism.ns" title="Permalink to this definition">¶</a></dt>
+<dd><p>ns(SitePolymorphism self, unsigned int popIndex) -&gt; unsigned int</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.SitePolymorphism.numberOfAlleles">
+<tt class="descname">numberOfAlleles</tt><big>(</big><em>SitePolymorphism self</em><big>)</big> &rarr; unsigned int<a class="headerlink" href="#egglib.egglib_binding.SitePolymorphism.numberOfAlleles" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.SitePolymorphism.numberOfPopulations">
+<tt class="descname">numberOfPopulations</tt><big>(</big><em>SitePolymorphism self</em>, <em>unsigned int npop</em><big>)</big><a class="headerlink" href="#egglib.egglib_binding.SitePolymorphism.numberOfPopulations" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.SitePolymorphism.outgroup">
+<tt class="descname">outgroup</tt><big>(</big><em>SitePolymorphism self</em>, <em>char state</em><big>)</big><a class="headerlink" href="#egglib.egglib_binding.SitePolymorphism.outgroup" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="coalescent-simulator">
+<h2>Coalescent simulator<a class="headerlink" href="#coalescent-simulator" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="egglib.egglib_binding.AllMigrationRateChange">
+<em class="property">class </em><tt class="descclassname">egglib.egglib_binding.</tt><tt class="descname">AllMigrationRateChange</tt><big>(</big><em>egglib::AllMigrationRateChange self</em>, <em>double date</em>, <em>double value</em><big>)</big><a class="headerlink" href="#egglib.egglib_binding.AllMigrationRateChange" title="Permalink to this definition">¶</a></dt>
+<dd><p>Proxy of C++ egglib::AllMigrationRateChange class</p>
+<dl class="method">
+<dt id="egglib.egglib_binding.AllMigrationRateChange.apply">
+<tt class="descname">apply</tt><big>(</big><em>AllMigrationRateChange self</em>, <em>ParamSet paramSet</em>, <em>Controller controller</em><big>)</big><a class="headerlink" href="#egglib.egglib_binding.AllMigrationRateChange.apply" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.AllMigrationRateChange.date">
+<tt class="descname">date</tt><big>(</big><em>Change self</em><big>)</big> &rarr; double<a class="headerlink" href="#egglib.egglib_binding.AllMigrationRateChange.date" title="Permalink to this definition">¶</a></dt>
+<dd><p>date(Change self, double value)</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.AllMigrationRateChange.value">
+<tt class="descname">value</tt><big>(</big><em>SingleParamChange self</em><big>)</big> &rarr; double<a class="headerlink" href="#egglib.egglib_binding.AllMigrationRateChange.value" title="Permalink to this definition">¶</a></dt>
+<dd><p>value(SingleParamChange self, double value)</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="egglib.egglib_binding.AllPopulationSizeChange">
+<em class="property">class </em><tt class="descclassname">egglib.egglib_binding.</tt><tt class="descname">AllPopulationSizeChange</tt><big>(</big><em>egglib::AllPopulationSizeChange self</em>, <em>double date</em>, <em>double value</em><big>)</big><a class="headerlink" href="#egglib.egglib_binding.AllPopulationSizeChange" title="Permalink to this definition">¶</a></dt>
+<dd><p>Proxy of C++ egglib::AllPopulationSizeChange class</p>
+<dl class="method">
+<dt id="egglib.egglib_binding.AllPopulationSizeChange.apply">
+<tt class="descname">apply</tt><big>(</big><em>AllPopulationSizeChange self</em>, <em>ParamSet paramSet</em>, <em>Controller controller</em><big>)</big><a class="headerlink" href="#egglib.egglib_binding.AllPopulationSizeChange.apply" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.AllPopulationSizeChange.date">
+<tt class="descname">date</tt><big>(</big><em>Change self</em><big>)</big> &rarr; double<a class="headerlink" href="#egglib.egglib_binding.AllPopulationSizeChange.date" title="Permalink to this definition">¶</a></dt>
+<dd><p>date(Change self, double value)</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.AllPopulationSizeChange.value">
+<tt class="descname">value</tt><big>(</big><em>SingleParamChange self</em><big>)</big> &rarr; double<a class="headerlink" href="#egglib.egglib_binding.AllPopulationSizeChange.value" title="Permalink to this definition">¶</a></dt>
+<dd><p>value(SingleParamChange self, double value)</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="egglib.egglib_binding.Arg">
+<em class="property">class </em><tt class="descclassname">egglib.egglib_binding.</tt><tt class="descname">Arg</tt><big>(</big><em>egglib::Arg self</em>, <em>Current current</em>, <em>unsigned int numberOfSegments</em><big>)</big><a class="headerlink" href="#egglib.egglib_binding.Arg" title="Permalink to this definition">¶</a></dt>
+<dd><p>Proxy of C++ egglib::Arg class</p>
+<dl class="method">
+<dt id="egglib.egglib_binding.Arg.MRCA">
+<tt class="descname">MRCA</tt><big>(</big><em>Arg self</em>, <em>unsigned int segmentIndex</em><big>)</big> &rarr; Edge<a class="headerlink" href="#egglib.egglib_binding.Arg.MRCA" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.Arg.addTime">
+<tt class="descname">addTime</tt><big>(</big><em>Arg self</em>, <em>double increment</em><big>)</big><a class="headerlink" href="#egglib.egglib_binding.Arg.addTime" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.Arg.ageMRCA">
+<tt class="descname">ageMRCA</tt><big>(</big><em>Arg self</em>, <em>unsigned int segmentIndex</em><big>)</big> &rarr; double<a class="headerlink" href="#egglib.egglib_binding.Arg.ageMRCA" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.Arg.ageUltimateMRCA">
+<tt class="descname">ageUltimateMRCA</tt><big>(</big><em>Arg self</em><big>)</big> &rarr; double<a class="headerlink" href="#egglib.egglib_binding.Arg.ageUltimateMRCA" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.Arg.coalescence">
+<tt class="descname">coalescence</tt><big>(</big><em>Arg self</em>, <em>double incr</em>, <em>unsigned int pop</em>, <em>unsigned int index1</em>, <em>unsigned int index2</em><big>)</big><a class="headerlink" href="#egglib.egglib_binding.Arg.coalescence" title="Permalink to this definition">¶</a></dt>
+<dd><p>coalescence(Arg self, double incr, unsigned int pop, Random random)</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.Arg.mute">
+<tt class="descname">mute</tt><big>(</big><em>Arg self</em>, <em>unsigned int segment</em>, <em>double treePosition</em><big>)</big> &rarr; Edge<a class="headerlink" href="#egglib.egglib_binding.Arg.mute" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.Arg.newick">
+<tt class="descname">newick</tt><big>(</big><em>Arg self</em>, <em>unsigned int segment</em><big>)</big> &rarr; std::string<a class="headerlink" href="#egglib.egglib_binding.Arg.newick" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="egglib.egglib_binding.Arg.numberOfEdges">
+<tt class="descname">numberOfEdges</tt><a class="headerlink" href="#egglib.egglib_binding.Arg.numberOfEdges" title="Permalink to this definition">¶</a></dt>
+<dd><p>Arg_numberOfEdges_get(Arg self) -&gt; unsigned int</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="egglib.egglib_binding.Arg.numberOfRecombinationEvents">
+<tt class="descname">numberOfRecombinationEvents</tt><a class="headerlink" href="#egglib.egglib_binding.Arg.numberOfRecombinationEvents" title="Permalink to this definition">¶</a></dt>
+<dd><p>Arg_numberOfRecombinationEvents_get(Arg self) -&gt; unsigned int</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="egglib.egglib_binding.Arg.numberOfSamples">
+<tt class="descname">numberOfSamples</tt><a class="headerlink" href="#egglib.egglib_binding.Arg.numberOfSamples" title="Permalink to this definition">¶</a></dt>
+<dd><p>Arg_numberOfSamples_get(Arg self) -&gt; unsigned int</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="egglib.egglib_binding.Arg.numberOfSegments">
+<tt class="descname">numberOfSegments</tt><a class="headerlink" href="#egglib.egglib_binding.Arg.numberOfSegments" title="Permalink to this definition">¶</a></dt>
+<dd><p>Arg_numberOfSegments_get(Arg self) -&gt; unsigned int</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.Arg.recombination">
+<tt class="descname">recombination</tt><big>(</big><em>Arg self</em>, <em>double incr</em>, <em>Random random</em><big>)</big><a class="headerlink" href="#egglib.egglib_binding.Arg.recombination" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.Arg.reset">
+<tt class="descname">reset</tt><big>(</big><em>Arg self</em>, <em>Current current</em><big>)</big><a class="headerlink" href="#egglib.egglib_binding.Arg.reset" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="egglib.egglib_binding.Arg.segmentLengths">
+<tt class="descname">segmentLengths</tt><a class="headerlink" href="#egglib.egglib_binding.Arg.segmentLengths" title="Permalink to this definition">¶</a></dt>
+<dd><p>Arg_segmentLengths_get(Arg self) -&gt; double *</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.Arg.set">
+<tt class="descname">set</tt><big>(</big><em>Arg self</em>, <em>Current current</em>, <em>unsigned int numberOfSegments</em><big>)</big><a class="headerlink" href="#egglib.egglib_binding.Arg.set" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.Arg.time">
+<tt class="descname">time</tt><big>(</big><em>Arg self</em><big>)</big> &rarr; double<a class="headerlink" href="#egglib.egglib_binding.Arg.time" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="egglib.egglib_binding.Arg.totalLength">
+<tt class="descname">totalLength</tt><a class="headerlink" href="#egglib.egglib_binding.Arg.totalLength" title="Permalink to this definition">¶</a></dt>
+<dd><p>Arg_totalLength_get(Arg self) -&gt; double</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="egglib.egglib_binding.Bottleneck">
+<em class="property">class </em><tt class="descclassname">egglib.egglib_binding.</tt><tt class="descname">Bottleneck</tt><big>(</big><em>egglib::Bottleneck self</em>, <em>double date</em>, <em>double param</em><big>)</big><a class="headerlink" href="#egglib.egglib_binding.Bottleneck" title="Permalink to this definition">¶</a></dt>
+<dd><p>Proxy of C++ egglib::Bottleneck class</p>
+<dl class="method">
+<dt id="egglib.egglib_binding.Bottleneck.apply">
+<tt class="descname">apply</tt><big>(</big><em>Bottleneck self</em>, <em>ParamSet paramSet</em>, <em>Controller controller</em><big>)</big><a class="headerlink" href="#egglib.egglib_binding.Bottleneck.apply" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.Bottleneck.date">
+<tt class="descname">date</tt><big>(</big><em>Change self</em><big>)</big> &rarr; double<a class="headerlink" href="#egglib.egglib_binding.Bottleneck.date" title="Permalink to this definition">¶</a></dt>
+<dd><p>date(Change self, double value)</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.Bottleneck.value">
+<tt class="descname">value</tt><big>(</big><em>SingleParamChange self</em><big>)</big> &rarr; double<a class="headerlink" href="#egglib.egglib_binding.Bottleneck.value" title="Permalink to this definition">¶</a></dt>
+<dd><p>value(SingleParamChange self, double value)</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="egglib.egglib_binding.Change">
+<em class="property">class </em><tt class="descclassname">egglib.egglib_binding.</tt><tt class="descname">Change</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#egglib.egglib_binding.Change" title="Permalink to this definition">¶</a></dt>
+<dd><p>Proxy of C++ egglib::Change class</p>
+<dl class="method">
+<dt id="egglib.egglib_binding.Change.apply">
+<tt class="descname">apply</tt><big>(</big><em>Change self</em>, <em>ParamSet paramSet</em>, <em>Controller controller</em><big>)</big><a class="headerlink" href="#egglib.egglib_binding.Change.apply" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.Change.date">
+<tt class="descname">date</tt><big>(</big><em>Change self</em><big>)</big> &rarr; double<a class="headerlink" href="#egglib.egglib_binding.Change.date" title="Permalink to this definition">¶</a></dt>
+<dd><p>date(Change self, double value)</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="egglib.egglib_binding.Controller">
+<em class="property">class </em><tt class="descclassname">egglib.egglib_binding.</tt><tt class="descname">Controller</tt><big>(</big><em>egglib::Controller self</em><big>)</big><a class="headerlink" href="#egglib.egglib_binding.Controller" title="Permalink to this definition">¶</a></dt>
+<dd><p>Proxy of C++ egglib::Controller class</p>
+<p>__init__(egglib::Controller self, ParamSet paramSet, Random random) -&gt; Controller</p>
+<dl class="method">
+<dt id="egglib.egglib_binding.Controller.bottleneck">
+<tt class="descname">bottleneck</tt><big>(</big><em>Controller self</em>, <em>unsigned int populationIndex</em>, <em>double strength</em><big>)</big><a class="headerlink" href="#egglib.egglib_binding.Controller.bottleneck" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.Controller.getArg">
+<tt class="descname">getArg</tt><big>(</big><em>Controller self</em><big>)</big> &rarr; Arg<a class="headerlink" href="#egglib.egglib_binding.Controller.getArg" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.Controller.moveAllLineages">
+<tt class="descname">moveAllLineages</tt><big>(</big><em>Controller self</em>, <em>unsigned int source</em>, <em>unsigned int dest</em><big>)</big><a class="headerlink" href="#egglib.egglib_binding.Controller.moveAllLineages" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.Controller.moveSomeLineages">
+<tt class="descname">moveSomeLineages</tt><big>(</big><em>Controller self</em>, <em>unsigned int source</em>, <em>unsigned int dest</em>, <em>double probability</em><big>)</big><a class="headerlink" href="#egglib.egglib_binding.Controller.moveSomeLineages" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.Controller.reset">
+<tt class="descname">reset</tt><big>(</big><em>Controller self</em><big>)</big><a class="headerlink" href="#egglib.egglib_binding.Controller.reset" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.Controller.step">
+<tt class="descname">step</tt><big>(</big><em>Controller self</em><big>)</big> &rarr; unsigned int<a class="headerlink" href="#egglib.egglib_binding.Controller.step" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="egglib.egglib_binding.Current">
+<em class="property">class </em><tt class="descclassname">egglib.egglib_binding.</tt><tt class="descname">Current</tt><big>(</big><em>egglib::Current self</em><big>)</big><a class="headerlink" href="#egglib.egglib_binding.Current" title="Permalink to this definition">¶</a></dt>
+<dd><p>Proxy of C++ egglib::Current class</p>
+<p>__init__(egglib::Current self, ParamSet paramSet) -&gt; Current
+__init__(egglib::Current self, Current arg2) -&gt; Current</p>
+<dl class="method">
+<dt id="egglib.egglib_binding.Current.addPopulation">
+<tt class="descname">addPopulation</tt><big>(</big><em>Current self</em><big>)</big><a class="headerlink" href="#egglib.egglib_binding.Current.addPopulation" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.Current.numberOfPopulations">
+<tt class="descname">numberOfPopulations</tt><big>(</big><em>Current self</em><big>)</big> &rarr; unsigned int<a class="headerlink" href="#egglib.egglib_binding.Current.numberOfPopulations" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.Current.population">
+<tt class="descname">population</tt><big>(</big><em>Current self</em>, <em>unsigned int populationIndex</em><big>)</big> &rarr; egglib::Population *<a class="headerlink" href="#egglib.egglib_binding.Current.population" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.Current.populationNumberOfLineages">
+<tt class="descname">populationNumberOfLineages</tt><big>(</big><em>Current self</em>, <em>unsigned int populationIndex</em><big>)</big> &rarr; unsigned int<a class="headerlink" href="#egglib.egglib_binding.Current.populationNumberOfLineages" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.Current.reset">
+<tt class="descname">reset</tt><big>(</big><em>Current self</em>, <em>ParamSet paramSet</em><big>)</big><a class="headerlink" href="#egglib.egglib_binding.Current.reset" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.Current.totalNumberOfLineages">
+<tt class="descname">totalNumberOfLineages</tt><big>(</big><em>Current self</em><big>)</big> &rarr; unsigned int<a class="headerlink" href="#egglib.egglib_binding.Current.totalNumberOfLineages" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="egglib.egglib_binding.Edge">
+<em class="property">class </em><tt class="descclassname">egglib.egglib_binding.</tt><tt class="descname">Edge</tt><big>(</big><em>egglib::Edge self</em>, <em>unsigned int numberOfSegments</em><big>)</big><a class="headerlink" href="#egglib.egglib_binding.Edge" title="Permalink to this definition">¶</a></dt>
+<dd><p>Proxy of C++ egglib::Edge class</p>
+<dl class="attribute">
+<dt id="egglib.egglib_binding.Edge.bottom">
+<tt class="descname">bottom</tt><a class="headerlink" href="#egglib.egglib_binding.Edge.bottom" title="Permalink to this definition">¶</a></dt>
+<dd><p>Edge_bottom_get(Edge self) -&gt; double</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.Edge.coalescence">
+<tt class="descname">coalescence</tt><big>(</big><em>*args</em><big>)</big><a class="headerlink" href="#egglib.egglib_binding.Edge.coalescence" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="docutils">
+<dt>coalescence(Edge self, double date, Edge son1, Edge son2, unsigned int * edgesPerSegments, egglib::Edge ** MRCA, </dt>
+<dd>double &amp; totalLength, double * segmentLengths)</dd>
+</dl>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="egglib.egglib_binding.Edge.coverage">
+<tt class="descname">coverage</tt><a class="headerlink" href="#egglib.egglib_binding.Edge.coverage" title="Permalink to this definition">¶</a></dt>
+<dd><p>Edge_coverage_get(Edge self) -&gt; unsigned int</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.Edge.label">
+<tt class="descname">label</tt><big>(</big><em>Edge self</em><big>)</big> &rarr; unsigned int<a class="headerlink" href="#egglib.egglib_binding.Edge.label" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="egglib.egglib_binding.Edge.length">
+<tt class="descname">length</tt><a class="headerlink" href="#egglib.egglib_binding.Edge.length" title="Permalink to this definition">¶</a></dt>
+<dd><p>Edge_length_get(Edge self) -&gt; double</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="egglib.egglib_binding.Edge.numberOfSons">
+<tt class="descname">numberOfSons</tt><a class="headerlink" href="#egglib.egglib_binding.Edge.numberOfSons" title="Permalink to this definition">¶</a></dt>
+<dd><p>Edge_numberOfSons_get(Edge self) -&gt; unsigned int</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.Edge.recombination">
+<tt class="descname">recombination</tt><big>(</big><em>Edge self</em>, <em>double date</em>, <em>Edge dest1</em>, <em>Edge dest2</em>, <em>Random random</em>, <em>double &amp; totalLength</em>, <em>double * segmentLengths</em><big>)</big><a class="headerlink" href="#egglib.egglib_binding.Edge.recombination" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.Edge.reset">
+<tt class="descname">reset</tt><big>(</big><em>Edge self</em><big>)</big><a class="headerlink" href="#egglib.egglib_binding.Edge.reset" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.Edge.segment">
+<tt class="descname">segment</tt><big>(</big><em>Edge self</em>, <em>unsigned int segmentIndex</em><big>)</big> &rarr; bool<a class="headerlink" href="#egglib.egglib_binding.Edge.segment" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.Edge.set_terminal">
+<tt class="descname">set_terminal</tt><big>(</big><em>Edge self</em>, <em>unsigned int leaf_index</em><big>)</big><a class="headerlink" href="#egglib.egglib_binding.Edge.set_terminal" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="egglib.egglib_binding.Edge.son1">
+<tt class="descname">son1</tt><a class="headerlink" href="#egglib.egglib_binding.Edge.son1" title="Permalink to this definition">¶</a></dt>
+<dd><p>Edge_son1_get(Edge self) -&gt; Edge</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="egglib.egglib_binding.Edge.son2">
+<tt class="descname">son2</tt><a class="headerlink" href="#egglib.egglib_binding.Edge.son2" title="Permalink to this definition">¶</a></dt>
+<dd><p>Edge_son2_get(Edge self) -&gt; Edge</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="egglib.egglib_binding.Edge.top">
+<tt class="descname">top</tt><a class="headerlink" href="#egglib.egglib_binding.Edge.top" title="Permalink to this definition">¶</a></dt>
+<dd><p>Edge_top_get(Edge self) -&gt; double</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="egglib.egglib_binding.GrowthRateChange">
+<em class="property">class </em><tt class="descclassname">egglib.egglib_binding.</tt><tt class="descname">GrowthRateChange</tt><big>(</big><em>egglib::GrowthRateChange self</em>, <em>double date</em>, <em>double value</em><big>)</big><a class="headerlink" href="#egglib.egglib_binding.GrowthRateChange" title="Permalink to this definition">¶</a></dt>
+<dd><p>Proxy of C++ egglib::GrowthRateChange class</p>
+<dl class="method">
+<dt id="egglib.egglib_binding.GrowthRateChange.apply">
+<tt class="descname">apply</tt><big>(</big><em>GrowthRateChange self</em>, <em>ParamSet paramSet</em>, <em>Controller controller</em><big>)</big><a class="headerlink" href="#egglib.egglib_binding.GrowthRateChange.apply" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.GrowthRateChange.date">
+<tt class="descname">date</tt><big>(</big><em>Change self</em><big>)</big> &rarr; double<a class="headerlink" href="#egglib.egglib_binding.GrowthRateChange.date" title="Permalink to this definition">¶</a></dt>
+<dd><p>date(Change self, double value)</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.GrowthRateChange.value">
+<tt class="descname">value</tt><big>(</big><em>SingleParamChange self</em><big>)</big> &rarr; double<a class="headerlink" href="#egglib.egglib_binding.GrowthRateChange.value" title="Permalink to this definition">¶</a></dt>
+<dd><p>value(SingleParamChange self, double value)</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="egglib.egglib_binding.Mutator">
+<em class="property">class </em><tt class="descclassname">egglib.egglib_binding.</tt><tt class="descname">Mutator</tt><big>(</big><em>egglib::Mutator self</em><big>)</big><a class="headerlink" href="#egglib.egglib_binding.Mutator" title="Permalink to this definition">¶</a></dt>
+<dd><p>Proxy of C++ egglib::Mutator class</p>
+<dl class="method">
+<dt id="egglib.egglib_binding.Mutator.TPMparam">
+<tt class="descname">TPMparam</tt><big>(</big><em>Mutator self</em><big>)</big> &rarr; double<a class="headerlink" href="#egglib.egglib_binding.Mutator.TPMparam" title="Permalink to this definition">¶</a></dt>
+<dd><p>TPMparam(Mutator self, double value)</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.Mutator.TPMproba">
+<tt class="descname">TPMproba</tt><big>(</big><em>Mutator self</em><big>)</big> &rarr; double<a class="headerlink" href="#egglib.egglib_binding.Mutator.TPMproba" title="Permalink to this definition">¶</a></dt>
+<dd><p>TPMproba(Mutator self, double value)</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.Mutator.fixedNumberOfMutations">
+<tt class="descname">fixedNumberOfMutations</tt><big>(</big><em>Mutator self</em><big>)</big> &rarr; unsigned int<a class="headerlink" href="#egglib.egglib_binding.Mutator.fixedNumberOfMutations" title="Permalink to this definition">¶</a></dt>
+<dd><p>fixedNumberOfMutations(Mutator self, unsigned int arg2)</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.Mutator.mutationModel">
+<tt class="descname">mutationModel</tt><big>(</big><em>Mutator self</em><big>)</big> &rarr; char<a class="headerlink" href="#egglib.egglib_binding.Mutator.mutationModel" title="Permalink to this definition">¶</a></dt>
+<dd><p>mutationModel(Mutator self, char arg2)</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.Mutator.mutationRate">
+<tt class="descname">mutationRate</tt><big>(</big><em>Mutator self</em><big>)</big> &rarr; double<a class="headerlink" href="#egglib.egglib_binding.Mutator.mutationRate" title="Permalink to this definition">¶</a></dt>
+<dd><p>mutationRate(Mutator self, double arg2)</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.Mutator.mute">
+<tt class="descname">mute</tt><big>(</big><em>Mutator self</em>, <em>Arg arg</em>, <em>Random random</em><big>)</big> &rarr; DataMatrix<a class="headerlink" href="#egglib.egglib_binding.Mutator.mute" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.Mutator.numberOfAlleles">
+<tt class="descname">numberOfAlleles</tt><big>(</big><em>Mutator self</em><big>)</big> &rarr; unsigned int<a class="headerlink" href="#egglib.egglib_binding.Mutator.numberOfAlleles" title="Permalink to this definition">¶</a></dt>
+<dd><p>numberOfAlleles(Mutator self, unsigned int arg2)</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.Mutator.numberOfMutations">
+<tt class="descname">numberOfMutations</tt><big>(</big><em>Mutator self</em><big>)</big> &rarr; unsigned int<a class="headerlink" href="#egglib.egglib_binding.Mutator.numberOfMutations" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.Mutator.numberOfSites">
+<tt class="descname">numberOfSites</tt><big>(</big><em>Mutator self</em><big>)</big> &rarr; unsigned int<a class="headerlink" href="#egglib.egglib_binding.Mutator.numberOfSites" title="Permalink to this definition">¶</a></dt>
+<dd><p>numberOfSites(Mutator self, unsigned int arg2)</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.Mutator.randomAncestralAllele">
+<tt class="descname">randomAncestralAllele</tt><big>(</big><em>Mutator self</em>, <em>bool flag</em><big>)</big><a class="headerlink" href="#egglib.egglib_binding.Mutator.randomAncestralAllele" title="Permalink to this definition">¶</a></dt>
+<dd><p>randomAncestralAllele(Mutator self) -&gt; bool</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.Mutator.reset">
+<tt class="descname">reset</tt><big>(</big><em>Mutator self</em><big>)</big><a class="headerlink" href="#egglib.egglib_binding.Mutator.reset" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.Mutator.sitePosition">
+<tt class="descname">sitePosition</tt><big>(</big><em>Mutator self</em>, <em>unsigned int siteIndex</em><big>)</big> &rarr; double<a class="headerlink" href="#egglib.egglib_binding.Mutator.sitePosition" title="Permalink to this definition">¶</a></dt>
+<dd><p>sitePosition(Mutator self, unsigned int siteIndex, double position)</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.Mutator.siteWeight">
+<tt class="descname">siteWeight</tt><big>(</big><em>Mutator self</em>, <em>unsigned int siteIndex</em><big>)</big> &rarr; double<a class="headerlink" href="#egglib.egglib_binding.Mutator.siteWeight" title="Permalink to this definition">¶</a></dt>
+<dd><p>siteWeight(Mutator self, unsigned int siteIndex, double weight)</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.Mutator.transitionWeight">
+<tt class="descname">transitionWeight</tt><big>(</big><em>Mutator self</em>, <em>unsigned int i</em>, <em>unsigned int j</em>, <em>double value</em><big>)</big><a class="headerlink" href="#egglib.egglib_binding.Mutator.transitionWeight" title="Permalink to this definition">¶</a></dt>
+<dd><p>transitionWeight(Mutator self, unsigned int i, unsigned int j) -&gt; double</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="egglib.egglib_binding.ParamSet">
+<em class="property">class </em><tt class="descclassname">egglib.egglib_binding.</tt><tt class="descname">ParamSet</tt><big>(</big><em>egglib::ParamSet self</em><big>)</big><a class="headerlink" href="#egglib.egglib_binding.ParamSet" title="Permalink to this definition">¶</a></dt>
+<dd><p>Proxy of C++ egglib::ParamSet class</p>
+<p>__init__(egglib::ParamSet self, ParamSet arg2) -&gt; ParamSet</p>
+<dl class="method">
+<dt id="egglib.egglib_binding.ParamSet.addChange">
+<tt class="descname">addChange</tt><big>(</big><em>ParamSet self</em>, <em>Change change</em><big>)</big><a class="headerlink" href="#egglib.egglib_binding.ParamSet.addChange" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.ParamSet.addPopulation">
+<tt class="descname">addPopulation</tt><big>(</big><em>ParamSet self</em>, <em>double migr</em><big>)</big><a class="headerlink" href="#egglib.egglib_binding.ParamSet.addPopulation" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.ParamSet.dateOfLastChange">
+<tt class="descname">dateOfLastChange</tt><big>(</big><em>ParamSet self</em>, <em>unsigned int populationIndex</em><big>)</big> &rarr; double<a class="headerlink" href="#egglib.egglib_binding.ParamSet.dateOfLastChange" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.ParamSet.doubles">
+<tt class="descname">doubles</tt><big>(</big><em>ParamSet self</em>, <em>unsigned int populationIndex</em><big>)</big> &rarr; unsigned int<a class="headerlink" href="#egglib.egglib_binding.ParamSet.doubles" title="Permalink to this definition">¶</a></dt>
+<dd><p>doubles(ParamSet self, unsigned int populationIndex, unsigned int value)</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.ParamSet.growthRate">
+<tt class="descname">growthRate</tt><big>(</big><em>ParamSet self</em>, <em>unsigned int populationIndex</em><big>)</big> &rarr; double<a class="headerlink" href="#egglib.egglib_binding.ParamSet.growthRate" title="Permalink to this definition">¶</a></dt>
+<dd><p>growthRate(ParamSet self, unsigned int populationIndex, double value)</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.ParamSet.migrationRate">
+<tt class="descname">migrationRate</tt><big>(</big><em>ParamSet self</em>, <em>double value</em><big>)</big><a class="headerlink" href="#egglib.egglib_binding.ParamSet.migrationRate" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.ParamSet.nextChangeDate">
+<tt class="descname">nextChangeDate</tt><big>(</big><em>ParamSet self</em><big>)</big> &rarr; double<a class="headerlink" href="#egglib.egglib_binding.ParamSet.nextChangeDate" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.ParamSet.nextChangeDo">
+<tt class="descname">nextChangeDo</tt><big>(</big><em>ParamSet self</em>, <em>Controller controller</em><big>)</big><a class="headerlink" href="#egglib.egglib_binding.ParamSet.nextChangeDo" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.ParamSet.numberOfPopulations">
+<tt class="descname">numberOfPopulations</tt><big>(</big><em>ParamSet self</em><big>)</big> &rarr; unsigned int<a class="headerlink" href="#egglib.egglib_binding.ParamSet.numberOfPopulations" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.ParamSet.numberOfSamples">
+<tt class="descname">numberOfSamples</tt><big>(</big><em>ParamSet self</em><big>)</big> &rarr; unsigned int<a class="headerlink" href="#egglib.egglib_binding.ParamSet.numberOfSamples" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.ParamSet.numberOfSegments">
+<tt class="descname">numberOfSegments</tt><big>(</big><em>ParamSet self</em><big>)</big> &rarr; unsigned int<a class="headerlink" href="#egglib.egglib_binding.ParamSet.numberOfSegments" title="Permalink to this definition">¶</a></dt>
+<dd><p>numberOfSegments(ParamSet self, unsigned int value)</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.ParamSet.pairwiseMigrationRate">
+<tt class="descname">pairwiseMigrationRate</tt><big>(</big><em>ParamSet self</em>, <em>unsigned int source</em>, <em>unsigned int dest</em><big>)</big> &rarr; double<a class="headerlink" href="#egglib.egglib_binding.ParamSet.pairwiseMigrationRate" title="Permalink to this definition">¶</a></dt>
+<dd><p>pairwiseMigrationRate(ParamSet self, unsigned int source, unsigned int dest, double value)</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.ParamSet.populationSize">
+<tt class="descname">populationSize</tt><big>(</big><em>ParamSet self</em>, <em>unsigned int populationIndex</em><big>)</big> &rarr; double<a class="headerlink" href="#egglib.egglib_binding.ParamSet.populationSize" title="Permalink to this definition">¶</a></dt>
+<dd><p>populationSize(ParamSet self, unsigned int populationIndex, double value)</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.ParamSet.recombinationRate">
+<tt class="descname">recombinationRate</tt><big>(</big><em>ParamSet self</em><big>)</big> &rarr; double<a class="headerlink" href="#egglib.egglib_binding.ParamSet.recombinationRate" title="Permalink to this definition">¶</a></dt>
+<dd><p>recombinationRate(ParamSet self, double value)</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.ParamSet.reset">
+<tt class="descname">reset</tt><big>(</big><em>ParamSet self</em><big>)</big><a class="headerlink" href="#egglib.egglib_binding.ParamSet.reset" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.ParamSet.selfingRate">
+<tt class="descname">selfingRate</tt><big>(</big><em>ParamSet self</em><big>)</big> &rarr; double<a class="headerlink" href="#egglib.egglib_binding.ParamSet.selfingRate" title="Permalink to this definition">¶</a></dt>
+<dd><p>selfingRate(ParamSet self, double value)</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.ParamSet.setGroups">
+<tt class="descname">setGroups</tt><big>(</big><em>ParamSet self</em>, <em>DataMatrix dataMatrix</em>, <em>bool labelIndividuals=False</em><big>)</big><a class="headerlink" href="#egglib.egglib_binding.ParamSet.setGroups" title="Permalink to this definition">¶</a></dt>
+<dd><p>setGroups(ParamSet self, DataMatrix dataMatrix)</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.ParamSet.singles">
+<tt class="descname">singles</tt><big>(</big><em>ParamSet self</em>, <em>unsigned int populationIndex</em><big>)</big> &rarr; unsigned int<a class="headerlink" href="#egglib.egglib_binding.ParamSet.singles" title="Permalink to this definition">¶</a></dt>
+<dd><p>singles(ParamSet self, unsigned int populationIndex, unsigned int value)</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="egglib.egglib_binding.PopulationBottleneck">
+<em class="property">class </em><tt class="descclassname">egglib.egglib_binding.</tt><tt class="descname">PopulationBottleneck</tt><big>(</big><em>egglib::PopulationBottleneck self</em>, <em>double date</em>, <em>unsigned int population</em>, <em>double value</em><big>)</big><a class="headerlink" href="#egglib.egglib_binding.PopulationBottleneck" title="Permalink to this definition">¶</a></dt>
+<dd><p>Proxy of C++ egglib::PopulationBottleneck class</p>
+<dl class="method">
+<dt id="egglib.egglib_binding.PopulationBottleneck.apply">
+<tt class="descname">apply</tt><big>(</big><em>PopulationBottleneck self</em>, <em>ParamSet paramSet</em>, <em>Controller controller</em><big>)</big><a class="headerlink" href="#egglib.egglib_binding.PopulationBottleneck.apply" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.PopulationBottleneck.date">
+<tt class="descname">date</tt><big>(</big><em>Change self</em><big>)</big> &rarr; double<a class="headerlink" href="#egglib.egglib_binding.PopulationBottleneck.date" title="Permalink to this definition">¶</a></dt>
+<dd><p>date(Change self, double value)</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.PopulationBottleneck.population">
+<tt class="descname">population</tt><big>(</big><em>PopulationParamChange self</em><big>)</big> &rarr; unsigned int<a class="headerlink" href="#egglib.egglib_binding.PopulationBottleneck.population" title="Permalink to this definition">¶</a></dt>
+<dd><p>population(PopulationParamChange self, unsigned int value)</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.PopulationBottleneck.value">
+<tt class="descname">value</tt><big>(</big><em>SingleParamChange self</em><big>)</big> &rarr; double<a class="headerlink" href="#egglib.egglib_binding.PopulationBottleneck.value" title="Permalink to this definition">¶</a></dt>
+<dd><p>value(SingleParamChange self, double value)</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="egglib.egglib_binding.PopulationFusion">
+<em class="property">class </em><tt class="descclassname">egglib.egglib_binding.</tt><tt class="descname">PopulationFusion</tt><big>(</big><em>egglib::PopulationFusion self</em><big>)</big><a class="headerlink" href="#egglib.egglib_binding.PopulationFusion" title="Permalink to this definition">¶</a></dt>
+<dd><p>Proxy of C++ egglib::PopulationFusion class</p>
+<p>__init__(egglib::PopulationFusion self, double date, unsigned int mother, unsigned int daughter) -&gt; PopulationFusion</p>
+<dl class="method">
+<dt id="egglib.egglib_binding.PopulationFusion.apply">
+<tt class="descname">apply</tt><big>(</big><em>PopulationFusion self</em>, <em>ParamSet paramSet</em>, <em>Controller controller</em><big>)</big><a class="headerlink" href="#egglib.egglib_binding.PopulationFusion.apply" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.PopulationFusion.date">
+<tt class="descname">date</tt><big>(</big><em>Change self</em><big>)</big> &rarr; double<a class="headerlink" href="#egglib.egglib_binding.PopulationFusion.date" title="Permalink to this definition">¶</a></dt>
+<dd><p>date(Change self, double value)</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.PopulationFusion.daughter">
+<tt class="descname">daughter</tt><big>(</big><em>PopulationFusion self</em>, <em>unsigned int arg2</em><big>)</big><a class="headerlink" href="#egglib.egglib_binding.PopulationFusion.daughter" title="Permalink to this definition">¶</a></dt>
+<dd><p>daughter(PopulationFusion self) -&gt; unsigned int</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.PopulationFusion.mother">
+<tt class="descname">mother</tt><big>(</big><em>PopulationFusion self</em>, <em>unsigned int arg2</em><big>)</big><a class="headerlink" href="#egglib.egglib_binding.PopulationFusion.mother" title="Permalink to this definition">¶</a></dt>
+<dd><p>mother(PopulationFusion self) -&gt; unsigned int</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="egglib.egglib_binding.PopulationGrowthRateChange">
+<em class="property">class </em><tt class="descclassname">egglib.egglib_binding.</tt><tt class="descname">PopulationGrowthRateChange</tt><big>(</big><em>egglib::PopulationGrowthRateChange self</em>, <em>double date</em>, <em>unsigned int population</em>, <em>double value</em><big>)</big><a class="headerlink" href="#egglib.egglib_binding.PopulationGrowthRateChange" title="Permalink to this definition">¶</a></dt>
+<dd><p>Proxy of C++ egglib::PopulationGrowthRateChange class</p>
+<dl class="method">
+<dt id="egglib.egglib_binding.PopulationGrowthRateChange.apply">
+<tt class="descname">apply</tt><big>(</big><em>PopulationGrowthRateChange self</em>, <em>ParamSet paramSet</em>, <em>Controller controller</em><big>)</big><a class="headerlink" href="#egglib.egglib_binding.PopulationGrowthRateChange.apply" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.PopulationGrowthRateChange.date">
+<tt class="descname">date</tt><big>(</big><em>Change self</em><big>)</big> &rarr; double<a class="headerlink" href="#egglib.egglib_binding.PopulationGrowthRateChange.date" title="Permalink to this definition">¶</a></dt>
+<dd><p>date(Change self, double value)</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.PopulationGrowthRateChange.population">
+<tt class="descname">population</tt><big>(</big><em>PopulationParamChange self</em><big>)</big> &rarr; unsigned int<a class="headerlink" href="#egglib.egglib_binding.PopulationGrowthRateChange.population" title="Permalink to this definition">¶</a></dt>
+<dd><p>population(PopulationParamChange self, unsigned int value)</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.PopulationGrowthRateChange.value">
+<tt class="descname">value</tt><big>(</big><em>SingleParamChange self</em><big>)</big> &rarr; double<a class="headerlink" href="#egglib.egglib_binding.PopulationGrowthRateChange.value" title="Permalink to this definition">¶</a></dt>
+<dd><p>value(SingleParamChange self, double value)</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="egglib.egglib_binding.PopulationParamChange">
+<em class="property">class </em><tt class="descclassname">egglib.egglib_binding.</tt><tt class="descname">PopulationParamChange</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#egglib.egglib_binding.PopulationParamChange" title="Permalink to this definition">¶</a></dt>
+<dd><p>Proxy of C++ egglib::PopulationParamChange class</p>
+<dl class="method">
+<dt id="egglib.egglib_binding.PopulationParamChange.apply">
+<tt class="descname">apply</tt><big>(</big><em>Change self</em>, <em>ParamSet paramSet</em>, <em>Controller controller</em><big>)</big><a class="headerlink" href="#egglib.egglib_binding.PopulationParamChange.apply" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.PopulationParamChange.date">
+<tt class="descname">date</tt><big>(</big><em>Change self</em><big>)</big> &rarr; double<a class="headerlink" href="#egglib.egglib_binding.PopulationParamChange.date" title="Permalink to this definition">¶</a></dt>
+<dd><p>date(Change self, double value)</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.PopulationParamChange.population">
+<tt class="descname">population</tt><big>(</big><em>PopulationParamChange self</em><big>)</big> &rarr; unsigned int<a class="headerlink" href="#egglib.egglib_binding.PopulationParamChange.population" title="Permalink to this definition">¶</a></dt>
+<dd><p>population(PopulationParamChange self, unsigned int value)</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.PopulationParamChange.value">
+<tt class="descname">value</tt><big>(</big><em>SingleParamChange self</em><big>)</big> &rarr; double<a class="headerlink" href="#egglib.egglib_binding.PopulationParamChange.value" title="Permalink to this definition">¶</a></dt>
+<dd><p>value(SingleParamChange self, double value)</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="egglib.egglib_binding.PopulationSplit">
+<em class="property">class </em><tt class="descclassname">egglib.egglib_binding.</tt><tt class="descname">PopulationSplit</tt><big>(</big><em>egglib::PopulationSplit self</em><big>)</big><a class="headerlink" href="#egglib.egglib_binding.PopulationSplit" title="Permalink to this definition">¶</a></dt>
+<dd><p>Proxy of C++ egglib::PopulationSplit class</p>
+<p>__init__(egglib::PopulationSplit self, double date, unsigned int pop, double proba) -&gt; PopulationSplit</p>
+<dl class="method">
+<dt id="egglib.egglib_binding.PopulationSplit.apply">
+<tt class="descname">apply</tt><big>(</big><em>PopulationSplit self</em>, <em>ParamSet paramSet</em>, <em>Controller controller</em><big>)</big><a class="headerlink" href="#egglib.egglib_binding.PopulationSplit.apply" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.PopulationSplit.date">
+<tt class="descname">date</tt><big>(</big><em>Change self</em><big>)</big> &rarr; double<a class="headerlink" href="#egglib.egglib_binding.PopulationSplit.date" title="Permalink to this definition">¶</a></dt>
+<dd><p>date(Change self, double value)</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.PopulationSplit.population">
+<tt class="descname">population</tt><big>(</big><em>PopulationSplit self</em><big>)</big> &rarr; unsigned int<a class="headerlink" href="#egglib.egglib_binding.PopulationSplit.population" title="Permalink to this definition">¶</a></dt>
+<dd><p>population(PopulationSplit self, unsigned int arg2)</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.PopulationSplit.probability">
+<tt class="descname">probability</tt><big>(</big><em>PopulationSplit self</em><big>)</big> &rarr; double<a class="headerlink" href="#egglib.egglib_binding.PopulationSplit.probability" title="Permalink to this definition">¶</a></dt>
+<dd><p>probability(PopulationSplit self, double arg2)</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="egglib.egglib_binding.SelfingRateChange">
+<em class="property">class </em><tt class="descclassname">egglib.egglib_binding.</tt><tt class="descname">SelfingRateChange</tt><big>(</big><em>egglib::SelfingRateChange self</em>, <em>double date</em>, <em>double value</em><big>)</big><a class="headerlink" href="#egglib.egglib_binding.SelfingRateChange" title="Permalink to this definition">¶</a></dt>
+<dd><p>Proxy of C++ egglib::SelfingRateChange class</p>
+<dl class="method">
+<dt id="egglib.egglib_binding.SelfingRateChange.apply">
+<tt class="descname">apply</tt><big>(</big><em>SelfingRateChange self</em>, <em>ParamSet paramSet</em>, <em>Controller controller</em><big>)</big><a class="headerlink" href="#egglib.egglib_binding.SelfingRateChange.apply" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.SelfingRateChange.date">
+<tt class="descname">date</tt><big>(</big><em>Change self</em><big>)</big> &rarr; double<a class="headerlink" href="#egglib.egglib_binding.SelfingRateChange.date" title="Permalink to this definition">¶</a></dt>
+<dd><p>date(Change self, double value)</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.SelfingRateChange.value">
+<tt class="descname">value</tt><big>(</big><em>SingleParamChange self</em><big>)</big> &rarr; double<a class="headerlink" href="#egglib.egglib_binding.SelfingRateChange.value" title="Permalink to this definition">¶</a></dt>
+<dd><p>value(SingleParamChange self, double value)</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="egglib.egglib_binding.SingleMigrationRateChange">
+<em class="property">class </em><tt class="descclassname">egglib.egglib_binding.</tt><tt class="descname">SingleMigrationRateChange</tt><big>(</big><em>egglib::SingleMigrationRateChange self</em><big>)</big><a class="headerlink" href="#egglib.egglib_binding.SingleMigrationRateChange" title="Permalink to this definition">¶</a></dt>
+<dd><p>Proxy of C++ egglib::SingleMigrationRateChange class</p>
+<p>__init__(egglib::SingleMigrationRateChange self, double date, unsigned int source, unsigned int dest, double migr) -&gt; SingleMigrationRateChange</p>
+<dl class="method">
+<dt id="egglib.egglib_binding.SingleMigrationRateChange.apply">
+<tt class="descname">apply</tt><big>(</big><em>SingleMigrationRateChange self</em>, <em>ParamSet paramSet</em>, <em>Controller controller</em><big>)</big><a class="headerlink" href="#egglib.egglib_binding.SingleMigrationRateChange.apply" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.SingleMigrationRateChange.date">
+<tt class="descname">date</tt><big>(</big><em>Change self</em><big>)</big> &rarr; double<a class="headerlink" href="#egglib.egglib_binding.SingleMigrationRateChange.date" title="Permalink to this definition">¶</a></dt>
+<dd><p>date(Change self, double value)</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.SingleMigrationRateChange.dest">
+<tt class="descname">dest</tt><big>(</big><em>SingleMigrationRateChange self</em><big>)</big> &rarr; unsigned int<a class="headerlink" href="#egglib.egglib_binding.SingleMigrationRateChange.dest" title="Permalink to this definition">¶</a></dt>
+<dd><p>dest(SingleMigrationRateChange self, unsigned int arg2)</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.SingleMigrationRateChange.source">
+<tt class="descname">source</tt><big>(</big><em>SingleMigrationRateChange self</em><big>)</big> &rarr; unsigned int<a class="headerlink" href="#egglib.egglib_binding.SingleMigrationRateChange.source" title="Permalink to this definition">¶</a></dt>
+<dd><p>source(SingleMigrationRateChange self, unsigned int arg2)</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.SingleMigrationRateChange.value">
+<tt class="descname">value</tt><big>(</big><em>SingleParamChange self</em><big>)</big> &rarr; double<a class="headerlink" href="#egglib.egglib_binding.SingleMigrationRateChange.value" title="Permalink to this definition">¶</a></dt>
+<dd><p>value(SingleParamChange self, double value)</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="egglib.egglib_binding.SingleParamChange">
+<em class="property">class </em><tt class="descclassname">egglib.egglib_binding.</tt><tt class="descname">SingleParamChange</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#egglib.egglib_binding.SingleParamChange" title="Permalink to this definition">¶</a></dt>
+<dd><p>Proxy of C++ egglib::SingleParamChange class</p>
+<dl class="method">
+<dt id="egglib.egglib_binding.SingleParamChange.apply">
+<tt class="descname">apply</tt><big>(</big><em>Change self</em>, <em>ParamSet paramSet</em>, <em>Controller controller</em><big>)</big><a class="headerlink" href="#egglib.egglib_binding.SingleParamChange.apply" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.SingleParamChange.date">
+<tt class="descname">date</tt><big>(</big><em>Change self</em><big>)</big> &rarr; double<a class="headerlink" href="#egglib.egglib_binding.SingleParamChange.date" title="Permalink to this definition">¶</a></dt>
+<dd><p>date(Change self, double value)</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.SingleParamChange.value">
+<tt class="descname">value</tt><big>(</big><em>SingleParamChange self</em><big>)</big> &rarr; double<a class="headerlink" href="#egglib.egglib_binding.SingleParamChange.value" title="Permalink to this definition">¶</a></dt>
+<dd><p>value(SingleParamChange self, double value)</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="egglib.egglib_binding.SinglePopulationSizeChange">
+<em class="property">class </em><tt class="descclassname">egglib.egglib_binding.</tt><tt class="descname">SinglePopulationSizeChange</tt><big>(</big><em>egglib::SinglePopulationSizeChange self</em>, <em>double date</em>, <em>unsigned int population</em>, <em>double value</em><big>)</big><a class="headerlink" href="#egglib.egglib_binding.SinglePopulationSizeChange" title="Permalink to this definition">¶</a></dt>
+<dd><p>Proxy of C++ egglib::SinglePopulationSizeChange class</p>
+<dl class="method">
+<dt id="egglib.egglib_binding.SinglePopulationSizeChange.apply">
+<tt class="descname">apply</tt><big>(</big><em>SinglePopulationSizeChange self</em>, <em>ParamSet paramSet</em>, <em>Controller controller</em><big>)</big><a class="headerlink" href="#egglib.egglib_binding.SinglePopulationSizeChange.apply" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.SinglePopulationSizeChange.date">
+<tt class="descname">date</tt><big>(</big><em>Change self</em><big>)</big> &rarr; double<a class="headerlink" href="#egglib.egglib_binding.SinglePopulationSizeChange.date" title="Permalink to this definition">¶</a></dt>
+<dd><p>date(Change self, double value)</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.SinglePopulationSizeChange.population">
+<tt class="descname">population</tt><big>(</big><em>PopulationParamChange self</em><big>)</big> &rarr; unsigned int<a class="headerlink" href="#egglib.egglib_binding.SinglePopulationSizeChange.population" title="Permalink to this definition">¶</a></dt>
+<dd><p>population(PopulationParamChange self, unsigned int value)</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.SinglePopulationSizeChange.value">
+<tt class="descname">value</tt><big>(</big><em>SingleParamChange self</em><big>)</big> &rarr; double<a class="headerlink" href="#egglib.egglib_binding.SinglePopulationSizeChange.value" title="Permalink to this definition">¶</a></dt>
+<dd><p>value(SingleParamChange self, double value)</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="approximate-bayesian-computation">
+<h2>Approximate Bayesian Computation<a class="headerlink" href="#approximate-bayesian-computation" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="egglib.egglib_binding.ABC">
+<em class="property">class </em><tt class="descclassname">egglib.egglib_binding.</tt><tt class="descname">ABC</tt><big>(</big><em>egglib::ABC self</em><big>)</big><a class="headerlink" href="#egglib.egglib_binding.ABC" title="Permalink to this definition">¶</a></dt>
+<dd><p>Proxy of C++ egglib::ABC class</p>
+<dl class="method">
+<dt id="egglib.egglib_binding.ABC.add_fname">
+<tt class="descname">add_fname</tt><big>(</big><em>ABC self</em>, <em>char const * arg2</em>, <em>int arg3</em><big>)</big><a class="headerlink" href="#egglib.egglib_binding.ABC.add_fname" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.ABC.get_threshold">
+<tt class="descname">get_threshold</tt><big>(</big><em>ABC self</em>, <em>double tolerance</em><big>)</big><a class="headerlink" href="#egglib.egglib_binding.ABC.get_threshold" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.ABC.number_of_samples">
+<tt class="descname">number_of_samples</tt><big>(</big><em>ABC self</em><big>)</big> &rarr; unsigned int<a class="headerlink" href="#egglib.egglib_binding.ABC.number_of_samples" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.ABC.number_of_statistics">
+<tt class="descname">number_of_statistics</tt><big>(</big><em>ABC self</em>, <em>unsigned int ns</em><big>)</big><a class="headerlink" href="#egglib.egglib_binding.ABC.number_of_statistics" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.ABC.obs">
+<tt class="descname">obs</tt><big>(</big><em>ABC self</em>, <em>unsigned int index</em>, <em>double value</em><big>)</big><a class="headerlink" href="#egglib.egglib_binding.ABC.obs" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.ABC.regression">
+<tt class="descname">regression</tt><big>(</big><em>ABC self</em>, <em>char const * infname</em>, <em>char const * outfname</em>, <em>egglib::ABC::TransformMode mode</em>, <em>char const * header=&quot;&quot;</em><big>)</big> &rarr; unsigned int<a class="headerlink" href="#egglib.egglib_binding.ABC.regression" title="Permalink to this definition">¶</a></dt>
+<dd><p>regression(ABC self, char const * infname, char const * outfname, egglib::ABC::TransformMode mode) -&gt; unsigned int</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.ABC.rejection">
+<tt class="descname">rejection</tt><big>(</big><em>ABC self</em>, <em>char const * outfname</em>, <em>bool exportlabels=False</em><big>)</big> &rarr; unsigned int<a class="headerlink" href="#egglib.egglib_binding.ABC.rejection" title="Permalink to this definition">¶</a></dt>
+<dd><p>rejection(ABC self, char const * outfname) -&gt; unsigned int</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.ABC.sd">
+<tt class="descname">sd</tt><big>(</big><em>ABC self</em>, <em>unsigned int index</em><big>)</big> &rarr; double<a class="headerlink" href="#egglib.egglib_binding.ABC.sd" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.ABC.threshold">
+<tt class="descname">threshold</tt><big>(</big><em>ABC self</em><big>)</big> &rarr; double<a class="headerlink" href="#egglib.egglib_binding.ABC.threshold" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="random-number-generator">
+<h2>Random number generator<a class="headerlink" href="#random-number-generator" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="egglib.egglib_binding.Random">
+<em class="property">class </em><tt class="descclassname">egglib.egglib_binding.</tt><tt class="descname">Random</tt><big>(</big><em>egglib::Random self</em><big>)</big><a class="headerlink" href="#egglib.egglib_binding.Random" title="Permalink to this definition">¶</a></dt>
+<dd><p>Proxy of C++ egglib::Random class</p>
+<p>__init__(egglib::Random self, double seed1, double seed2) -&gt; Random</p>
+<dl class="method">
+<dt id="egglib.egglib_binding.Random.erand">
+<tt class="descname">erand</tt><big>(</big><em>Random self</em>, <em>double expectation</em><big>)</big> &rarr; double<a class="headerlink" href="#egglib.egglib_binding.Random.erand" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.Random.grand">
+<tt class="descname">grand</tt><big>(</big><em>Random self</em>, <em>double arg2</em><big>)</big> &rarr; unsigned int<a class="headerlink" href="#egglib.egglib_binding.Random.grand" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.Random.irand">
+<tt class="descname">irand</tt><big>(</big><em>Random self</em>, <em>unsigned int max</em><big>)</big> &rarr; unsigned int<a class="headerlink" href="#egglib.egglib_binding.Random.irand" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.Random.nrand">
+<tt class="descname">nrand</tt><big>(</big><em>Random self</em><big>)</big> &rarr; double<a class="headerlink" href="#egglib.egglib_binding.Random.nrand" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.Random.prand">
+<tt class="descname">prand</tt><big>(</big><em>Random self</em>, <em>double p</em><big>)</big> &rarr; unsigned int<a class="headerlink" href="#egglib.egglib_binding.Random.prand" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.Random.seed1">
+<tt class="descname">seed1</tt><big>(</big><em>Random self</em><big>)</big> &rarr; double<a class="headerlink" href="#egglib.egglib_binding.Random.seed1" title="Permalink to this definition">¶</a></dt>
+<dd><p>seed1(Random self, double arg2)</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.Random.seed2">
+<tt class="descname">seed2</tt><big>(</big><em>Random self</em><big>)</big> &rarr; double<a class="headerlink" href="#egglib.egglib_binding.Random.seed2" title="Permalink to this definition">¶</a></dt>
+<dd><p>seed2(Random self, double arg2)</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.egglib_binding.Random.uniform">
+<tt class="descname">uniform</tt><big>(</big><em>Random self</em><big>)</big> &rarr; double<a class="headerlink" href="#egglib.egglib_binding.Random.uniform" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="data.html" title="Top-level Egglib components"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="egglib-py.html" title="Python module"
+             >previous</a> |</li>
+        <li><a href="index.html">EggLib</a> &raquo;</li>
+          <li><a href="egglib-py.html" >Python module</a> &raquo;</li> 
+      </ul>
+    </div>
+        <address style="text-align: right;"><small>Hosted by&nbsp;
+        <a href="http://sourceforge.net/projects/seqlib"><img src="http://sflogo.sourceforge.net/sflogo.php?group_id=232965&amp;type=8" width="80" height="15" alt="Get seqlib at SourceForge.net. Fast, secure and Free Open Source software downloads" / ALIGN=RIGHT BORDER=0></a>
+        </address>
+
+  </body>
+</html>

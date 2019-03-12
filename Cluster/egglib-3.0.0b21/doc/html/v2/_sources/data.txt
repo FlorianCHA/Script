@@ -1,0 +1,85 @@
+===========================
+Top-level Egglib components
+===========================
+
+Top-level Egglib utilities consist mostly in data storage classes:
+:class:`~egglib.Container` and :class:`~egglib.Align` for sequence data,
+:class:`~egglib.SSR` for microsatellite data, :class:`~egglib.GenBank`
+for annotated sequences and :class:`~egglib.Tree` for trees.
+
+---------------
+Class Container
+---------------
+
+.. autoclass:: egglib.Container
+    :members:
+    :inherited-members:
+    :show-inheritance:
+
+-----------
+Class Align
+-----------
+
+.. autoclass:: egglib.Align
+    :members:
+    :inherited-members:
+    :show-inheritance:
+
+------------------
+Class SequenceItem
+------------------
+
+.. autoclass:: egglib.SequenceItem
+    :members:
+    :inherited-members:
+
+---------
+SSR class
+---------
+    
+.. autoclass:: egglib.SSR
+    :members:
+    :inherited-members:
+    :show-inheritance:
+
+----------
+TIGR class
+----------
+
+.. autoclass:: egglib.TIGR
+    :members:
+    :inherited-members:
+    :show-inheritance:
+
+-------------
+GenBank class
+-------------
+
+.. autoclass:: egglib.GenBank
+    :members:
+    :inherited-members:
+    :show-inheritance:
+
+.. autoclass:: egglib.GenBankFeature
+    :members:
+    :inherited-members:
+    :show-inheritance:
+
+.. autoclass:: egglib.GenBankFeatureLocation
+    :members:
+    :inherited-members:
+    :show-inheritance:
+
+----------
+Tree class
+----------
+
+.. autoclass:: egglib.Tree
+    :members:
+    :inherited-members:
+    :show-inheritance:
+
+.. autoclass:: egglib.TreeNode
+    :members:
+    :inherited-members:
+    :show-inheritance:

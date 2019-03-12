@@ -1,0 +1,32 @@
+.. _egglib-py:
+
+=============
+Python module
+=============
+
+**egglib-py** is the Python version of eggLib. It contains a wrapper of
+the eggLib-cpp library generated using SWIG as well as additional
+functionalies and a number of pre-implemented applications that can be
+used directly through the executable script ``egglib``.
+
+The different parts of **egglib-py** are described in the following
+sections.
+    
+.. toctree::
+    :maxdepth: 4
+
+    binding
+
+    data
+
+    tools
+
+    wrappers
+    
+    simul
+    
+    fitmodel
+
+    utils
+
+    test

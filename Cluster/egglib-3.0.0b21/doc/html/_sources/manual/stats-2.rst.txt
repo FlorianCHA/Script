@@ -1,0 +1,413 @@
+------------------------
+Accounting for structure
+------------------------
+
+Many statistics, including :math:`F_{ST}`, require that a structure is defined.
+
+We have seen in :ref:`group-labels` that :class:`!Align` objects can have
+group labels useful to define one or several levels of structure. However,
+the structure of the sample is not formally embedded in objects holding
+genetic data. The reason for that is too allow processing the same data set
+assuming different structurations (in order to either compare the effect of different
+ways to group samples, or analyze different subsets of the data). The approach
+is to keep the data set static, and provide a separate object holding the
+description of the structure. Such objects are of the class :class:`.stats.Structure`.
+
+:class:`!Structure` objects are rather simple: they contain the list of
+individuals, populations, and clusters of populations, and the indexes of
+samples belonging to each of them and how they are organized with respect
+to each other. Although groups labels in :class:`!Align` objects are not
+required to be hierarchical, the structure contained in a single
+:class:`!Structure` object is necessarily hierarchical. If alternative,
+non-hierarchical, structures are defined by group labels, they should be
+represented by different :class:`!Structure` objects.
+
+:class:`!Structure` objects define three hierarchical levels of structure:
+clusters, populations, and individuals. However, it is possible to represent
+data even if all those levels are not represented (using a single cluster
+for free populations, using a single population for non-structured individual,
+and using one-sample individuals for haploid samples).
+
+There are two ways of creating a :class:`!Structure` object: either based on
+group labels of an :class:`!Align` object, or from an user-provided explicit
+description of the structure as a :class:`dict` object. Those two approaches
+are described in the next paragraphs.
+
+.. note::
+
+    Outgroup data are not concerned by :class:`!Structure` instances.
+    If the provided data (either :class:`!Align` or :class:`!Site`) have
+    outgroup data, it will be recognized and processed accordingly. There
+    is an exception for this: if individuals are defined, outgroup samples
+    must be mapped to individuals consistently to the rest of the data
+    (*i.e.* consistent ploidy), otherwise they are ignored.
+
+Creating a structure from an alignment
+======================================
+
+To present the usage of the :class:`!Structure` class, we will use a
+complete, albeit over-simplified example. Consider the Fasta
+alignment below::
+
+    >sample01 @1000,10,1
+    CTTCCGGGAAGCGCCAGCAGAAGGTTGCTGCTAAGGCCCGCACACGTCTGCAGCACTTCG
+    >sample02 @1000,10,1
+    CTTCCGCGCAGGGCCAGGAGCATGTAGCTTCTAAGGCTTGCACAGGTCTTCAGCACTACG
+    >sample03 @1000,10,2
+    CTTCCGCGCAGGGCCAGGAGCATGTAGCTTCTAAGGCTTGCACAGGTCTTCAGCACTACG
+    >sample04 @1000,10,2
+    CTTCCGCGCAGGGCCAGGAGCATGTAGCTTCTAAGGCTTGCACAGGTCTTCAGCACTACG
+    >sample05 @1000,10,3
+    CTACCGTGACGAGCTAGCCGAGCCTGACGCAGGGGGCGAGTAAGGGAGATTACGACTTGG
+    >sample06 @1000,10,3
+    CTTCCGCGCAGGGCCAGGAGAATGTTGCTTCTAAGGCTTGCACAGGTCTTCAGCACTAAG
+    >sample07 @1000,20,4
+    CTGCTATGACGAACTACCCGAGCCTGGGGCATGGGGCGTGTATGGGAGCTTACAACTTGG
+    >sample08 @1000,20,4
+    CTTACGCGACGTGCCAGCATAGGGAAGCTGCTAAGGCCTGCACACGTCCGCAGCACTACG
+    >sample09 @1000,20,5
+    CTGCTATGACGAACTACCCGAGGCTGGGGCATGGGGCGTGTATGGGAGCTTACAACTTGG
+    >sample10 @1000,20,5
+    CTGCTATGACGAACTACCCGAGGCTGGGGCATGGGGCGTGTATGGGAGCTTACAACTTGG
+    >sample11 @1000,20,6
+    CTTACGCGACGCGCCAGCAGAGGGATGCTGCTAAGGCCTGCACACGTCCGCAGCACTACG
+    >sample12 @1000,20,6
+    CTTACGCGACGCGCCAGCAGAGGGATGCTGCTAAGGCCTGCACACGTCCGCAGCACTACG
+    >sample13 @1000,20,7
+    CTGCTATGACGAACTACCCGAGCCTGGGGCATGGGGCGTGTATGGGAGCTTACAACTTGG
+    >sample14 @1000,20,7
+    CTGCTATGACGAACTACCCGAGGCTGGGGCATGGGGCGTGTATGGGAGCTTACAACTTGG
+    >sample15 @2000,30,8
+    CTCCGGGGCCGGTTTCGCATAACGTCGCGCAGGGGACGTGTAGGGGCGCATACACCTGGG
+    >sample16 @2000,30,8
+    CTCCGGGGCCGGTTTCGCATAACGTCGCGCAGGGGACGTGTAGGGGCGCATACACCTGGG
+    >sample17 @2000,30,9
+    TTGCCGGGTCGAACTAGCCGACCTTGGCGCAGGGGTCGTTTAAGGGTCCTTACAACTTGG
+    >sample18 @2000,30,9
+    TTGCCGGGTCGAACTAGCCGACCTTGGCGCAGGGGTCGTTTAAGGGTCCTTACAACTTGG
+    >sample19 @2000,30,10
+    CTCCGGCGCCGGTTTCGCATAACGTCGCGCAGGGGACGTGTAGGGGCGCATACACCTGGG
+    >sample20 @2000,30,10
+    TTGCCGGGTCGAACTAGCCGACCTTGGCGAAGGGGTCGTTTAAGGGACCTTACAACTTGG
+    >sample21 @2000,40,11
+    TTGCCAGGACGAACTAGCCGCGCCTGGCGCAGGGGTCGTTTAAGGGAGCTTACAACTTGG
+    >sample22 @2000,40,11
+    TTGCCAGGACGAACTAGCCGCGCCTGGCGCAGGGGTCGTTTAAGGGAGCTTACAACTTGG
+    >sample23 @2000,40,12
+    TTGCCGGGACGAACTAGCCGAGCCTGGCGCAGGGGTCGTTTAAGGGAGCTTACAACTTGG
+    >sample24 @2000,40,12
+    TTGCCGGGACGAACTAGCCGAGCCTGGCGCAGGGGTCGTTTAAGGGAGCTTACAACTTGG
+    >sample25 @2000,50,13
+    CTACCGTGACGAACTAGCCGAGCCTGGCGCAGGGGGCGAGTAAGGGAGAGTACAACTTGG
+    >sample26 @2000,50,13
+    CTACCGTGACGAACTAGCCGAGCCTGGCGCAGGGGGCGAGTAAGGGAGAGTACAACTTGG
+    >sample27 @2000,50,14
+    CTACCGTGACGAACTAGCCGAGCCTGGCGCAGGGGGCGAGTAAGGGAGAGTACAACTTGG
+    >sample28 @2000,50,14
+    CTACCGTGACGAACTAGCCGAGCCTGGCGCAGGGGGCGAGTAAGGGAGAGTACAACTTGG
+    >sample29 @2000,50,15
+    TTGCCGCGACGAACTAGCCGAGCCTGGCGCAGGGGTCGTTTAAGGGAGCTAACAACTTGG
+    >sample30 @2000,50,15
+    CTACCGTGACGAACTAGCCGAGCCTGGCGCAGGGGGCGAGTAAGGGAGAGTACAACTTGG
+    >sample31 @#98
+    CATACCACCTTGGCCCGGAGAGTGCGGAGTACCGGGCGTGGAAGGCTGCATGCAAATGGA
+    >sample32 @#98
+    CATACCACCTTGGCCCGGAGAGTGCGGAGTACCGGGCGTGGAAGGCTGCATGCAAATGGA
+    >sample33 @#99
+    CATACCACCTTGGCCCGGAGAGAGCGCAGTGCCGGGCGTGGAAGGCTGCATTCAAATGCG
+    >sample34 @#99
+    CATACCACCTTGGCCCGGAGAGAGCGCAGTGCCGGGCGTGGAAGGCTGCATTCAAATGCG
+
+It has a total of 30 ingroup samples and 4 outgroup samples. These are
+actually respectively 15 and 2 individuals, and the ingroup is organized
+in two clusters of respectively two and three populations, themselves composed of two,
+three, or four individuals each. Remember the labels are arbitrary. In this case,
+individual labels are in the range 1-99 (and we picked large values for
+the outgroup individuals), population labels are multiples of 100,
+and cluster labels are multiples of 1000. This has been chosen for the
+sake of lisibility only (which is an excellent reason, by the way).
+
+Let use name this file ``align5.fas`` and import it with group labels::
+
+    >>> aln = egglib.io.from_fasta('align5.fas', groups=True, cls=egglib.Align)
+    >>> print aln.ng
+    3
+
+The attribute :attr:`~.Align.ng` confirms that the three group levels have
+been detected. Now, let us create a :class:`!Structure` object incorporating
+all structure information::
+
+    >>> struct = egglib.stats.get_structure(aln, lvl_clust=0, lvl_pop=1, lvl_indiv=2)
+    >>> print struct.as_dict()
+    ({1000: {10: {1: [0, 1], 2: [2, 3], 3: [4, 5]},
+             20: {4: [6, 7], 5: [8, 9], 6: [10, 11], 7: [12, 13]}},
+      2000: {40: {11: [20, 21], 12: [22, 23]},
+             50: {13: [24, 25], 14: [26, 27], 15: [28, 29]},
+             30: {8: [14, 15], 9: [16, 17], 10: [18, 19]}}},
+     {98: [0, 1], 99: [2, 3]})
+
+We used the function :func:`.stats.get_structure` that generates a new
+:class:`!Structure` object based on group labels of an :class:`!Align`
+(or :class:`!Container`). To use this method, it is necessary to tell
+which group level corresponds to the clusters, populations, and individuals
+in such a way that they are properly hierarchical. It is possible to skip
+any of these three levels of structure (see below).
+
+The method :meth:`~.Structure.as_dict` is aimed to provide an intuitive
+representation of the structure held by the object. In practice, it is as
+intuitive as possible while being flexible enough to represent all possible cases.
+
+.. _structure-dict:
+
+Dictionary representation of :class:`.Structure` objects
+********************************************************
+
+It is a :class:`tuple` containing two items,
+each being a :class:`dict`. The first one represents the ingroup and the second
+represents the outgroup.
+
+The ingroup dictionary is itself a dictionary holding more dictionaries, one
+for each cluster of populations. Each cluster dictionary is a dictionary of
+populations, populations being themselves represented by a dictionary. A
+population dictionary is, again, a dictionary of individuals. Fortunately,
+individuals are represented by lists.
+
+An individual list contains the index
+of all samples belonging to this individual. For haploid data, individuals
+will be one-item lists. In other cases, all individual lists are required to have
+the same number of items (consistent ploidy). Note that, if the ploidy is more
+than one, nothing enforces that samples of a given individual are grouped within
+the original data.
+
+The keys of the ingroup dictionary are the labels identifying each cluster.
+Within a cluster dictionary, the keys are population labels. Finally, within
+a population dictionary, the keys are individual labels.
+
+The second dictionary represents the outgroup. Its structure is simpler: it has
+individual labels as keys, and lists of corresponding sample indexes as values.
+The outgroup dictionary is similar to any ingroup population dictionary. The
+ploidy is required to match over all ingroup and outgroup individuals.
+
+If we go back to our example, we see that the returned dictionary for the
+ingroup has two items, with keys 1000 and 2000, respectively, and that
+the correct structure appears at lower levels, with two-item (diploid) individuals
+within populations withing clusters. Similarly, the two outgroup individuals,
+labelled 98 and 99, appeared as expected in the second dictionary returned by
+the :meth:`!as_dict` method. Ultimately, the values contained by the
+lists are the lowest levels are the index referring to the original
+:class:`Align` instance (from 0 to 29 in the ingroup, 0 to 3 in the
+outgroup).
+
+Alternative structure
+*********************
+
+Occasionally, one will want to generate different :class:`!Structure` objects
+based on different levels of structure in group labels (for example if there are
+alternative structurations of the data). It is not required that all levels of
+a :class:`!Structure` objects are populated, and it is not necessary to import
+all structure levels of an :class:`!Align`. The example below demonstrate all
+this by importing the first level (previously, clusters) as populations in a new
+object, skipping all other information::
+
+    >>> struct2 = egglib.stats.get_structure(aln, lvl_pop=0)
+    >>> print struct2.as_dict()
+    ({0: {1000: {0: [0], 1: [1], 2: [2], 3: [3], 4: [4], 5: [5], 6: [6], 7: [7],
+                 8: [8], 9: [9], 10: [10], 11: [11], 12: [12], 13: [13]},
+          2000: {14: [14], 15: [15], 16: [16], 17: [17], 18: [18], 19: [19],
+                 20: [20], 21: [21], 22: [22], 23: [23], 24: [24], 25: [25],
+                 26: [26], 27: [27], 28: [28], 29: [29]}}},
+     {32: [2], 33: [3], 30: [0], 31: [1]})
+
+Note that it is also possible to recycle an already existing :class:`!Structure`
+object instead creating a new one (with the method :meth:`~.Structure.get_structure`).
+
+Since we did not specify any group label index for the cluster level, there is
+no information regarding clusters, and all populations are placed in a single
+clusters. The default label is 0 in that case. The two labels 1000 and 2000 are
+now considered as population labels. At the lowest level (also in the outgroup),
+all samples are placed in a single-item individuals because likewise, no index
+has been provided for the individual level. Then, haploidy is assumed, and the
+sample index is used as default value for individual labels (incremented in the
+outgroup).
+
+This example demonstrates that the group labels in :class:`!Align`
+instances have no particular meaning *per se* until they are interpreted
+while configuring a :class:`!Structure` object.
+
+Creating a structure manually
+=============================
+
+It is possible to create a :class:`!Structure` object from user-provided
+data formatted as dictionaries, using either the function :func:`.stats.make_structure`
+or the method :meth:`.Structure.make_structure` to recycle an existing object.
+This approach allows maximal flexibility but requires that you create a
+properly formatted dictionary. The functions take an *ingroup* and an *outgroup*
+arguments, which are formatted exactly as the output of :meth:`~.Structure.as_dict`
+(see :ref:`structure-dict`). This feature can be used to import structure
+information without relying on EggLib's tag system of Fasta sequence names, but
+it can also be useful to edit the content of one :class:`!Structure` object.
+
+Using the structure
+===================
+
+Once a :class:`!Structure` has been configured to represent the structuration
+of the data set, it can be used as a descriptor while computing diversity
+statistics. This will make available a wide array of statistics requiring
+this type of information. For example, the statistics with codes
+``Fis``, ``Snn``, ``WCist``, and ``WCisct`` require individual and/or
+population structure information and won't be computed if no structure
+is provided::
+
+    >>> cs = egglib.stats.ComputeStats()
+    >>> cs.add_stats('Fis', 'WCist', 'WCisct', 'Snn')
+    >>> print cs.process_align(aln)
+    {'Snn': None, 'Fis': None, 'WCisct': None, 'WCist': None}
+
+To provide the :class:`!Structure` to :class:`!ComputeStats`, one just
+need to pass the object as a value for the *struct* argument of :meth:`!process_align`::
+
+    >>> print cs.process_align(aln, struct=struct)
+    {'Snn': 0.9, 'Fis': 0.8180596011651353,
+     'WCisct': (0.39885944313988575, 0.49641427710648844, 0.23392344387305802, 0.6972741981129913),
+     'WCist': (0.39885944313988586, 0.44858711737026746, 0.6685233526761217)}
+
+There is also a *struct* argument for :meth:`!process_site` and :meth:`!process_sites`.
+It is not the case for :meth:`!process_freq`, because :class:`.Freq` objects
+already require structure information to compute all frequencies. In that case
+the :class:`!Structure` must be provided to :func:`.freq_from_site` or
+:meth:`.Freq.process_site`. Note that the structure needs to be passed again
+to :meth:`.ComputeStats.results` if you use it and use a certain category of
+statistics.
+
+The code above shows that, with proper structure, we can compute statistics
+taken account the individual, population, and cluster levels. In particular,
+``WCisct`` takes all levels into account. In comparison, ``WCist`` ignores
+the cluster level, but nothing prevents you from computing it at this point.
+The code below shows that we can analyse the same data with a different structure
+(using the second object we created before, using the clusters as populations
+and ignoring other levels)::
+
+    >>> print cs.process_align(aln, struct=struct2)
+    {'Snn': 0.9666666666666667, 'Fis': None, 'WCisct': None, 'WCist': None}
+
+Since the individual level is not available, the statistics ``Fis``,
+``WCist``, and ``WCisct`` (which also requires the cluster level) cannot
+be computed. Only ``Snn`` can. It is still possible to call for statistics
+that cannot be computed, but their value will be set to ``None``.
+
+.. _filters:
+
+-------
+Filters
+-------
+
+Principle
+=========
+
+As mentioned before, EggLib is absolutely not restrictive regarding input
+data. However, filters are applied whenever analysing data. The concerned
+methods or functions are: :meth:`.stats.ComputeStats.process_align`,
+:func:`.stats.site_from_align` (and :meth:`.stats.Site.process_align`),
+:meth:`.stats.ComputeStats.process_align`, and other methods or functions
+that use an :class:`!Align` objects to compute diversity statistics.
+
+In practice, a filter is a list of allelic values that are recognized as
+valid for a type of data. It is useful to (to some extend) prevent typing
+errors and especially to avoid using symbols identifying missing data as
+valid allelic values.
+
+Filters are implemented in the class :class:`.stats.Filter`. A given filter
+holds allelic values sorted in two categories:
+
+* Exploitable values (valid and representing actual alleles in data).
+* Missing (valid but considered as missing data).
+
+Both kind of values can be provided as a list of values, or as a continuous range.
+They both can also have synonyms (for example, the integer values corresponding
+to upper-case and lower-case letters can be considered as identical).
+
+If an item of data is outside of these two set of values, it is considered
+invalid and causes an error.
+
+Pre-defined filters and default
+===============================
+
+A set of pre-defined objects are available to be used in common situations.
+Users can also define their own filters by creating a custom object of the
+:class:`!Filter` class. They can also edit pre-defined object to add values
+(but this will affect all later uses of those pre-defined objects).
+
+The table below lists the pre-defined :class:`!Filter` objects:
+
++-------------------------------+--------------------------+-------------------+-------+
+| Filter                        | Exploitable              | Missing           | Notes |
++===============================+==========================+===================+=======+
+| :data:`.stats.filter_default` | All                      | ---               | ---   |
++-------------------------------+--------------------------+-------------------+-------+
+| :data:`.stats.filter_strict`  | ``ACGT``                 | ``N``             | ---   |
++-------------------------------+--------------------------+-------------------+-------+
+| :data:`.stats.filter_dna`     | ``ACGT``                 | ``RYSWKMBDHVN?-`` | 1,2   |
++-------------------------------+--------------------------+-------------------+-------+
+| :data:`.stats.filter_rna`     | ``ACGU``                 | ``RYSWKMBDHVN?-`` | 2     |
++-------------------------------+--------------------------+-------------------+-------+
+| :data:`.stats.filter_amino`   | ``ACDEFGHIKLMNPQRSTVWY`` | ``X-``            | 2     |
++-------------------------------+--------------------------+-------------------+-------+
+| :data:`.stats.filter_codon`   | 0--63                    | 64                | ---   |
++-------------------------------+--------------------------+-------------------+-------+
+| :data:`.stats.filter_ssr`     | 1--999                   | -1                | ---   |
++-------------------------------+--------------------------+-------------------+-------+
+| :data:`.stats.filter_num`     | -999--999                | ---               | ---   |
++-------------------------------+--------------------------+-------------------+-------+
+
+Notes:
+    1. When a default value is implemented for the filter, this object is used as default.
+    2. Lower-case version of characters representing letters are turned to upper-case.
+
+The case of simulated data
+==========================
+
+The coalescence simulator (described in :ref:`coalesce-manual`) generates
+data sets in the form of :class:`!Align` objects containing numeric
+allelic values. The mutation model is flexible and can account for DNA
+sequence, SNP or SSR markers, and even type of variation. For the sake of generality
+and consistency, the allelic values are always integers (both positive and negative) and include the value of 0
+as a possible value. Users are supposed to configure parameters consistently
+to what kind of data they aim to simulate; for DNA sequences, allelic values
+will be either 0 or 1 (for the infinite site model, this is the default), or
+the range 0 to 4. In contrast, the DNA filter (:data:`~.stats.filter_dna`)
+expects the ASCII codes of base letter (65 for A), and the SSR filter
+(:data:`~.stats.filter_ssr`) does not support by default negative values.
+
+As a result, the filter :data:`~.stats.filter_dna` does not work
+with data simulated with the coalescence simulator, and neither does
+:data:`~.stats.filter_ssr`, even for SSR models.
+
+If we take the example of the default parameters of the coalescence
+simulator (two alleles, 0 and 1, with an infinite number of sites),
+we can see we cannot use :class:`!ComputeStats` with the default settings
+because it assumes nucleotide alleles (the integer equivalent for the bases
+A, C, G, and T, along with characters representing missing data)::
+
+    >>> coal = egglib.coalesce.Simulator(1, num_chrom=[40], theta=5.0)
+    >>> aln = coal.simul()
+    >>> cs = egglib.stats.ComputeStats()
+    >>> cs.add_stats('S', 'Pi', 'thetaW', 'D', 'K')
+    >>> cs.process_align(aln)
+    Traceback (most recent call last):
+      File "<stdin>", line 1, in <module>
+      File "/usr/lib64/python2.7/site-packages/egglib/stats/_cstats.py", line 644, in process_align
+        if not self._site.process_align(align._obj, idx, struct, filtr._obj, max_missing_num, otg_missing):
+    ValueError: invalid allele value found: 1 at position 1 for sample number 1
+
+To solve this problem, the filter accepting all values is actually appropriate
+for any simulated data, because the coalescence simulator will only generate
+exploitable data::
+
+    >>> print cs.process_align(aln, filtr=egglib.stats.filter_default)
+    {'K': 8, 'Pi': 2.0089743589743594, 'S': 11, 'D': -0.6771600803702927, 'thetaW': 2.586079392945467}
+
+To be restrictive, one can easily define his or her own filter as in::
+
+    >>> filtr = egglib.stats.Filter(exploitable=[0, 1])
+    >>> print cs.process_align(aln, filtr=filtr)
+    {'K': 8, 'Pi': 2.0089743589743594, 'S': 11, 'D': -0.6771600803702927, 'thetaW': 2.586079392945467}

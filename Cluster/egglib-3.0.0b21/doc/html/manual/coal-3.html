@@ -1,0 +1,490 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Performing simulations &#8212; EggLib&#39;s documentation</title>
+    <link rel="stylesheet" href="../_static/egglibdoc.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '3.0.0b21',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="shortcut icon" href="../_static/icon.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Integration of external software" href="wrappers.html" />
+    <link rel="prev" title="Use of historical events" href="coal-2.html" />
+    <script type="text/javascript">
+      // intelligent scrolling of the sidebar content
+      $(window).scroll(function() {
+        var sb = $('.sphinxsidebarwrapper');
+        var win = $(window);
+        var sbh = sb.height();
+        var offset = $('.sphinxsidebar').position()['top'];
+        var wintop = win.scrollTop();
+        var winbot = wintop + win.innerHeight();
+        var curtop = sb.position()['top'];
+        var curbot = curtop + sbh;
+        // does sidebar fit in window?
+        if (sbh < win.innerHeight()) {
+          // yes: easy case -- always keep at the top
+          sb.css('top', $u.min([$u.max([0, wintop - offset - 10]),
+                                $(document).height() - sbh - 200]));
+        } else {
+          // no: only scroll if top/bottom edge of sidebar is at
+          // top/bottom edge of window
+          if (curtop > wintop && curbot > winbot) {
+            sb.css('top', $u.max([wintop - offset - 10, 0]));
+          } else if (curtop < wintop && curbot < winbot) {
+            sb.css('top', $u.min([winbot - sbh - offset - 20,
+                                  $(document).height() - sbh - 200]));
+          }
+        }
+      });
+    </script>
+  </head>
+  <body>
+<div style="background-color: white; text-align: left; padding: 0px 0px 0px 0px">
+<a href="../index.html"><img src="../_static/banner.png" border="0" alt="EggLib"/></a>
+</div>
+
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="wrappers.html" title="Integration of external software"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="coal-2.html" title="Use of historical events"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../contents.html">EggLib&#39;s documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../toc.html" >Contents</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="index.html" >Manual</a> &#187;</li>
+          <li class="nav-item nav-item-3"><a href="coal.html" accesskey="U">Coalescent simulations</a> &#187;</li> 
+      </ul>
+    </div>
+
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../contents.html">
+              <img class="logo" src="../_static/egglib_small.bmp" alt="Logo"/>
+            </a></p>
+  <h3><a href="../contents.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Performing simulations</a><ul>
+<li><a class="reference internal" href="#simplest-case">Simplest case</a><ul>
+<li><a class="reference internal" href="#model-with-populations-individuals-and-outgroup">Model with populations, individuals, and outgroup</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#the-iterator">The iterator</a><ul>
+<li><a class="reference internal" href="#coupling-simulations-and-statistics">Coupling simulations and statistics</a></li>
+<li><a class="reference internal" href="#varying-parameters-over-simulations">Varying parameters over simulations</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#accessing-other-data">Accessing other data</a><ul>
+<li><a class="reference internal" href="#getting-simulated-trees">Getting simulated trees</a></li>
+<li><a class="reference internal" href="#getting-the-structure-of-the-model">Getting the structure of the model</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="coal-2.html"
+                        title="previous chapter">Use of historical events</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="wrappers.html"
+                        title="next chapter">Integration of external software</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/manual/coal-3.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="performing-simulations">
+<h1>Performing simulations<a class="headerlink" href="#performing-simulations" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="simplest-case">
+<h2>Simplest case<a class="headerlink" href="#simplest-case" title="Permalink to this headline">¶</a></h2>
+<p>The most straighforward way to perform coalescent simulations is run the
+<a class="reference internal" href="../py/coalesce.html#egglib.coalesce.Simulator.simul" title="egglib.coalesce.Simulator.simul"><code class="xref py py-meth docutils literal"><span class="pre">simul()</span></code></a> method of <a class="reference internal" href="../py/coalesce.html#egglib.coalesce.Simulator" title="egglib.coalesce.Simulator"><code class="xref py py-class docutils literal"><span class="pre">Simulator</span></code></a> objects.
+This method uses the current value of parameters and returns a brand new
+<a class="reference internal" href="../py/toplevel.html#egglib.Align" title="egglib.Align"><code class="xref py py-class docutils literal"><span class="pre">Align</span></code></a> object containing simulated data. This object will always
+have the desired number of samples. If the infinite site model of mutation
+is used (<code class="docutils literal"><span class="pre">num_sites=0</span></code>, by default), then the number of sites can vary,
+as shown by the two consecutive simulations with the same model below:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">c</span> <span class="o">=</span> <span class="n">egglib</span><span class="o">.</span><span class="n">coalesce</span><span class="o">.</span><span class="n">Simulator</span><span class="p">(</span><span class="n">num_pop</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">num_chrom</span><span class="o">=</span><span class="p">[</span><span class="mi">5</span><span class="p">],</span> <span class="n">theta</span><span class="o">=</span><span class="mf">5.0</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">aln</span> <span class="o">=</span> <span class="n">c</span><span class="o">.</span><span class="n">simul</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span> <span class="n">aln</span><span class="o">.</span><span class="n">ns</span><span class="p">,</span> <span class="n">aln</span><span class="o">.</span><span class="n">ls</span>
+<span class="go">5 7</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span> <span class="n">aln</span><span class="o">.</span><span class="n">to_fasta</span><span class="p">(</span><span class="n">mapping</span><span class="o">=</span><span class="s1">&#39;01&#39;</span><span class="p">)</span>
+<span class="go">&gt;</span>
+<span class="go">0001011</span>
+<span class="go">&gt;</span>
+<span class="go">0001011</span>
+<span class="go">&gt;</span>
+<span class="go">1110100</span>
+<span class="go">&gt;</span>
+<span class="go">0001011</span>
+<span class="go">&gt;</span>
+<span class="go">0001011</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">aln</span> <span class="o">=</span> <span class="n">c</span><span class="o">.</span><span class="n">simul</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span> <span class="n">aln</span><span class="o">.</span><span class="n">ns</span><span class="p">,</span> <span class="n">aln</span><span class="o">.</span><span class="n">ls</span>
+<span class="go">5 5</span>
+</pre></div>
+</div>
+<p>Note that, to print sequences, we used <code class="docutils literal"><span class="pre">mapping='01'</span></code>. This is because
+simulated alleles are (in this case, with the number of alleles fixed to
+2) the integers 0 and 1, and not the corresponding strings.</p>
+<p>If the number of sites is fixed by <code class="docutils literal"><span class="pre">num_sites</span></code>, then the number of sites
+will be fixed, but it will not be guaranteed that all sites will be variable.
+Here is an example with lower <span class="math">\theta</span>, 4 alleles, and the number of
+sites set to 50, to simulate a short fragment of DNA:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">c</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;theta&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.0</span>
+<span class="n">c</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;num_alleles&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">4</span>
+<span class="n">c</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;num_sites&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">50</span>
+<span class="n">aln</span> <span class="o">=</span> <span class="n">c</span><span class="o">.</span><span class="n">simul</span><span class="p">()</span>
+<span class="nb">print</span> <span class="n">aln</span><span class="o">.</span><span class="n">ns</span><span class="p">,</span> <span class="n">aln</span><span class="o">.</span><span class="n">ls</span>
+<span class="mi">5</span> <span class="mi">50</span>
+<span class="nb">print</span> <span class="n">aln</span><span class="o">.</span><span class="n">to_fasta</span><span class="p">(</span><span class="n">mapping</span><span class="o">=</span><span class="s1">&#39;ACGT&#39;</span><span class="p">)</span>
+<span class="o">&gt;</span>
+<span class="n">AACAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAGAAAAAAAAAAAA</span>
+<span class="o">&gt;</span>
+<span class="n">TAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</span>
+<span class="o">&gt;</span>
+<span class="n">AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</span>
+<span class="o">&gt;</span>
+<span class="n">AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</span>
+<span class="o">&gt;</span>
+<span class="n">AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</span>
+</pre></div>
+</div>
+<div class="section" id="model-with-populations-individuals-and-outgroup">
+<h3>Model with populations, individuals, and outgroup<a class="headerlink" href="#model-with-populations-individuals-and-outgroup" title="Permalink to this headline">¶</a></h3>
+<p>You may have noticed that the resulting alignment has empty names. However it
+has two levels of group labels (identifying respectively populations and individuals,
+in that order), and, if specified, it has an outgroup. We show below
+an example making use of the whole set of features, including a population
+simulating an outgroup:</p>
+<a class="reference internal image-reference" href="../_images/model13.svg"><div align="center" class="align-center"><img alt="../_images/model13.svg" height="200px" src="../_images/model13.svg" width="200px" /></div>
+</a>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">c</span> <span class="o">=</span> <span class="n">egglib</span><span class="o">.</span><span class="n">coalesce</span><span class="o">.</span><span class="n">Simulator</span><span class="p">(</span><span class="n">num_pop</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">num_indiv</span><span class="o">=</span><span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">theta</span><span class="o">=</span><span class="mf">5.0</span><span class="p">,</span> <span class="n">outgroup</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">c</span><span class="o">.</span><span class="n">params</span><span class="o">.</span><span class="n">add_event</span><span class="p">(</span><span class="n">cat</span><span class="o">=</span><span class="s1">&#39;merge&#39;</span><span class="p">,</span> <span class="n">T</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">src</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">dst</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">c</span><span class="o">.</span><span class="n">params</span><span class="o">.</span><span class="n">add_event</span><span class="p">(</span><span class="n">cat</span><span class="o">=</span><span class="s1">&#39;merge&#39;</span><span class="p">,</span> <span class="n">T</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">src</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">dst</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">aln</span> <span class="o">=</span> <span class="n">c</span><span class="o">.</span><span class="n">simul</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span> <span class="n">aln</span><span class="o">.</span><span class="n">ns</span><span class="p">,</span> <span class="n">aln</span><span class="o">.</span><span class="n">ls</span><span class="p">,</span> <span class="n">aln</span><span class="o">.</span><span class="n">ng</span>
+<span class="go">16 48 2</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span> <span class="n">aln</span><span class="o">.</span><span class="n">to_fasta</span><span class="p">(</span><span class="n">mapping</span><span class="o">=</span><span class="s1">&#39;01&#39;</span><span class="p">,</span> <span class="n">groups</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="go">&gt; @0,0</span>
+<span class="go">100010010110011010010110001010011001001001010000</span>
+<span class="go">&gt; @0,0</span>
+<span class="go">100000010000011000010001000010001100010001010000</span>
+<span class="go">&gt; @0,1</span>
+<span class="go">100010010000011010010010001010001001001001011000</span>
+<span class="go">&gt; @0,1</span>
+<span class="go">100010010000011010010010001010001001001001010000</span>
+<span class="go">&gt; @0,2</span>
+<span class="go">100000010000011000010001000010001100010001010000</span>
+<span class="go">&gt; @0,2</span>
+<span class="go">100010010000011010010010001010001001001001011000</span>
+<span class="go">&gt; @0,3</span>
+<span class="go">100010010000011010010010001010001001001001011000</span>
+<span class="go">&gt; @0,3</span>
+<span class="go">100010010000011010010010001010001001001001011000</span>
+<span class="go">&gt; @1,4</span>
+<span class="go">100000010000011000010001000010001100010001010000</span>
+<span class="go">&gt; @1,4</span>
+<span class="go">100100010001011000010001000110001100000001010000</span>
+<span class="go">&gt; @1,5</span>
+<span class="go">100100010000011000010001000110001110000001010000</span>
+<span class="go">&gt; @1,5</span>
+<span class="go">100100010000011000010001000110001100000001010000</span>
+<span class="go">&gt; @1,6</span>
+<span class="go">100000010000011000010001000010001100010001010000</span>
+<span class="go">&gt; @1,6</span>
+<span class="go">100100010001011000010001000110001100000001010000</span>
+<span class="go">&gt; @1,7</span>
+<span class="go">100000010000011000010001000010001100010001010000</span>
+<span class="go">&gt; @1,7</span>
+<span class="go">100000010000011000010001000010001100010001010000</span>
+<span class="go">&gt; @#8</span>
+<span class="go">011001101000100101101000110001100000100110100111</span>
+<span class="go">&gt; @#8</span>
+<span class="go">011001101000100101101000110001100000100110100111</span>
+</pre></div>
+</div>
+<p>All <code class="xref py py-class docutils literal"><span class="pre">Align</span></code> instances returned by <code class="xref py py-class docutils literal"><span class="pre">Simulator</span></code> have these
+two levels of structure.</p>
+</div>
+</div>
+<div class="section" id="the-iterator">
+<h2>The iterator<a class="headerlink" href="#the-iterator" title="Permalink to this headline">¶</a></h2>
+<p>The <code class="xref py py-meth docutils literal"><span class="pre">simul()</span></code> method returns a brand new <code class="xref py py-class docutils literal"><span class="pre">Align</span></code> object at
+each call, which represents a significant computational burden when performing
+a lot of simulations if each alignment only needs to be processed once
+and does not need to be stored. <code class="xref py py-class docutils literal"><span class="pre">Simulator</span></code> objects have another
+method, <a class="reference internal" href="../py/coalesce.html#egglib.coalesce.Simulator.iter_simul" title="egglib.coalesce.Simulator.iter_simul"><code class="xref py py-meth docutils literal"><span class="pre">iter_simul()</span></code></a>, that is much more efficient as it
+reuses constantly the same <code class="xref py py-class docutils literal"><span class="pre">Align</span></code> object.</p>
+<p>Currently, the expression:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">aln</span> <span class="ow">in</span> <span class="n">c</span><span class="o">.</span><span class="n">iter_simuls</span><span class="p">(</span><span class="mi">1000</span><span class="p">):</span>
+<span class="gp">...</span>
+</pre></div>
+</div>
+<p>is above 50 times faster than:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">xrange</span><span class="p">(</span><span class="mi">1000</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="n">aln</span> <span class="o">=</span> <span class="n">c</span><span class="o">.</span><span class="n">simul</span><span class="p">()</span>
+<span class="gp">...</span>
+</pre></div>
+</div>
+<p>But it should be kept in mind that the <code class="docutils literal"><span class="pre">aln</span></code> variable will actually
+always point to the same object (which is a static alignment stored in the
+<code class="xref py py-class docutils literal"><span class="pre">Simulator</span></code> object, and which is automatically reset at the end of
+the loop). Printing alignments demonstrate it:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">aln_list</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">xrange</span><span class="p">(</span><span class="mi">5</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="n">aln</span> <span class="o">=</span> <span class="n">c</span><span class="o">.</span><span class="n">simul</span><span class="p">()</span>
+<span class="gp">... </span>    <span class="n">aln_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">aln</span><span class="p">)</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span> <span class="nb">map</span><span class="p">(</span><span class="nb">hash</span><span class="p">,</span> <span class="n">aln_list</span><span class="p">)</span>
+<span class="go">[8733823164941, 8733823165037, 8733823165093, 8733823165109, 8733823165125]</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="k">del</span> <span class="n">aln_list</span><span class="p">[:]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">aln</span> <span class="ow">in</span> <span class="n">c</span><span class="o">.</span><span class="n">iter_simul</span><span class="p">(</span><span class="mi">5</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="n">aln_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">aln</span><span class="p">)</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span> <span class="nb">map</span><span class="p">(</span><span class="nb">hash</span><span class="p">,</span> <span class="n">aln_list</span><span class="p">)</span>
+<span class="go">[8733823165089, 8733823165089, 8733823165089, 8733823165089, 8733823165089]</span>
+</pre></div>
+</div>
+<div class="section" id="coupling-simulations-and-statistics">
+<h3>Coupling simulations and statistics<a class="headerlink" href="#coupling-simulations-and-statistics" title="Permalink to this headline">¶</a></h3>
+<p><code class="xref py py-meth docutils literal"><span class="pre">iter_simul()</span></code> can be used to chain diversity analysis with coalescent
+simulations. You need to create your own <a class="reference internal" href="../py/stats.html#egglib.stats.ComputeStats" title="egglib.stats.ComputeStats"><code class="xref py py-class docutils literal"><span class="pre">ComputeStats</span></code></a> object
+and specify what statistics you want to be computed, then pass it to
+<code class="xref py py-meth docutils literal"><span class="pre">iter_simul()</span></code> as the <code class="docutils literal"><span class="pre">cs</span></code> argument. Instead of the alignment, a
+dictionary of statistics will be computed:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">cs</span> <span class="o">=</span> <span class="n">egglib</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">ComputeStats</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cs</span><span class="o">.</span><span class="n">add_stats</span><span class="p">(</span><span class="s1">&#39;D&#39;</span><span class="p">,</span> <span class="s1">&#39;Hsd&#39;</span><span class="p">,</span> <span class="s1">&#39;S&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">stats</span> <span class="ow">in</span> <span class="n">c</span><span class="o">.</span><span class="n">iter_simul</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="n">cs</span><span class="o">=</span><span class="n">cs</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="nb">print</span> <span class="n">stats</span>
+<span class="gp">...</span>
+<span class="go">{&#39;S&#39;: 24, &#39;D&#39;: -0.20644191669019338, &#39;Hsd&#39;: -1.027173445022627}</span>
+<span class="go">{&#39;S&#39;: 26, &#39;D&#39;: 0.34339003894229597, &#39;Hsd&#39;: -1.8676020089315553}</span>
+<span class="go">{&#39;S&#39;: 34, &#39;D&#39;: 0.3435768693207146, &#39;Hsd&#39;: -1.0051023315338996}</span>
+<span class="go">{&#39;S&#39;: 15, &#39;D&#39;: 0.21333685716317954, &#39;Hsd&#39;: -1.6690357708279455}</span>
+<span class="go">{&#39;S&#39;: 37, &#39;D&#39;: 1.065702801735725, &#39;Hsd&#39;: -0.8753940060093063}</span>
+<span class="go">{&#39;S&#39;: 24, &#39;D&#39;: -0.2017428852888509, &#39;Hsd&#39;: -1.1871663595008062}</span>
+<span class="go">{&#39;S&#39;: 23, &#39;D&#39;: 0.4068741818892754, &#39;Hsd&#39;: -1.3540634746705966}</span>
+<span class="go">{&#39;S&#39;: 14, &#39;D&#39;: 0.9424874038796626, &#39;Hsd&#39;: -1.745435767971579}</span>
+<span class="go">{&#39;S&#39;: 34, &#39;D&#39;: -1.3365645916387778, &#39;Hsd&#39;: -1.0848578934550728}</span>
+<span class="go">{&#39;S&#39;: 27, &#39;D&#39;: -1.3531206659089505, &#39;Hsd&#39;: -1.7536784367065932}</span>
+</pre></div>
+</div>
+<p>It is possible to pass a <a class="reference internal" href="../py/stats.html#egglib.stats.Structure" title="egglib.stats.Structure"><code class="xref py py-class docutils literal"><span class="pre">Structure</span></code></a> object along the
+argument <code class="docutils literal"><span class="pre">cs</span></code> (<a class="reference internal" href="#coalesce-structure"><span class="std std-ref">Getting the structure of the model</span></a> shows that the simulator provides
+an instance based on the model properties), as well as a <a class="reference internal" href="../py/stats.html#egglib.stats.Filter" title="egglib.stats.Filter"><code class="xref py py-class docutils literal"><span class="pre">Filter</span></code></a>
+(by default, all allele values are accepted, based on the principle that
+the coalescence simulator can only generate valid data).</p>
+<p>Within the iteration loop, it is still possible to retrieve the static
+alignment (even if the loop returns dictionaries of statistics), through
+the object attribute <a class="reference internal" href="../py/coalesce.html#egglib.coalesce.Simulator.align" title="egglib.coalesce.Simulator.align"><code class="xref py py-attr docutils literal"><span class="pre">Simulator.align</span></code></a>.</p>
+</div>
+<div class="section" id="varying-parameters-over-simulations">
+<h3>Varying parameters over simulations<a class="headerlink" href="#varying-parameters-over-simulations" title="Permalink to this headline">¶</a></h3>
+<p>It is possible to perform coalescent simulations with variable parameters
+(a different value for each replicate), using the <code class="docutils literal"><span class="pre">feed_params</span></code>
+feature of <code class="xref py py-meth docutils literal"><span class="pre">iter_simul()</span></code>. To use it, keyword arguments must be supplied
+with lists of parameter values matching parameter names.</p>
+<p>For example, to run the simplest model with one constant population with
+a variable value for the <code class="docutils literal"><span class="pre">theta</span></code> parameter, this is how it would be
+done (assuming the varying <code class="docutils literal"><span class="pre">theta</span></code> values have been drawn previously
+randomly, or provided externally):</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">c</span> <span class="o">=</span> <span class="n">egglib</span><span class="o">.</span><span class="n">coalesce</span><span class="o">.</span><span class="n">Simulator</span><span class="p">(</span><span class="n">num_pop</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">num_chrom</span><span class="o">=</span><span class="p">[</span><span class="mi">20</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">theta_values</span> <span class="o">=</span> <span class="p">[</span><span class="mf">2.5645</span><span class="p">,</span> <span class="mf">4.4111</span><span class="p">,</span> <span class="mf">6.5677</span><span class="p">,</span> <span class="mf">1.8904</span><span class="p">,</span> <span class="mf">2.1915</span><span class="p">,</span> <span class="mf">0.9696</span><span class="p">,</span> <span class="mf">2.8418</span><span class="p">,</span> <span class="mf">5.221</span><span class="p">,</span> <span class="mf">4.9423</span><span class="p">,</span> <span class="mf">9.0793</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">aln</span> <span class="ow">in</span> <span class="n">c</span><span class="o">.</span><span class="n">iter_simul</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="n">theta</span><span class="o">=</span><span class="n">theta_values</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="nb">print</span> <span class="n">aln</span><span class="o">.</span><span class="n">ls</span>
+<span class="go">13</span>
+<span class="go">13</span>
+<span class="go">42</span>
+<span class="go">8</span>
+<span class="go">15</span>
+<span class="go">1</span>
+<span class="go">11</span>
+<span class="go">12</span>
+<span class="go">12</span>
+<span class="go">32</span>
+</pre></div>
+</div>
+<p>Several parameters can be provided at once (just use as many keyword arguments
+as needed). Unfortunately, it is currently not possible to set this way
+population-specific parameters or arguments of historical events, although
+this is planned for version 3.1.</p>
+</div>
+</div>
+<div class="section" id="accessing-other-data">
+<h2>Accessing other data<a class="headerlink" href="#accessing-other-data" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="getting-simulated-trees">
+<h3>Getting simulated trees<a class="headerlink" href="#getting-simulated-trees" title="Permalink to this headline">¶</a></h3>
+<p>The genealogical trees representing the history of sample can be retrieved for
+all simulations. To do it, one must provide a <code class="xref py py-class docutils literal"><span class="pre">list</span></code> to <code class="xref py py-meth docutils literal"><span class="pre">iter_simul()</span></code>
+and the list will be filled by the genealogical trees of each replicate. The
+trees are represented by objects of the class <a class="reference internal" href="../py/toplevel.html#egglib.Tree" title="egglib.Tree"><code class="xref py py-class docutils literal"><span class="pre">Tree</span></code></a> which provides
+an array of functionality (see the reference manual for details).</p>
+<p>In case recombination occurs, there can be multiple trees for a given simulation: one
+tree for each non-recombination segment. For this reason, each simulation is
+represented by a <code class="xref py py-class docutils literal"><span class="pre">list</span></code> of <code class="docutils literal"><span class="pre">(tree,</span> <span class="pre">start,</span> <span class="pre">stop)</span></code> <code class="xref py py-class docutils literal"><span class="pre">tuple</span></code>’s in the resulting list
+(start and stop positions are bounded by 0 and 1). This will be probably clearer with an example:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">c</span> <span class="o">=</span> <span class="n">egglib</span><span class="o">.</span><span class="n">coalesce</span><span class="o">.</span><span class="n">Simulator</span><span class="p">(</span><span class="n">num_pop</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">num_chrom</span><span class="o">=</span><span class="p">[</span><span class="mi">10</span><span class="p">],</span> <span class="n">recomb</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">theta</span><span class="o">=</span><span class="mf">0.0</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">trees</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">aln</span> <span class="ow">in</span> <span class="n">c</span><span class="o">.</span><span class="n">iter_simul</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="n">dest_trees</span><span class="o">=</span><span class="n">trees</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="k">pass</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span> <span class="nb">len</span><span class="p">(</span><span class="n">trees</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="go">3</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">tree</span><span class="p">,</span> <span class="n">start</span><span class="p">,</span> <span class="n">stop</span> <span class="ow">in</span> <span class="n">trees</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
+<span class="gp">... </span>    <span class="nb">print</span> <span class="s1">&#39;segment&#39;</span>
+<span class="gp">... </span>    <span class="nb">print</span> <span class="s1">&#39;  &#39;</span><span class="p">,</span> <span class="n">start</span>
+<span class="gp">... </span>    <span class="nb">print</span> <span class="s1">&#39;  &#39;</span><span class="p">,</span> <span class="n">stop</span>
+<span class="gp">... </span>    <span class="nb">print</span> <span class="s1">&#39;  &#39;</span><span class="p">,</span> <span class="n">tree</span><span class="o">.</span><span class="n">newick</span><span class="p">()</span>
+<span class="gp">...</span>
+<span class="go">segment</span>
+<span class="go">   0.0</span>
+<span class="go">   0.140169298276</span>
+<span class="go">   (((((2:0.0180097202807,8:0.0180097202807):0.0215616741102,5:0.0395713943908):0.0724922358078,1:0.112063630199):0.0558628762791,((3:0.0495320422666,(7:0.00261506458809,6:0.00261506458809):0.0469169776785):0.00203223981633,4:0.0515642820829):0.116362224395):0.188555286584,(9:0.0369467779977,0:0.0369467779977):0.319535015065);</span>
+<span class="go">segment</span>
+<span class="go">   0.936298474669</span>
+<span class="go">   1.0</span>
+<span class="go">   (((((2:0.0180097202807,8:0.0180097202807):0.0215616741102,5:0.0395713943908):0.128355112087,(3:0.0515642820829,4:0.0515642820829):0.116362224395):0.0797638476642,(1:0.0470800821279,(7:0.00261506458809,6:0.00261506458809):0.0444650175398):0.200610272014):0.10879143892,(9:0.0369467779977,0:0.0369467779977):0.319535015065);</span>
+<span class="go">segment</span>
+<span class="go">   0.140169298276</span>
+<span class="go">   0.936298474669</span>
+<span class="go">   (((((2:0.0180097202807,8:0.0180097202807):0.0215616741102,5:0.0395713943908):0.128355112087,((3:0.0495320422666,(7:0.00261506458809,6:0.00261506458809):0.0469169776785):0.00203223981633,4:0.0515642820829):0.116362224395):0.0797638476642,1:0.247690354142):0.10879143892,(9:0.0369467779977,0:0.0369467779977):0.319535015065);</span>
+</pre></div>
+</div>
+<p>In this example, the first simulation went through two events of
+recombination, yielding three segments with breakpoints at approximate positions
+0.1402 and 0.9363. The Newick representation of each of the three
+trees for the first simulation are displayed. Notice that the trees are
+not sorted within the per-simulation list (the order is defined by the
+order of the recombination events in the simulation).</p>
+<p>If recombination is null, then each simulation is a one-item <code class="xref py py-class docutils literal"><span class="pre">list</span></code> with
+a single <code class="xref py py-class docutils literal"><span class="pre">tuple</span></code> with <code class="docutils literal"><span class="pre">start</span></code> equal to 0 and <code class="docutils literal"><span class="pre">stop</span></code> equal to 1.</p>
+</div>
+<div class="section" id="getting-the-structure-of-the-model">
+<span id="coalesce-structure"></span><h3>Getting the structure of the model<a class="headerlink" href="#getting-the-structure-of-the-model" title="Permalink to this headline">¶</a></h3>
+<p>It can be useful to have the <a class="reference internal" href="../py/stats.html#egglib.stats.Structure" title="egglib.stats.Structure"><code class="xref py py-class docutils literal"><span class="pre">Structure</span></code></a> object describing the
+population and individual structure of the alignments that will be generated
+by simulations (in order to compute diversity statistics). It is possible
+to do it using any <code class="xref py py-class docutils literal"><span class="pre">Align</span></code> instance, but this is not necessarily
+convenient (in particular if you plan to use the <code class="docutils literal"><span class="pre">cs</span></code> option of
+<code class="xref py py-meth docutils literal"><span class="pre">iter_simul()</span></code>). The class <code class="xref py py-class docutils literal"><span class="pre">Simulator</span></code> provides a method to
+generate the <a class="reference internal" href="../py/stats.html#egglib.stats.Structure" title="egglib.stats.Structure"><code class="xref py py-class docutils literal"><span class="pre">Structure</span></code></a> describing the population and individual
+structure based on model parameters:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">c</span> <span class="o">=</span> <span class="n">egglib</span><span class="o">.</span><span class="n">coalesce</span><span class="o">.</span><span class="n">Simulator</span><span class="p">(</span><span class="n">num_pop</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">num_indiv</span><span class="o">=</span><span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">theta</span><span class="o">=</span><span class="mf">5.0</span><span class="p">,</span> <span class="n">outgroup</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">c</span><span class="o">.</span><span class="n">params</span><span class="o">.</span><span class="n">add_event</span><span class="p">(</span><span class="n">cat</span><span class="o">=</span><span class="s1">&#39;merge&#39;</span><span class="p">,</span> <span class="n">T</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">src</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">dst</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">c</span><span class="o">.</span><span class="n">params</span><span class="o">.</span><span class="n">add_event</span><span class="p">(</span><span class="n">cat</span><span class="o">=</span><span class="s1">&#39;merge&#39;</span><span class="p">,</span> <span class="n">T</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">src</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">dst</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">struct</span> <span class="o">=</span> <span class="n">c</span><span class="o">.</span><span class="n">params</span><span class="o">.</span><span class="n">mk_structure</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span> <span class="n">struct</span><span class="o">.</span><span class="n">as_dict</span><span class="p">()</span>
+<span class="go">({0: {0: {0: [0, 1], 1: [2, 3], 2: [4, 5], 3: [6, 7]}, 1: {4: [8, 9], 5: [10, 11], 6: [12, 13], 7: [14, 15]}}}, {8: [0, 1]})</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cs</span> <span class="o">=</span> <span class="n">egglib</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">ComputeStats</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cs</span><span class="o">.</span><span class="n">add_stats</span><span class="p">(</span><span class="s1">&#39;WCst&#39;</span><span class="p">,</span> <span class="s1">&#39;Fis&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">stats</span> <span class="ow">in</span> <span class="n">c</span><span class="o">.</span><span class="n">iter_simul</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="n">cs</span><span class="o">=</span><span class="n">cs</span><span class="p">,</span> <span class="n">cs_structure</span><span class="o">=</span><span class="n">struct</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="nb">print</span> <span class="n">stats</span>
+<span class="go">{&#39;Fis&#39;: 0.7673559822747416, &#39;WCst&#39;: 0.4461152882205513}</span>
+<span class="go">{&#39;Fis&#39;: 0.6402877697841727, &#39;WCst&#39;: 0.2134181607865819}</span>
+<span class="go">{&#39;Fis&#39;: 0.5718232044198895, &#39;WCst&#39;: 0.14101382488479264}</span>
+<span class="go">{&#39;Fis&#39;: 0.6152115211521152, &#39;WCst&#39;: 0.5396825396825395}</span>
+<span class="go">{&#39;Fis&#39;: 0.5260989010989011, &#39;WCst&#39;: 0.25194805194805203}</span>
+<span class="go">{&#39;Fis&#39;: 0.38888888888888895, &#39;WCst&#39;: 0.21428571428571433}</span>
+<span class="go">{&#39;Fis&#39;: 0.7115384615384616, &#39;WCst&#39;: 0.6339285714285714}</span>
+<span class="go">{&#39;Fis&#39;: 0.7836538461538461, &#39;WCst&#39;: 0.7671957671957673}</span>
+<span class="go">{&#39;Fis&#39;: 0.6191406250000001, &#39;WCst&#39;: 0.3142857142857143}</span>
+<span class="go">{&#39;Fis&#39;: 0.6861233480176212, &#39;WCst&#39;: 0.3412698412698414}</span>
+</pre></div>
+</div>
+<p>The fact that both <span class="math">F_{IS}</span> and Weir and Cockerham’s <span class="math">\hat{\theta}</span>
+(labelled <code class="docutils literal"><span class="pre">WCst</span></code>) can be computed shows that the two individual and
+population levels have been properly described.</p>
+<p>If you want to add a cluster level, or, for example, want to analyse the
+data using a different structure than the one used for simulations, you
+obviously need to create your own <a class="reference internal" href="../py/stats.html#egglib.stats.Structure" title="egglib.stats.Structure"><code class="xref py py-class docutils literal"><span class="pre">Structure</span></code></a> object.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">If you mix sampled individuals and sampled chromosomes (non-zero
+values for any <code class="docutils literal"><span class="pre">num_chrom</span></code> and any <code class="docutils literal"><span class="pre">num_indiv</span></code> items), it will not
+be possible to process the individual level due to non-constant
+ploidy. In this case (to process the population level anyway), use
+the <em>skip_indiv</em> option of <a class="reference internal" href="../py/coalesce.html#egglib.coalesce.ParamDict.mk_structure" title="egglib.coalesce.ParamDict.mk_structure"><code class="xref py py-meth docutils literal"><span class="pre">mk_structure()</span></code></a>.</p>
+</div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="wrappers.html" title="Integration of external software"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="coal-2.html" title="Use of historical events"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../contents.html">EggLib&#39;s documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../toc.html" >Contents</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="index.html" >Manual</a> &#187;</li>
+          <li class="nav-item nav-item-3"><a href="coal.html" >Coalescent simulations</a> &#187;</li> 
+      </ul>
+    </div>
+<!--
+        <address style="text-align: right;"><small>Hosted by&nbsp;
+        <a href="http://sourceforge.net/projects/egglib"><img src="http://sflogo.sourceforge.net/sflogo.php?group_id=232965&amp;type=8" width="80" height="15" alt="Get EggLib at SourceForge.net. Fast, secure and Free Open Source software downloads" / ALIGN=RIGHT BORDER=0></a>
+        </address>
+-->
+
+  </body>
+</html>

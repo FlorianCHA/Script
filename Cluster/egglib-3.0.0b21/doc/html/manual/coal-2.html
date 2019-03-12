@@ -1,0 +1,413 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Use of historical events &#8212; EggLib&#39;s documentation</title>
+    <link rel="stylesheet" href="../_static/egglibdoc.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '3.0.0b21',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="shortcut icon" href="../_static/icon.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Performing simulations" href="coal-3.html" />
+    <link rel="prev" title="Coalescent parameters" href="coal-1.html" />
+    <script type="text/javascript">
+      // intelligent scrolling of the sidebar content
+      $(window).scroll(function() {
+        var sb = $('.sphinxsidebarwrapper');
+        var win = $(window);
+        var sbh = sb.height();
+        var offset = $('.sphinxsidebar').position()['top'];
+        var wintop = win.scrollTop();
+        var winbot = wintop + win.innerHeight();
+        var curtop = sb.position()['top'];
+        var curbot = curtop + sbh;
+        // does sidebar fit in window?
+        if (sbh < win.innerHeight()) {
+          // yes: easy case -- always keep at the top
+          sb.css('top', $u.min([$u.max([0, wintop - offset - 10]),
+                                $(document).height() - sbh - 200]));
+        } else {
+          // no: only scroll if top/bottom edge of sidebar is at
+          // top/bottom edge of window
+          if (curtop > wintop && curbot > winbot) {
+            sb.css('top', $u.max([wintop - offset - 10, 0]));
+          } else if (curtop < wintop && curbot < winbot) {
+            sb.css('top', $u.min([winbot - sbh - offset - 20,
+                                  $(document).height() - sbh - 200]));
+          }
+        }
+      });
+    </script>
+  </head>
+  <body>
+<div style="background-color: white; text-align: left; padding: 0px 0px 0px 0px">
+<a href="../index.html"><img src="../_static/banner.png" border="0" alt="EggLib"/></a>
+</div>
+
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="coal-3.html" title="Performing simulations"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="coal-1.html" title="Coalescent parameters"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../contents.html">EggLib&#39;s documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../toc.html" >Contents</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="index.html" >Manual</a> &#187;</li>
+          <li class="nav-item nav-item-3"><a href="coal.html" accesskey="U">Coalescent simulations</a> &#187;</li> 
+      </ul>
+    </div>
+
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../contents.html">
+              <img class="logo" src="../_static/egglib_small.bmp" alt="Logo"/>
+            </a></p>
+  <h3><a href="../contents.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Use of historical events</a><ul>
+<li><a class="reference internal" href="#bottlenecks">Bottlenecks</a></li>
+<li><a class="reference internal" href="#merge-admixture-and-split-events">Merge, admixture, and split events</a></li>
+<li><a class="reference internal" href="#ghost-populations-and-unsampled-populations">Ghost populations and unsampled populations</a><ul>
+<li><a class="reference internal" href="#completing-simulations">Completing simulations</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#delayed-samples">Delayed samples</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="coal-1.html"
+                        title="previous chapter">Coalescent parameters</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="coal-3.html"
+                        title="next chapter">Performing simulations</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/manual/coal-2.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="use-of-historical-events">
+<span id="more-on-events"></span><h1>Use of historical events<a class="headerlink" href="#use-of-historical-events" title="Permalink to this headline">¶</a></h1>
+<p>In this section we provides some pointers on defining demographic models
+involving past events using <code class="xref py py-mod docutils literal"><span class="pre">coalesce</span></code>.</p>
+<div class="section" id="bottlenecks">
+<h2>Bottlenecks<a class="headerlink" href="#bottlenecks" title="Permalink to this headline">¶</a></h2>
+<p>EggLib supports changing the size of populations at any point in the history
+of the sample. Thus, a bottleneck can straightforwardly implemented by
+two consecutive population sizes (first reduction, and then restoration of the
+same size). Assume the following model:</p>
+<a class="reference internal image-reference" href="../_images/model2.svg"><div align="center" class="align-center"><img alt="../_images/model2.svg" height="200px" src="../_images/model2.svg" width="200px" /></div>
+</a>
+<p>The implementation would be:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">c</span> <span class="o">=</span> <span class="n">egglib</span><span class="o">.</span><span class="n">coalesce</span><span class="o">.</span><span class="n">Simulator</span><span class="p">(</span><span class="n">num_pop</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">num_chrom</span><span class="o">=</span><span class="p">[</span><span class="mi">50</span><span class="p">],</span> <span class="n">theta</span><span class="o">=</span><span class="mf">5.0</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">c</span><span class="o">.</span><span class="n">params</span><span class="o">.</span><span class="n">add_event</span><span class="p">(</span><span class="n">cat</span><span class="o">=</span><span class="s1">&#39;size&#39;</span><span class="p">,</span> <span class="n">T</span><span class="o">=</span><span class="mf">0.20</span><span class="p">,</span> <span class="n">N</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">c</span><span class="o">.</span><span class="n">params</span><span class="o">.</span><span class="n">add_event</span><span class="p">(</span><span class="n">cat</span><span class="o">=</span><span class="s1">&#39;size&#39;</span><span class="p">,</span> <span class="n">T</span><span class="o">=</span><span class="mf">0.21</span><span class="p">,</span> <span class="n">N</span><span class="o">=</span><span class="mf">1.0</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>This approach has the advantage of being easier to interpret, and
+allowing independent population size before and after the bottleneck.</p>
+<p>A second way to implement bottlenecks is the <code class="docutils literal"><span class="pre">bottleneck</span></code> event, which
+has the advantage of saving one parameter. Instead of requiring both
+duration and strength parameters, it requires only a strength parameter.
+The code is of the type:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">c</span><span class="o">.</span><span class="n">params</span><span class="o">.</span><span class="n">add_event</span><span class="p">(</span><span class="n">cat</span><span class="o">=</span><span class="s1">&#39;bottleneck&#39;</span><span class="p">,</span> <span class="n">T</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">S</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>This model can be represented by:</p>
+<a class="reference internal image-reference" href="../_images/model3.svg"><div align="center" class="align-center"><img alt="../_images/model3.svg" height="200px" src="../_images/model3.svg" width="200px" /></div>
+</a>
+<p>In the standard bottleneck (first model), the main consequence of the
+bottleneck is an increase rate of coalescence event. This second
+implementation assumes that the bottleneck is short enough so that its
+duration can be neglected. Instead, a random numbe of coalescence events are
+instantaneously performed at the time of the bottleneck. The number of
+coalescence events is equivalent to what would be if the population would
+have been allowed to evolved during a time given by <code class="docutils literal"><span class="pre">S</span></code> (as represented
+by the insertion of a period of time equal to <code class="docutils literal"><span class="pre">S</span></code> in the picture above).</p>
+</div>
+<div class="section" id="merge-admixture-and-split-events">
+<h2>Merge, admixture, and split events<a class="headerlink" href="#merge-admixture-and-split-events" title="Permalink to this headline">¶</a></h2>
+<p>The principle of fixing once and for all the number of populations imposes
+some limitations in the implementation of complex models, but they can all
+been overcome by a proper use of the existing historical events. In this
+regard, the <em>admixture</em> event is essential.</p>
+<p>Its definition is: at time <code class="docutils literal"><span class="pre">T</span></code>, take a random number of lineages from
+the population <code class="docutils literal"><span class="pre">src</span></code> (with probability <code class="docutils literal"><span class="pre">proba</span></code>), and move them instantly
+to the population <code class="docutils literal"><span class="pre">dst</span></code>. See the example below along with its implementation:</p>
+<a class="reference internal image-reference" href="../_images/model4.svg"><div align="center" class="align-center"><img alt="../_images/model4.svg" height="200px" src="../_images/model4.svg" width="200px" /></div>
+</a>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">c</span> <span class="o">=</span> <span class="n">egglib</span><span class="o">.</span><span class="n">coalesce</span><span class="o">.</span><span class="n">Simulator</span><span class="p">(</span><span class="n">num_pop</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">c</span><span class="o">.</span><span class="n">params</span><span class="o">.</span><span class="n">add_event</span><span class="p">(</span><span class="n">cat</span><span class="o">=</span><span class="s1">&#39;admixture&#39;</span><span class="p">,</span> <span class="n">T</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">src</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">dst</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">proba</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><code class="docutils literal"><span class="pre">proba=5</span></code> means that every lineage present at that point in the first
+population will have a probability 0.5 to move to population 1. Obviously,
+we would have to add samples to make a working example. In coalescent models,
+admixture means that lineages move (in this case) from population <code class="docutils literal"><span class="pre">src</span></code>
+to population <code class="docutils literal"><span class="pre">dst</span></code>, but it is important to realise that, biologically
+speaking, this means that population <code class="docutils literal"><span class="pre">dst</span></code> has sent a bunch of migrants
+to population <code class="docutils literal"><span class="pre">src</span></code> (everything is reverted since the model works
+backward).</p>
+<p>The population split event does not exist on its own, but can readily
+implemented as an admixture. Again, remember that the term <em>split</em> must
+be understood backward. To implement it, add one population with all
+migration rates to it set to 0 (which is the default anyway), and without
+samples. This is a “ghost” population with no effect on your sample since
+no lineage can move to it. Program an admixture event to occur at the time
+of the split, sending a given proportion of lineages to this ghost population
+which, at this point, ceases to be ghost. Of course, the size of all
+populations can be set freely at the start of the population, and changed
+at any time by the historical event <code class="docutils literal"><span class="pre">size</span></code>.</p>
+<a class="reference internal image-reference" href="../_images/model5.svg"><div align="center" class="align-center"><img alt="../_images/model5.svg" height="200px" src="../_images/model5.svg" width="200px" /></div>
+</a>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">c</span> <span class="o">=</span> <span class="n">egglib</span><span class="o">.</span><span class="n">coalesce</span><span class="o">.</span><span class="n">Simulator</span><span class="p">(</span><span class="n">num_pop</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">c</span><span class="o">.</span><span class="n">params</span><span class="o">.</span><span class="n">add_event</span><span class="p">(</span><span class="n">cat</span><span class="o">=</span><span class="s1">&#39;admixture&#39;</span><span class="p">,</span> <span class="n">T</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">src</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">dst</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">proba</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>To perform a population merge, it is possible to define an admixture where
+all samples from one of the populations are taken to the other one
+(<code class="docutils literal"><span class="pre">proba=1</span></code>). To make it a proper merge event, the migration rate to the
+merged (donor) population must be cancelled. So, if the migration rates
+have not been set to a non-zero, value, the admixture event is enough to
+implement a merge:</p>
+<a class="reference internal image-reference" href="../_images/model6.svg"><div align="center" class="align-center"><img alt="../_images/model6.svg" height="200px" src="../_images/model6.svg" width="200px" /></div>
+</a>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">c</span> <span class="o">=</span> <span class="n">egglib</span><span class="o">.</span><span class="n">coalesce</span><span class="o">.</span><span class="n">Simulator</span><span class="p">(</span><span class="n">num_pop</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">num_chrom</span><span class="o">=</span><span class="p">[</span><span class="mi">20</span><span class="p">,</span> <span class="mi">20</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">c</span><span class="o">.</span><span class="n">params</span><span class="o">.</span><span class="n">add_event</span><span class="p">(</span><span class="n">cat</span><span class="o">=</span><span class="s1">&#39;admixture&#39;</span><span class="p">,</span> <span class="n">T</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">src</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">dst</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">proba</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>But if the migration rate is non-zero it is also necessary to set all
+migration rates to the donor population to 0. There is a <code class="docutils literal"><span class="pre">merge</span></code> event
+that perform all required operatons:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">c</span> <span class="o">=</span> <span class="n">egglib</span><span class="o">.</span><span class="n">coalesce</span><span class="o">.</span><span class="n">Simulator</span><span class="p">(</span><span class="n">num_pop</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">num_chrom</span><span class="o">=</span><span class="p">[</span><span class="mi">20</span><span class="p">,</span> <span class="mi">20</span><span class="p">],</span> <span class="n">migr</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">c</span><span class="o">.</span><span class="n">params</span><span class="o">.</span><span class="n">add_event</span><span class="p">(</span><span class="n">cat</span><span class="o">=</span><span class="s1">&#39;merge&#39;</span><span class="p">,</span> <span class="n">T</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">src</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">dst</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="ghost-populations-and-unsampled-populations">
+<h2>Ghost populations and unsampled populations<a class="headerlink" href="#ghost-populations-and-unsampled-populations" title="Permalink to this headline">¶</a></h2>
+<p>When considering complex models, it can be useful to make a clear distinction
+between regular populations, ghost populations, and unsampled populations.</p>
+<ul class="simple">
+<li>Regular populations are populations where samples have been placed.</li>
+<li>Ghost populations are populations where there are no samples, and to
+which all migration rates any non-ghost populations are null. The
+essential fact is that no lineages can ever go to this type of population so
+they don’t have any effect on the final coalescent.</li>
+<li>Unsampled populations are populations where samples have not been placed,
+but where lineages can move by migration.</li>
+</ul>
+<p>In the below example, population 0 is regular, population 1 is unsampled,
+and population 2 is a ghost:</p>
+<a class="reference internal image-reference" href="../_images/model7.svg"><div align="center" class="align-center"><img alt="../_images/model7.svg" height="200px" src="../_images/model7.svg" width="200px" /></div>
+</a>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">c</span> <span class="o">=</span> <span class="n">egglib</span><span class="o">.</span><span class="n">coalesce</span><span class="o">.</span><span class="n">Simulator</span><span class="p">(</span><span class="n">num_pop</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">num_chrom</span><span class="o">=</span><span class="p">[</span><span class="mi">20</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">c</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;migr_matrix&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[[</span><span class="kc">None</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+<span class="go">                               [1, None, 0],</span>
+<span class="go">                               [0, 0, None]]</span>
+</pre></div>
+</div>
+<p>Regular and unsampled populations are actually the same because the
+important fact is that they are allowed to contain lineage at any time.</p>
+<div class="section" id="completing-simulations">
+<span id="coalescent-complete"></span><h3>Completing simulations<a class="headerlink" href="#completing-simulations" title="Permalink to this headline">¶</a></h3>
+<p>An important point while designing a model is to prevent any situation
+where the coalescent process will not be able to complete. Such situation
+occurs if a population is experiencing exponential decline (as mentioned
+when describing the parameter <code class="docutils literal"><span class="pre">G</span></code>) or in any case when samples are
+allowed to end up trapped in different populations with no chance to
+ever coalesce. In either case, the simulator will not be able to complete
+the tree and a <code class="xref py py-exc docutils literal"><span class="pre">RuntimeError</span></code> will occur. The example below shows
+the most simple case where this error is bound to occur:</p>
+<a class="reference internal image-reference" href="../_images/model8.svg"><div align="center" class="align-center"><img alt="../_images/model8.svg" height="200px" src="../_images/model8.svg" width="200px" /></div>
+</a>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">c</span> <span class="o">=</span> <span class="n">egglib</span><span class="o">.</span><span class="n">coalesce</span><span class="o">.</span><span class="n">Simulator</span><span class="p">(</span><span class="n">num_pop</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">num_chrom</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">c</span><span class="o">.</span><span class="n">simul</span><span class="p">()</span>
+<span class="go">RuntimeError: infinite coalescent time (unconnected populations or excessive ancestral population size)</span>
+</pre></div>
+</div>
+<p>It is important to note that the problem might not be systematic. For
+example, in the example below, there is a degree of freedom that makes
+that the error will occur randomly:</p>
+<a class="reference internal image-reference" href="../_images/model10.svg"><div align="center" class="align-center"><img alt="../_images/model10.svg" height="200px" src="../_images/model10.svg" width="200px" /></div>
+</a>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">c</span> <span class="o">=</span> <span class="n">egglib</span><span class="o">.</span><span class="n">coalesce</span><span class="o">.</span><span class="n">Simulator</span><span class="p">(</span><span class="n">num_pop</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">num_chrom</span><span class="o">=</span><span class="p">[</span><span class="mi">20</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">c</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;migr_matrix&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[[</span><span class="kc">None</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+<span class="go">                               [1, None, 0],</span>
+<span class="go">                               [0, 0, None]]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">c</span><span class="o">.</span><span class="n">params</span><span class="o">.</span><span class="n">add_event</span><span class="p">(</span><span class="n">cat</span><span class="o">=</span><span class="s1">&#39;admixture&#39;</span><span class="p">,</span> <span class="n">T</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">src</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">dst</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">proba</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">c</span><span class="o">.</span><span class="n">params</span><span class="o">.</span><span class="n">add_event</span><span class="p">(</span><span class="n">cat</span><span class="o">=</span><span class="s1">&#39;merge&#39;</span><span class="p">,</span> <span class="n">T</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">src</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">dst</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">c</span><span class="o">.</span><span class="n">iter_simul</span><span class="p">(</span><span class="mi">1000</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="nb">print</span> <span class="s1">&#39;done&#39;</span>
+<span class="gp">...</span>
+<span class="go">done</span>
+<span class="go">done</span>
+<span class="go">done</span>
+<span class="go">done</span>
+<span class="gt">Traceback (most recent call last):</span>
+  File <span class="nb">&quot;tutorial3.py&quot;</span>, line <span class="m">106</span>, in <span class="n">&lt;module&gt;</span>
+    <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">c</span><span class="o">.</span><span class="n">iter_simul</span><span class="p">(</span><span class="mi">1000</span><span class="p">):</span>
+  File <span class="nb">&quot;/usr/lib64/python2.7/site-packages/egglib/coalesce/_simulator.py&quot;</span>, line <span class="m">357</span>, in <span class="n">iter_simul</span>
+    <span class="kc">False</span><span class="p">)</span>
+<span class="gr">RuntimeError</span>: <span class="n">infinite coalescent time (unconnected populations or excessive ancestral population size)</span>
+</pre></div>
+</div>
+<p>Here the error occurs at the fifth repetition (but this is random). It
+is caused as soon as two different lineages end up trapped in, respectively,
+the two last populations. Since the migration rate between them is null
+and there is no additional historical even planned, they can never coalesce
+(but this is not required to happen each time).</p>
+<p>To prevent this error, it is required to allow the complete coalescence
+of the sample at some point of the future, either by allowing migration
+(setting non-null migration rates) or merging populations (and also by
+preventing any population to increase in size indefinitely due to the
+<code class="docutils literal"><span class="pre">G</span></code> option.</p>
+<p>Occasionally, you might meet another error message:</p>
+<a class="reference internal image-reference" href="../_images/model9.svg"><div align="center" class="align-center"><img alt="../_images/model9.svg" height="200px" src="../_images/model9.svg" width="200px" /></div>
+</a>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">c</span> <span class="o">=</span> <span class="n">egglib</span><span class="o">.</span><span class="n">coalesce</span><span class="o">.</span><span class="n">Simulator</span><span class="p">(</span><span class="n">num_pop</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">num_chrom</span><span class="o">=</span><span class="p">[</span><span class="mi">20</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">c</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;migr_matrix&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[[</span><span class="kc">None</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+<span class="go">                               [1, None, 0],</span>
+<span class="go">                               [0, 0, None]]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">c</span><span class="o">.</span><span class="n">params</span><span class="o">.</span><span class="n">add_event</span><span class="p">(</span><span class="n">cat</span><span class="o">=</span><span class="s1">&#39;admixture&#39;</span><span class="p">,</span> <span class="n">T</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">src</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">dst</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">proba</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">c</span><span class="o">.</span><span class="n">iter_simul</span><span class="p">(</span><span class="mi">1000</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="nb">print</span> <span class="s1">&#39;done&#39;</span>
+<span class="gp">...</span>
+<span class="go">done</span>
+<span class="go">done</span>
+<span class="go">done</span>
+<span class="go">done</span>
+<span class="go">done</span>
+<span class="go">done</span>
+<span class="go">done</span>
+<span class="go">done</span>
+<span class="go">done</span>
+<span class="go">done</span>
+<span class="go">done</span>
+<span class="go">done</span>
+<span class="gt">Traceback (most recent call last):</span>
+  File <span class="nb">&quot;tutorial3.py&quot;</span>, line <span class="m">118</span>, in <span class="n">&lt;module&gt;</span>
+    <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">c</span><span class="o">.</span><span class="n">iter_simul</span><span class="p">(</span><span class="mi">1000</span><span class="p">):</span>
+  File <span class="nb">&quot;/usr/lib64/python2.7/site-packages/egglib/coalesce/_simulator.py&quot;</span>, line <span class="m">357</span>, in <span class="n">iter_simul</span>
+    <span class="kc">False</span><span class="p">)</span>
+<span class="gr">RuntimeError</span>: <span class="n">failed to complete coalescent tree: two lineages might be trapped to unconnected populations (if you are sure your model is correct, increase the parameter `max_iter`)</span>
+</pre></div>
+</div>
+<p>In this case, two lineages are again trapped because the last population
+is not connected with the others, but the one lineage which is not in the
+last population can still migrate between the first two. As a result, there
+is still always an event to be applied by the coalescent algorithm, but this
+can never complete the coalescent. To prevent this, a bound is included,
+stopping the algorithm after a large number of iterations.</p>
+<p>It is possible to increase this bound in case of models taking very long
+(that is, a very large number of iteration steps) but still ensuring
+completion of the coalescent (see <a class="reference internal" href="coal-1.html#max-iter-param"><span class="std std-ref">Maximum number of iterations</span></a>).</p>
+</div>
+</div>
+<div class="section" id="delayed-samples">
+<span id="delayed"></span><h2>Delayed samples<a class="headerlink" href="#delayed-samples" title="Permalink to this headline">¶</a></h2>
+<p>EggLib’s coalescent simulator supports historical (delayed) sample, that is
+samples that have been collected at some known point in the past and
+would be analysed with contemporary samples. The sampling data must be
+known and expressed in units of <span class="math">4N_0</span> generations as all other dates.
+Delayed samples must be taken from one of the populations declared at
+the object construction, whether or not this population has an initial
+sample. It is thus possible to simulate the temporal evolution of a
+population through consecutive samplings:</p>
+<a class="reference internal image-reference" href="../_images/model11.svg"><div align="center" class="align-center"><img alt="../_images/model11.svg" height="200px" src="../_images/model11.svg" width="200px" /></div>
+</a>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">c</span> <span class="o">=</span> <span class="n">egglib</span><span class="o">.</span><span class="n">coalesce</span><span class="o">.</span><span class="n">Simulator</span><span class="p">(</span><span class="n">num_pop</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">num_chrom</span><span class="o">=</span><span class="p">[</span><span class="mi">20</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">c</span><span class="o">.</span><span class="n">params</span><span class="o">.</span><span class="n">add_event</span><span class="p">(</span><span class="n">cat</span><span class="o">=</span><span class="s1">&#39;sample&#39;</span><span class="p">,</span> <span class="n">T</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">idx</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">num_chrom</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">num_indiv</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>It is also possible to sample a previously unsampled population:</p>
+<a class="reference internal image-reference" href="../_images/model12.svg"><div align="center" class="align-center"><img alt="../_images/model12.svg" height="200px" src="../_images/model12.svg" width="200px" /></div>
+</a>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">c</span> <span class="o">=</span> <span class="n">egglib</span><span class="o">.</span><span class="n">coalesce</span><span class="o">.</span><span class="n">Simulator</span><span class="p">(</span><span class="n">num_pop</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">num_chrom</span><span class="o">=</span><span class="p">[</span><span class="mi">20</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">c</span><span class="o">.</span><span class="n">params</span><span class="o">.</span><span class="n">add_event</span><span class="p">(</span><span class="n">cat</span><span class="o">=</span><span class="s1">&#39;sample&#39;</span><span class="p">,</span> <span class="n">T</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">idx</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">num_chrom</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">num_indiv</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">c</span><span class="o">.</span><span class="n">params</span><span class="o">.</span><span class="n">add_event</span><span class="p">(</span><span class="n">cat</span><span class="o">=</span><span class="s1">&#39;merge&#39;</span><span class="p">,</span> <span class="n">T</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">src</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">dst</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Note that the <code class="docutils literal"><span class="pre">label</span></code> option can help discriminate the different
+sampling in the downstream analyses. Like initial samples, it is possible
+to specify both haploid (individuals for which only one chromosome has been
+sampled) and diploid (individuals with both chromosomes sampled) samples.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="coal-3.html" title="Performing simulations"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="coal-1.html" title="Coalescent parameters"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../contents.html">EggLib&#39;s documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../toc.html" >Contents</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="index.html" >Manual</a> &#187;</li>
+          <li class="nav-item nav-item-3"><a href="coal.html" >Coalescent simulations</a> &#187;</li> 
+      </ul>
+    </div>
+<!--
+        <address style="text-align: right;"><small>Hosted by&nbsp;
+        <a href="http://sourceforge.net/projects/egglib"><img src="http://sflogo.sourceforge.net/sflogo.php?group_id=232965&amp;type=8" width="80" height="15" alt="Get EggLib at SourceForge.net. Fast, secure and Free Open Source software downloads" / ALIGN=RIGHT BORDER=0></a>
+        </address>
+-->
+
+  </body>
+</html>

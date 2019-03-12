@@ -1,0 +1,1103 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Coalescence simulator &#8212; EggLib&#39;s documentation</title>
+    <link rel="stylesheet" href="../_static/egglibdoc.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '3.0.0b21',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="shortcut icon" href="../_static/icon.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="External application tools" href="wrappers.html" />
+    <link rel="prev" title="Diversity statistics" href="stats.html" />
+    <script type="text/javascript">
+      // intelligent scrolling of the sidebar content
+      $(window).scroll(function() {
+        var sb = $('.sphinxsidebarwrapper');
+        var win = $(window);
+        var sbh = sb.height();
+        var offset = $('.sphinxsidebar').position()['top'];
+        var wintop = win.scrollTop();
+        var winbot = wintop + win.innerHeight();
+        var curtop = sb.position()['top'];
+        var curbot = curtop + sbh;
+        // does sidebar fit in window?
+        if (sbh < win.innerHeight()) {
+          // yes: easy case -- always keep at the top
+          sb.css('top', $u.min([$u.max([0, wintop - offset - 10]),
+                                $(document).height() - sbh - 200]));
+        } else {
+          // no: only scroll if top/bottom edge of sidebar is at
+          // top/bottom edge of window
+          if (curtop > wintop && curbot > winbot) {
+            sb.css('top', $u.max([wintop - offset - 10, 0]));
+          } else if (curtop < wintop && curbot < winbot) {
+            sb.css('top', $u.min([winbot - sbh - offset - 20,
+                                  $(document).height() - sbh - 200]));
+          }
+        }
+      });
+    </script>
+  </head>
+  <body>
+<div style="background-color: white; text-align: left; padding: 0px 0px 0px 0px">
+<a href="../index.html"><img src="../_static/banner.png" border="0" alt="EggLib"/></a>
+</div>
+
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="wrappers.html" title="External application tools"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="stats.html" title="Diversity statistics"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../contents.html">EggLib&#39;s documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../toc.html" >Contents</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="index.html" accesskey="U">Python Module</a> &#187;</li> 
+      </ul>
+    </div>
+
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../contents.html">
+              <img class="logo" src="../_static/egglib_small.bmp" alt="Logo"/>
+            </a></p>
+  <h3><a href="../contents.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Coalescence simulator</a><ul>
+<li><a class="reference internal" href="#main-class">Main class</a></li>
+<li><a class="reference internal" href="#dictionary-and-list-like-classes">Dictionary- and list-like classes</a><ul>
+<li><a class="reference internal" href="#paramdict">ParamDict</a></li>
+<li><a class="reference internal" href="#paramlist">ParamList</a></li>
+<li><a class="reference internal" href="#parammatrix">ParamMatrix</a></li>
+<li><a class="reference internal" href="#eventlist">EventList</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="stats.html"
+                        title="previous chapter">Diversity statistics</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="wrappers.html"
+                        title="next chapter">External application tools</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/py/coalesce.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="coalescence-simulator">
+<span id="pycoalesce"></span><h1>Coalescence simulator<a class="headerlink" href="#coalescence-simulator" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="main-class">
+<h2>Main class<a class="headerlink" href="#main-class" title="Permalink to this headline">¶</a></h2>
+<p>The class <a class="reference internal" href="#egglib.coalesce.Simulator" title="egglib.coalesce.Simulator"><code class="xref py py-class docutils literal"><span class="pre">Simulator</span></code></a> manages all parameters and lets
+the user run coalescence simulations.</p>
+<dl class="class">
+<dt id="egglib.coalesce.Simulator">
+<em class="property">class </em><code class="descclassname">egglib.coalesce.</code><code class="descname">Simulator</code><span class="sig-paren">(</span><em>num_pop</em>, <em>migr=0.0</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#egglib.coalesce.Simulator" title="Permalink to this definition">¶</a></dt>
+<dd><p>Manager of the coalescent simulator. The constructor takes arguments
+controlling the demographic and mutation models used for simulation.
+Only the number of populations is required at the time of
+construction. Once it is set, it can be never modified. Other
+constructor arguments are all optional and can be set or modified
+later using the <a class="reference internal" href="#egglib.coalesce.Simulator.params" title="egglib.coalesce.Simulator.params"><code class="xref py py-attr docutils literal"><span class="pre">params</span></code></a> instance attribute (either using its
+<a class="reference internal" href="#egglib.coalesce.ParamDict.update" title="egglib.coalesce.ParamDict.update"><code class="xref py py-meth docutils literal"><span class="pre">update()</span></code></a> method or the <code class="docutils literal"><span class="pre">[]</span></code> operator, such as in
+<code class="docutils literal"><span class="pre">simulator.params['theta']</span> <span class="pre">=</span> <span class="pre">2.85</span></code>. Keyword arguments are passed as is to
+<a class="reference internal" href="#egglib.coalesce.ParamDict.update" title="egglib.coalesce.ParamDict.update"><code class="xref py py-meth docutils literal"><span class="pre">update()</span></code></a>. List-based parameters can be set if all
+values are provided in a sequence. Matrix-based parameters cannot be
+set here.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>num_pop</strong> – number of populations.</li>
+<li><strong>migr</strong> – migration rate.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Other keyword arguments can be any of the parameters defined in the
+table below.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="24%" />
+<col width="51%" />
+<col width="24%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Parameter</th>
+<th class="head">Definition</th>
+<th class="head">Default</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">num_pop</span></code></td>
+<td>Number of populations</td>
+<td>None, required</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">num_sites</span></code></td>
+<td>Number of sites</td>
+<td>0 (ISM)</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">num_mut</span></code></td>
+<td>Fixed number of mutations</td>
+<td>0</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">theta</span></code></td>
+<td><span class="math">4N_0\mu</span> parameter</td>
+<td>0.0</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">recomb</span></code></td>
+<td><span class="math">4N_0c</span> parameter</td>
+<td>0.0</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">mut_model</span></code></td>
+<td>Mutation model (among <code class="docutils literal"><span class="pre">KAM</span></code>,
+<code class="docutils literal"><span class="pre">IAM</span></code>, <code class="docutils literal"><span class="pre">SMM</span></code> and <code class="docutils literal"><span class="pre">TPM</span></code>)</td>
+<td><code class="docutils literal"><span class="pre">KAM</span></code></td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">TPM_proba</span></code></td>
+<td>Probability parameter of TPM</td>
+<td>0.5</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">TPM_param</span></code></td>
+<td>Shape parameter of TPM</td>
+<td>0.5</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">num_alleles</span></code></td>
+<td>Number of alleles for KAM</td>
+<td>2</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">rand_start</span></code></td>
+<td>Pick start allele randomly
+for KAM (boolean)</td>
+<td>False</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">num_chrom</span></code></td>
+<td>Number of sampled chromosomes
+(per population)</td>
+<td>0 for all</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">num_indiv</span></code></td>
+<td>Number of sampled individuals
+(per population)</td>
+<td>0 for all</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">N</span></code></td>
+<td>Population size, expressed
+relatively to <span class="math">N_0</span>
+(per population)</td>
+<td>1.0 for all</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">G</span></code></td>
+<td>Exponential growth/decline rate,
+negative values mean decline
+(per population)</td>
+<td>0.0 for all</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">s</span></code></td>
+<td>Population selfing probability
+(per population)</td>
+<td>0.0 for all</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">outgroup</span></code></td>
+<td>Label of samples to place in the
+outgroup (population index for
+normal samples, label for delayed)</td>
+<td>None</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">site_pos</span></code></td>
+<td>Site position, as values
+between 0.0 and 1.0
+(per site)</td>
+<td>Equally spread</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">site_weight</span></code></td>
+<td>Site mutation weight, controlling
+the relative probability of sites
+(per site)</td>
+<td>1.0 for all</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">migr_matrix</span></code></td>
+<td>Pairwise migration rate matrix
+(the diagonal cannot be set)</td>
+<td>0.0 for all</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">trans_matrix</span></code></td>
+<td>Matrix of transition weights
+between pairs of alleles</td>
+<td>1.0 for all</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">events</span></code></td>
+<td>List of events added by the user</td>
+<td>Empty</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">seed</span></code></td>
+<td>Random number generator seed</td>
+<td>Based on clock</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">max_iter</span></code></td>
+<td>Maximum number of iterations</td>
+<td>100,000</td>
+</tr>
+</tbody>
+</table>
+<p>The following table presents the categories of events that can be
+added to the <code class="docutils literal"><span class="pre">events</span></code> list using <a class="reference internal" href="#egglib.coalesce.EventList.add" title="egglib.coalesce.EventList.add"><code class="xref py py-meth docutils literal"><span class="pre">add()</span></code></a>.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="23%" />
+<col width="32%" />
+<col width="44%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Event code</th>
+<th class="head">Description</th>
+<th class="head">Parameters</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td rowspan="3"><code class="docutils literal"><span class="pre">size</span></code></td>
+<td rowspan="3">Change population size</td>
+<td><code class="docutils literal"><span class="pre">T</span></code> – date (1)</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">N</span></code> – new size</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">idx</span></code> – population index (2)</td>
+</tr>
+<tr class="row-odd"><td rowspan="2"><code class="docutils literal"><span class="pre">migr</span></code></td>
+<td rowspan="2">Change all migration
+rate</td>
+<td><code class="docutils literal"><span class="pre">T</span></code> – date (1)</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">M</span></code> – migration rate (all
+pairwise migration rates are
+set to <code class="docutils literal"><span class="pre">M/(num_pop-1)</span></code>)</td>
+</tr>
+<tr class="row-odd"><td rowspan="4"><code class="docutils literal"><span class="pre">pair_migr</span></code></td>
+<td rowspan="4">Change pairwise
+migration rate</td>
+<td><code class="docutils literal"><span class="pre">T</span></code> – date (1)</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">M</span></code> – pairwise migration
+rate</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">src</span></code> – source population
+index</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">idx</span></code> – destination
+population index</td>
+</tr>
+<tr class="row-odd"><td rowspan="3"><code class="docutils literal"><span class="pre">growth</span></code></td>
+<td rowspan="3">Change population
+exponential
+growth/decline rate</td>
+<td><code class="docutils literal"><span class="pre">T</span></code> – date (1)</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">G</span></code> – new rate</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">idx</span></code> – population index (2)</td>
+</tr>
+<tr class="row-even"><td rowspan="3"><code class="docutils literal"><span class="pre">selfing</span></code></td>
+<td rowspan="3">Change population
+self-fertilization
+rate</td>
+<td><code class="docutils literal"><span class="pre">T</span></code> – date (1)</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">s</span></code> – new rate</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">idx</span></code> – population index (2)</td>
+</tr>
+<tr class="row-odd"><td rowspan="2"><code class="docutils literal"><span class="pre">recombination</span></code></td>
+<td rowspan="2">Change recombination
+rate</td>
+<td><code class="docutils literal"><span class="pre">T</span></code> – date (1)</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">R</span></code> – new rate</td>
+</tr>
+<tr class="row-odd"><td rowspan="3"><code class="docutils literal"><span class="pre">bottleneck</span></code></td>
+<td rowspan="3">Apply a bottleneck</td>
+<td><code class="docutils literal"><span class="pre">T</span></code> – date (1)</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">S</span></code> – bottleneck strength (3)</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">idx</span></code> – population index (2)</td>
+</tr>
+<tr class="row-even"><td rowspan="4"><code class="docutils literal"><span class="pre">admixture</span></code></td>
+<td rowspan="4">Move lineages from one
+population to another</td>
+<td><code class="docutils literal"><span class="pre">T</span></code> – date (1)</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">proba</span></code> – migration
+probability (in [0,1] range</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">src</span></code> – source population
+index</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">dst</span></code> – destination
+population index</td>
+</tr>
+<tr class="row-even"><td rowspan="3"><code class="docutils literal"><span class="pre">merge</span></code></td>
+<td rowspan="3">Merge a population to
+another (take all
+lineages from <code class="docutils literal"><span class="pre">src</span></code>,
+move them to <code class="docutils literal"><span class="pre">dst</span></code>,
+and remove <code class="docutils literal"><span class="pre">src</span></code></td>
+<td><code class="docutils literal"><span class="pre">T</span></code> – date (1)</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">src</span></code> – source population
+index</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">dst</span></code> – destination
+population index</td>
+</tr>
+<tr class="row-odd"><td rowspan="5"><code class="docutils literal"><span class="pre">sample</span></code></td>
+<td rowspan="5">Perform a delayed
+a some point in the
+past in one of the
+populations</td>
+<td><code class="docutils literal"><span class="pre">T</span></code> – date (1)</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">idx</span></code> – population index</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">label</span></code> – group label (4)</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">num_chrom</span></code> – number of
+sampled chromosomes</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">num_indiv</span></code> – number of
+sampled individuals</td>
+</tr>
+</tbody>
+</table>
+<ol class="arabic simple">
+<li>Time is expressed in units of <span class="math">4N_0</span> generations.</li>
+<li>If <code class="docutils literal"><span class="pre">idx</span></code> is omitted, the event is applied to all populations 
+at once.</li>
+<li>Bottleneck strength is expressed in time units. A bottleneck is
+implemented as a period of time during which coalescences are the
+only event allowed to occur.</li>
+<li>The label of delayed sample can be set to the same value than the
+populations index (in this case, delayed samples will have the
+same label than normal samples from the same population), or to a
+different label, as the user’s option. Based on the value of the
+<em>outgroup</em> option, this label controls whether delayed samples
+should go to the outgroup.</li>
+</ol>
+<p>The parameters <code class="docutils literal"><span class="pre">num_chrom</span></code>, <code class="docutils literal"><span class="pre">num_indiv</span></code>, <code class="docutils literal"><span class="pre">N</span></code>, <code class="docutils literal"><span class="pre">G</span></code>, <code class="docutils literal"><span class="pre">s</span></code>,
+<code class="docutils literal"><span class="pre">site_pos</span></code>, and <code class="docutils literal"><span class="pre">site_weight</span></code> are represented by
+<a class="reference internal" href="#egglib.coalesce.ParamList" title="egglib.coalesce.ParamList"><code class="xref py py-class docutils literal"><span class="pre">ParamList</span></code></a> instances that behave like lists (except that
+their length cannot be changed). In particular, <a class="reference internal" href="#egglib.coalesce.ParamList" title="egglib.coalesce.ParamList"><code class="xref py py-class docutils literal"><span class="pre">ParamList</span></code></a>
+support subscript indexing and it can also be initialized by passing
+a sequence. The parameters <code class="docutils literal"><span class="pre">migr_matrix</span></code> and <code class="docutils literal"><span class="pre">trans_matrix</span></code> are
+represented by <a class="reference internal" href="#egglib.coalesce.ParamMatrix" title="egglib.coalesce.ParamMatrix"><code class="xref py py-class docutils literal"><span class="pre">ParamMatrix</span></code></a> instances that support a
+double-index subscript system to read/changes values (as in
+<code class="docutils literal"><span class="pre">params['migr_matrix'][i,j]</span></code> to access the value at row <em>i</em> and
+column <em>j</em>. Diagonal values are read as <code class="docutils literal"><span class="pre">None</span></code> and cannot be
+changed. Finally, <code class="docutils literal"><span class="pre">events</span></code> is represented by a <a class="reference internal" href="#egglib.coalesce.EventList" title="egglib.coalesce.EventList"><code class="xref py py-class docutils literal"><span class="pre">EventList</span></code></a>
+instance that exhibit limited list functionality and provides
+methods to add, read, and modify events. See this class for more
+information about out editing the list of events.</p>
+<dl class="attribute">
+<dt id="egglib.coalesce.Simulator.align">
+<code class="descname">align</code><a class="headerlink" href="#egglib.coalesce.Simulator.align" title="Permalink to this definition">¶</a></dt>
+<dd><p>A <a class="reference internal" href="toplevel.html#egglib.Align" title="egglib.Align"><code class="xref py py-class docutils literal"><span class="pre">Align</span></code></a> instance containing simulated data for the
+current iteration of <a class="reference internal" href="#egglib.coalesce.Simulator.iter_simul" title="egglib.coalesce.Simulator.iter_simul"><code class="xref py py-meth docutils literal"><span class="pre">iter_simul()</span></code></a>. The data in this
+instance will be updated at each iteration round, and deleted at
+the end of the iteration. If it must be copied, a deep copy is
+required (typically with <a class="reference internal" href="toplevel.html#egglib.Align.create" title="egglib.Align.create"><code class="xref py py-meth docutils literal"><span class="pre">Align.create()</span></code></a>).</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.coalesce.Simulator.iter_simul">
+<code class="descname">iter_simul</code><span class="sig-paren">(</span><em>nrepet</em>, <em>cs=None</em>, <em>cs_filter=None</em>, <em>cs_structure=None</em>, <em>dest_trees=None</em>, <em>**feed_params</em><span class="sig-paren">)</span><a class="headerlink" href="#egglib.coalesce.Simulator.iter_simul" title="Permalink to this definition">¶</a></dt>
+<dd><p>Performs simulations based on the current value of parameters
+stored in <a class="reference internal" href="#egglib.coalesce.Simulator.params" title="egglib.coalesce.Simulator.params"><code class="xref py py-attr docutils literal"><span class="pre">params</span></code></a>. Return an iterator that will loop
+over the requested number of simulations. The simulated
+alignments are always available at each iteration loop as the
+instance attribute <a class="reference internal" href="#egglib.coalesce.Simulator.align" title="egglib.coalesce.Simulator.align"><code class="xref py py-attr docutils literal"><span class="pre">align</span></code></a>. By default, all iterations
+return a reference to this instance, but if <em>cs</em> is specified a
+dictionary of statistics is returned at each simulation.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>nrepet</strong> – number of simulations. If <code class="docutils literal"><span class="pre">None</span></code>, iterate for
+ever (you are required to use <code class="docutils literal"><span class="pre">break</span></code> in loop with your
+own stopping criterion is reach).</li>
+<li><strong>cs</strong> – <a class="reference internal" href="stats.html#egglib.stats.ComputeStats" title="egglib.stats.ComputeStats"><code class="xref py py-class docutils literal"><span class="pre">ComputeStats</span></code></a> instance properly configured
+to compute statistics from simulated data. If <em>cs</em> is specified,
+each iteration round will yield the dictionary of statistics
+obtained from <a class="reference internal" href="stats.html#egglib.stats.ComputeStats.process_align" title="egglib.stats.ComputeStats.process_align"><code class="xref py py-meth docutils literal"><span class="pre">ComputeStats.process_align()</span></code></a>. See also
+<em>cs_filter</em> and <em>cs_struct</em>.</li>
+<li><strong>cs_filter</strong> – a <a class="reference internal" href="stats.html#egglib.stats.Filter" title="egglib.stats.Filter"><code class="xref py py-class docutils literal"><span class="pre">Filter</span></code></a> instance to be passed to
+<a class="reference internal" href="stats.html#egglib.stats.ComputeStats" title="egglib.stats.ComputeStats"><code class="xref py py-class docutils literal"><span class="pre">ComputeStats</span></code></a> (ignored if <em>cs</em> is <code class="docutils literal"><span class="pre">None</span></code>). By default,
+use <code class="xref py py-data docutils literal"><span class="pre">filter_default</span></code>.</li>
+<li><strong>cs_structure</strong> – a <a class="reference internal" href="stats.html#egglib.stats.Structure" title="egglib.stats.Structure"><code class="xref py py-class docutils literal"><span class="pre">Structure</span></code></a> instance to be passed to
+<a class="reference internal" href="stats.html#egglib.stats.ComputeStats" title="egglib.stats.ComputeStats"><code class="xref py py-class docutils literal"><span class="pre">ComputeStats</span></code></a> (ignored if <em>cs</em> is <code class="docutils literal"><span class="pre">None</span></code>).</li>
+<li><strong>dest_trees</strong> – a <code class="xref py py-class docutils literal"><span class="pre">list</span></code> in which simulated trees will
+be appended. Since each simulation can yield several trees
+(because of recombination), a new sub-list will be appended
+for each simulation, with one item for each tree. Each tree
+covered a defined region of the simulated chromosome, so
+each item of each sub-list will be <code class="docutils literal"><span class="pre">(tree,</span> <span class="pre">start,</span> <span class="pre">stop)</span></code>
+tuple with <code class="docutils literal"><span class="pre">tree</span></code> as a new <a class="reference internal" href="toplevel.html#egglib.Tree" title="egglib.Tree"><code class="xref py py-class docutils literal"><span class="pre">Tree</span></code></a> instance, and
+<code class="docutils literal"><span class="pre">start</span></code> and <code class="docutils literal"><span class="pre">stop</span></code> as the start and stop positions (real
+numbers comprises between 0 and 1). If recombination
+occurred, trees will not be sorted within their sub-list. If
+recombination did not occur, each simulation will be
+represented by a list with a single tuple. Any previously
+data contained in <em>dest_tree</em> is left untouched.</li>
+<li><strong>feed_params</strong> – other arguments provide sequences of values
+for any parameter (except <code class="docutils literal"><span class="pre">num_pop</span></code> and <code class="docutils literal"><span class="pre">seed</span></code>),
+allowing to modify any set of parameters between
+simulations. All changes are permanent and affect any later
+simulation. All additional options must be in the
+<code class="docutils literal"><span class="pre">key=value</span></code> format, with have one of the parameters as
+<code class="docutils literal"><span class="pre">key</span></code>, and a sequence of values as <code class="docutils literal"><span class="pre">value</span></code>. All
+sequences must be of length at least equal to <em>nrepet</em>. If
+longer, additional values are ignored. For list-based
+parameters, each value must be a <code class="docutils literal"><span class="pre">(index,</span> <span class="pre">value)</span></code> tuple
+and, for matrix-based parameters, each value must be a
+<code class="docutils literal"><span class="pre">(index1,</span> <span class="pre">index2,</span> <span class="pre">value)</span></code> tuple.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">An iterator, yielding a reference to <a class="reference internal" href="#egglib.coalesce.Simulator.align" title="egglib.coalesce.Simulator.align"><code class="xref py py-attr docutils literal"><span class="pre">align</span></code></a> if
+<em>cs</em> is <code class="docutils literal"><span class="pre">None</span></code>, or otherwise a dictionary of computed
+statistics.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="egglib.coalesce.Simulator.params">
+<code class="descname">params</code><a class="headerlink" href="#egglib.coalesce.Simulator.params" title="Permalink to this definition">¶</a></dt>
+<dd><p>Simulation parameters of this instance. This object is a
+instance of <a class="reference internal" href="#egglib.coalesce.ParamDict" title="egglib.coalesce.ParamDict"><code class="xref py py-class docutils literal"><span class="pre">ParamDict</span></code></a>, which is a specialized version
+of <a class="reference external" href="https://docs.python.org/2.7/library/stdtypes.html#dict" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">dict</span></code></a> that does not let the users add or remove
+parameters, but lets them modify values of parameters
+(similarly, the number of items of per-population or per-site
+parameters cannot be modified).</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.coalesce.Simulator.simul">
+<code class="descname">simul</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#egglib.coalesce.Simulator.simul" title="Permalink to this definition">¶</a></dt>
+<dd><p>Perform a single simulation based on the current value of
+parameters stored in <a class="reference internal" href="#egglib.coalesce.Simulator.params" title="egglib.coalesce.Simulator.params"><code class="xref py py-attr docutils literal"><span class="pre">params</span></code></a>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">A new <a class="reference internal" href="toplevel.html#egglib.Align" title="egglib.Align"><code class="xref py py-class docutils literal"><span class="pre">Align</span></code></a> instance containing the simulated
+data unless <em>dest</em> is specified (otherwise <code class="docutils literal"><span class="pre">None</span></code>).</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The method <a class="reference internal" href="#egglib.coalesce.Simulator.iter_simul" title="egglib.coalesce.Simulator.iter_simul"><code class="xref py py-meth docutils literal"><span class="pre">iter_simul()</span></code></a> can be much more efficient.
+For performance-critical applications, its use is
+recommended.</p>
+</div>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="dictionary-and-list-like-classes">
+<h2>Dictionary- and list-like classes<a class="headerlink" href="#dictionary-and-list-like-classes" title="Permalink to this headline">¶</a></h2>
+<p>All parameters are accessible from the class
+<a class="reference internal" href="#egglib.coalesce.Simulator" title="egglib.coalesce.Simulator"><code class="xref py py-class docutils literal"><span class="pre">Simulator</span></code></a>. They are returned in a dictionary-like
+type that lets the user modify parameters but not modify the list of
+parameters. Note that none of the classes described in this section are
+meant to be built by the user.</p>
+<div class="section" id="paramdict">
+<h3>ParamDict<a class="headerlink" href="#paramdict" title="Permalink to this headline">¶</a></h3>
+<dl class="class">
+<dt id="egglib.coalesce.ParamDict">
+<em class="property">class </em><code class="descclassname">egglib.coalesce.</code><code class="descname">ParamDict</code><span class="sig-paren">(</span><em>npop</em><span class="sig-paren">)</span><a class="headerlink" href="#egglib.coalesce.ParamDict" title="Permalink to this definition">¶</a></dt>
+<dd><p>Emulator of <a class="reference external" href="https://docs.python.org/2.7/library/stdtypes.html#dict" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">dict</span></code></a> for managing parameters. Do most of what a
+dictionary does except for adding and removing keys. The order of
+parameters is fixed and consistent.</p>
+<p>In addition to the methods documented below, <a class="reference internal" href="#egglib.coalesce.ParamDict" title="egglib.coalesce.ParamDict"><code class="xref py py-class docutils literal"><span class="pre">ParamDict</span></code></a>
+instances support the following operations (where <code class="docutils literal"><span class="pre">params</span></code> in one
+instance):</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="30%" />
+<col width="70%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Expression</th>
+<th class="head">Action</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">len(params)</span></code></td>
+<td>Number of parameters</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">params[key]</span></code></td>
+<td>Get the value of parameter <code class="docutils literal"><span class="pre">key</span></code></td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">params[key]</span> <span class="pre">=</span> <span class="pre">value</span></code></td>
+<td>Assign <code class="docutils literal"><span class="pre">value</span></code> to parameter <code class="docutils literal"><span class="pre">key</span></code> (see note below)</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">for</span> <span class="pre">key</span> <span class="pre">in</span> <span class="pre">params</span></code></td>
+<td>Same as <code class="docutils literal"><span class="pre">for</span> <span class="pre">key</span> <span class="pre">in</span> <span class="pre">params.iterkeys()</span></code></td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">reversed(params)</span></code></td>
+<td>Return a reversed iterator</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">key</span> <span class="pre">in</span> <span class="pre">params</span></code></td>
+<td>Check if <code class="docutils literal"><span class="pre">key</span></code> in a parameter name</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">str(params)</span></code></td>
+<td>Representation of the instance as a <a class="reference external" href="https://docs.python.org/2.7/library/stdtypes.html#dict" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">dict</span></code></a></td>
+</tr>
+</tbody>
+</table>
+<p>Note that the <code class="docutils literal"><span class="pre">params[key]</span> <span class="pre">=</span> <span class="pre">value</span></code> expression is straightforward
+only for parameters that have a single value. For parameters
+represented by a <a class="reference internal" href="#egglib.coalesce.ParamList" title="egglib.coalesce.ParamList"><code class="xref py py-class docutils literal"><span class="pre">ParamList</span></code></a> instance, this expression is
+only supported if the right-hand operand is a sequence of matching
+length (in order to set all values at once). For parameters
+represented by a  <a class="reference internal" href="#egglib.coalesce.ParamMatrix" title="egglib.coalesce.ParamMatrix"><code class="xref py py-class docutils literal"><span class="pre">ParamMatrix</span></code></a> instance, this expression is
+only supported if the right-hand operand is another
+<a class="reference internal" href="#egglib.coalesce.ParamMatrix" title="egglib.coalesce.ParamMatrix"><code class="xref py py-class docutils literal"><span class="pre">ParamMatrix</span></code></a> instance of matching dimension. For
+<code class="docutils literal"><span class="pre">events</span></code>, this expression is not supported at all. In all cases
+where <code class="docutils literal"><span class="pre">params[key]</span></code> returns <a class="reference internal" href="#egglib.coalesce.ParamList" title="egglib.coalesce.ParamList"><code class="xref py py-class docutils literal"><span class="pre">ParamList</span></code></a>,
+<a class="reference internal" href="#egglib.coalesce.ParamMatrix" title="egglib.coalesce.ParamMatrix"><code class="xref py py-class docutils literal"><span class="pre">ParamMatrix</span></code></a> or a <a class="reference internal" href="#egglib.coalesce.EventList" title="egglib.coalesce.EventList"><code class="xref py py-class docutils literal"><span class="pre">EventList</span></code></a> instance, the
+returned value can be modified using its own methods.</p>
+<dl class="method">
+<dt id="egglib.coalesce.ParamDict.add_event">
+<code class="descname">add_event</code><span class="sig-paren">(</span><em>cat</em>, <em>T</em>, <em>**params</em><span class="sig-paren">)</span><a class="headerlink" href="#egglib.coalesce.ParamDict.add_event" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add an event to the list. See the documentation for the class
+<a class="reference internal" href="#egglib.coalesce.Simulator" title="egglib.coalesce.Simulator"><code class="xref py py-class docutils literal"><span class="pre">Simulator</span></code></a> for more details on what is expected as
+arguments.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>cat</strong> – category of the event.</li>
+<li><strong>T</strong> – date of the event.</li>
+<li><strong>params</strong> – all needed parameters for this category of
+events.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.coalesce.ParamDict.copy">
+<code class="descname">copy</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#egglib.coalesce.ParamDict.copy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a shallow copy of this instance. All modifications of the
+values of either copy will modify the other one (even
+modification of integer, float and string parameters).</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.coalesce.ParamDict.disable_trans_matrix">
+<code class="descname">disable_trans_matrix</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#egglib.coalesce.ParamDict.disable_trans_matrix" title="Permalink to this definition">¶</a></dt>
+<dd><p>Disable the matrix of weights of transition between alleles (it
+is disabled by default, and automatically activated if any value
+is set). This sets all weights to 1.0.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.coalesce.ParamDict.get">
+<code class="descname">get</code><span class="sig-paren">(</span><em>key</em>, <em>default=None</em><span class="sig-paren">)</span><a class="headerlink" href="#egglib.coalesce.ParamDict.get" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the value for <em>key</em> if <em>key</em> is one of the parameters,
+else return the value passed as <em>default</em> (by default,
+<code class="docutils literal"><span class="pre">None</span></code>). This method therefore never raises a
+<a class="reference external" href="https://docs.python.org/2.7/library/exceptions.html#exceptions.KeyError" title="(in Python v2.7)"><code class="xref py py-exc docutils literal"><span class="pre">KeyError</span></code></a>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.coalesce.ParamDict.get_values">
+<code class="descname">get_values</code><span class="sig-paren">(</span><em>other</em><span class="sig-paren">)</span><a class="headerlink" href="#egglib.coalesce.ParamDict.get_values" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update the dictionary with values from another
+<a class="reference internal" href="#egglib.coalesce.ParamDict" title="egglib.coalesce.ParamDict"><code class="xref py py-class docutils literal"><span class="pre">ParamDict</span></code></a> instance (with the same numbers of
+populations and sites).</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.coalesce.ParamDict.has_key">
+<code class="descname">has_key</code><span class="sig-paren">(</span><em>key</em><span class="sig-paren">)</span><a class="headerlink" href="#egglib.coalesce.ParamDict.has_key" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a boolean indicating if the passed name is one of the
+parameters.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.coalesce.ParamDict.items">
+<code class="descname">items</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#egglib.coalesce.ParamDict.items" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a copy of the list of <code class="docutils literal"><span class="pre">(key,</span> <span class="pre">value)</span></code> parameter name and
+value pairs.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.coalesce.ParamDict.iteritems">
+<code class="descname">iteritems</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#egglib.coalesce.ParamDict.iteritems" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return an iterator over the <code class="docutils literal"><span class="pre">(key,</span> <span class="pre">value)</span></code> parameter name and
+value pairs.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.coalesce.ParamDict.iterkeys">
+<code class="descname">iterkeys</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#egglib.coalesce.ParamDict.iterkeys" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return an iterator over the parameter names.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.coalesce.ParamDict.itervalues">
+<code class="descname">itervalues</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#egglib.coalesce.ParamDict.itervalues" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return an iterator over the parameter values.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.coalesce.ParamDict.keys">
+<code class="descname">keys</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#egglib.coalesce.ParamDict.keys" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a copy of the list of parameter names.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.coalesce.ParamDict.mk_structure">
+<code class="descname">mk_structure</code><span class="sig-paren">(</span><em>skip_indiv=False</em><span class="sig-paren">)</span><a class="headerlink" href="#egglib.coalesce.ParamDict.mk_structure" title="Permalink to this definition">¶</a></dt>
+<dd><p>Export a <a class="reference internal" href="stats.html#egglib.stats.Structure" title="egglib.stats.Structure"><code class="xref py py-class docutils literal"><span class="pre">stats.Structure</span></code></a> instance containing the
+structure information corresponding to currently loaded
+simulation parameters.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>skip_indiv</strong> – <p>this argument determines whether the individuals
+level should be skipped (if <code class="docutils literal"><span class="pre">True</span></code>, alleles from each given
+individual are treated as belonging to separate haploid individuals.</p>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">The individual level cannot be processed if the ploidy is
+not constant (mixing sampled chromosomes and sampled
+individuals).</p>
+</div>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">A new <a class="reference internal" href="stats.html#egglib.stats.Structure" title="egglib.stats.Structure"><code class="xref py py-class docutils literal"><span class="pre">stats.Structure</span></code></a> instance.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.coalesce.ParamDict.set_migr">
+<code class="descname">set_migr</code><span class="sig-paren">(</span><em>value</em><span class="sig-paren">)</span><a class="headerlink" href="#egglib.coalesce.ParamDict.set_migr" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set all pairwise migration rates to <code class="docutils literal"><span class="pre">value/(num_pop-1)</span></code>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.coalesce.ParamDict.summary">
+<code class="descname">summary</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#egglib.coalesce.ParamDict.summary" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a string displaying all current values of parameters at
+the level of the C++ simulator. Use for debugging only, as the
+format is not guaranteed to be stable.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.coalesce.ParamDict.update">
+<code class="descname">update</code><span class="sig-paren">(</span><em>other=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#egglib.coalesce.ParamDict.update" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update the dictionary with the <code class="docutils literal"><span class="pre">(key,</span> <span class="pre">value)</span></code> parameter name
+and value pairs from the object passed as <em>other</em>, overwriting
+existing keys and raising a <a class="reference external" href="https://docs.python.org/2.7/library/exceptions.html#exceptions.KeyError" title="(in Python v2.7)"><code class="xref py py-exc docutils literal"><span class="pre">KeyError</span></code></a>
+exception if an unknown parameter name is met.</p>
+<p>Accepts <a class="reference external" href="https://docs.python.org/2.7/library/stdtypes.html#dict" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">dict</span></code></a> instances, or else any iterable of
+<code class="docutils literal"><span class="pre">(key,</span> <span class="pre">value)</span></code> pairs. If keyword arguments are specified, the
+instance is then updated with those, as in
+<code class="docutils literal"><span class="pre">param_dict.update(theta=5.0,</span> <span class="pre">recomb=2.5)</span></code>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.coalesce.ParamDict.values">
+<code class="descname">values</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#egglib.coalesce.ParamDict.values" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a copy of the list of parameter values.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="paramlist">
+<h3>ParamList<a class="headerlink" href="#paramlist" title="Permalink to this headline">¶</a></h3>
+<dl class="class">
+<dt id="egglib.coalesce.ParamList">
+<em class="property">class </em><code class="descclassname">egglib.coalesce.</code><code class="descname">ParamList</code><span class="sig-paren">(</span><em>getter</em>, <em>setter</em>, <em>num_values</em>, <em>check_item</em><span class="sig-paren">)</span><a class="headerlink" href="#egglib.coalesce.ParamList" title="Permalink to this definition">¶</a></dt>
+<dd><p>Emulator of <code class="xref py py-class docutils literal"><span class="pre">list</span></code> for managing values for a parameter. Do
+most of what a list does except for adding and removing values. The
+methods <code class="xref py py-meth docutils literal"><span class="pre">reverse()</span></code> and <code class="xref py py-meth docutils literal"><span class="pre">sort()</span></code> are also not
+provided as they make little sense. Expressions involving the <code class="docutils literal"><span class="pre">+</span></code>
+and <code class="docutils literal"><span class="pre">*</span></code> arithmetic operators are supported, but return genuine
+<code class="xref py py-class docutils literal"><span class="pre">list</span></code> instances that are disconnected from the original
+parameter holder.</p>
+<p>In addition to the methods documented below, <a class="reference internal" href="#egglib.coalesce.ParamList" title="egglib.coalesce.ParamList"><code class="xref py py-class docutils literal"><span class="pre">ParamList</span></code></a>
+instances support the following operations (where <code class="docutils literal"><span class="pre">items</span></code> is a
+<a class="reference internal" href="#egglib.coalesce.ParamList" title="egglib.coalesce.ParamList"><code class="xref py py-class docutils literal"><span class="pre">ParamList</span></code></a> instance):</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="29%" />
+<col width="71%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Expression</th>
+<th class="head">Action</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">len(items)</span></code></td>
+<td>Number of items</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">items[i]</span></code></td>
+<td>Get <em>i</em>th item</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">items[i:j]</span></code></td>
+<td>Slice from <em>i</em> to <em>j</em></td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">items[i:j:k]</span></code></td>
+<td>Slice from <em>i</em> to <em>j</em> with step <em>k</em></td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">items[i]</span> <span class="pre">=</span> <span class="pre">value</span></code></td>
+<td>Assign <code class="docutils literal"><span class="pre">value</span></code> to parameter <code class="docutils literal"><span class="pre">key</span></code></td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">items[i:j]</span> <span class="pre">=</span> <span class="pre">values</span></code></td>
+<td>Replace a slice of values (with a sequence of the same length)</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">items[i:j:k]</span> <span class="pre">=</span> <span class="pre">values</span></code></td>
+<td>Replace a slice of values (with a sequence of the same length)</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">for</span> <span class="pre">item</span> <span class="pre">in</span> <span class="pre">items</span></code></td>
+<td>Iterates over items</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">reversed(items)</span></code></td>
+<td>Return a reversed iterator</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">item</span> <span class="pre">in</span> <span class="pre">items</span></code></td>
+<td>Check if <code class="docutils literal"><span class="pre">item</span></code> is present among items</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">items</span> <span class="pre">+</span> <span class="pre">other</span></code></td>
+<td>Same as <code class="docutils literal"><span class="pre">list(items)</span> <span class="pre">+</span> <span class="pre">other</span></code> (returns a <code class="xref py py-class docutils literal"><span class="pre">list</span></code>)</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">items</span> <span class="pre">*</span> <span class="pre">n</span></code></td>
+<td>Same as <code class="docutils literal"><span class="pre">list(items)</span> <span class="pre">*</span> <span class="pre">n</span></code> (returns a <code class="xref py py-class docutils literal"><span class="pre">list</span></code>)</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">str(items)</span></code></td>
+<td>Representation of the instance as a list</td>
+</tr>
+</tbody>
+</table>
+<p>The indexing operator (<code class="docutils literal"><span class="pre">[]</span></code>) supports negative indexes (to count
+from the end) and slices operators, just as for the built-in type
+<code class="xref py py-class docutils literal"><span class="pre">list</span></code>. However, all operators (such as <code class="docutils literal"><span class="pre">del</span></code>) or methods
+(such as <code class="xref py py-meth docutils literal"><span class="pre">append()</span></code>, <code class="xref py py-meth docutils literal"><span class="pre">extend()</span></code>,
+<code class="xref py py-meth docutils literal"><span class="pre">remove()</span></code>) that would change the length of the list are
+not available.</p>
+<dl class="method">
+<dt id="egglib.coalesce.ParamList.count">
+<code class="descname">count</code><span class="sig-paren">(</span><em>value</em><span class="sig-paren">)</span><a class="headerlink" href="#egglib.coalesce.ParamList.count" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the number of items that are equal to <em>value</em>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.coalesce.ParamList.index">
+<code class="descname">index</code><span class="sig-paren">(</span><em>value</em>, <em>imin=0</em>, <em>imax=None</em><span class="sig-paren">)</span><a class="headerlink" href="#egglib.coalesce.ParamList.index" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the index of the first value matching <em>value</em>. The
+returned value is <code class="docutils literal"><span class="pre">&gt;=imin</span></code> and <code class="docutils literal"><span class="pre">&lt;imax</span></code> if they are provided.
+Raise a <a class="reference external" href="https://docs.python.org/2.7/library/exceptions.html#exceptions.ValueError" title="(in Python v2.7)"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code></a> if the value is not found.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="parammatrix">
+<h3>ParamMatrix<a class="headerlink" href="#parammatrix" title="Permalink to this headline">¶</a></h3>
+<dl class="class">
+<dt id="egglib.coalesce.ParamMatrix">
+<em class="property">class </em><code class="descclassname">egglib.coalesce.</code><code class="descname">ParamMatrix</code><span class="sig-paren">(</span><em>getter</em>, <em>setter</em>, <em>num_values</em>, <em>check_item</em>, <em>check_active</em>, <em>set_active</em><span class="sig-paren">)</span><a class="headerlink" href="#egglib.coalesce.ParamMatrix" title="Permalink to this definition">¶</a></dt>
+<dd><p>Emulator of <code class="xref py py-class docutils literal"><span class="pre">list</span></code> for managing values for a parameter as a
+matrix. Similar to <a class="reference internal" href="#egglib.coalesce.ParamList" title="egglib.coalesce.ParamList"><code class="xref py py-class docutils literal"><span class="pre">ParamList</span></code></a> except that it holds a
+matrix. It therefore implements less methods (no support for <code class="docutils literal"><span class="pre">+</span></code>
+and <code class="docutils literal"><span class="pre">*</span></code> operators, no slices) and use double indexing system as in
+<code class="docutils literal"><span class="pre">matrix[i,</span> <span class="pre">j]</span> <span class="pre">=</span> <span class="pre">x</span></code>, allowing both setting and getting values. The
+iterator, such as in <code class="docutils literal"><span class="pre">for</span> <span class="pre">i</span> <span class="pre">in</span> <span class="pre">matrix</span></code>, flattens the matrix,
+returning all values from the first row, then those from the second
+tow, and so on (replacing the diagonal values by <code class="docutils literal"><span class="pre">None</span></code>).
+<code class="docutils literal"><span class="pre">len(matrix)</span></code> returns the dimension (number of rows, which is the
+same as the number of columns).</p>
+<p>In addition to the methods documented below, <a class="reference internal" href="#egglib.coalesce.ParamMatrix" title="egglib.coalesce.ParamMatrix"><code class="xref py py-class docutils literal"><span class="pre">ParamMatrix</span></code></a>
+instances support the following operations (where <code class="docutils literal"><span class="pre">matrix</span></code> is a
+<a class="reference internal" href="#egglib.coalesce.ParamMatrix" title="egglib.coalesce.ParamMatrix"><code class="xref py py-class docutils literal"><span class="pre">ParamMatrix</span></code></a> instance):</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="27%" />
+<col width="73%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Expression</th>
+<th class="head">Action</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">len(matrix)</span></code></td>
+<td>Size of the matrix (as number of rows/colums)</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">matrix[i,j]</span></code></td>
+<td>Get <em>j</em>th item of the <em>i</em>th row (<code class="docutils literal"><span class="pre">None</span></code> for diagonal)</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">matrix[i,j]</span> <span class="pre">=</span> <span class="pre">value</span></code></td>
+<td>Assign <code class="docutils literal"><span class="pre">value</span></code> to <em>(i,j)</em>th item (no diagonal)</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">for</span> <span class="pre">item</span> <span class="pre">in</span> <span class="pre">matrix</span></code></td>
+<td>Iterates over items (row-first <em>flat</em> iteration)</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">reversed(matrix)</span></code></td>
+<td>Return a reversed iterator</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">item</span> <span class="pre">in</span> <span class="pre">matrix</span></code></td>
+<td>Check if <code class="docutils literal"><span class="pre">item</span></code> is present among items</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">str(matrix)</span></code></td>
+<td>Representation of the instance as a nested list (including diagonal)</td>
+</tr>
+</tbody>
+</table>
+<p>It is not possible to slice-set ranges of values in the matrix, but
+one can set all values at once from a compatible source with
+<a class="reference internal" href="#egglib.coalesce.ParamMatrix.get_values" title="egglib.coalesce.ParamMatrix.get_values"><code class="xref py py-meth docutils literal"><span class="pre">get_values()</span></code></a>.</p>
+<dl class="method">
+<dt id="egglib.coalesce.ParamMatrix.count">
+<code class="descname">count</code><span class="sig-paren">(</span><em>value</em><span class="sig-paren">)</span><a class="headerlink" href="#egglib.coalesce.ParamMatrix.count" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the number of items that are equal to <em>value</em>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.coalesce.ParamMatrix.get_values">
+<code class="descname">get_values</code><span class="sig-paren">(</span><em>other</em><span class="sig-paren">)</span><a class="headerlink" href="#egglib.coalesce.ParamMatrix.get_values" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get all values from <em>other</em>, which must be another
+<a class="reference internal" href="#egglib.coalesce.ParamMatrix" title="egglib.coalesce.ParamMatrix"><code class="xref py py-class docutils literal"><span class="pre">ParamMatrix</span></code></a> or a nested sequence (such as a
+<code class="xref py py-class docutils literal"><span class="pre">list</span></code> or <code class="xref py py-class docutils literal"><span class="pre">list</span></code>). The dimension of <em>other</em> must
+be the same as the current instance. Not that in the input
+object is not a <a class="reference internal" href="#egglib.coalesce.ParamMatrix" title="egglib.coalesce.ParamMatrix"><code class="xref py py-class docutils literal"><span class="pre">ParamMatrix</span></code></a>, any value it can have on
+the diagonal will be ignored (but they must be present to avoid
+shifting indexes).</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.coalesce.ParamMatrix.index">
+<code class="descname">index</code><span class="sig-paren">(</span><em>value</em>, <em>imin=0</em>, <em>imax=None</em>, <em>jmin=0</em>, <em>jmax=None</em><span class="sig-paren">)</span><a class="headerlink" href="#egglib.coalesce.ParamMatrix.index" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the <code class="docutils literal"><span class="pre">(i,</span> <span class="pre">j)</span></code> tuple of indexes of the first value
+(iterating first over rows and then over columns) matching
+<em>value</em>. The returned row index is &gt;=imin and &lt;imax and the
+returns column index is &gt;=jmin and &lt;jmax if they are provided.
+Raise a <a class="reference external" href="https://docs.python.org/2.7/library/exceptions.html#exceptions.ValueError" title="(in Python v2.7)"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code></a> if the value is not found.
+The diagonal is not considered.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="eventlist">
+<h3>EventList<a class="headerlink" href="#eventlist" title="Permalink to this headline">¶</a></h3>
+<dl class="class">
+<dt id="egglib.coalesce.EventList">
+<em class="property">class </em><code class="descclassname">egglib.coalesce.</code><code class="descname">EventList</code><span class="sig-paren">(</span><em>npop</em>, <em>add</em>, <em>clear</em><span class="sig-paren">)</span><a class="headerlink" href="#egglib.coalesce.EventList" title="Permalink to this definition">¶</a></dt>
+<dd><p>Class storing the list of demographic events. Even if events appear
+as unsorted, they are internally sorted so that the user does not
+have to care about their order. This class has limited
+functionality: add events (but not removing them), accessing and
+modifying parameters.</p>
+<p>In addition to the methods documented below, <a class="reference internal" href="#egglib.coalesce.EventList" title="egglib.coalesce.EventList"><code class="xref py py-class docutils literal"><span class="pre">EventList</span></code></a>
+instances support the following operations (where <code class="docutils literal"><span class="pre">events</span></code> is an
+<a class="reference internal" href="#egglib.coalesce.EventList" title="egglib.coalesce.EventList"><code class="xref py py-class docutils literal"><span class="pre">EventList</span></code></a> instance):</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="27%" />
+<col width="73%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Expression</th>
+<th class="head">Action</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">len(events)</span></code></td>
+<td>Number of events currently loaded</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">events[i]</span></code></td>
+<td>Return a dictionary with parameters of the <em>i</em>th event (see note)</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">for</span> <span class="pre">event</span> <span class="pre">in</span> <span class="pre">events</span></code></td>
+<td>Same as <code class="docutils literal"><span class="pre">for</span> <span class="pre">i</span> <span class="pre">in</span> <span class="pre">range(len(events)):</span> <span class="pre">event</span> <span class="pre">=</span> <span class="pre">events[i]</span></code></td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">str(events)`</span></code></td>
+<td>Representation of the instance, roughly as a list</td>
+</tr>
+</tbody>
+</table>
+<p>The string representation is such as a string at the first level,
+but each event is represented as an angle-bracketed delimited string
+containing comma-separated <code class="docutils literal"><span class="pre">key=value</span></code> pairs with the parameter as
+<code class="docutils literal"><span class="pre">key</span></code> and its value  as <code class="docutils literal"><span class="pre">value</span></code> (with an additional key,
+<code class="docutils literal"><span class="pre">event_index</span></code>, providing the index of the event in the list).</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">There is no way to modify content of the instance using the
+indexing operator <code class="docutils literal"><span class="pre">events[i]</span></code>. One must use
+<a class="reference internal" href="#egglib.coalesce.EventList.update" title="egglib.coalesce.EventList.update"><code class="xref py py-meth docutils literal"><span class="pre">update()</span></code></a>.</p>
+</div>
+<p>More information on the list of events and their parameters is
+available in the documentation for class <a class="reference internal" href="#egglib.coalesce.Simulator" title="egglib.coalesce.Simulator"><code class="xref py py-class docutils literal"><span class="pre">Simulator</span></code></a>.</p>
+<dl class="method">
+<dt id="egglib.coalesce.EventList.add">
+<code class="descname">add</code><span class="sig-paren">(</span><em>cat</em>, <em>T</em>, <em>**params</em><span class="sig-paren">)</span><a class="headerlink" href="#egglib.coalesce.EventList.add" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add an event to the list. See the documentation for the class
+<a class="reference internal" href="#egglib.coalesce.Simulator" title="egglib.coalesce.Simulator"><code class="xref py py-class docutils literal"><span class="pre">Simulator</span></code></a> for more details on what is expected as
+arguments.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>cat</strong> – category of the event.</li>
+<li><strong>T</strong> – date of the event.</li>
+<li><strong>params</strong> – all needed parameters for this category of
+events.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.coalesce.EventList.clear">
+<code class="descname">clear</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#egglib.coalesce.EventList.clear" title="Permalink to this definition">¶</a></dt>
+<dd><p>Clear list of events.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.coalesce.EventList.replace">
+<code class="descname">replace</code><span class="sig-paren">(</span><em>other</em><span class="sig-paren">)</span><a class="headerlink" href="#egglib.coalesce.EventList.replace" title="Permalink to this definition">¶</a></dt>
+<dd><p>Replace own list of events with the one in the
+<a class="reference internal" href="#egglib.coalesce.EventList" title="egglib.coalesce.EventList"><code class="xref py py-class docutils literal"><span class="pre">EventList</span></code></a> instance passed as <em>other</em>. The current list
+of events is dropped.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.coalesce.EventList.update">
+<code class="descname">update</code><span class="sig-paren">(</span><em>event_index</em>, <em>**params</em><span class="sig-paren">)</span><a class="headerlink" href="#egglib.coalesce.EventList.update" title="Permalink to this definition">¶</a></dt>
+<dd><p>Modify any parameter from one of the event of the list. If an
+event’s date is modified, sorting will be updated automatically.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>event_index</strong> – index of the event to modify (based on the
+order in which events have been specified with <a class="reference internal" href="#egglib.coalesce.EventList.add" title="egglib.coalesce.EventList.add"><code class="xref py py-meth docutils literal"><span class="pre">add()</span></code></a>,
+which is the same order as events appear when representing
+the instance or iterating).</li>
+<li><strong>params</strong> – keyword arguments specifying what parameters to
+modify. Only parameters that have to be changed should be
+specified.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="wrappers.html" title="External application tools"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="stats.html" title="Diversity statistics"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../contents.html">EggLib&#39;s documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../toc.html" >Contents</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="index.html" >Python Module</a> &#187;</li> 
+      </ul>
+    </div>
+<!--
+        <address style="text-align: right;"><small>Hosted by&nbsp;
+        <a href="http://sourceforge.net/projects/egglib"><img src="http://sflogo.sourceforge.net/sflogo.php?group_id=232965&amp;type=8" width="80" height="15" alt="Get EggLib at SourceForge.net. Fast, secure and Free Open Source software downloads" / ALIGN=RIGHT BORDER=0></a>
+        </address>
+-->
+
+  </body>
+</html>

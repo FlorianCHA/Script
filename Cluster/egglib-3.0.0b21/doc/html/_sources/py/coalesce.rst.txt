@@ -1,0 +1,48 @@
+.. _pycoalesce:
+
+---------------------
+Coalescence simulator
+---------------------
+
+Main class
+==========
+
+The class :class:`~.coalesce.Simulator` manages all parameters and lets
+the user run coalescence simulations.
+
+.. autoclass:: egglib.coalesce.Simulator
+    :members:
+
+Dictionary- and list-like classes
+=================================
+
+All parameters are accessible from the class
+:class:`~.coalesce.Simulator`. They are returned in a dictionary-like
+type that lets the user modify parameters but not modify the list of
+parameters. Note that none of the classes described in this section are
+meant to be built by the user.
+
+ParamDict
+*********
+
+.. autoclass:: egglib.coalesce.ParamDict
+    :members:
+
+ParamList
+*********
+
+.. autoclass:: egglib.coalesce.ParamList
+    :members:
+
+ParamMatrix
+***********
+
+.. autoclass:: egglib.coalesce.ParamMatrix
+    :members:
+
+EventList
+*********
+
+.. autoclass:: egglib.coalesce.EventList
+    :members:
+

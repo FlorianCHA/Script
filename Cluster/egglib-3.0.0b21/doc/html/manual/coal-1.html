@@ -1,0 +1,915 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Coalescent parameters &#8212; EggLib&#39;s documentation</title>
+    <link rel="stylesheet" href="../_static/egglibdoc.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '3.0.0b21',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="shortcut icon" href="../_static/icon.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Use of historical events" href="coal-2.html" />
+    <link rel="prev" title="Coalescent simulations" href="coal.html" />
+    <script type="text/javascript">
+      // intelligent scrolling of the sidebar content
+      $(window).scroll(function() {
+        var sb = $('.sphinxsidebarwrapper');
+        var win = $(window);
+        var sbh = sb.height();
+        var offset = $('.sphinxsidebar').position()['top'];
+        var wintop = win.scrollTop();
+        var winbot = wintop + win.innerHeight();
+        var curtop = sb.position()['top'];
+        var curbot = curtop + sbh;
+        // does sidebar fit in window?
+        if (sbh < win.innerHeight()) {
+          // yes: easy case -- always keep at the top
+          sb.css('top', $u.min([$u.max([0, wintop - offset - 10]),
+                                $(document).height() - sbh - 200]));
+        } else {
+          // no: only scroll if top/bottom edge of sidebar is at
+          // top/bottom edge of window
+          if (curtop > wintop && curbot > winbot) {
+            sb.css('top', $u.max([wintop - offset - 10, 0]));
+          } else if (curtop < wintop && curbot < winbot) {
+            sb.css('top', $u.min([winbot - sbh - offset - 20,
+                                  $(document).height() - sbh - 200]));
+          }
+        }
+      });
+    </script>
+  </head>
+  <body>
+<div style="background-color: white; text-align: left; padding: 0px 0px 0px 0px">
+<a href="../index.html"><img src="../_static/banner.png" border="0" alt="EggLib"/></a>
+</div>
+
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="coal-2.html" title="Use of historical events"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="coal.html" title="Coalescent simulations"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../contents.html">EggLib&#39;s documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../toc.html" >Contents</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="index.html" >Manual</a> &#187;</li>
+          <li class="nav-item nav-item-3"><a href="coal.html" accesskey="U">Coalescent simulations</a> &#187;</li> 
+      </ul>
+    </div>
+
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../contents.html">
+              <img class="logo" src="../_static/egglib_small.bmp" alt="Logo"/>
+            </a></p>
+  <h3><a href="../contents.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Coalescent parameters</a><ul>
+<li><a class="reference internal" href="#the-coalescence-theory">The coalescence theory</a></li>
+<li><a class="reference internal" href="#the-basics">The basics</a></li>
+<li><a class="reference internal" href="#note-on-the-number-of-populations">Note on the number of populations</a></li>
+<li><a class="reference internal" href="#the-parameters-dictionary-like">The parameters dictionary-like</a></li>
+<li><a class="reference internal" href="#number-of-populations-and-population-properties">Number of populations and population properties</a><ul>
+<li><a class="reference internal" href="#list-like-parameters">List-like parameters</a></li>
+<li><a class="reference internal" href="#the-migration-matrix">The migration matrix</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#mutation-models">Mutation models</a><ul>
+<li><a class="reference internal" href="#description-of-models">Description of models</a></li>
+<li><a class="reference internal" href="#number-of-sites">Number of sites</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#other-parameters">Other parameters</a><ul>
+<li><a class="reference internal" href="#historical-events">Historical events</a></li>
+<li><a class="reference internal" href="#recombination">Recombination</a></li>
+<li><a class="reference internal" href="#controlling-the-random-number-generator">Controlling the random number generator</a></li>
+<li><a class="reference internal" href="#defining-an-outgroup">Defining an outgroup</a></li>
+<li><a class="reference internal" href="#maximum-number-of-iterations">Maximum number of iterations</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="coal.html"
+                        title="previous chapter">Coalescent simulations</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="coal-2.html"
+                        title="next chapter">Use of historical events</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/manual/coal-1.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="coalescent-parameters">
+<h1>Coalescent parameters<a class="headerlink" href="#coalescent-parameters" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="the-coalescence-theory">
+<h2>The coalescence theory<a class="headerlink" href="#the-coalescence-theory" title="Permalink to this headline">¶</a></h2>
+<p>The coalescent theory is a statistical framework describing the
+property of the genealogy of a sample based on the population’s properties.
+The coalescent only addresses the history of a given sample (backward in time,
+until the most recent common ancestor). By being sample-centered, and
+offering the possibility of ignoring, among the events having affected the
+population, all those that did not affect the sample, the coalescence theory
+is an efficient analytical and computational tool. The basic idea is to generate
+simulated data sets based on a (potentially complex) population structure
+and history. This involves simulation of mutation process, also based on
+user’s directives. There are many computer programs performing coalescence
+simulations. EggLib incorporates one coalescent simulator, pursuing those aims:</p>
+<ul class="simple">
+<li>Integrate several tools within a single, consistent, piece of software
+(data management, diversity statistics, coalescent simulation) for
+improved efficiency when they are used together.</li>
+<li>Support features not available elsewhere, or not together (arbitrary
+mutation models, homoplasy, delayed samples, diploid model with partial
+self-fertilization).</li>
+</ul>
+</div>
+<div class="section" id="the-basics">
+<h2>The basics<a class="headerlink" href="#the-basics" title="Permalink to this headline">¶</a></h2>
+<p>The coalescent simulator lies in a module of its own, <code class="xref py py-mod docutils literal"><span class="pre">coalesce</span></code>.
+The interface is the class <a class="reference internal" href="../py/coalesce.html#egglib.coalesce.Simulator" title="egglib.coalesce.Simulator"><code class="xref py py-class docutils literal"><span class="pre">coalesce.Simulator</span></code></a>. To perform
+simulations, you need to create an object of this class. There can be
+several instances at the same time if needed. If simulations must be
+run sequentially, even with different models, it is better to use the
+same instance to profit from the optimization system of EggLib. However,
+if the number of populations should change, it is required to create a
+new object (see the next paragraph).</p>
+<p>The constructor of <code class="xref py py-class docutils literal"><span class="pre">Simulator</span></code> takes one required argument,
+the number of populations. It is possible to pass almost all parameters
+as additional arguments (they must be used in the <code class="docutils literal"><span class="pre">keyword=value</span></code> format).
+See the example below:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">coal</span> <span class="o">=</span> <span class="n">egglib</span><span class="o">.</span><span class="n">coalesce</span><span class="o">.</span><span class="n">Simulator</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">num_chrom</span><span class="o">=</span><span class="p">[</span><span class="mi">20</span><span class="p">],</span> <span class="n">theta</span><span class="o">=</span><span class="mf">4.0</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>This line defines a model with a single population, with 20 samples and
+a <span class="math">\theta</span> of 4.0. The created <code class="xref py py-class docutils literal"><span class="pre">Simulator</span></code> object, here
+named <code class="docutils literal"><span class="pre">coal</span></code>, can directly be used to perform simulations and/or
+setting parameter values (see below).</p>
+</div>
+<div class="section" id="note-on-the-number-of-populations">
+<h2>Note on the number of populations<a class="headerlink" href="#note-on-the-number-of-populations" title="Permalink to this headline">¶</a></h2>
+<p>A characteristic of EggLib’s coalescent simulator is that the number of
+populations is fixed and immutable during the course of a simulation. This
+does not mean that classical features of population genetics features such as
+population extinction, fusion, and split cannot be implemented. All those
+events can be implemented in a way directly comparable to other pieces of
+software. A non-existent population is a population that does not contain
+any samples, and to which all pairwise migration rates are set to zero.
+Then population can appear to go extinct or, on the contrary to be created
+using this combination of parameters. This can be understood as a fixed
+number of demes in an environment that provides a constant number of sites
+able to harbour a population, where the number of populations (as a group
+of individuals) is allowed to vary.</p>
+<p>From a programming point of view, this means that the user of the
+<code class="xref py py-class docutils literal"><span class="pre">Simulator</span></code> class is required to set the number of populations to the
+total number of populations over the full history of the model. In practice,
+populations which will be created (or will be created by a split, thinking
+backward), must already be present since the start of the simulation
+(with zero samples and with all migration rates to them set to 0).
+Consider the following model:</p>
+<a class="reference internal image-reference" href="../_images/model1.svg"><div align="center" class="align-center"><img alt="../_images/model1.svg" height="200px" src="../_images/model1.svg" width="200px" /></div>
+</a>
+<p>It should be noted that, in this kind of representation of coalescent models,
+the present is a the bottom but, since the coalescent is backward in time,
+those models must be read from bottom to top, as indicated by the arrow. Still,
+the “biological” course of time is from the top to the bottom.</p>
+<p>In this model we have two populations that merge at some point in time. Based
+on EggLib’s principle of constant population number, one population is assumed
+to merge into the other (here, the second population merges the first one),
+and will remain as some kind of empty slot. (It is possible to “reactivate”
+a population later–earlier–in time.)</p>
+<p>To implement this model, the following code will suffice:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">coal</span> <span class="o">=</span> <span class="n">egglib</span><span class="o">.</span><span class="n">coalesce</span><span class="o">.</span><span class="n">Simulator</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">num_chrom</span><span class="o">=</span><span class="p">[</span><span class="mi">20</span><span class="p">,</span> <span class="mi">20</span><span class="p">],</span> <span class="n">theta</span><span class="o">=</span><span class="mf">4.0</span><span class="p">)</span>
+<span class="n">coal</span><span class="o">.</span><span class="n">params</span><span class="o">.</span><span class="n">add_event</span><span class="p">(</span><span class="s1">&#39;merge&#39;</span><span class="p">,</span> <span class="n">T</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">src</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">dst</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="the-parameters-dictionary-like">
+<h2>The parameters dictionary-like<a class="headerlink" href="#the-parameters-dictionary-like" title="Permalink to this headline">¶</a></h2>
+<p>You may have noticed that the last example used the attribute <a class="reference internal" href="../py/coalesce.html#egglib.coalesce.Simulator.params" title="egglib.coalesce.Simulator.params"><code class="xref py py-attr docutils literal"><span class="pre">params</span></code></a>
+of <code class="xref py py-class docutils literal"><span class="pre">Simulator</span></code> objects. This attribute is holding all simulation parameters
+and can be used to modify almost all parameters. Actually, most parameters
+can be both set through <code class="xref py py-class docutils literal"><span class="pre">Simulator</span></code>’s constructor and through
+<code class="xref py py-meth docutils literal"><span class="pre">Simulator.params()</span></code> although there are several exceptions (see
+the review of parameters in the next section).</p>
+<p><code class="xref py py-attr docutils literal"><span class="pre">params</span></code> acts like a dictionary (actually it is a <a class="reference internal" href="../py/coalesce.html#egglib.coalesce.ParamDict" title="egglib.coalesce.ParamDict"><code class="xref py py-class docutils literal"><span class="pre">coalesce.ParamDict</span></code></a>).
+Compared with normal <a class="reference external" href="https://docs.python.org/2.7/library/stdtypes.html#dict" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">dict</span></code></a>, it has additional methods and, most
+importantly, it won’t let you add or remove keys (which would not have
+any meaning). There are also restrictions on the values parameters can take.</p>
+<p>If one uses <code class="docutils literal"><span class="pre">print</span> <span class="pre">coal.params</span></code>, it won’t yield anything useful. However, it is
+possible to convert the parameters into a genuine <code class="xref py py-class docutils literal"><span class="pre">dict</span></code>, and display it:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">coal</span> <span class="o">=</span> <span class="n">egglib</span><span class="o">.</span><span class="n">coalesce</span><span class="o">.</span><span class="n">Simulator</span><span class="p">(</span><span class="n">num_pop</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span> <span class="nb">dict</span><span class="p">(</span><span class="n">coal</span><span class="o">.</span><span class="n">params</span><span class="p">)</span>
+<span class="go">{&#39;num_alleles&#39;: 2, &#39;num_indiv&#39;: [0], &#39;seed&#39;: 838007, &#39;rand_start&#39;: False, &#39;TPM_proba&#39;: 0.5, &#39;trans_matrix&#39;: [[None, 1.0], [1.0, None]], &#39;site_weight&#39;: [], &#39;migr_matrix&#39;: [[None]], &#39;recomb&#39;: 0.0, &#39;TPM_param&#39;: 0.5, &#39;theta&#39;: 0.0, &#39;events&#39;: [], &#39;outgroup&#39;: None, &#39;G&#39;: [0.0], &#39;num_mut&#39;: 0, &#39;N&#39;: [1.0], &#39;num_chrom&#39;: [0], &#39;site_pos&#39;: [], &#39;mut_model&#39;: &#39;KAM&#39;, &#39;s&#39;: [0.0], &#39;num_sites&#39;: 0, &#39;num_pop&#39;: 1}</span>
+</pre></div>
+</div>
+<p>It is also possible to generate a string summary of the current value of parameters.
+This is more readable, but the format might be changed (for example if new
+parameters are added) so it should not be used in programs unless as
+for information only (anyway, at the time of this writing, the parameters
+<code class="docutils literal"><span class="pre">outgroup</span></code> and <code class="docutils literal"><span class="pre">seed</span></code> are not represented):</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span> <span class="n">coal</span><span class="o">.</span><span class="n">params</span><span class="o">.</span><span class="n">summary</span><span class="p">()</span>
+<span class="go">Number of populations: 1</span>
+<span class="go">    Population 1:</span>
+<span class="go">       Single samples: 0</span>
+<span class="go">       Double samples: 0</span>
+<span class="go">       Relative size: 1</span>
+<span class="go">       Growth rate: 0</span>
+<span class="go">       Selfing rate: 0</span>
+<span class="go">Recombination rate: 0</span>
+<span class="go">Migration matrix:</span>
+<span class="go">      0</span>
+<span class="go">Mutation rate: 0</span>
+<span class="go">Fixed number of alleles: 0</span>
+<span class="go">Mutation model: KAM</span>
+<span class="go">Number of alleles: 2</span>
+<span class="go">Random start allele: 0</span>
+<span class="go">Custom transition matrix: 0</span>
+<span class="go">      1        1</span>
+<span class="go">      1        1</span>
+<span class="go">Number of mutable sites: 0</span>
+<span class="go">Number of changes: 0</span>
+</pre></div>
+</div>
+<p>Below we list all parameters of the coalescent simulator, with useful details.</p>
+</div>
+<div class="section" id="number-of-populations-and-population-properties">
+<h2>Number of populations and population properties<a class="headerlink" href="#number-of-populations-and-population-properties" title="Permalink to this headline">¶</a></h2>
+<p>The table below lists all parameters related to the population structure.
+The temporal changes of this structure as described in <a class="reference internal" href="#events-params"><span class="std std-ref">Other parameters</span></a>.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="39%" />
+<col width="12%" />
+<col width="29%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Parameter</th>
+<th class="head">Meaning</th>
+<th class="head">Default</th>
+<th class="head">Notes</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td rowspan="2"><code class="docutils literal"><span class="pre">num_pop</span></code></td>
+<td rowspan="2">Number of populations</td>
+<td rowspan="2">Required</td>
+<td>Required in constructor</td>
+</tr>
+<tr class="row-odd"><td>Cannot be changed</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">num_chrom</span></code></td>
+<td>Number of haploid samples</td>
+<td>0</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">num_indiv</span></code></td>
+<td>Number of diploid samples</td>
+<td>0</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">N</span></code></td>
+<td>Population sizes</td>
+<td>1.0</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">G</span></code></td>
+<td>Population growth/decline rates</td>
+<td>0.0</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">s</span></code></td>
+<td>Population selfing rates</td>
+<td>0.0</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">migr</span></code></td>
+<td>Global migration rate</td>
+<td>0.0</td>
+<td>Only in constructor</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">migr_matrix</span></code></td>
+<td>Pairwise migration rates</td>
+<td>0.0</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">outgroup</span></code></td>
+<td>Label of outgroup samples</td>
+<td>None</td>
+<td>&#160;</td>
+</tr>
+</tbody>
+</table>
+<p>The <code class="docutils literal"><span class="pre">outgroup</span></code> argument will be covered in <a class="reference internal" href="#outgroup-param"><span class="std std-ref">Defining an outgroup</span></a>.</p>
+<div class="section" id="list-like-parameters">
+<span id="list-params"></span><h3>List-like parameters<a class="headerlink" href="#list-like-parameters" title="Permalink to this headline">¶</a></h3>
+<p>Except <code class="docutils literal"><span class="pre">num_pop</span></code>, <code class="docutils literal"><span class="pre">migr</span></code>, and <code class="docutils literal"><span class="pre">outgroup</span></code>, all parameters are lists
+(<code class="docutils literal"><span class="pre">migr_matrix</span></code> is a square matrix). Their dimension is determined by
+the value of <code class="docutils literal"><span class="pre">num_pop</span></code> provided to the <code class="xref py py-class docutils literal"><span class="pre">Simulator</span></code> constructor.
+These arguments must be provided as a list of length matching the number of
+populations:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">coal</span> <span class="o">=</span> <span class="n">egglib</span><span class="o">.</span><span class="n">coalesce</span><span class="o">.</span><span class="n">Simulator</span><span class="p">(</span><span class="n">num_pop</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">num_chrom</span><span class="o">=</span><span class="p">[</span><span class="mi">20</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="mi">20</span><span class="p">],</span> <span class="n">N</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mf">0.2</span><span class="p">])</span>
+</pre></div>
+</div>
+<p>When using the <code class="xref py py-class docutils literal"><span class="pre">dict</span></code>-like features of <code class="xref py py-attr docutils literal"><span class="pre">params</span></code>, it is possible
+to get or set only one item using the bracket operator:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span> <span class="n">coal</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;N&#39;</span><span class="p">][</span><span class="mi">3</span><span class="p">]</span>
+<span class="go">0.2</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">coal</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;N&#39;</span><span class="p">][</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.5</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span> <span class="n">coal</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;N&#39;</span><span class="p">]</span>
+<span class="go">[1.0, 1.0, 0.5, 0.2]</span>
+</pre></div>
+</div>
+<p>All values can be set at once, and even part of them:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">coal</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;G&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">coal</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;G&#39;</span><span class="p">][</span><span class="mi">2</span><span class="p">:</span><span class="mi">4</span><span class="p">]</span> <span class="o">=</span> <span class="mf">2.5</span><span class="p">,</span> <span class="mf">2.7</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span> <span class="n">coal</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;G&#39;</span><span class="p">]</span>
+<span class="go">[1.0, 2.0, 2.5, 2.7]</span>
+</pre></div>
+</div>
+<p>The concerned parameters are:</p>
+<ul class="simple">
+<li><code class="docutils literal"><span class="pre">num_chrom</span></code> and <code class="docutils literal"><span class="pre">num_indiv</span></code> – EggLib’s coalescent simulator uses a diploid model
+(assuming a reference population with <span class="math">N_0</span> diploid individuals),
+so it is possible to defined samples as diploid (individuals for which
+both chromosomes are sampled) or haploid (individuals for which one
+random chromosome is sampled). If <code class="docutils literal"><span class="pre">s</span></code> is 0 (see below), there is no
+difference between using <code class="docutils literal"><span class="pre">num_indiv=x</span></code> or <code class="docutils literal"><span class="pre">num_chrom=2*x</span></code>, and
+the model is equivalent to a haploid model with <span class="math">2N_0</span> individuals.
+It is possible to mix haploid and diploid samples (the total sample size
+is always equal to <code class="docutils literal"><span class="pre">num_chrom</span> <span class="pre">+</span> <span class="pre">2</span> <span class="pre">*</span> <span class="pre">num_indiv</span></code>).</li>
+<li><code class="docutils literal"><span class="pre">N</span></code> – The relative size of populations (expressed relatively to the
+standard, current, population size). The default, 1.0, means that all
+populations have the size of the reference population.</li>
+<li><code class="docutils literal"><span class="pre">G</span></code> – Exponential growth/decline rate. If the rate is larger than
+zero, the size of the population decreases exponentially backward in time
+(the population has been growing exponentially if we think forward). If
+the rate is smaller than zero, the size of the population increases
+exponentially (shrinking exponentially if we think forward). In the later
+case, past population size can become so large that it is not possible to
+complete the simulation due to computational limitations. Negative values
+of <code class="docutils literal"><span class="pre">G</span></code> should be used with caution and, probably, used with a past event
+stopping the growth. The size of the population at time <span class="math">t</span> in the
+passed is given by <span class="math">N_o \exp^{Gt}</span>, as in the <code class="docutils literal"><span class="pre">ms</span></code> <a class="reference external" href="http://home.uchicago.edu/rhudson1/source/mksamples.html">software</a>.</li>
+<li><code class="docutils literal"><span class="pre">s</span></code> - The self-fertilization rate. It is the probability (between 0 and 1,
+both included) that one individual is the offspring of an occurrence of selfing
+reproduction. Note that different populations can have different values. In
+this case, the user should be aware that individuals migrating between
+populations with varying values of <code class="docutils literal"><span class="pre">s</span></code> will assume the self-fertilization
+of the new population after migration.</li>
+</ul>
+</div>
+<div class="section" id="the-migration-matrix">
+<span id="migr-matrix"></span><h3>The migration matrix<a class="headerlink" href="#the-migration-matrix" title="Permalink to this headline">¶</a></h3>
+<p>The <code class="docutils literal"><span class="pre">migr</span></code> argument of the <code class="xref py py-class docutils literal"><span class="pre">Simulator</span></code> constructor
+allows to avoid setting the whole matrix if all pairwise rates are
+identical. The value that must be provided as <code class="docutils literal"><span class="pre">migr</span></code> value is per-population overall emigration
+rate (such as each pairwise migration rate will be set to <code class="docutils literal"><span class="pre">migr/(num_pop-1)</span></code>):</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">coal</span> <span class="o">=</span> <span class="n">egglib</span><span class="o">.</span><span class="n">coalesce</span><span class="o">.</span><span class="n">Simulator</span><span class="p">(</span><span class="n">num_pop</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">migr</span><span class="o">=</span><span class="mf">6.0</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span> <span class="n">coal</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;migr_matrix&#39;</span><span class="p">]</span>
+<span class="go">[[None, 2.0, 2.0, 2.0], [2.0, None, 2.0, 2.0], [2.0, 2.0, None, 2.0], [2.0, 2.0, 2.0, None]]</span>
+</pre></div>
+</div>
+<p>It is also possible to use the method <code class="xref py py-meth docutils literal"><span class="pre">ParamsDict.set_migr()</span></code>:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">coal</span><span class="o">.</span><span class="n">params</span><span class="o">.</span><span class="n">set_migr</span><span class="p">(</span><span class="mf">1.5</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span> <span class="n">coal</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;migr_matrix&#39;</span><span class="p">]</span>
+<span class="go">[[None, 0.5, 0.5, 0.5], [0.5, None, 0.5, 0.5], [0.5, 0.5, None, 0.5], [0.5, 0.5, 0.5, None]]</span>
+</pre></div>
+</div>
+<p>The argument <code class="docutils literal"><span class="pre">migr_matrix</span></code> represents the full matrix of pairwise rates.
+The matrix above reads as:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="23%" />
+<col width="26%" />
+<col width="26%" />
+<col width="26%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">None</span></code></td>
+<td>2.0</td>
+<td>2.0</td>
+<td>2.0</td>
+</tr>
+<tr class="row-even"><td>2.0</td>
+<td><code class="docutils literal"><span class="pre">None</span></code></td>
+<td>2.0</td>
+<td>2.0</td>
+</tr>
+<tr class="row-odd"><td>2.0</td>
+<td>2.0</td>
+<td><code class="docutils literal"><span class="pre">None</span></code></td>
+<td>2.0</td>
+</tr>
+<tr class="row-even"><td>2.0</td>
+<td>2.0</td>
+<td>2.0</td>
+<td><code class="docutils literal"><span class="pre">None</span></code></td>
+</tr>
+</tbody>
+</table>
+<p>Note that diagonal value are set to <code class="docutils literal"><span class="pre">None</span></code>.</p>
+<p>Using the <code class="xref py py-attr docutils literal"><span class="pre">params</span></code> attribute, it is possible to set individual pairwise
+rates within the migration matrix,
+using the <code class="docutils literal"><span class="pre">[from,to]</span></code> operator, where <em>from</em> is the index of the source
+population, and <em>to</em> is the index of the destination population:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">coal</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;migr_matrix&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mf">4.0</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span> <span class="n">coal</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;migr_matrix&#39;</span><span class="p">]</span>
+<span class="go">[[None, 4.0, 0.5, 0.5], [0.5, None, 0.5, 0.5], [0.5, 0.5, None, 0.5], [0.5, 0.5, 0.5, None]]</span>
+</pre></div>
+</div>
+<p>This operator can also be used to read values.</p>
+<p>Alternatively, it is also possible to set the whole matrix in one call:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">coal</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;migr_matrix&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[[</span><span class="kc">None</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">],</span>
+<span class="gp">... </span>                              <span class="p">[</span><span class="mf">1.0</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">],</span>
+<span class="gp">... </span>                              <span class="p">[</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">],</span>
+<span class="gp">... </span>                              <span class="p">[</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="kc">None</span><span class="p">]]</span>
+</pre></div>
+</div>
+<p>The argument must be a <code class="docutils literal"><span class="pre">num_pop</span> <span class="pre">*</span> <span class="pre">num_pop</span></code> nested list. Therefore,
+the diagonal must be included in the provided value, all diagonal values
+are explicitly required to be <code class="docutils literal"><span class="pre">None</span></code>. It is possible to set the full
+matrix as a constructor argument (using the key <code class="docutils literal"><span class="pre">migr_matrix</span></code>) of
+<code class="xref py py-class docutils literal"><span class="pre">Simulator</span></code>.</p>
+</div>
+</div>
+<div class="section" id="mutation-models">
+<h2>Mutation models<a class="headerlink" href="#mutation-models" title="Permalink to this headline">¶</a></h2>
+<p>EggLib’s <code class="xref py py-mod docutils literal"><span class="pre">coalesce</span></code> module provides a flexible mutation model supporting
+the standard two-allele model without homoplasy (infinite site model; ISM)
+or realistic nucleotide mutation models (four alleles with homoplasy and
+transition/transversion substitution bias), or microsatellite models. The
+available parameters allow to extend the range of models that can be implemented.
+The table below presents the parameters that can be set:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="17%" />
+<col width="32%" />
+<col width="15%" />
+<col width="36%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Parameter</th>
+<th class="head">Meaning</th>
+<th class="head">Default</th>
+<th class="head">Notes</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">theta</span></code></td>
+<td><span class="math">\theta=4N_0\mu</span> parameter</td>
+<td>0</td>
+<td rowspan="2">Cannot be set together</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">num_mut</span></code></td>
+<td>Fixed number of mutations</td>
+<td>0</td>
+</tr>
+<tr class="row-even"><td rowspan="4"><code class="docutils literal"><span class="pre">mut_model</span></code></td>
+<td rowspan="4">Mutation model</td>
+<td rowspan="4"><code class="docutils literal"><span class="pre">KAM</span></code></td>
+<td><code class="docutils literal"><span class="pre">KAM</span></code> – fixed number of alleles</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">IAM</span></code> – infinite number of alleles</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">SMM</span></code> – stepwise mutation model</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">TPM</span></code> – two-phase mutation model</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">num_alleles</span></code></td>
+<td>Number of possible alleles</td>
+<td>2</td>
+<td>Only for <code class="docutils literal"><span class="pre">KAM</span></code> model</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">rand_start</span></code></td>
+<td>Pick start allele randomly</td>
+<td><code class="docutils literal"><span class="pre">false</span></code></td>
+<td>Only for <code class="docutils literal"><span class="pre">KAM</span></code> model</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">trans_matrix</span></code></td>
+<td>Allele substitution rates</td>
+<td>All equal</td>
+<td>Only for <code class="docutils literal"><span class="pre">KAM</span></code> model</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">TPM_proba</span></code></td>
+<td>Non-stepwise probability</td>
+<td>0.5</td>
+<td>Only for <code class="docutils literal"><span class="pre">TPM</span></code> model</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">TPM_param</span></code></td>
+<td>Non-stepwise parameter</td>
+<td>0.5</td>
+<td>Only for <code class="docutils literal"><span class="pre">TPM</span></code> model</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">num_sites</span></code></td>
+<td>Number of mutation sites</td>
+<td>0</td>
+<td>0 stands for ISM</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">site_pos</span></code></td>
+<td>Position of sites</td>
+<td>Evenly spread</td>
+<td>If <code class="docutils literal"><span class="pre">num_sites</span></code> is not 0</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">site_weight</span></code></td>
+<td>Mutation weight of sites</td>
+<td>All equal to 1</td>
+<td>If <code class="docutils literal"><span class="pre">num_sites</span></code> is not 0</td>
+</tr>
+</tbody>
+</table>
+<p>The parameters <code class="docutils literal"><span class="pre">theta</span></code> and <code class="docutils literal"><span class="pre">num_mut</span></code> control the number of mutations
+occurring in simulations. If the later option is used, the number of
+mutations is fixed. In the other case, the number of mutations is drawn
+randomly based on the statistical parameter.</p>
+<div class="section" id="description-of-models">
+<h3>Description of models<a class="headerlink" href="#description-of-models" title="Permalink to this headline">¶</a></h3>
+<p>The different models are listed below:</p>
+<ul>
+<li><p class="first"><code class="docutils literal"><span class="pre">KAM</span></code> (K-allele model) is a model where alleles can take a finite
+number of values. The number of alleles is given by <code class="docutils literal"><span class="pre">num_alleles</span></code>
+(default: 2, which is the minimum allowed). The allelic values are
+in the range <code class="docutils literal"><span class="pre">[0,</span> <span class="pre">num_alleles-1]</span></code>. This model can be configured with
+the following options:</p>
+<ul>
+<li><p class="first"><code class="docutils literal"><span class="pre">num_alleles</span></code>, as stated already. Use 2 for standard diallelic
+markers. To simulate DNA sequence, use <code class="docutils literal"><span class="pre">num_alleles=4</span></code>. The identity
+of the four base is a matter of convention.</p>
+</li>
+<li><p class="first"><code class="docutils literal"><span class="pre">rand_start</span></code> tells if the start (ancestral) allele should be
+drawn randomly among the available values. By default, the start
+allele is 0.</p>
+</li>
+<li><p class="first"><code class="docutils literal"><span class="pre">trans_matrix</span></code> gives the matrix of transition weights among alleles.
+The usage of this matrix is identical to the one for the migration
+matrix (see <a class="reference internal" href="#migr-matrix"><span class="std std-ref">The migration matrix</span></a>).
+The matrix has dimension <code class="docutils literal"><span class="pre">num_alleles*num_alleles</span></code>, with non-diagonal
+values given the relative weights of each transition. The entry
+<code class="docutils literal"><span class="pre">[i,j]</span></code> gives the relative weight of the substitution from allele
+<code class="docutils literal"><span class="pre">i</span></code> to allele <code class="docutils literal"><span class="pre">j</span></code>. For example, for setting DNA sequence with
+a transition/transversion rate ratio of 4, one can use:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">num_allele</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">trans_matrix</span><span class="o">=</span><span class="p">[[</span><span class="kc">None</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
+                            <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
+                            <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span>
+                            <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="kc">None</span><span class="p">]]</span>
+</pre></div>
+</div>
+<p>The structure of the matrix in the above example is conditioned on
+the order of alleles. Here we assumed that the bases are sorted in
+the order: T, C, A, and G.</p>
+</li>
+</ul>
+</li>
+<li><p class="first">In the <code class="docutils literal"><span class="pre">IAM</span></code> (infinite allele model), all mutations create a new
+allele. In this model, it is guaranteed that all identical alleles are
+identical by descent. The allelic value are arbitrary and should not
+be considered as allele sizes.</p>
+</li>
+<li><p class="first">In the <code class="docutils literal"><span class="pre">SMM</span></code> (stepwise mutation model), allelic values are meant to
+represent sizes and each mutation step increments or decrements the
+value of one unit. The start value is 0, and, therefore, positive
+and negative values are equally possible. Note that, to implement
+microsatellite data, it can be necessary to multiply the allelic values
+by the assumed repeat size and shift them to the reference locus size
+(in order to avoid negative value) before processing data in other
+software.</p>
+</li>
+<li><p class="first">The <code class="docutils literal"><span class="pre">TPM</span></code> (two-phase model) is a generalisation of the <code class="docutils literal"><span class="pre">SMM</span></code>. In
+this model, mutation steps can be either of one unit, or drawn from a
+geometric distribution (in either case they can be either positive or
+negative). This model has two parameters:</p>
+<ul class="simple">
+<li><code class="docutils literal"><span class="pre">TPM_proba</span></code>, the probability that a mutation step is drawn from the
+geometric distribution.</li>
+<li><code class="docutils literal"><span class="pre">TPM_param</span></code>, the parameter of the geometric distribution.</li>
+</ul>
+<p>The generalized stepwise mutation model (a model where all step are drawn
+from the geometric distribution) can be implemented by using
+this combination of parameters: <code class="docutils literal"><span class="pre">mut_model=TPM,</span> <span class="pre">TPM_proba=1,</span> <span class="pre">TPM_param=a</span></code>
+with <code class="docutils literal"><span class="pre">a</span></code> the desired distribution parameter.</p>
+</li>
+</ul>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The default is equivalent to <code class="docutils literal"><span class="pre">model=KAM,</span> <span class="pre">num_alleles=2,</span> <span class="pre">num_sites=0</span></code> (see
+below for the number of sites). The other mutation models are designed
+<em>a priori</em> to represent microsatellite markers and, most likely,
+they should used with a fixed number of sites. If one wants to emulate
+realistic DNA sequences with homoplasy, the number of sites should also
+be set to a finite value.</p>
+</div>
+</div>
+<div class="section" id="number-of-sites">
+<span id="sites-params"></span><h3>Number of sites<a class="headerlink" href="#number-of-sites" title="Permalink to this headline">¶</a></h3>
+<p>The parameter <code class="docutils literal"><span class="pre">num_sites</span></code> determines the number of sites of the simulated
+genetic segment. There are two main situations:</p>
+<ul>
+<li><p class="first"><code class="docutils literal"><span class="pre">num_sites=0</span></code> (the default) corresponds to the infinitely-many site
+model. In this model, the number of sites is assumed to be large enough
+(compared to the mutation rate) so that each mutation necessarily hits
+a new site. In this case, a site is generated for each mutation. Only
+the site with mutations are exported, and thereby all exported sites
+are polymorphic with exactly two alleles.</p>
+</li>
+<li><p class="first"><code class="docutils literal"><span class="pre">num_sites=L</span></code> with <code class="docutils literal"><span class="pre">L</span></code> larger than 0. In this case, there are a finite
+number of sites and each mutation hits randomly one of the site. As a result,
+there can be sites without mutation, others with one mutation exactly,
+and some with more than one mutation. In the latter case, unless the model is
+<code class="docutils literal"><span class="pre">IAM</span></code>, there can be homoplasy (identity by state but not by descent).
+If the simulated segment is supposed to represent a stretch of DNA sequence,
+<code class="docutils literal"><span class="pre">num_sites</span></code> is the length of the region, in base pairs. To simulate a
+single microsatellite marker, use <code class="docutils literal"><span class="pre">num_sites=1</span></code>. It is possible to
+simulate several microsatellite markers, or other type of individual markers (such
+as individuals SNPs).</p>
+<p>In this case, it is possible to use two additional options: <code class="docutils literal"><span class="pre">site_pos</span></code>
+and <code class="docutils literal"><span class="pre">site_weight</span></code>. These two options are lists
+of length matching the value of <code class="docutils literal"><span class="pre">num_sites</span></code>, that can be used the same
+way as the lists describing population properties (<a class="reference internal" href="#list-params"><span class="std std-ref">List-like parameters</span></a>).</p>
+<ul class="simple">
+<li><code class="docutils literal"><span class="pre">site_pos</span></code> gives the position of all sites (in the range <code class="docutils literal"><span class="pre">[0,1]</span></code>).
+The more distant two sites, the more recombination is likely to occur
+between them (of course, if <code class="docutils literal"><span class="pre">recomb</span></code> is more than 0). By default,
+the sites are spread exactly along the interval. The first site
+will always be at position 0 and the last one at position 1 (if there
+is one site, it will be placed at position 0.5 although this has
+little relevance regarding recombination).</li>
+<li><code class="docutils literal"><span class="pre">site_weight</span></code> gives the relative probability that mutation hits each
+site. To be used if the mutation rates varies over sites. By default,
+all weights are equal to 1 (note that the absolute value is irrelevant,
+what matters is the ratio of the weight between sites). For example,
+to implement three linked microsatellite markers with
+respective per-site <span class="math">\theta</span> values of 1.4, 2.4, and 1.9, it is
+possible to use <code class="docutils literal"><span class="pre">num_sites=3,</span> <span class="pre">theta=5.7,</span> <span class="pre">site_weight=[1.4,</span> <span class="pre">2.4,</span> <span class="pre">1.9]</span></code>.
+Unlinked markers must be simulated independently.</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="other-parameters">
+<span id="events-params"></span><h2>Other parameters<a class="headerlink" href="#other-parameters" title="Permalink to this headline">¶</a></h2>
+<p>The other parameters are listed in the table below. They are detailed
+in the following paragraphs.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="58%" />
+<col width="23%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Parameter</th>
+<th class="head">Meaning</th>
+<th class="head">Default</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">events</span></code></td>
+<td>List of historical events</td>
+<td>Empty</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">recomb</span></code></td>
+<td><span class="math">\rho=4N_0c</span> parameter</td>
+<td>0</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">seed</span></code></td>
+<td>Random number generator seed</td>
+<td>Based on clock</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">outgroup</span></code></td>
+<td>Label of samples to place in outgroup</td>
+<td>None</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">max_iter</span></code></td>
+<td>Maximum number of coalescent iterations</td>
+<td>100,000</td>
+</tr>
+</tbody>
+</table>
+<div class="section" id="historical-events">
+<h3>Historical events<a class="headerlink" href="#historical-events" title="Permalink to this headline">¶</a></h3>
+<p>The coalescent simulator support historical changes of several parameters.
+The change specifications are held in a specific entry of the parameter
+dictionary-like, at the key <code class="docutils literal"><span class="pre">events</span></code>.</p>
+<p>By default, the list of events is empty:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">coal</span> <span class="o">=</span> <span class="n">egglib</span><span class="o">.</span><span class="n">coalesce</span><span class="o">.</span><span class="n">Simulator</span><span class="p">(</span><span class="n">num_pop</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">num_chrom</span><span class="o">=</span><span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">],</span> <span class="n">theta</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span> <span class="n">coal</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;events&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>Events can be added using either <code class="xref py py-meth docutils literal"><span class="pre">ParamsDict.add_event()</span></code> (available
+as <code class="docutils literal"><span class="pre">params.add_event()</span></code>) or <code class="docutils literal"><span class="pre">params['events'].add()</span></code> which is a synonym.
+This method takes as arguments a string identifying the type of
+event, the date of the event (in the past, in units of <span class="math">4N_0</span> generations),
+and parameters depending on the type of event. Here are two examples
+using <code class="docutils literal"><span class="pre">size</span></code>, the event allowing to implement past changes of
+population size:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">coal</span><span class="o">.</span><span class="n">params</span><span class="o">.</span><span class="n">add_event</span><span class="p">(</span><span class="n">cat</span><span class="o">=</span><span class="s1">&#39;size&#39;</span><span class="p">,</span> <span class="n">T</span><span class="o">=</span><span class="mf">0.4</span><span class="p">,</span> <span class="n">idx</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">N</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">coal</span><span class="o">.</span><span class="n">params</span><span class="o">.</span><span class="n">add_event</span><span class="p">(</span><span class="n">cat</span><span class="o">=</span><span class="s1">&#39;size&#39;</span><span class="p">,</span> <span class="n">T</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">idx</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">N</span><span class="o">=</span><span class="mf">1.0</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span> <span class="n">coal</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;events&#39;</span><span class="p">]</span>
+<span class="go">[&lt;event_index=0;T=0.4;idx=0;N=0.1;cat=size&gt;, &lt;event_index=1;T=0.5;idx=0;N=1.0;cat=size&gt;]</span>
+</pre></div>
+</div>
+<p>The events can be added in any order: they will be sorted automatically
+based on their date. If their date changes, the sorting will be updated
+appropriately and automatically.</p>
+<p>As you can see, when printed, events show a string presenting their parameters,
+but the string should not be used to extract information in programs). Rather,
+a dictionary can be obtained using the syntax below:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span> <span class="n">coal</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;events&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+<span class="go">0.1</span>
+</pre></div>
+</div>
+<p>To modify the content of an event, one must a method named <a class="reference internal" href="../py/coalesce.html#egglib.coalesce.EventList.update" title="egglib.coalesce.EventList.update"><code class="xref py py-meth docutils literal"><span class="pre">update()</span></code></a>:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">coal</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;events&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">N</span><span class="o">=</span><span class="mf">0.05</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span> <span class="n">coal</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;events&#39;</span><span class="p">]</span>
+<span class="go">[&lt;event_index=0;T=0.4;idx=0;N=0.05;cat=size&gt;, &lt;event_index=1;T=0.5;idx=0;N=1.0;cat=size&gt;]</span>
+</pre></div>
+</div>
+<p>The list below presents the list of available events and the list of their
+parameters. Note that arguments <code class="docutils literal"><span class="pre">cat</span></code> (event code) and <code class="docutils literal"><span class="pre">T</span></code> (time of
+the event) are always required. More details (in particular for complex
+types of events) are given in <a class="reference internal" href="coal-2.html#more-on-events"><span class="std std-ref">Use of historical events</span></a>.</p>
+<ul class="simple">
+<li><code class="docutils literal"><span class="pre">size</span></code> – change size of a population.<ul>
+<li><code class="docutils literal"><span class="pre">idx</span></code> – population index (if omitted, all populations).</li>
+<li><code class="docutils literal"><span class="pre">N</span></code> – new population size, expressed relatively to <code class="docutils literal"><span class="pre">N_0</span></code>.</li>
+</ul>
+</li>
+<li><code class="docutils literal"><span class="pre">migr</span></code> – change all migration rates.<ul>
+<li><code class="docutils literal"><span class="pre">M</span></code> – new migration rate, such that all pairwise migration rates will
+be equal to <code class="docutils literal"><span class="pre">M/(num_pop-1)</span></code>.</li>
+</ul>
+</li>
+<li><code class="docutils literal"><span class="pre">pair_migr</span></code> – change a pairwise migration rate.<ul>
+<li><code class="docutils literal"><span class="pre">src</span></code> – source population index.</li>
+<li><code class="docutils literal"><span class="pre">dst</span></code> – destination population index.</li>
+<li><code class="docutils literal"><span class="pre">M</span></code> – new pairwise migration rate.</li>
+</ul>
+</li>
+<li><code class="docutils literal"><span class="pre">growth</span></code> – change exponential growth/decline rate of a population.<ul>
+<li><code class="docutils literal"><span class="pre">idx</span></code> – population index (if omitted, all populations).</li>
+<li><code class="docutils literal"><span class="pre">G</span></code> – new exponential growth/decline rate.</li>
+</ul>
+</li>
+<li><code class="docutils literal"><span class="pre">selfing</span></code> – change selfing rate for a population.<ul>
+<li><code class="docutils literal"><span class="pre">idx</span></code> – population index (if omitted, all populations).</li>
+<li><code class="docutils literal"><span class="pre">s</span></code> – new selfing rate.</li>
+</ul>
+</li>
+<li><code class="docutils literal"><span class="pre">bottleneck</span></code> – apply a bottleneck. In this implementation, bottlenecks
+are assumed to be short enough to have negligible length and (such that,
+in particular, no mutations can occur within this time frame). Therefore,
+such bottlenecks are implemented as a random amount of coalescence events
+(excluding all other events), controlled by the parameters <code class="docutils literal"><span class="pre">S</span></code>.<ul>
+<li><code class="docutils literal"><span class="pre">idx</span></code> – population index (if omitted, all populations).</li>
+<li><code class="docutils literal"><span class="pre">S</span></code> – bottleneck strength.</li>
+</ul>
+</li>
+<li><code class="docutils literal"><span class="pre">recombination</span></code> – change recombination rate.<ul>
+<li><code class="docutils literal"><span class="pre">R</span></code> – new recombination rate.</li>
+</ul>
+</li>
+<li><code class="docutils literal"><span class="pre">admixture</span></code> – move random lineages from one population to another.<ul>
+<li><code class="docutils literal"><span class="pre">src</span></code> – source population.</li>
+<li><code class="docutils literal"><span class="pre">dst</span></code> – destination population.</li>
+<li><code class="docutils literal"><span class="pre">proba</span></code> – instant migration probability (not related to migration rates)</li>
+</ul>
+</li>
+<li><code class="docutils literal"><span class="pre">merge</span></code> – move all lineages from a population to another, then
+set all migration rates to the first population to 0.<ul>
+<li><code class="docutils literal"><span class="pre">src</span></code> – source population index (the one that will be virtually
+removed).</li>
+<li><code class="docutils literal"><span class="pre">dst</span></code> – destination population.</li>
+</ul>
+</li>
+<li><code class="docutils literal"><span class="pre">sample</span></code> – perform a delayed sampling.<ul>
+<li><code class="docutils literal"><span class="pre">idx</span></code> – population index.</li>
+<li><code class="docutils literal"><span class="pre">label</span></code> – group label to apply to samples belonging to this
+sampling (this allows to treat the sampling as an independent
+population in the generated data).</li>
+<li><code class="docutils literal"><span class="pre">num_chrom</span></code> – number of haploid samples.</li>
+<li><code class="docutils literal"><span class="pre">num_indiv</span></code> – number of diploid samples.</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="recombination">
+<h3>Recombination<a class="headerlink" href="#recombination" title="Permalink to this headline">¶</a></h3>
+<p>Recombination is implemented over a continuous interval, controlled by
+a single parameter (see mini-table below). The continuous interval means
+that each occurrence of recombination is yields a breakpoint randomly placed on the
+interval <code class="docutils literal"><span class="pre">[0,1]</span></code> representing the simulated chromosome, thus
+generating a new segment (which is represented by a genealogical tree of its own).</p>
+<p>The recombination is not allowed to vary along the segment genetic segment
+(although it is allowed to vary discretely over time, see <a class="reference internal" href="#events-params"><span class="std std-ref">Other parameters</span></a>),
+but one can control the amount of recombination between sites by adjusting
+their positions (see <a class="reference internal" href="#sites-params"><span class="std std-ref">Number of sites</span></a>).</p>
+</div>
+<div class="section" id="controlling-the-random-number-generator">
+<h3>Controlling the random number generator<a class="headerlink" href="#controlling-the-random-number-generator" title="Permalink to this headline">¶</a></h3>
+<p>It is possible to set the seed of the pseudorandom number generator used for
+all computations of the <code class="xref py py-class docutils literal"><span class="pre">Simulator</span></code> object. The generator used is
+of the same type as <a class="reference internal" href="../py/tools.html#egglib.tools.Random" title="egglib.tools.Random"><code class="xref py py-class docutils literal"><span class="pre">tools.Random</span></code></a>. By default, the current value
+of the system clock, at the object creation) is used, meaning that objects
+created at the same time or almost (currently, the time frame is one second)
+will share the same seed, and therefore will generate the exact same results
+if they have the same parameters. Care should therefore be taken when
+parallelizing.</p>
+</div>
+<div class="section" id="defining-an-outgroup">
+<span id="outgroup-param"></span><h3>Defining an outgroup<a class="headerlink" href="#defining-an-outgroup" title="Permalink to this headline">¶</a></h3>
+<p>If you have configured a population structure such as one population should
+be considered as outgroup in the downstream diversity analysis, you can
+used the <code class="docutils literal"><span class="pre">outgroup</span></code> option to specify the index of this population, and all
+samples of this population will be sent to the outgroup. If the outgroup should
+be represented by a delayed sample, the value of the <code class="docutils literal"><span class="pre">outgroup</span></code> option should
+be set to the label provided when creating the event.</p>
+</div>
+<div class="section" id="maximum-number-of-iterations">
+<span id="max-iter-param"></span><h3>Maximum number of iterations<a class="headerlink" href="#maximum-number-of-iterations" title="Permalink to this headline">¶</a></h3>
+<p>The number of iterations in the coalescent process is bounded to prevent
+an infinite loop in situations where the final coalescence can never be
+concluded and this cannot be detected (see <a class="reference internal" href="coal-2.html#coalescent-complete"><span class="std std-ref">Completing simulations</span></a>).
+If this limit is reached by error (perhaps with extreme values of some
+parameters), the bound can be lifted using the <code class="docutils literal"><span class="pre">max_iter</span></code> parameter.</p>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="coal-2.html" title="Use of historical events"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="coal.html" title="Coalescent simulations"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../contents.html">EggLib&#39;s documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../toc.html" >Contents</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="index.html" >Manual</a> &#187;</li>
+          <li class="nav-item nav-item-3"><a href="coal.html" >Coalescent simulations</a> &#187;</li> 
+      </ul>
+    </div>
+<!--
+        <address style="text-align: right;"><small>Hosted by&nbsp;
+        <a href="http://sourceforge.net/projects/egglib"><img src="http://sflogo.sourceforge.net/sflogo.php?group_id=232965&amp;type=8" width="80" height="15" alt="Get EggLib at SourceForge.net. Fast, secure and Free Open Source software downloads" / ALIGN=RIGHT BORDER=0></a>
+        </address>
+-->
+
+  </body>
+</html>

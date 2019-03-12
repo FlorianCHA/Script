@@ -1,0 +1,46 @@
+.. _coalesce:
+
+--------------------
+Coalescent simulator
+--------------------
+
+Parameters
+==========
+
+Params class
+************
+
+.. doxygenclass:: egglib::Params
+    :members:
+
+Migration class
+***************
+
+.. doxygenclass:: egglib::Migration
+    :members:
+
+Event class
+***********
+
+.. doxygenclass:: egglib::Event
+    :members:
+
+Main class
+==========
+
+.. doxygenclass:: egglib::Coalesce
+    :members:
+
+ARG representation
+==================
+
+.. doxygenclass:: egglib::Tree
+    :members:
+
+.. doxygenclass:: egglib::Node
+    :members:
+
+The last one is only for being used during simulations:
+
+.. doxygenclass:: egglib::Lineage
+    :members:

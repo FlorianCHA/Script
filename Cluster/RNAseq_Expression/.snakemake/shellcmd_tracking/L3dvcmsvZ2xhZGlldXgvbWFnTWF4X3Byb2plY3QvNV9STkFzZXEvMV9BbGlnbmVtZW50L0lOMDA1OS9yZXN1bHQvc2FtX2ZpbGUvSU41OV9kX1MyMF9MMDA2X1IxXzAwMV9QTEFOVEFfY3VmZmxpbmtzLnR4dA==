@@ -1,0 +1,4 @@
+
+	module load bioinfo/hisat2/2.1.0
+	hisat2 -x /work/gladieux/magMax_project/5_RNAseq/1_Alignement/hote/Nipponbar_genomic --summary-file -U /work/gladieux/magMax_project/5_RNAseq/1_Alignement/IN0059/RNAseq/IN59_d_S20_L006_R1_001.fastq.gz -S /work/gladieux/magMax_project/5_RNAseq/1_Alignement/IN0059/result/hote_file/IN59_d_S20_L006_R1_001.sam --un /work/gladieux/magMax_project/5_RNAseq/1_Alignement/IN0059/result/hote_file/IN59_d_S20_L006_R1_001_unmapped.sam  2>/work/gladieux/magMax_project/5_RNAseq/1_Alignement/IN0059/result/sam_file/IN59_d_S20_L006_R1_001_PLANTA_cufflinks.txt 
+	

@@ -1,0 +1,300 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Download and install &mdash; EggLib</title>
+    
+    <link rel="stylesheet" href="_static/sphinxdoc.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '2.1.11',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="shortcut icon" href="_static/icon.ico"/>
+    <link rel="top" title="EggLib" href="index.html" />
+    <link rel="next" title="Manual" href="manual.html" />
+    <link rel="prev" title="EggLib documentation" href="index.html" /> 
+  </head>
+  <body>
+
+<div style="background-color: white; text-align: left; padding: 0px 0px 0px 0px">
+<a href="index.html"><img src="_static/egglib_banniere5.png" border="0" alt="EggLib"/></a>
+</div>
+
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="manual.html" title="Manual"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="EggLib documentation"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">EggLib</a> &raquo;</li> 
+      </ul>
+    </div>
+<div style="background-color: grey; text-align: left; padding: 0px 0px 0px 10px; border-bottom: 1px solid #2d2e91">
+<font color="white" ><b>EggLib version 2.1 is archived.</b></font></div>
+
+
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Download and install</a><ul>
+<li><a class="reference internal" href="#installation-from-source">Installation from source</a><ul>
+<li><a class="reference internal" href="#requirements">Requirements</a></li>
+<li><a class="reference internal" href="#download-source-code">Download source code</a></li>
+<li><a class="reference internal" href="#installation-procedure">Installation procedure</a></li>
+<li><a class="reference internal" href="#detection-of-external-applications">Detection of external applications</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#installation-of-pre-compiled-python-modules">Installation of pre-compiled Python modules</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="index.html"
+                        title="previous chapter">EggLib documentation</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="manual.html"
+                        title="next chapter">Manual</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/installation.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="download-and-install">
+<span id="install"></span><h1>Download and install<a class="headerlink" href="#download-and-install" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="installation-from-source">
+<h2>Installation from source<a class="headerlink" href="#installation-from-source" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="requirements">
+<h3>Requirements<a class="headerlink" href="#requirements" title="Permalink to this headline">¶</a></h3>
+<p>To build EggLib from source, you need a <strong>C++ compiler</strong> supporting
+the <strong>Standard Template Library</strong> and a UNIX shell-compatible
+environment (known as <em>terminal</em>, and available through
+<a class="reference external" href="http://www.cygwin.com/">cygwin</a> on Windows). In addition, the Python
+development files are needed. These files should be available by default
+under Windows. In other systems, these files should be available as a
+separate package python-devel or python-header.</p>
+<p>There are two <em>optional</em> dependencies:</p>
+<ul class="simple">
+<li><a class="reference external" href="http://biopp.univ-montp2.fr/">Bio++</a> (for egglib 2.1.5: version 2.0.x
+or higher; for egglib 2.1.6 through 2.1.9: version 2.1.x;
+for egglib 2.1.10 and higher: version 2.2.x).
+Bio++ contains a set of C++  libraries for sequence
+management, population genetics and  phylogenetics. If Bio++ is
+present in the system, it will be
+automatically used to extend the possibilities of the population
+genetics functions of Egglib. A notable addition is the computation of
+the McDonald and Kreitman test table. If Bio++ is not detected, it
+will be skipped without generating errors.</li>
+<li>The <a class="reference external" href="http://www.gnu.org/software/gsl/">GNU Scientific Library</a>
+is needed for the most crucial parts of the ABC features of Egglib
+(namely the ABC class). If the GSL is not available, this class will
+not be available, but the rest of the library will be available.</li>
+</ul>
+<p>The Python module (egglib-py) requires <a class="reference external" href="http://www.python.org">Python</a> version 2.6 or higher
+but doesn&#8217;t function under Python version 3.0. On some platform,
+installing the development package of Python will be needed. Part of
+EggLib functionalities require <a class="reference external" href="http://matplotlib.sourceforge.net">matplotlib</a>
+or <a class="reference external" href="http://numpy.scipy.org">numpy</a>. The presence of these modules are
+evaluated dynamically and an error is only reported when attempting to
+use the corresponding features.</p>
+<p>EggLib can use <strong>external applications</strong>, provided that they are
+installed and available in the system. If they are absent or not
+detected, some features might not be available. These programs must be
+installed independently and their presence is evaluated at build time.</p>
+<ul class="simple">
+<li>The programs <tt class="docutils literal"><span class="pre">blastn</span></tt>, <tt class="docutils literal"><span class="pre">blastp</span></tt>, <tt class="docutils literal"><span class="pre">blastx</span></tt>, <tt class="docutils literal"><span class="pre">tblastn</span></tt>,
+<tt class="docutils literal"><span class="pre">tblastx</span></tt> and <tt class="docutils literal"><span class="pre">makeblastdb</span></tt> of the <a class="reference external" href="ftp://ftp.ncbi.nlm.nih.gov/blast/executables/blast+/LATEST/">BLAST+ standalone package</a>.</li>
+<li><a class="reference external" href="http://www.clustal.org">clustalw</a>.</li>
+<li><a class="reference external" href="http://www.drive5.com/muscle/">muscle</a>.</li>
+<li><tt class="docutils literal"><span class="pre">codeml</span></tt> from the <a class="reference external" href="http://abacus.gene.ucl.ac.uk/software/paml.html">PAML package</a>.</li>
+<li><a class="reference external" href="http://www.atgc-montpellier.fr/phyml/">phyml</a> version 3.</li>
+<li><a class="reference external" href="http://home.uchicago.edu/~rhudson1/">ms</a>.</li>
+<li><a class="reference external" href="http://primer3.sourceforge.net/">primer3</a> version 2.2.3 (earlier alpha and beta 2.x.x versions should work).</li>
+<li><tt class="docutils literal"><span class="pre">dnadist</span></tt>, <tt class="docutils literal"><span class="pre">neighbor</span></tt> and <tt class="docutils literal"><span class="pre">seqboot</span></tt> from the <a class="reference external" href="http://evolution.genetics.washington.edu/phylip.html">PHYLIP package</a>.</li>
+</ul>
+</div>
+<div class="section" id="download-source-code">
+<h3>Download source code<a class="headerlink" href="#download-source-code" title="Permalink to this headline">¶</a></h3>
+<p>Download the following two archives (replace &lt;version&gt; by the actual
+version number), from the <a class="reference external" href="http://sourceforge.net/projects/egglib/files/">download site</a>:</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">egglib-cpp-&lt;version&gt;.tar.gz</span></tt> for the C++ library</li>
+<li><tt class="docutils literal"><span class="pre">egglib-py-&lt;version&gt;.tar.gz</span></tt> for the Python module</li>
+</ul>
+</div>
+<div class="section" id="installation-procedure">
+<h3>Installation procedure<a class="headerlink" href="#installation-procedure" title="Permalink to this headline">¶</a></h3>
+<p>Unpack the C++ library archive and move to the created directory
+(replace <tt class="docutils literal"><span class="pre">&lt;version&gt;</span></tt> by the actual version number):</p>
+<div class="highlight-python"><div class="highlight"><pre>$gzip -d egglib-cpp-&lt;version&gt;.tar.gz
+$tar xvf egglib-cpp-&lt;version&gt;.tar
+$cd egglib-cpp-&lt;version&gt;
+</pre></div>
+</div>
+<p>Configure the package:</p>
+<div class="highlight-python"><div class="highlight"><pre>$./configure [options]
+</pre></div>
+</div>
+<p>Type <tt class="docutils literal"><span class="pre">./configure</span> <span class="pre">--help</span></tt> to view the available options. The options
+allow you to use non-default tools or install libraries to non-default
+locations. (For example, <tt class="docutils literal"><span class="pre">./configure</span> <span class="pre">--prefix=$HOME</span></tt> will install the
+libraries in a <em>lib</em> directory, and the headers in a <em>header</em> directory
+of your home directory.) The script should exit without mentionning an
+error.</p>
+<p>Compile the libraries:</p>
+<div class="highlight-python"><div class="highlight"><pre>$make
+</pre></div>
+</div>
+<p>This will compile all the source code in the current directory. Unless
+an error is reported, you can next install the libraries in you system
+directories (in most cases, this step requires super-user rights):</p>
+<div class="highlight-python"><div class="highlight"><pre>$make install
+</pre></div>
+</div>
+<p>Upon success and by default, you should have installed the C++ library.</p>
+<p>Next step is too install the Python module. Move out from the
+egglib-cpp directory, unpack the Python package and move in it:</p>
+<div class="highlight-python"><div class="highlight"><pre>$cd ..
+$tar xvf egglib-py-&lt;version&gt;.tar
+$cd egglib-py-&lt;version&gt;
+</pre></div>
+</div>
+<p>Compile it:</p>
+<div class="highlight-python"><div class="highlight"><pre>$python setup.py build
+</pre></div>
+</div>
+<p>An option <tt class="docutils literal"><span class="pre">--prefix</span></tt> is provided to add an additional search path
+for headers and libraries of egglib-cpp. If you used <tt class="docutils literal"><span class="pre">--prefix=$HOME</span></tt>
+to run egglib-cpp&#8217;s <tt class="docutils literal"><span class="pre">configure</span></tt> script, you should also then run
+<tt class="docutils literal"><span class="pre">python</span> <span class="pre">setup.py</span> <span class="pre">build</span> <span class="pre">--prefix=$HOME</span></tt> at this stage. The setup.py
+script accepts more options provided by Python&#8217;s builtin distutils
+package.. Type <tt class="docutils literal"><span class="pre">python</span> <span class="pre">setup.py</span> <span class="pre">--help</span></tt> to see the manual page.</p>
+<p>If the compilation is successfull, install the package within you Python
+distribution (probably requires super-user rights):</p>
+<div class="highlight-python"><div class="highlight"><pre>$python setup.py install
+</pre></div>
+</div>
+<p>You can use the (distutils builtin) option <tt class="docutils literal"><span class="pre">--home</span></tt> to install the
+module in a non-default location. Refer to Python&#8217;s
+<a class="reference external" href="http://docs.python.org/install/index.html">documentation</a> for
+more details.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Don&#8217;t run <tt class="docutils literal"><span class="pre">python</span> <span class="pre">setup.py</span> <span class="pre">install</span></tt> without running
+<tt class="docutils literal"><span class="pre">python</span> <span class="pre">setup.py</span> <span class="pre">build</span></tt> because it would skip the <tt class="docutils literal"><span class="pre">build_app</span></tt>
+step and your EggLib installation would be broken.</p>
+</div>
+</div>
+<div class="section" id="detection-of-external-applications">
+<h3>Detection of external applications<a class="headerlink" href="#detection-of-external-applications" title="Permalink to this headline">¶</a></h3>
+<p>The <tt class="docutils literal"><span class="pre">build_apps</span></tt> command of setup.py automatically detects external
+applications. In case you subsequently install a program and want to use
+it though Egglib, you can type at any time:</p>
+<div class="highlight-python"><div class="highlight"><pre>$python setup.py build_apps
+$python setup.py install
+</pre></div>
+</div>
+<p>You should do the same when you remove a program, or attempting to use
+a function using this program would result in a message stating that the
+program in question failed or that output files could not be parsed.</p>
+<p><tt class="docutils literal"><span class="pre">build_apps</span></tt> generate an output like the following:</p>
+<div class="highlight-python"><div class="highlight"><pre>$running build_apps
+ms[+] blastn[+] blastp[+] clustalw[+] muscle[+] tblastn[+] blastx[+]
+tblastx[+] makeblastdb[+] phyml[+] dnadist[-] neighbor[-] codeml[+]
+primer3[-]
+</pre></div>
+</div>
+<p>In this example, the <em>PHYLIP</em> package and <em>primer3</em> were not installed.
+Note that in any case EggLib will be functional, only some functions
+depending on the corresponding programs will not be available.
+<tt class="docutils literal"><span class="pre">build_apps</span></tt> rely on default program names and location to detect
+their presence. In case they are installed in your system but not
+available in the standard search path you&#8217;ll have to modify the file
+<tt class="docutils literal"><span class="pre">apps.conf.in</span></tt> and rebuild to make EggLib aware of their presence
+(this file includes a short guideline section).</p>
+</div>
+</div>
+<div class="section" id="installation-of-pre-compiled-python-modules">
+<h2>Installation of pre-compiled Python modules<a class="headerlink" href="#installation-of-pre-compiled-python-modules" title="Permalink to this headline">¶</a></h2>
+<p>Pre-compiled programs and Python modules are currently available for
+Windows operating systems. They are available from the
+<a class="reference external" href="http://sourceforge.net/projects/egglib/files/">download</a> page (refer
+to the included readme file for more details).</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="manual.html" title="Manual"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="EggLib documentation"
+             >previous</a> |</li>
+        <li><a href="index.html">EggLib</a> &raquo;</li> 
+      </ul>
+    </div>
+        <address style="text-align: right;"><small>Hosted by&nbsp;
+        <a href="http://sourceforge.net/projects/seqlib"><img src="http://sflogo.sourceforge.net/sflogo.php?group_id=232965&amp;type=8" width="80" height="15" alt="Get seqlib at SourceForge.net. Fast, secure and Free Open Source software downloads" / ALIGN=RIGHT BORDER=0></a>
+        </address>
+
+  </body>
+</html>

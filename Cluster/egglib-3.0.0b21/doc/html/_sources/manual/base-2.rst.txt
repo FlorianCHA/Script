@@ -1,0 +1,506 @@
+--------------------------
+Accessing and editing data
+--------------------------
+
+In general, :class:`!Align`/:class:`!Container`: provide two ways to access/edit
+data they contain: through the methods of :class:`!SampleItem` objects returned by the iterators,
+and through direct methods of the :class:`!Align`/:class:`!Container` objects themselves.
+Those two approaches are equivalent and your choice should be guided by readability first.
+
+Accessing a given sample
+========================
+
+:class:`SampleItem` objects can be directly accessed using their index without requiring
+iteration. Two methods are provided: one for the ingroup (:meth:`~.Align.get_sample`)
+and one for the outgroup (:meth:`~.Align.get_outgroup`). The bracket operator ``[]`` is
+a synonym for :meth:`!get_sample` and applied to the ingroup. Here is an illustratory
+example (first two lines show the name of the first ingroup sample, last line shows
+the name of the outgroup sample)::
+
+    print aln4[0].name
+    print aln4.get_sample(0).name
+    print aln4.get_outgroup(0).name
+
+Editing names
+=============
+
+There is no trick about reading/setting the name of a sample in :class:`!Container`/:class:`!Align`
+objects. The :attr:`!name` attribute of :class:`!SampleView` is a standard :class:`str` and
+can be modified by any new value, as long as it is, or can be casted to, a :class:`str`.
+Alternatively, both :class:`!Container` and :class:`!Align` have methods to get and set the
+name of an ingroup or outgroup sample. All techniques are listed in the table below, with
+``item`` being a :class:`!SampleView` object, and ``obj`` being either a
+:class:`!Align` or :class:`!Container` object:
+
++--------------------------+----------------------------------------------------------------+
+| Expression               | Result                                                         |
++==========================+================================================================+
+| ``item.name``            | Access the name of an ingroup or outgroup sample (1).          |
++--------------------------+----------------------------------------------------------------+
+| ``item.name = x``        | Set the name of an ingroup or outgroup sample to ``x`` (1)(2). |
++--------------------------+----------------------------------------------------------------+
+| ``obj.get_name(i)``      | Get the name of the ``i``\ th ingroup sample.                  |
++--------------------------+----------------------------------------------------------------+
+| ``obj.get_name_o(i)``    | Get the name of the ``i``\ th outgroup sample.                 |
++--------------------------+----------------------------------------------------------------+
+| ``obj.set_name(i,x)``    | Set the name of the ``i``\ th ingroup sample to ``x`` (2).     |
++--------------------------+----------------------------------------------------------------+
+| ``obj.set_name_o(i,x)``  | Set the name of the ``i``\ th outgroup sample to ``x`` (2).    |
++--------------------------+----------------------------------------------------------------+
+
+Notes:
+    1. The identity of the sample is defined by the origin of the :class:`!SampleView` object.
+    2. ``x`` must be a :class:`str`.
+
+The example below shows that those approaches are equivalent, and also demonstrates
+that the content available through a :class:`!SampleView` is modified whenever
+the underlying :class:`!Align` is modified, even if it is by an other mean::
+
+    item = aln4.get_sample(0)
+    print item.name
+    print aln4.get_name(0)
+    aln4.set_name(0, 'another name')
+    print item.name
+
+::
+
+    sample1
+    sample1
+    another name
+
+Editing sequences or data entries
+=================================
+
+The :class:`.SequenceView` type
+*******************************
+
+:class:`!SequenceView` is another proxy class, managing the sequence of data
+for a given sample. It can be obtained from a :class:`!SampleView` or from
+the methods :meth:`~.Align.get_sequence` and :meth:`~.Align.get_sequence_o` (for
+ingroup and outgroup samples, respectively), both available from both
+:class:`!Align` and :class:`!Container` objects. :class:`!SequenceView` objects
+can be treated, to some extend, as lists of data values. In particular, they
+offer the same functionalities for editing the data. There is one significant
+limitation: the length of :class:`!SequenceView` connected to a
+:class:`!Align` cannot be modified.
+
+Operations using a :class:`.SequenceView` as a list-like object
+***************************************************************
+
+In the table below, assume ``seq`` is a :class:`!SequenceView` object,
+``s`` is a stretch of sequence as a :class:`str`, ``c`` is a one-character
+string (although an integer can be accepted, see :ref:`encoding`), ``i`` is any valid
+index (and ``j`` a second one if a slice is needed).
+
++--------------------------+---------------------------------------------------------------+
+| Expression               | Result                                                        |
++==========================+===============================================================+
+| ``len(seq)``             | Get the number of data entries.                               |
++--------------------------+---------------------------------------------------------------+
+| ``for v in seq``         | Iterate over data entries.                                    |
++--------------------------+---------------------------------------------------------------+
+| ``seq[i]``               | Access a data item.                                           |
++--------------------------+---------------------------------------------------------------+
+| ``seq[i:j]``             | Access a section of the sequence.                             |
++--------------------------+---------------------------------------------------------------+
+| ``seq[i] = c``           | Modify a data item.                                           |
++--------------------------+---------------------------------------------------------------+
+| ``seq[i:j] = s``         | Replace a section of the sequence by a new sequence (1).      |
++--------------------------+---------------------------------------------------------------+
+| ``del seq[i]``           | Delete a data entry (2).                                      |
++--------------------------+---------------------------------------------------------------+
+| ``del seq[i:j]``         | Delete a section of the sequence (2).                         |
++--------------------------+---------------------------------------------------------------+
+| ``seq.string()``         | Return the sequence as a :class:`str`.                        |
++--------------------------+---------------------------------------------------------------+
+| ``seq.insert(i, s)``     | Insert a stretch of sequence (2).                             |
++--------------------------+---------------------------------------------------------------+
+| ``seq.find(s)``          | Find the position of a given motif.                           |
++--------------------------+---------------------------------------------------------------+
+| ``seq.to_upper()``       | Modify the sequence to contain only upper-case characters.    |
++--------------------------+---------------------------------------------------------------+
+| ``seq.to_lower()``       | Modify the sequence to contain only lower-case characters.    |
++--------------------------+---------------------------------------------------------------+
+| ``seq.strip(s)``         | Remove left/right occurrences of characters present in ``s``. |
++--------------------------+---------------------------------------------------------------+
+
+Notes:
+    1. Only available for :class:`!Align` objects if the length of the provided stretch matches.
+    2. Not available for :class:`!Align` objects.
+
+.. note::
+
+    Each time you extract a data item from a :class:`!SequenceView`,
+    you will notice that the value you obtain is a :class:`int`
+    rather than a character as you might expect if you loaded a Fasta file
+    with nucleotide sequences. See :ref:`encoding` for a discussion of this matter.
+    
+In addition, one can modify the whole sequence directly through the
+:class:`!SampleView`, as in::
+
+    item = aln4.get_sample(0)
+    item.sequence = 'ACCGTGGAGAGCGCGTTGCA'
+
+Obviously, and again, if the original object is an :class:`!Align`, the
+sequence length must be kept constant.
+
+Using methods of :class:`.Align` and :class:`.Container`
+********************************************************
+
+Most of the functionality available through :class:`!SequenceView` is also
+available as methods of the :class:`!Align`/:class:`!Container`. The table
+below lists the available methods (or attributes), with *i* a sample index,
+*j* a position, *n* a number of sites, *c* a data entry
+(either an integer or character, see :ref:`encoding`),
+and *s* a :class:`str`, or a list of data entries.
+
++-------------------------------+-------------------------------------------------------------------------+
+| Expression                    | Result                                                                  |
++===============================+=========================================================================+
+| ``aln.ls``                    | Get alignment length (cannot be modified) (1).                          |
++-------------------------------+-------------------------------------------------------------------------+
+| ``cnt.ls(i)``                 | Length of the sequence for an ingroup sample (2).                       |
++-------------------------------+-------------------------------------------------------------------------+
+| ``cnt.lo(i)``                 | Length of the sequence for an outgroup sample (2).                      |
++-------------------------------+-------------------------------------------------------------------------+
+| ``obj.get_sequence(i)``       | Get the sequence of an ingroup sample as a :class:`!SequenceView`.      |
++-------------------------------+-------------------------------------------------------------------------+
+| ``obj.get_sequence_o(i)``     | Get the sequence of an outgroup sample as a :class:`!SequenceView`.     |
++-------------------------------+-------------------------------------------------------------------------+
+| ``obj.get_i(i,j)``            | Get a data entry of an ingroup sample.                                  |
++-------------------------------+-------------------------------------------------------------------------+
+| ``obj.get_o(i,j)``            | Get a data entry of an outgroup sample.                                 |
++-------------------------------+-------------------------------------------------------------------------+
+| ``obj.set_i(i,j,c)``          | Set a data entry of an ingroup sample.                                  |
++-------------------------------+-------------------------------------------------------------------------+
+| ``obj.set_o(i,j,c)``          | Set a data entry of an outgroup sample).                                |
++-------------------------------+-------------------------------------------------------------------------+
+| ``obj.set_sequence(i,s)``     | Get the sequence of an ingroup sample as a :class:`!SequenceView`.      |
++-------------------------------+-------------------------------------------------------------------------+
+| ``obj.set_sequence_o(i,s)``   | Get the sequence of an outgroup sample as a :class:`!SequenceView`.     |
++-------------------------------+-------------------------------------------------------------------------+
+| ``cnt.del_sites(i,j,n)``      | Delete data entries for an ingroup sample (2).                          |
++-------------------------------+-------------------------------------------------------------------------+
+| ``cnt.del_sites_o(i,j,n)``    | Delete data entries for an outgroup sample (2).                         |
++-------------------------------+-------------------------------------------------------------------------+
+| ``cnt.insert_sites(i,j,s)``   | Insert a given sequence at a given position for an ingroup sample (2).  |
++-------------------------------+-------------------------------------------------------------------------+
+| ``cnt.insert_sites_o(i,j,s)`` | Insert a given sequence at a given position for an outgroup sample (2). |
++-------------------------------+-------------------------------------------------------------------------+
+
+Notes:
+    1. Only available for :class:`!Align` objects.
+    2. Only available for :class:`!Container` objects.
+
+Using external functions
+************************
+
+A few functions from the :mod:`.tools` module and provide tools that can be
+used with sequences. Note that they never modify the passed object. On the
+other hand, they can accept sequences as :class:`!SequenceView` or :class:`str`
+objects.
+
++---------------------------+--------------------------------------------------------------------+
+| Function                  | Operation                                                          |
++===========================+====================================================================+
+| :func:`.tools.rc`         | Reverse-complement of a DNA sequence.                              |
++---------------------------+--------------------------------------------------------------------+
+| :func:`.tools.compare`    | Check if sequences matches (supporting ambiguity characters).      |
++---------------------------+--------------------------------------------------------------------+
+| :func:`.tools.regex`      | Turn a sequence with ambiguity characters to a regular expression. |
++---------------------------+--------------------------------------------------------------------+
+| :func:`.tools.motif_iter` | Iterate over occurrences of a motif.                               |
++---------------------------+--------------------------------------------------------------------+
+
+Editing group labels
+====================
+
+Using :class:`.GroupView`
+*************************
+
+In comparison to sequences, list of group labels are relatively simpler, logically.
+However, there is also a specialized proxy class, :class:`GroupView`. Objects of this
+type behave to a limited extend like a list of integer values (only null or positive
+labels are allowed). It is not possible to delete any item from a :class:`!GroupView` or,
+in general, change the number of items it contains. The supported functions are listed
+in the table below, where ``grp`` is a :class:`!GroupView`, ``i`` a level index, and
+``v`` a label value:
+
++--------------------------+---------------------------------------------------------------+
+| Expression               | Result                                                        |
++==========================+===============================================================+
+| ``len(grp)``             | Get the number of group levels.                               |
++--------------------------+---------------------------------------------------------------+
+| ``grp.outgroup``         | ``True`` if the corresponding sample belongs to the outgroup. |
++--------------------------+---------------------------------------------------------------+
+| ``grp[i]``               | Access a group label.                                         |
++--------------------------+---------------------------------------------------------------+
+| ``grp[i] = v``           | Modify a group label.                                         |
++--------------------------+---------------------------------------------------------------+
+| ``for v in grp``         | Iterate over group labels.                                    |
++--------------------------+---------------------------------------------------------------+
+
+.. note::
+
+    For compatibility, outgroup group labels behave exactly the same as
+    ingroup group labels. Outgroup samples always have a single group label.
+
+Using methods of :class:`.Align` and :class:`.Container`
+********************************************************
+
+The methods (and one attribute) allowing to edit group labels are listed below,
+where ``n`` is non-negative integer, ``i`` is a sample index, ``j`` is the
+index of a group level and ``g`` is a group label:
+
+
++----------------------+---------------------------------------------------+
+| Expression           | Result                                            |
++----------------------+---------------------------------------------------+
+| ``ng``               | Get the number of group levels (in the ingroup).  |
++----------------------+---------------------------------------------------+
+| ``ng = n``           | Set the number of group levels (in the ingroup).  |
++----------------------+---------------------------------------------------+
+| ``get_label(i,j)``   | Get one of the group labels of an ingroup sample. |
++----------------------+---------------------------------------------------+
+| ``get_label_o(i,j)`` | Get the group label of an outgroup sample.        |
++----------------------+---------------------------------------------------+
+| ``set_label(i,j,g)`` | Set one of the group labels of an ingroup sample. |
++----------------------+---------------------------------------------------+
+| ``set_label_o(i,g)`` | Set the group label of an outgroup sample.        |
++----------------------+---------------------------------------------------+
+
+Note that the attribute :attr:`~.Align.ng` is modifiable. If it is increased,
+the newly created group levels are filled with zero's. If it is decreased, group
+labels are discarded. For outgroup samples, there is always a single group level.
+
+Initializing objects
+====================
+
+We have seen how to create :class:`!Container` and :class:`!Align` objects
+initialized from the content of a Fasta-formatted sequence file. In
+:ref:`coalesce-manual` we will see how to generate data sets using coalescent
+simulations. Several methods exist to create sequence set objects with
+more flexibility.
+
+Creating from empty instances
+*****************************
+
+The default constructors of :class:`!Container` and :class:`!Align` return
+empty instances that can later be filled manually with the methods described in the
+following sections. In addition, the :class:`.Align` constructors allows one
+to initialize the object to specified dimensions, with an optional user-specified
+initial values for all data entries, as shown in the example below::
+
+    aln5 = egglib.Align()
+    print aln5.ns, aln5.ls
+
+    aln6 = egglib.Align(nsam=6, nout=0, nsit=4, init='N')
+    print aln6.ns, aln6.ls
+    print aln6.to_fasta()
+
+::
+
+    0 0
+    6 4
+    >
+    NNNN
+    >
+    NNNN
+    >
+    NNNN
+    >
+    NNNN
+    >
+    NNNN
+    >
+    NNNN
+
+Deep copy of :class:`.Align` and :class:`.Container` objects
+************************************************************
+
+Both :class:`!Align` and :class:`!Container` have a *class method*
+:meth:`~.Align.create` that returns a new object initialized from the
+content of the provided argument. There can be several uses for that
+functionality, and one of them is performing a deep copy of an object.
+For example, let us assume one wants to create an independent copy of an
+alignement. The approach exemplified below will **not** work as wanted::
+
+    aln = egglib.io.from_fasta('align4.fas', groups=True)
+    copy = aln
+    aln.set_sequence(0, 'CCTCCTCCTCCTCCTCCTCT')
+    print copy.get_sequence(0).string()
+
+This results in the string ``CCTCCTCCTCCTCCTCCTCT`` since ``aln`` and ``copy``
+are actually references to the same underlying object (see
+`this FAQ <https://docs.python.org/2/faq/programming.html#why-did-changing-list-y-also-change-list-x>`_
+in the Python documentation). The class method :meth:`!create` circumvent
+this effect as demonstrated in the code below, were ``copy`` is created in such a way
+it is an object independent of ``aln``::
+
+    aln = egglib.io.from_fasta('align4.fas', groups=True)
+    copy = egglib.Align.create(aln)
+    aln.set_sequence(0, 'CCTCCTCCTCCTCCTCCTCT')
+    print copy.get_sequence(0).string()
+
+Conversion between :class:`.Align` and :class:`.Container` objects
+******************************************************************
+
+Another use of :meth:`!create` is to convert between :class:`!Align` and
+:class:`!Container` types. It is possible to make a :class:`!Container` copy of
+an :class:`!Align` as in::
+
+    cnt = egglib.Container.create(aln)
+
+Obviously, the opposite (from :class:`!Container` to :class:`!Align`) requires that
+all sequences have the same length. For example, suppose that we have an alignment that
+has, for some reason, a longer sequence, as in::
+
+    >sample1
+    ACCGTGGAGAGCGCGTTGCA
+    >sample2
+    ACCGTGGAGAGCGCGTTGCA
+    >sample3
+    ACCGTGGAGAGCGCGTTGCATTAAGTA
+    >sample4
+    ACCGTGGAGAGCGCGTTGCA
+
+You must import this data set as a :class:`!Container`. The code below shows
+that the resulting object is a :class:`.Container` (the attribute
+:attr:`~.Align.is_matrix` is another way to tell if an object is an
+:class:`!Align`), and confirms that the third sequence is longer::
+
+    cnt = egglib.io.from_fasta('align5.fas')
+    print type(cnt)
+    print cnt.is_matrix
+    print cnt.ls(0)
+    print cnt.ls(2)
+
+::
+
+    <class 'egglib._interface.Container'>
+    False
+    20
+    27
+
+After cropping the longer sequence such that all sequences have the same length,
+we can turn the :class:`!Container` into an :class:`!Align`::
+
+    cnt.del_sites(2, 20, 7)
+    aln = egglib.Align.create(cnt)
+    print aln.to_fasta()
+
+::
+
+    >sample1
+    ACCGTGGAGAGCGCGTTGCA
+    >sample2
+    ACCGTGGAGAGCGCGTTGCA
+    >sample3
+    ACCGTGGAGAGCGCGTTGCA
+    >sample4
+    ACCGTGGAGAGCGCGTTGCA
+
+Creation from other iterable types
+**********************************
+
+Besides :class:`!Align` and :class:`!Container` objects, the method
+:meth:`!create` supports all compatible iterable object. To be compatible,
+an object must return, during iteration, ``(name, sequence)`` or
+``(name, sequence, groups)`` items, where ``name`` is a name string, ``sequence``
+is a sequence string (or a list of data entries), and ``groups`` (which may be omitted)
+is a list of group labels. For creating an :class:`!Align`, it is required that
+all sequences match. Typically, objects can be created from lists using this way::
+
+    aln = egglib.Align.create([('sample1', 'ACCGTGGAGAGCGCGTTGCA'),
+                               ('sample2', 'ACCGTGGAGAGCGCGTTGCA'),
+                               ('sample3', 'ACCGTGGAGAGCGCGTTGCA'),
+                               ('sample4', 'ACCGTGGAGAGCGCGTTGCA')])
+    print aln.to_fasta()
+
+The code above re-creates the alignment discussed in the previous section.
+Note that there is a method, :meth:`.Container.equalize`, that inserts stretches of ``?`` at the end of
+sequences of a :class:`!Container` in order to have all sequences of the same length.
+In such case, the :class:`!Container` could be converted to an :class:`!Align`
+using :meth:`.Align.create`, but it is not probably not what you want to do if you want
+to align sequences.
+
+.. note:
+
+    There is no way to include an outgroup using :meth:`!create`.
+
+Add/remove samples
+==================
+
+Both :class:`!Align` and :class:`!Container` support the following operations
+to change the list of samples of an object:
+
++-----------------------------------------+-----------------------------------------------+------------------------------+
+| Method                                  | Syntax                                        | Action                       |
++=========================================+===============================================+==============================+
+| :meth:`~.Container.add_sample`          | ``cnt.add_sample(name, sequence[, groups])``  | Add an ingroup sample.       |
++-----------------------------------------+-----------------------------------------------+------------------------------+
+| :meth:`~.Container.add_outgroup`        | ``cnt.add_outgroup(name, sequence[, group])`` | Add an outgroup sample.      |
++-----------------------------------------+-----------------------------------------------+------------------------------+
+| :meth:`~.Container.add_samples`         | ``cnt.add_samples(samples)``                  | Add several ingroup samples. |
++-----------------------------------------+-----------------------------------------------+------------------------------+
+| :meth:`~.Container.del_sample`          | ``cnt.del_sample(index)``                     | Delete an ingroup sample.    |
++-----------------------------------------+-----------------------------------------------+------------------------------+
+| :meth:`~.Container.del_outgroup`        | ``cnt.del_outgroup(index)``                   | Delete an outgroup sample.   |
++-----------------------------------------+-----------------------------------------------+------------------------------+
+| :meth:`~.Container.reset`               | ``cnt.reset()``                               | Remove all samples.          |
++-----------------------------------------+-----------------------------------------------+------------------------------+
+| :meth:`~.Container.remove_duplicates()` | ``cnt.remove_duplicates()``                   | Remove duplicates.           |
++-----------------------------------------+-----------------------------------------------+------------------------------+
+
+Editing alignments
+==================
+
+:class:`!Align` objects have additional methods that allow to extract or delete
+sections of the alignment
+
++--------------------------------+---------------------------------------+------------------------------------------------------------+
+| Method                         | Syntax                                | Action                                                     |
++================================+=======================================+============================================================+
+| :meth:`~.Align.column`         | ``aln.column(i)``                     | Extract a site as a list (1).                              |
++--------------------------------+---------------------------------------+------------------------------------------------------------+
+| :meth:`~.Align.insert_columns` | ``aln.insert_columns(i, values)``     | Insert columns at a given position.                        |
++--------------------------------+---------------------------------------+------------------------------------------------------------+
+| :meth:`~.Align.del_columns`    | ``aln.del_columns(i[, num])``         | Delete one or more columns.                                |
++--------------------------------+---------------------------------------+------------------------------------------------------------+
+| :meth:`~.Align.extract`        | ``sub = aln.extract(start, stop)``    | Generate a new :class:`!Align` with the specified columns  |
++                                +---------------------------------------+ (either as a range or a list).                             +
+|                                | ``sub = aln.extract([i, j, ..., z])`` |                                                            |
++--------------------------------+---------------------------------------+------------------------------------------------------------+
+| :meth:`~.Align.subset`         | ``sub = aln.subset(samples)``         | Generate a new :class:`!Align` with selected samples (1).  |
++--------------------------------+---------------------------------------+------------------------------------------------------------+
+| :meth:`~.Align.subgroup`       | ``sub = aln.subgroup(groups)``        | Generate a new :class:`!Align` based on groups (1).        |
++--------------------------------+---------------------------------------+------------------------------------------------------------+
+| :meth:`~.Align.intersperse`    | ``aln.intersperse(len[, ...])``       | Insert non-varying sites randomly.                         |
++--------------------------------+---------------------------------------+------------------------------------------------------------+
+| :meth:`~.Align.random_missing` | ``aln.random_missing(p[, ...])``      | Insert missing data randomly (1).                          |
++--------------------------------+---------------------------------------+------------------------------------------------------------+
+| :meth:`~.Align.fix_ends`       | ``aln.fix_ends()``                    | Replace alignment gaps at ends by missing data.            |
++--------------------------------+---------------------------------------+------------------------------------------------------------+
+
+Note:
+    1. Also available for :class:`!Container`.
+
+The following functions lie in the :mod:`.tools` module and provide additional
+functionalities to manipulate alignments:
+
++--------------------------+----------------------------------+--------------------------------------------------------------------------+
+| Function                 | Syntax                           | Action                                                                   |
++==========================+==================================+==========================================================================+
+| :func:`.tools.concat`    | ``res = concat(aln1, aln2)`` (1) | Concatenate alignments (2).                                              |
++--------------------------+----------------------------------+--------------------------------------------------------------------------+
+| :func:`.tools.ungap`     | ``cnt = ungap(aln)``             | Remove all gaps from an alignment.                                       |
++                          +----------------------------------+--------------------------------------------------------------------------+
+|                          | ``aln2 = ungap(aln, p)``         | Remove sites with too many gaps.                                         |
++--------------------------+----------------------------------+--------------------------------------------------------------------------+
+| :func:`.tools.backalign` | ``aln = backalign(nucl, prot)``  | Align (unaligned) nucleotide sequences based on an amino acid alignment. |
++--------------------------+----------------------------------+--------------------------------------------------------------------------+
+
+Notes:
+    1. Based on how you import egglib, all functions might have to prefixed by ``egglib.tools``.
+    2. :func:`!concat` allows you to add spacers between segments and
+       it supports missing segments. See the documentation for more details.

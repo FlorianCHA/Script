@@ -1,0 +1,54 @@
+.. _wrappers:
+
+--------------------------
+External application tools
+--------------------------
+
+.. _paths:
+
+Application paths
+=================
+
+Application paths can be set using the following syntax. A
+:exc:`~.exceptions.ValueError` is raised if the automatic test fails.
+The change is valid for the current session only unless :meth:`.save` is
+used::
+
+    egglib.wrappers.paths[app] = path
+
+And application paths are accessed as followed::
+
+    egglib.wrappers.paths[app]
+
+.. method:: egglib.wrappers.paths.autodetect(verbose=False)
+
+    Auto-configure application paths based on default command names.
+
+    :param verbose: if ``True``, print running information and test
+        results.
+
+.. method:: egglib.wrappers.path.load
+
+    Load values of application paths from the configuration file
+    located within the package. All values currently set are discarded.
+
+.. method:: egglib.wrappers.path.save
+
+    Save current values of application paths in the configuration file
+    located within the package. This action may require administrator
+    rights. All values currently set will be reloaded at next import of
+    the package.
+
+Phylogeny
+=========
+
+.. autofunction:: egglib.wrappers.phyml
+
+.. autofunction:: egglib.wrappers.codeml
+
+Multiple alignment
+==================
+
+.. autofunction:: egglib.wrappers.clustal
+
+.. autofunction:: egglib.wrappers.muscle

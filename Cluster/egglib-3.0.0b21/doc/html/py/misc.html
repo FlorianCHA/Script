@@ -1,0 +1,253 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Miscellaneous utilities &#8212; EggLib&#39;s documentation</title>
+    <link rel="stylesheet" href="../_static/egglibdoc.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '3.0.0b21',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="shortcut icon" href="../_static/icon.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="C++ Library" href="../cpp/index.html" />
+    <link rel="prev" title="External application tools" href="wrappers.html" />
+    <script type="text/javascript">
+      // intelligent scrolling of the sidebar content
+      $(window).scroll(function() {
+        var sb = $('.sphinxsidebarwrapper');
+        var win = $(window);
+        var sbh = sb.height();
+        var offset = $('.sphinxsidebar').position()['top'];
+        var wintop = win.scrollTop();
+        var winbot = wintop + win.innerHeight();
+        var curtop = sb.position()['top'];
+        var curbot = curtop + sbh;
+        // does sidebar fit in window?
+        if (sbh < win.innerHeight()) {
+          // yes: easy case -- always keep at the top
+          sb.css('top', $u.min([$u.max([0, wintop - offset - 10]),
+                                $(document).height() - sbh - 200]));
+        } else {
+          // no: only scroll if top/bottom edge of sidebar is at
+          // top/bottom edge of window
+          if (curtop > wintop && curbot > winbot) {
+            sb.css('top', $u.max([wintop - offset - 10, 0]));
+          } else if (curtop < wintop && curbot < winbot) {
+            sb.css('top', $u.min([winbot - sbh - offset - 20,
+                                  $(document).height() - sbh - 200]));
+          }
+        }
+      });
+    </script>
+  </head>
+  <body>
+<div style="background-color: white; text-align: left; padding: 0px 0px 0px 0px">
+<a href="../index.html"><img src="../_static/banner.png" border="0" alt="EggLib"/></a>
+</div>
+
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../cpp/index.html" title="C++ Library"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="wrappers.html" title="External application tools"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../contents.html">EggLib&#39;s documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../toc.html" >Contents</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="index.html" accesskey="U">Python Module</a> &#187;</li> 
+      </ul>
+    </div>
+
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../contents.html">
+              <img class="logo" src="../_static/egglib_small.bmp" alt="Logo"/>
+            </a></p>
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="wrappers.html"
+                        title="previous chapter">External application tools</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="../cpp/index.html"
+                        title="next chapter">C++ Library</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/py/misc.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="miscellaneous-utilities">
+<span id="misc"></span><h1>Miscellaneous utilities<a class="headerlink" href="#miscellaneous-utilities" title="Permalink to this headline">¶</a></h1>
+<p>These are tools that, in principle, do not deserve distribution but have
+been implemented for use in other parts of EggLib.</p>
+<dl class="class">
+<dt id="egglib.misc.TempFile">
+<em class="property">class </em><code class="descclassname">egglib.misc.</code><code class="descname">TempFile</code><a class="headerlink" href="#egglib.misc.TempFile" title="Permalink to this definition">¶</a></dt>
+<dd><p>Each instance of this class creates a temporary file that is
+guaranteed to be deleted at destruction time or when <a class="reference internal" href="#egglib.misc.TempFile.clean" title="egglib.misc.TempFile.clean"><code class="xref py py-meth docutils literal"><span class="pre">clean()</span></code></a>
+is called. The file is closed immediately after creation. The is no
+error if the file is deleted before destruction of the corresponding
+instance.</p>
+<dl class="method">
+<dt id="egglib.misc.TempFile.clean">
+<code class="descname">clean</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#egglib.misc.TempFile.clean" title="Permalink to this definition">¶</a></dt>
+<dd><p>Remove the underlying temporary file if it exists.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="egglib.misc.TempFile.fname">
+<code class="descname">fname</code><a class="headerlink" href="#egglib.misc.TempFile.fname" title="Permalink to this definition">¶</a></dt>
+<dd><p>Name of the temporary file.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="egglib.misc.Pool">
+<em class="property">class </em><code class="descclassname">egglib.misc.</code><code class="descname">Pool</code><span class="sig-paren">(</span><em>generator</em>, <em>arguments</em>, <em>recycle</em>, <em>recycle_args=None</em><span class="sig-paren">)</span><a class="headerlink" href="#egglib.misc.Pool" title="Permalink to this definition">¶</a></dt>
+<dd><p>Minimal object pool implementation. This class is aimed to manage
+object recycling. Objects are yielded by <a class="reference internal" href="#egglib.misc.Pool.get" title="egglib.misc.Pool.get"><code class="xref py py-meth docutils literal"><span class="pre">get()</span></code></a> and returned
+after use by <a class="reference internal" href="#egglib.misc.Pool.put" title="egglib.misc.Pool.put"><code class="xref py py-meth docutils literal"><span class="pre">put()</span></code></a>. <code class="docutils literal"><span class="pre">len(pool)</span></code> returns the number of
+objects currently store in the pool (although you normally don’t
+need to worry about it). Similarly, one can clear the stored objects
+with <code class="xref py py-meth docutils literal"><span class="pre">clear()</span></code>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>generator</strong> – method allowing to create new objects.</li>
+<li><strong>arguments</strong> – arguments to be passed to the generator method.
+Use <code class="docutils literal"><span class="pre">None</span></code> or an empty sequence to pass no arguments.</li>
+<li><strong>recycle</strong> – method to recycle an object returning to the pool.
+This method should be take this type of objects as unique
+argument. If <code class="docutils literal"><span class="pre">None</span></code>, no recycling method is applied.</li>
+<li><strong>recycle_args</strong> – arguments to be passed to the recycling method.
+Use <code class="docutils literal"><span class="pre">None</span></code> or an empty sequence to pass no arguments (which is
+the default).</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Here is a demonstration with <a class="reference internal" href="toplevel.html#egglib.Align" title="egglib.Align"><code class="xref py py-class docutils literal"><span class="pre">Align</span></code></a> objects:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">egglib</span>
+
+<span class="n">P</span> <span class="o">=</span> <span class="n">egglib</span><span class="o">.</span><span class="n">misc</span><span class="o">.</span><span class="n">Pool</span><span class="p">(</span><span class="n">egglib</span><span class="o">.</span><span class="n">Align</span><span class="p">,</span> <span class="p">(),</span> <span class="n">egglib</span><span class="o">.</span><span class="n">Align</span><span class="o">.</span><span class="n">reset</span><span class="p">)</span>
+<span class="k">print</span> <span class="s1">&#39;pool size:&#39;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">P</span><span class="p">)</span>
+<span class="n">aln1</span> <span class="o">=</span> <span class="n">P</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
+<span class="n">aln2</span> <span class="o">=</span> <span class="n">P</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
+<span class="k">print</span> <span class="s1">&#39;pool size:&#39;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">P</span><span class="p">)</span>
+<span class="k">print</span> <span class="s1">&#39;fresh objects:&#39;</span><span class="p">,</span> <span class="n">aln1</span><span class="o">.</span><span class="n">ns</span><span class="p">,</span> <span class="n">aln1</span><span class="o">.</span><span class="n">ls</span><span class="p">,</span> <span class="n">aln2</span><span class="o">.</span><span class="n">ns</span><span class="p">,</span> <span class="n">aln2</span><span class="o">.</span><span class="n">ls</span>
+<span class="n">aln1</span><span class="o">.</span><span class="n">add_sample</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="s1">&#39;AAAAAAAAAA&#39;</span><span class="p">)</span>
+<span class="n">aln1</span><span class="o">.</span><span class="n">add_sample</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="s1">&#39;AAAAAAAAAA&#39;</span><span class="p">)</span>
+<span class="n">aln1</span><span class="o">.</span><span class="n">add_sample</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="s1">&#39;AAAAAAAAAA&#39;</span><span class="p">)</span>
+<span class="n">aln2</span><span class="o">.</span><span class="n">add_sample</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="s1">&#39;AAAAAAAAAAAAAAAAAAAA&#39;</span><span class="p">)</span>
+<span class="n">aln2</span><span class="o">.</span><span class="n">add_sample</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="s1">&#39;AAAAAAAAAAAAAAAAAAAA&#39;</span><span class="p">)</span>
+<span class="k">print</span> <span class="s1">&#39;modified objects:&#39;</span><span class="p">,</span> <span class="n">aln1</span><span class="o">.</span><span class="n">ns</span><span class="p">,</span> <span class="n">aln1</span><span class="o">.</span><span class="n">ls</span><span class="p">,</span> <span class="n">aln2</span><span class="o">.</span><span class="n">ns</span><span class="p">,</span> <span class="n">aln2</span><span class="o">.</span><span class="n">ls</span>
+<span class="n">P</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="n">aln1</span><span class="p">)</span>
+<span class="n">P</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="n">aln2</span><span class="p">)</span>
+<span class="k">print</span> <span class="s1">&#39;objects back to pool:&#39;</span><span class="p">,</span> <span class="n">aln1</span><span class="o">.</span><span class="n">ns</span><span class="p">,</span> <span class="n">aln1</span><span class="o">.</span><span class="n">ls</span><span class="p">,</span> <span class="n">aln2</span><span class="o">.</span><span class="n">ns</span><span class="p">,</span> <span class="n">aln2</span><span class="o">.</span><span class="n">ls</span>
+<span class="k">print</span> <span class="s1">&#39;one is not supposed to keep a reference of recycled objects!&#39;</span>
+<span class="k">print</span> <span class="s1">&#39;pool size:&#39;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">P</span><span class="p">)</span>
+<span class="n">aln3</span> <span class="o">=</span> <span class="n">P</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
+<span class="k">print</span> <span class="s1">&#39;recycled object:&#39;</span><span class="p">,</span> <span class="n">aln3</span><span class="o">.</span><span class="n">ns</span><span class="p">,</span> <span class="n">aln3</span><span class="o">.</span><span class="n">ls</span>
+</pre></div>
+</div>
+<p>This produces the following output:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>pool size: 0
+pool size: 0
+fresh objects: 0 0 0 0
+modified objects: 3 10 2 20
+objects back to pool: 0 0 0 0
+one is not supposed to keep a reference of recycled objects!
+pool size: 2
+recycled object: 0 0
+</pre></div>
+</div>
+<dl class="method">
+<dt id="egglib.misc.Pool.get">
+<code class="descname">get</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#egglib.misc.Pool.get" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get an object from the pool.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.misc.Pool.put">
+<code class="descname">put</code><span class="sig-paren">(</span><em>obj</em><span class="sig-paren">)</span><a class="headerlink" href="#egglib.misc.Pool.put" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return an object to the pool.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../cpp/index.html" title="C++ Library"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="wrappers.html" title="External application tools"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../contents.html">EggLib&#39;s documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../toc.html" >Contents</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="index.html" >Python Module</a> &#187;</li> 
+      </ul>
+    </div>
+<!--
+        <address style="text-align: right;"><small>Hosted by&nbsp;
+        <a href="http://sourceforge.net/projects/egglib"><img src="http://sflogo.sourceforge.net/sflogo.php?group_id=232965&amp;type=8" width="80" height="15" alt="Get EggLib at SourceForge.net. Fast, secure and Free Open Source software downloads" / ALIGN=RIGHT BORDER=0></a>
+        </address>
+-->
+
+  </body>
+</html>

@@ -1,0 +1,8 @@
+====
+test
+====
+
+.. automodule:: egglib.test
+
+.. autofunction:: egglib.test.test_all
+

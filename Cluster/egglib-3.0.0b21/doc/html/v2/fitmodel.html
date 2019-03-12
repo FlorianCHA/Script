@@ -1,0 +1,801 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>fitmodel &mdash; EggLib</title>
+    
+    <link rel="stylesheet" href="_static/sphinxdoc.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '2.1.11',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="shortcut icon" href="_static/icon.ico"/>
+    <link rel="top" title="EggLib" href="index.html" />
+    <link rel="up" title="Python module" href="egglib-py.html" />
+    <link rel="next" title="Utils module" href="utils.html" />
+    <link rel="prev" title="simul" href="simul.html" /> 
+  </head>
+  <body>
+
+<div style="background-color: white; text-align: left; padding: 0px 0px 0px 0px">
+<a href="index.html"><img src="_static/egglib_banniere5.png" border="0" alt="EggLib"/></a>
+</div>
+
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="utils.html" title="Utils module"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="simul.html" title="simul"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">EggLib</a> &raquo;</li>
+          <li><a href="egglib-py.html" accesskey="U">Python module</a> &raquo;</li> 
+      </ul>
+    </div>
+<div style="background-color: grey; text-align: left; padding: 0px 0px 0px 10px; border-bottom: 1px solid #2d2e91">
+<font color="white" ><b>EggLib version 2.1 is archived.</b></font></div>
+
+
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">fitmodel</a><ul>
+<li><a class="reference internal" href="#utilities">Utilities</a></li>
+<li><a class="reference internal" href="#prior-implementations">Prior implementations</a></li>
+<li><a class="reference internal" href="#demographic-model-implementations">Demographic model implementations</a></li>
+<li><a class="reference internal" href="#summary-statistics-implementations">Summary statistics implementations</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="simul.html"
+                        title="previous chapter">simul</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="utils.html"
+                        title="next chapter">Utils module</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/fitmodel.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="module-egglib.fitmodel">
+<span id="fitmodel"></span><h1>fitmodel<a class="headerlink" href="#module-egglib.fitmodel" title="Permalink to this headline">¶</a></h1>
+<p>Approximate Bayesian Computation components. Part of the underlying C++
+utilities are (currently) without Python wrapper, so should be used
+directly throught the binding. Please refer to the C++ library
+documentation for the following class:</p>
+<blockquote>
+<div><ul class="simple">
+<li><a class="reference internal" href="binding.html#egglib.egglib_binding.ABC" title="egglib.egglib_binding.ABC"><tt class="xref py py-class docutils literal"><span class="pre">ABC</span></tt></a>: the class to perform the
+rejection-regression operations.</li>
+</ul>
+</div></blockquote>
+<div class="section" id="utilities">
+<h2>Utilities<a class="headerlink" href="#utilities" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="egglib.fitmodel.Dataset">
+<em class="property">class </em><tt class="descclassname">egglib.fitmodel.</tt><tt class="descname">Dataset</tt><a class="headerlink" href="#egglib.fitmodel.Dataset" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<p>Manages a set of read or simulated alignments. Supports <tt class="docutils literal"><span class="pre">len()</span></tt>.
+Note that, on observed data and when there are several populations
+and/or outgroups , <a class="reference internal" href="#egglib.fitmodel.Dataset.sort_aligns" title="egglib.fitmodel.Dataset.sort_aligns"><tt class="xref py py-meth docutils literal"><span class="pre">sort_aligns()</span></tt></a> should be called to handle
+the case where the different populations are mixed in alignments,</p>
+<dl class="method">
+<dt id="egglib.fitmodel.Dataset.add">
+<tt class="descname">add</tt><big>(</big><em>align</em><big>)</big><a class="headerlink" href="#egglib.fitmodel.Dataset.add" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add an <a class="reference internal" href="data.html#egglib.Align" title="egglib.Align"><tt class="xref py py-class docutils literal"><span class="pre">Align</span></tt></a> instance (which will be copied by
+reference).</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.fitmodel.Dataset.config">
+<tt class="descname">config</tt><big>(</big><big>)</big><a class="headerlink" href="#egglib.fitmodel.Dataset.config" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a list with - for each alignment - a tuple containing
+4 items: total sample size, list of sample size per population
+(excluding outgroups), number of outgroups, alignment length.
+The alignment length is excluding not usable sites (corresponding
+to <tt class="docutils literal"><span class="pre">lseff</span></tt>). Populations are sorted by their label.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.fitmodel.Dataset.iterator">
+<tt class="descname">iterator</tt><big>(</big><em>config=None</em><big>)</big><a class="headerlink" href="#egglib.fitmodel.Dataset.iterator" title="Permalink to this definition">¶</a></dt>
+<dd><p>This iterator zips the object passed as <em>config</em> the alignments
+stored in the instance. The user should ensure that the object
+passed as <em>config</em> is an iterable and has the same length as
+the current instance (it will not be done automatically). Each
+iteration round returns a <tt class="docutils literal"><span class="pre">(align,</span> <span class="pre">configItem)</span></tt> tuple, where
+<tt class="docutils literal"><span class="pre">configItem</span></tt> an item of <em>config</em>. If <em>config</em> is <tt class="docutils literal"><span class="pre">None</span></tt>, the
+result of <a class="reference internal" href="#egglib.fitmodel.Dataset.config" title="egglib.fitmodel.Dataset.config"><tt class="xref py py-meth docutils literal"><span class="pre">config()</span></tt></a> will be used.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.fitmodel.Dataset.pops">
+<tt class="descname">pops</tt><big>(</big><big>)</big><a class="headerlink" href="#egglib.fitmodel.Dataset.pops" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the set of distinct populations in the data set (note
+that all populations are not required to be represented in each
+locus). The outgroup is not considered.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.fitmodel.Dataset.sort_aligns">
+<tt class="descname">sort_aligns</tt><big>(</big><big>)</big><a class="headerlink" href="#egglib.fitmodel.Dataset.sort_aligns" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sort each alignment such as they match the exported config
+(all populations appear grouped and in the increasing order,
+with outgroups at the end).</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="egglib.fitmodel.ParamSample">
+<em class="property">class </em><tt class="descclassname">egglib.fitmodel.</tt><tt class="descname">ParamSample</tt><big>(</big><em>length</em><big>)</big><a class="headerlink" href="#egglib.fitmodel.ParamSample" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<p>Holds a list of float values (parameters) of fixed length.
+Supports <tt class="xref py py-meth docutils literal"><span class="pre">len()</span></tt>, use of the subscript (<tt class="docutils literal"><span class="pre">[]</span></tt>) operator for
+accessing or modifying values (but not deleting) and <tt class="xref py py-meth docutils literal"><span class="pre">str()</span></tt>
+(<tt class="docutils literal"><span class="pre">str(paramSample)</span></tt> or with <tt class="xref py py-meth docutils literal"><span class="pre">print()</span></tt>). String formatting
+returns a space-delimited string of the values.</p>
+<p>The constructor expects a <em>length</em> argument to fix the number
+of parameters.</p>
+<dl class="method">
+<dt id="egglib.fitmodel.ParamSample.values">
+<tt class="descname">values</tt><big>(</big><big>)</big><a class="headerlink" href="#egglib.fitmodel.ParamSample.values" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets a deep copy of the values contained in the instance</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="egglib.fitmodel.import_posterior">
+<tt class="descclassname">egglib.fitmodel.</tt><tt class="descname">import_posterior</tt><big>(</big><em>fname</em><big>)</big><a class="headerlink" href="#egglib.fitmodel.import_posterior" title="Permalink to this definition">¶</a></dt>
+<dd><p>Imports a posterior file</p>
+<p><em>fname</em> must be the name of a file containing fitted ABC data, one
+sample per line and one parameter per column. Header line is
+optional and is automatically detected. If present, no parameter
+name can be provided as a number.</p>
+<p>Returns a tuple <tt class="docutils literal"><span class="pre">(params,</span> <span class="pre">data)</span></tt> where <tt class="docutils literal"><span class="pre">params</span></tt> is the list of
+parameter names (automatic if header is not present) and <tt class="docutils literal"><span class="pre">data</span></tt> is
+a list of lists, one list per parameter (note that the returned list
+is transposed with respect to the input file). Beware that headers
+with number-only parameters will be mistaken with values.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="prior-implementations">
+<h2>Prior implementations<a class="headerlink" href="#prior-implementations" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="egglib.fitmodel.PriorParseError">
+<em class="property">class </em><tt class="descclassname">egglib.fitmodel.</tt><tt class="descname">PriorParseError</tt><a class="headerlink" href="#egglib.fitmodel.PriorParseError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Raised by Prior parse() methods when the format is found to be
+incorrect. It can be caught to auto-detect prior types.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="egglib.fitmodel.PriorDiscrete">
+<em class="property">class </em><tt class="descclassname">egglib.fitmodel.</tt><tt class="descname">PriorDiscrete</tt><big>(</big><em>random=None</em><big>)</big><a class="headerlink" href="#egglib.fitmodel.PriorDiscrete" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<p>This prior is based on discrete categories. It consists in a set of
+weighted categories with free boundaries. Within a category, the
+probability density is uniform. It allows using uniform distribution
+with fixed bounds, discretized empirical distribution and
+theoretical laws of distribution as priors.</p>
+<p><a class="reference internal" href="#egglib.fitmodel.PriorDiscrete" title="egglib.fitmodel.PriorDiscrete"><tt class="xref py py-class docutils literal"><span class="pre">PriorDiscrete</span></tt></a> instances have a length (the number of
+categories) and are iterable. Each iteration yields a <tt class="docutils literal"><span class="pre">(p,</span> <span class="pre">bounds)</span></tt>
+tuple with <em>p</em> the frequency of a class and <em>bounds</em> a list giving
+the bound values (themselves as a tuple) for all parameters.</p>
+<p>Constructor argument <em>random</em> must be a <a class="reference internal" href="binding.html#egglib.egglib_binding.Random" title="egglib.egglib_binding.Random"><tt class="xref py py-class docutils literal"><span class="pre">Random</span></tt></a>
+instance and will be used to generate pseudorandom numbers.</p>
+<dl class="method">
+<dt id="egglib.fitmodel.PriorDiscrete.add">
+<tt class="descname">add</tt><big>(</big><em>freq</em>, <em>*bounds</em><big>)</big><a class="headerlink" href="#egglib.fitmodel.PriorDiscrete.add" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adds a category to the distribution. <em>freq</em> gives the frequency
+of the category. The frequencies don&#8217;t need to be relative.
+<em>bounds</em> must be separate 2-item lists or tuples giving the lower
+and upper bound values for each parameter.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.fitmodel.PriorDiscrete.clear">
+<tt class="descname">clear</tt><big>(</big><big>)</big><a class="headerlink" href="#egglib.fitmodel.PriorDiscrete.clear" title="Permalink to this definition">¶</a></dt>
+<dd><p>Clears the instance.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.fitmodel.PriorDiscrete.draw">
+<tt class="descname">draw</tt><big>(</big><big>)</big><a class="headerlink" href="#egglib.fitmodel.PriorDiscrete.draw" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generates a set of random values for all parameters.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.fitmodel.PriorDiscrete.force_positive">
+<tt class="descname">force_positive</tt><big>(</big><big>)</big><a class="headerlink" href="#egglib.fitmodel.PriorDiscrete.force_positive" title="Permalink to this definition">¶</a></dt>
+<dd><p>Enforces that drawn parameter values are &gt;=0 (values &lt;0 will be
+ignored). This flag is not cancelled if <a class="reference internal" href="#egglib.fitmodel.PriorDiscrete.clear" title="egglib.fitmodel.PriorDiscrete.clear"><tt class="xref py py-meth docutils literal"><span class="pre">clear()</span></tt></a> is called.</p>
+<div class="versionadded">
+<p><span class="versionmodified">New in version 2.0.2.</span></p>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.fitmodel.PriorDiscrete.number_of_params">
+<tt class="descname">number_of_params</tt><big>(</big><big>)</big><a class="headerlink" href="#egglib.fitmodel.PriorDiscrete.number_of_params" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the number of parameters, (0 if no data loaded).</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.fitmodel.PriorDiscrete.parse">
+<tt class="descname">parse</tt><big>(</big><em>string</em><big>)</big><a class="headerlink" href="#egglib.fitmodel.PriorDiscrete.parse" title="Permalink to this definition">¶</a></dt>
+<dd><p>Imports data from the string <em>string</em>. The data format is: one
+line per category (in any order), each line following the format
+<tt class="docutils literal"><span class="pre">freq</span> <span class="pre">down1;up1</span> <span class="pre">down2;up2</span> <span class="pre">...</span></tt> where <em>freq</em> is the
+frequency of the category (needs not to be relative), <em>down</em> the
+lower bound value and <em>up</em> the upper bound value for a given
+parameter. The function raises a <a class="reference internal" href="#egglib.fitmodel.PriorParseError" title="egglib.fitmodel.PriorParseError"><tt class="xref py py-class docutils literal"><span class="pre">PriorParseError</span></tt></a>
+in case of format error.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.fitmodel.PriorDiscrete.str">
+<tt class="descname">str</tt><big>(</big><big>)</big><a class="headerlink" href="#egglib.fitmodel.PriorDiscrete.str" title="Permalink to this definition">¶</a></dt>
+<dd><p>Formats the content of the instance as a string, in a format
+appropriate for passing to <a class="reference internal" href="#egglib.fitmodel.PriorDiscrete.parse" title="egglib.fitmodel.PriorDiscrete.parse"><tt class="xref py py-meth docutils literal"><span class="pre">parse()</span></tt></a>.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="egglib.fitmodel.PriorDumb">
+<em class="property">class </em><tt class="descclassname">egglib.fitmodel.</tt><tt class="descname">PriorDumb</tt><big>(</big><em>random=None</em><big>)</big><a class="headerlink" href="#egglib.fitmodel.PriorDumb" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<p>This prior doesn&#8217;t allow covariation between parameters or discrete
+categories. The probability distribution for each parameter is
+specified has a uniform or continuous statistical distribution.
+The list below presents the available distribution types, with the
+one-letter code and the list of expected parameters, expected by the
+method <a class="reference internal" href="#egglib.fitmodel.PriorDumb.add" title="egglib.fitmodel.PriorDumb.add"><tt class="xref py py-meth docutils literal"><span class="pre">add()</span></tt></a>:</p>
+<blockquote>
+<div><ul class="simple">
+<li><strong>U</strong>: uniform probability between <em>down</em> and <em>up</em>.</li>
+<li><strong>E</strong>: exponential distribution of mean <em>mean</em>.</li>
+<li><strong>P</strong>: Poisson distribution of parameter <em>p</em>.</li>
+<li><strong>G</strong>: gamma distribution of parameter <em>p</em>.</li>
+<li><strong>N</strong>: normal distribution of mean <em>m</em> and standard deviation <em>s</em>.</li>
+<li><strong>F</strong>: parameter fixed to the value <em>v</em>.</li>
+</ul>
+</div></blockquote>
+<p>Constructor argument <em>random</em> must be a <a class="reference internal" href="binding.html#egglib.egglib_binding.Random" title="egglib.egglib_binding.Random"><tt class="xref py py-class docutils literal"><span class="pre">Random</span></tt></a>
+instance and will be used to generate pseudorandom numbers.</p>
+<dl class="method">
+<dt id="egglib.fitmodel.PriorDumb.add">
+<tt class="descname">add</tt><big>(</big><em>type</em>, <em>*parameters</em><big>)</big><a class="headerlink" href="#egglib.fitmodel.PriorDumb.add" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adds a parameter to the distribution. <em>type</em> a one-letter code
+identifying the type of statistical distribution and
+<em>parameters</em> are the distribution&#8217;s parameters, given in the
+appropriate order.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.fitmodel.PriorDumb.clear">
+<tt class="descname">clear</tt><big>(</big><big>)</big><a class="headerlink" href="#egglib.fitmodel.PriorDumb.clear" title="Permalink to this definition">¶</a></dt>
+<dd><p>Resets the instance.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.fitmodel.PriorDumb.draw">
+<tt class="descname">draw</tt><big>(</big><big>)</big><a class="headerlink" href="#egglib.fitmodel.PriorDumb.draw" title="Permalink to this definition">¶</a></dt>
+<dd><p>Draws a <a class="reference internal" href="#egglib.fitmodel.ParamSample" title="egglib.fitmodel.ParamSample"><tt class="xref py py-class docutils literal"><span class="pre">ParamSample</span></tt></a> from the instance.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.fitmodel.PriorDumb.force_positive">
+<tt class="descname">force_positive</tt><big>(</big><big>)</big><a class="headerlink" href="#egglib.fitmodel.PriorDumb.force_positive" title="Permalink to this definition">¶</a></dt>
+<dd><p>Enforces that drawn parameter values are &gt;=0 (values &lt;0 will be
+ignored). This flag is not cancelled if <a class="reference internal" href="#egglib.fitmodel.PriorDumb.clear" title="egglib.fitmodel.PriorDumb.clear"><tt class="xref py py-meth docutils literal"><span class="pre">clear()</span></tt></a> is called.</p>
+<div class="versionadded">
+<p><span class="versionmodified">New in version 2.0.2.</span></p>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.fitmodel.PriorDumb.number_of_params">
+<tt class="descname">number_of_params</tt><big>(</big><big>)</big><a class="headerlink" href="#egglib.fitmodel.PriorDumb.number_of_params" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the number of parameters.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.fitmodel.PriorDumb.parse">
+<tt class="descname">parse</tt><big>(</big><em>string</em><big>)</big><a class="headerlink" href="#egglib.fitmodel.PriorDumb.parse" title="Permalink to this definition">¶</a></dt>
+<dd><p>Imports data from the string <em>string</em>. The data format is: one
+token per parameter. The token can be arranged
+as one per line or separated by any white space characters.
+Each token must follow the format <tt class="docutils literal"><span class="pre">X(...)</span></tt> where <em>X</em> is the
+one-letter code specifying the type of
+distribution (<tt class="docutils literal"><span class="pre">F</span></tt>, <tt class="docutils literal"><span class="pre">U</span></tt>, <tt class="docutils literal"><span class="pre">N</span></tt>, <tt class="docutils literal"><span class="pre">G</span></tt>, <tt class="docutils literal"><span class="pre">P</span></tt> or <tt class="docutils literal"><span class="pre">E</span></tt>) and
+<tt class="docutils literal"><span class="pre">...</span></tt>
+represents the needed parameter values in the appropriate order,
+separated by commas or semi-colons. The brackets can be replaced
+by square brackets and the model specification is
+case-independent. The function raises a
+<a class="reference internal" href="#egglib.fitmodel.PriorParseError" title="egglib.fitmodel.PriorParseError"><tt class="xref py py-class docutils literal"><span class="pre">PriorParseError</span></tt></a> in case of invalid format.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.fitmodel.PriorDumb.str">
+<tt class="descname">str</tt><big>(</big><big>)</big><a class="headerlink" href="#egglib.fitmodel.PriorDumb.str" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generates a string representation of the instance.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="data">
+<dt id="egglib.fitmodel.priors">
+<tt class="descclassname">egglib.fitmodel.</tt><tt class="descname">priors</tt><em class="property"> = [&lt;class 'egglib.fitmodel.PriorDumb'&gt;, &lt;class 'egglib.fitmodel.PriorDiscrete'&gt;, &lt;class 'egglib.fitmodel.PriorParser'&gt;]</em><a class="headerlink" href="#egglib.fitmodel.priors" title="Permalink to this definition">¶</a></dt>
+<dd><p>This list contains the class objects (different from class <em>instances</em>,
+they are the classes themselves) corresponding to priors. They must
+define <tt class="xref py py-meth docutils literal"><span class="pre">parse()</span></tt>, <tt class="xref py py-meth docutils literal"><span class="pre">draw()</span></tt> and <tt class="xref py py-meth docutils literal"><span class="pre">str()</span></tt> methods, and class-level string
+<em>name</em> and an informative docstring but this is not (yet) enforced. This
+list is designed to help interactive commands to detect automatically
+available priors.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="demographic-model-implementations">
+<h2>Demographic model implementations<a class="headerlink" href="#demographic-model-implementations" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="egglib.fitmodel.SNM">
+<em class="property">class </em><tt class="descclassname">egglib.fitmodel.</tt><tt class="descname">SNM</tt><big>(</big><em>recombination</em><big>)</big><a class="headerlink" href="#egglib.fitmodel.SNM" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<p>Standard Neutral Model: constant-sized single population. Allows
+optional recombination. Parameters: THETA, RHO (optional).</p>
+<p>The constructor expects a boolean to indicate whether
+recombination must be implemented.</p>
+<dl class="method">
+<dt id="egglib.fitmodel.SNM.generate">
+<tt class="descname">generate</tt><big>(</big><em>cfg</em>, <em>ps</em>, <em>random</em><big>)</big><a class="headerlink" href="#egglib.fitmodel.SNM.generate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generates a simulated dataset based on the passed sample
+configuration and the parameter sample.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="egglib.fitmodel.PEM">
+<em class="property">class </em><tt class="descclassname">egglib.fitmodel.</tt><tt class="descname">PEM</tt><big>(</big><em>recombination</em><big>)</big><a class="headerlink" href="#egglib.fitmodel.PEM" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<p>Population Expansion Model (exponential growth), with optional
+recombination. Parameters: THETA, ALPHA, RHO (optional).</p>
+<p>The constructor expects a boolean to indicate whether
+recombination must be implemented.</p>
+<dl class="method">
+<dt id="egglib.fitmodel.PEM.generate">
+<tt class="descname">generate</tt><big>(</big><em>cfg</em>, <em>ps</em>, <em>random</em><big>)</big><a class="headerlink" href="#egglib.fitmodel.PEM.generate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generates a simulated dataset based on the passed sample
+configuration and the parameter sample.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="egglib.fitmodel.BNM">
+<em class="property">class </em><tt class="descclassname">egglib.fitmodel.</tt><tt class="descname">BNM</tt><big>(</big><em>recombination</em><big>)</big><a class="headerlink" href="#egglib.fitmodel.BNM" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<p>Bottleneck Model, with optional recombination. Parameters:</p>
+<blockquote>
+<div><ul class="simple">
+<li>THETA</li>
+<li>DATE (date of the end of the bottleneck)</li>
+<li>DUR (bottleneck duration)</li>
+<li>BOTZISE (size of the population during the bottleneck)</li>
+<li>ANCSIZE (size of the ancestral population)</li>
+<li>RHO (optional)</li>
+</ul>
+</div></blockquote>
+<p>Note that if botsize is &gt;1, the model can be generalized to a
+double instant change model.</p>
+<p>The constructor expects a boolean to indicate whether
+recombination must be implemented.</p>
+<dl class="method">
+<dt id="egglib.fitmodel.BNM.generate">
+<tt class="descname">generate</tt><big>(</big><em>cfg</em>, <em>ps</em>, <em>random</em><big>)</big><a class="headerlink" href="#egglib.fitmodel.BNM.generate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generates a simulated dataset based on the passed sample
+configuration and the parameter sample.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="egglib.fitmodel.GDB">
+<em class="property">class </em><tt class="descclassname">egglib.fitmodel.</tt><tt class="descname">GDB</tt><big>(</big><em>recombination</em><big>)</big><a class="headerlink" href="#egglib.fitmodel.GDB" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<p>Composite-parameter bottleneck, after the formalization of Galtier,
+Depaulis and Barton bottleneck model, with optional recombination.
+The bottleneck is implemented as a number of coalescent events
+occurring precisely at the time given by the DATE parameter. The
+STRENGTH is expressed as an amount of time of the normal coalescent
+process during which only coalescent occur (no migraton, not
+mutation) and during which the global time counter doesn&#8217;t change.
+Ref: Galtier <em>et al.</em> <em>Genetics</em> <strong>155</strong>:981-987, 2000.</p>
+<p>Parameters: THETA, DATE, STRENGTH, RHO (optional).</p>
+<p>The constructor expects a boolean to indicate whether
+recombination must be implemented .</p>
+<dl class="method">
+<dt id="egglib.fitmodel.GDB.generate">
+<tt class="descname">generate</tt><big>(</big><em>cfg</em>, <em>ps</em>, <em>random</em><big>)</big><a class="headerlink" href="#egglib.fitmodel.GDB.generate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generates a simulated dataset based on the passed sample
+configuration and the parameter sample.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="egglib.fitmodel.GGDB">
+<em class="property">class </em><tt class="descclassname">egglib.fitmodel.</tt><tt class="descname">GGDB</tt><big>(</big><em>recombination</em><big>)</big><a class="headerlink" href="#egglib.fitmodel.GGDB" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<p>Generalized Galtier, Depaulis and Barton with optional recombination.
+See GDB model. ANCSIZE gives the ancestral population size.
+Parameters: THETA, DATE, STRENGTH, ANCSIZE, RHO (optional).</p>
+<p>The constructor expects a boolean to indicate whether
+recombination must be implemented,.</p>
+<dl class="method">
+<dt id="egglib.fitmodel.GGDB.generate">
+<tt class="descname">generate</tt><big>(</big><em>cfg</em>, <em>ps</em>, <em>random</em><big>)</big><a class="headerlink" href="#egglib.fitmodel.GGDB.generate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generates a simulated dataset based on the passed sample
+configuration and the parameter sample.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="egglib.fitmodel.IM">
+<em class="property">class </em><tt class="descclassname">egglib.fitmodel.</tt><tt class="descname">IM</tt><big>(</big><em>recombination</em><big>)</big><a class="headerlink" href="#egglib.fitmodel.IM" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<p>Island Model, with optional recombination. The number of populations
+is automatically detected from the observed dataset. Parameters:
+THETA, MIGR, RHO (optional).</p>
+<p>The constructor expects a boolean to indicate whether
+recombination must be implemented.</p>
+<dl class="method">
+<dt id="egglib.fitmodel.IM.generate">
+<tt class="descname">generate</tt><big>(</big><em>cfg</em>, <em>ps</em>, <em>random</em><big>)</big><a class="headerlink" href="#egglib.fitmodel.IM.generate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generates a simulated dataset based on the passed sample
+configuration and the parameter sample.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="egglib.fitmodel.IMn">
+<em class="property">class </em><tt class="descclassname">egglib.fitmodel.</tt><tt class="descname">IMn</tt><big>(</big><em>recombination</em><big>)</big><a class="headerlink" href="#egglib.fitmodel.IMn" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<p>Island Model with different population sizes, with optional
+recombination. The size of the first population is fixed to 1,
+therefore the size of all populations with index &gt;1 must be
+specified as parameter. Parameters: THETA, MIGR, population sizes,
+RHO (optional).</p>
+<p>The constructor expects a boolean to indicate whether
+recombination must be implemented .</p>
+<dl class="method">
+<dt id="egglib.fitmodel.IMn.generate">
+<tt class="descname">generate</tt><big>(</big><em>cfg</em>, <em>ps</em>, <em>random</em><big>)</big><a class="headerlink" href="#egglib.fitmodel.IMn.generate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generates a simulated dataset based on the passed sample
+configuration and the parameter sample.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="egglib.fitmodel.IMG">
+<em class="property">class </em><tt class="descclassname">egglib.fitmodel.</tt><tt class="descname">IMG</tt><big>(</big><em>recombination</em><big>)</big><a class="headerlink" href="#egglib.fitmodel.IMG" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<p>Island Model with exponential Growth, with optional recombination.
+Parameters: THETA, MIGR, ALPHA,</p>
+<p>The constructor expects a boolean to indicate whether
+recombination must be implemented.</p>
+<dl class="method">
+<dt id="egglib.fitmodel.IMG.generate">
+<tt class="descname">generate</tt><big>(</big><em>cfg</em>, <em>ps</em>, <em>random</em><big>)</big><a class="headerlink" href="#egglib.fitmodel.IMG.generate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generates a simulated dataset based on the passed sample
+configuration and the parameter sample.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="egglib.fitmodel.IMiG">
+<em class="property">class </em><tt class="descclassname">egglib.fitmodel.</tt><tt class="descname">IMiG</tt><big>(</big><em>recombination</em><big>)</big><a class="headerlink" href="#egglib.fitmodel.IMiG" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<p>Island Model with Independent exponential Growth in each population,
+with optional recombination. The growth rate of each population must
+be provided. Parameters: THETA, MIGR, ALPHA for all populations,
+RHO (optional).</p>
+<p>The constructor expects a boolean to indicate whether
+recombination must be implemented.</p>
+<dl class="method">
+<dt id="egglib.fitmodel.IMiG.generate">
+<tt class="descname">generate</tt><big>(</big><em>cfg</em>, <em>ps</em>, <em>random</em><big>)</big><a class="headerlink" href="#egglib.fitmodel.IMiG.generate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generates a simulated dataset based on the passed sample
+configuration and the parameter sample.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="egglib.fitmodel.IMiGn">
+<em class="property">class </em><tt class="descclassname">egglib.fitmodel.</tt><tt class="descname">IMiGn</tt><big>(</big><em>recombination</em><big>)</big><a class="headerlink" href="#egglib.fitmodel.IMiGn" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<p>Island Model with Independent exponential Growth in each population,
+different population sizes and with optional recombination (the
+size of the first population is fixed to 1). The growth rate of each
+population must be provided, and the size of all populations save
+for the first one as well. Parameters: THETA, MIGR, growth rates,
+population sizes, RHO (optional).</p>
+<p>The constructor expects a boolean to indicate whether
+recombination must be implemented.</p>
+<dl class="method">
+<dt id="egglib.fitmodel.IMiGn.generate">
+<tt class="descname">generate</tt><big>(</big><em>cfg</em>, <em>ps</em>, <em>random</em><big>)</big><a class="headerlink" href="#egglib.fitmodel.IMiGn.generate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generates a simulated dataset based on the passed sample
+configuration and the parameter sample.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="egglib.fitmodel.SM">
+<em class="property">class </em><tt class="descclassname">egglib.fitmodel.</tt><tt class="descname">SM</tt><big>(</big><em>recombination</em><big>)</big><a class="headerlink" href="#egglib.fitmodel.SM" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<p>Split Model (thinking forward), with optional recombination. The
+DATE parameter sets the split date and MIGR the migration rate
+after the split. Parameters: THETA, MIGR, DATE, RHO (optional).</p>
+<p>The constructor expects a boolean to indicate whether
+recombination must be implemented.</p>
+<dl class="method">
+<dt id="egglib.fitmodel.SM.generate">
+<tt class="descname">generate</tt><big>(</big><em>cfg</em>, <em>ps</em>, <em>random</em><big>)</big><a class="headerlink" href="#egglib.fitmodel.SM.generate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generates a simulated dataset based on the passed sample
+configuration and the parameter sample.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="egglib.fitmodel.AM">
+<em class="property">class </em><tt class="descclassname">egglib.fitmodel.</tt><tt class="descname">AM</tt><big>(</big><em>npop</em>, <em>recombination</em><big>)</big><a class="headerlink" href="#egglib.fitmodel.AM" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<p>Admixture Model, with optional recombination. The DATE argument sets
+the time when ancestral populations joined and MIGR the migration
+rate that occurred between these populations. Note that the 
+migration rate must not be 0 because coalescent time might be
+infinite. Present-day samples are not structured. Parameters: THETA,
+DATE, MIGR, RHO (optional). In <cite>abc_sample</cite>, specify this model as
+<cite>AM:k</cite> where <cite>k</cite> is the number of ancestral populations.</p>
+<p>The constructor expects a boolean to indicate whether
+recombination must be implemented, and an integer giving the
+number of ancestral populations.</p>
+<dl class="method">
+<dt id="egglib.fitmodel.AM.generate">
+<tt class="descname">generate</tt><big>(</big><em>cfg</em>, <em>ps</em>, <em>random</em><big>)</big><a class="headerlink" href="#egglib.fitmodel.AM.generate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generates a simulated dataset based on the passed sample
+configuration and the parameter sample.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="egglib.fitmodel.MRC">
+<em class="property">class </em><tt class="descclassname">egglib.fitmodel.</tt><tt class="descname">MRC</tt><big>(</big><em>recombination</em><big>)</big><a class="headerlink" href="#egglib.fitmodel.MRC" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<p>Migration Rate Change, with optional recombination. MIGR0 is the
+current migration rate and MIGR1 the ancestral migration rate.
+Parameters, THETA, DATE, MIGR0, MIGR1, RHO (optional).</p>
+<p>The constructor expects a boolean to indicate whether
+recombination must be implemented.</p>
+<dl class="method">
+<dt id="egglib.fitmodel.MRC.generate">
+<tt class="descname">generate</tt><big>(</big><em>cfg</em>, <em>ps</em>, <em>random</em><big>)</big><a class="headerlink" href="#egglib.fitmodel.MRC.generate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generates a simulated dataset based on the passed sample
+configuration and the parameter sample.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="egglib.fitmodel.DOM">
+<em class="property">class </em><tt class="descclassname">egglib.fitmodel.</tt><tt class="descname">DOM</tt><big>(</big><em>recombination</em><big>)</big><a class="headerlink" href="#egglib.fitmodel.DOM" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<p>Domestication model, with optional recombination. Parameters:</p>
+<blockquote>
+<div><ul class="simple">
+<li>THETA</li>
+<li>SIZE (size of the cultivated population)</li>
+<li>DATE (date of the bottleneck)</li>
+<li>DUR (duration of the bottleneck)</li>
+<li>STRENGTH (size of the bottleneck population)</li>
+<li>MIGR (bidirectional migration rate)</li>
+<li>RHO (optional)</li>
+</ul>
+</div></blockquote>
+<p>The size of the wild population is 1. The domestication date is
+DATE+DUR.</p>
+<p>The constructor expects a boolean to indicate whether
+recombination must be implemented.</p>
+<dl class="method">
+<dt id="egglib.fitmodel.DOM.generate">
+<tt class="descname">generate</tt><big>(</big><em>cfg</em>, <em>ps</em>, <em>random</em><big>)</big><a class="headerlink" href="#egglib.fitmodel.DOM.generate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generates a simulated dataset based on the passed sample
+configuration and the parameter sample.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="data">
+<dt id="egglib.fitmodel.models">
+<tt class="descclassname">egglib.fitmodel.</tt><tt class="descname">models</tt><em class="property"> = [&lt;class 'egglib.fitmodel.SNM'&gt;, &lt;class 'egglib.fitmodel.PEM'&gt;, &lt;class 'egglib.fitmodel.BNM'&gt;, &lt;class 'egglib.fitmodel.GDB'&gt;, &lt;class 'egglib.fitmodel.GGDB'&gt;, &lt;class 'egglib.fitmodel.IM'&gt;, &lt;class 'egglib.fitmodel.IMn'&gt;, &lt;class 'egglib.fitmodel.IMG'&gt;, &lt;class 'egglib.fitmodel.IMiG'&gt;, &lt;class 'egglib.fitmodel.IMiGn'&gt;, &lt;class 'egglib.fitmodel.MRC'&gt;, &lt;class 'egglib.fitmodel.AM'&gt;, &lt;class 'egglib.fitmodel.SM'&gt;, &lt;class 'egglib.fitmodel.DOM'&gt;]</em><a class="headerlink" href="#egglib.fitmodel.models" title="Permalink to this definition">¶</a></dt>
+<dd><p>This list contains the class objects (different from class <em>instances</em>,
+they are the classes themselves) corresponding to demographic models.
+They must define a <tt class="xref py py-meth docutils literal"><span class="pre">generate()</span></tt> method taking a configuration list and
+a param sample, their constructor must take 0 or more integer arguments
+and then a boolean indicating whether recombination occurs. They must
+define a class-level string <tt class="xref py py-attr docutils literal"><span class="pre">name</span></tt> and a class-level list of strings
+<tt class="xref py py-attr docutils literal"><span class="pre">parameters</span></tt> and an informative docstring. All this is not (yet)
+enforced. This list is designed to help interactive commands to detect
+automatically available models.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="egglib.fitmodel.add_model">
+<tt class="descclassname">egglib.fitmodel.</tt><tt class="descname">add_model</tt><big>(</big><em>name</em><big>)</big><a class="headerlink" href="#egglib.fitmodel.add_model" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adds a <cite>name</cite> model contained in the file <cite>name</cite>.py. The model will
+be accessible in the <strong>fitmodel.models</strong> list.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="summary-statistics-implementations">
+<h2>Summary statistics implementations<a class="headerlink" href="#summary-statistics-implementations" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="egglib.fitmodel.TPH">
+<em class="property">class </em><tt class="descclassname">egglib.fitmodel.</tt><tt class="descname">TPH</tt><a class="headerlink" href="#egglib.fitmodel.TPH" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<p>Computes the following statistics: thetaW, Pi, He (averaged over
+all loci).</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="egglib.fitmodel.TPS">
+<em class="property">class </em><tt class="descclassname">egglib.fitmodel.</tt><tt class="descname">TPS</tt><a class="headerlink" href="#egglib.fitmodel.TPS" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<p>Computes the following statistics: total thetaW, Pi for each
+populationm and Hudson&#8217;s Snn (nearest neighbor statistic). The number
+of statistics will be 2 + the number of populations. Statistics are
+averaged over all loci.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="egglib.fitmodel.SFS">
+<em class="property">class </em><tt class="descclassname">egglib.fitmodel.</tt><tt class="descname">SFS</tt><big>(</big><em>number</em><big>)</big><a class="headerlink" href="#egglib.fitmodel.SFS" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<p>Compute the site frequency spectrum. The statistics are the average
+thetaW over all loci, and then the relative frequency of a
+user-defined number of bins of allele minor frequencies. For example,
+if the number of bins if 4, the 5 statistics will be: average thetaW,
+and then proportion of all polymorphic sites from all loci with minor
+allele &lt;=0.125, &gt;0.125 and &lt;=0.25, &gt;0.25 and &lt;=0.375, and &gt;0.375 and
+&lt;=0.5. Expected argument: number of categories in the spectrum.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="egglib.fitmodel.JFS">
+<em class="property">class </em><tt class="descclassname">egglib.fitmodel.</tt><tt class="descname">JFS</tt><big>(</big><em>number</em><big>)</big><a class="headerlink" href="#egglib.fitmodel.JFS" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<p>Compute the joint frequency spectrum. This set of summary statistics
+requires two populations The first two statistics are the average
+thetaW over all loci in both populations, and then the relative
+frequency of a user-defined number of bins of the frequencies of
+the minor allele in both populations. If the number of bins if 4,
+there will be 2+4**4 = 18 statistics: average thetaW in the first
+populations, in the second populations, and then the proportion of
+mutations with the minor allele at frequency &lt;=0.125 in both
+populations, and then at frequency &lt;=0.125 in the first population
+but at frequency &gt;0.125 and &lt;=0.25 in the second population, and so
+on. Expected argument: number of categories in one dimension of the
+joint spectrum.</p>
+<p>There are some restrictions when using this summary statistics set:
+there must be exactly two populations; sequences for the first
+population must be consecutive; there must be exactly two alleles at
+each site and there cannot be any missing data.</p>
+</dd></dl>
+
+<dl class="data">
+<dt id="egglib.fitmodel.summstats">
+<tt class="descclassname">egglib.fitmodel.</tt><tt class="descname">summstats</tt><em class="property"> = [&lt;class 'egglib.fitmodel.SDZ'&gt;, &lt;class 'egglib.fitmodel.TPH'&gt;, &lt;class 'egglib.fitmodel.TPS'&gt;, &lt;class 'egglib.fitmodel.TPF'&gt;, &lt;class 'egglib.fitmodel.TPK'&gt;, &lt;class 'egglib.fitmodel.SFS'&gt;, &lt;class 'egglib.fitmodel.JFS'&gt;, &lt;class 'egglib.fitmodel.DIV'&gt;]</em><a class="headerlink" href="#egglib.fitmodel.summstats" title="Permalink to this definition">¶</a></dt>
+<dd><p>This list contains the class objects (different from class <em>instances</em>,
+they are the classes themselves) corresponding to sets of summary
+statistics. They must define a <tt class="xref py py-meth docutils literal"><span class="pre">compute()</span></tt> method taking a dataset and
+a sample configuration. This method must create a <tt class="xref py py-attr docutils literal"><span class="pre">stats</span></tt> member
+containing a defined number of number (statistics). The constructor
+might (or might not) take integer arguments. A <tt class="xref py py-meth docutils literal"><span class="pre">name()</span></tt> class member and
+an informative docstring are also required. All this is still not (yet)
+enforced. This list is designed to help interactive commands to detect
+automatically available sets of summary statistics.</p>
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="utils.html" title="Utils module"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="simul.html" title="simul"
+             >previous</a> |</li>
+        <li><a href="index.html">EggLib</a> &raquo;</li>
+          <li><a href="egglib-py.html" >Python module</a> &raquo;</li> 
+      </ul>
+    </div>
+        <address style="text-align: right;"><small>Hosted by&nbsp;
+        <a href="http://sourceforge.net/projects/seqlib"><img src="http://sflogo.sourceforge.net/sflogo.php?group_id=232965&amp;type=8" width="80" height="15" alt="Get seqlib at SourceForge.net. Fast, secure and Free Open Source software downloads" / ALIGN=RIGHT BORDER=0></a>
+        </address>
+
+  </body>
+</html>

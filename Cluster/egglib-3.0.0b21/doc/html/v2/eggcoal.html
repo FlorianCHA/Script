@@ -1,0 +1,168 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>eggcoal &mdash; EggLib</title>
+    
+    <link rel="stylesheet" href="_static/sphinxdoc.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '2.1.11',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="shortcut icon" href="_static/icon.ico"/>
+    <link rel="top" title="EggLib" href="index.html" />
+    <link rel="next" title="eggstats" href="eggstats.html" />
+    <link rel="prev" title="Manual" href="manual.html" /> 
+  </head>
+  <body>
+
+<div style="background-color: white; text-align: left; padding: 0px 0px 0px 0px">
+<a href="index.html"><img src="_static/egglib_banniere5.png" border="0" alt="EggLib"/></a>
+</div>
+
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="eggstats.html" title="eggstats"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="manual.html" title="Manual"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">EggLib</a> &raquo;</li> 
+      </ul>
+    </div>
+<div style="background-color: grey; text-align: left; padding: 0px 0px 0px 10px; border-bottom: 1px solid #2d2e91">
+<font color="white" ><b>EggLib version 2.1 is archived.</b></font></div>
+
+
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="manual.html"
+                        title="previous chapter">Manual</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="eggstats.html"
+                        title="next chapter">eggstats</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/eggcoal.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="eggcoal">
+<span id="id1"></span><h1>eggcoal<a class="headerlink" href="#eggcoal" title="Permalink to this headline">¶</a></h1>
+<p>eggcoal is a standalone program for generating samples under the
+coalescent framework. It is based on the egglib-cpp C++ library. It can
+be used independently from the rest of the package. It is based on the
+same assumptions as the ms software and uses the same rescaling of time
+units (time is counted in 4N generations, where N is the number of
+diploid individuals in the populations). It also generates compatible
+output files. Here is a list of features provided by eggcoal:</p>
+<blockquote>
+<div><ul class="simple">
+<li>Haploid (1 gene) and/or diploid (2 genes per individual) samples.</li>
+<li>Partial selfing (panmixy is of course also allowed).</li>
+<li>Recombination (but not gene conversion and no variation of
+recombination rate along the sequence yet).</li>
+<li>Variation of population size.</li>
+<li>Population structure and arbitrary migration matrices.</li>
+<li>Exponential population growth or decline.</li>
+<li>Change of all migration rates in the past.</li>
+<li>Change of the selfing rate in the past.</li>
+<li>Change of the exponential growth/decline rate in the past.</li>
+<li>Instant population change.</li>
+<li>Population fusion or split.</li>
+<li>Composite bottleneck model (with one-parameter intensity combining
+duration and population size reduction).</li>
+<li>Standard infinite site mutation model.</li>
+<li>Finite site mutation models (with variation of site mutability).</li>
+<li>Possibility to set site locations (having effect on the
+recombination rate between them).</li>
+<li>Fixed number of mutations.</li>
+<li>Mutation models: finite allele model, infinite allele model,
+stepwise mutation model, two-phase mutation model.</li>
+<li>Microsatellite are exported in a slightly different format to
+accomodate allele values larger than 9.</li>
+<li>Possibility to implement mutation bias (e.g. transition vs.
+transversion).</li>
+<li>Generate fasta alignments.</li>
+<li>Generate newick trees (also for simulations with recombination).</li>
+<li>Output simulation statistics (not diversity statistics; for those,
+use a program such as eggstats).</li>
+</ul>
+</div></blockquote>
+<p>Once the program is installed, type <tt class="docutils literal"><span class="pre">eggcoal</span> <span class="pre">-h</span></tt> for a short manual
+page and <tt class="docutils literal"><span class="pre">eggcoal</span> <span class="pre">-u</span></tt> for a longer manual.</p>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="eggstats.html" title="eggstats"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="manual.html" title="Manual"
+             >previous</a> |</li>
+        <li><a href="index.html">EggLib</a> &raquo;</li> 
+      </ul>
+    </div>
+        <address style="text-align: right;"><small>Hosted by&nbsp;
+        <a href="http://sourceforge.net/projects/seqlib"><img src="http://sflogo.sourceforge.net/sflogo.php?group_id=232965&amp;type=8" width="80" height="15" alt="Get seqlib at SourceForge.net. Fast, secure and Free Open Source software downloads" / ALIGN=RIGHT BORDER=0></a>
+        </address>
+
+  </body>
+</html>

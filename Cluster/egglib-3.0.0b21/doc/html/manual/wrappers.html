@@ -1,0 +1,414 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Integration of external software &#8212; EggLib&#39;s documentation</title>
+    <link rel="stylesheet" href="../_static/egglibdoc.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '3.0.0b21',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="shortcut icon" href="../_static/icon.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Index" href="../globindex.html" />
+    <link rel="prev" title="Performing simulations" href="coal-3.html" />
+    <script type="text/javascript">
+      // intelligent scrolling of the sidebar content
+      $(window).scroll(function() {
+        var sb = $('.sphinxsidebarwrapper');
+        var win = $(window);
+        var sbh = sb.height();
+        var offset = $('.sphinxsidebar').position()['top'];
+        var wintop = win.scrollTop();
+        var winbot = wintop + win.innerHeight();
+        var curtop = sb.position()['top'];
+        var curbot = curtop + sbh;
+        // does sidebar fit in window?
+        if (sbh < win.innerHeight()) {
+          // yes: easy case -- always keep at the top
+          sb.css('top', $u.min([$u.max([0, wintop - offset - 10]),
+                                $(document).height() - sbh - 200]));
+        } else {
+          // no: only scroll if top/bottom edge of sidebar is at
+          // top/bottom edge of window
+          if (curtop > wintop && curbot > winbot) {
+            sb.css('top', $u.max([wintop - offset - 10, 0]));
+          } else if (curtop < wintop && curbot < winbot) {
+            sb.css('top', $u.min([winbot - sbh - offset - 20,
+                                  $(document).height() - sbh - 200]));
+          }
+        }
+      });
+    </script>
+  </head>
+  <body>
+<div style="background-color: white; text-align: left; padding: 0px 0px 0px 0px">
+<a href="../index.html"><img src="../_static/banner.png" border="0" alt="EggLib"/></a>
+</div>
+
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../globindex.html" title="Index"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="coal-3.html" title="Performing simulations"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../contents.html">EggLib&#39;s documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../toc.html" >Contents</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="index.html" accesskey="U">Manual</a> &#187;</li> 
+      </ul>
+    </div>
+
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../contents.html">
+              <img class="logo" src="../_static/egglib_small.bmp" alt="Logo"/>
+            </a></p>
+  <h3><a href="../contents.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Integration of external software</a><ul>
+<li><a class="reference internal" href="#principle">Principle</a></li>
+<li><a class="reference internal" href="#usage">Usage</a><ul>
+<li><a class="reference internal" href="#configuration-of-application-paths">Configuration of application paths</a><ul>
+<li><a class="reference internal" href="#auto-detection-of-applications">Auto-detection of applications</a></li>
+<li><a class="reference internal" href="#setting-application-paths-manually">Setting application paths manually</a></li>
+<li><a class="reference internal" href="#saving-and-loading-paths">Saving and loading paths</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#using-applications-in-scripts">Using applications in scripts</a><ul>
+<li><a class="reference internal" href="#phyml">PhyML</a></li>
+<li><a class="reference internal" href="#codeml">CodeML</a></li>
+<li><a class="reference internal" href="#clustal-omega-and-muscle">Clustal Omega and Muscle</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="coal-3.html"
+                        title="previous chapter">Performing simulations</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="../globindex.html"
+                        title="next chapter">Index</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/manual/wrappers.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="integration-of-external-software">
+<h1>Integration of external software<a class="headerlink" href="#integration-of-external-software" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="principle">
+<h2>Principle<a class="headerlink" href="#principle" title="Permalink to this headline">¶</a></h2>
+<p>EggLib provides wrappers of external programs in order to extend its
+functionalities besides its own population genetics and sequence
+management tools (although provided a wide array of external tools
+is not one of the primary aims of EggLib).</p>
+<p>The available tools are presented through an integrated interface: once
+configured, they can be used as any regular EggLib function, using
+objects from EggLib class as argument and/or return values.</p>
+<p>Currently, the <code class="xref py py-mod docutils literal"><span class="pre">wrappers</span></code> module provides:</p>
+<ul class="simple">
+<li>Multiple sequence alignment using CLUSTAL Omega and Muscle.</li>
+<li>Maximum-likelihood phylogeny using PhyML.</li>
+<li>Maximum-likelihood fitting and testing of coding sequence evolution
+using CodML from the PAML package.</li>
+</ul>
+</div>
+<div class="section" id="usage">
+<h2>Usage<a class="headerlink" href="#usage" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="configuration-of-application-paths">
+<h3>Configuration of application paths<a class="headerlink" href="#configuration-of-application-paths" title="Permalink to this headline">¶</a></h3>
+<p>By default, all applications are disabled. Any attempt to use any <code class="xref py py-mod docutils literal"><span class="pre">wrappers</span></code>
+function will cause a <code class="xref py py-exc docutils literal"><span class="pre">RuntimeError</span></code> as in the example below:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">egglib</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cnt</span> <span class="o">=</span> <span class="n">egglib</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">from_fasta</span><span class="p">(</span><span class="s1">&#39;sequences3.fas&#39;</span><span class="p">,</span> <span class="bp">cls</span><span class="o">=</span><span class="n">egglib</span><span class="o">.</span><span class="n">Container</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">aln</span> <span class="o">=</span> <span class="n">egglib</span><span class="o">.</span><span class="n">wrappers</span><span class="o">.</span><span class="n">clustal</span><span class="p">(</span><span class="n">cnt</span><span class="p">)</span>
+<span class="gt">Traceback (most recent call last):</span>
+  File <span class="nb">&quot;tutorial4.py&quot;</span>, line <span class="m">6</span>, in <span class="n">&lt;module&gt;</span>
+    <span class="n">aln</span> <span class="o">=</span> <span class="n">egglib</span><span class="o">.</span><span class="n">wrappers</span><span class="o">.</span><span class="n">clustal</span><span class="p">(</span><span class="n">cnt</span><span class="p">)</span>
+  File <span class="nb">&quot;/usr/lib64/python2.7/site-packages/egglib/wrappers/_utils.py&quot;</span>, line <span class="m">55</span>, in <span class="n">_f</span>
+    <span class="k">return</span> <span class="n">f</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+  File <span class="nb">&quot;/usr/lib64/python2.7/site-packages/egglib/wrappers/_clustal.py&quot;</span>, line <span class="m">152</span>, in <span class="n">clustal</span>
+    <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">,</span> <span class="s1">&#39;Clustal Omega program not available -- please configure path&#39;</span>
+<span class="gr">RuntimeError</span>: <span class="n">Clustal Omega program not available -- please configure path</span>
+</pre></div>
+</div>
+<p>There is a <code class="xref py py-data docutils literal"><span class="pre">params</span></code> object in the <code class="xref py py-mod docutils literal"><span class="pre">wrappers</span></code> module
+which is responsible for holding the command executing the external applications.
+The applications are identified by these keys:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="36%" />
+<col width="64%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Key</th>
+<th class="head">Application</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">clustal</span></code></td>
+<td>Clustal Omega</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">muscle</span></code></td>
+<td>Muscle</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">phyml</span></code></td>
+<td>PhyML</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">codeml</span></code></td>
+<td>CodeML (PAML package)</td>
+</tr>
+</tbody>
+</table>
+<p>We can see that the default value is <code class="docutils literal"><span class="pre">None</span></code>:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span> <span class="n">egglib</span><span class="o">.</span><span class="n">wrappers</span><span class="o">.</span><span class="n">paths</span><span class="p">[</span><span class="s1">&#39;clustal&#39;</span><span class="p">]</span>
+<span class="go">None</span>
+</pre></div>
+</div>
+<p>There are two ways to configure this object, described in the following
+two paragraphs.</p>
+<div class="section" id="auto-detection-of-applications">
+<h4>Auto-detection of applications<a class="headerlink" href="#auto-detection-of-applications" title="Permalink to this headline">¶</a></h4>
+<p>One is the method
+<a class="reference internal" href="../py/wrappers.html#egglib.wrappers.paths.autodetect" title="egglib.wrappers.paths.autodetect"><code class="xref py py-meth docutils literal"><span class="pre">autodetect()</span></code></a>. This method tries a set of
+pre-defined commands and, if any works, set it as the command to run the
+corresponding application:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">egglib</span><span class="o">.</span><span class="n">wrappers</span><span class="o">.</span><span class="n">paths</span><span class="o">.</span><span class="n">autodetect</span><span class="p">(</span><span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="go">&gt; codeml: codeml --&gt; ok</span>
+<span class="go">&gt; phyml: phyml --&gt; fail (&quot;No such file or directory&quot;)</span>
+<span class="go">&gt; clustal: clustalo --&gt; fail (&quot;No such file or directory&quot;)</span>
+<span class="go">&gt; muscle: muscle --&gt; ok</span>
+</pre></div>
+</div>
+<p>This method has a <em>verbose</em> option which provide you with information (success
+or failure, and message error in case of failure). In case of a failure, the
+corresponding application is disabled but this is not treated as an error.</p>
+<p>In this example, the default commands <code class="docutils literal"><span class="pre">codeml</span></code> and <code class="docutils literal"><span class="pre">muscle</span></code> succeeded, so the
+two applications are now available. But the command for Clustal Omega was
+not successful, either because the program is not installed, or not installed under
+this name. As a result, it is still not available:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span> <span class="n">egglib</span><span class="o">.</span><span class="n">wrappers</span><span class="o">.</span><span class="n">paths</span><span class="p">[</span><span class="s1">&#39;clustal&#39;</span><span class="p">]</span>
+<span class="go">None</span>
+</pre></div>
+</div>
+<p>Of course, this result is dependent on the current status of the system.</p>
+</div>
+<div class="section" id="setting-application-paths-manually">
+<h4>Setting application paths manually<a class="headerlink" href="#setting-application-paths-manually" title="Permalink to this headline">¶</a></h4>
+<p>It is possible to specify a command string (including the full path of
+the program executable) for any application. Assume that we have compiled
+Clustal Omega, but did not install it in the binary search path (it is just
+lying in the home folder of one of the authors). We can set the paths as
+follows:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">egglib</span><span class="o">.</span><span class="n">wrappers</span><span class="o">.</span><span class="n">paths</span><span class="p">[</span><span class="s1">&#39;clustal&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;/home/stephane/Documents/software/clustal-omega-1.2.1/src/clustalo&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span> <span class="n">egglib</span><span class="o">.</span><span class="n">wrappers</span><span class="o">.</span><span class="n">paths</span><span class="p">[</span><span class="s1">&#39;clustal&#39;</span><span class="p">]</span>
+<span class="go">/home/stephane/Documents/software/clustal-omega-1.2.1/src/clustalo</span>
+</pre></div>
+</div>
+<p>If the path is incorrect, or if the specified command does not run as
+expected for this software, an error will be caused.</p>
+</div>
+<div class="section" id="saving-and-loading-paths">
+<h4>Saving and loading paths<a class="headerlink" href="#saving-and-loading-paths" title="Permalink to this headline">¶</a></h4>
+<p>Once paths have been set satisfactorily, it is possible to save them in
+a system file in order to have them available for the next session. When
+EggLib is imported again, the saved paths will be loaded and the
+properly configured application will be immediately usable. In case a
+program has been removed, it will cause an error when attempting to run it.
+The command to save paths is:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">egglib</span><span class="o">.</span><span class="n">wrappers</span><span class="o">.</span><span class="n">paths</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Since it is written within EggLib installation (in the current version),
+it might requires administration rights.</p>
+<p>If the paths has been modified during a session, it is still possible to reset the paths
+from the saved configuration, discarding any changes that have been applied
+since EggLib has been imported, by running: <code class="docutils literal"><span class="pre">egglib.wrappers.paths.load()</span></code>.</p>
+</div>
+</div>
+<div class="section" id="using-applications-in-scripts">
+<h3>Using applications in scripts<a class="headerlink" href="#using-applications-in-scripts" title="Permalink to this headline">¶</a></h3>
+<p>This manual and the reference manual explain how to use the functions
+calling the external applications
+and they are aimed at users who are already experienced with these programs.
+It can be necessary to refer their own documentation to understand the
+meaning of available options and returned data.</p>
+<p>Note that, for all wrappers, there is a <code class="docutils literal"><span class="pre">verbose</span></code> option to control
+whether or not the program output should be displayed on screen or deleted.</p>
+<div class="section" id="phyml">
+<h4>PhyML<a class="headerlink" href="#phyml" title="Permalink to this headline">¶</a></h4>
+<p>PhyML is a software for maximum-likelihood phylogenetic reconstruction
+using amino acid or nucleotide sequences. It is available through the
+function <a class="reference internal" href="../py/wrappers.html#egglib.wrappers.phyml" title="egglib.wrappers.phyml"><code class="xref py py-func docutils literal"><span class="pre">wrappers.phyml()</span></code></a> (reference included in the documentation).
+The usage is fairly straightforward: it takes an <a class="reference internal" href="../py/toplevel.html#egglib.Align" title="egglib.Align"><code class="xref py py-class docutils literal"><span class="pre">Align</span></code></a> object
+as argument and returns a <code class="xref py py-class docutils literal"><span class="pre">tuple</span></code> with two items (the phylogenetic
+tree as a <a class="reference internal" href="../py/toplevel.html#egglib.Tree" title="egglib.Tree"><code class="xref py py-class docutils literal"><span class="pre">Tree</span></code></a> object and a dictionary of statistics, respectively):</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">aln</span> <span class="o">=</span> <span class="n">egglib</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">from_fasta</span><span class="p">(</span><span class="s1">&#39;align8.fas&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tree</span><span class="p">,</span> <span class="n">stats</span> <span class="o">=</span> <span class="n">egglib</span><span class="o">.</span><span class="n">wrappers</span><span class="o">.</span><span class="n">phyml</span><span class="p">(</span><span class="n">aln</span><span class="p">,</span> <span class="n">model</span><span class="o">=</span><span class="s1">&#39;HKY85&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span> <span class="n">stats</span>
+<span class="go">{&#39;freqs&#39;: [0.2844, 0.19657, 0.22759, 0.29143], &#39;ti/tv&#39;: 4.0, &#39;pars&#39;: 6983, &#39;lk&#39;: -33416.88715, &#39;size&#39;: 5.44449}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span> <span class="n">tree</span><span class="o">.</span><span class="n">newick</span><span class="p">()</span>
+<span class="go">(CasLYK3:0.01237505,CasLYK2:0.0,((FvLYK2:0.09853004,(MdLYK3:0.10732566,PpLYK3:0.05300631):0.02447224):0.05989021,(PtLYK3:0.15268966,((MtLYK8:0.14003722,(LjLYS7:0.08155174,(GmLYK3:0.04846372,CacLYK3:0.05809886):0.04392275):0.02845355):0.11447351,((VvLYK3:0.11542039,VvLYK2:0.08334382):0.06445392,(VvLYK1:0.12763572,((PtLYK2:0.05871896,PtLYK1:0.03968281):0.11719099,((((CacLYK1:0.0760468,(GmNFR1a:0.03511832,GmNFR1b:0.0287519):0.02035824):0.03344143,(LjNFR1a:0.07231443,(MtLYK2:0.04784824,(MtLYK3:0.07366331,PsSYM37:0.06907117):0.01683888):0.05128711):0.02178421):0.14129609,((CecLYK1:0.1342407,((MtLYK7:0.11288812,(CacLYK4:0.05284059,GmLYK2:0.048187):0.05687575):0.04162164,((MtLYK1:0.13291815,LjNFR1b:0.11749646):0.06448685,(MtLYK6:0.13391465,LjNFR1c:0.11699053):0.03439881):0.02680216):0.04837524):0.03794071,(CecLYK2:0.07421816,((GmLYK2b:0.05222029,CacLYK2:0.07144586):0.05212459,(LjLYS6:0.05742719,MtLYK9:0.10847179):0.02814181):0.06743708):0.01846505):0.02443726):0.05441246,(CasLYK1:0.10100211,(AtCERK1:0.35336624,(FvLYK1:0.12483414,((MdLYK2:0.05670659,MdLYK1:0.03964285):0.04192224,(PpLYK1:0.06030315,PpLYK2:0.05194511):0.02388192):0.03157062):0.04509856):0.01641018):0.02078968):0.02797866):0.04205346):0.06152622):0.05814891):0.02685265):0.02416823):0.14995695);</span>
+</pre></div>
+</div>
+<p>Besides the input sequence alignment, this function takes an array of option.
+Only one is required (<code class="docutils literal"><span class="pre">model</span></code>, the model name). See the reference manual
+for the function for details. Most of the options are passed to the software.</p>
+<p>The phylogenetic tree is returned as the first item of the return value.
+It is an object of the EggLib class <a class="reference internal" href="../py/toplevel.html#egglib.Tree" title="egglib.Tree"><code class="xref py py-class docutils literal"><span class="pre">Tree</span></code></a>, which supports a wide
+a range of editing operation (management of internal nodes, subtree extraction,
+search for phylogenetic clades). The second item is a dictionary of statistics
+including maximum-likelihood estimates of model parameters. See the function
+manual for details.</p>
+</div>
+<div class="section" id="codeml">
+<h4>CodeML<a class="headerlink" href="#codeml" title="Permalink to this headline">¶</a></h4>
+<p>CodeML is one of the program included in the PAML software package, a widely use
+collection of tools for the analysis of the evolution of biological sequences.
+The <a class="reference internal" href="../py/wrappers.html#egglib.wrappers.codeml" title="egglib.wrappers.codeml"><code class="xref py py-func docutils literal"><span class="pre">wrappers.codeml()</span></code></a> function of EggLib focuses on the tools describing
+the evolution of coding sequences.</p>
+<p>To be used, this tools requires an alignment of coding sequences (in particular
+with an alignment length which is a multiple of 3), and a phylogenetic tree whose
+leaves names match the sequence names. Let us assume that this is what we
+have with the alignment imported in the previous alignment. We also have built
+the phylogenetic with PhyML already. Let us check that the number of samples
+matches and that the alignment length is a multiple of 3:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span> <span class="n">aln</span><span class="o">.</span><span class="n">ns</span><span class="p">,</span> <span class="n">tree</span><span class="o">.</span><span class="n">num_leaves</span>
+<span class="go">17 17</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span> <span class="n">aln</span><span class="o">.</span><span class="n">ls</span>
+<span class="go">270</span>
+</pre></div>
+</div>
+<p>Note that it is also necessary to ensure that there is no stop codons in the
+alignment and that the list of names match exactly. In addition, the tree must
+not be rooted (the base must be a trifurcation, which is necessary for all
+tree reconstructed by maximum likelihood anyway). This being said, to
+run PhyML, we only need an <code class="xref py py-class docutils literal"><span class="pre">Align</span></code> object, a <code class="xref py py-class docutils literal"><span class="pre">Tree</span></code> object,
+and the name of one of the models:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">results</span> <span class="o">=</span> <span class="n">egglib</span><span class="o">.</span><span class="n">wrappers</span><span class="o">.</span><span class="n">codeml</span><span class="p">(</span><span class="n">aln</span><span class="p">,</span> <span class="n">tree</span><span class="p">,</span> <span class="s1">&#39;M1a&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span> <span class="n">results</span><span class="p">[</span><span class="s1">&#39;lnL&#39;</span><span class="p">]</span>
+<span class="go">-2081.576434</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span> <span class="n">results</span><span class="p">[</span><span class="s1">&#39;omega&#39;</span><span class="p">]</span>
+<span class="go">[0.0905, 1.0]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span> <span class="n">results</span><span class="p">[</span><span class="s1">&#39;freq&#39;</span><span class="p">]</span>
+<span class="go">[0.84535, 0.15465]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span> <span class="n">results</span><span class="p">[</span><span class="s1">&#39;site_w&#39;</span><span class="p">][</span><span class="s1">&#39;postw&#39;</span><span class="p">]</span>
+<span class="go">[0.091, 0.091, 0.091, 1.0, 0.092, 0.094, 0.091, 0.091, 0.092, 0.107, 0.158, 0.092, 0.112, 0.091, 0.311, 0.091, 0.091, 0.091, 0.091, 0.091, 0.093, 0.136, 0.753, 0.092, 0.603, 0.939, 0.091, 0.091, 0.38, 0.093, 0.091, 0.1, 0.093, 0.097, 0.091, 0.092, 1.0, 0.091, 0.091, 0.091, 0.997, 0.091, 0.093, 0.091, 0.322, 0.092, 0.091, 0.091, 0.091, 0.092, 0.092, 0.091, 0.092, 0.093, 0.091, 0.091, 0.092, 0.091, 0.091, 0.091, 0.129, 0.092, 0.127, 0.091, 0.091, 0.091, 0.092, 0.987, 0.091, 0.168, 0.092, 0.213, 0.689, 0.989, 0.399, 0.997, 0.992, 0.093, 0.134, 0.985, 0.092, 0.099, 0.925, 0.091, 0.104, 0.102, 0.091, 0.091, 0.092, 0.091]</span>
+</pre></div>
+</div>
+<p>Please refer to the manual of the <a class="reference internal" href="../py/wrappers.html#egglib.wrappers.codeml" title="egglib.wrappers.codeml"><code class="xref py py-func docutils literal"><span class="pre">wrappers.codeml()</span></code></a> function for
+a detailed list of options (including the list of available models), and
+the list of returned data. The return value is a <a class="reference external" href="https://docs.python.org/2.7/library/stdtypes.html#dict" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">dict</span></code></a> containing
+a large number of entries exposing most of the contents of CodeML output.</p>
+<p>In this example we displayed the log-likelihood of the model (<code class="docutils literal"><span class="pre">lnL</span></code>), the
+non-synonymous to synonymous rate ratio, or <span class="math">\omega</span> for the two rate
+categories (<code class="docutils literal"><span class="pre">omega</span></code>), the corresponding category frequencies (<code class="docutils literal"><span class="pre">freq</span></code>),
+and the list of posterior <span class="math">\omega</span> per-site estimates for the
+amino acid sites (since the DNA alignment length is 270, there are 90
+amino acid sites).</p>
+<p>In the specific case of branch- and clade-models (with or without site
+variable), CodeML expects that the phylogenetic tree contains internal
+node labels to identify branches (<code class="docutils literal"><span class="pre">#x</span></code>, where <code class="docutils literal"><span class="pre">x</span></code> is an integer) and
+clades (<code class="docutils literal"><span class="pre">$x</span></code>) that should have a different <span class="math">\omega</span> rate. If these
+labels are present in a Newick-formatted tree file, they will be imported
+properly by the constructor of <a class="reference internal" href="../py/toplevel.html#egglib.Tree" title="egglib.Tree"><code class="xref py py-class docutils literal"><span class="pre">Tree</span></code></a>. Otherwise, it is also
+possible to add them dynamically using the methods of <code class="xref py py-class docutils literal"><span class="pre">Tree</span></code> objects
+(such as <a class="reference internal" href="../py/toplevel.html#egglib.Tree.find_clade" title="egglib.Tree.find_clade"><code class="xref py py-meth docutils literal"><span class="pre">Tree.find_clade()</span></code></a> and <a class="reference internal" href="../py/toplevel.html#egglib.Node.label" title="egglib.Node.label"><code class="xref py py-attr docutils literal"><span class="pre">Node.label</span></code></a>).</p>
+</div>
+<div class="section" id="clustal-omega-and-muscle">
+<h4>Clustal Omega and Muscle<a class="headerlink" href="#clustal-omega-and-muscle" title="Permalink to this headline">¶</a></h4>
+<p>These are two multiple sequence alignment programs both supporting nucleotide
+and amino acid sequences, and both able to refine (or add sequences to) existing
+alignments. In both cases, alignment of sequences provided as a <code class="xref py py-class docutils literal"><span class="pre">Container</span></code>
+object to a resulting <code class="xref py py-class docutils literal"><span class="pre">Align</span></code> object is fairly straightforward:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">aln1</span> <span class="o">=</span> <span class="n">egglib</span><span class="o">.</span><span class="n">wrappers</span><span class="o">.</span><span class="n">clustal</span><span class="p">(</span><span class="n">cnt</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">aln2</span> <span class="o">=</span> <span class="n">egglib</span><span class="o">.</span><span class="n">wrappers</span><span class="o">.</span><span class="n">muscle</span><span class="p">(</span><span class="n">cnt</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>These examples leave all other options to default values. Actually, both
+wrappers provide a lot of options, thereby exposing the flexibility of these
+two software tools. The options differ significantly between them, reflecting
+their different paradigms. Please refer to the manual of the two functions
+<a class="reference internal" href="../py/wrappers.html#egglib.wrappers.clustal" title="egglib.wrappers.clustal"><code class="xref py py-func docutils literal"><span class="pre">wrappers.clustal()</span></code></a> and <a class="reference internal" href="../py/wrappers.html#egglib.wrappers.muscle" title="egglib.wrappers.muscle"><code class="xref py py-func docutils literal"><span class="pre">wrappers.muscle()</span></code></a> (and of course the
+user’s guide of the two programs) for a detailed list of the available
+options.</p>
+</div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../globindex.html" title="Index"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="coal-3.html" title="Performing simulations"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../contents.html">EggLib&#39;s documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../toc.html" >Contents</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="index.html" >Manual</a> &#187;</li> 
+      </ul>
+    </div>
+<!--
+        <address style="text-align: right;"><small>Hosted by&nbsp;
+        <a href="http://sourceforge.net/projects/egglib"><img src="http://sflogo.sourceforge.net/sflogo.php?group_id=232965&amp;type=8" width="80" height="15" alt="Get EggLib at SourceForge.net. Fast, secure and Free Open Source software downloads" / ALIGN=RIGHT BORDER=0></a>
+        </address>
+-->
+
+  </body>
+</html>

@@ -3,48 +3,7 @@
 # @package gvcfSearch.py
 # @author Florian Charriat
 
-"""
-	The gvcfSearch script
-	=======================
-	:author: Charriat Florian
-	:contact: florian.charriat@inra.fr
-	:date: 13/11/2018
-	:version: 0.1
 
-	Script description
-	------------------
-
-	This program is used to search a list of gene in a vcf file and give in output CDS,protein and gene fasta file.
-
-	Example
-	-------
-
-	>>> gvcfSearch.py -l /homedir/user/work/listegene.txt -g /homedir/user/work/Isolat.gff -f /homedir/user/work/file.vcf -p prefix
-
-	Help Programm
-	-------------
-
-	optional arguments:
-		- \-h, --help
-						show this help 	message and exit
-		- \-v, --version
-						display gvcfSearch.py version number and exit
-
-	Input mandatory infos for running:
-		- \-f <path/to/vcf/file>, --file <path/to/vcf/file>
-						path of vcf file which be used
-
-		- \-l <path/to/gene/liste/file>, --listegene <path/to/gene/liste/file>
-						path of the file which contains a gene list of interest. If you don't give a list,
-						the script search all gene of the gff file
-
-        - \-g <path/to/gff/file>, --gff <path/to/gff/file>
-						path of the gff file path of the reference genome used to create the vcf
-
-		- \-p <prefix>, --prefix <prefix>
-						prefix for the output file
-
-"""
 
 ########## Module ###############
 ## Python modules
@@ -230,9 +189,6 @@ if __name__ == "__main__":
                           help='Path of the gff file path of the reference genome used to create the vcf')
 
     files = parser.add_argument_group('Input infos for running with default values')
-    files.add_argument('-l', '--listegene', type=str, required=False, default='None', dest='listeGene',
-                          help='Path of the file which contains a gene list of interest,'
-                               'the script search all gene of the gff file')
     files.add_argument('-MQ', '--MQ', type=int, required=False, default=20, dest='MQmin',
                        help='The minimum mapping quality supporting to accept the mapping (default = 20)')
 
@@ -248,7 +204,6 @@ if __name__ == "__main__":
     ######### Recuperation arguments ###########
     args = parser.parse_args()
     vcf_file = os.path.abspath(args.vcf_file)
-    listeGene = args.listeGene
     gff = args.gff
     fasta = os.path.abspath(args.fasta)
     prefix = args.prefix
@@ -259,9 +214,6 @@ if __name__ == "__main__":
     ########### Gestion directory ##############
     verifFichier(vcf_file)
     verifFichier(fasta)
-    if listeGene != 'None' :
-        verifFichier(listeGene)
-        listeGene = os.path.abspath(listeGene)
     ############### start message ########################
 
     print(form("\n\t---------------------------------------------------------", 'yellow', 'bold'))
@@ -270,11 +222,7 @@ if __name__ == "__main__":
                                                   type='bold') + form("|", 'yellow', 'bold'))
     print(form("\t---------------------------------------------------------", 'yellow', 'bold') + '\n')
 
-    ########### Main #####################################
-    liste = []
-    if listeGene != 'None' :
-        lines = openfile(listeGene)
-        liste = [elt.split()[0] for elt in lines]
+    ############### Main ########################
 
     dicoRNA = {}
     dicoCDS = {}
@@ -290,21 +238,20 @@ if __name__ == "__main__":
                 except :
                     print(line)
                     exit()
-                id = id.split(';')[0].split('=')[1]
-                if ':' in id :
-                    id = id.split(':')[0]
-                if id in liste or listeGene == 'None' :
-                    if types == 'mRNA' :
-                        dicoRNA[id] = [Scaffold,int(start),int(end),brin]
 
-                    elif types == 'CDS' :
-                        if id not in dicoCDS.keys():
-                            dicoCDS[id] = []
-                        dicoCDS[id].append([Scaffold,int(start),int(end)])
+                if types == 'mRNA' :
+                    id = id.split(';')[0].split('=')[1]
+
+                    dicoRNA[id] = [Scaffold,int(start),int(end),brin]
+
+                elif types == 'CDS' :
+                    id = id.split('Parent=')[-1]
+                    if id not in dicoCDS.keys():
+                        dicoCDS[id] = []
+                    dicoCDS[id].append([Scaffold,int(start),int(end)])
     else :
         print(form("\nYou choose to don't use gff file\n",'white','bold'))
     nb = 0
-    k_old = 'Chr1'
     print(form('Openning fasta file\n', 'white', 'bold'))
     dico_assembly = {}
     dico  = fasta2dict(fasta)
@@ -321,7 +268,7 @@ if __name__ == "__main__":
                         end = int(end.replace('END=',''))
                         start = int(pos)
                         if start == 1 :
-                            dico_assembly[K] = dico_assembly[K][0:(start - 1)] + 'N' * (end - start +1) + dico_assembly[K][end - 1:len(dico_assembly[K])]
+                            dico_assembly[K] = 'N' * (end - start) + dico_assembly[K][end - 1:len(dico_assembly[K])]
                         else :
                             dico_assembly[K] = dico_assembly[K][0:(start-1)] +'N'*(end-start) + dico_assembly[K][end-1:len(dico_assembly[K])]
                 else :
@@ -336,7 +283,7 @@ if __name__ == "__main__":
         with open('{0}_cds.fasta'.format(prefix), 'w') as output_cds :
             for id in sorted(dicoRNA.keys() ,key = sort_human):
                 Scaffold, start, end ,brin= dicoRNA[id]
-                seq = dicoSeq[Scaffold][(start-1):end]
+                seq = dico_assembly[Scaffold][(start-1):end]
                 listeCDS = sorted(dicoCDS[id])
                 cds = ''
                 for elt in listeCDS:

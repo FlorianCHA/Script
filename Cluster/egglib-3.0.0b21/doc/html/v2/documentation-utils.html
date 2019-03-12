@@ -1,0 +1,2088 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Directly executable commands &mdash; EggLib</title>
+    
+    <link rel="stylesheet" href="_static/sphinxdoc.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '2.1.11',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="shortcut icon" href="_static/icon.ico"/>
+    <link rel="top" title="EggLib" href="index.html" />
+    <link rel="next" title="Authors" href="authors.html" />
+    <link rel="prev" title="test" href="test.html" /> 
+  </head>
+  <body>
+
+<div style="background-color: white; text-align: left; padding: 0px 0px 0px 0px">
+<a href="index.html"><img src="_static/egglib_banniere5.png" border="0" alt="EggLib"/></a>
+</div>
+
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="authors.html" title="Authors"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="test.html" title="test"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">EggLib</a> &raquo;</li> 
+      </ul>
+    </div>
+<div style="background-color: grey; text-align: left; padding: 0px 0px 0px 10px; border-bottom: 1px solid #2d2e91">
+<font color="white" ><b>EggLib version 2.1 is archived.</b></font></div>
+
+
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Directly executable commands</a><ul>
+<li><a class="reference internal" href="#list-of-commands">List of commands</a><ul>
+<li><a class="reference internal" href="#abc-bin">abc_bin</a></li>
+<li><a class="reference internal" href="#abc-compare">abc_compare</a></li>
+<li><a class="reference internal" href="#abc-fit">abc_fit</a></li>
+<li><a class="reference internal" href="#abc-plot1d">abc_plot1D</a></li>
+<li><a class="reference internal" href="#abc-plot2d">abc_plot2D</a></li>
+<li><a class="reference internal" href="#abc-psimuls">abc_psimuls</a></li>
+<li><a class="reference internal" href="#abc-sample">abc_sample</a></li>
+<li><a class="reference internal" href="#abc-sample-prior-specification">abc_sample: prior specification</a></li>
+<li><a class="reference internal" href="#abc-sample-demographic-models">abc_sample: demographic models</a></li>
+<li><a class="reference internal" href="#abc-sample-sets-of-summary-statistics">abc_sample: sets of summary statistics</a></li>
+<li><a class="reference internal" href="#abc-statsdisc">abc_statsdisc</a></li>
+<li><a class="reference internal" href="#abc-statsmarg">abc_statsmarg</a></li>
+<li><a class="reference internal" href="#analyzer">analyzer</a></li>
+<li><a class="reference internal" href="#blastgb">blastgb</a></li>
+<li><a class="reference internal" href="#clean-seq">clean_seq</a></li>
+<li><a class="reference internal" href="#clean-tree">clean_tree</a></li>
+<li><a class="reference internal" href="#codalign">codalign</a></li>
+<li><a class="reference internal" href="#concat">concat</a></li>
+<li><a class="reference internal" href="#concatgb">concatgb</a></li>
+<li><a class="reference internal" href="#consensus">consensus</a></li>
+<li><a class="reference internal" href="#cprimers">cprimers</a></li>
+<li><a class="reference internal" href="#diffscan">diffscan</a></li>
+<li><a class="reference internal" href="#extract">extract</a></li>
+<li><a class="reference internal" href="#extract-clade">extract_clade</a></li>
+<li><a class="reference internal" href="#family">family</a></li>
+<li><a class="reference internal" href="#fasta2mase">fasta2mase</a></li>
+<li><a class="reference internal" href="#fasta2nexus">fasta2nexus</a></li>
+<li><a class="reference internal" href="#fasta2phyml">fasta2phyml</a></li>
+<li><a class="reference internal" href="#fg2gb">fg2gb</a></li>
+<li><a class="reference internal" href="#gb2fas">gb2fas</a></li>
+<li><a class="reference internal" href="#infos">infos</a></li>
+<li><a class="reference internal" href="#interld">interLD</a></li>
+<li><a class="reference internal" href="#matcher">matcher</a></li>
+<li><a class="reference internal" href="#names">names</a></li>
+<li><a class="reference internal" href="#phyml">phyml</a></li>
+<li><a class="reference internal" href="#rename">rename</a></li>
+<li><a class="reference internal" href="#reroot">reroot</a></li>
+<li><a class="reference internal" href="#select">select</a></li>
+<li><a class="reference internal" href="#sprimers">sprimers</a></li>
+<li><a class="reference internal" href="#staden2fasta">staden2fasta</a></li>
+<li><a class="reference internal" href="#translate">translate</a></li>
+<li><a class="reference internal" href="#truncate">truncate</a></li>
+<li><a class="reference internal" href="#ungap">ungap</a></li>
+<li><a class="reference internal" href="#winphyml">winphyml</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="test.html"
+                        title="previous chapter">test</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="authors.html"
+                        title="next chapter">Authors</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/documentation-utils.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="directly-executable-commands">
+<span id="apps"></span><h1>Directly executable commands<a class="headerlink" href="#directly-executable-commands" title="Permalink to this headline">¶</a></h1>
+<p>The commands make available a bunch of pre-implemented applications that
+can be launched directly from a command interpreter. A script named
+<tt class="docutils literal"><span class="pre">egglib</span></tt> is installed in system directories and can be used as
+follows: <tt class="docutils literal"><span class="pre">egglib</span> <span class="pre">&lt;command&gt;</span> <span class="pre">&lt;option&gt;=&lt;value&gt;</span> <span class="pre">&lt;option&gt;=&lt;value&gt;</span> <span class="pre">...</span>
+<span class="pre">&lt;flag&gt;</span> <span class="pre">&lt;flag&gt;</span></tt> where <em>command</em> is one of the command names, <em>option</em>
+is the name of an option and <em>value</em> is the associated value, and <em>flag</em>
+is the name of a boolean option the must be activated. The syntax
+<tt class="docutils literal"><span class="pre">&lt;option&gt;=&lt;value&gt;</span></tt> is required for all options that expect a value,
+options can be omitted when they define a default value. Flags are
+always off by default. All commands accept a <em>debug</em> flag that activates
+the output of full error message (in particular, this information is
+required when identifying the reason of problems that don&#8217;t arise from
+a mistake in options, input file etc.</p>
+<div class="section" id="list-of-commands">
+<h2>List of commands<a class="headerlink" href="#list-of-commands" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="abc-bin">
+<h3>abc_bin<a class="headerlink" href="#abc-bin" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-python"><div class="highlight"><pre>abc_bin: Binarizes a posterior distribution
+
+Uses the output file of the `abc_fit` command to binarize the posterior
+and generate a &quot;PriorDiscrete&quot;-compatible file. The `quiet` argument is
+ignored.
+
+General usage:
+
+    egglib abc_bin OPTION1=VALUE OPTION2=VALUE ... FLAG1 FLAG2 ...
+
+Options:
+
+    input ..... Name of data file to analyze. The file must be the
+                output file generated by `abc_fit` (by default:
+                `abc_fit.out`) (required)
+    bins ...... Number of categories for all parameters. If specified,
+                the argument `parambins` overwrites this argument
+                (default: `12`)
+    parambins . Specifies specific number of categories for one or more
+                parameters. The argument must be a list of integers
+                (separated by commas) giving the number of categories
+                for all parameters (default: `[]`)
+    ranges .... Specifies the prior ranges for one or more parameters.
+                The argument must be a list of ranges separated by
+                commas (such as `min:max,min:max,min:max,min:max`)
+                giving minimum and maximum value for all parameters (if
+                values lie outside of ranges, and error will be
+                generated) (default: ``)
+    output .... Name of the output file (default: `abc_bin.out`)
+
+Flags (inactive by default):
+
+    quiet . Runs without console output
+    debug . Show complete error messages
+</pre></div>
+</div>
+</div>
+<div class="section" id="abc-compare">
+<h3>abc_compare<a class="headerlink" href="#abc-compare" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-python"><div class="highlight"><pre>abc_compare: Compares several models.
+
+The same set of summary statistics must have been used during
+simulations. This command expects a list of config files that must all
+present the same statistics but may have been generated under different
+models, or models with differing constraints. This command will display
+the proportion of accepted points from each file in the console (and
+ignore the `quiet` arguments). Ref.: Fagundes et al. PNAS 2007.
+
+General usage:
+
+    egglib abc_compare OPTION1=VALUE OPTION2=VALUE ... FLAG1 FLAG2 ...
+
+Options:
+
+    input ..... One or several ABC config files, separated by commas
+                when more than one. (required)
+    tolerance . Proportion of samples to include in the local region
+                (example: a value of 0.05 specifies that the 5% closest
+                samples should be used). (required)
+
+Flags (inactive by default):
+
+    quiet . Runs without console output
+    debug . Show complete error messages
+</pre></div>
+</div>
+</div>
+<div class="section" id="abc-fit">
+<h3>abc_fit<a class="headerlink" href="#abc-fit" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-python"><div class="highlight"><pre>abc_fit: Uses samples to fit models using Approximate Bayesian Computation
+
+Performs rejection-regression method of Beaumont et al. Genetics 2002.
+Note: ensure that enough samples will pass the tolerance threshold.
+
+General usage:
+
+    egglib abc_fit OPTION1=VALUE OPTION2=VALUE ... FLAG1 FLAG2 ...
+
+Options:
+
+    input ..... Name of data file to analyze. The file must be the
+                parameter file generated by `abc_sample` (by default:
+                `abc_sample.txt`) (required)
+    tolerance . Proportion of samples to include in the local region
+                (example: a value of 0.05 specifies that the 5% closest
+                samples should be used). (required)
+    transform . Data transformation to apply. Accepted values are
+                `none`, `log` and `tan` (default: `none`)
+    output .... Name of the output file. (default: `abc_fit.out`)
+
+Flags (inactive by default):
+
+    quiet . Runs without console output
+    debug . Show complete error messages
+</pre></div>
+</div>
+</div>
+<div class="section" id="abc-plot1d">
+<h3>abc_plot1D<a class="headerlink" href="#abc-plot1d" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-python"><div class="highlight"><pre>abc_plot1D: Plots marginal distributions from a discretized posterior
+
+The posterior must have been discretized using the command `abc_bin`.
+The command will plot the marginal distribution of of either one
+(specified) or all parameters as png (portable network graphics) files.
+The graphics will be histogram, when the class limits will be fully
+defined by the discretization step accomplished previously. The Python
+module matplotlib is needed to use this command.
+
+General usage:
+
+    egglib abc_plot1D OPTION1=VALUE OPTION2=VALUE ... FLAG1 FLAG2 ...
+
+Options:
+
+    input .. Name of data file to analyze. The file must be of the
+             `PriorDiscrete` form as the output file of `abc_bin` (by
+             default: `abc_bin.out`), but any `PriorDiscrete` data is
+             supported (required)
+    index .. Which parameter to plot. By default (and with an empty
+             argument), all parameters are plotted (default: ``)
+    params . Name(s) to use in the graphic axes. It must match the
+             number of parameter(s) to be plotted. By default, the
+             index of parameters will be used (default: `[]`)
+    root ... Root name of output files. The template output file name
+             is `&lt;root&gt;_&lt;param&gt;.png` where &lt;root&gt; is the value of this
+             argument and &lt;param&gt; is the name of the parameter being
+             plotted (default: `abc_plot`)
+
+Flags (inactive by default):
+
+    quiet . Runs without console output
+    debug . Show complete error messages
+</pre></div>
+</div>
+</div>
+<div class="section" id="abc-plot2d">
+<h3>abc_plot2D<a class="headerlink" href="#abc-plot2d" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-python"><div class="highlight"><pre>abc_plot2D: Plots discretized posterior on a two-dimensional plan
+
+The posterior must have been discretized using the command `abc_bin`.
+The command will plot the (marginal) distribution of of two specified
+parameters as a png (portable network\ graphics) file. The graphics
+will be a two-dimensional density plot, where the class limits will be
+fully defined by the discretization step accomplished previously. The
+distribution should be called `marginal` if the model has more than two
+parameters and will be the full posterior distribution (with all
+information visible) if the model has two parameters.
+
+General usage:
+
+    egglib abc_plot2D OPTION1=VALUE OPTION2=VALUE ... FLAG1 FLAG2 ...
+
+Options:
+
+    input .. Name of data file to analyze. The file must be of the
+             `PriorDiscrete` form as the output file of `abc_bin` (by
+             default: `abc_bin.out`), but any `PriorDiscrete` data is
+             supported (required)
+    index1 . Index of the parameter to plot on the first axis
+             (required)
+    index2 . Index of the parameter to plot on the second axis
+             (required)
+    param1 . Name of the parameter to use as first axis label (default:
+             ``)
+    param2 . Name of the parameter to use as second axis label
+             (default: ``)
+    output . Name of the output file. The default corresponds to
+             `abc_plot_PARAM1-PARAM2.png` (default: ``)
+
+Flags (inactive by default):
+
+    CI .... displays the 95% credible interval as colored region
+    quiet . Runs without console output
+    debug . Show complete error messages
+</pre></div>
+</div>
+</div>
+<div class="section" id="abc-psimuls">
+<h3>abc_psimuls<a class="headerlink" href="#abc-psimuls" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-python"><div class="highlight"><pre>abc_psimuls: Performs posterior simulations
+
+This command generates a defined number of a user- defined list of
+statistics for one locus. A different set of parameter values is
+randomly drawn for each repetition. Simulations are conditioned on the
+number(s) of sequences and alignment length(s) passed as arguments. The
+command generates a comma-separated table without header that is
+displayed in the console. `None` denote unavailable statistics (such as
+those that are undefined because of the lack of polymorphism). The
+argument `quiet` is ignored.
+
+General usage:
+
+    egglib abc_psimuls OPTION1=VALUE OPTION2=VALUE ... FLAG1 FLAG2 ...
+
+Options:
+
+    model ..... Model to use for simulation. This argument corresponds
+                to the model specification in the `abc_sample` command
+                (required)
+    prior ..... Distribution of parameters. This argument corresponds
+                to the prior specification in the `abc_sample` command.
+                Note that binarized posterior files generated by the
+                `abc_bin` command are compatible. (required)
+    ns ........ Sample configuration: gives the number of sequence
+                sampled in one or more subpopulations. Each value must
+                be an integer and, when more than one, values must be
+                separated by commas. Each locus must contain at least
+                two samples (in any subpopulation) (required)
+    ls ........ Sample configuration: gives the number of sites to
+                simulate. The argument must be an integer (required)
+    nrepets ... Number of repetitions to perform (required)
+    stats ..... Labels of the statistics to compute. The statistic
+                names correspond to the arguments of the EggLib
+                function `polymorphism` (note that some statistics are
+                only available when more than one population is defined
+                and/or when EggLib&#39;s core was linked to the Bio++
+                libraries at compile-time). The statistics are printed
+                to the console in the order given by this option, one
+                line per simulation (required)
+    seeds ..... Seeds of the random number generator. They must be
+                given as two integer separated by a comma, as in
+                `seeds=12345,67890`. By default, the random number
+                generator is seeded from the system time (default: `0`)
+    add_model . The name of a file containing a model definition
+                (default: ``)
+
+Flags (inactive by default):
+
+    quiet . Runs without console output
+    debug . Show complete error messages
+</pre></div>
+</div>
+</div>
+<div class="section" id="abc-sample">
+<h3>abc_sample<a class="headerlink" href="#abc-sample" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-python"><div class="highlight"><pre>abc_sample: Generates samples to fit Approximate Bayesian Computation models
+
+This command draws a given number of random sample from the prior
+distribution and generates associated set of summary statistics. Note
+that the output file is overwritten without prompting.
+
+General usage:
+
+    egglib abc_sample OPTION1=VALUE OPTION2=VALUE ... FLAG1 FLAG2 ...
+
+Options:
+
+    dir ......... Directory containing fasta files (default: `.`)
+    ext ......... Extension of files to import. If an empty string is
+                  passed (as in `ext=`), only files without extension
+                  (without any dot in their name) are processed
+                  (default: `fas`)
+    params ...... Name of report file. (default: `abc_sample.txt`)
+    data ........ name of main output file (default: `abc_sample.out`)
+    model ....... Demographic model (use option `model?` for more
+                  information) (must be specified) If an argument is
+                  needed, it must be given as in the following example:
+                  `AM:2` (for the model AM) (default: ``)
+    prior ....... Prior distribution file (use option `prior?` for more
+                  information) (must be specified) (default: ``)
+    stats ....... Set of summary statistics (use option `stats?` for
+                  more information) (must be specified). If an argument
+                  is needed, it must be given as in the following
+                  example: `SFS:4` (for the statistic set SFS)
+                  (default: ``)
+    post ........ Number of points to sample (default: `10000`)
+    seeds ....... Seeds of the random number generator. They must be
+                  given as two integer separated by a comma, as in
+                  `seeds=12345,67890`. By default, the random number
+                  generator is seeded from the system time (default:
+                  `0`)
+    restart ..... Complete an interrupted run. The arguments are read
+                  from the file and all other command line arguments
+                  are ignored. The argument must be the name of a
+                  `params` file (or an empty string to disable this
+                  function). Note that it is currently impossible to
+                  restore the random number generator status (meaning
+                  that the seeds will be lost and that the new run will
+                  be based on seeds based from system time) (default:
+                  ``)
+    add_model ... The name of a Python module containing a model
+                  definition. Pass a module name (without dots or
+                  dashes), such as &quot;MyModel&quot; and create a file
+                  &quot;MyModel.py&quot; (with a py extension in addition of the
+                  module name. The class defining the model must have
+                  the same name (&quot;MyModel&quot;) (default: ``)
+    max_threads . Maximum number of threads to start for parallel
+                  computations. The maximum number of threads is the
+                  number of CPUs available. By default (max_threads=0),
+                  all CPUs are used (default: `0`)
+
+Flags (inactive by default):
+
+    prior? ......... Show instructions for specifying priors
+    model? ......... Show the list of available demographic models
+    stats? ......... Show the list of available sets of summary stats
+    force_positive . Forces all values drawn from priors to be &gt;=0
+    quiet .......... Runs without console output
+    debug .......... Show complete error messages
+</pre></div>
+</div>
+</div>
+<div class="section" id="abc-sample-prior-specification">
+<h3>abc_sample: prior specification<a class="headerlink" href="#abc-sample-prior-specification" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-python"><div class="highlight"><pre>Prior specification for `abc_sample`
+
+There are two ways of specifying priors: by passing the name of a file
+containing a prior specification string, and by passing this string
+itself. The prior specification format depends on the prior type and is
+given in the documentation of the `fitmodel` module of the EggLib python
+package, and examples are given later in this document. Note that the
+prior type is automatically detected from the string.
+
+Currently available prior types: PriorDumb, PriorDiscrete, PriorParser
+
+An example of prior specification for `PriorDiscrete` is:
+
+    0.8 0.00;0.05 0.0;0.5
+    0.1 0.05;0.10 0.0;0.5
+    0.1 0.00;0.05 0.5;5.0
+
+It specifies an almost flat uniform prior from 0. to 0.1 on the first
+axis and from 0. to 5.0 on the second axis, with an increased
+probability for values with THETA lesser than 0.05 and ALPHA lesser than
+0.5.
+
+An example of prior specification for `PriorDumb` is:
+
+    U(0.,0.5) E(0.1)
+
+This prior specifies a flat uniform prior distribution for the first
+parameter and an exponential distribution with mean 0.1 for the second
+parameter . Note that it is also possible to write the specification for
+individual parameters on separated lines.
+
+To pass a file name, use the `prior` option normally, as in:
+
+    egglib abc_sample prior=filename
+
+To pass a raw string and avoid that it is mistaken for a file name, use
+a % character as below:
+
+    egglib abc_sample prior=&quot;%0.9 0.00;0.10&quot;
+
+For prior specifications that require more than one line, use the line
+separator `\n` as below:
+
+    egglib abc_sample prior=&quot;%0.9 0.00;0.05\n0.1 0.05;0.10&quot;
+</pre></div>
+</div>
+</div>
+<div class="section" id="abc-sample-demographic-models">
+<h3>abc_sample: demographic models<a class="headerlink" href="#abc-sample-demographic-models" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-python"><div class="highlight"><pre>Demographic models (with list of parameters) for `abc_sample`:
+
+=====
+ SNM
+=====
+
+-------------
+ THETA [RHO]
+-------------
+
+    Standard Neutral Model: constant-sized single population. Allows
+    optional recombination. Parameters: THETA, RHO (optional).
+
+=====
+ PEM
+=====
+
+-------------------
+ THETA ALPHA [RHO]
+-------------------
+
+    Population Expansion Model (exponential growth), with optional
+    recombination. Parameters: THETA, ALPHA, RHO (optional).
+
+=====
+ BNM
+=====
+
+--------------------------------------
+ THETA DATE DUR BOTSIZE ANCSIZE [RHO]
+--------------------------------------
+
+    Bottleneck Model, with optional recombination. Parameters:
+
+        - THETA
+        - DATE (date of the end of the bottleneck)
+        - DUR (bottleneck duration)
+        - BOTZISE (size of the population during the bottleneck)
+        - ANCSIZE (size of the ancestral population)
+        - RHO (optional)
+
+    Note that if botsize is &gt;1, the model can be generalized to a
+    double instant change model.
+
+=====
+ GDB
+=====
+
+--------------------------
+ THETA DATE STRENGTH[RHO]
+--------------------------
+
+    Composite-parameter bottleneck, after the formalization of Galtier,
+    Depaulis and Barton bottleneck model, with optional recombination.
+    The bottleneck is implemented as a number of coalescent events
+    occurring precisely at the time given by the DATE parameter. The
+    STRENGTH is expressed as an amount of time of the normal coalescent
+    process during which only coalescent occur (no migraton, not
+    mutation) and during which the global time counter doesn&#39;t change.
+    Ref: Galtier *et al.* *Genetics* **155**:981-987, 2000.
+
+    Parameters: THETA, DATE, STRENGTH, RHO (optional).
+
+======
+ GGDB
+======
+
+-----------------------------------
+ THETA DATE STRENGTH ANCSIZE [RHO]
+-----------------------------------
+
+    Generalized Galtier, Depaulis and Barton with optional recombination.
+    See GDB model. ANCSIZE gives the ancestral population size.
+    Parameters: THETA, DATE, STRENGTH, ANCSIZE, RHO (optional).
+
+====
+ IM
+====
+
+------------------
+ THETA MIGR [RHO]
+------------------
+
+    Island Model, with optional recombination. The number of populations
+    is automatically detected from the observed dataset. Parameters:
+    THETA, MIGR, RHO (optional).
+
+=====
+ IMn
+=====
+
+----------------------------
+ THETA MIGR SIZE1 ... [RHO]
+----------------------------
+
+    Island Model with different population sizes, with optional
+    recombination. The size of the first population is fixed to 1,
+    therefore the size of all populations with index &gt;1 must be
+    specified as parameter. Parameters: THETA, MIGR, population sizes,
+    RHO (optional).
+
+=====
+ IMG
+=====
+
+------------------------
+ THETA MIGR ALPHA [RHO]
+------------------------
+
+    Island Model with exponential Growth, with optional recombination.
+    Parameters: THETA, MIGR, ALPHA,
+
+======
+ IMiG
+======
+
+------------------------------------
+ THETA MIGR ALPHA1 ALPHA2 ... [RHO]
+------------------------------------
+
+    Island Model with Independent exponential Growth in each population,
+    with optional recombination. The growth rate of each population must
+    be provided. Parameters: THETA, MIGR, ALPHA for all populations,
+    RHO (optional).
+
+=======
+ IMiGn
+=======
+
+----------------------------------------------
+ THETA MIGR ALPHA1 ALPHA1 ... SIZE2 ... [RHO]
+----------------------------------------------
+
+    Island Model with Independent exponential Growth in each population,
+    different population sizes and with optional recombination (the
+    size of the first population is fixed to 1). The growth rate of each
+    population must be provided, and the size of all populations save
+    for the first one as well. Parameters: THETA, MIGR, growth rates,
+    population sizes, RHO (optional).
+
+=====
+ MRC
+=====
+
+------------------------------
+ THETA DATE MIGR0 MIGR1 [RHO]
+------------------------------
+
+    Migration Rate Change, with optional recombination. MIGR0 is the
+    current migration rate and MIGR1 the ancestral migration rate.
+    Parameters, THETA, DATE, MIGR0, MIGR1, RHO (optional).
+
+====
+ AM
+====
+
+-----------------------
+ THETA DATE MIGR [RHO]
+-----------------------
+
+    Admixture Model, with optional recombination. The DATE argument sets
+    the time when ancestral populations joined and MIGR the migration
+    rate that occurred between these populations. Note that the
+    migration rate must not be 0 because coalescent time might be
+    infinite. Present-day samples are not structured. Parameters: THETA,
+    DATE, MIGR, RHO (optional). In `abc_sample`, specify this model as
+    `AM:k` where `k` is the number of ancestral populations.
+
+====
+ SM
+====
+
+-----------------------
+ THETA MIGR DATE [RHO]
+-----------------------
+
+    Split Model (thinking forward), with optional recombination. The
+    DATE parameter sets the split date and MIGR the migration rate
+    after the split. Parameters: THETA, MIGR, DATE, RHO (optional).
+
+=====
+ DOM
+=====
+
+-----------------------------------------
+ THETA SIZE DATE DUR STRENGTH MIGR [RHO]
+-----------------------------------------
+
+    Domestication model, with optional recombination. Parameters:
+
+        - THETA
+        - SIZE (size of the cultivated population)
+        - DATE (date of the bottleneck)
+        - DUR (duration of the bottleneck)
+        - STRENGTH (size of the bottleneck population)
+        - MIGR (bidirectional migration rate)
+        - RHO (optional)
+
+    The size of the wild population is 1. The domestication date is
+    DATE+DUR.
+</pre></div>
+</div>
+</div>
+<div class="section" id="abc-sample-sets-of-summary-statistics">
+<h3>abc_sample: sets of summary statistics<a class="headerlink" href="#abc-sample-sets-of-summary-statistics" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-python"><div class="highlight"><pre>Sets of summary statistics for `abc_sample`:
+
+=====
+ SDZ
+=====
+
+    Computes the following statistics: S, D, H (averaged over all loci
+    excluding, for D and Z (standardized H), loci without polymorphism).
+    Warning: when alignments have a tMRCA member, it will be assumed
+    that they are simulated and that A is always the ancestral allele.
+    In that case, they should not have any outgroup sequence. Alignments
+    created from fasta file don&#39;t have a tMRCA member.
+
+=====
+ TPH
+=====
+
+    Computes the following statistics: thetaW, Pi, He (averaged over
+    all loci).
+
+=====
+ TPS
+=====
+
+    Computes the following statistics: total thetaW, Pi for each
+    populationm and Hudson&#39;s Snn (nearest neighbor statistic). The number
+    of statistics will be 2 + the number of populations. Statistics are
+    averaged over all loci.
+
+=====
+ TPF
+=====
+
+    Computes the following statistics: total thetaW, Pi for each
+    population, and Fst. The number of statistics will be 2 + the
+    number of populations. Statistics are averaged over all loci.
+
+=====
+ TPK
+=====
+
+    Computes the following statistics: total thetaW, Pi for each
+    population, and Kst. The number of statistics will be 2 + the
+    number of populations. Statistics are averaged over all loci.
+
+=====
+ SFS
+=====
+
+    Compute the site frequency spectrum. The statistics are the average
+    thetaW over all loci, and then the relative frequency of a
+    user-defined number of bins of allele minor frequencies. For example,
+    if the number of bins if 4, the 5 statistics will be: average thetaW,
+    and then proportion of all polymorphic sites from all loci with minor
+    allele &lt;=0.125, &gt;0.125 and &lt;=0.25, &gt;0.25 and &lt;=0.375, and &gt;0.375 and
+    &lt;=0.5. Expected argument: number of categories in the spectrum.
+
+=====
+ JFS
+=====
+
+    Compute the joint frequency spectrum. This set of summary statistics
+    requires two populations The first two statistics are the average
+    thetaW over all loci in both populations, and then the relative
+    frequency of a user-defined number of bins of the frequencies of
+    the minor allele in both populations. If the number of bins if 4,
+    there will be 2+4**4 = 18 statistics: average thetaW in the first
+    populations, in the second populations, and then the proportion of
+    mutations with the minor allele at frequency &lt;=0.125 in both
+    populations, and then at frequency &lt;=0.125 in the first population
+    but at frequency &gt;0.125 and &lt;=0.25 in the second population, and so
+    on. Expected argument: number of categories in one dimension of the
+    joint spectrum.
+
+    There are some restrictions when using this summary statistics set:
+    there must be exactly two populations; sequences for the first
+    population must be consecutive; there must be exactly two alleles at
+    each site and there cannot be any missing data.
+
+=====
+ DIV
+=====
+
+    Computes the following statistics: total thetaW, total Pi, total He,
+    Fst, Gst, Snn, and, for each population, thetaW, Pi and He. The
+    number of statistics will be 6 + 3 * the number of populations.
+    Statistics are averaged over all loci.
+</pre></div>
+</div>
+</div>
+<div class="section" id="abc-statsdisc">
+<h3>abc_statsdisc<a class="headerlink" href="#abc-statsdisc" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-python"><div class="highlight"><pre>abc_statsdisc: Properties of a discretized posterior distribution
+
+The posterior must have been discretized using the command `abc_bin`.
+The joint properties of distribution are computed and displayed in the
+console. The argument `quiet` is ignored.
+
+General usage:
+
+    egglib abc_statsdisc OPTION1=VALUE OPTION2=VALUE ... FLAG1 FLAG2 ...
+
+Options:
+
+    input . Name of data file to analyze. The file must be of the
+            `PriorDiscrete` form as the output file of `abc_bin` (by
+            default: `abc_bin.out`), but any `PriorDiscrete` data is
+            supported (required)
+    q ..... Which credible interval to output (by default, the bounds
+            of the 95% density set are presented) (default: `0.95`)
+
+Flags (inactive by default):
+
+    quiet . Runs without console output
+    debug . Show complete error messages
+</pre></div>
+</div>
+</div>
+<div class="section" id="abc-statsmarg">
+<h3>abc_statsmarg<a class="headerlink" href="#abc-statsmarg" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-python"><div class="highlight"><pre>abc_statsmarg: Marginal properties of a posterior distribution
+
+Uses the output file of the `abc_fit` command and computes properties
+of the marginal distribution of each parameter. Results are displayed
+in the console. The argument `quiet` is ignored.
+
+General usage:
+
+    egglib abc_statsmarg OPTION1=VALUE OPTION2=VALUE ... FLAG1 FLAG2 ...
+
+Options:
+
+    input . Name of data file to analyze. The file must be the output
+            file generated by `abc_fit` (by default: `abc_fit.out`)
+            (required)
+
+Flags (inactive by default):
+
+    quiet . Runs without console output
+    debug . Show complete error messages
+</pre></div>
+</div>
+</div>
+<div class="section" id="analyzer">
+<h3>analyzer<a class="headerlink" href="#analyzer" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-python"><div class="highlight"><pre>analyzer: Extended port of samplestat
+
+This command reads `ms` output and computes several statistics. Results
+are presented in the console in a format similar to the `samplestat`
+output, one simulation per line (although the number, and idenity and
+order of statistics are different). To analyse data from standard input
+with default options, you have to type: `egglib analyzer input=`. This
+command always displays results in the standard output stream; the
+`quiet` option is ignored
+
+General usage:
+
+    egglib analyzer OPTION1=VALUE OPTION2=VALUE ... FLAG1 FLAG2 ...
+
+Options:
+
+    input .. Name of the `ms` output file to read. By default (empty
+             string), data are read from standard input) (default: ``)
+    config . Sample configuration. In case of a structured sample, this
+             option gives the number of samples from each population,
+             each separated by a comma, as  in `config=20,20,18`. For a
+             unique and non-subdivised population, a single integer
+             should be passed (required)
+    mis .... Misorientation rate (if &gt;0, reverse randomly the
+             assignation ancestral/derived with the probability)
+             (default: `0.0`)
+    stats .. Specifies the list of stats (and the order) to compute.
+             The list must be comma-separated and contain only names of
+             valid statistics that can be computed from the `ms` data
+             passed. Still, invalid statistic will be silently skipped.
+             Refer to the documentation of EggLib&#39;s
+             `Align.polymorphism` method for details about the
+             statistics. By default, a pre-defined list of statistics
+             is used (default: `[]`)
+
+Flags (inactive by default):
+
+    quiet . Runs without console output
+    debug . Show complete error messages
+</pre></div>
+</div>
+</div>
+<div class="section" id="blastgb">
+<h3>blastgb<a class="headerlink" href="#blastgb" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-python"><div class="highlight"><pre>blastgb: Blasts all coding sequences from a GenBank file.
+
+Imports a GenBank record and performs a BLAST search of all `CDS`
+features against a given (local) database. Generates another GenBank
+record with the name of the best hit(s) (separated by the // string
+when more than one) appended to the `note` field.
+
+General usage:
+
+    egglib blastgb OPTION1=VALUE OPTION2=VALUE ... FLAG1 FLAG2 ...
+
+Options:
+
+    input .... Name of a GenBank file (required)
+    output ... Name of the output file (required)
+    db ....... Path of the target database. By default, the database
+               should be a fasta-formatted file of nucleotide sequences
+               but flags `prot` and `formatted` can control this
+               (required)
+    evalue ... Expectaction value: expected number of random hits by
+               chance alone, depending on the database size. The
+               default value is e^-6 (therefore much less - and more
+               stringent - than `blastn`&#39;s default value which is 10)
+               (default: `0.00247875217667`)
+    nresults . Maximum number of hits to output (default: `1`)
+
+Flags (inactive by default):
+
+    prot ...... Performs protein-against-protein BLAST searches. With
+                this flag activated, the database passed through `db`
+                must contain protein sequences
+    formatted . Pass this flag is the file named by the `db` option is
+                a pre-formatted BLAST database (using the `formatdb`
+                command) rather than a fasta file. In this case, the
+                base name of the database should be passed
+    quiet ..... Runs without console output
+    debug ..... Show complete error messages
+</pre></div>
+</div>
+</div>
+<div class="section" id="clean-seq">
+<h3>clean_seq<a class="headerlink" href="#clean-seq" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-python"><div class="highlight"><pre>clean_seq: Removes ambiguity characters from nucleotide sequences.
+
+The `quiet` option is ignored.
+
+General usage:
+
+    egglib clean_seq OPTION1=VALUE OPTION2=VALUE ... FLAG1 FLAG2 ...
+
+Options:
+
+    input .. Name of a the input fasta file (required)
+    output . Name of the output file (required)
+    chars .. A string listing all valid characters. Note that the
+             comparisons are case-insensitive. (default: `ACGTN-`)
+
+Flags (inactive by default):
+
+    quiet . Runs without console output
+    debug . Show complete error messages
+</pre></div>
+</div>
+</div>
+<div class="section" id="clean-tree">
+<h3>clean_tree<a class="headerlink" href="#clean-tree" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-python"><div class="highlight"><pre>clean_tree: Cleans a newick tree.
+
+This command removes internal branch labels and/or branch lengths from
+a newick tree. The `quiet` option is ignored.
+
+General usage:
+
+    egglib clean_tree OPTION1=VALUE OPTION2=VALUE ... FLAG1 FLAG2 ...
+
+Options:
+
+    input .. Name of an input newick file (required)
+    output . Name of the output file (required)
+
+Flags (inactive by default):
+
+    keep_labels . Don&#39;t remove internal branch labels
+    keep_brlens . Don&#39;t remove branch lengths
+    quiet ....... Runs without console output
+    debug ....... Show complete error messages
+</pre></div>
+</div>
+</div>
+<div class="section" id="codalign">
+<h3>codalign<a class="headerlink" href="#codalign" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-python"><div class="highlight"><pre>codalign: Protein-based alignment of coding sequences.
+
+This command accepts codings (nucleotide) sequences and perform
+alignment at the protein level (or accept the corresponding protein
+alignment) and generates a coding sequence alignment guaranteed to fit
+the reading frame (gaps are multiple of three and don&#39;t split codons
+apart). Note that errors can be  generated by the presence of stop
+codons in sequences. By default, this command crops the final stop
+codon of coding sequences. Use the `keepstop` flag to prevent this.
+
+General usage:
+
+    egglib codalign OPTION1=VALUE OPTION2=VALUE ... FLAG1 FLAG2 ...
+
+Options:
+
+    input .. Name of an input fasta file (required)
+    output . Name of the output file (required)
+    prot ... Name of a fasta file containing aligned proteins. The
+             proteins sequences should match exactly the conceptual
+             traduction of coding sequences. If an empty string is
+             passed (the default), the option is ignored and the
+             alignment is performed automatically on conceptual
+             translations (default: ``)
+
+Flags (inactive by default):
+
+    muscle ... Uses the program `muscle` (default is `clustalw`)
+    keepstop . Don&#39;t crop final stop codon of coding sequences
+    quiet .... Runs without console output
+    debug .... Show complete error messages
+</pre></div>
+</div>
+</div>
+<div class="section" id="concat">
+<h3>concat<a class="headerlink" href="#concat" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-python"><div class="highlight"><pre>concat: Concatenation of sequence alignments.
+
+Combines sequence information from fasta-formatted sequence alignments.
+Sequences are concatenated when their names match (either exact or
+partial matches), regardless of the order of sequences. When sequences
+are missing in one of the alignment, they are replaced by a stretch of
+missing data of appropriate length. Spacers of missing data can be
+placed between concatenated alignments, depending on option values. The
+`quiet` option is ignored. By default, the full name of sequences is
+used for comparison. It is possible to restrict the comparison to the
+beginning of the sequence (at a fixed length) or using a specified
+separator character, but not both.
+
+General usage:
+
+    egglib concat OPTION1=VALUE OPTION2=VALUE ... FLAG1 FLAG2 ...
+
+Options:
+
+    input ..... A list of fasta file names. The names must be separated
+                by commands, as in `file1,file2,file3`. It is possible
+                to use UNIX wild cards (*, ~). File names might be
+                duplicated (required)
+    output .... Name of the output file (required)
+    spacer .... Gives the length of stretches of missing data to be
+                introduced between concatenated alignments. If the
+                argument is an integer, the same spacer in introduced
+                between all pairs of consecutive alignments. To
+                introduce variable-length spacers, a list of
+                comma-separated integers must be passed, and the number
+                of values must be equal to the number of alignments
+                minus 1. By default, no spacers are inserted. (default:
+                `0`)
+    character . Character to use for spacer stretches and for missing
+                segments. This argument should be changed to `X` when
+                dealing with protein sequences (default: `?`)
+    sep ....... Character to use as separator (only characters before
+                the first occurrence of the character are considered;
+                the whole string is considered if the character is not
+                present in a sequence name) (default: ``)
+    len ....... Maximum number of characters to considered (the rest of
+                the string is discarded) (default: `-1`)
+
+Flags (inactive by default):
+
+    partial . The comparison of sequence names is performed only over
+              the length of the shortest name, such as `anaco` and
+              `anaconda` are held as identical, and concatenated under
+              the name `anaconda`
+    case .... Ignore case for comparison (all names are converted to
+              lower case)
+    quiet ... Runs without console output
+    debug ... Show complete error messages
+</pre></div>
+</div>
+</div>
+<div class="section" id="concatgb">
+<h3>concatgb<a class="headerlink" href="#concatgb" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-python"><div class="highlight"><pre>concatgb: Concatenation of GenBank records.
+
+The `quiet` option is ignored.
+
+General usage:
+
+    egglib concatgb OPTION1=VALUE OPTION2=VALUE ... FLAG1 FLAG2 ...
+
+Options:
+
+    file1 ..... First GenBank record (required)
+    file2 ..... First GenBank record (required)
+    output .... Name of the output file (required)
+    spacer .... Number of characters to insert between records
+                (default: `0`)
+    character . Character to use for the spacer  (default: `N`)
+
+Flags (inactive by default):
+
+    quiet . Runs without console output
+    debug . Show complete error messages
+</pre></div>
+</div>
+</div>
+<div class="section" id="consensus">
+<h3>consensus<a class="headerlink" href="#consensus" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-python"><div class="highlight"><pre>consensus: Builds consensus of sequences with matching names.
+
+From a nucleotide sequence alignment, the consensus of all pairs of
+sequences that share the same prefix is computed, and only unique names
+are exported. By default, names `spam_a001`, `spam_b145`, as well as
+`spam` are considered as unique and merged. The resulting sequence will
+be named `spam`. More information is available in the documentation of
+the C++ class `Consensus`.
+
+General usage:
+
+    egglib consensus OPTION1=VALUE OPTION2=VALUE ... FLAG1 FLAG2 ...
+
+Options:
+
+    input ......... Nucleotide sequence alignment file (required)
+    output ........ File name for results (required)
+    separator ..... Character used to separate the common prefix from
+                    variable part of sequence names (default: `_`)
+    missing ....... Character intepreted as missing data (always
+                    ignored) (default: `?`)
+    inconsistency . Character used to identify inconsistencies in the
+                    `conservative` mode (default: `Z`)
+
+Flags (inactive by default):
+
+    conservative . Conservative mode of consensus: all differences
+                   between two sequences are considered as
+                   inconsistencies and are marked by the `Z` character
+                   (by default)
+    quiet ........ Runs without console output
+    debug ........ Show complete error messages
+</pre></div>
+</div>
+</div>
+<div class="section" id="cprimers">
+<h3>cprimers<a class="headerlink" href="#cprimers" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-python"><div class="highlight"><pre>cprimers: Finds consensus primers.
+
+Generates consensus primers (degenerated if needed) from a nucleotide
+sequence alignment. Ideally, expects a coding sequence alignment as
+`input` from which the primers will be designed and an annotated
+sequence as `gbin` containing the full sequence with introns which will
+be used to select only primers contained in exons and filter the
+primers overlapping splicing sites out. Generates three output files
+where `output` is an optional base name passed as option:
+`output.list.txt`, `output.pairs.txt` and `output.primers.gb`. The
+first file contains a list of the generated primers, the second
+contains a list of the generated pairs and the last one present the
+reference sequence with annotations showing the position of all
+primers.
+
+General usage:
+
+    egglib cprimers OPTION1=VALUE OPTION2=VALUE ... FLAG1 FLAG2 ...
+
+Options:
+
+    input ...... Nucleotide sequence alignment file (required)
+    output ..... Base file name for results (default: `cprimers`)
+    gbin ....... Reference genbank file (if empty, the first sequence
+                 of the alignment will be used (default: ``)
+    ndeg ....... Maximum number of degenerate positions allowed, per
+                 pair (default: `3`)
+    liml ....... Left limit of the selected region (based on the
+                 reference sequence, not the alignment) (default: `1`)
+    limr ....... Right limit of the selected region  (based on the
+                 reference sequence, not the alignment) (`-1` means the
+                 end of the sequence) (default: `-1`)
+    clean_ends . Number of clean positions (without degenerated bases)
+                 at the end of primers (default: `3`)
+    nseq ....... Number of sequences to include (the default, 0,
+                 corresponds to all) (default: `0`)
+
+Flags (inactive by default):
+
+    no_check . Don&#39;t check for primer dimerization and other primer
+               pair problems
+    quiet .... Runs without console output
+    debug .... Show complete error messages
+</pre></div>
+</div>
+</div>
+<div class="section" id="diffscan">
+<h3>diffscan<a class="headerlink" href="#diffscan" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-python"><div class="highlight"><pre>diffscan: Scans loci for signatures of adaptive differentiation.
+
+This command applies the method of Beaumont and Nichols 1996
+(Proceedings R Soc. Biol. Sci. 263:1619-1626). It uses a large number
+of loci to estimate the genome-wide between-population index of
+fixation based on Weir and Cockerham 1984 (Evolution 18:1358-1370;
+equation 10). The fixation index is called theta in Weir and Cockerham
+but we retain the Fst terminology here.
+The coalescent migration rate 4Nm (here called M) is estimated as:
+
+M = (1-Fst)*(d-1)/(Fst*d),
+
+assuming an island model where `d` is the number of populations in the
+system. Coalescent simulations are performed assuming the number of
+populations, the actual set of samples and assuming a single mutation
+per locus.
+
+Input file:
+
+The input file is a string of one or more loci. Each locus is
+represented by populations  (demes in Weir and Cockerham). There must
+be at least two populations. The number of populations must be
+consistent over loci. Note that white lines are ignored throughout the
+file and can be used as separators but are not required and need not to
+be homogeneously used. Spaces and tabs can also be used to align the
+file and are ignored when they occur at the beginning and end of
+lines.
+
+Comments:
+
+Comments are lines starting with with a hash (`#`) symbol. White spaces
+before the hash are ignored. Comments cannot be placed at the end of
+lines containing data.
+
+Loci:
+
+Loci take a single line each. The type of the locus is given by
+reserved symbols. `$` denotes reference loci (they will be used for
+computing genome-wide parameters and tested) and `%` denotes candidate
+loci (which will be skipped for estimating genome-wide parameters).
+Type symbol must appear before data. An optional label can be placed
+before the symbol. Labels are used to name the locus (by default, an
+automatic label based on its rank is be applied). The same label might
+be used several times and labelled and unlabelled loci might be mixed.
+Labels cannot start by a hash (`#`) symbol, otherwise the line is taken
+as a comment. Labels cannot contain the dollar (`$`) and percent (`%`)
+symbols. The general structure is therefore: `[label]$ data` for
+reference loci and `[label]% data` for test loci. See definition of
+data and example below.
+
+Locus data:
+
+Locus data is given by pairs of allele counts, one for each population.
+The number of populations must be the same across loci. The alleles are
+provided in an arbitrary order. Counts for both alleles must be
+provided as two integer values separated by a comma (`,`). Population
+(ie, pairs counts) are separated from each other and from the type
+symbol by any number of spaces (tabs are also supported). Frequencies
+must be 0 or more. Unsampled populations (`0,0`) are allowed. (If a
+population is missing for all loci, better use the `k` option to
+specify the real number of populations). The first and second alleles
+are equivalent (no orientation) but they must be the same across all
+populations of a given locus.
+
+An example of the input file is provided below. This data set comprises
+two reference loci and one locus to be used for testing only, a total
+of five populations with varying sample size.
+
+    # A comment
+    Reference locus 1 $  10,4  4,1  5,0  12,1   6,3
+    Reference locus 2 $   4,5  3,2  2,4   4,6   3,5
+    Test locus 1      %  15,1  8,0  3,1   2,12  0,10
+
+The command will first perform the number of requested simulations,
+unless the argument `load_simuls` is set. In this case, simulations
+will be imported from a text files containing He, Fst values (one pair
+per line). In this case, simulations parameters (`simuls` and `step`)
+will be ignored. The option `save_simuls` (inactive by default) allows
+to save simulations and to import them in a following run, eg for
+trying out different values of the binarization factor.
+
+The final file contains, for all loci, its He and Fst value, and the
+p-value derived from the distribution.
+
+General usage:
+
+    egglib diffscan OPTION1=VALUE OPTION2=VALUE ... FLAG1 FLAG2 ...
+
+Options:
+
+    input ....... Genotypes iput file (see description above)
+                  (required)
+    output ...... Test results output file (required)
+    plot ........ Graphical output file (requires matplotlib) (default:
+                  ``)
+    k ........... Number of populations. By default (0), the number of
+                  populations in the data set is used. If specified,
+                  the value must be at least equal to the number of
+                  populations in the data set (default: `0`)
+    simuls ...... Number of simulation rounds (default: `10000`)
+    step ........ Number of simulation between screen update (default:
+                  `100`)
+    bins ........ Number of bins in the [0,0.5] heterozygosity range
+                  (default: `12`)
+    save_simuls . Name of file where to save simulations (default: no
+                  save) (default: ``)
+    load_simuls . Name of file where to import simulations (this will
+                  skip simulations; default: perform simulations)
+                  (default: ``)
+
+Flags (inactive by default):
+
+    quiet . Runs without console output
+    debug . Show complete error messages
+</pre></div>
+</div>
+</div>
+<div class="section" id="extract">
+<h3>extract<a class="headerlink" href="#extract" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-python"><div class="highlight"><pre>extract: Extract specified ranges of an alignment.
+
+The command reads a fasta alignment, and generates another fasta
+alignment consisting of one or several ranges of positions.
+
+General usage:
+
+    egglib extract OPTION1=VALUE OPTION2=VALUE ... FLAG1 FLAG2 ...
+
+Options:
+
+    input .. Nucleotide sequence alignment file (required)
+    output . File name for results (required)
+    ranges . List of positions or ranges to extract, separated by
+             commas. Each item of the list can come as a unique integer
+             (for a unique position) or as an expression `start-stop`
+             to extract the positions `start` to `stop` (both
+             included). It is possible to mix both forms, as in
+             `ranges=1-200,225,250,280,300-800` where `225`, for
+             example, is strictly equivalent to `225-225` (required)
+
+Flags (inactive by default):
+
+    quiet . Runs without console output
+    debug . Show complete error messages
+</pre></div>
+</div>
+</div>
+<div class="section" id="extract-clade">
+<h3>extract_clade<a class="headerlink" href="#extract-clade" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-python"><div class="highlight"><pre>extract_clade: Extracts the sequences corresponding to a tree clade.
+
+The command takes a phylogenetic tree and a fasta file containing the
+corresponding sequences (aligned or not). The smallest clade containing
+all specified names will be extracted as another fasta file. By
+default, clades encompassing the root (which would be paraphyletic
+groups under the assumption that the tree is rooted) are exported as
+well; use the flag `monophyletic` to prevent this behaviour. Note that
+the root (or base of the tree) is never returned.
+
+General usage:
+
+    egglib extract_clade OPTION1=VALUE OPTION2=VALUE ... FLAG1 FLAG2 ...
+
+Options:
+
+    sequences . Fasta file containing sequences (required)
+    tree ...... Newick file containing tree (required)
+    output .... Name of resulting fasta file (required)
+    names ..... Name of a least one leaf of the tree (separated by
+                commas when more than one). The command supports lists
+                containing repeated leaves (required)
+    threshold . Minimum value the node must have as label to be
+                returned (only positive values are supproted). Nodes
+                that have a label not convertible to float and those
+                whose label is inferior than threshold are not
+                returned. By default (-1), this criterion is not
+                applied at all (all nodes are returned when they
+                contain the requested names). This is different than 0
+                (then, only nodes that have a number as label can be
+                returned. (default: `-1`)
+    minimum ... Smallest number of descending leaves a clade must have
+                to be returned. Clades with less nodes are ignored
+                (default: `2`)
+
+Flags (inactive by default):
+
+    monophyletic . Consider only monophyletic clades (assuming
+                   the tree is rooted
+    exact ........ The clade must contain exactly (rather than `at
+                   least`) the number of leaves given by the `minimum`
+                   option
+    quiet ........ Runs without console output
+    debug ........ Show complete error messages
+</pre></div>
+</div>
+</div>
+<div class="section" id="family">
+<h3>family<a class="headerlink" href="#family" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-python"><div class="highlight"><pre>family: Finds homologs of a gene family using BLAST.
+
+This command uses all sequences from a fasta file of source sequences
+to blast against a database and reports (in a fasta file) all sequences
+of the target database that produce a significant hit with any of the
+source sequences. To use this command, you need to have the NCBI BLAST+
+package installed. You need a fasta file of protein of nucleotide
+sequences. You need a target database (from which sequences should be
+extracted) as a fasta files.
+
+General usage:
+
+    egglib family OPTION1=VALUE OPTION2=VALUE ... FLAG1 FLAG2 ...
+
+Options:
+
+    input .. Fasta file containing source sequences (required)
+    target . Fasta file containing target database (required)
+    output . Name of resulting fasta file (required)
+    mode ... Program to use: `blastn` for nucleotide source against
+             nucleotide database, `blastp` for protein source against
+             protein database, `blastx` for (translated) nucleotide
+             source against protein database, `tblastn` for protein
+             source against (translated) nucleotide database, `tblastx`
+             for (translated) nucleotide source against (translated)
+             nucleotide database (default: `blastn`)
+    evalue . Maximum threshold to report hits. The parameter used is
+             E-value, that is for a given BLAST hit the theoretical
+             probability of obtaining such hit by chance alogn, given
+             the length of the database. It can be necessary to
+             decrease this parameter to obtain results (default:
+             `0.00247875217667`)
+
+Flags (inactive by default):
+
+    quiet . Runs without console output
+    debug . Show complete error messages
+</pre></div>
+</div>
+</div>
+<div class="section" id="fasta2mase">
+<h3>fasta2mase<a class="headerlink" href="#fasta2mase" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-python"><div class="highlight"><pre>fasta2mase: Converts a fasta alignment to the mase format.
+
+The `quiet` argument is ignored.
+
+General usage:
+
+    egglib fasta2mase OPTION1=VALUE OPTION2=VALUE ... FLAG1 FLAG2 ...
+
+Options:
+
+    input .. Name of a fasta-formatted alignment (required)
+    output . Name of resulting mase file (required)
+
+Flags (inactive by default):
+
+    quiet . Runs without console output
+    debug . Show complete error messages
+</pre></div>
+</div>
+</div>
+<div class="section" id="fasta2nexus">
+<h3>fasta2nexus<a class="headerlink" href="#fasta2nexus" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-python"><div class="highlight"><pre>fasta2nexus: Converts a fasta alignment to the NEXUS format.
+
+The `quiet` argument is ignored.
+
+General usage:
+
+    egglib fasta2nexus OPTION1=VALUE OPTION2=VALUE ... FLAG1 FLAG2 ...
+
+Options:
+
+    input .. Name of a fasta-formatted alignment (required)
+    output . Name of resulting NEXUS file (required)
+    type ... `nucl` for nucleotides or `prot` for proteins (required)
+
+Flags (inactive by default):
+
+    quiet . Runs without console output
+    debug . Show complete error messages
+</pre></div>
+</div>
+</div>
+<div class="section" id="fasta2phyml">
+<h3>fasta2phyml<a class="headerlink" href="#fasta2phyml" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-python"><div class="highlight"><pre>fasta2phyml: Converts a fasta alignment to the `phyml` format.
+
+The so-called `phyml` format is a modification of the PHYLIP file
+format suitable for importing data to the programs PAML and PHYML. The
+`quiet` argument is ignored.
+
+General usage:
+
+    egglib fasta2phyml OPTION1=VALUE OPTION2=VALUE ... FLAG1 FLAG2 ...
+
+Options:
+
+    input .. Name of a fasta-formatted alignment (required)
+    output . Name of resulting `phyml` file (required)
+
+Flags (inactive by default):
+
+    quiet . Runs without console output
+    debug . Show complete error messages
+</pre></div>
+</div>
+</div>
+<div class="section" id="fg2gb">
+<h3>fg2gb<a class="headerlink" href="#fg2gb" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-python"><div class="highlight"><pre>fg2gb: Generates a GenBank record from fgenesh output.
+
+The command requires the sequence of the annotated regions as a fasta
+file and the fgenesh output as a separate text file. Obviously, all
+features must fit in the sequence length. A GenBank file incorporate
+the information of predicted genes as `gene`, and `CDS` annotation
+features.
+
+General usage:
+
+    egglib fg2gb OPTION1=VALUE OPTION2=VALUE ... FLAG1 FLAG2 ...
+
+Options:
+
+    seq .... File with fasta-formatted sequence (required)
+    ann .... File with fgenesh output (required)
+    output . Name of the resulting GenBank file (required)
+
+Flags (inactive by default):
+
+    quiet . Runs without console output
+    debug . Show complete error messages
+</pre></div>
+</div>
+</div>
+<div class="section" id="gb2fas">
+<h3>gb2fas<a class="headerlink" href="#gb2fas" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-python"><div class="highlight"><pre>gb2fas: Converts GenBank records to fasta.
+
+The command takes one or more GenBank records and generates a single
+fasta file. Each GenBank record can be multiple (contain multiple
+entries). Each sequence is named after the title of the GenBank entry
+(disregarding the file name).
+
+General usage:
+
+    egglib gb2fas OPTION1=VALUE OPTION2=VALUE ... FLAG1 FLAG2 ...
+
+Options:
+
+    input .. One or more GenBank file names, separated by commas when
+             more than one (required)
+    output . Name of the fasta file to generate (required)
+
+Flags (inactive by default):
+
+    quiet . Runs without console output
+    debug . Show complete error messages
+</pre></div>
+</div>
+</div>
+<div class="section" id="infos">
+<h3>infos<a class="headerlink" href="#infos" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-python"><div class="highlight"><pre>infos: Displays basic information from fasta files.
+
+The commands displays the number of sequences and alignment length
+(length of the longest sequences for unaligned sets of sequences) for
+all fasta files passed. The `quiet` option is ignored.
+
+General usage:
+
+    egglib infos OPTION1=VALUE OPTION2=VALUE ... FLAG1 FLAG2 ...
+
+Options:
+
+    input . One or more fasta file names, separated by commas when more
+            than one (required)
+
+Flags (inactive by default):
+
+    quiet . Runs without console output
+    debug . Show complete error messages
+</pre></div>
+</div>
+</div>
+<div class="section" id="interld">
+<h3>interLD<a class="headerlink" href="#interld" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-python"><div class="highlight"><pre>interLD: Computes linkage disequilibrium statistics between two loci.
+
+Computes association statistics between two alignments. It is required
+that both sequence alignments contain the exact same list of sequence
+names (duplicates are not supported) and there should be at least four
+sequences in each alignment. In the definition of statistics, an allele
+is a haplotype as determnined by the method Align.polymorphism(). The
+frequency of allele i at one locus is Pi, the frequency of the
+combination i,j (i at locus 1 and j at locus 2) is Pij. For a given
+pair of alleles i,j (i at locus 1 and j at locus j), Dij is Pij - PiPj.
+D&#39;ij is Dij/Dijmax if Dij&gt;=0 and Dij/Dijmin if Dij&lt;0, where Dijmax is
+min(Pi(1-Pj), (1-Pi)Pj) and Dijmin is min(PiPj, (1-Pi)(1-Pj)). To
+obtain the complete LD estimates both measures are averaged over all
+allele pairs as Dijtot = sum(PiPj|Dij|) of all i,j pairs).
+
+General usage:
+
+    egglib interLD OPTION1=VALUE OPTION2=VALUE ... FLAG1 FLAG2 ...
+
+Options:
+
+    align1 . First alignment (required)
+    align2 . Second alignment (required)
+    permus . Number of permutations to perform. If the value is larger
+             than 0, the distribution of linkage statistics is computed
+             by randomly shuffle the sequences of one of the
+             alignments. (default: `0`)
+    output . Name of output file (default: `interLD.txt`)
+
+Flags (inactive by default):
+
+    quiet . Runs without console output
+    debug . Show complete error messages
+</pre></div>
+</div>
+</div>
+<div class="section" id="matcher">
+<h3>matcher<a class="headerlink" href="#matcher" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-python"><div class="highlight"><pre>matcher: Finds homologous regions between two sequences.
+
+This command performs a `bl2seq` search using the first sequence as
+query and the second sequence as target. It then produces a genbank
+record containing the first sequence with annotation features
+indicating the positions of the hits with the second sequence. The
+*long* sequence should not contain gaps.
+
+General usage:
+
+    egglib matcher OPTION1=VALUE OPTION2=VALUE ... FLAG1 FLAG2 ...
+
+Options:
+
+    long ... Fasta file containing the first sequence (this sequence
+             must be a nucleotide sequence) (required)
+    short .. Fasta file containing the sequence sequence depending on
+             the `mode` option value, this sequence must be either a
+             nucleotide sequence or a protein sequence) (required)
+    output . Name of resulting GenBank file (default: `matcher.gb`)
+    mode ... Program to use: `blastn` for nucleotide source against
+             nucleotide database, `blastx` for (translated) nucleotide
+             source against protein database, `tblastx` for
+             (translated) nucleotide source against (translated)
+             nucleotide database (default: `blastn`)
+    evalue . Expectaction value: expected number of random hits by
+             chance alone, depending on the database size. The default
+             value is e^-6 (therefore much less - and more stringent -
+             than `blastn`&#39;s default value which is 10) (default:
+             `0.00247875217667`)
+
+Flags (inactive by default):
+
+    quiet . Runs without console output
+    debug . Show complete error messages
+</pre></div>
+</div>
+</div>
+<div class="section" id="names">
+<h3>names<a class="headerlink" href="#names" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-python"><div class="highlight"><pre>names: Lists sequence names from a fasta file.
+
+The order of names is preserved. The `quiet` flag is ignored. By
+default, one name is displayed per line.
+
+General usage:
+
+    egglib names OPTION1=VALUE OPTION2=VALUE ... FLAG1 FLAG2 ...
+
+Options:
+
+    input . Name of fasta-formatted sequence file (required)
+
+Flags (inactive by default):
+
+    wrap .. Displays several sequence names per line. Activate this
+            flag when sequence names are short and don&#39;t contain
+            spaces!
+    quiet . Runs without console output
+    debug . Show complete error messages
+</pre></div>
+</div>
+</div>
+<div class="section" id="phyml">
+<h3>phyml<a class="headerlink" href="#phyml" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-python"><div class="highlight"><pre>phyml: Performs maximum-likelihood phylogenetic reconstruction.
+
+This command reconstructs a phylogenetic tree and, optionnally,
+performs bootstrap repetitions. Crashes occurring during the bootstrap
+procedure due to estimation problems are ignored, allowing to complete
+the run. The substitution model name implies data type (HKY85, JC69,
+K80, F81, F84, TN93 and GTR imply nucleotides, others imply amino
+acids). `LG` is default for amino acids in the stand-alone `phyml`
+software.
+
+General usage:
+
+    egglib phyml OPTION1=VALUE OPTION2=VALUE ... FLAG1 FLAG2 ...
+
+Options:
+
+    input ...... Input alignment fasta file (required)
+    output ..... Output newick tree file (required)
+    boot_trees . Output newick tree file for bootstrap trees (by
+                 default, no file) (default: ``)
+    boot ....... Number of bootstrap repetions (default: `0`)
+    model ...... substitution model name (default: `HKY85`)
+    rates ...... number of gamma substitution rate categories (default:
+                 `1`)
+    search ..... tree topology search operation option (`NNI`, `SPR`
+                 (slower) or `BEST` (default: `NNI`)
+    start ...... name of a file containing the tree topology to use as
+                 starting tree (by default, use a distance tree)
+                 (default: ``)
+    recover .... name of a file containing already generated bootstrap
+                 trees - must contain the same taxa and can be the same
+                 as `boot_trees` (ignored if `boot` is 0) (default: ``)
+
+Flags (inactive by default):
+
+    quiet . Runs without console output
+    debug . Show complete error messages
+</pre></div>
+</div>
+</div>
+<div class="section" id="rename">
+<h3>rename<a class="headerlink" href="#rename" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-python"><div class="highlight"><pre>rename: Rename sequences according to a replacement list.
+
+The replacements must be given in a text file. It is not necessary to
+specify all names of the fasta file. The command does not require
+either that all replacements of the list are performed. If present,
+group labels are preserved and are not considered (they should not be
+included in the replacement list). If leading or trailing spaces are
+present in either old or new names, they will be removed.
+
+General usage:
+
+    egglib rename OPTION1=VALUE OPTION2=VALUE ... FLAG1 FLAG2 ...
+
+Options:
+
+    input .. Name of fasta-formatted sequence file (required)
+    list ... Name of a text file giving the list of replacements to
+             perform. Each replacement must take one line and give the
+             old name and the new name, in that order, separated by a
+             tabulation (required)
+    output . Name of output file (required)
+
+Flags (inactive by default):
+
+    quiet . Runs without console output
+    debug . Show complete error messages
+</pre></div>
+</div>
+</div>
+<div class="section" id="reroot">
+<h3>reroot<a class="headerlink" href="#reroot" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-python"><div class="highlight"><pre>reroot: Changes the orientation of a newick tree.
+
+This command doesn&#39;t actually root (or reroot) the tree; the original
+tree must not be rooted (it must have a trifurcation at the root, and
+resulting tree will be likewise (only the representation will be
+altered to present the outgroup as one of the basal groups. A list of
+leaves representing a monophyletic group of the current tree (without
+encompassing the root) must be passed. The `quiet` argument is ignored.
+By default, the command uses the midpoint method.
+
+General usage:
+
+    egglib reroot OPTION1=VALUE OPTION2=VALUE ... FLAG1 FLAG2 ...
+
+Options:
+
+    input .... Name of newick-formatted tree file (required)
+    output ... Name of output file (required)
+    outgroup . List of leaves constituting the outgroup, separated by
+               commas when more than one. It is possible to place the
+               list in a file (one per line) and pass the name of the
+               file (say, `fname`) using the `@` prefix, as in
+               `outgroup=@fname` (there must be exactly one item and no
+               comma separator in that case). By default (empty string)
+               the command uses the midpoint method (default: ``)
+
+Flags (inactive by default):
+
+    quiet . Runs without console output
+    debug . Show complete error messages
+</pre></div>
+</div>
+</div>
+<div class="section" id="select">
+<h3>select<a class="headerlink" href="#select" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-python"><div class="highlight"><pre>select: Select a given list of sequences from a fasta file.
+
+The names should not include any group label (`@0`, `@1`, `@999` etc.
+tags) is they are present in the file (group labels are ignored). When
+a name is duplicated in the file (whether the different duplicates bear
+different group label or not), they are all exported to the output
+file. It is required that all names passed are found at least once.
+Sequences are exported in the order as they appear in the passed list.
+
+General usage:
+
+    egglib select OPTION1=VALUE OPTION2=VALUE ... FLAG1 FLAG2 ...
+
+Options:
+
+    input .. Name of fasta-formatted file (required)
+    output . Name of the output file (required)
+    list ... List of names of sequences that should be selected,
+             separated by commas when more than one. It is possible to
+             place the list of names in a file (one per line) and pass
+             the name of the file (say, `fname`) using the `@` prefix,
+             as in `list=@fname` (there must be exactly one item and no
+             comma separator in that case) (default: ``)
+
+Flags (inactive by default):
+
+    quiet . Runs without console output
+    debug . Show complete error messages
+</pre></div>
+</div>
+</div>
+<div class="section" id="sprimers">
+<h3>sprimers<a class="headerlink" href="#sprimers" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-python"><div class="highlight"><pre>sprimers: Design copy-specific PCR primers from an alignment.
+
+This command designs PCR primers that a specific to genes from a
+sequence alignment (and are as unlikely as possible to amplify other
+genes from the alignment). Primers are generated using PRIMER3. Next,
+they are filtered according to several criteria. The preferred primers
+must be close to the end of sequences (by default), with low homology
+to other sequences of the alignment. A BLAST search is performed and
+primers whose 3&#39; end matches any other sequence and excluded. Finally,
+a pair check is performed using PRIMER3. The corresponding programs
+must be available.
+
+General usage:
+
+    egglib sprimers OPTION1=VALUE OPTION2=VALUE ... FLAG1 FLAG2 ...
+
+Options:
+
+    input ...... Name of the input fasta alignment (required)
+    output ..... Name of the output file (default: `sprimers.csv`)
+    sizemin .... Mininal product size (default: `70`)
+    sizemax .... Maximal product size (default: `150`)
+    minTm ...... Minimal annealing temperature (default: `58`)
+    optTm ...... Optimal annealing temperature (default: `60`)
+    maxTm ...... Maximal annealing temperature (default: `62`)
+    minGc ...... Minimal GC content percentage (default: `30`)
+    optGc ...... Optimal GC content percentage (default: `50`)
+    maxGc ...... Maximal GC content percentage (default: `80`)
+    numAmb ..... Maximal number of degenerate bases in primers
+                 (default: `0`)
+    filter1 .... Pre-selection filter (before BLAST) as a maximal
+                 number of pairs to process (default: `5000`)
+    filter2 .... Pre-selection filter (after BLAST) as a maximal number
+                 of pairs to process (default: `100`)
+    threshold1 . Maximum homology score to other genes (a real number
+                 between 0. and 1.) (default: `0.75`)
+    threshold2 . Maximum homology score to other regions of the same
+                 gene (a real number between 0. and 1.) (default:
+                 `0.5`)
+    show ....... How many pairs to export in the output file (default:
+                 `10`)
+
+Flags (inactive by default):
+
+    selection .. Restrict the primer search to one or more sequences of
+                 the alignment. The user should tag the names of
+                 selected sequences with labels such as @1 (any number
+                 larger to or equal to 1 is allowed)
+    prefer_end . Prefer pairs closer the end of genes
+    quiet ...... Runs without console output
+    debug ...... Show complete error messages
+</pre></div>
+</div>
+</div>
+<div class="section" id="staden2fasta">
+<h3>staden2fasta<a class="headerlink" href="#staden2fasta" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-python"><div class="highlight"><pre>staden2fasta: Converts a STADEN GAP4 dump file to fasta.
+
+The file must have been generated using the command `dump contig to
+file` of the GAP4 contig editor. This command will generate a fasta
+alignment file, padding sequences with `?` whenever necessary.
+
+General usage:
+
+    egglib staden2fasta OPTION1=VALUE OPTION2=VALUE ... FLAG1 FLAG2 ...
+
+Options:
+
+    input ..... Input dump file (default: `[]`)
+    output .... Output fasta alignment file (default: `[]`)
+    consensus . Defines what should be done with the sequence named
+                `CONSENSUS`. Three values are possible: `remove`:
+                removes the `CONSENSUS` sequence (if it is present);
+                `keep`: keeps the `CONSENSUS` sequence (if it is
+                present) and `only`: removes all other sequences and
+                keeps only the `CONSENSUS` sequence (it must be
+                present) (default: `remove`)
+
+Flags (inactive by default):
+
+    quiet . Runs without console output
+    debug . Show complete error messages
+</pre></div>
+</div>
+</div>
+<div class="section" id="translate">
+<h3>translate<a class="headerlink" href="#translate" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-python"><div class="highlight"><pre>translate: Translates coding sequences to protein sequences.
+
+The `quiet` argument is ignored.
+
+General usage:
+
+    egglib translate OPTION1=VALUE OPTION2=VALUE ... FLAG1 FLAG2 ...
+
+Options:
+
+    input .. Input fasta file (default: ``)
+    output . Output fasta file (default: ``)
+    code ... Genetic code specification. Should be an integer among the
+             available values. Use the flag `codes` to display the list
+             of avalaible genetic codes. The default corresponds to the
+             standard code (default: `1`)
+
+Flags (inactive by default):
+
+    codes . displays available genetic codes
+    quiet . Runs without console output
+    debug . Show complete error messages
+</pre></div>
+</div>
+</div>
+<div class="section" id="truncate">
+<h3>truncate<a class="headerlink" href="#truncate" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-python"><div class="highlight"><pre>truncate: Truncates sequence names.
+
+The user can specify a separator or a number of characters (`length`)
+or both. By default (if neither argument `separator` or `length` is
+specified), nothing is done. If both actions are requested, they are
+always performed in the order: first `separator`, then `length`. If
+present, group labels are preserved and are not considered.
+
+General usage:
+
+    egglib truncate OPTION1=VALUE OPTION2=VALUE ... FLAG1 FLAG2 ...
+
+Options:
+
+    input ..... Name of fasta-formatted sequence file (required)
+    output .... Name of output file (required)
+    separator . The separator can be a single character or a string.
+                Whenever it occurs in a sequence name, everything right
+                of its first occurrence (as well as the separator
+                itself) will be removed. The default (an empty string)
+                means that this criterion is not applied (default: ``)
+    length .... Maximum length of names. The default (an empty string)
+                means that this criterion is not applied (default: `0`)
+
+Flags (inactive by default):
+
+    quiet . Runs without console output
+    debug . Show complete error messages
+</pre></div>
+</div>
+</div>
+<div class="section" id="ungap">
+<h3>ungap<a class="headerlink" href="#ungap" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-python"><div class="highlight"><pre>ungap: Removes gaps from a sequence alignment.
+
+This command either removes all gaps from an alignment (break the
+alignment) or removes alignment positions (column) where the frequency
+of gaps is larger than a given threshold.
+
+General usage:
+
+    egglib ungap OPTION1=VALUE OPTION2=VALUE ... FLAG1 FLAG2 ...
+
+Options:
+
+    input ..... Input fasta file (required)
+    output .... Output fasta file (required)
+    threshold . Proportion giving the threshold frequency for removing
+                gaps. All sites for which the frequency of gaps is
+                equal to or larger than the specified values will be
+                removed. A value of 0 will remove all sites and a value
+                of 1 will remove only columns consisting of gaps only.
+                If the flag `all` is used, the value of this option is
+                ignored (default: `1`)
+
+Flags (inactive by default):
+
+    all ...... Removes all gaps of the alignment - regardless of the
+               value of the `threshold` argument. The output sequences
+               will not be aligned anymore (save for special cases)
+    triplets . Removes only complete triplets (the alignment length
+               must be a multiple of 3)
+    quiet .... Runs without console output
+    debug .... Show complete error messages
+</pre></div>
+</div>
+</div>
+<div class="section" id="winphyml">
+<h3>winphyml<a class="headerlink" href="#winphyml" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-python"><div class="highlight"><pre>winphyml: Computes tree likelihood along a sliding window.
+
+This command runs a sliding window along a sequence alignment. For each
+window, it computes the likelihood of the maximum-likelihood tree along
+as well as the likelihood of a given set of trees. It can detect
+regions of a sequence that support a given tree rather than an other.
+The command expects nucleotide sequences.
+
+General usage:
+
+    egglib winphyml OPTION1=VALUE OPTION2=VALUE ... FLAG1 FLAG2 ...
+
+Options:
+
+    input .. Input fasta file (required)
+    trees .. Input newick file containing one or more trees (required)
+    output . Main output file name (default: `winphyml.csv`)
+    wsize .. Window size (default: `500`)
+    wstep .. Window step length (default: `100`)
+
+Flags (inactive by default):
+
+    savetrees . Saves the maximum-likelihood tree for each windows.
+                Each window tree will be saved as a file named
+                `&lt;base&gt;_&lt;start&gt;_&lt;end&gt;.tre` when `base` is the name of
+                the main output file minus the extension if there is
+                one, and `start` and `end` are the limits of the
+                window. With default values, the trees will be saved as
+                `winphyml_1_200`, `winphyml_21_220`, etc.
+    quiet ..... Runs without console output
+    debug ..... Show complete error messages
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="authors.html" title="Authors"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="test.html" title="test"
+             >previous</a> |</li>
+        <li><a href="index.html">EggLib</a> &raquo;</li> 
+      </ul>
+    </div>
+        <address style="text-align: right;"><small>Hosted by&nbsp;
+        <a href="http://sourceforge.net/projects/seqlib"><img src="http://sflogo.sourceforge.net/sflogo.php?group_id=232965&amp;type=8" width="80" height="15" alt="Get seqlib at SourceForge.net. Fast, secure and Free Open Source software downloads" / ALIGN=RIGHT BORDER=0></a>
+        </address>
+
+  </body>
+</html>

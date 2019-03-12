@@ -1,0 +1,556 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Importing sequences in the Fasta format &#8212; EggLib&#39;s documentation</title>
+    <link rel="stylesheet" href="../_static/egglibdoc.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '3.0.0b21',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="shortcut icon" href="../_static/icon.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Accessing and editing data" href="base-2.html" />
+    <link rel="prev" title="The Align and Container classes" href="base.html" />
+    <script type="text/javascript">
+      // intelligent scrolling of the sidebar content
+      $(window).scroll(function() {
+        var sb = $('.sphinxsidebarwrapper');
+        var win = $(window);
+        var sbh = sb.height();
+        var offset = $('.sphinxsidebar').position()['top'];
+        var wintop = win.scrollTop();
+        var winbot = wintop + win.innerHeight();
+        var curtop = sb.position()['top'];
+        var curbot = curtop + sbh;
+        // does sidebar fit in window?
+        if (sbh < win.innerHeight()) {
+          // yes: easy case -- always keep at the top
+          sb.css('top', $u.min([$u.max([0, wintop - offset - 10]),
+                                $(document).height() - sbh - 200]));
+        } else {
+          // no: only scroll if top/bottom edge of sidebar is at
+          // top/bottom edge of window
+          if (curtop > wintop && curbot > winbot) {
+            sb.css('top', $u.max([wintop - offset - 10, 0]));
+          } else if (curtop < wintop && curbot < winbot) {
+            sb.css('top', $u.min([winbot - sbh - offset - 20,
+                                  $(document).height() - sbh - 200]));
+          }
+        }
+      });
+    </script>
+  </head>
+  <body>
+<div style="background-color: white; text-align: left; padding: 0px 0px 0px 0px">
+<a href="../index.html"><img src="../_static/banner.png" border="0" alt="EggLib"/></a>
+</div>
+
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="base-2.html" title="Accessing and editing data"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="base.html" title="The Align and Container classes"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../contents.html">EggLib&#39;s documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../toc.html" >Contents</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="index.html" >Manual</a> &#187;</li>
+          <li class="nav-item nav-item-3"><a href="base.html" accesskey="U">The <code class="docutils literal"><span class="pre">Align</span></code> and <code class="docutils literal"><span class="pre">Container</span></code> classes</a> &#187;</li> 
+      </ul>
+    </div>
+
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../contents.html">
+              <img class="logo" src="../_static/egglib_small.bmp" alt="Logo"/>
+            </a></p>
+  <h3><a href="../contents.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Importing sequences in the Fasta format</a><ul>
+<li><a class="reference internal" href="#simplest-case">Simplest case</a></li>
+<li><a class="reference internal" href="#alignments-and-containers">Alignments and containers</a><ul>
+<li><a class="reference internal" href="#automatic-detection-of-alignments">Automatic detection of alignments</a></li>
+<li><a class="reference internal" href="#enforcing-return-type">Enforcing return type</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#exporting-data">Exporting data</a><ul>
+<li><a class="reference internal" href="#exporting-as-fasta">Exporting as Fasta</a></li>
+<li><a class="reference internal" href="#other-formats">Other formats</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#structure-and-group-labels">Structure and group labels</a><ul>
+<li><a class="reference internal" href="#principle">Principle</a></li>
+<li><a class="reference internal" href="#group-labels-in-fasta-files">Group labels in Fasta files</a><ul>
+<li><a class="reference internal" href="#single-group-label">Single group label</a></li>
+<li><a class="reference internal" href="#multiple-group-labels">Multiple group labels</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#outgroup">Outgroup</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#iteration">Iteration</a><ul>
+<li><a class="reference internal" href="#principle-of-proxy-types">Principle of proxy types</a></li>
+<li><a class="reference internal" href="#default-iteration">Default iteration</a></li>
+<li><a class="reference internal" href="#controlling-iterations">Controlling iterations</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="base.html"
+                        title="previous chapter">The <code class="docutils literal"><span class="pre">Align</span></code> and <code class="docutils literal"><span class="pre">Container</span></code> classes</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="base-2.html"
+                        title="next chapter">Accessing and editing data</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/manual/base-1.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="importing-sequences-in-the-fasta-format">
+<h1>Importing sequences in the Fasta format<a class="headerlink" href="#importing-sequences-in-the-fasta-format" title="Permalink to this headline">¶</a></h1>
+<p>The Fasta format is described formally in <a class="reference internal" href="../py/io.html#fasta-format"><span class="std std-ref">Fasta format</span></a>. The function
+<a class="reference internal" href="../py/io.html#egglib.io.from_fasta" title="egglib.io.from_fasta"><code class="xref py py-func docutils literal"><span class="pre">io.from_fasta()</span></code></a> imports a Fasta-formatted file without any regard for
+the kind of data it contains (DNA or RNA nucleotides, protein sequences).
+Conformity to an alphabet is only enforced when you perform diversity analysis
+or in specific cases such as protein translation or using external software.</p>
+<div class="section" id="simplest-case">
+<h2>Simplest case<a class="headerlink" href="#simplest-case" title="Permalink to this headline">¶</a></h2>
+<p>Let <code class="docutils literal"><span class="pre">align1.fas</span></code> be the name of a Fasta-formatted file containing an
+alignment of DNA sequences. To import it as en EggLib object, all you have to do is run:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">egglib</span>
+<span class="n">aln</span> <span class="o">=</span> <span class="n">egglib</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">from_fasta</span><span class="p">(</span><span class="s1">&#39;align1.fas&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The type of the object is <a class="reference internal" href="../py/toplevel.html#egglib.Align" title="egglib.Align"><code class="xref py py-class docutils literal"><span class="pre">Align</span></code></a>, which is central to most of EggLib’s functionality.
+As a results, <code class="xref py py-class docutils literal"><span class="pre">Align</span></code> objects have a lot of methods, and they are accepted as arguments
+by many other methods of the package. If you want to see the contents of an
+<code class="xref py py-class docutils literal"><span class="pre">Align</span></code> object, the expression <code class="docutils literal"><span class="pre">print</span> <span class="pre">aln</span></code> will not be useful.
+It will only give you an unique identifier of the object. This manual will
+introduce some of the functionality offered by this class and its relative
+<a class="reference internal" href="../py/toplevel.html#egglib.Container" title="egglib.Container"><code class="xref py py-class docutils literal"><span class="pre">Container</span></code></a>, but to get started you can access the number of samples
+and the alignment length by the object properties <a class="reference internal" href="../py/toplevel.html#egglib.Align.ns" title="egglib.Align.ns"><code class="xref py py-attr docutils literal"><span class="pre">Align.ns</span></code></a> and <a class="reference internal" href="../py/toplevel.html#egglib.Align.ls" title="egglib.Align.ls"><code class="xref py py-attr docutils literal"><span class="pre">Align.ls</span></code></a>:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="nb">print</span> <span class="n">aln</span><span class="o">.</span><span class="n">ns</span><span class="p">,</span> <span class="n">aln</span><span class="o">.</span><span class="n">ls</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="alignments-and-containers">
+<h2>Alignments and containers<a class="headerlink" href="#alignments-and-containers" title="Permalink to this headline">¶</a></h2>
+<p>The objects of type <a class="reference internal" href="../py/toplevel.html#egglib.Container" title="egglib.Container"><code class="xref py py-class docutils literal"><span class="pre">Container</span></code></a> are very similar to <a class="reference internal" href="../py/toplevel.html#egglib.Align" title="egglib.Align"><code class="xref py py-class docutils literal"><span class="pre">Align</span></code></a>
+except that the number of data entries is allowed to vary between samples.
+There are specifically designed to hold unaligned sequences. Much of
+<code class="xref py py-class docutils literal"><span class="pre">Align</span></code>’s functionality is shared with <code class="xref py py-class docutils literal"><span class="pre">Container</span></code>.</p>
+<div class="section" id="automatic-detection-of-alignments">
+<h3>Automatic detection of alignments<a class="headerlink" href="#automatic-detection-of-alignments" title="Permalink to this headline">¶</a></h3>
+<p>There is no difference, in the Fasta format, between sequence alignments and
+sets of unaligned sequences. By default, <a class="reference internal" href="../py/io.html#egglib.io.from_fasta" title="egglib.io.from_fasta"><code class="xref py py-func docutils literal"><span class="pre">io.from_fasta()</span></code></a> detects automatically
+whether all sequences have the same lengths: if so, it returns an
+<code class="xref py py-class docutils literal"><span class="pre">Align</span></code>; otherwise, it returns a <code class="xref py py-class docutils literal"><span class="pre">Container</span></code>. You can test this by running:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">cnt</span> <span class="o">=</span> <span class="n">egglib</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">from_fasta</span><span class="p">(</span><span class="s1">&#39;sequences1.fas&#39;</span><span class="p">)</span>
+<span class="nb">print</span> <span class="nb">type</span><span class="p">(</span><span class="n">cnt</span><span class="p">)</span>
+<span class="nb">print</span> <span class="nb">type</span><span class="p">(</span><span class="n">io</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="enforcing-return-type">
+<h3>Enforcing return type<a class="headerlink" href="#enforcing-return-type" title="Permalink to this headline">¶</a></h3>
+<p>In some cases you want to enforce the return type of <a class="reference internal" href="../py/io.html#egglib.io.from_fasta" title="egglib.io.from_fasta"><code class="xref py py-func docutils literal"><span class="pre">io.from_fasta()</span></code></a>.
+Typically, unaligned sequences may have the same length just by chance, making
+the function returns a <code class="xref py py-class docutils literal"><span class="pre">Align</span></code> when a <code class="xref py py-class docutils literal"><span class="pre">Container</span></code> would
+actually make sense. Conversely, malformed Fasta files may exist in large sets
+of alignments, and forcing return types to be <code class="xref py py-class docutils literal"><span class="pre">Align</span></code> will help detect
+invalid files and process them accordingly.</p>
+<p>To force the return type to be an <code class="xref py py-class docutils literal"><span class="pre">Align</span></code> or a <code class="xref py py-class docutils literal"><span class="pre">Container</span></code>, use the option <em>cls</em> of
+<code class="xref py py-func docutils literal"><span class="pre">io.from_fasta()</span></code> as follows:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">aln2</span> <span class="o">=</span> <span class="n">egglib</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">from_fasta</span><span class="p">(</span><span class="s1">&#39;align1.fas&#39;</span><span class="p">,</span> <span class="bp">cls</span><span class="o">=</span><span class="n">egglib</span><span class="o">.</span><span class="n">Align</span><span class="p">)</span>
+<span class="n">cnt2</span> <span class="o">=</span> <span class="n">egglib</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">from_fasta</span><span class="p">(</span><span class="s1">&#39;align1.fas&#39;</span><span class="p">,</span> <span class="bp">cls</span><span class="o">=</span><span class="n">egglib</span><span class="o">.</span><span class="n">Container</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The object <code class="docutils literal"><span class="pre">aln2</span></code> will be an <code class="xref py py-class docutils literal"><span class="pre">Align</span></code>, and the object <code class="docutils literal"><span class="pre">cnt2</span></code> will be
+a <code class="xref py py-class docutils literal"><span class="pre">Container</span></code>. Even if they contain actually the same data, you will not
+be able to do the same things with them since they are actually supposed to represent
+different things.</p>
+</div>
+</div>
+</div>
+<div class="section" id="exporting-data">
+<h1>Exporting data<a class="headerlink" href="#exporting-data" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="exporting-as-fasta">
+<h2>Exporting as Fasta<a class="headerlink" href="#exporting-as-fasta" title="Permalink to this headline">¶</a></h2>
+<p>All <a class="reference internal" href="../py/toplevel.html#egglib.Align" title="egglib.Align"><code class="xref py py-class docutils literal"><span class="pre">Align</span></code></a>/<a class="reference internal" href="../py/toplevel.html#egglib.Container" title="egglib.Container"><code class="xref py py-class docutils literal"><span class="pre">Container</span></code></a> objects have a method generating a Fasta
+representation of the instance. The first argument of this method is the name
+of an output file (<em>fname</em>):</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">aln</span><span class="o">.</span><span class="n">to_fasta</span><span class="p">(</span><span class="s1">&#39;align_out.fas&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>If the <em>fname</em> argument is omitted (or <code class="docutils literal"><span class="pre">None</span></code>), the Fasta representation of
+the set of sequences is returned as a string (built-in Python <a class="reference external" href="https://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">str</span></code></a> object):</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="nb">print</span> <span class="n">aln</span><span class="o">.</span><span class="n">to_fasta</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="other-formats">
+<h2>Other formats<a class="headerlink" href="#other-formats" title="Permalink to this headline">¶</a></h2>
+<p>EggLib does not currently provide extended support for alternative data formats.</p>
+<p>Sequence alignments can be exported to the following formats:</p>
+<blockquote>
+<div><ul class="simple">
+<li>Output format of the <a class="reference external" href="http://home.uchicago.edu/rhudson1/source/mksamples.html">ms</a> software
+(<a class="reference internal" href="../py/io.html#egglib.io.to_ms" title="egglib.io.to_ms"><code class="xref py py-func docutils literal"><span class="pre">io.to_ms()</span></code></a>).</li>
+<li>NEXUS format (<a class="reference internal" href="../py/toplevel.html#egglib.Align.nexus" title="egglib.Align.nexus"><code class="xref py py-meth docutils literal"><span class="pre">Align.nexus()</span></code></a>).</li>
+<li>Phylip phylogenetic software format (<a class="reference internal" href="../py/toplevel.html#egglib.Align.phylip" title="egglib.Align.phylip"><code class="xref py py-meth docutils literal"><span class="pre">Align.phylip()</span></code></a>).</li>
+<li>PhyML phylogenetic software format (<a class="reference internal" href="../py/toplevel.html#egglib.Align.phyml" title="egglib.Align.phyml"><code class="xref py py-meth docutils literal"><span class="pre">Align.phyml()</span></code></a>).</li>
+</ul>
+</div></blockquote>
+<p>Besides, sequence alignments can be imported from:</p>
+<blockquote>
+<div><ul class="simple">
+<li><a class="reference external" href="http://web.mit.edu/meme_v4.9.0/doc/clustalw-format.html">Clustal</a> alignment software format
+(<a class="reference internal" href="../py/io.html#egglib.io.from_clustal" title="egglib.io.from_clustal"><code class="xref py py-func docutils literal"><span class="pre">io.from_clustal()</span></code></a>).</li>
+<li><a class="reference external" href="http://staden.sourceforge.net/">Staden package</a> software “contig dump” format
+(<a class="reference internal" href="../py/io.html#egglib.io.from_staden" title="egglib.io.from_staden"><code class="xref py py-func docutils literal"><span class="pre">io.from_staden()</span></code></a>).</li>
+<li><a class="reference external" href="http://web.mit.edu/meme_v4.9.0/doc/clustalw-format.html">Genalys</a> software (which is discontinued) format
+(<a class="reference internal" href="../py/io.html#egglib.io.from_genalys" title="egglib.io.from_genalys"><code class="xref py py-func docutils literal"><span class="pre">io.from_genalys()</span></code></a>).</li>
+</ul>
+</div></blockquote>
+</div>
+</div>
+<div class="section" id="structure-and-group-labels">
+<span id="group-labels"></span><h1>Structure and group labels<a class="headerlink" href="#structure-and-group-labels" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="principle">
+<h2>Principle<a class="headerlink" href="#principle" title="Permalink to this headline">¶</a></h2>
+<p>To account for structure, EggLib uses a specific system that consists in attaching
+labels to each samples. All samples bearing the same label are
+supposed to belong to the same group. There can be several labels per samples, but
+all samples are required to have the same number of labels. We sometimes refer to
+an index among group labels as a <em>level</em>. Different levels of structure are aimed
+to represent either nested levels of structure (clusters of populations and/or
+populations and/or individuals) or alternative levels of structure. There are
+little restrictions on group labels: they must be positive or null integers,
+they are not required to be consecutive (they really are <em>group labels</em>,
+not <em>group indexes</em>), and, if omitted, they are automatically set to 0.</p>
+<p>All <code class="xref py py-class docutils literal"><span class="pre">Align</span></code> and <code class="xref py py-class docutils literal"><span class="pre">Container</span></code> objects have group labels. In the following
+we explain how to specify group labels in Fasta file such as EggLib will properly
+interpret them and store them within a <code class="xref py py-class docutils literal"><span class="pre">Align</span></code> instance.</p>
+</div>
+<div class="section" id="group-labels-in-fasta-files">
+<h2>Group labels in Fasta files<a class="headerlink" href="#group-labels-in-fasta-files" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="single-group-label">
+<h3>Single group label<a class="headerlink" href="#single-group-label" title="Permalink to this headline">¶</a></h3>
+<p>Let <code class="docutils literal"><span class="pre">align2.fas</span></code> be a Fasta file with six samples, the first three belonging to
+population “1” and the other three belonging to population “2”. EggLib
+supports a specific system of tags within sequence headers in the Fasta format
+to indicate group labels. The tags must appear as suffix starting with a <code class="docutils literal"><span class="pre">&#64;</span></code>
+followed by an integer, as in the following example:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">&gt;</span><span class="n">sample1</span> <span class="nd">@1</span>
+<span class="n">ACCGTGGAGAGCGCGTTGCA</span>
+<span class="o">&gt;</span><span class="n">sample2</span> <span class="nd">@1</span>
+<span class="n">ACCGTGGAGAGCGCGTTGCA</span>
+<span class="o">&gt;</span><span class="n">sample3</span> <span class="nd">@1</span>
+<span class="n">ACCGTGGAGAGCGCGTTGCA</span>
+<span class="o">&gt;</span><span class="n">sample4</span> <span class="nd">@2</span>
+<span class="n">ACCGTGGAGAGCGCGTTGCA</span>
+<span class="o">&gt;</span><span class="n">sample5</span> <span class="nd">@2</span>
+<span class="n">ACCGTGGAGAGCGCGTTGCA</span>
+<span class="o">&gt;</span><span class="n">sample6</span> <span class="nd">@2</span>
+<span class="n">ACCGTGGAGAGCGCGTTGCA</span>
+</pre></div>
+</div>
+<p>The space between the name and the tag is optional. <code class="docutils literal"><span class="pre">&gt;sample1&#64;1</span></code> will work just as well.
+To import group labels, one is required to set the <em>groups</em> option of
+<code class="xref py py-func docutils literal"><span class="pre">io.from_fasta()</span></code> to <code class="docutils literal"><span class="pre">True</span></code>:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">aln2</span> <span class="o">=</span> <span class="n">egglib</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">from_fasta</span><span class="p">(</span><span class="s1">&#39;align2.fas&#39;</span><span class="p">,</span> <span class="n">groups</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="nb">print</span> <span class="n">aln2</span><span class="o">.</span><span class="n">get_name</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span> <span class="n">aln2</span><span class="o">.</span><span class="n">get_label</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">sample1</span> <span class="mi">1</span>
+</pre></div>
+</div>
+<p>We will come back to the <a class="reference internal" href="../py/toplevel.html#egglib.Align.get_name" title="egglib.Align.get_name"><code class="xref py py-meth docutils literal"><span class="pre">Align.get_name()</span></code></a> and <a class="reference internal" href="../py/toplevel.html#egglib.Align.get_label" title="egglib.Align.get_label"><code class="xref py py-meth docutils literal"><span class="pre">Align.get_label()</span></code></a> methods. In this
+case, the second line diplays the name of the first sample, and the first group label of the
+first sample (remember that there may be several levels of structure). By default, the group
+label tag will be treated as a part of the name:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">aln2</span> <span class="o">=</span> <span class="n">egglib</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">from_fasta</span><span class="p">(</span><span class="s1">&#39;align2.fas&#39;</span><span class="p">)</span>
+<span class="nb">print</span> <span class="n">aln2</span><span class="o">.</span><span class="n">get_name</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">sample1</span><span class="nd">@1</span>
+</pre></div>
+</div>
+<p>In that case, <code class="docutils literal"><span class="pre">print</span> <span class="pre">aln2.get_label(0,</span> <span class="pre">0)</span></code> would cause an error because,
+by default, there is no group labels at all included in <code class="xref py py-class docutils literal"><span class="pre">Align</span></code> objects.</p>
+</div>
+<div class="section" id="multiple-group-labels">
+<h3>Multiple group labels<a class="headerlink" href="#multiple-group-labels" title="Permalink to this headline">¶</a></h3>
+<p>There can be any number of group levels, either nested or not. To specify
+several labels for a sample, on can write several integer values separated
+by commas, as in the following example:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">&gt;</span><span class="n">sample1</span> <span class="nd">@1</span><span class="p">,</span><span class="mi">1</span>
+<span class="n">ACCGTGGAGAGCGCGTTGCA</span>
+<span class="o">&gt;</span><span class="n">sample2</span> <span class="nd">@1</span><span class="p">,</span><span class="mi">1</span>
+<span class="n">ACCGTGGAGAGCGCGTTGCA</span>
+<span class="o">&gt;</span><span class="n">sample3</span> <span class="nd">@1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span>
+<span class="n">ACCGTGGAGAGCGCGTTGCA</span>
+<span class="o">&gt;</span><span class="n">sample4</span> <span class="nd">@2</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span>
+<span class="n">ACCGTGGAGAGCGCGTTGCA</span>
+<span class="o">&gt;</span><span class="n">sample5</span> <span class="nd">@2</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span>
+<span class="n">ACCGTGGAGAGCGCGTTGCA</span>
+<span class="o">&gt;</span><span class="n">sample6</span> <span class="nd">@2</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span>
+<span class="n">ACCGTGGAGAGCGCGTTGCA</span>
+</pre></div>
+</div>
+<p>The example above also demonstrate that it is possible to omit group labels,
+Although it is probably better to avoid it (because it is error-prone). The
+number of group labels in the resulting objects is always equal across all
+samples and in practice equal to the maximum number of labels (in the example,
+three levels). The missing labels are set to 0. If an individual has no
+labels at all (no <code class="docutils literal"><span class="pre">&#64;</span></code> tag), all its labels are set to 0. As a result, if the
+file shown above is saved as <code class="docutils literal"><span class="pre">align3.fas</span></code>, the code:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">aln3</span> <span class="o">=</span> <span class="n">egglib</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">from_fasta</span><span class="p">(</span><span class="s1">&#39;align3.fas&#39;</span><span class="p">,</span> <span class="n">groups</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="nb">print</span> <span class="n">aln3</span><span class="o">.</span><span class="n">get_name</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="nb">print</span> <span class="n">aln3</span><span class="o">.</span><span class="n">get_label</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+<span class="nb">print</span> <span class="n">aln3</span><span class="o">.</span><span class="n">get_label</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="nb">print</span> <span class="n">aln3</span><span class="o">.</span><span class="n">get_label</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>will yield:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">sample1</span>
+<span class="mi">1</span>
+<span class="mi">1</span>
+<span class="mi">0</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="outgroup">
+<h2>Outgroup<a class="headerlink" href="#outgroup" title="Permalink to this headline">¶</a></h2>
+<p>EggLib allows including outgroup samples, particularly with the aim of
+computing nucleotide diversity statistics requiring the identity of derived alleles.
+They are supported by both <code class="xref py py-class docutils literal"><span class="pre">Align</span></code> and <code class="xref py py-class docutils literal"><span class="pre">Container</span></code> objects.
+In the case of an alignment, the outgroup samples must be aligned with the other
+ones, which are denoted ingroup.</p>
+<p>In a Fasta file, outgroup samples appear alongside the ingroup (in any order).
+When importing Fasta files, the ingroup and outgroup are separated based on
+group labels (there is a special markup for the outgroup). The relative
+position of ingroup and outgroup samples is unimportant.
+Within <code class="xref py py-class docutils literal"><span class="pre">Align</span></code>/<code class="xref py py-class docutils literal"><span class="pre">Container</span></code> objects, they are stored separately,
+in two distinct data tables (that are still required to have the same length
+in the case of <code class="xref py py-class docutils literal"><span class="pre">Align</span></code>). Note that, as a result, ingroup and outgroup samples
+will be separated if exported as Fasta.</p>
+<p>The specific markup to identify an outgroup sample is <code class="docutils literal"><span class="pre">&#64;#</span></code>, as in the example below:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">&gt;</span><span class="n">sample1</span> <span class="nd">@1</span>
+<span class="n">ACCGTGGAGAGCGCGTTGCA</span>
+<span class="o">&gt;</span><span class="n">sample2</span> <span class="nd">@1</span>
+<span class="n">ACCGTGGAGAGCGCGTTGCA</span>
+<span class="o">&gt;</span><span class="n">sample3</span> <span class="nd">@1</span>
+<span class="n">ACCGTGGAGAGCGCGTTGCA</span>
+<span class="o">&gt;</span><span class="n">sample4</span> <span class="nd">@2</span>
+<span class="n">ACCGTGGAGAGCGCGTTGCA</span>
+<span class="o">&gt;</span><span class="n">sample5</span> <span class="nd">@2</span>
+<span class="n">ACCGTGGAGAGCGCGTTGCA</span>
+<span class="o">&gt;</span><span class="n">sample6</span> <span class="nd">@2</span>
+<span class="n">ACCGTGGAGAGCGCGTTGCA</span>
+<span class="o">&gt;</span><span class="n">outgroup</span> <span class="o">@</span><span class="c1">#</span>
+<span class="n">ACCGTGGAGAGCGCGTTGCA</span>
+</pre></div>
+</div>
+<p>Note that, if the group labels are not processed (by default), the outgroup can not
+be processed as such, as exemplified below with the above file as <code class="docutils literal"><span class="pre">align4.fas</span></code>:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">aln4</span> <span class="o">=</span> <span class="n">egglib</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">from_fasta</span><span class="p">(</span><span class="s1">&#39;align4.fas&#39;</span><span class="p">)</span>
+<span class="nb">print</span> <span class="n">aln4</span><span class="o">.</span><span class="n">ns</span><span class="p">,</span> <span class="n">aln4</span><span class="o">.</span><span class="n">no</span>
+
+<span class="n">aln4</span> <span class="o">=</span> <span class="n">egglib</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">from_fasta</span><span class="p">(</span><span class="s1">&#39;align4.fas&#39;</span><span class="p">,</span> <span class="n">groups</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="nb">print</span> <span class="n">aln4</span><span class="o">.</span><span class="n">ns</span><span class="p">,</span> <span class="n">aln4</span><span class="o">.</span><span class="n">no</span>
+</pre></div>
+</div>
+<p>The attributes <a class="reference internal" href="../py/toplevel.html#egglib.Align.ns" title="egglib.Align.ns"><code class="xref py py-attr docutils literal"><span class="pre">ns</span></code></a> and <a class="reference internal" href="../py/toplevel.html#egglib.Align.no" title="egglib.Align.no"><code class="xref py py-attr docutils literal"><span class="pre">no</span></code></a> of <code class="xref py py-class docutils literal"><span class="pre">Align</span></code>/<code class="xref py py-class docutils literal"><span class="pre">Container</span></code> objects
+give, respectively, the number of ingroup and outgroup samples. If group labels
+are ignored, all samples are placed in the ingroup. The attribute <a class="reference internal" href="../py/toplevel.html#egglib.Align.ng" title="egglib.Align.ng"><code class="xref py py-attr docutils literal"><span class="pre">ng</span></code></a>
+gives the number of group levels.</p>
+<p>Besides, group labels can be applied to outgroup as well (but only one level).
+This is useful to group outgroup samples in individuals to process their
+genotypes. The syntax if <code class="docutils literal"><span class="pre">&#64;#1</span></code> (just add an integer label after the
+outgroup markup). The default value is also 0.</p>
+</div>
+</div>
+<div class="section" id="iteration">
+<h1>Iteration<a class="headerlink" href="#iteration" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="principle-of-proxy-types">
+<h2>Principle of proxy types<a class="headerlink" href="#principle-of-proxy-types" title="Permalink to this headline">¶</a></h2>
+<p>Both <code class="xref py py-class docutils literal"><span class="pre">Align</span></code> and <code class="xref py py-class docutils literal"><span class="pre">Container</span></code> classes are iterable (that is
+they support the <code class="docutils literal"><span class="pre">for</span> <span class="pre">item</span> <span class="pre">in</span> <span class="pre">aln4</span></code> expression if we take the last
+alignment we imported as example). Iteration steps yield objects of a
+specialized type, named <a class="reference internal" href="../py/toplevel.html#egglib.SampleView" title="egglib.SampleView"><code class="xref py py-class docutils literal"><span class="pre">SampleView</span></code></a>. <code class="xref py py-class docutils literal"><span class="pre">SampleView</span></code> objects
+represent one sample of a <code class="xref py py-class docutils literal"><span class="pre">Align</span></code>/<code class="xref py py-class docutils literal"><span class="pre">Container</span></code>: the name
+is accessible as the attribute <a class="reference internal" href="../py/toplevel.html#egglib.SampleView.name" title="egglib.SampleView.name"><code class="xref py py-attr docutils literal"><span class="pre">name</span></code></a>, the sequence as
+<a class="reference internal" href="../py/toplevel.html#egglib.SampleView.sequence" title="egglib.SampleView.sequence"><code class="xref py py-attr docutils literal"><span class="pre">sequence</span></code></a> and the list of group labels as
+<a class="reference internal" href="../py/toplevel.html#egglib.SampleView.group" title="egglib.SampleView.group"><code class="xref py py-attr docutils literal"><span class="pre">group</span></code></a> (see example below). The name is a standard <a class="reference external" href="https://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">str</span></code></a> object,
+but the sequence and list of group labels are other specialized types
+(<a class="reference internal" href="../py/toplevel.html#egglib.SequenceView" title="egglib.SequenceView"><code class="xref py py-class docutils literal"><span class="pre">SequenceView</span></code></a> and <a class="reference internal" href="../py/toplevel.html#egglib.GroupView" title="egglib.GroupView"><code class="xref py py-class docutils literal"><span class="pre">GroupView</span></code></a>, respectively).</p>
+<p>In addition to <code class="xref py py-attr docutils literal"><span class="pre">name</span></code>, <code class="xref py py-attr docutils literal"><span class="pre">sequence</span></code>, and <code class="xref py py-attr docutils literal"><span class="pre">group</span></code>,
+<code class="xref py py-class docutils literal"><span class="pre">SampleView</span></code> objects have the following attribute, which cannot be
+modified:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="26%" />
+<col width="74%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>Attribute</td>
+<td>Meaning</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="../py/toplevel.html#egglib.SampleView.parent" title="egglib.SampleView.parent"><code class="xref py py-attr docutils literal"><span class="pre">parent</span></code></a></td>
+<td>Reference to the <code class="xref py py-class docutils literal"><span class="pre">Align</span></code> or <code class="xref py py-class docutils literal"><span class="pre">Continer</span></code> object containing this sample.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="../py/toplevel.html#egglib.SampleView.outgroup" title="egglib.SampleView.outgroup"><code class="xref py py-attr docutils literal"><span class="pre">outgroup</span></code></a></td>
+<td><code class="docutils literal"><span class="pre">True</span></code> is the sample is part of the outgroup.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="../py/toplevel.html#egglib.SampleView.index" title="egglib.SampleView.index"><code class="xref py py-attr docutils literal"><span class="pre">index</span></code></a></td>
+<td>Index of the sample.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="../py/toplevel.html#egglib.SampleView.ls" title="egglib.SampleView.ls"><code class="xref py py-attr docutils literal"><span class="pre">ls</span></code></a></td>
+<td>Length of the sequence for this sample.</td>
+</tr>
+</tbody>
+</table>
+<p>All the three types <a class="reference internal" href="../py/toplevel.html#egglib.SampleView" title="egglib.SampleView"><code class="xref py py-class docutils literal"><span class="pre">SampleView</span></code></a>, <a class="reference internal" href="../py/toplevel.html#egglib.SequenceView" title="egglib.SequenceView"><code class="xref py py-class docutils literal"><span class="pre">SequenceView</span></code></a>, and
+<a class="reference internal" href="../py/toplevel.html#egglib.GroupView" title="egglib.GroupView"><code class="xref py py-class docutils literal"><span class="pre">GroupView</span></code></a> are proxy classes similar to
+<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#dictionary-view-objects">dictionary views</a>
+in Python 3: they do not contain a deep copy of the <code class="xref py py-class docutils literal"><span class="pre">Align</span></code>/<code class="xref py py-class docutils literal"><span class="pre">Container</span></code>
+data but rather act as a proxy to edit it more conveniently. As dictionary
+views, if the content of the alignment changes, the data accessible from the
+proxy might change or even disappear (causing an error), as we will show later.
+In comparison with dictionary views, <code class="xref py py-class docutils literal"><span class="pre">Align</span></code>/<code class="xref py py-class docutils literal"><span class="pre">Container</span></code> proxy
+types allow a wider range of editing operations, which will be addressed later
+in this manual.</p>
+</div>
+<div class="section" id="default-iteration">
+<h2>Default iteration<a class="headerlink" href="#default-iteration" title="Permalink to this headline">¶</a></h2>
+<p>The example below shows how to display the names of all samples of the ingroup
+of the last alignment we considered:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">aln4</span> <span class="o">=</span> <span class="n">egglib</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">from_fasta</span><span class="p">(</span><span class="s1">&#39;align4.fas&#39;</span><span class="p">,</span> <span class="n">groups</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="nb">print</span> <span class="n">aln</span><span class="o">.</span><span class="n">ns</span><span class="p">,</span> <span class="n">aln</span><span class="o">.</span><span class="n">no</span>
+<span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">aln4</span><span class="p">:</span>
+    <span class="nb">print</span> <span class="n">item</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">item</span><span class="o">.</span><span class="n">outgroup</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="mi">6</span> <span class="mi">1</span>
+<span class="n">sample1</span> <span class="kc">False</span>
+<span class="n">sample2</span> <span class="kc">False</span>
+<span class="n">sample3</span> <span class="kc">False</span>
+<span class="n">sample4</span> <span class="kc">False</span>
+<span class="n">sample5</span> <span class="kc">False</span>
+<span class="n">sample6</span> <span class="kc">False</span>
+</pre></div>
+</div>
+<p>Note that only samples of the ingroup are considered in this iteration. Only
+the 6 samples of the ingroup (<code class="docutils literal"><span class="pre">aln4.ns</span></code> returns 6) are shown, and the only
+outgroup sample (as shown by <code class="docutils literal"><span class="pre">aln4.no</span></code>) does not appear. This is proven by
+the value of the boolean flag <a class="reference internal" href="../py/toplevel.html#egglib.SampleView.outgroup" title="egglib.SampleView.outgroup"><code class="xref py py-attr docutils literal"><span class="pre">SampleView.outgroup</span></code></a> which is always <code class="docutils literal"><span class="pre">False</span></code>.</p>
+</div>
+<div class="section" id="controlling-iterations">
+<h2>Controlling iterations<a class="headerlink" href="#controlling-iterations" title="Permalink to this headline">¶</a></h2>
+<p><code class="xref py py-class docutils literal"><span class="pre">Align</span></code>/<code class="xref py py-class docutils literal"><span class="pre">Container</span></code> objects provide two methods returning
+iterators to complete the default behaviour of the <code class="docutils literal"><span class="pre">for</span></code> statement. One of
+these methods allows to iterate over outgroup samples (<a class="reference internal" href="../py/toplevel.html#egglib.Align.iter_outgroup" title="egglib.Align.iter_outgroup"><code class="xref py py-meth docutils literal"><span class="pre">iter_outgroup()</span></code></a>)
+and the other let you chose between ingroup, outgroup, or both (<a class="reference internal" href="../py/toplevel.html#egglib.Align.iter_samples" title="egglib.Align.iter_samples"><code class="xref py py-meth docutils literal"><span class="pre">iter_samples()</span></code></a>).
+In short, they can used within a <code class="docutils literal"><span class="pre">for</span></code> statement as follow:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">aln4</span><span class="o">.</span><span class="n">iter_outgroup</span><span class="p">():</span>
+    <span class="nb">print</span> <span class="n">item</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">item</span><span class="o">.</span><span class="n">outgroup</span>
+</pre></div>
+</div>
+<p><code class="xref py py-meth docutils literal"><span class="pre">iter_samples()</span></code> takes two boolean arguments tell whether the ingroup and
+the outgroup (respectively) should be included. To iterate over all (both ingroup
+and outgroup) sample of the alignment, one must set both flags to <code class="docutils literal"><span class="pre">True</span></code>:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">aln4</span><span class="o">.</span><span class="n">iter_samples</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="kc">True</span><span class="p">):</span>
+    <span class="nb">print</span> <span class="n">item</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">item</span><span class="o">.</span><span class="n">outgroup</span>
+</pre></div>
+</div>
+<p>which would result in:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">sample1</span> <span class="kc">False</span>
+<span class="n">sample2</span> <span class="kc">False</span>
+<span class="n">sample3</span> <span class="kc">False</span>
+<span class="n">sample4</span> <span class="kc">False</span>
+<span class="n">sample5</span> <span class="kc">False</span>
+<span class="n">sample6</span> <span class="kc">False</span>
+<span class="n">outgroup</span> <span class="kc">True</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="base-2.html" title="Accessing and editing data"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="base.html" title="The Align and Container classes"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../contents.html">EggLib&#39;s documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../toc.html" >Contents</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="index.html" >Manual</a> &#187;</li>
+          <li class="nav-item nav-item-3"><a href="base.html" >The <code class="docutils literal"><span class="pre">Align</span></code> and <code class="docutils literal"><span class="pre">Container</span></code> classes</a> &#187;</li> 
+      </ul>
+    </div>
+<!--
+        <address style="text-align: right;"><small>Hosted by&nbsp;
+        <a href="http://sourceforge.net/projects/egglib"><img src="http://sflogo.sourceforge.net/sflogo.php?group_id=232965&amp;type=8" width="80" height="15" alt="Get EggLib at SourceForge.net. Fast, secure and Free Open Source software downloads" / ALIGN=RIGHT BORDER=0></a>
+        </address>
+-->
+
+  </body>
+</html>

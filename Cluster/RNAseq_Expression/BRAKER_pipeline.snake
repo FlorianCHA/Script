@@ -1,6 +1,6 @@
 import glob
 import re
-import sys
+import sys, os
 from os.path import join
 
 ###############################################################################
@@ -9,14 +9,14 @@ from os.path import join
 #--------------------------------------------------
 
 # fasta files
-ref='/homedir/charriat/magMax_project/5_RNAseq/1_Alignement/IN0059/Genome/IN0059.fasta'
+ref='/work/gladieux/magMax_project/5_RNAseq/1_Alignement/CL367/genome/CH1908.fasta'
 # gff file
-gff='/homedir/charriat/magMax_project/5_RNAseq/1_Alignement/IN0059/Genome/IN0059_merge.gff3'
+gff='/work/gladieux/magMax_project/5_RNAseq/1_Alignement/CL367/genome/CH1908_merge.gff3'
 # Out directory
-output = '/homedir/charriat/magMax_project/5_RNAseq/1_Alignement/IN0059/result/'
+output = '/work/gladieux/magMax_project/5_RNAseq/1_Alignement/CL367/result/'
 
 # RNAseq directory
-directory='/homedir/charriat/magMax_project/5_RNAseq/1_Alignement/IN0059/RNAseq/'
+directory='/work/gladieux/magMax_project/5_RNAseq/1_Alignement/CL367/RNAseq/'
 
 # file termination
 suffixFile = '.fastq.gz'
@@ -35,16 +35,16 @@ rule final:
 
 rule hisat2_index :
 	threads : 1
-	input : reference = ref  
+	input :  ref 
 	params : l_mem_free='4G'
-	output : ref.replace('.fasta','')
+	output : ref.replace('.fasta','') 
 	shell :"""
 	module load bioinfo/hisat2/2.1.0
 	hisat2-build {input} {output}
 	touch {output}
-	"""		
+	"""
 
-rule hisat2 :
+rule hisat2_summary :
 	threads : 1
 	input : reference = ref.replace('.fasta',''), rnaseq = directory + '{smp}'+ suffixFile 
 	params : l_mem_free='4G'
@@ -53,6 +53,8 @@ rule hisat2 :
 	module load bioinfo/hisat2/2.1.0
 	hisat2 -x {input.reference} --summary-file -U {input.rnaseq} -S {output.sam} 2>{output.stdout} 
 	"""
+
+
 rule RNAseq_summary :
 	threads : 1
 	input :  output + 'sam_file/{smp}_cufflinks.txt'

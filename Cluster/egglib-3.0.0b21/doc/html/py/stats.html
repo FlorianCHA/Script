@@ -1,0 +1,3187 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Diversity statistics &#8212; EggLib&#39;s documentation</title>
+    <link rel="stylesheet" href="../_static/egglibdoc.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '3.0.0b21',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="shortcut icon" href="../_static/icon.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Coalescence simulator" href="coalesce.html" />
+    <link rel="prev" title="Import/export utilities" href="io.html" />
+    <script type="text/javascript">
+      // intelligent scrolling of the sidebar content
+      $(window).scroll(function() {
+        var sb = $('.sphinxsidebarwrapper');
+        var win = $(window);
+        var sbh = sb.height();
+        var offset = $('.sphinxsidebar').position()['top'];
+        var wintop = win.scrollTop();
+        var winbot = wintop + win.innerHeight();
+        var curtop = sb.position()['top'];
+        var curbot = curtop + sbh;
+        // does sidebar fit in window?
+        if (sbh < win.innerHeight()) {
+          // yes: easy case -- always keep at the top
+          sb.css('top', $u.min([$u.max([0, wintop - offset - 10]),
+                                $(document).height() - sbh - 200]));
+        } else {
+          // no: only scroll if top/bottom edge of sidebar is at
+          // top/bottom edge of window
+          if (curtop > wintop && curbot > winbot) {
+            sb.css('top', $u.max([wintop - offset - 10, 0]));
+          } else if (curtop < wintop && curbot < winbot) {
+            sb.css('top', $u.min([winbot - sbh - offset - 20,
+                                  $(document).height() - sbh - 200]));
+          }
+        }
+      });
+    </script>
+  </head>
+  <body>
+<div style="background-color: white; text-align: left; padding: 0px 0px 0px 0px">
+<a href="../index.html"><img src="../_static/banner.png" border="0" alt="EggLib"/></a>
+</div>
+
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="coalesce.html" title="Coalescence simulator"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="io.html" title="Import/export utilities"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../contents.html">EggLib&#39;s documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../toc.html" >Contents</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="index.html" accesskey="U">Python Module</a> &#187;</li> 
+      </ul>
+    </div>
+
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../contents.html">
+              <img class="logo" src="../_static/egglib_small.bmp" alt="Logo"/>
+            </a></p>
+  <h3><a href="../contents.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Diversity statistics</a><ul>
+<li><a class="reference internal" href="#site">Site</a></li>
+<li><a class="reference internal" href="#freq">Freq</a></li>
+<li><a class="reference internal" href="#diversity-for-gene-families">Diversity for gene families</a></li>
+<li><a class="reference internal" href="#haplotypes">haplotypes()</a></li>
+<li><a class="reference internal" href="#codingdiversity">CodingDiversity</a></li>
+<li><a class="reference internal" href="#linkage-disequilibium">Linkage disequilibium</a></li>
+<li><a class="reference internal" href="#ehh">EHH</a></li>
+<li><a class="reference internal" href="#misorientation-probability">Misorientation probability</a></li>
+<li><a class="reference internal" href="#computestats">ComputeStats</a><ul>
+<li><a class="reference internal" href="#list-of-statistics">List of statistics</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#structure">Structure</a></li>
+<li><a class="reference internal" href="#filter">Filter</a></li>
+<li><a class="reference internal" href="#constants">Constants</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="io.html"
+                        title="previous chapter">Import/export utilities</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="coalesce.html"
+                        title="next chapter">Coalescence simulator</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/py/stats.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="diversity-statistics">
+<span id="stats"></span><h1>Diversity statistics<a class="headerlink" href="#diversity-statistics" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="site">
+<h2>Site<a class="headerlink" href="#site" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="egglib.stats.Site">
+<em class="property">class </em><code class="descclassname">egglib.stats.</code><code class="descname">Site</code><a class="headerlink" href="#egglib.stats.Site" title="Permalink to this definition">¶</a></dt>
+<dd><p>Store allelic and genotypic data at a single site. Allelic values
+are represented by integers. In case of complex, such as structural,
+variation, one can use the index of variants as allelic values, and
+some objects can lack allelic value information (a number of alleles
+of 0 will be reported).</p>
+<p>Loading data is incremental: processed new data will be added
+to previously loaded data (requiring that ploidy matches). To avoid
+this, use <a class="reference internal" href="#egglib.stats.Site.reset" title="egglib.stats.Site.reset"><code class="xref py py-meth docutils literal"><span class="pre">reset()</span></code></a>.</p>
+<dl class="method">
+<dt id="egglib.stats.Site.alleles">
+<code class="descname">alleles</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#egglib.stats.Site.alleles" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generate the list of alleles</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.stats.Site.as_list">
+<code class="descname">as_list</code><span class="sig-paren">(</span><em>flat=False</em>, <em>skip_outgroup=False</em><span class="sig-paren">)</span><a class="headerlink" href="#egglib.stats.Site.as_list" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generate one or two lists containing data from the instance.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>flat</strong> – flatten return lists and skip the individual
+level (by default, return lists are a list of tuples which
+represent individuals).</li>
+<li><strong>skip_outgroup</strong> – return only data for the ingroup (by
+default, return two lists for respectively ingroup and
+outgroup data).</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">lists of allelic index (or <code class="docutils literal"><span class="pre">None</span></code> for missing data).
+the return value is either a single or two lists (based on
+the value of <em>skip_outgroup</em>), and the list or lists
+contain tuples representing individuals unless <em>flat</em> is
+<code class="docutils literal"><span class="pre">True</span></code>.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.stats.Site.ingroup">
+<code class="descname">ingroup</code><span class="sig-paren">(</span><em>indiv</em><span class="optional">[</span>, <em>chrom</em><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#egglib.stats.Site.ingroup" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get a given ingroup genotype or allele, as allele indexes.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>indiv</strong> – individual index.</li>
+<li><strong>chrom</strong> – chromosome index.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p>If <em>chrom</em> is omitted, return the genotype as a tuple. Otherwise,
+return the specific allele. Setting <em>chrom</em> to <code class="docutils literal"><span class="pre">None</span></code> is the
+same as omitting it. <em>chrom</em> can be safely omitted for haploid
+data.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="egglib.stats.Site.no">
+<code class="descname">no</code><a class="headerlink" href="#egglib.stats.Site.no" title="Permalink to this definition">¶</a></dt>
+<dd><p>Total number of samples (alleles) in the outgroup.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="egglib.stats.Site.ns">
+<code class="descname">ns</code><a class="headerlink" href="#egglib.stats.Site.ns" title="Permalink to this definition">¶</a></dt>
+<dd><p>Total number of samples (alleles) in the ingroup.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="egglib.stats.Site.num_alleles">
+<code class="descname">num_alleles</code><a class="headerlink" href="#egglib.stats.Site.num_alleles" title="Permalink to this definition">¶</a></dt>
+<dd><p>Number of alleles.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="egglib.stats.Site.num_ingroup">
+<code class="descname">num_ingroup</code><a class="headerlink" href="#egglib.stats.Site.num_ingroup" title="Permalink to this definition">¶</a></dt>
+<dd><p>Total number of individuals in the ingroup.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="egglib.stats.Site.num_missing">
+<code class="descname">num_missing</code><a class="headerlink" href="#egglib.stats.Site.num_missing" title="Permalink to this definition">¶</a></dt>
+<dd><p>Number of missing data (expressed in number of samples).</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="egglib.stats.Site.num_missing_ingroup">
+<code class="descname">num_missing_ingroup</code><a class="headerlink" href="#egglib.stats.Site.num_missing_ingroup" title="Permalink to this definition">¶</a></dt>
+<dd><p>Number of missing data (expressed in number of samples) in the
+ingroup only.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="egglib.stats.Site.num_missing_outgroup">
+<code class="descname">num_missing_outgroup</code><a class="headerlink" href="#egglib.stats.Site.num_missing_outgroup" title="Permalink to this definition">¶</a></dt>
+<dd><p>Number of missing data (expressed in number of samples) in the
+outgroup only.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="egglib.stats.Site.num_outgroup">
+<code class="descname">num_outgroup</code><a class="headerlink" href="#egglib.stats.Site.num_outgroup" title="Permalink to this definition">¶</a></dt>
+<dd><p>Total number of individuals in the outroup.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.stats.Site.outgroup">
+<code class="descname">outgroup</code><span class="sig-paren">(</span><em>indiv</em>, <em>chrom=None</em><span class="sig-paren">)</span><a class="headerlink" href="#egglib.stats.Site.outgroup" title="Permalink to this definition">¶</a></dt>
+<dd><p>outroup(indiv[, chrom])</p>
+<p>Get a given outgroup genotype or allele, as allele indexes.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>indiv</strong> – individual index.</li>
+<li><strong>chrom</strong> – chromosome index.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p>If <em>chrom</em> is omitted, return the genotype as a tuple. Otherwise,
+return the specific allele. Setting <em>chrom</em> to <code class="docutils literal"><span class="pre">None</span></code> is the
+same as omitting it. <em>chrom</em> can be safely omitted for haploid
+data.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="egglib.stats.Site.ploidy">
+<code class="descname">ploidy</code><a class="headerlink" href="#egglib.stats.Site.ploidy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Current value of the ploidy (to change it, one needs to reset
+the instance).</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.stats.Site.process_align">
+<code class="descname">process_align</code><span class="sig-paren">(</span><em>align</em>, <em>index</em>, <em>filtr</em>, <em>struct=None</em>, <em>reset=True</em><span class="sig-paren">)</span><a class="headerlink" href="#egglib.stats.Site.process_align" title="Permalink to this definition">¶</a></dt>
+<dd><p>Import data from the provided <a class="reference internal" href="toplevel.html#egglib.Align" title="egglib.Align"><code class="xref py py-class docutils literal"><span class="pre">Align</span></code></a> to the data
+currently held by the instance. Arguments are identical to the
+function <a class="reference internal" href="#egglib.stats.site_from_align" title="egglib.stats.site_from_align"><code class="xref py py-func docutils literal"><span class="pre">site_from_align()</span></code></a>, expect <em>reset</em>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>reset</strong> – if <code class="docutils literal"><span class="pre">True</span></code>, reset the instance as if newly
+created. If <code class="docutils literal"><span class="pre">False</span></code>, append the data to current data, if any.</td>
+</tr>
+</tbody>
+</table>
+<p>If <em>reset</em> is <code class="docutils literal"><span class="pre">False</span></code> and this instance currently holds data,
+the ploidy defined by the <em>struct</em> argument is required to match
+the current value. If <em>struct</em> is <code class="docutils literal"><span class="pre">None</span></code>, the implied ploidy
+is 1 and is still required to match.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.stats.Site.process_list">
+<code class="descname">process_list</code><span class="sig-paren">(</span><em>ingroup</em>, <em>outgroup</em>, <em>flat=False</em>, <em>reset=True</em><span class="sig-paren">)</span><a class="headerlink" href="#egglib.stats.Site.process_list" title="Permalink to this definition">¶</a></dt>
+<dd><p>Import data from the provided lists to the data currently held
+by the instance. Arguments are identical to the function
+<a class="reference internal" href="#egglib.stats.site_from_list" title="egglib.stats.site_from_list"><code class="xref py py-func docutils literal"><span class="pre">site_from_list()</span></code></a>, expect <em>reset</em>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>reset</strong> – if <code class="docutils literal"><span class="pre">True</span></code>, reset the instance as if newly
+created. If <code class="docutils literal"><span class="pre">False</span></code>, append the data to current data, if any.</td>
+</tr>
+</tbody>
+</table>
+<p>If <em>reset</em> is <code class="docutils literal"><span class="pre">False</span></code> and this instance currently holds data,
+the ploidy defined by the
+input data is required to match the current value. If <em>flat</em> is
+<code class="docutils literal"><span class="pre">True</span></code>, the implied ploidy is 1 and is still required to match.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.stats.Site.process_vcf">
+<code class="descname">process_vcf</code><span class="sig-paren">(</span><em>vcf</em>, <em>start=0</em>, <em>stop=None</em>, <em>flat=False</em>, <em>reset=True</em><span class="sig-paren">)</span><a class="headerlink" href="#egglib.stats.Site.process_vcf" title="Permalink to this definition">¶</a></dt>
+<dd><p>Import data from the provided VCF parser to the data currently
+held by the instance. Arguments are identical to the function
+<a class="reference internal" href="#egglib.stats.site_from_vcf" title="egglib.stats.site_from_vcf"><code class="xref py py-func docutils literal"><span class="pre">site_from_vcf()</span></code></a>, expect <em>reset</em>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>reset</strong> – if <code class="docutils literal"><span class="pre">True</span></code>, reset the instance as if newly
+created. If <code class="docutils literal"><span class="pre">False</span></code>, append the data to current data, if any.</td>
+</tr>
+</tbody>
+</table>
+<p>If <em>reset</em> is <code class="docutils literal"><span class="pre">False</span></code> and this instance currently holds data,
+the ploidy defined by the
+input data is required to match the current value. If <em>flat</em> is
+<code class="docutils literal"><span class="pre">True</span></code>, the implied ploidy is 1 and is still required to match.</p>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">VCF genotypes are exported as allele indexes (0 for the
+reference allele). This function treats them as allele values,
+meaning that they might be shifted (0 is the first allele found,
+which is not necessarily the reference allele). Be aware of this
+fact when appending VCF data to data from other sources (including
+other VCF files) in the same site data, or when processing
+individual alleles.</p>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.stats.Site.reset">
+<code class="descname">reset</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#egglib.stats.Site.reset" title="Permalink to this definition">¶</a></dt>
+<dd><p>Clear all data from the instance.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="egglib.stats.site_from_align">
+<code class="descclassname">egglib.stats.</code><code class="descname">site_from_align</code><span class="sig-paren">(</span><em>align</em>, <em>index</em>, <em>filtr</em>, <em>struct=None</em><span class="sig-paren">)</span><a class="headerlink" href="#egglib.stats.site_from_align" title="Permalink to this definition">¶</a></dt>
+<dd><p>Import allelic and genotypic data from a position of the provided
+<code class="xref py py-class docutils literal"><span class="pre">Align</span></code> instance. The <em>struct</em> argument allows to process
+only a subset of the samples, and also controls the genotypic
+struct and the ploidy. This means that the same <a class="reference internal" href="#egglib.stats.Structure" title="egglib.stats.Structure"><code class="xref py py-class docutils literal"><span class="pre">Structure</span></code></a>
+must be used again to further process the resulting <a class="reference internal" href="#egglib.stats.Site" title="egglib.stats.Site"><code class="xref py py-class docutils literal"><span class="pre">Site</span></code></a>
+instance.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>align</strong> – a <a class="reference internal" href="toplevel.html#egglib.Align" title="egglib.Align"><code class="xref py py-class docutils literal"><span class="pre">Align</span></code></a> instance.</li>
+<li><strong>index</strong> – the index of a valid (not out of range) position of
+the alignment.</li>
+<li><strong>filtr</strong> – a <a class="reference internal" href="#egglib.stats.Filter" title="egglib.stats.Filter"><code class="xref py py-class docutils literal"><span class="pre">Filter</span></code></a> instance providing the list of
+alleles to be considered as valid or missing data.</li>
+<li><strong>struct</strong> – a <a class="reference internal" href="#egglib.stats.Structure" title="egglib.stats.Structure"><code class="xref py py-class docutils literal"><span class="pre">Structure</span></code></a> instance that will be used
+to group samples in individuals. Note that if the <a class="reference internal" href="#egglib.stats.Structure" title="egglib.stats.Structure"><code class="xref py py-class docutils literal"><span class="pre">Structure</span></code></a>
+describes only a subset of the samples of the alignment, only
+those samples will be included in the resulting <a class="reference internal" href="#egglib.stats.Site" title="egglib.stats.Site"><code class="xref py py-class docutils literal"><span class="pre">Site</span></code></a>
+instance.  By default, all sampled are processed in haploid
+individuals.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">A new <a class="reference internal" href="#egglib.stats.Site" title="egglib.stats.Site"><code class="xref py py-class docutils literal"><span class="pre">Site</span></code></a> instance. The numbers of ingroup and
+outgroup items of this instance are defined by the <a class="reference internal" href="#egglib.stats.Structure" title="egglib.stats.Structure"><code class="xref py py-class docutils literal"><span class="pre">Structure</span></code></a>
+instance passed as <em>struct</em> and can be smaller than the number
+of samples of the original alignment.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="egglib.stats.site_from_list">
+<code class="descclassname">egglib.stats.</code><code class="descname">site_from_list</code><span class="sig-paren">(</span><em>ingroup</em>, <em>outgroup</em>, <em>flat=False</em><span class="sig-paren">)</span><a class="headerlink" href="#egglib.stats.site_from_list" title="Permalink to this definition">¶</a></dt>
+<dd><p>Import allelic and genotpyic data from provided lists. Input data
+are equivalent to the return value of <a class="reference internal" href="#egglib.stats.Site.as_list" title="egglib.stats.Site.as_list"><code class="xref py py-meth docutils literal"><span class="pre">Site.as_list()</span></code></a>.
+<em>ingroup</em> and <em>outgroup</em> provide data for the ingroup and outgroup
+respectively. Either can be replaced by <code class="docutils literal"><span class="pre">None</span></code> which is equivalent
+to an empty list. They are supposed to be lists of tuples if <em>flat</em>
+is <code class="docutils literal"><span class="pre">False</span></code>, and lists of integers otherwise, but lists and tuples
+can be replaced by other sequence types.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>ingroup</strong> – if <em>flat</em> is <code class="docutils literal"><span class="pre">False</span></code> (default): a list of
+tuples (one tuple per individual) which contain a constant
+number of allelic values. All allelic values are taken as
+valid alleles except <code class="docutils literal"><span class="pre">None</span></code> which represent missing data.
+Alleles can be any integers. The number of items of all
+individuals of both ingroup and outgroup is required to be
+constant. If <em>flat</em> is <code class="docutils literal"><span class="pre">True</span></code>: a lists of integers (<code class="docutils literal"><span class="pre">None</span></code>
+for missing data) giving allelic values of all samples.</li>
+<li><strong>outgroup</strong> – same format as <em>ingroup</em>.</li>
+<li><strong>flat</strong> – determines if genotypic (default) or allelic data
+are provided.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="egglib.stats.site_from_vcf">
+<code class="descclassname">egglib.stats.</code><code class="descname">site_from_vcf</code><span class="sig-paren">(</span><em>vcf</em>, <em>start=0</em>, <em>stop=None</em>, <em>flat=False</em><span class="sig-paren">)</span><a class="headerlink" href="#egglib.stats.site_from_vcf" title="Permalink to this definition">¶</a></dt>
+<dd><p>Import allelic and genotypic data from a VCF parser. The VCF parser
+must have processed a variant and the variant is required to have
+genotypic data available as the GT format field. An exception is
+raised otherwise.</p>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">VCF genotypes are exported as allele indexes (0 for the
+reference allele). This function treats them as allele values,
+meaning that they might be shifted (0 is the first allele found,
+which is not necessarily the reference allele). Be aware of this
+fact when appending VCF data to data from other sources (including
+other VCF files) in the same site data, or when processing
+individual alleles.</p>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>vcf</strong> – a <a class="reference internal" href="io.html#egglib.io.VcfParser" title="egglib.io.VcfParser"><code class="xref py py-class docutils literal"><span class="pre">VcfParser</span></code></a> instance containing data. There
+must at least one sample and the GT format field must be
+available. It is not required to extract variant data manually.</li>
+<li><strong>start</strong> – index of the first sample to process. Index is
+required to be within available bounds (it must be at least 0
+and smaller than the number of samples in the VCF data). Note
+that in a VCF file a sample corresponds to a genotype.</li>
+<li><strong>stop</strong> – sample index at which processing must be stopped (this
+sample is not processed). Index is required to be within
+available bounds (if must be at least equal to <em>start</em> and not
+larger than the number of samples in the VCF data). Note that in
+a VCF file, a sample corresponds to a genotype.</li>
+<li><strong>flat</strong> – ignore individuals and load data as haploid genotypes.
+By default, genotypes are imported based on the ploidy defined
+in the data.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="freq">
+<h2>Freq<a class="headerlink" href="#freq" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="egglib.stats.Freq">
+<em class="property">class </em><code class="descclassname">egglib.stats.</code><code class="descname">Freq</code><a class="headerlink" href="#egglib.stats.Freq" title="Permalink to this definition">¶</a></dt>
+<dd><p>Hold allelic and genotypic frequencies for a single site. <code class="xref py py-class docutils literal"><span class="pre">.Freq</span></code>
+instances can be created using the three functions <a class="reference internal" href="#egglib.stats.freq_from_site" title="egglib.stats.freq_from_site"><code class="xref py py-func docutils literal"><span class="pre">freq_from_site()</span></code></a>,
+<a class="reference internal" href="#egglib.stats.freq_from_list" title="egglib.stats.freq_from_list"><code class="xref py py-func docutils literal"><span class="pre">freq_from_list()</span></code></a>, and <a class="reference internal" href="#egglib.stats.freq_from_vcf" title="egglib.stats.freq_from_vcf"><code class="xref py py-func docutils literal"><span class="pre">freq_from_vcf()</span></code></a>, or using the
+default constructor. After it is created by any way, instances can be
+re-used (which is faster), using their methods <a class="reference internal" href="#egglib.stats.Freq.process_site" title="egglib.stats.Freq.process_site"><code class="xref py py-meth docutils literal"><span class="pre">process_site()</span></code></a>,
+<a class="reference internal" href="#egglib.stats.Freq.process_list" title="egglib.stats.Freq.process_list"><code class="xref py py-meth docutils literal"><span class="pre">process_list()</span></code></a>, and <a class="reference internal" href="#egglib.stats.Freq.process_vcf" title="egglib.stats.Freq.process_vcf"><code class="xref py py-meth docutils literal"><span class="pre">process_vcf()</span></code></a>.</p>
+<dl class="method">
+<dt id="egglib.stats.Freq.freq_allele">
+<code class="descname">freq_allele</code><span class="sig-paren">(</span><em>allele</em>, <em>cpt=0</em>, <em>idx=None</em><span class="sig-paren">)</span><a class="headerlink" href="#egglib.stats.Freq.freq_allele" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the frequency of an allele.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>allele</strong> – allele index.</li>
+<li><strong>cpt</strong> – compartment identifier.</li>
+<li><strong>idx</strong> – compartment index (required for clusters and
+populations, ignored otherwise).</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.stats.Freq.freq_genotype">
+<code class="descname">freq_genotype</code><span class="sig-paren">(</span><em>genotype</em>, <em>cpt=0</em>, <em>idx=None</em><span class="sig-paren">)</span><a class="headerlink" href="#egglib.stats.Freq.freq_genotype" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the frequency of an genotype.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>genotype</strong> – genotype index.</li>
+<li><strong>cpt</strong> – compartment identifier.</li>
+<li><strong>idx</strong> – compartment index (required for clusters and
+populations, ignored otherwise).</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.stats.Freq.genotype">
+<code class="descname">genotype</code><span class="sig-paren">(</span><em>idx</em><span class="sig-paren">)</span><a class="headerlink" href="#egglib.stats.Freq.genotype" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get a genotype, as a tuple of allele indexes.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.stats.Freq.nieff">
+<code class="descname">nieff</code><span class="sig-paren">(</span><em>cpt=0</em>, <em>idx=None</em><span class="sig-paren">)</span><a class="headerlink" href="#egglib.stats.Freq.nieff" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the number of individuals within a given compartment. In
+the haploid case, this method is identical to <a class="reference internal" href="#egglib.stats.Freq.nseff" title="egglib.stats.Freq.nseff"><code class="xref py py-meth docutils literal"><span class="pre">nseff()</span></code></a>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>cpt</strong> – compartment identifier.</li>
+<li><strong>idx</strong> – compartment index (required for clusters and
+populations, ignored otherwise).</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.stats.Freq.nseff">
+<code class="descname">nseff</code><span class="sig-paren">(</span><em>cpt=0</em>, <em>idx=None</em><span class="sig-paren">)</span><a class="headerlink" href="#egglib.stats.Freq.nseff" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the number of samples within a given compartment.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>cpt</strong> – compartment identifier.</li>
+<li><strong>idx</strong> – compartment index (required for clusters and
+populations, ignored otherwise).</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="egglib.stats.Freq.num_alleles">
+<code class="descname">num_alleles</code><a class="headerlink" href="#egglib.stats.Freq.num_alleles" title="Permalink to this definition">¶</a></dt>
+<dd><p>Number of alleles in the whole site.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="egglib.stats.Freq.num_clusters">
+<code class="descname">num_clusters</code><a class="headerlink" href="#egglib.stats.Freq.num_clusters" title="Permalink to this definition">¶</a></dt>
+<dd><p>Number of clusters.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="egglib.stats.Freq.num_genotypes">
+<code class="descname">num_genotypes</code><a class="headerlink" href="#egglib.stats.Freq.num_genotypes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Number of genotypes in the whole site.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="egglib.stats.Freq.num_populations">
+<code class="descname">num_populations</code><a class="headerlink" href="#egglib.stats.Freq.num_populations" title="Permalink to this definition">¶</a></dt>
+<dd><p>Number of populations.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="egglib.stats.Freq.ploidy">
+<code class="descname">ploidy</code><a class="headerlink" href="#egglib.stats.Freq.ploidy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Ploidy</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.stats.Freq.process_list">
+<code class="descname">process_list</code><span class="sig-paren">(</span><em>ingroup</em>, <em>outgroup</em>, <em>geno_list=None</em><span class="sig-paren">)</span><a class="headerlink" href="#egglib.stats.Freq.process_list" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reset the instance as if it had been created using <a class="reference internal" href="#egglib.stats.freq_from_list" title="egglib.stats.freq_from_list"><code class="xref py py-func docutils literal"><span class="pre">freq_from_list()</span></code></a>.
+Arguments are identical to this function.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.stats.Freq.process_site">
+<code class="descname">process_site</code><span class="sig-paren">(</span><em>site</em>, <em>struct=None</em><span class="sig-paren">)</span><a class="headerlink" href="#egglib.stats.Freq.process_site" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reset the instance as if it had been created using <a class="reference internal" href="#egglib.stats.freq_from_site" title="egglib.stats.freq_from_site"><code class="xref py py-func docutils literal"><span class="pre">freq_from_site()</span></code></a>.
+Arguments are identical to this function.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.stats.Freq.process_vcf">
+<code class="descname">process_vcf</code><span class="sig-paren">(</span><em>vcf</em><span class="sig-paren">)</span><a class="headerlink" href="#egglib.stats.Freq.process_vcf" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reset the instance as if it had been created using <a class="reference internal" href="#egglib.stats.freq_from_vcf" title="egglib.stats.freq_from_vcf"><code class="xref py py-func docutils literal"><span class="pre">freq_from_vcf()</span></code></a>.
+Argument is identical to this function.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="egglib.stats.freq_from_site">
+<code class="descclassname">egglib.stats.</code><code class="descname">freq_from_site</code><span class="sig-paren">(</span><em>site</em>, <em>struct=None</em><span class="sig-paren">)</span><a class="headerlink" href="#egglib.stats.freq_from_site" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a new <a class="reference internal" href="#egglib.stats.Freq" title="egglib.stats.Freq"><code class="xref py py-class docutils literal"><span class="pre">Freq</span></code></a> instance based on data of the provided
+site.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>site</strong> – a <a class="reference internal" href="#egglib.stats.Site" title="egglib.stats.Site"><code class="xref py py-class docutils literal"><span class="pre">Site</span></code></a> instance.</li>
+<li><strong>struct</strong> – <p>this argument can be:</p>
+<ul>
+<li>A <a class="reference internal" href="#egglib.stats.Structure" title="egglib.stats.Structure"><code class="xref py py-class docutils literal"><span class="pre">Structure</span></code></a> instance
+with ploidy equal to 1 (since the individual level must already
+be implemented in the provided <a class="reference internal" href="#egglib.stats.Site" title="egglib.stats.Site"><code class="xref py py-class docutils literal"><span class="pre">Site</span></code></a>), allowing to select a
+subset of samples and/or define the structure. This is the only way
+to specify a hierachical (with clusters) structure.</li>
+<li>A <code class="xref py py-class docutils literal"><span class="pre">list</span></code> (or compatible) of at least one integer providing
+the sample size (as numbers of individuals) of all populations,
+assuming the individuals are organized in the corresponding order
+(all individuals of a given population grouped together).</li>
+<li><code class="docutils literal"><span class="pre">None</span></code> (no structure, all individuals placed in a single population).</li>
+</ul>
+</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">A new <a class="reference internal" href="#egglib.stats.Freq" title="egglib.stats.Freq"><code class="xref py py-class docutils literal"><span class="pre">Freq</span></code></a> instance.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="egglib.stats.freq_from_list">
+<code class="descclassname">egglib.stats.</code><code class="descname">freq_from_list</code><span class="sig-paren">(</span><em>ingroup</em>, <em>outgroup</em>, <em>geno_list=None</em><span class="sig-paren">)</span><a class="headerlink" href="#egglib.stats.freq_from_list" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a new <a class="reference internal" href="#egglib.stats.Freq" title="egglib.stats.Freq"><code class="xref py py-class docutils literal"><span class="pre">Freq</span></code></a> instance based on already computed
+frequency data.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>ingroup</strong> – a nested list of genotype or allele frequencies (based
+on the value of <em>geno_list</em>). The list must have three levels:
+(i) clusters, (ii) populations, and (iii) alleles/genotypes. If
+clusters/populations are not defined, a single-item list should
+be provided for this level. Empty lists are also allowed. The
+frequencies must be null or positive integers. The number of
+frequencies per population is required to be constant for all
+populations (corresponding to the number of alleles or genotypes).
+If <em>geno_list</em> is defined, data must be the frequencies of the
+provided genotypes, in the same order. Otherwise, data must be
+allelic frequencies, in the order of increasing allele index (in
+the latter case, data will be loaded as haploid).</li>
+<li><strong>outgroup</strong> – a list of allele/genotype frequencies for the
+outgroup. The number of alleles or genotypes is also required to
+match. If <code class="docutils literal"><span class="pre">None</span></code>, no outgroup samples (equivalent to a list of
+zeros).</li>
+<li><strong>geno_list</strong> – list of genotypes. Genotypes must be provided as
+tuples or lists. Their length is equal to the ploidy and is required to
+be at least two and constant for all genotypes. Order
+of alleles within genotypes is significant. If <code class="docutils literal"><span class="pre">None</span></code>, data are
+loaded as haploid alleles.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">A new <a class="reference internal" href="#egglib.stats.Freq" title="egglib.stats.Freq"><code class="xref py py-class docutils literal"><span class="pre">Freq</span></code></a> instance.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Note that it is required that there is at least one cluster and one
+population.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="egglib.stats.freq_from_vcf">
+<code class="descclassname">egglib.stats.</code><code class="descname">freq_from_vcf</code><span class="sig-paren">(</span><em>vcf</em><span class="sig-paren">)</span><a class="headerlink" href="#egglib.stats.freq_from_vcf" title="Permalink to this definition">¶</a></dt>
+<dd><p>Import allelic frequencies from a VCF parser. The VCF parser
+must have processed a variant and the variant is required to have
+frequency data available as the AC format field along with the AN
+field. An exception is raised otherwise.</p>
+<p>This function only imports haploid allele frequencies in the ingroup
+(without structure). The first allele is the reference, by
+construction, then all the alternate alleles in the order in which
+they are provided in the VCF file.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>vcf</strong> – a <a class="reference internal" href="io.html#egglib.io.VcfParser" title="egglib.io.VcfParser"><code class="xref py py-class docutils literal"><span class="pre">VcfParser</span></code></a> instance containing data. There
+must at least one sample and the AN/AC format fields must be
+available. It is not required to extract variant data manually.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="diversity-for-gene-families">
+<h2>Diversity for gene families<a class="headerlink" href="#diversity-for-gene-families" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="egglib.stats.paralog_pi">
+<code class="descclassname">egglib.stats.</code><code class="descname">paralog_pi</code><span class="sig-paren">(</span><em>align</em>, <em>struct_p</em>, <em>struct_i</em>, <em>max_missing=0</em>, <em>filtr=None</em><span class="sig-paren">)</span><a class="headerlink" href="#egglib.stats.paralog_pi" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute diversity statistics for a gene family (Innan 2003). An
+estimate of genetic diversity is provided for every paralog and for
+every pair of paralogs, provided that enough non-missing data is
+available (at least 2 samples are required). Note that sites with
+more than two alleles are always considered.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>align</strong> – an <a class="reference internal" href="toplevel.html#egglib.Align" title="egglib.Align"><code class="xref py py-class docutils literal"><span class="pre">Align</span></code></a> containing the sequence of all
+available paralog for all samples. The outgroup is ignored.</li>
+<li><strong>struct_p</strong> – a <a class="reference internal" href="#egglib.stats.Structure" title="egglib.stats.Structure"><code class="xref py py-class docutils literal"><span class="pre">Structure</span></code></a> providing the organisation of
+sequences in paralogs. This structure must have a ploidy of 1 (no
+individual structure). Clusters, if defined, are ignored. The
+sequences of all individuals for a given paralog should be grouped
+together in that structure. There might be a different number of
+sequences per paralog due to missing data.</li>
+<li><strong>struct_i</strong> – a <a class="reference internal" href="#egglib.stats.Structure" title="egglib.stats.Structure"><code class="xref py py-class docutils literal"><span class="pre">Structure</span></code></a> providing the organisation of
+sequences in individuals. This structure must have a ploidy of 1
+(no individual structure). Clusters, if defined, are ignored. The
+sequences of all paralogs for a given individual should be grouped
+together in that structure. There might be a different number of
+sequences per individual due to missing data.</li>
+<li><strong>max_missing</strong> – maximum proportion of missing data (if there are
+more missing data at a site, the site is ignored).</li>
+<li><strong>filtr</strong> – a <a class="reference internal" href="#egglib.stats.Filter" title="egglib.stats.Filter"><code class="xref py py-class docutils literal"><span class="pre">Filter</span></code></a> instance providing the list of
+exploitable allelic values and those that should be considered
+as missing. By default, use <a class="reference internal" href="#egglib.stats.filter_dna" title="egglib.stats.filter_dna"><code class="xref py py-data docutils literal"><span class="pre">filter_dna</span></code></a>.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">A new <a class="reference internal" href="#egglib.stats.ParalogPi" title="egglib.stats.ParalogPi"><code class="xref py py-class docutils literal"><span class="pre">ParalogPi</span></code></a> instance which provides methods
+to access the number of used sites and the diversity for each
+paralog/paralog pair.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="class">
+<dt id="egglib.stats.ParalogPi">
+<em class="property">class </em><code class="descclassname">egglib.stats.</code><code class="descname">ParalogPi</code><a class="headerlink" href="#egglib.stats.ParalogPi" title="Permalink to this definition">¶</a></dt>
+<dd><p>Class computing Innan’s within- and between-paralog diversity
+statistics. See <a class="reference internal" href="#egglib.stats.paralog_pi" title="egglib.stats.paralog_pi"><code class="xref py py-func docutils literal"><span class="pre">paralog_pi()</span></code></a> for more details. This class
+can be used directly (1) to analyse data with more efficiency (by
+reusing the same instance) or (2) to combine data from different
+alignments, or (3) for pass individual sites. Do first call
+<a class="reference internal" href="#egglib.stats.ParalogPi.setup" title="egglib.stats.ParalogPi.setup"><code class="xref py py-meth docutils literal"><span class="pre">setup()</span></code></a>.</p>
+<dl class="method">
+<dt id="egglib.stats.ParalogPi.Pib">
+<code class="descname">Pib</code><span class="sig-paren">(</span><em>i</em>, <em>j</em><span class="sig-paren">)</span><a class="headerlink" href="#egglib.stats.ParalogPi.Pib" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get between-paralog diversity for paralogs <em>i</em> and <em>j</em>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.stats.ParalogPi.Piw">
+<code class="descname">Piw</code><span class="sig-paren">(</span><em>i</em><span class="sig-paren">)</span><a class="headerlink" href="#egglib.stats.ParalogPi.Piw" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get within-paralog diversity for paralog <em>i</em>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.stats.ParalogPi.num_sites">
+<code class="descname">num_sites</code><span class="sig-paren">(</span><span class="optional">[</span><em>i</em><span class="optional">[</span>, <em>j</em><span class="optional">]</span><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#egglib.stats.ParalogPi.num_sites" title="Permalink to this definition">¶</a></dt>
+<dd><p>Number of sites with any data (without arguments), with data for
+paralog <em>i</em> (if only <em>i</em> specified), or with data for the pair
+of paralogs <em>i</em> and <em>j</em> (if both specified).</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.stats.ParalogPi.process_align">
+<code class="descname">process_align</code><span class="sig-paren">(</span><em>aln</em>, <em>max_missing=0</em>, <em>filtr=None</em><span class="sig-paren">)</span><a class="headerlink" href="#egglib.stats.ParalogPi.process_align" title="Permalink to this definition">¶</a></dt>
+<dd><p>Process an alignment matching the structure passed to <a class="reference internal" href="#egglib.stats.ParalogPi.setup" title="egglib.stats.ParalogPi.setup"><code class="xref py py-meth docutils literal"><span class="pre">setup()</span></code></a>.
+Diversity estimates are incremented (no reset).</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>aln</strong> – an <a class="reference internal" href="toplevel.html#egglib.Align" title="egglib.Align"><code class="xref py py-class docutils literal"><span class="pre">Align</span></code></a> instance.</li>
+<li><strong>max_missing</strong> – maximum proportion of missing data.</li>
+<li><strong>filtr</strong> – a class:<cite>.Filter</cite> instance.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.stats.ParalogPi.process_site">
+<code class="descname">process_site</code><span class="sig-paren">(</span><em>site</em><span class="sig-paren">)</span><a class="headerlink" href="#egglib.stats.ParalogPi.process_site" title="Permalink to this definition">¶</a></dt>
+<dd><p>Process a site matching the structure passed to <a class="reference internal" href="#egglib.stats.ParalogPi.setup" title="egglib.stats.ParalogPi.setup"><code class="xref py py-meth docutils literal"><span class="pre">setup()</span></code></a>.
+Diversity estimates are incremented (no reset).</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>site</strong> – a <a class="reference internal" href="#egglib.stats.Site" title="egglib.stats.Site"><code class="xref py py-class docutils literal"><span class="pre">Site</span></code></a> instance.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.stats.ParalogPi.setup">
+<code class="descname">setup</code><span class="sig-paren">(</span><em>struct_p</em>, <em>struct_i</em><span class="sig-paren">)</span><a class="headerlink" href="#egglib.stats.ParalogPi.setup" title="Permalink to this definition">¶</a></dt>
+<dd><p>Specify the structure in paralog and individuals. The two arguments
+are <a class="reference internal" href="#egglib.stats.Structure" title="egglib.stats.Structure"><code class="xref py py-class docutils literal"><span class="pre">Structure</span></code></a> instances as described for <a class="reference internal" href="#egglib.stats.paralog_pi" title="egglib.stats.paralog_pi"><code class="xref py py-func docutils literal"><span class="pre">paralog_pi()</span></code></a>.
+Only this method resets the instance.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="haplotypes">
+<h2>haplotypes()<a class="headerlink" href="#haplotypes" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="egglib.stats.haplotypes">
+<code class="descclassname">egglib.stats.</code><code class="descname">haplotypes</code><span class="sig-paren">(</span><em>sites</em>, <em>impute_threshold=0</em>, <em>struct=None</em>, <em>filtr=None</em>, <em>max_missing=0.0</em>, <em>consider_outgroup_missing=False</em>, <em>dest=None</em>, <em>multiple=False</em><span class="sig-paren">)</span><a class="headerlink" href="#egglib.stats.haplotypes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Identify haplotypes from sites provided as either an <a class="reference internal" href="toplevel.html#egglib.Align" title="egglib.Align"><code class="xref py py-class docutils literal"><span class="pre">Align</span></code></a>
+instance or a <code class="xref py py-class docutils literal"><span class="pre">list</span></code> of <a class="reference internal" href="#egglib.stats.Site" title="egglib.stats.Site"><code class="xref py py-class docutils literal"><span class="pre">Site</span></code></a> instances, and return data as a
+single <a class="reference internal" href="#egglib.stats.Site" title="egglib.stats.Site"><code class="xref py py-class docutils literal"><span class="pre">Site</span></code></a> instance containing one sample for each sample
+of the original data. Alleles in the returned site are representing
+all identified haplotypes (or missing data when the haplotypes could
+not be derived.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">There must be at least one site with at least two alleles (overall,
+including the outgroup), otherwise the produced site only contains
+missing data.</p>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>sites</strong> – an <a class="reference internal" href="toplevel.html#egglib.Align" title="egglib.Align"><code class="xref py py-class docutils literal"><span class="pre">Align</span></code></a> instance, or a <code class="xref py py-class docutils literal"><span class="pre">list</span></code> of
+<a class="reference internal" href="#egglib.stats.Site" title="egglib.stats.Site"><code class="xref py py-class docutils literal"><span class="pre">Site</span></code></a> instances.</li>
+<li><strong>impute_threshold</strong> – by default, all samples with a least one
+occurrence of missing data will be treated as missing data. If
+this argument is more than 0, the provided value will be used as
+maximum number of missing data. All samples with as many or less
+missing data will be processed to determine which extant of
+haplotype they might belong (to which they are identical save
+for missing data). If there is only one such haplotype, the
+corresponding samples will be treated as a repetition of this
+haplotype. This option will never allow detecting new
+haplotypes. Only small values of this option make sense.</li>
+<li><strong>struct</strong> – a <a class="reference internal" href="#egglib.stats.Structure" title="egglib.stats.Structure"><code class="xref py py-class docutils literal"><span class="pre">Structure</span></code></a> instance defining the samples
+to process. Only valid if <em>sites</em> is a <a class="reference internal" href="toplevel.html#egglib.Align" title="egglib.Align"><code class="xref py py-class docutils literal"><span class="pre">Align</span></code></a>. The
+population and cluster structures are not used. If the ploidy is
+larger than 1, the individuals are used, and sites are assumed
+to be phased.</li>
+<li><strong>filtr</strong> – a <a class="reference internal" href="#egglib.stats.Filter" title="egglib.stats.Filter"><code class="xref py py-class docutils literal"><span class="pre">Filter</span></code></a> instance controlling what allelic
+values are supported. By default, assume DNA sequences. Only
+allowed if an <a class="reference internal" href="toplevel.html#egglib.Align" title="egglib.Align"><code class="xref py py-class docutils literal"><span class="pre">Align</span></code></a> is passed.</li>
+<li><strong>max_missing</strong> – maximum proportion of missing data to process a
+site. Only considered if an <a class="reference internal" href="toplevel.html#egglib.Align" title="egglib.Align"><code class="xref py py-class docutils literal"><span class="pre">Align</span></code></a> is passed.</li>
+<li><strong>consider_outgroup_missing</strong> – if <code class="docutils literal"><span class="pre">True</span></code>, outgroup samples are
+included in the count for missing data (by default, outgroup
+samples are not considered). Only considered if an <a class="reference internal" href="toplevel.html#egglib.Align" title="egglib.Align"><code class="xref py py-class docutils literal"><span class="pre">Align</span></code></a>
+is passed.</li>
+<li><strong>dest</strong> – a <a class="reference internal" href="#egglib.stats.Site" title="egglib.stats.Site"><code class="xref py py-class docutils literal"><span class="pre">Site</span></code></a> instance that will be reset and in
+which data will be placed. If specified, this function returns
+nothing. By default, the function returns a new <a class="reference internal" href="#egglib.stats.Site" title="egglib.stats.Site"><code class="xref py py-class docutils literal"><span class="pre">Site</span></code></a>
+instance.</li>
+<li><strong>multiple</strong> – allow sites with more than two alleles in the
+ingroup.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">A <a class="reference internal" href="#egglib.stats.Site" title="egglib.stats.Site"><code class="xref py py-class docutils literal"><span class="pre">Site</span></code></a> instance, (if <em>dest</em> is <code class="docutils literal"><span class="pre">None</span></code>) or <code class="docutils literal"><span class="pre">None</span></code>
+(otherwise).</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="codingdiversity">
+<h2>CodingDiversity<a class="headerlink" href="#codingdiversity" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="egglib.stats.CodingDiversity">
+<em class="property">class </em><code class="descclassname">egglib.stats.</code><code class="descname">CodingDiversity</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#egglib.stats.CodingDiversity" title="Permalink to this definition">¶</a></dt>
+<dd><p>This class processes alignments with a reading frame specification
+in order to detect synonymous and non-synonymous variable positions.
+It provides basic statistics, but it can also filter data to let the
+user compute all other statistics on synonymous-only, or
+non-synonymous-only variation (e.g. <span class="math">\pi</span> or <code class="docutils literal"><span class="pre">D</span></code>).</p>
+<p>The constructor takes optional arguments. By default, build an empty
+instance. If arguments are passed, they must match the signature of
+<a class="reference internal" href="#egglib.stats.CodingDiversity.process" title="egglib.stats.CodingDiversity.process"><code class="xref py py-meth docutils literal"><span class="pre">process()</span></code></a> that will be called.</p>
+<p>The method <a class="reference internal" href="#egglib.stats.CodingDiversity.process" title="egglib.stats.CodingDiversity.process"><code class="xref py py-meth docutils literal"><span class="pre">process()</span></code></a> does all the work. Once
+it is called, data are available through the different instance
+attributes, and it is possible to generate alignments containing
+only codon sites with either one synonymous or one non-synonymous
+mutation. It is also possible to iterate over sites of both kind. In
+both cases, the generated data contains only codons, where each
+codon is represented by a single integer (see the methods
+<a class="reference internal" href="tools.html#egglib.tools.int2codon" title="egglib.tools.int2codon"><code class="xref py py-func docutils literal"><span class="pre">tools.int2codon()</span></code></a>). These data can be analysed in the module
+<code class="xref py py-mod docutils literal"><span class="pre">stats</span></code> using the pre-defined <a class="reference internal" href="#egglib.stats.Filter" title="egglib.stats.Filter"><code class="xref py py-class docutils literal"><span class="pre">Filter</span></code></a> instance
+<code class="xref py py-attr docutils literal"><span class="pre">stats.filter_codon</span></code>.</p>
+<p>Note that, currently, the outgroup is ignored.</p>
+<dl class="method">
+<dt id="egglib.stats.CodingDiversity.iter_NS">
+<code class="descname">iter_NS</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#egglib.stats.CodingDiversity.iter_NS" title="Permalink to this definition">¶</a></dt>
+<dd><p>Iterate over non-synonymous sites. Mostly similar to the method
+<a class="reference internal" href="#egglib.stats.CodingDiversity.iter_S" title="egglib.stats.CodingDiversity.iter_S"><code class="xref py py-meth docutils literal"><span class="pre">iter_S()</span></code></a> (see important warning about the fact that
+returned values are actually always the same
+<code class="xref py py-class docutils literal"><span class="pre">SiteFrequency</span></code> instance that is updated at each
+iteration round).</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.stats.CodingDiversity.iter_S">
+<code class="descname">iter_S</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#egglib.stats.CodingDiversity.iter_S" title="Permalink to this definition">¶</a></dt>
+<dd><p>Iterate over synonymous sites. Proposed as a more performant
+alternative to <a class="reference internal" href="#egglib.stats.CodingDiversity.mk_align_S" title="egglib.stats.CodingDiversity.mk_align_S"><code class="xref py py-meth docutils literal"><span class="pre">mk_align_S()</span></code></a>. This method returns a
+generator that can be used in expressions such as:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">cs</span> <span class="o">=</span> <span class="n">egglib</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">ComputeStats</span><span class="p">()</span>
+<span class="n">cs</span><span class="o">.</span><span class="n">add_stat</span><span class="p">(</span><span class="s1">&#39;thetaW&#39;</span><span class="p">)</span>
+<span class="n">thetaW</span> <span class="o">=</span> <span class="mf">0.0</span>
+<span class="n">cdiv</span> <span class="o">=</span> <span class="n">egglib</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">CodingDiversity</span><span class="p">(</span><span class="n">align</span><span class="p">,</span> <span class="n">frame</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">site</span> <span class="ow">in</span> <span class="n">cdiv</span><span class="o">.</span><span class="n">iter_S</span><span class="p">():</span>
+    <span class="n">stats</span> <span class="o">=</span> <span class="n">cs</span><span class="o">.</span><span class="n">process_site</span><span class="p">(</span><span class="n">site</span><span class="p">)</span>
+    <span class="n">thetaW</span> <span class="o">+=</span> <span class="n">stats</span><span class="p">[</span><span class="s1">&#39;thetaW&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">This method returns repetively the same
+<code class="xref py py-class docutils literal"><span class="pre">SiteFrequency</span></code> with information updated at each
+round. The reason for this is performance. Never keep a
+reference to the iterator variable (that’s <code class="docutils literal"><span class="pre">site</span></code> in the
+example above) outside the loop body.</p>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.stats.CodingDiversity.mk_align_NS">
+<code class="descname">mk_align_NS</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#egglib.stats.CodingDiversity.mk_align_NS" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create an <a class="reference internal" href="toplevel.html#egglib.Align" title="egglib.Align"><code class="xref py py-class docutils literal"><span class="pre">Align</span></code></a> instance with only non-synonymous
+codon sites. Mostly similar to the method <a class="reference internal" href="#egglib.stats.CodingDiversity.mk_align_S" title="egglib.stats.CodingDiversity.mk_align_S"><code class="xref py py-meth docutils literal"><span class="pre">mk_align_S()</span></code></a>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.stats.CodingDiversity.mk_align_S">
+<code class="descname">mk_align_S</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#egglib.stats.CodingDiversity.mk_align_S" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create an <a class="reference internal" href="toplevel.html#egglib.Align" title="egglib.Align"><code class="xref py py-class docutils literal"><span class="pre">Align</span></code></a> instance with only synonymous codon
+sites. The alignment contains the same number of ingroup and
+outgroup samples as the original alignment, and a number of
+sites equal to <a class="reference internal" href="#egglib.stats.CodingDiversity.num_pol_S" title="egglib.stats.CodingDiversity.num_pol_S"><code class="xref py py-attr docutils literal"><span class="pre">num_pol_S</span></code></a>. Note that the returned
+alignment does not have group labels. These data can be analysed in the module
+<code class="xref py py-mod docutils literal"><span class="pre">stats</span></code> using the pre-defined <a class="reference internal" href="#egglib.stats.Filter" title="egglib.stats.Filter"><code class="xref py py-class docutils literal"><span class="pre">Filter</span></code></a> instance
+<code class="xref py py-attr docutils literal"><span class="pre">stats.filter_codon</span></code>.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="egglib.stats.CodingDiversity.num_codons_eff">
+<code class="descname">num_codons_eff</code><a class="headerlink" href="#egglib.stats.CodingDiversity.num_codons_eff" title="Permalink to this definition">¶</a></dt>
+<dd><p>Number of codon sites that have been analysed (like
+<a class="reference internal" href="#egglib.stats.CodingDiversity.num_codons_tot" title="egglib.stats.CodingDiversity.num_codons_tot"><code class="xref py py-attr docutils literal"><span class="pre">num_codons_tot</span></code></a> but excluding sites rejected because of
+missing data).</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="egglib.stats.CodingDiversity.num_codons_stop">
+<code class="descname">num_codons_stop</code><a class="headerlink" href="#egglib.stats.CodingDiversity.num_codons_stop" title="Permalink to this definition">¶</a></dt>
+<dd><p>Number of codon sites (among those that have been analysed) with
+at least one codon stop in them.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="egglib.stats.CodingDiversity.num_codons_tot">
+<code class="descname">num_codons_tot</code><a class="headerlink" href="#egglib.stats.CodingDiversity.num_codons_tot" title="Permalink to this definition">¶</a></dt>
+<dd><p>Total number of considered codon sites that have been co. Only
+complete codons have been considered, but this value includes
+codons that have been rejected because of missing data.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="egglib.stats.CodingDiversity.num_multiple_alleles">
+<code class="descname">num_multiple_alleles</code><a class="headerlink" href="#egglib.stats.CodingDiversity.num_multiple_alleles" title="Permalink to this definition">¶</a></dt>
+<dd><p>Number of polymorphic coding sites with more than two alleles. These
+sites are included only if <em>multiple_alleles</em> is <code class="docutils literal"><span class="pre">True</span></code> except those
+who mix synonymous and non-synonymous changes (they can be rejected
+if there are more than two alleles in total as well).</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="egglib.stats.CodingDiversity.num_multiple_hits">
+<code class="descname">num_multiple_hits</code><a class="headerlink" href="#egglib.stats.CodingDiversity.num_multiple_hits" title="Permalink to this definition">¶</a></dt>
+<dd><p>Number of polymorphic codons for which more than one position is
+changed. These sites are included only if <em>multiple_hits</em> is <code class="docutils literal"><span class="pre">True</span></code>
+and depdenting on the total number of alleles.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="egglib.stats.CodingDiversity.num_pol_NS">
+<code class="descname">num_pol_NS</code><a class="headerlink" href="#egglib.stats.CodingDiversity.num_pol_NS" title="Permalink to this definition">¶</a></dt>
+<dd><p>Number of polymorphic codon sites with only one non-synonymous
+mutation.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="egglib.stats.CodingDiversity.num_pol_S">
+<code class="descname">num_pol_S</code><a class="headerlink" href="#egglib.stats.CodingDiversity.num_pol_S" title="Permalink to this definition">¶</a></dt>
+<dd><p>Number of polymorphic codon sites with only one synonymous
+mutation.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="egglib.stats.CodingDiversity.num_pol_single">
+<code class="descname">num_pol_single</code><a class="headerlink" href="#egglib.stats.CodingDiversity.num_pol_single" title="Permalink to this definition">¶</a></dt>
+<dd><p>Number of polymorphic coding sites with only one mutation. All these
+sites are always included.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="egglib.stats.CodingDiversity.num_sites_NS">
+<code class="descname">num_sites_NS</code><a class="headerlink" href="#egglib.stats.CodingDiversity.num_sites_NS" title="Permalink to this definition">¶</a></dt>
+<dd><p>Estimated number of non-synonymous sites. Note that the total
+number of sites per codon is always 3.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="egglib.stats.CodingDiversity.num_sites_S">
+<code class="descname">num_sites_S</code><a class="headerlink" href="#egglib.stats.CodingDiversity.num_sites_S" title="Permalink to this definition">¶</a></dt>
+<dd><p>Estimated number of synonymous sites. Note that the total number
+of sites per codon is always 3.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.stats.CodingDiversity.process">
+<code class="descname">process</code><span class="sig-paren">(</span><em>align</em>, <em>frame=None</em>, <em>struct=None</em>, <em>code=1</em>, <em>max_missing=0.0</em>, <em>consider_outgroup_missing=False</em>, <em>skipstop=True</em>, <em>raise_stop=False</em>, <em>multiple_alleles=False</em>, <em>multiple_hits=False</em>, <em>allow_alt=False</em><span class="sig-paren">)</span><a class="headerlink" href="#egglib.stats.CodingDiversity.process" title="Permalink to this definition">¶</a></dt>
+<dd><p>Process an alignment. It this instance already had data in
+memory, they will all be erased.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>align</strong> – a <a class="reference internal" href="toplevel.html#egglib.Align" title="egglib.Align"><code class="xref py py-class docutils literal"><span class="pre">Align</span></code></a> instance containing the coding
+sequence to process. All sequences must be proper nucleotide
+sequences (only upper case characters). Standard ambiguity
+characters and alignment gaps are supported (but are treated
+as missing data) and unrecognized characters cause an error.
+DNA sequences (A, C, G and T as exploitable characters) are
+expected, as encoded using the ASCII table (which is the
+default for data imported from fasta files).</li>
+<li><strong>frame</strong> – a <a class="reference internal" href="tools.html#egglib.tools.ReadingFrame" title="egglib.tools.ReadingFrame"><code class="xref py py-class docutils literal"><span class="pre">tools.ReadingFrame</span></code></a> instance specifying
+the position of coding sequence fragments (that is, exons
+without UTR) and the reading frame, or <code class="docutils literal"><span class="pre">None</span></code>. It is legal
+to pass a reading frame specification with either terminal
+or internal gaps (only full codons will be considered). If
+<code class="docutils literal"><span class="pre">None</span></code>, assume that coding sequences have been provided
+(the whole sequence can be translated in the first reading
+frame without interruption).</li>
+<li><strong>struct</strong> – a <a class="reference internal" href="#egglib.stats.Structure" title="egglib.stats.Structure"><code class="xref py py-class docutils literal"><span class="pre">Structure</span></code></a> instance defining the
+structure to analyze. If <code class="docutils literal"><span class="pre">None</span></code>, no structure is used (all
+samples are placed in a single population). If not <code class="docutils literal"><span class="pre">None</span></code>,
+the passed <a class="reference internal" href="#egglib.stats.Structure" title="egglib.stats.Structure"><code class="xref py py-class docutils literal"><span class="pre">Structure</span></code></a> instance must contain a
+population level or an individual level, or both. If both,
+they are required to be nested (individuals are mapped to
+populations). If individuals are specified, the outgroup
+samples must be mapped also, otherwise the ougroup will be
+ignored.</li>
+<li><strong>code</strong> – genetic code identifier (see <a class="reference internal" href="tools.html#genetic-codes"><span class="std std-ref">Available genetic codes</span></a>).
+Required to be an integer among the valid values. The
+default value is the standard genetic code.</li>
+<li><strong>max_missing</strong> – maximum proportion of missing data to allow
+(including stop codons if <em>skipstop</em> if <code class="docutils literal"><span class="pre">true</span></code>). By
+default, all codons with any missing data are excluded.</li>
+<li><strong>consider_outgroup_missing</strong> – if <code class="docutils literal"><span class="pre">True</span></code>, outgroup samples are
+included in the count for missing data (by default, outgroup
+samples are not considered). Only considered if an <a class="reference internal" href="toplevel.html#egglib.Align" title="egglib.Align"><code class="xref py py-class docutils literal"><span class="pre">Align</span></code></a>
+is passed.</li>
+<li><strong>skipstop</strong> – if <code class="docutils literal"><span class="pre">True</span></code>, stop codons are treated as missing
+data and skipped. If so, potential mutations to stop codons
+are not taken into account when estimating the number of
+non-synonymous sites. Warning (this may be
+counter-intuitive): it actually assumes that stop codons are
+not biologically plausible and considers them as missing
+data. On the other hand, if <em>skipstop</em> is <code class="docutils literal"><span class="pre">False</span></code>, it
+considers stop codons as if they were valid amino acids.
+This option has no effect if <em>raise_stop</em> is <code class="docutils literal"><span class="pre">True</span></code>.</li>
+<li><strong>raise_stop</strong> – raise a <a class="reference external" href="https://docs.python.org/2.7/library/exceptions.html#exceptions.ValueError" title="(in Python v2.7)"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code></a> if a
+stop codon is met. If <code class="docutils literal"><span class="pre">True</span></code>, <em>skipstop</em> has no effect.
+This method does allow to ensure that stop codons are not
+present in an alignment, but only that stop codons are not
+present in any of the considered sites.</li>
+<li><strong>multiple_alleles</strong> – include coding sites with more than
+two alleles (regardless of whether mutations hit the same
+position within the triplet). If there are more than two
+different codons, they must either encode for the same amino acid
+or all encode for different amino acids (otherwise the site is
+rejected). If more than one of the three codon position are
+mutated, the option <em>multiple_hits</em> is considered.</li>
+<li><strong>multiple_hits</strong> – include coding sites for which more than
+one of the three positions has changed (regardless of the
+number of alleles). If there are more than two alleles, the
+option <em>multiple_alleles</em> is also considered.</li>
+<li><strong>allow_alt</strong> – a boolean telling whether alternative start
+(initiation) codons should be considered. If <code class="docutils literal"><span class="pre">False</span></code>,
+codons are translated as a methionine (M) if, and only if,
+there are among the alternative start codons for the considered
+genetic code and they appear at the first position for the
+considered sequence (excluding all triplets of gap symbols
+appearing at the 5’ end of the sequence). With this option,
+it is required that all sequences start by a valid initiation
+codon unless the first codon is partial or contains invalid
+data (in such cases, it is ignored).</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="linkage-disequilibium">
+<h2>Linkage disequilibium<a class="headerlink" href="#linkage-disequilibium" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="egglib.stats.pairwise_LD">
+<code class="descclassname">egglib.stats.</code><code class="descname">pairwise_LD</code><span class="sig-paren">(</span><em>locus1</em>, <em>locus2</em>, <em>struct=None</em>, <em>multiple_policy='main'</em>, <em>min_freq=0</em><span class="sig-paren">)</span><a class="headerlink" href="#egglib.stats.pairwise_LD" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function computes linkage disequilibium between a pair of loci.</p>
+<p><a class="reference internal" href="#egglib.stats.Site" title="egglib.stats.Site"><code class="xref py py-class docutils literal"><span class="pre">Site</span></code></a> instances must be used to describe loci. Only the order of
+samples is considered and both loci must have the same number of
+samples. If sites have a ploidy larger than one, genotypes are considered.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>locus1</strong> – A <a class="reference internal" href="#egglib.stats.Site" title="egglib.stats.Site"><code class="xref py py-class docutils literal"><span class="pre">Site</span></code></a> instance.</li>
+<li><strong>locus2</strong> – A <a class="reference internal" href="#egglib.stats.Site" title="egglib.stats.Site"><code class="xref py py-class docutils literal"><span class="pre">Site</span></code></a> instance.</li>
+<li><strong>struct</strong> – A <a class="reference internal" href="#egglib.stats.Structure" title="egglib.stats.Structure"><code class="xref py py-class docutils literal"><span class="pre">Structure</span></code></a> instance determining which samples
+to use. By default, use all samples.</li>
+<li><strong>multiple_policy</strong> – Determine what is done if either input locus
+has more than two alleles. Possible values are, <code class="docutils literal"><span class="pre">&quot;forbid&quot;</span></code>
+(raise an exception if thise occurs), <code class="docutils literal"><span class="pre">&quot;main&quot;</span></code> (take
+the most frequent allele of each locus) and <code class="docutils literal"><span class="pre">&quot;average&quot;</span></code> (
+compute the unweighted average over all possible pair of
+alleles). More options might be added in future versions. This
+option is ignored if both loci have less than three alleles. If
+<code class="docutils literal"><span class="pre">&quot;main&quot;</span></code> and there are several equally most frequent alleles,
+the first-occurring one is used (arbitrarily).</li>
+<li><strong>min_freq</strong> – Only used if at least one site has more than two
+alleles and <em>multiple_policy</em> is set to <em>average</em>. Set the
+minimum absolute frequency to consider an allele.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">A dictionary of linkage disequilibrium statistics. In case
+statistics cannot be computed (either site fixed, or less than
+two samples with non-missing data at both sites), computed
+values are replaced by <code class="docutils literal"><span class="pre">None</span></code>. <code class="docutils literal"><span class="pre">n</span></code> gives the number of pairs
+of alleles considered.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="egglib.stats.matrix_LD">
+<code class="descclassname">egglib.stats.</code><code class="descname">matrix_LD</code><span class="sig-paren">(</span><em>align</em>, <em>stats</em>, <em>multiple_policy='main'</em>, <em>min_freq=0</em>, <em>min_n=2</em>, <em>max_maj=1.0</em>, <em>positions=None</em>, <em>filtr=None</em><span class="sig-paren">)</span><a class="headerlink" href="#egglib.stats.matrix_LD" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute the matrix of linkage disequilibrium statistics between all
+pairs of sites of the provided alignment. The computed statistics
+are selected by an argument of this function. Return a matrix (as a
+nested <code class="xref py py-class docutils literal"><span class="pre">list</span></code>) of the requested statistics. In all cases, all
+pairs of sites are present in the returned matrices. If statistics
+cannot be computed, they are replaced by <a class="reference external" href="https://docs.python.org/2.7/library/constants.html#None" title="(in Python v2.7)"><code class="xref py py-data docutils literal"><span class="pre">None</span></code></a>.</p>
+<p>The available statistics are:</p>
+<ul class="simple">
+<li><code class="docutils literal"><span class="pre">d</span></code> – Distance between sites of the pairs.</li>
+<li><code class="docutils literal"><span class="pre">D</span></code> – Standard linkage disequilibrium.</li>
+<li><code class="docutils literal"><span class="pre">Dp</span></code> – Lewontin’s D’.</li>
+<li><code class="docutils literal"><span class="pre">r</span></code> – Correlation coefficient.</li>
+<li><code class="docutils literal"><span class="pre">rsq</span></code> – Equivalent to r<sup>2</sup>.</li>
+</ul>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>align</strong> – A <a class="reference internal" href="toplevel.html#egglib.Align" title="egglib.Align"><code class="xref py py-class docutils literal"><span class="pre">Align</span></code></a> instance.</li>
+<li><strong>stats</strong> – Requested statistic or statistics (see list of
+available statistics above, as a single string or as a list of
+one or more of these statistics (in any order).</li>
+<li><strong>multiple_policy</strong> – Specify what is done for pairs of sites for
+which at least one locus has only one allele. See
+<a class="reference internal" href="#egglib.stats.pairwise_LD" title="egglib.stats.pairwise_LD"><code class="xref py py-func docutils literal"><span class="pre">pairwise_LD()</span></code></a> for further description.</li>
+<li><strong>min_freq</strong> – Only used if at least one site has more than two
+alleles and depending on the value of <em>multiple_policy</em>.  See
+<a class="reference internal" href="#egglib.stats.pairwise_LD" title="egglib.stats.pairwise_LD"><code class="xref py py-func docutils literal"><span class="pre">pairwise_LD()</span></code></a> for further description.</li>
+<li><strong>min_n</strong> – Minimum number of samples used (this value must
+always be larger than 1). Sites not fulfilling this criterion
+will be dropped.</li>
+<li><strong>max_maj</strong> – Maximum relative frequency of the majority allele.
+Sites not fulfilling this criterion will be dropped.</li>
+<li><strong>positions</strong> – A sequence of positions, whose length must match
+the number of sites of the provided alignment. Used in the
+return value to describe the used sites, and, if requested, to
+compute the distance between sites. By default, the position of
+sites in the original alignment is used.</li>
+<li><strong>filtr</strong> – A <a class="reference internal" href="#egglib.stats.Filter" title="egglib.stats.Filter"><code class="xref py py-class docutils literal"><span class="pre">Filter</span></code></a> instance providing the list
+of valid (including missing) allelic values.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">Returns a tuple with two items: first is the list of
+positions of sites used in the matrix (a subset of the sites of
+the provided alignment), with positions provided by the
+corresponding argument (by default, the index of sites); second
+is the matrix, as the nested lower half matrix. The matrix
+contains items for all i and j indexes with 0 &lt;= j &lt;= i &lt; n
+where n is the number of retained sites. The content of the
+matrix is represented by a single value (if a single statistic
+has been requested) or as a list of 1 or more values (if a list
+of 1 or more, accordingly, statistics have been requested), or
+<code class="docutils literal"><span class="pre">None</span></code> for the diagonal or if the pairwise comparison was
+dropped for any reason.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="ehh">
+<h2>EHH<a class="headerlink" href="#ehh" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="egglib.stats.EHH">
+<em class="property">class </em><code class="descclassname">egglib.stats.</code><code class="descname">EHH</code><a class="headerlink" href="#egglib.stats.EHH" title="Permalink to this definition">¶</a></dt>
+<dd><p>This class computes Extended Haplotype Homozygosity statistics and
+derivatives. Statistics can be computed for unphased genotypic data.</p>
+<p>The usage of this class is to: first, set the core haplotypes by
+passing a <a class="reference internal" href="#egglib.stats.Site" title="egglib.stats.Site"><code class="xref py py-class docutils literal"><span class="pre">Site</span></code></a> to <a class="reference internal" href="#egglib.stats.EHH.set_core" title="egglib.stats.EHH.set_core"><code class="xref py py-meth docutils literal"><span class="pre">set_core()</span></code></a>, and then
+load repetitively distant sites (always with increasing distance
+from the core), through <a class="reference internal" href="#egglib.stats.EHH.load_distant" title="egglib.stats.EHH.load_distant"><code class="xref py py-meth docutils literal"><span class="pre">load_distant()</span></code></a>, until the list of
+sites to process is exhausted or one of the thresholds has been
+reached.</p>
+<p>In order to process distant sites using the same core region to the
+opposite direction, or to use a different core region, it is always
+required to call <a class="reference internal" href="#egglib.stats.EHH.set_core" title="egglib.stats.EHH.set_core"><code class="xref py py-meth docutils literal"><span class="pre">set_core()</span></code></a> again (this is the only way to
+reset the instance).</p>
+<p>After at least one distant site site is loaded, EHH statistics can
+be accessed using there accessors. EHH statistics fell into four
+categories:</p>
+<ol class="arabic">
+<li><p class="first">Raw EHH statistics, provided for each loaded distant sites and
+separately for each core haplotype. See the methods:
+<a class="reference internal" href="#egglib.stats.EHH.get_EHH" title="egglib.stats.EHH.get_EHH"><code class="xref py py-meth docutils literal"><span class="pre">get_EHH()</span></code></a>, <a class="reference internal" href="#egglib.stats.EHH.get_EHHc" title="egglib.stats.EHH.get_EHHc"><code class="xref py py-meth docutils literal"><span class="pre">get_EHHc()</span></code></a>, and <a class="reference internal" href="#egglib.stats.EHH.get_rEHH" title="egglib.stats.EHH.get_rEHH"><code class="xref py py-meth docutils literal"><span class="pre">get_rEHH()</span></code></a>.</p>
+<p>Reference: Sabeti P.C., D.E. Reich, J.M. Higgins, H.Z.P. Levine,
+D.J. Richter, S.F. Schaffner, S.B. Gabriel, J.V. Platko, N.J.
+Patterson, G.J. McDonald, H.C. Ackerman, S.J. Campbell, D.
+Altshuler, R. Cooper, D. Kwiatkowski, R. Ward &amp; E.S. Lander.
+2002. Detecting recent positive selection in the human genome
+from haplotype structure. <em>Nature</em>&nbsp;<strong>419</strong>: 832-837.</p>
+</li>
+<li><p class="first">Integrated EHH statistics, computed separately for each core
+haplotype and incremented at each provided sites until the EHH
+value reaches the thresholds provided as the <em>EHH_thr</em> and
+<em>EHHc_thr</em> arguments to <a class="reference internal" href="#egglib.stats.EHH.set_core" title="egglib.stats.EHH.set_core"><code class="xref py py-meth docutils literal"><span class="pre">set_core()</span></code></a>. See the methods
+<code class="xref py py-meth docutils literal"><span class="pre">get_iHH()</span></code>, <code class="xref py py-meth docutils literal"><span class="pre">get_iHHc()</span></code>, and <a class="reference internal" href="#egglib.stats.EHH.get_iHS" title="egglib.stats.EHH.get_iHS"><code class="xref py py-meth docutils literal"><span class="pre">get_iHS()</span></code></a>. The
+methods <a class="reference internal" href="#egglib.stats.EHH.done_EHH" title="egglib.stats.EHH.done_EHH"><code class="xref py py-meth docutils literal"><span class="pre">done_EHH()</span></code></a> and <a class="reference internal" href="#egglib.stats.EHH.done_EHHc" title="egglib.stats.EHH.done_EHHc"><code class="xref py py-meth docutils literal"><span class="pre">done_EHHc()</span></code></a> allow to check
+whether the threshold has been reached for all genotypes.</p>
+<p>Reference: Voight B.F., S. Kudaravalli, X. Wen &amp; J.K. Pritchard.
+2006. A map of recent positive selection in the human genome.
+<em>PLoS Biol</em>&nbsp;<strong>4</strong>: e772.</p>
+</li>
+<li><p class="first">Whole-site EHHS statistic and its integrated statistic iES, which
+is incremented while the EHHS value is larger than or equal to
+the threshold provided as the <em>EHHS_thr</em> argument to
+<a class="reference internal" href="#egglib.stats.EHH.set_core" title="egglib.stats.EHH.set_core"><code class="xref py py-meth docutils literal"><span class="pre">set_core()</span></code></a>. See the methods <a class="reference internal" href="#egglib.stats.EHH.get_EHHS" title="egglib.stats.EHH.get_EHHS"><code class="xref py py-meth docutils literal"><span class="pre">get_EHHS()</span></code></a> and
+<a class="reference internal" href="#egglib.stats.EHH.get_iES" title="egglib.stats.EHH.get_iES"><code class="xref py py-meth docutils literal"><span class="pre">get_iES()</span></code></a>. If data are unphased, as specific EHHS estimate
+based on homozygosity is provided (EHHG, with its iEG integrated
+counted-part).</p>
+<p>Reference: Tang K., K.R. Thornton &amp; M. Stoneking. 2007. A new
+approach for using genome scans to detect recent positive
+selection in the human genome. <em>PLoS Biol.</em>&nbsp;<strong>5</strong>: e171.</p>
+</li>
+<li><p class="first">EHH, EHHS, and EHHG decay statistics, that give the minimal distance at
+which, respectively, EHH starts to be smaller than the threshold
+provided as the <em>EHH_thr</em> argument to <a class="reference internal" href="#egglib.stats.EHH.set_core" title="egglib.stats.EHH.set_core"><code class="xref py py-meth docutils literal"><span class="pre">set_core()</span></code></a>, EHHS
+starts to be smaller than the threshold provided as the
+<em>EHHS_thr</em> argument to <a class="reference internal" href="#egglib.stats.EHH.set_core" title="egglib.stats.EHH.set_core"><code class="xref py py-meth docutils literal"><span class="pre">set_core()</span></code></a>, and EHHG
+starts to be smaller than the threshold provided as the
+<em>EHHG_thr</em> argument to <a class="reference internal" href="#egglib.stats.EHH.set_core" title="egglib.stats.EHH.set_core"><code class="xref py py-meth docutils literal"><span class="pre">set_core()</span></code></a>. EHH decay is computed
+separately for each core haplotype. See the methods
+<a class="reference internal" href="#egglib.stats.EHH.get_dEHH" title="egglib.stats.EHH.get_dEHH"><code class="xref py py-meth docutils literal"><span class="pre">get_dEHH()</span></code></a>, <a class="reference internal" href="#egglib.stats.EHH.get_dEHHS" title="egglib.stats.EHH.get_dEHHS"><code class="xref py py-meth docutils literal"><span class="pre">get_dEHHS()</span></code></a>, and <a class="reference internal" href="#egglib.stats.EHH.get_dEHHG" title="egglib.stats.EHH.get_dEHHG"><code class="xref py py-meth docutils literal"><span class="pre">get_dEHHG()</span></code></a>. The values are not
+available until the respective threshold is reached (<code class="docutils literal"><span class="pre">None</span></code> is
+returned). The method  <code class="xref py py-meth docutils literal"><span class="pre">done_dEHH()</span></code> allows to check whether
+the threshold for the EHH decay has been reached for all core
+haplotypes. The maximum and average value of the EHH decay across
+all core haplotypes can be accessed with <a class="reference internal" href="#egglib.stats.EHH.get_dEHH_max" title="egglib.stats.EHH.get_dEHH_max"><code class="xref py py-meth docutils literal"><span class="pre">get_dEHH_max()</span></code></a>
+and <a class="reference internal" href="#egglib.stats.EHH.get_dEHH_mean" title="egglib.stats.EHH.get_dEHH_mean"><code class="xref py py-meth docutils literal"><span class="pre">get_dEHH_mean()</span></code></a>, respectively.</p>
+<p>Reference: Ramírez-Soriano A., S.E. Ramos-Onsins, J. Rozas,
+F. Calafell &amp; A. Navarro. 2008. Statistical power analysis of
+neutrality tests under demographic expansions, contractions and
+bottlenecks with recombination. <em>Genetics</em>&nbsp;<strong>179</strong> :
+555-567.</p>
+</li>
+</ol>
+<p>In all cases,
+<code class="docutils literal"><span class="pre">None</span></code> is returned when the value is not available (no data
+loaded, division by zero in the cases or ratios, or threshold not
+reached in the case of decay statistics.</p>
+<p>The thresholds must all be within the range between 0 and 1.</p>
+<dl class="attribute">
+<dt id="egglib.stats.EHH.cur_haplotypes">
+<code class="descname">cur_haplotypes</code><a class="headerlink" href="#egglib.stats.EHH.cur_haplotypes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Current number of haplotypes (<code class="docutils literal"><span class="pre">None</span></code> if core has not been set,
+equal to <a class="reference internal" href="#egglib.stats.EHH.num_haplotypes" title="egglib.stats.EHH.num_haplotypes"><code class="xref py py-attr docutils literal"><span class="pre">num_haplotypes</span></code></a> if not distant site has been
+loaded).</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.stats.EHH.done_EHH">
+<code class="descname">done_EHH</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#egglib.stats.EHH.done_EHH" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return <code class="docutils literal"><span class="pre">True</span></code> if the values of IHH for all core haplotypes
+have completed integrating (and all dEHH values have been
+evaluated).</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.stats.EHH.done_EHHc">
+<code class="descname">done_EHHc</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#egglib.stats.EHH.done_EHHc" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return <code class="docutils literal"><span class="pre">True</span></code> if the values of IHHc for all core haplotypes
+have completed integrating (and all dEHH values have been
+evaluated).</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.stats.EHH.get_EHH">
+<code class="descname">get_EHH</code><span class="sig-paren">(</span><em>i</em><span class="sig-paren">)</span><a class="headerlink" href="#egglib.stats.EHH.get_EHH" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the EHH value for the last processed distant site for core
+haplotype <em>i</em>. Return <code class="docutils literal"><span class="pre">None</span></code> if the value cannot be computed (no
+available samples).</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.stats.EHH.get_EHHG">
+<code class="descname">get_EHHG</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#egglib.stats.EHH.get_EHHG" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the EHHS (computed with genotypes) value for the last processed distant site. Return <code class="docutils literal"><span class="pre">None</span></code> if
+the value cannot be computed (no available samples, no unphased option used).</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.stats.EHH.get_EHHS">
+<code class="descname">get_EHHS</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#egglib.stats.EHH.get_EHHS" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the EHHS value for the last processed distant site. Return <code class="docutils literal"><span class="pre">None</span></code> if
+the value cannot be computed (no available samples).</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.stats.EHH.get_EHHc">
+<code class="descname">get_EHHc</code><span class="sig-paren">(</span><em>i</em><span class="sig-paren">)</span><a class="headerlink" href="#egglib.stats.EHH.get_EHHc" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the EHHc value for the last processed distant site for core
+haplotype <em>i</em>. Return <code class="docutils literal"><span class="pre">None</span></code> if the value cannot be computed (no
+available samples).</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.stats.EHH.get_IHH">
+<code class="descname">get_IHH</code><span class="sig-paren">(</span><em>i</em><span class="sig-paren">)</span><a class="headerlink" href="#egglib.stats.EHH.get_IHH" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the IHH value for the last processed distant site for core
+haplotype <em>i</em> . Return <code class="docutils literal"><span class="pre">None</span></code> if the value cannot be computed (no
+available samples).</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.stats.EHH.get_IHHc">
+<code class="descname">get_IHHc</code><span class="sig-paren">(</span><em>i</em><span class="sig-paren">)</span><a class="headerlink" href="#egglib.stats.EHH.get_IHHc" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the IHHc value for the last processed distant site for core
+haplotype <em>i</em>. Return <code class="docutils literal"><span class="pre">None</span></code> if the value cannot be computed (no
+available samples).</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.stats.EHH.get_dEHH">
+<code class="descname">get_dEHH</code><span class="sig-paren">(</span><em>i</em><span class="sig-paren">)</span><a class="headerlink" href="#egglib.stats.EHH.get_dEHH" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the EHH decay distance for core haplotype <em>i</em>. Return <code class="docutils literal"><span class="pre">None</span></code> if
+the EHH threshold has not been reached.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.stats.EHH.get_dEHHG">
+<code class="descname">get_dEHHG</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#egglib.stats.EHH.get_dEHHG" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the EHHS (computed with genotypes) decay distance. Return <code class="docutils literal"><span class="pre">None</span></code> if the EHHG threshold has not
+been reached.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.stats.EHH.get_dEHHS">
+<code class="descname">get_dEHHS</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#egglib.stats.EHH.get_dEHHS" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the EHHS decay distance. Return <code class="docutils literal"><span class="pre">None</span></code> if the EHHS threshold has not
+been reached.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.stats.EHH.get_dEHH_max">
+<code class="descname">get_dEHH_max</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#egglib.stats.EHH.get_dEHH_max" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the maximum EHH decay distance across core haplotypes. Return <code class="docutils literal"><span class="pre">None</span></code> if
+the EHH threshold has not been reached for at least one of the
+core haplotypes.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.stats.EHH.get_dEHH_mean">
+<code class="descname">get_dEHH_mean</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#egglib.stats.EHH.get_dEHH_mean" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the average EHH decay distance across core haplotypes. Return <code class="docutils literal"><span class="pre">None</span></code> if
+the EHH threshold has not been reached for at least one of the
+core haplotypes.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.stats.EHH.get_dEHHc">
+<code class="descname">get_dEHHc</code><span class="sig-paren">(</span><em>i</em><span class="sig-paren">)</span><a class="headerlink" href="#egglib.stats.EHH.get_dEHHc" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the EHHc decay distance for core haplotype <em>i</em>. Return <code class="docutils literal"><span class="pre">None</span></code> if
+the EHHc threshold has not been reached.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.stats.EHH.get_iEG">
+<code class="descname">get_iEG</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#egglib.stats.EHH.get_iEG" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the iES (computed with genotypes) value for the last processed distant site. Return <code class="docutils literal"><span class="pre">None</span></code> if
+the value cannot be computed (no available samples or unphased option was not used).</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.stats.EHH.get_iES">
+<code class="descname">get_iES</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#egglib.stats.EHH.get_iES" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the iES value for the last processed distant site. Return <code class="docutils literal"><span class="pre">None</span></code> if
+the value cannot be computed (no available samples).</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.stats.EHH.get_iHS">
+<code class="descname">get_iHS</code><span class="sig-paren">(</span><em>i</em><span class="sig-paren">)</span><a class="headerlink" href="#egglib.stats.EHH.get_iHS" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the iHS value for the last processed distant site for core
+haplotype <em>i</em>. Return <code class="docutils literal"><span class="pre">None</span></code> if the ratio cannot be computed
+(no available sample or division by zero).</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.stats.EHH.get_rEHH">
+<code class="descname">get_rEHH</code><span class="sig-paren">(</span><em>i</em><span class="sig-paren">)</span><a class="headerlink" href="#egglib.stats.EHH.get_rEHH" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the rEHH value for the last processed distant site for core
+haplotype <em>i</em>. Return <code class="docutils literal"><span class="pre">None</span></code> if the ratio cannot be computed
+(no available sample or division by zero).</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.stats.EHH.load_distant">
+<code class="descname">load_distant</code><span class="sig-paren">(</span><em>site</em>, <em>distance</em><span class="sig-paren">)</span><a class="headerlink" href="#egglib.stats.EHH.load_distant" title="Permalink to this definition">¶</a></dt>
+<dd><p>Process a distant site. The core site must have been specified.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>site</strong> – a <code class="xref py py-class docutils literal"><span class="pre">site</span></code> instance containing data
+for the distant site. It must be consistent with the core
+site (same list of samples, and in the same order). Missing
+data are supported.</li>
+<li><strong>distance</strong> – the distance to the core site. Any distance
+measure can be used; it is only required that distant sites
+are loaded with increasing distance.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="egglib.stats.EHH.nsam">
+<code class="descname">nsam</code><a class="headerlink" href="#egglib.stats.EHH.nsam" title="Permalink to this definition">¶</a></dt>
+<dd><p>Current number of non-missing samples (total).</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.stats.EHH.nsam_core">
+<code class="descname">nsam_core</code><span class="sig-paren">(</span><em>hap</em><span class="sig-paren">)</span><a class="headerlink" href="#egglib.stats.EHH.nsam_core" title="Permalink to this definition">¶</a></dt>
+<dd><p>Number of non-missing samples for one of the core haplotypes.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.stats.EHH.nsam_hap">
+<code class="descname">nsam_hap</code><span class="sig-paren">(</span><em>hap</em><span class="sig-paren">)</span><a class="headerlink" href="#egglib.stats.EHH.nsam_hap" title="Permalink to this definition">¶</a></dt>
+<dd><p>Number of non-missing samples for one of the current haplotypes.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="egglib.stats.EHH.num_haplotypes">
+<code class="descname">num_haplotypes</code><a class="headerlink" href="#egglib.stats.EHH.num_haplotypes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Number of core haplotypes taken into consideration (<code class="docutils literal"><span class="pre">None</span></code> if
+core has not been set).</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.stats.EHH.set_core">
+<code class="descname">set_core</code><span class="sig-paren">(</span><em>site</em>, <em>unphased=False</em>, <em>min_freq=None</em>, <em>min_sam=2</em>, <em>EHH_thr=None</em>, <em>EHHc_thr=None</em>, <em>EHHS_thr=None</em>, <em>EHHG_thr=None</em>, <em>crop_EHHS=False</em><span class="sig-paren">)</span><a class="headerlink" href="#egglib.stats.EHH.set_core" title="Permalink to this definition">¶</a></dt>
+<dd><p>Specify the core region haplotypes, as a
+<a class="reference internal" href="#egglib.stats.Site" title="egglib.stats.Site"><code class="xref py py-class docutils literal"><span class="pre">Site</span></code></a> instance, and set parameters. If the
+instance already contains data, it will be reset.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>site</strong> – a <a class="reference internal" href="#egglib.stats.Site" title="egglib.stats.Site"><code class="xref py py-class docutils literal"><span class="pre">Site</span></code></a> instance. It is
+assumed that data are phased (samples should be phased; but
+it is possible to load genotypes whose phase is unknown, as
+long as the genotypes are phased at the individual level:
+see <em>unphased</em>).</li>
+<li><strong>unphased</strong> – <code class="docutils literal"><span class="pre">True</span></code> if genotypic data are provided and if
+unphased versions of statistics should be computed. This
+option requires that ploidy is more than 1. It is
+still required that individuals are phased (that is, that
+they are entered in the same order in all distant sites).</li>
+<li><strong>min_freq</strong> – minimal absolute frequency for haplotypes
+(haplotypes with lower frequencies are ignored). By default,
+all haplotypes are considered.</li>
+<li><strong>min_sam</strong> – minimal absolute number of non-missing samples to
+compute statistics or stop incrementing them (for statistics
+expressed per core haplotype, number of samples for this
+haplotype).</li>
+<li><strong>EHH_thr</strong> – threshold determining when iHH should stop
+integrating and dEHH must be evaluated. By default (<code class="docutils literal"><span class="pre">None</span></code>), iHH is
+permanently incremented and dEHH is not evaluated at all.</li>
+<li><strong>EHHc_thr</strong> – threshold determining when iHH should stop
+integrating and dEHH must be evaluated. By default (if <code class="docutils literal"><span class="pre">None</span></code>), use the
+same value as for <em>EHH_thr</em>.</li>
+<li><strong>EHHS_thr</strong> – threshold determining when iES should stop
+integrating and dEHHS must be evaluated. By default (<code class="docutils literal"><span class="pre">None</span></code>), iES is
+permanently incremented and dEHHS is not evaluated at all.</li>
+<li><strong>EHHG_thr</strong> – threshold determining when iEG (iES computed for
+unphased data) should stop
+integrating and dEHHG (equivalent to dEHHS)
+must be evaluated. Must be <code class="docutils literal"><span class="pre">None</span></code> if
+<em>genotypes</em> is <code class="docutils literal"><span class="pre">True</span></code>. By default (<code class="docutils literal"><span class="pre">None</span></code>), iEG is
+permanently incremented and dEHHG is not evaluated at all.
+By default: equal to EHHS_thr.</li>
+<li><strong>crop_EHHS</strong> – if True, set values of EHHS that are below the
+threshold to 0 to emulate the behaviour of the R package
+rehh (also affects iES).</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="misorientation-probability">
+<h2>Misorientation probability<a class="headerlink" href="#misorientation-probability" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="egglib.stats.ProbaMisoriented">
+<em class="property">class </em><code class="descclassname">egglib.stats.</code><code class="descname">ProbaMisoriented</code><span class="sig-paren">(</span><em>align=None</em><span class="sig-paren">)</span><a class="headerlink" href="#egglib.stats.ProbaMisoriented" title="Permalink to this definition">¶</a></dt>
+<dd><p>Estimate the misorientation probability from a user-provided set
+of sites with a fixed outgroup. Only sites that are either variable
+within the ingroup or have a fixed difference with respect to the
+outgroup are considered. Sites with more than two different alleles
+in the ingroup, or more than one allele in the outgroup, are
+ignored.</p>
+<p>This function is an implementation of the method mentioned in Baudry
+and Depaulis (2003), allowing to estimate the probability that a
+site oriented using the provided outgroup have be misoriented due to
+a homoplasic mutation in the branch leading to the outgroup. Note
+that this estimation neglects the probability of shared
+polymorphism.</p>
+<p>Reference: Baudry, E. &amp; F. Depaulis. 2003. Effect of misoriented
+sites on neutrality tests with outgroup.
+<em>Genetics</em>&nbsp; <strong>165</strong>: 1619-1622.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>align</strong> – a <a class="reference internal" href="toplevel.html#egglib.Align" title="egglib.Align"><code class="xref py py-class docutils literal"><span class="pre">Align</span></code></a> containing the sites to analyse.</td>
+</tr>
+</tbody>
+</table>
+<p>If the instance is created with an alignment as constructor argument,
+then the statistics are computed. The method <a class="reference internal" href="#egglib.stats.ProbaMisoriented.load_align" title="egglib.stats.ProbaMisoriented.load_align"><code class="xref py py-meth docutils literal"><span class="pre">load_align()</span></code></a>
+does the same from an existing <a class="reference internal" href="#egglib.stats.ProbaMisoriented" title="egglib.stats.ProbaMisoriented"><code class="xref py py-class docutils literal"><span class="pre">ProbaMisoriented</span></code></a> instance.
+Otherwise, individual sites can be loaded with <a class="reference internal" href="#egglib.stats.ProbaMisoriented.load_site" title="egglib.stats.ProbaMisoriented.load_site"><code class="xref py py-meth docutils literal"><span class="pre">load_site()</span></code></a>,
+and then the statistics can be computed using <a class="reference internal" href="#egglib.stats.ProbaMisoriented.compute" title="egglib.stats.ProbaMisoriented.compute"><code class="xref py py-meth docutils literal"><span class="pre">compute()</span></code></a> (the
+latter is preferable if generate <a class="reference internal" href="#egglib.stats.Freq" title="egglib.stats.Freq"><code class="xref py py-class docutils literal"><span class="pre">Freq</span></code></a> instances for an
+other use).</p>
+<div class="versionadded">
+<p><span class="versionmodified">New in version 3.0.0.</span></p>
+</div>
+<dl class="attribute">
+<dt id="egglib.stats.ProbaMisoriented.D">
+<code class="descname">D</code><a class="headerlink" href="#egglib.stats.ProbaMisoriented.D" title="Permalink to this definition">¶</a></dt>
+<dd><p>Number of loaded sites with a fixed difference with respect to
+the outgroup.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="egglib.stats.ProbaMisoriented.S">
+<code class="descname">S</code><a class="headerlink" href="#egglib.stats.ProbaMisoriented.S" title="Permalink to this definition">¶</a></dt>
+<dd><p>Number of loaded polymorphic sites (within the ingroup).</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="egglib.stats.ProbaMisoriented.TiTv">
+<code class="descname">TiTv</code><a class="headerlink" href="#egglib.stats.ProbaMisoriented.TiTv" title="Permalink to this definition">¶</a></dt>
+<dd><p>Ratio of transition and transversion rates ratio. <code class="docutils literal"><span class="pre">None</span></code> if
+the value cannot be computed (no loaded data or null
+transversion rate). Requires that <a class="reference internal" href="#egglib.stats.ProbaMisoriented.compute" title="egglib.stats.ProbaMisoriented.compute"><code class="xref py py-meth docutils literal"><span class="pre">compute()</span></code></a> has been
+called.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.stats.ProbaMisoriented.compute">
+<code class="descname">compute</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#egglib.stats.ProbaMisoriented.compute" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute <a class="reference internal" href="#egglib.stats.ProbaMisoriented.pM" title="egglib.stats.ProbaMisoriented.pM"><code class="xref py py-attr docutils literal"><span class="pre">pM</span></code></a> and <a class="reference internal" href="#egglib.stats.ProbaMisoriented.TiTv" title="egglib.stats.ProbaMisoriented.TiTv"><code class="xref py py-attr docutils literal"><span class="pre">TiTv</span></code></a> statistics. Requires that
+sites have been loaded using <a class="reference internal" href="#egglib.stats.ProbaMisoriented.load_site" title="egglib.stats.ProbaMisoriented.load_site"><code class="xref py py-meth docutils literal"><span class="pre">load_site()</span></code></a>. This method
+does not reset the instance.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.stats.ProbaMisoriented.load_align">
+<code class="descname">load_align</code><span class="sig-paren">(</span><em>align</em><span class="sig-paren">)</span><a class="headerlink" href="#egglib.stats.ProbaMisoriented.load_align" title="Permalink to this definition">¶</a></dt>
+<dd><p>Load all sites of align that meet criteria. If there are previously
+loaded data, they are discarded. This method computes statistics.
+Data are required to be DNA sequences.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>align</strong> – an <a class="reference internal" href="toplevel.html#egglib.Align" title="egglib.Align"><code class="xref py py-class docutils literal"><span class="pre">Align</span></code></a> instance.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.stats.ProbaMisoriented.load_site">
+<code class="descname">load_site</code><span class="sig-paren">(</span><em>freq</em><span class="sig-paren">)</span><a class="headerlink" href="#egglib.stats.ProbaMisoriented.load_site" title="Permalink to this definition">¶</a></dt>
+<dd><p>Load a single site. If there are previously loaded data, they
+are retained. To actually compute the misorientation
+probability, the user must call <a class="reference internal" href="#egglib.stats.ProbaMisoriented.compute" title="egglib.stats.ProbaMisoriented.compute"><code class="xref py py-meth docutils literal"><span class="pre">compute()</span></code></a>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>site</strong> – a <a class="reference internal" href="#egglib.stats.Freq" title="egglib.stats.Freq"><code class="xref py py-class docutils literal"><span class="pre">Freq</span></code></a> instance.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="egglib.stats.ProbaMisoriented.pM">
+<code class="descname">pM</code><a class="headerlink" href="#egglib.stats.ProbaMisoriented.pM" title="Permalink to this definition">¶</a></dt>
+<dd><p>Probability of misorientation. <code class="docutils literal"><span class="pre">None</span></code> if the value cannot be
+computed (no loaded data, no valid polymorphism, null
+transversion rate). Requires that <a class="reference internal" href="#egglib.stats.ProbaMisoriented.compute" title="egglib.stats.ProbaMisoriented.compute"><code class="xref py py-meth docutils literal"><span class="pre">compute()</span></code></a> has been
+called.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.stats.ProbaMisoriented.reset">
+<code class="descname">reset</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#egglib.stats.ProbaMisoriented.reset" title="Permalink to this definition">¶</a></dt>
+<dd><p>Clear all loaded or computed data.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="computestats">
+<h2>ComputeStats<a class="headerlink" href="#computestats" title="Permalink to this headline">¶</a></h2>
+<p>The class <a class="reference internal" href="#egglib.stats.ComputeStats" title="egglib.stats.ComputeStats"><code class="xref py py-class docutils literal"><span class="pre">ComputeStats</span></code></a> allows to compute all
+available statistics repeatitively on several loci and is the preferred
+way to perform diversity analyses.</p>
+<dl class="class">
+<dt id="egglib.stats.ComputeStats">
+<em class="property">class </em><code class="descclassname">egglib.stats.</code><code class="descname">ComputeStats</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#egglib.stats.ComputeStats" title="Permalink to this definition">¶</a></dt>
+<dd><p>This class allows customizable and efficient analysis of diversity
+data. It is designed to minimize redundancy of underlying analyses
+so it is best to compute as many statistics as possible with a
+single instance. It also takes advantage of the object reuse policy,
+improving the efficiency of analyses when several (and especially
+many) datasets are examined in a row by the same instance of
+<a class="reference internal" href="#egglib.stats.ComputeStats" title="egglib.stats.ComputeStats"><code class="xref py py-class docutils literal"><span class="pre">ComputeStats</span></code></a>.</p>
+<p>The constructor takes arguments that are automatically passed to the
+<a class="reference internal" href="#egglib.stats.ComputeStats.configure" title="egglib.stats.ComputeStats.configure"><code class="xref py py-meth docutils literal"><span class="pre">configure()</span></code></a> method.</p>
+<p>Statistics to compute are set using the method <a class="reference internal" href="#egglib.stats.ComputeStats.add_stats" title="egglib.stats.ComputeStats.add_stats"><code class="xref py py-meth docutils literal"><span class="pre">add_stats()</span></code></a>
+which allows specifying several statistics at once and which can
+also be called several times to add more statistics to compute.</p>
+<dl class="method">
+<dt id="egglib.stats.ComputeStats.add_stats">
+<code class="descname">add_stats</code><span class="sig-paren">(</span><em>stat</em>, <em>...</em><span class="sig-paren">)</span><a class="headerlink" href="#egglib.stats.ComputeStats.add_stats" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add one or more statistics to compute. Every statistic identifier must be among
+the list of available statistics, regardless of what data is to
+be analyzed. If statistics cannot be computed, they will be
+returned as <code class="docutils literal"><span class="pre">None</span></code>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.stats.ComputeStats.all_stats">
+<code class="descname">all_stats</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#egglib.stats.ComputeStats.all_stats" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add all possible statistics. Those who cannot be computed will
+be reported as <code class="docutils literal"><span class="pre">None</span></code>. Also reset all currently computed statistics (if any).</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.stats.ComputeStats.clear_stats">
+<code class="descname">clear_stats</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#egglib.stats.ComputeStats.clear_stats" title="Permalink to this definition">¶</a></dt>
+<dd><p>Clear the list of statistics to compute.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.stats.ComputeStats.configure">
+<code class="descname">configure</code><span class="sig-paren">(</span><em>struct=None</em>, <em>multi=False</em>, <em>multi_hits=False</em>, <em>ignore_ns=False</em>, <em>set_ns=None</em>, <em>LD_min_n=2</em>, <em>LD_max_maj=1.0</em>, <em>LD_multiallelic=0</em>, <em>LD_min_freq=0</em>, <em>Rmin_oriented=False</em><span class="sig-paren">)</span><a class="headerlink" href="#egglib.stats.ComputeStats.configure" title="Permalink to this definition">¶</a></dt>
+<dd><p>Configure the instance. The values provided for parameters will
+affect all subsequent analyses. Calling this method resets all
+statistics.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>struct</strong> – a <a class="reference internal" href="#egglib.stats.Structure" title="egglib.stats.Structure"><code class="xref py py-class docutils literal"><span class="pre">Structure</span></code></a> instance describing the
+structure of objects that will be passed. This argument can
+be bypassed by the <em>struct</em> arguments of subsequents
+methods.</li>
+<li><strong>multi</strong> – process several alignments, set of sites, or sites
+in a row and only yield statistics when <a class="reference internal" href="#egglib.stats.ComputeStats.results" title="egglib.stats.ComputeStats.results"><code class="xref py py-meth docutils literal"><span class="pre">results()</span></code></a> is
+called (each of the methods considered will return <code class="docutils literal"><span class="pre">None</span></code>).</li>
+<li><strong>multi_hits</strong> – allow multiple mutations at the same site.</li>
+<li><strong>ignore_ns</strong> – do not require that all sites have the same
+number of samples for computing Fay and Wu’s statistics.</li>
+<li><strong>set_ns</strong> – set the total number of samples (useful to compute
+Fay and Wu’s statistics, only in the case when data contain
+missing data and data are provided as sites or as several
+alignments with different numbers of samples. This option is
+ignored if <em>ignore_ns</em> is <code class="docutils literal"><span class="pre">False</span></code>.</li>
+<li><strong>LD_min_n</strong> – Minimal number of non-missing samples. Allows to
+specify a more stringent filter than <em>max_missing</em>.
+Only considered for calculating Rozas <em>et al.</em>’s and Kelly’s
+statistics (the most stringent of the two criteria applies).</li>
+<li><strong>LD_max_maj</strong> – Maximal relative frequency of the main allele.
+Only considered for calculating Rozas <em>et al.</em>’s and Kelly’s
+statistics.</li>
+<li><strong>LD_multiallelic</strong> – One of 0 (ignore them), 1 (use main
+allele only), and 2 (use all possible pairs of alleles).
+Defines what is done for pairs of sites of which one or
+both have more than two alleles (while computing linkage
+disequilibrium). In case of option 2, a filter can be
+applied with option <em>LD_min_freq</em>. Only considered for
+calculating Rozas <em>et al.</em>’s and Kelly’s statistics.</li>
+<li><strong>LD_min_freq</strong> – Only considered if option 2 is used for
+<em>LD_multiallelic</em>. Only consider alleles that are in
+absolute frequency equal to or larger than the given value.
+Only considered for calculating Rozas <em>et al.</em>’s and Kelly’s
+statistics</li>
+<li><strong>Rmin_oriented</strong> – Only for computing Rmin: use only
+orientable sites.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.stats.ComputeStats.list_stats">
+<code class="descname">list_stats</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#egglib.stats.ComputeStats.list_stats" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a list of tuples giving, for each available statistic,
+its code and a short description.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.stats.ComputeStats.process_align">
+<code class="descname">process_align</code><span class="sig-paren">(</span><em>align</em>, <em>positions=None</em>, <em>struct=None</em>, <em>filtr=None</em>, <em>max_missing=0.0</em>, <em>consider_outgroup_missing=False</em><span class="sig-paren">)</span><a class="headerlink" href="#egglib.stats.ComputeStats.process_align" title="Permalink to this definition">¶</a></dt>
+<dd><p>Analyze an alignment.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>align</strong> – an <a class="reference internal" href="toplevel.html#egglib.Align" title="egglib.Align"><code class="xref py py-class docutils literal"><span class="pre">Align</span></code></a> instance.</li>
+<li><strong>positions</strong> – a list, or other sequence of positions for all
+sites, or <code class="docutils literal"><span class="pre">None</span></code>. If <code class="docutils literal"><span class="pre">None</span></code>, use the index of each site. Otherwise,
+must be a sequences of integer values (length matching the
+number of sites).</li>
+<li><strong>struct</strong> – a <a class="reference internal" href="#egglib.stats.Structure" title="egglib.stats.Structure"><code class="xref py py-class docutils literal"><span class="pre">Structure</span></code></a> instance describing population
+structure.  <em>struct</em> can also be an integer specifying the level
+of population labels in the alignment labels table. Only
+populations can be specified this way. If <code class="docutils literal"><span class="pre">None</span></code> (default),
+don’t use structure. It is not allowed to pass a structure
+several times (with <em>multi</em> set to <code class="docutils literal"><span class="pre">True</span></code>). In that case,
+pass the structure to <a class="reference internal" href="#egglib.stats.ComputeStats.configure" title="egglib.stats.ComputeStats.configure"><code class="xref py py-meth docutils literal"><span class="pre">configure()</span></code></a>.</li>
+<li><strong>filtr</strong> – <a class="reference internal" href="#egglib.stats.Filter" title="egglib.stats.Filter"><code class="xref py py-class docutils literal"><span class="pre">Filter</span></code></a> instance determining
+what allelic values are acceptable and what ones should be
+considered as missing (all other values causing an exception).
+By default, nucleotide sequences are accepted (including
+IUPAC ambiguity characters as missing data), with
+case-independent matching. The user may want to use a custom
+instance or use one of the predefined instances in the
+<code class="xref py py-mod docutils literal"><span class="pre">stats</span></code> module).</li>
+<li><strong>max_missing</strong> – Maximum proportion of missing data. The
+default is to exclude all sites wdef _resultsith missing data. Missing
+data include all ambiguity characters and alignment gaps.
+Sites not passing this threshold are ignored for all
+analyses.</li>
+<li><strong>consider_outgroup_missing</strong> – if <code class="docutils literal"><span class="pre">True</span></code>, take the outgroup
+into account in the max_missing threshold (by default, only
+ingroup samples are considered).</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">A dictionary of statistics, unless <em>multi</em> is set.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.stats.ComputeStats.process_freq">
+<code class="descname">process_freq</code><span class="sig-paren">(</span><em>frq</em>, <em>alleles=None</em>, <em>position=None</em><span class="sig-paren">)</span><a class="headerlink" href="#egglib.stats.ComputeStats.process_freq" title="Permalink to this definition">¶</a></dt>
+<dd><p>Analyze a site based on already computed frequencies.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>frq</strong> – a <a class="reference internal" href="#egglib.stats.Freq" title="egglib.stats.Freq"><code class="xref py py-class docutils literal"><span class="pre">Freq</span></code></a> instance.</li>
+<li><strong>position</strong> – position of the site. Must be an integer value.
+By default, use the site loading index.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Params alleles:</th><td class="field-body"><p class="first">list of allele values (as integers). Only used
+if statistic <code class="docutils literal"><span class="pre">V</span></code> is required and ignored otherwise.
+Statistic <code class="docutils literal"><span class="pre">V</span></code> is not computed if this argument is not
+specified. The length of the list must match the total
+number of alleles.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">A dictionary of statistics, unless <em>multi</em> is set.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.stats.ComputeStats.process_site">
+<code class="descname">process_site</code><span class="sig-paren">(</span><em>site</em>, <em>position=None</em>, <em>struct=None</em><span class="sig-paren">)</span><a class="headerlink" href="#egglib.stats.ComputeStats.process_site" title="Permalink to this definition">¶</a></dt>
+<dd><p>Analyze a site.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>site</strong> – a <a class="reference internal" href="#egglib.stats.Site" title="egglib.stats.Site"><code class="xref py py-class docutils literal"><span class="pre">Site</span></code></a> instance.</li>
+<li><strong>position</strong> – position of the site. Must be an integer value.
+By default, use the site loadingdef _results index.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Struct:</th><td class="field-body"><p class="first">a <a class="reference internal" href="#egglib.stats.Structure" title="egglib.stats.Structure"><code class="xref py py-class docutils literal"><span class="pre">Structure</span></code></a> instance describing population
+structure. By default, doesn’t apply structure. It is not
+allowed to pass a structure several times (with <em>multi</em> set
+to <code class="docutils literal"><span class="pre">True</span></code>). In that case, pass the structure to
+<a class="reference internal" href="#egglib.stats.ComputeStats.configure" title="egglib.stats.ComputeStats.configure"><code class="xref py py-meth docutils literal"><span class="pre">configure()</span></code></a>.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">A dictionary of statistics, unless <em>multi</em> is set.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.stats.ComputeStats.process_sites">
+<code class="descname">process_sites</code><span class="sig-paren">(</span><em>sites</em>, <em>positions=None</em>, <em>struct=None</em><span class="sig-paren">)</span><a class="headerlink" href="#egglib.stats.ComputeStats.process_sites" title="Permalink to this definition">¶</a></dt>
+<dd><p>Analyze a list of sites.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>sites</strong> – a list, or other sequence of <a class="reference internal" href="#egglib.stats.Site" title="egglib.stats.Site"><code class="xref py py-class docutils literal"><span class="pre">Site</span></code></a>
+instance. Or a sliding window as object of the <a class="reference internal" href="io.html#egglib.io._vcf.VcfWindow" title="egglib.io._vcf.VcfWindow"><code class="xref py py-class docutils literal"><span class="pre">VcfWindow</span></code></a>
+with a number of sites greater than 0.</li>
+<li><strong>positions</strong> – a list, or other sequence of positions for all
+sites, or <code class="docutils literal"><span class="pre">None</span></code>. If <code class="docutils literal"><span class="pre">None</span></code>, use the index of each site. Otherwise,
+must be a sequences of integer values (length matching the
+length of <em>sites</em>).</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Struct:</th><td class="field-body"><p class="first">a <a class="reference internal" href="#egglib.stats.Structure" title="egglib.stats.Structure"><code class="xref py py-class docutils literal"><span class="pre">Structure</span></code></a> instance describing population
+structure. By default, doesn’t apply structure. It is not
+allowed to pass a structure several times (with <em>multi</em> set
+to <code class="docutils literal"><span class="pre">True</span></code>). In that case, pass the structure to
+<a class="reference internal" href="#egglib.stats.ComputeStats.configure" title="egglib.stats.ComputeStats.configure"><code class="xref py py-meth docutils literal"><span class="pre">configure()</span></code></a>.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">A dictionary of statistics, unless <em>multi</em> is set.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.stats.ComputeStats.reset">
+<code class="descname">reset</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#egglib.stats.ComputeStats.reset" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reset all currenctly computed statistics (but keep the list of
+statistics to compute).</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.stats.ComputeStats.results">
+<code class="descname">results</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#egglib.stats.ComputeStats.results" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the value of statistics for all sites since the last call
+to this method, to <a class="reference internal" href="#egglib.stats.ComputeStats.reset" title="egglib.stats.ComputeStats.reset"><code class="xref py py-meth docutils literal"><span class="pre">reset()</span></code></a>, or any addition of statistics,
+or the object creation,
+whichever is most recent. For statistics that can not be
+computed, <code class="docutils literal"><span class="pre">None</span></code> is returned.</p>
+</dd></dl>
+
+</dd></dl>
+
+<p>The statistics available for using with <a class="reference internal" href="#egglib.stats.ComputeStats" title="egglib.stats.ComputeStats"><code class="xref py py-class docutils literal"><span class="pre">ComputeStats</span></code></a>
+are listed below:</p>
+<div class="section" id="list-of-statistics">
+<span id="list-stats"></span><h3>List of statistics<a class="headerlink" href="#list-of-statistics" title="Permalink to this headline">¶</a></h3>
+<table border="1" class="docutils">
+<colgroup>
+<col width="9%" />
+<col width="51%" />
+<col width="7%" />
+<col width="9%" />
+<col width="11%" />
+<col width="6%" />
+<col width="7%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Code</th>
+<th class="head">Description</th>
+<th class="head">Per site</th>
+<th class="head">Per region</th>
+<th class="head">Whole sample</th>
+<th class="head">Per pop</th>
+<th class="head">Per pair</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>Aing</td>
+<td>Number of alleles in ingroup</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+</tr>
+<tr class="row-odd"><td>Aotg</td>
+<td>Number of alleles in outgroup</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+</tr>
+<tr class="row-even"><td>As</td>
+<td>Number of singleton alleles</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+</tr>
+<tr class="row-odd"><td>Asd</td>
+<td>Number of singleton alleles (derived)</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+</tr>
+<tr class="row-even"><td>Atot</td>
+<td>Number of alleles in whole dataset</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+</tr>
+<tr class="row-odd"><td>B</td>
+<td>Wall’s B statistic</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+</tr>
+<tr class="row-even"><td>Ch</td>
+<td>Ramos-Onsins and Rozas’s Ch (using singletons)</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+</tr>
+<tr class="row-odd"><td>ChE</td>
+<td>Ramos-Onsins and Rozas’s ChE (using external singletons)</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+</tr>
+<tr class="row-even"><td>D</td>
+<td>Tajima’s D</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+</tr>
+<tr class="row-odd"><td>D*</td>
+<td>Fu and Li’s D*</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+</tr>
+<tr class="row-even"><td>Da</td>
+<td>Net pairwise distance (if two populations)</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+</tr>
+<tr class="row-odd"><td>Deta</td>
+<td>Tajima’s D using eta instead of S</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+</tr>
+<tr class="row-even"><td>Dfl</td>
+<td>Fu and Li’s D</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+</tr>
+<tr class="row-odd"><td>Dj</td>
+<td>Jost’s D</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+</tr>
+<tr class="row-even"><td>Dxy</td>
+<td>Pairwise distance (if two populations)</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+</tr>
+<tr class="row-odd"><td>E</td>
+<td>Zeng et al.’s E</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+</tr>
+<tr class="row-even"><td>F</td>
+<td>Fu and Li’s F</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+</tr>
+<tr class="row-odd"><td>F*</td>
+<td>Fu and Li’s F*</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+</tr>
+<tr class="row-even"><td>Fis</td>
+<td>Inbreeding coefficient</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+</tr>
+<tr class="row-odd"><td>Fs</td>
+<td>Fu’s Fs</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+</tr>
+<tr class="row-even"><td>Fst</td>
+<td>Hudson’s Fst</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+</tr>
+<tr class="row-odd"><td>Gst</td>
+<td>Nei’s Gst</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+</tr>
+<tr class="row-even"><td>Gste</td>
+<td>Hedrick’s Gst’</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+</tr>
+<tr class="row-odd"><td>He</td>
+<td>Expected heterozygosity</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+</tr>
+<tr class="row-even"><td>Hi</td>
+<td>Inter-individual heterozygosity</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+</tr>
+<tr class="row-odd"><td>Hns</td>
+<td>Fay and Wu’s H (unstandardized)</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+</tr>
+<tr class="row-even"><td>Ho</td>
+<td>Observed heterozygosity</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+</tr>
+<tr class="row-odd"><td>Hsd</td>
+<td>Fay and Wu’s H (standardized)</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+</tr>
+<tr class="row-even"><td>Hst</td>
+<td>Hudson’s Hst</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+</tr>
+<tr class="row-odd"><td>K</td>
+<td>Number of haplotypes</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+</tr>
+<tr class="row-even"><td>Ke</td>
+<td>Number of haplotypes (only ingroup)</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+</tr>
+<tr class="row-odd"><td>Kst</td>
+<td>Hudson’s Kst</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+</tr>
+<tr class="row-even"><td>MAF</td>
+<td>Relative frequency of second most frequent allele</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+</tr>
+<tr class="row-odd"><td>MAF_pop</td>
+<td>MAF for each pop, as a list (check order of pops)</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+</tr>
+<tr class="row-even"><td>Pi</td>
+<td>Nucleotide diversity</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+</tr>
+<tr class="row-odd"><td>Q</td>
+<td>Wall’s Q statistic</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+</tr>
+<tr class="row-even"><td>R</td>
+<td>Allelic richness</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+</tr>
+<tr class="row-odd"><td>R2</td>
+<td>Ramos-Onsins and Rozas’s R2 (using singletons)</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+</tr>
+<tr class="row-even"><td>R2E</td>
+<td>Ramos-Onsins and Rozas’s R2E (using external singletons)</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+</tr>
+<tr class="row-odd"><td>R3</td>
+<td>Ramos-Onsins and Rozas’s R3 (using singletons)</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+</tr>
+<tr class="row-even"><td>R3E</td>
+<td>Ramos-Onsins and Rozas’s R3E (using external singletons)</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+</tr>
+<tr class="row-odd"><td>R4</td>
+<td>Ramos-Onsins and Rozas’s R4 (using singletons)</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+</tr>
+<tr class="row-even"><td>R4E</td>
+<td>Ramos-Onsins and Rozas’s R4E (using external singletons)</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+</tr>
+<tr class="row-odd"><td>Rintervals</td>
+<td>List of start/end positions of recombination intervals</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+</tr>
+<tr class="row-even"><td>Rmin</td>
+<td>Minimal number of recombination events</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+</tr>
+<tr class="row-odd"><td>RminL</td>
+<td>Number of sites used to compute Rmin</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+</tr>
+<tr class="row-even"><td>S</td>
+<td>Number of segregating sites</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+</tr>
+<tr class="row-odd"><td>Snn</td>
+<td>Hudson’s nearest nearest neighbour statistic</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+</tr>
+<tr class="row-even"><td>So</td>
+<td>Number of segregating orientable sites</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+</tr>
+<tr class="row-odd"><td>Ss</td>
+<td>Number of sites with only one singleton allele</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+</tr>
+<tr class="row-even"><td>Sso</td>
+<td>Number of orientable sites with only one singleton allele</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+</tr>
+<tr class="row-odd"><td>V</td>
+<td>Allele size variance</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+</tr>
+<tr class="row-even"><td>WCisct</td>
+<td>Weir and Cockerham for hierarchical structure</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+</tr>
+<tr class="row-odd"><td>WCist</td>
+<td>Weir and Cockerham for diploid data</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+</tr>
+<tr class="row-even"><td>WCst</td>
+<td>Weir and Cockerham for haploid data</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+</tr>
+<tr class="row-odd"><td>Z*nS</td>
+<td>Kelly et al.’s Z*nS</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+</tr>
+<tr class="row-even"><td>Z*nS*</td>
+<td>Kelly et al.’s Z*nS*</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+</tr>
+<tr class="row-odd"><td>ZZ</td>
+<td>Rozas et al.’s ZZ</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+</tr>
+<tr class="row-even"><td>Za</td>
+<td>Rozas et al.’s Za</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+</tr>
+<tr class="row-odd"><td>ZnS</td>
+<td>Kelly et al.’s ZnS</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+</tr>
+<tr class="row-even"><td>eta</td>
+<td>Minimal number of mutations</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+</tr>
+<tr class="row-odd"><td>etao</td>
+<td>Minimal number of mutations are orientable sites</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+</tr>
+<tr class="row-even"><td>lseff</td>
+<td>Number of analysed sites</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+</tr>
+<tr class="row-odd"><td>lseffo</td>
+<td>Number of analysed orientable sites</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+</tr>
+<tr class="row-even"><td>nM</td>
+<td>Number of sites available for MFDM test</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+</tr>
+<tr class="row-odd"><td>nPairs</td>
+<td>Number of allele pairs used for ZnS, Z*nS, and Z*nS*</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+</tr>
+<tr class="row-even"><td>nPairsAdj</td>
+<td>Allele pairs at adjacent sites (used for ZZ and Za)</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+</tr>
+<tr class="row-odd"><td>ns_site</td>
+<td>Number of analyzed samples per site</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+</tr>
+<tr class="row-even"><td>nseff</td>
+<td>Average number of exploitable samples</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+</tr>
+<tr class="row-odd"><td>nseffo</td>
+<td>Average number of exploitable samples at orientable sites</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+</tr>
+<tr class="row-even"><td>nsingld</td>
+<td>Number of derived singletons</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+</tr>
+<tr class="row-odd"><td>nsmax</td>
+<td>Maximal number of available samples per site</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+</tr>
+<tr class="row-even"><td>nsmaxo</td>
+<td>Maximal number of available samples per orientable site</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+</tr>
+<tr class="row-odd"><td>numFxA</td>
+<td>Number of fixed alleles</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+</tr>
+<tr class="row-even"><td>numFxA*</td>
+<td>Sites with at least 1 fixed allele</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+</tr>
+<tr class="row-odd"><td>numFxD</td>
+<td>Number of fixed differences</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+</tr>
+<tr class="row-even"><td>numFxD*</td>
+<td>Sites with at least 1 fixed difference</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+</tr>
+<tr class="row-odd"><td>numShA</td>
+<td>Number of shared alleles</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+</tr>
+<tr class="row-even"><td>numShA*</td>
+<td>Sites with at least 1 shared allele</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+</tr>
+<tr class="row-odd"><td>numShP</td>
+<td>Number of shared segregating alleles</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+</tr>
+<tr class="row-even"><td>numShP*</td>
+<td>Sites with at least 1 shared segregating allele</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+</tr>
+<tr class="row-odd"><td>numSp</td>
+<td>Number of population-specific alleles</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+</tr>
+<tr class="row-even"><td>numSp*</td>
+<td>Sites with at least 1 pop-specific allele</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+</tr>
+<tr class="row-odd"><td>numSpd</td>
+<td>Number of population-specific derived alleles</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+</tr>
+<tr class="row-even"><td>numSpd*</td>
+<td>Sites with at least 1 pop-specific derived allele</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+</tr>
+<tr class="row-odd"><td>pM</td>
+<td>P-value of MDFM test</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+</tr>
+<tr class="row-even"><td>rD</td>
+<td>R_bar{d} statistic</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+</tr>
+<tr class="row-odd"><td>singl</td>
+<td>Index of sites with at least one singleton allele</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+</tr>
+<tr class="row-even"><td>singl_o</td>
+<td>Index of sites with at least one singleton allele</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+</tr>
+<tr class="row-odd"><td>sites</td>
+<td>Index of polymorphic sites</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+</tr>
+<tr class="row-even"><td>sites_o</td>
+<td>Index of orientable polymorphic sites</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+</tr>
+<tr class="row-odd"><td>thetaH</td>
+<td>Fay and Wu’s estimator of theta</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+</tr>
+<tr class="row-even"><td>thetaIAM</td>
+<td>Theta estimator based on He &amp; IAM model</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+</tr>
+<tr class="row-odd"><td>thetaL</td>
+<td>Zeng et al.’s estimator of theta</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+</tr>
+<tr class="row-even"><td>thetaPi</td>
+<td>Pi using orientable sites</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+</tr>
+<tr class="row-odd"><td>thetaSMM</td>
+<td>Theta estimator based on He &amp; SMM model</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+</tr>
+<tr class="row-even"><td>thetaW</td>
+<td>Watterson’s estimator of theta</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="section" id="structure">
+<h2>Structure<a class="headerlink" href="#structure" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="egglib.stats.Structure">
+<em class="property">class </em><code class="descclassname">egglib.stats.</code><code class="descname">Structure</code><a class="headerlink" href="#egglib.stats.Structure" title="Permalink to this definition">¶</a></dt>
+<dd><p>Describe the organisation of samples in individuals, populations,
+and clusters of populations. The structure is necessarily
+hierarchical and all levels are always defined but it is possible to
+bypass any level if information for this level is not available or
+irrelevant. The number of individuals per population can vary, but
+the number of samples per individuals (that is, the ploidy) must be
+constant.</p>
+<p>New objects are created using the fonctions <a class="reference internal" href="#egglib.stats.get_structure" title="egglib.stats.get_structure"><code class="xref py py-func docutils literal"><span class="pre">get_structure()</span></code></a>
+and <a class="reference internal" href="#egglib.stats.make_structure" title="egglib.stats.make_structure"><code class="xref py py-func docutils literal"><span class="pre">make_structure()</span></code></a>, and old objects can be recycled with
+the corresponding methods <a class="reference internal" href="#egglib.stats.Structure.get_structure" title="egglib.stats.Structure.get_structure"><code class="xref py py-meth docutils literal"><span class="pre">get_structure()</span></code></a> and
+<a class="reference internal" href="#egglib.stats.make_structure" title="egglib.stats.make_structure"><code class="xref py py-meth docutils literal"><span class="pre">make_structure()</span></code></a>.</p>
+<dl class="method">
+<dt id="egglib.stats.Structure.as_dict">
+<code class="descname">as_dict</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#egglib.stats.Structure.as_dict" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a tuple of two <a class="reference external" href="https://docs.python.org/2.7/library/stdtypes.html#dict" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">dict</span></code></a> representing, respectively,
+the ingroup and outgroup structure.</p>
+<p>The ingroup dictionary is a three-fold nested dictionary
+(meaning it is a dictionary of dictionaries of dictionaries)
+holding lists of sample indexes. The keys are, respectively,
+cluster, population, and individual labels. Based on how the
+instance was created, there may be just one item or even none at
+all in any dictionary. In practice, if <code class="docutils literal"><span class="pre">d`</span> <span class="pre">is</span> <span class="pre">the</span> <span class="pre">ingroup</span>
+<span class="pre">:class:`dict`</span> <span class="pre">and</span> <span class="pre">``clt</span></code>, <code class="docutils literal"><span class="pre">pop</span></code> and <code class="docutils literal"><span class="pre">idv</span></code> are, respectively,
+cluster, population, and individual labels, the expression
+<code class="docutils literal"><span class="pre">d[clt][pop][idv]</span></code> will yield a list of sample indexes.</p>
+<p>The outgroup dictionary is a non-nested dictionary with
+individual labels as keys and lists of sample indexes as values.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.stats.Structure.get_samples">
+<code class="descname">get_samples</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#egglib.stats.Structure.get_samples" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a new <code class="xref py py-class docutils literal"><span class="pre">list</span></code> with the index of all samples from
+the ingroup (all clusters, populations, and individuals stored
+in this object, excluding the outgroup).</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.stats.Structure.get_structure">
+<code class="descname">get_structure</code><span class="sig-paren">(</span><em>data</em>, <em>lvl_clust=None</em>, <em>lvl_pop=None</em>, <em>lvl_indiv=None</em>, <em>pop_filter=None</em>, <em>ploidy=None</em>, <em>skip_outgroup=False</em><span class="sig-paren">)</span><a class="headerlink" href="#egglib.stats.Structure.get_structure" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reset the instance as if it was built using <a class="reference internal" href="#egglib.stats.get_structure" title="egglib.stats.get_structure"><code class="xref py py-func docutils literal"><span class="pre">get_structure()</span></code></a>.
+The definitions of arguments are identical.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.stats.Structure.make_auxiliary">
+<code class="descname">make_auxiliary</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#egglib.stats.Structure.make_auxiliary" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a new <a class="reference internal" href="#egglib.stats.Structure" title="egglib.stats.Structure"><code class="xref py py-class docutils literal"><span class="pre">Structure</span></code></a> instance describing the organisation
+of individuals in clusters and populations (ignoring the intra-individual
+level) using the rank of individuals as indexes, the individuals
+being ranked in the order of increasing cluster and population
+indexes.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.stats.Structure.make_structure">
+<code class="descname">make_structure</code><span class="sig-paren">(</span><em>ingroup</em>, <em>outgroup</em><span class="sig-paren">)</span><a class="headerlink" href="#egglib.stats.Structure.make_structure" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reset the instance as if it was built using <a class="reference internal" href="#egglib.stats.make_structure" title="egglib.stats.make_structure"><code class="xref py py-func docutils literal"><span class="pre">make_structure()</span></code></a>.
+The definitions of arguments are identical.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="egglib.stats.Structure.no">
+<code class="descname">no</code><a class="headerlink" href="#egglib.stats.Structure.no" title="Permalink to this definition">¶</a></dt>
+<dd><p>Number of processed outgroup samples.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="egglib.stats.Structure.ns">
+<code class="descname">ns</code><a class="headerlink" href="#egglib.stats.Structure.ns" title="Permalink to this definition">¶</a></dt>
+<dd><p>Number of processed ingroup samples.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="egglib.stats.Structure.num_clust">
+<code class="descname">num_clust</code><a class="headerlink" href="#egglib.stats.Structure.num_clust" title="Permalink to this definition">¶</a></dt>
+<dd><p>Number of clusters.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="egglib.stats.Structure.num_indiv_ingroup">
+<code class="descname">num_indiv_ingroup</code><a class="headerlink" href="#egglib.stats.Structure.num_indiv_ingroup" title="Permalink to this definition">¶</a></dt>
+<dd><p>Total number of ingroup individuals.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="egglib.stats.Structure.num_indiv_outgroup">
+<code class="descname">num_indiv_outgroup</code><a class="headerlink" href="#egglib.stats.Structure.num_indiv_outgroup" title="Permalink to this definition">¶</a></dt>
+<dd><p>Number of outgroup individuals.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="egglib.stats.Structure.num_pop">
+<code class="descname">num_pop</code><a class="headerlink" href="#egglib.stats.Structure.num_pop" title="Permalink to this definition">¶</a></dt>
+<dd><p>Total number of populations.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="egglib.stats.Structure.ploidy">
+<code class="descname">ploidy</code><a class="headerlink" href="#egglib.stats.Structure.ploidy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Ploidy.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="egglib.stats.Structure.req_no">
+<code class="descname">req_no</code><a class="headerlink" href="#egglib.stats.Structure.req_no" title="Permalink to this definition">¶</a></dt>
+<dd><p>Required number of ougroup sample index in objects using this
+structure (equal to the largest index overall plus one).</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="egglib.stats.Structure.req_ns">
+<code class="descname">req_ns</code><a class="headerlink" href="#egglib.stats.Structure.req_ns" title="Permalink to this definition">¶</a></dt>
+<dd><p>Required number of ingroup sample index in objects using this
+structure (equal to the largest index overall plus one).</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="egglib.stats.get_structure">
+<code class="descclassname">egglib.stats.</code><code class="descname">get_structure</code><span class="sig-paren">(</span><em>data</em>, <em>lvl_clust=None</em>, <em>lvl_pop=None</em>, <em>lvl_indiv=None</em>, <em>pop_filter=None</em>, <em>ploidy=None</em>, <em>skip_outgroup=False</em><span class="sig-paren">)</span><a class="headerlink" href="#egglib.stats.get_structure" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a new <a class="reference internal" href="#egglib.stats.Structure" title="egglib.stats.Structure"><code class="xref py py-class docutils literal"><span class="pre">Structure</span></code></a> instance based on the group labels
+of a <code class="xref py py-class docutils literal"><span class="pre">Align</span></code> or <code class="xref py py-class docutils literal"><span class="pre">Container</span></code> instance.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>data</strong> – an <a class="reference internal" href="toplevel.html#egglib.Align" title="egglib.Align"><code class="xref py py-class docutils literal"><span class="pre">Align</span></code></a> or <a class="reference internal" href="toplevel.html#egglib.Container" title="egglib.Container"><code class="xref py py-class docutils literal"><span class="pre">Container</span></code></a> instance
+containing the grouping levels to be processed.</li>
+<li><strong>lvl_clust</strong> – index of the grouping level containing cluster
+labels. If <code class="docutils literal"><span class="pre">None</span></code>, all populations are placed in a single
+cluster with label 0.</li>
+<li><strong>lvl_pop</strong> – index of the grouping level containing population
+labels. If <code class="docutils literal"><span class="pre">None</span></code>, all individuals of a cluster are placed in
+a single cluster with the same label as their cluster.</li>
+<li><strong>lvl_indiv</strong> – index of the grouping level containing individual
+labels. If <code class="docutils literal"><span class="pre">None</span></code>, individuals are not specified and each
+sample is placed in a haploid individual, for both the ingroup
+and the outgroup (unless <em>skip_outgroup</em> is <code class="docutils literal"><span class="pre">True</span></code>), meaning
+that outgroup group labels are ignored.</li>
+<li><strong>pop_filter</strong> – process only the populations bearing the label or
+labels provided in the provided list. If <code class="docutils literal"><span class="pre">None</span></code>, all
+populations are processed. An empty list is the same as
+<code class="docutils literal"><span class="pre">None</span></code>. It is allowed to include repeated labels in the list,
+as well as labels that are not actually present in the data.</li>
+<li><strong>ploidy</strong> – indicate the ploidy. Must be a positive number and,
+if specified, data must match the value. If not specified,
+ploidy will be detected automatically (it must still be
+consistent over all ingroup and outgroup individuals). Ploidy is
+ignored if <em>lvl_indiv</em> is <code class="docutils literal"><span class="pre">None</span></code>.</li>
+<li><strong>skip_outgroup</strong> – specify if outgroup samples should be skipped.
+No effect if there are no outgroup samples. If <em>lvl_indiv</em> is
+not <code class="docutils literal"><span class="pre">None</span></code>, the group label of outgroup samples are considered
+to be individual labels and the outgroup individuals will be
+recorded (requiring a consistent ploidy as well). If <em>lvl_indiv</em>
+is <code class="docutils literal"><span class="pre">None</span></code>, outgroup samples are imported in one-sample
+individuals just like ingroup samples. If the <em>skip_outgroup</em>
+flag is set, outgroup samples are not imported at all.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">A new <a class="reference internal" href="#egglib.stats.Structure" title="egglib.stats.Structure"><code class="xref py py-class docutils literal"><span class="pre">Structure</span></code></a>.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="egglib.stats.make_structure">
+<code class="descclassname">egglib.stats.</code><code class="descname">make_structure</code><span class="sig-paren">(</span><em>ingroup</em>, <em>outgroup</em><span class="sig-paren">)</span><a class="headerlink" href="#egglib.stats.make_structure" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a new <a class="reference internal" href="#egglib.stats.Structure" title="egglib.stats.Structure"><code class="xref py py-class docutils literal"><span class="pre">Structure</span></code></a> instance based based on the
+structure provided as dictionaries. The two arguments must match the
+format of the return value of the <a class="reference internal" href="#egglib.stats.Structure.as_dict" title="egglib.stats.Structure.as_dict"><code class="xref py py-meth docutils literal"><span class="pre">Structure.as_dict()</span></code></a> method
+(see the documentation). Either argument can be replaced by <code class="docutils literal"><span class="pre">None</span></code>
+which is equivalent to an empty dictionary (no samples). Not that
+all keys must be positive integers.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>ingroup</strong> – a three-fold nested dictionary of ingroup samples
+indexes, or <code class="docutils literal"><span class="pre">None</span></code>.</li>
+<li><strong>outgroup</strong> – a dictionary of outgroup samples indexes, or
+<code class="docutils literal"><span class="pre">None</span></code>.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">A new <a class="reference internal" href="#egglib.stats.Structure" title="egglib.stats.Structure"><code class="xref py py-class docutils literal"><span class="pre">Structure</span></code></a>.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="filter">
+<h2>Filter<a class="headerlink" href="#filter" title="Permalink to this headline">¶</a></h2>
+<p>This class allows to generate filters for analysis of allele values:</p>
+<dl class="class">
+<dt id="egglib.stats.Filter">
+<em class="property">class </em><code class="descclassname">egglib.stats.</code><code class="descname">Filter</code><span class="sig-paren">(</span><em>exploitable=None</em>, <em>rng=None</em>, <em>missing=None</em>, <em>exploitable_alias=None</em>, <em>missing_alias=None</em>, <em>lower_alias=False</em><span class="sig-paren">)</span><a class="headerlink" href="#egglib.stats.Filter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Holds lists of valid (exploitable and missing) data codes. The
+constructor allows to immediately instanciate the class with all
+desired information. It is also possible to call the modifier
+methods to add information. Note that this module provides a few
+pre-defined instances with common settings that the user may use and
+possibly extend.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">If no codes are specified (which is the default behaviour if no
+arguments are specified), the filter will treat all codes as
+acceptable.</p>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>exploitable</strong> – Value or values used as exploitable data.
+Possible values are <code class="docutils literal"><span class="pre">None</span></code>, a single integer, a list (or other
+iterable) of integers, or a string. An iterable of one-character
+strings is also possible. Negative integers are supported.</li>
+<li><strong>rng</strong> – A range of integer values taken as exploitable. Must
+contain two values, providing the minimum and maximum values.</li>
+<li><strong>missing</strong> – Value or values used as missing data. Specifications
+as for <em>exploitable</em>.</li>
+<li><strong>lower_alias</strong> – For all <em>exploitable</em> and <em>missing</em> (but not
+<em>rng</em>) values, use the lower case character as alias. Ignored
+for all integer values.</li>
+<li><strong>exploitable_alias</strong> – Provide the alias values for exploitable
+data. The number of values and their order must match the
+argument <em>exploitable</em>.</li>
+<li><strong>missing_alias</strong> – Provide the alias values for missing data. The
+number of values and their order must match the argument
+<em>missing</em>.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="egglib.stats.Filter.exploitable">
+<code class="descname">exploitable</code><span class="sig-paren">(</span><em>values</em>, <em>alias=None</em>, <em>lower_alias=False</em><span class="sig-paren">)</span><a class="headerlink" href="#egglib.stats.Filter.exploitable" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add exploitable values. See the class documentation for more
+details.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.stats.Filter.missing">
+<code class="descname">missing</code><span class="sig-paren">(</span><em>values</em>, <em>alias=None</em>, <em>lower_alias=False</em><span class="sig-paren">)</span><a class="headerlink" href="#egglib.stats.Filter.missing" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add missing values. See the class documentation for more
+details.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.stats.Filter.rng">
+<code class="descname">rng</code><span class="sig-paren">(</span><em>mini</em>, <em>maxi</em><span class="sig-paren">)</span><a class="headerlink" href="#egglib.stats.Filter.rng" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add a range of exploitable data. See the class documentation for
+more details.</p>
+</dd></dl>
+
+</dd></dl>
+
+<p>Pre-defined instances are available. They are all extendable:</p>
+<dl class="data">
+<dt id="egglib.stats.filter_default">
+<code class="descclassname">egglib.stats.</code><code class="descname">filter_default</code><a class="headerlink" href="#egglib.stats.filter_default" title="Permalink to this definition">¶</a></dt>
+<dd><p>All possible allele values are accepted as valid.
+This filter is case-sensitive.</p>
+</dd></dl>
+
+<dl class="data">
+<dt id="egglib.stats.filter_dna">
+<code class="descclassname">egglib.stats.</code><code class="descname">filter_dna</code><a class="headerlink" href="#egglib.stats.filter_dna" title="Permalink to this definition">¶</a></dt>
+<dd><p>Used for DNA sequences (case-independent).
+Exploitable: <code class="docutils literal"><span class="pre">ACGT</span></code>. Missing: <code class="docutils literal"><span class="pre">RYSWKMBDHVN?-</span></code>.
+Lower-case characters are mapped to the corresponding upper-case character.</p>
+</dd></dl>
+
+<dl class="data">
+<dt id="egglib.stats.filter_rna">
+<code class="descclassname">egglib.stats.</code><code class="descname">filter_rna</code><a class="headerlink" href="#egglib.stats.filter_rna" title="Permalink to this definition">¶</a></dt>
+<dd><p>Used for RNA sequences (case-independent).
+Exploitable: <code class="docutils literal"><span class="pre">ACGU</span></code>. Missing: <code class="docutils literal"><span class="pre">RYSWKMBDHVN?-</span></code>. The IUPAC codes for
+missing data are identical in meaning to those for DNA sequences.
+Lower-case characters are mapped to the corresponding upper-case character.</p>
+</dd></dl>
+
+<dl class="data">
+<dt id="egglib.stats.filter_strict">
+<code class="descclassname">egglib.stats.</code><code class="descname">filter_strict</code><a class="headerlink" href="#egglib.stats.filter_strict" title="Permalink to this definition">¶</a></dt>
+<dd><p>Paranoid filter for DNA sequences. Exploitable: <code class="docutils literal"><span class="pre">ACGT</span></code>. Missing: <code class="docutils literal"><span class="pre">N</span></code>.
+Lower-case characters are not allowed.</p>
+</dd></dl>
+
+<dl class="data">
+<dt id="egglib.stats.filter_ssr">
+<code class="descclassname">egglib.stats.</code><code class="descname">filter_ssr</code><a class="headerlink" href="#egglib.stats.filter_ssr" title="Permalink to this definition">¶</a></dt>
+<dd><p>Used for strictly positive SSR alleles.
+Exploitable: range 1–999. Missing: -1.</p>
+</dd></dl>
+
+<dl class="data">
+<dt id="egglib.stats.filter_num">
+<code class="descclassname">egglib.stats.</code><code class="descname">filter_num</code><a class="headerlink" href="#egglib.stats.filter_num" title="Permalink to this definition">¶</a></dt>
+<dd><p>Used for numerical values.
+Exploitable: range -999–999. Missing: none.</p>
+</dd></dl>
+
+<dl class="data">
+<dt id="egglib.stats.filter_codon">
+<code class="descclassname">egglib.stats.</code><code class="descname">filter_codon</code><a class="headerlink" href="#egglib.stats.filter_codon" title="Permalink to this definition">¶</a></dt>
+<dd><p>Used for numerical codon representation. Exploitable: range 0–63. Missing: 64.</p>
+</dd></dl>
+
+<dl class="data">
+<dt id="egglib.stats.filter_amino">
+<code class="descclassname">egglib.stats.</code><code class="descname">filter_amino</code><a class="headerlink" href="#egglib.stats.filter_amino" title="Permalink to this definition">¶</a></dt>
+<dd><p>Used for amino acid sequences. Exploitable: <code class="docutils literal"><span class="pre">ACDEFGHIKLMNPQRSTVWY</span></code>.
+Missing: <code class="docutils literal"><span class="pre">X-</span></code>.
+Lower-case characters are mapped to the corresponding upper-case character.</p>
+</dd></dl>
+
+<dl class="data">
+<dt>
+<code class="descclassname">egglib.stats.</code><code class="descname">filter_codon</code></dt>
+<dd><p>Used for numerical codon representation. Exploitable: range 0–63. Missing: 64.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="constants">
+<h2>Constants<a class="headerlink" href="#constants" title="Permalink to this headline">¶</a></h2>
+<p>Here are three variables determining what is done for computing linkage
+disequilibrium between a pair of sites of which at least one has more
+than two alleles.</p>
+<dl class="data">
+<dt id="egglib.stats.multiallelic_ignore">
+<code class="descclassname">egglib.stats.</code><code class="descname">multiallelic_ignore</code><a class="headerlink" href="#egglib.stats.multiallelic_ignore" title="Permalink to this definition">¶</a></dt>
+<dd><p>Skip pairs of sites when at least one has more than two alleles.</p>
+</dd></dl>
+
+<dl class="data">
+<dt id="egglib.stats.multiallelic_use_main">
+<code class="descclassname">egglib.stats.</code><code class="descname">multiallelic_use_main</code><a class="headerlink" href="#egglib.stats.multiallelic_use_main" title="Permalink to this definition">¶</a></dt>
+<dd><p>If more than two alleles, use the most frequent one only.</p>
+</dd></dl>
+
+<dl class="data">
+<dt id="egglib.stats.multiallelic_use_all">
+<code class="descclassname">egglib.stats.</code><code class="descname">multiallelic_use_all</code><a class="headerlink" href="#egglib.stats.multiallelic_use_all" title="Permalink to this definition">¶</a></dt>
+<dd><p>If more than two alleles, use all possible pairs of alleles.</p>
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="coalesce.html" title="Coalescence simulator"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="io.html" title="Import/export utilities"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../contents.html">EggLib&#39;s documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../toc.html" >Contents</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="index.html" >Python Module</a> &#187;</li> 
+      </ul>
+    </div>
+<!--
+        <address style="text-align: right;"><small>Hosted by&nbsp;
+        <a href="http://sourceforge.net/projects/egglib"><img src="http://sflogo.sourceforge.net/sflogo.php?group_id=232965&amp;type=8" width="80" height="15" alt="Get EggLib at SourceForge.net. Fast, secure and Free Open Source software downloads" / ALIGN=RIGHT BORDER=0></a>
+        </address>
+-->
+
+  </body>
+</html>

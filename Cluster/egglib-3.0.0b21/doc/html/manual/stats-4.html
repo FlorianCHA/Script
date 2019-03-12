@@ -1,0 +1,503 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Using VCF files &#8212; EggLib&#39;s documentation</title>
+    <link rel="stylesheet" href="../_static/egglibdoc.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '3.0.0b21',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="shortcut icon" href="../_static/icon.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Coalescent simulations" href="coal.html" />
+    <link rel="prev" title="Missing data" href="stats-3.html" />
+    <script type="text/javascript">
+      // intelligent scrolling of the sidebar content
+      $(window).scroll(function() {
+        var sb = $('.sphinxsidebarwrapper');
+        var win = $(window);
+        var sbh = sb.height();
+        var offset = $('.sphinxsidebar').position()['top'];
+        var wintop = win.scrollTop();
+        var winbot = wintop + win.innerHeight();
+        var curtop = sb.position()['top'];
+        var curbot = curtop + sbh;
+        // does sidebar fit in window?
+        if (sbh < win.innerHeight()) {
+          // yes: easy case -- always keep at the top
+          sb.css('top', $u.min([$u.max([0, wintop - offset - 10]),
+                                $(document).height() - sbh - 200]));
+        } else {
+          // no: only scroll if top/bottom edge of sidebar is at
+          // top/bottom edge of window
+          if (curtop > wintop && curbot > winbot) {
+            sb.css('top', $u.max([wintop - offset - 10, 0]));
+          } else if (curtop < wintop && curbot < winbot) {
+            sb.css('top', $u.min([winbot - sbh - offset - 20,
+                                  $(document).height() - sbh - 200]));
+          }
+        }
+      });
+    </script>
+  </head>
+  <body>
+<div style="background-color: white; text-align: left; padding: 0px 0px 0px 0px">
+<a href="../index.html"><img src="../_static/banner.png" border="0" alt="EggLib"/></a>
+</div>
+
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="coal.html" title="Coalescent simulations"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="stats-3.html" title="Missing data"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../contents.html">EggLib&#39;s documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../toc.html" >Contents</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="index.html" >Manual</a> &#187;</li>
+          <li class="nav-item nav-item-3"><a href="stats.html" accesskey="U">Computing diversity statistics</a> &#187;</li> 
+      </ul>
+    </div>
+
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../contents.html">
+              <img class="logo" src="../_static/egglib_small.bmp" alt="Logo"/>
+            </a></p>
+  <h3><a href="../contents.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Using VCF files</a><ul>
+<li><a class="reference internal" href="#short-description-of-the-format">Short description of the format</a></li>
+<li><a class="reference internal" href="#reading-vcf-files">Reading VCF files</a><ul>
+<li><a class="reference internal" href="#iterating-over-variants">Iterating over variants</a></li>
+<li><a class="reference internal" href="#extracting-a-site-from-a-vcf">Extracting a site from a VCF</a></li>
+<li><a class="reference internal" href="#extracting-frequencies-from-a-vcf">Extracting frequencies from a VCF</a></li>
+<li><a class="reference internal" href="#getting-a-variant-as-an-object">Getting a variant as an object</a></li>
+<li><a class="reference internal" href="#reading-compressed-files-or-arbitrary-data">Reading compressed files or arbitrary data</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="stats-3.html"
+                        title="previous chapter">Missing data</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="coal.html"
+                        title="next chapter">Coalescent simulations</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/manual/stats-4.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="using-vcf-files">
+<span id="manual-vcf"></span><h1>Using VCF files<a class="headerlink" href="#using-vcf-files" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="short-description-of-the-format">
+<h2>Short description of the format<a class="headerlink" href="#short-description-of-the-format" title="Permalink to this headline">¶</a></h2>
+<p>The Variant Call Format is designed to store information relative to genome-wide
+diversity data. The format consists in a header containing meta-information
+(in lines prefixed by <code class="docutils literal"><span class="pre">##</span></code>) followed by a single header provided the list of
+samples included in the file, and by the bunch of the file which consists in,
+typically, a very large number of lines each describing variation for a given
+<em>variant</em> (a variant can be a single nucleotide polymorphism, an insertion/deletion,
+a microsatellite, or any form of genomic variation, including large rearrangements.</p>
+<p>An example appears below:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="c1">##fileformat=VCFv4.1</span>
+<span class="c1">##fileDate=20090805</span>
+<span class="c1">##source=myImputationProgramV3.1</span>
+<span class="c1">##reference=file:///seq/references/1000GenomesPilot-NCBI36.fasta</span>
+<span class="c1">##contig=&lt;ID=20,length=62435964,assembly=B36,md5=f126cdf8a6e0c7f379d618ff66beb2da,species=&quot;Homo sapiens&quot;,taxonomy=x&gt;</span>
+<span class="c1">##phasing=partial</span>
+<span class="c1">##INFO=&lt;ID=NS,Number=1,Type=Integer,Description=&quot;Number of Samples With Data&quot;&gt;</span>
+<span class="c1">##INFO=&lt;ID=DP,Number=1,Type=Integer,Description=&quot;Total Depth&quot;&gt;</span>
+<span class="c1">##INFO=&lt;ID=AF,Number=A,Type=Float,Description=&quot;Allele Frequency&quot;&gt;</span>
+<span class="c1">##INFO=&lt;ID=AA,Number=1,Type=String,Description=&quot;Ancestral Allele&quot;&gt;</span>
+<span class="c1">##INFO=&lt;ID=DB,Number=0,Type=Flag,Description=&quot;dbSNP membership, build 129&quot;&gt;</span>
+<span class="c1">##INFO=&lt;ID=H2,Number=0,Type=Flag,Description=&quot;HapMap2 membership&quot;&gt;</span>
+<span class="c1">##FILTER=&lt;ID=q10,Description=&quot;Quality below 10&quot;&gt;</span>
+<span class="c1">##FILTER=&lt;ID=s50,Description=&quot;Less than 50% of samples have data&quot;&gt;</span>
+<span class="c1">##FORMAT=&lt;ID=GT,Number=1,Type=String,Description=&quot;Genotype&quot;&gt;</span>
+<span class="c1">##FORMAT=&lt;ID=GQ,Number=1,Type=Integer,Description=&quot;Genotype Quality&quot;&gt;</span>
+<span class="c1">##FORMAT=&lt;ID=DP,Number=1,Type=Integer,Description=&quot;Read Depth&quot;&gt;</span>
+<span class="c1">##FORMAT=&lt;ID=HQ,Number=2,Type=Integer,Description=&quot;Haplotype Quality&quot;&gt;</span>
+<span class="c1">#CHROM POS  ID      REF     ALT     QUAL    FILTER  INFO    FORMAT  NA00001 NA00002 NA00003</span>
+<span class="mi">20</span>  <span class="mi">14370</span>   <span class="n">rs6054257</span> <span class="n">G</span>     <span class="n">A</span>       <span class="mi">29</span>      <span class="n">PASS</span>    <span class="n">NS</span><span class="o">=</span><span class="mi">3</span><span class="p">;</span><span class="n">DP</span><span class="o">=</span><span class="mi">14</span><span class="p">;</span><span class="n">AF</span><span class="o">=</span><span class="mf">0.5</span><span class="p">;</span><span class="n">DB</span><span class="p">;</span><span class="n">H2</span> <span class="n">GT</span><span class="p">:</span><span class="n">GQ</span><span class="p">:</span><span class="n">DP</span><span class="p">:</span><span class="n">HQ</span> <span class="mi">0</span><span class="o">|</span><span class="mi">0</span><span class="p">:</span><span class="mi">48</span><span class="p">:</span><span class="mi">1</span><span class="p">:</span><span class="mi">51</span><span class="p">,</span><span class="mi">51</span> <span class="mi">1</span><span class="o">|</span><span class="mi">0</span><span class="p">:</span><span class="mi">48</span><span class="p">:</span><span class="mi">8</span><span class="p">:</span><span class="mi">51</span><span class="p">,</span><span class="mi">51</span>       <span class="mi">1</span><span class="o">/</span><span class="mi">1</span><span class="p">:</span><span class="mi">43</span><span class="p">:</span><span class="mi">5</span><span class="p">:</span><span class="o">.</span><span class="p">,</span><span class="o">.</span>
+<span class="mi">20</span>  <span class="mi">17330</span>   <span class="o">.</span>       <span class="n">T</span>       <span class="n">A</span>       <span class="mi">3</span>       <span class="n">q10</span>     <span class="n">NS</span><span class="o">=</span><span class="mi">3</span><span class="p">;</span><span class="n">DP</span><span class="o">=</span><span class="mi">11</span><span class="p">;</span><span class="n">AF</span><span class="o">=</span><span class="mf">0.017</span>     <span class="n">GT</span><span class="p">:</span><span class="n">GQ</span><span class="p">:</span><span class="n">DP</span><span class="p">:</span><span class="n">HQ</span>     <span class="mi">0</span><span class="o">|</span><span class="mi">0</span><span class="p">:</span><span class="mi">49</span><span class="p">:</span><span class="mi">3</span><span class="p">:</span><span class="mi">58</span><span class="p">,</span><span class="mi">50</span>  <span class="mi">0</span><span class="o">|</span><span class="mi">1</span><span class="p">:</span><span class="mi">3</span><span class="p">:</span><span class="mi">5</span><span class="p">:</span><span class="mi">65</span><span class="p">,</span><span class="mi">3</span>    <span class="mi">0</span><span class="o">/</span><span class="mi">0</span><span class="p">:</span><span class="mi">41</span><span class="p">:</span><span class="mi">3</span>
+<span class="mi">20</span>  <span class="mi">1110696</span> <span class="n">rs6040355</span>       <span class="n">A</span>       <span class="n">G</span><span class="p">,</span><span class="n">T</span>     <span class="mi">67</span>      <span class="n">PASS</span>    <span class="n">NS</span><span class="o">=</span><span class="mi">2</span><span class="p">;</span><span class="n">DP</span><span class="o">=</span><span class="mi">10</span><span class="p">;</span><span class="n">AF</span><span class="o">=</span><span class="mf">0.333</span><span class="p">,</span><span class="mf">0.667</span><span class="p">;</span><span class="n">AA</span><span class="o">=</span><span class="n">T</span><span class="p">;</span><span class="n">DB</span>       <span class="n">GT</span><span class="p">:</span><span class="n">GQ</span><span class="p">:</span><span class="n">DP</span><span class="p">:</span><span class="n">HQ</span>     <span class="mi">1</span><span class="o">|</span><span class="mi">2</span><span class="p">:</span><span class="mi">21</span><span class="p">:</span><span class="mi">6</span><span class="p">:</span><span class="mi">23</span><span class="p">,</span><span class="mi">27</span>  <span class="mi">2</span><span class="o">|</span><span class="mi">1</span><span class="p">:</span><span class="mi">2</span><span class="p">:</span><span class="mi">0</span><span class="p">:</span><span class="mi">18</span><span class="p">,</span><span class="mi">2</span>    <span class="mi">2</span><span class="o">/</span><span class="mi">2</span><span class="p">:</span><span class="mi">35</span><span class="p">:</span><span class="mi">4</span>
+<span class="mi">20</span>  <span class="mi">1230237</span> <span class="o">.</span>       <span class="n">T</span>       <span class="o">.</span>       <span class="mi">47</span>      <span class="n">PASS</span>    <span class="n">NS</span><span class="o">=</span><span class="mi">3</span><span class="p">;</span><span class="n">DP</span><span class="o">=</span><span class="mi">13</span><span class="p">;</span><span class="n">AA</span><span class="o">=</span><span class="n">T</span> <span class="n">GT</span><span class="p">:</span><span class="n">GQ</span><span class="p">:</span><span class="n">DP</span><span class="p">:</span><span class="n">HQ</span>     <span class="mi">0</span><span class="o">|</span><span class="mi">0</span><span class="p">:</span><span class="mi">54</span><span class="p">:</span><span class="mi">7</span><span class="p">:</span><span class="mi">56</span><span class="p">,</span><span class="mi">60</span>  <span class="mi">0</span><span class="o">|</span><span class="mi">0</span><span class="p">:</span><span class="mi">48</span><span class="p">:</span><span class="mi">4</span><span class="p">:</span><span class="mi">51</span><span class="p">,</span><span class="mi">51</span>  <span class="mi">0</span><span class="o">/</span><span class="mi">0</span><span class="p">:</span><span class="mi">61</span><span class="p">:</span><span class="mi">220</span>      <span class="mi">1234567</span> <span class="n">microsat1</span>       <span class="n">GTC</span>     <span class="n">G</span><span class="p">,</span><span class="n">GTCT</span>  <span class="mi">50</span>      <span class="n">PASS</span>    <span class="n">NS</span><span class="o">=</span><span class="mi">3</span><span class="p">;</span><span class="n">DP</span><span class="o">=</span><span class="mi">9</span><span class="p">;</span><span class="n">AA</span><span class="o">=</span><span class="n">G</span>  <span class="n">GT</span><span class="p">:</span><span class="n">GQ</span><span class="p">:</span><span class="n">DP</span>        <span class="mi">0</span><span class="o">/</span><span class="mi">1</span><span class="p">:</span><span class="mi">35</span><span class="p">:</span><span class="mi">4</span>        <span class="mi">0</span><span class="o">/</span><span class="mi">2</span><span class="p">:</span><span class="mi">17</span><span class="p">:</span><span class="mi">2</span>        <span class="mi">1</span><span class="o">/</span><span class="mi">1</span><span class="p">:</span><span class="mi">40</span><span class="p">:</span><span class="mi">3</span>
+</pre></div>
+</div>
+<p>Pieces of information are attached to each variant (site) and, within a variant,
+to each sample. The former are denoted Info and the latter Format. In the
+example above, an example of Info field is <code class="docutils literal"><span class="pre">NS</span></code> (whose value is 3 for the first
+site), and an exemple of Format field is <code class="docutils literal"><span class="pre">GT</span></code> (whose value for the samples of
+the first sites are: <code class="docutils literal"><span class="pre">0|0</span></code>, <code class="docutils literal"><span class="pre">1|0</span></code>, and <code class="docutils literal"><span class="pre">1|1</span></code>).</p>
+<p>A major difficulty posed by the VCF format is its very flexibility. Users have
+a wide liberty to define their own types of Info/Format fields, in addition to
+(or replacing) those who are supposed to be built-in by default in the format.
+Their are commonly used encoding conventions, but they remain conventions there is
+now guarantee about how data will be represented in VCF data (we’ll be a little bit more
+explicit in a very short while).</p>
+<p>There is more information in the documentation of the class <a class="reference internal" href="../py/io.html#egglib.io.VcfParser" title="egglib.io.VcfParser"><code class="xref py py-class docutils literal"><span class="pre">io.VcfParser</span></code></a>,
+including the link to the formal description of the format.</p>
+</div>
+<div class="section" id="reading-vcf-files">
+<h2>Reading VCF files<a class="headerlink" href="#reading-vcf-files" title="Permalink to this headline">¶</a></h2>
+<p>Assuming the example VCF file above has been saved in an uncompressed file
+named <code class="docutils literal"><span class="pre">example.vcf</span></code>, loading it won’t be difficult. You just need to
+provide the class’s constructor with the name of the file.</p>
+<p>Actually, the constructor of the class does not read further than the header.
+As a result, only the meta-information present in the header and the list of
+samples will be known to the object at this point. The attribute
+<a class="reference internal" href="../py/io.html#egglib.io.VcfParser.num_samples" title="egglib.io.VcfParser.num_samples"><code class="xref py py-attr docutils literal"><span class="pre">num_samples</span></code></a> and the method <a class="reference internal" href="../py/io.html#egglib.io.VcfParser.get_sample" title="egglib.io.VcfParser.get_sample"><code class="xref py py-meth docutils literal"><span class="pre">get_sample()</span></code></a>
+let you get the list of sample names:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">vcf</span> <span class="o">=</span> <span class="n">egglib</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">VcfParser</span><span class="p">(</span><span class="s1">&#39;example.vcf&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span> <span class="p">[</span><span class="n">vcf</span><span class="o">.</span><span class="n">get_sample</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">xrange</span><span class="p">(</span><span class="n">vcf</span><span class="o">.</span><span class="n">num_samples</span><span class="p">)]</span>
+<span class="go">[&#39;NA00001&#39;, &#39;NA00002&#39;, &#39;NA00003&#39;]</span>
+</pre></div>
+</div>
+<p>The meta-information attributes attached to the file can be accessed using the
+same model as the sample names (one attribute and one getter method taking
+an index), as listed below for the different categories of meta-information:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="13%" />
+<col width="25%" />
+<col width="31%" />
+<col width="31%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Shortcut name</th>
+<th class="head">Type of meta-information</th>
+<th class="head">Counter attribute</th>
+<th class="head">Accessor method</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>Alt</td>
+<td>Alternative allele code</td>
+<td><a class="reference internal" href="../py/io.html#egglib.io.VcfParser.num_alt" title="egglib.io.VcfParser.num_alt"><code class="xref py py-attr docutils literal"><span class="pre">num_alt</span></code></a></td>
+<td><a class="reference internal" href="../py/io.html#egglib.io.VcfParser.get_alt" title="egglib.io.VcfParser.get_alt"><code class="xref py py-meth docutils literal"><span class="pre">get_alt()</span></code></a></td>
+</tr>
+<tr class="row-odd"><td>Filter</td>
+<td>Test used to filter files</td>
+<td><a class="reference internal" href="../py/io.html#egglib.io.VcfParser.num_filter" title="egglib.io.VcfParser.num_filter"><code class="xref py py-attr docutils literal"><span class="pre">num_filter</span></code></a></td>
+<td><a class="reference internal" href="../py/io.html#egglib.io.VcfParser.get_filter" title="egglib.io.VcfParser.get_filter"><code class="xref py py-meth docutils literal"><span class="pre">get_filter()</span></code></a></td>
+</tr>
+<tr class="row-even"><td>Format</td>
+<td>Descriptor of sample data</td>
+<td><a class="reference internal" href="../py/io.html#egglib.io.VcfParser.num_format" title="egglib.io.VcfParser.num_format"><code class="xref py py-attr docutils literal"><span class="pre">num_format</span></code></a></td>
+<td><a class="reference internal" href="../py/io.html#egglib.io.VcfParser.get_format" title="egglib.io.VcfParser.get_format"><code class="xref py py-meth docutils literal"><span class="pre">get_format()</span></code></a></td>
+</tr>
+<tr class="row-odd"><td>Info</td>
+<td>Descriptor of variant data</td>
+<td><a class="reference internal" href="../py/io.html#egglib.io.VcfParser.num_info" title="egglib.io.VcfParser.num_info"><code class="xref py py-attr docutils literal"><span class="pre">num_info</span></code></a></td>
+<td><a class="reference internal" href="../py/io.html#egglib.io.VcfParser.get_info" title="egglib.io.VcfParser.get_info"><code class="xref py py-meth docutils literal"><span class="pre">get_info()</span></code></a></td>
+</tr>
+<tr class="row-even"><td>Meta</td>
+<td>Other meta-information</td>
+<td><a class="reference internal" href="../py/io.html#egglib.io.VcfParser.num_meta" title="egglib.io.VcfParser.num_meta"><code class="xref py py-attr docutils literal"><span class="pre">num_meta</span></code></a></td>
+<td><a class="reference internal" href="../py/io.html#egglib.io.VcfParser.get_meta" title="egglib.io.VcfParser.get_meta"><code class="xref py py-meth docutils literal"><span class="pre">get_meta()</span></code></a></td>
+</tr>
+</tbody>
+</table>
+<p>The last category represents all meta-information lines with a custom key (other
+than <code class="docutils literal"><span class="pre">ALT</span></code>, <code class="docutils literal"><span class="pre">FILTER</span></code>, <code class="docutils literal"><span class="pre">FORMAT</span></code>, and <code class="docutils literal"><span class="pre">INFO</span></code>). To collect all user-defined
+Meta entries as a dictionary, use the following expression:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span> <span class="nb">dict</span><span class="p">([</span><span class="n">vcf</span><span class="o">.</span><span class="n">get_meta</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">xrange</span><span class="p">(</span><span class="n">vcf</span><span class="o">.</span><span class="n">num_meta</span><span class="p">)])</span>
+<span class="go">{&#39;source&#39;: &#39;myImputationProgramV3.1&#39;, &#39;contig&#39;: &#39;&lt;ID=20,length=62435964,assembly=B36,md5=f126cdf8a6e0c7f379d618ff66beb2da,species=&quot;Homo sapiens&quot;,taxonomy=x&gt;&#39;, &#39;reference&#39;: &#39;file:///seq/references/1000GenomesPilot-NCBI36.fasta&#39;, &#39;fileDate&#39;: &#39;20090805&#39;, &#39;phasing&#39;: &#39;partial&#39;}</span>
+</pre></div>
+</div>
+<div class="section" id="iterating-over-variants">
+<h3>Iterating over variants<a class="headerlink" href="#iterating-over-variants" title="Permalink to this headline">¶</a></h3>
+<p>As said before, the loading of a file does not import any of the proper
+variant lines. Due to the potentially large size of VCF files, the VCF
+parser follows an iterative scheme where lines are read one after another.
+There are two ways of iterating over variants of a VCF file through an
+open <code class="xref py py-class docutils literal"><span class="pre">VcfParser</span></code> object: the <code class="docutils literal"><span class="pre">for</span></code> statement and the <a class="reference internal" href="../py/io.html#egglib.io.VcfParser.next" title="egglib.io.VcfParser.next"><code class="xref py py-meth docutils literal"><span class="pre">next()</span></code></a> method.
+These two ways are equivalent (the latter is only more handy to control iteration
+manually). We can observe that, at each step, they don’t return the full data corresponding
+to the current variant:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span>  <span class="k">for</span> <span class="n">ret</span> <span class="ow">in</span> <span class="n">vcf</span><span class="p">:</span>
+<span class="gp">... </span>      <span class="nb">print</span> <span class="n">ret</span>
+<span class="gp">...</span>
+<span class="go">(&#39;20&#39;, 14369, 2)</span>
+<span class="go">(&#39;20&#39;, 17329, 2)</span>
+<span class="go">(&#39;20&#39;, 1110695, 3)</span>
+<span class="go">(&#39;20&#39;, 1230236, 1)</span>
+<span class="go">(&#39;20&#39;, 1234566, 3)</span>
+</pre></div>
+</div>
+<p>The three items of the iterator are, in order: the chromosome name, the
+position (0 being the first position of the chromosome), and the number
+of alleles (including the reference allele).</p>
+<p>Obviously, this system does not expose much of the actual data present on
+each line of the VCF file, but the aim is to avoid extracting (and converting
+to Python objects) the full data until explicitly requested.</p>
+<p>At any point during iteration, the <a class="reference internal" href="../py/io.html#egglib.io.VcfParser" title="egglib.io.VcfParser"><code class="xref py py-class docutils literal"><span class="pre">VcfParser</span></code></a> object (<code class="docutils literal"><span class="pre">vcf</span></code> in
+the example above) can be used to extract data corresponding to the
+<em>current</em> site (the one read at the last iteration loop). There are three methods,
+presented in the following three paragraphs: extracting site, extracting frequencies,
+and getting the whole variant object.</p>
+<p>Besides, it is also possible to iterate manually (reading variants one by one
+without a <code class="docutils literal"><span class="pre">for</span></code> loop) using the <a class="reference internal" href="../py/io.html#egglib.io.VcfParser.next" title="egglib.io.VcfParser.next"><code class="xref py py-meth docutils literal"><span class="pre">next()</span></code></a> method:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">vcf</span> <span class="o">=</span> <span class="n">egglib</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">VcfParser</span><span class="p">(</span><span class="s1">&#39;example.vcf&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="nb">print</span> <span class="n">vcf</span><span class="o">.</span><span class="n">next</span><span class="p">()</span>
+<span class="gp">...</span>
+<span class="go">(&#39;20&#39;, 14369, 2)</span>
+<span class="go">(&#39;20&#39;, 17329, 2)</span>
+<span class="go">(&#39;20&#39;, 1110695, 3)</span>
+<span class="go">(&#39;20&#39;, 1230236, 1)</span>
+<span class="go">(&#39;20&#39;, 1234566, 3)</span>
+<span class="go">(&#39;20&#39;, 14369, 2)</span>
+<span class="go">(&#39;20&#39;, 17329, 2)</span>
+<span class="go">(&#39;20&#39;, 1110695, 3)</span>
+<span class="go">(&#39;20&#39;, 1230236, 1)</span>
+<span class="go">(&#39;20&#39;, 1234566, 3)</span>
+<span class="gt">Traceback (most recent call last):</span>
+  File <span class="nb">&quot;tutorial2.py&quot;</span>, line <span class="m">202</span>, in <span class="n">&lt;module&gt;</span>
+    <span class="nb">print</span> <span class="n">vcf</span><span class="o">.</span><span class="n">next</span><span class="p">()</span>
+  File <span class="nb">&quot;/usr/lib64/python2.7/site-packages/egglib/io/_vcf.py&quot;</span>, line <span class="m">314</span>, in <span class="n">next</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parser</span><span class="o">.</span><span class="n">good</span><span class="p">():</span> <span class="k">raise</span> <span class="ne">StopIteration</span>
+<span class="gr">StopIteration</span>
+</pre></div>
+</div>
+<p>This exception is not a bug, but a normal signal that the iteration has completed. Of
+course, that is not what one would need to do.</p>
+</div>
+<div class="section" id="extracting-a-site-from-a-vcf">
+<h3>Extracting a site from a VCF<a class="headerlink" href="#extracting-a-site-from-a-vcf" title="Permalink to this headline">¶</a></h3>
+<p>Data for the current site of a <code class="xref py py-class docutils literal"><span class="pre">VcfParser</span></code> object can be extracted
+as a <a class="reference internal" href="../py/stats.html#egglib.stats.Site" title="egglib.stats.Site"><code class="xref py py-class docutils literal"><span class="pre">Site</span></code></a> object using either <a class="reference internal" href="../py/stats.html#egglib.stats.site_from_vcf" title="egglib.stats.site_from_vcf"><code class="xref py py-func docutils literal"><span class="pre">stats.site_from_vcf()</span></code></a> or
+<a class="reference internal" href="../py/stats.html#egglib.stats.Site.process_vcf" title="egglib.stats.Site.process_vcf"><code class="xref py py-meth docutils literal"><span class="pre">stats.Site.process_vcf()</span></code></a>, provided that the VCF file has
+called genotypes encoded using the <code class="docutils literal"><span class="pre">GT</span></code> FORMAT field:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">vcf</span> <span class="o">=</span> <span class="n">egglib</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">VcfParser</span><span class="p">(</span><span class="s1">&#39;example.vcf&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span> <span class="n">vcf</span><span class="o">.</span><span class="n">next</span><span class="p">()</span>
+<span class="go">(&#39;20&#39;, 14369, 2)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">site</span> <span class="o">=</span> <span class="n">egglib</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">site_from_vcf</span><span class="p">(</span><span class="n">vcf</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span> <span class="n">site</span><span class="o">.</span><span class="n">as_list</span><span class="p">(</span><span class="kc">False</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+<span class="go">[(0, 0), (1, 0), (1, 1)]</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span> <span class="n">vcf</span><span class="o">.</span><span class="n">next</span><span class="p">()</span>
+<span class="go">(&#39;20&#39;, 17329, 2)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span> <span class="n">vcf</span><span class="o">.</span><span class="n">next</span><span class="p">()</span>
+<span class="go">(&#39;20&#39;, 1110695, 3)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span> <span class="n">vcf</span><span class="o">.</span><span class="n">next</span><span class="p">()</span>
+<span class="go">(&#39;20&#39;, 1230236, 1)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span> <span class="n">vcf</span><span class="o">.</span><span class="n">next</span><span class="p">()</span>
+<span class="go">(&#39;20&#39;, 1234566, 3)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">site</span><span class="o">.</span><span class="n">process_vcf</span><span class="p">(</span><span class="n">vcf</span><span class="p">,</span> <span class="n">reset</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span> <span class="n">site</span><span class="o">.</span><span class="n">as_list</span><span class="p">(</span><span class="kc">False</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+<span class="go">[(0, 1), (0, 2), (1, 1)]</span>
+</pre></div>
+</div>
+<p>The <code class="docutils literal"><span class="pre">reset=True</span></code> argument is required in this case because, otherwise,
+it would add the data from this VCF to the data previously stored in the
+<code class="xref py py-class docutils literal"><span class="pre">Site</span></code> object.</p>
+<p>We used <code class="xref py py-meth docutils literal"><span class="pre">as_list()</span></code> to show the site (with genotypes, but without the
+outgroup which is empty). We show the last site which has three alleles
+even among the called genotypes.</p>
+</div>
+<div class="section" id="extracting-frequencies-from-a-vcf">
+<h3>Extracting frequencies from a VCF<a class="headerlink" href="#extracting-frequencies-from-a-vcf" title="Permalink to this headline">¶</a></h3>
+<p>Similarly, one can extract allelic frequencies as a <a class="reference internal" href="../py/stats.html#egglib.stats.Freq" title="egglib.stats.Freq"><code class="xref py py-class docutils literal"><span class="pre">stats.Freq</span></code></a>
+object using <a class="reference internal" href="../py/stats.html#egglib.stats.freq_from_vcf" title="egglib.stats.freq_from_vcf"><code class="xref py py-func docutils literal"><span class="pre">stats.freq_from_vcf()</span></code></a> or <a class="reference internal" href="../py/stats.html#egglib.stats.Freq.process_vcf" title="egglib.stats.Freq.process_vcf"><code class="xref py py-meth docutils literal"><span class="pre">stats.Freq.process_vcf()</span></code></a>,
+provided that the VCF file has frequency information encoded using the
+<code class="docutils literal"><span class="pre">AN</span></code> and <code class="docutils literal"><span class="pre">AC</span></code> INFO fields:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">vcf</span> <span class="o">=</span> <span class="n">egglib</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">VcfParser</span><span class="p">(</span><span class="s1">&#39;example.vcf&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span> <span class="n">vcf</span><span class="o">.</span><span class="n">next</span><span class="p">()</span>
+<span class="go">(&#39;20&#39;, 14369, 2)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">frq</span> <span class="o">=</span> <span class="n">egglib</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">freq_from_vcf</span><span class="p">(</span><span class="n">vcf</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span> <span class="n">frq</span><span class="o">.</span><span class="n">freq_allele</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span> <span class="n">frq</span><span class="o">.</span><span class="n">freq_allele</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="go">3 3</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span> <span class="n">vcf</span><span class="o">.</span><span class="n">next</span><span class="p">()</span>
+<span class="go">(&#39;20&#39;, 17329, 2)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span> <span class="n">vcf</span><span class="o">.</span><span class="n">next</span><span class="p">()</span>
+<span class="go">(&#39;20&#39;, 1110695, 3)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span> <span class="n">vcf</span><span class="o">.</span><span class="n">next</span><span class="p">()</span>
+<span class="go">(&#39;20&#39;, 1230236, 1)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span> <span class="n">vcf</span><span class="o">.</span><span class="n">next</span><span class="p">()</span>
+<span class="go">(&#39;20&#39;, 1234566, 3)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">frq</span><span class="o">.</span><span class="n">process_vcf</span><span class="p">(</span><span class="n">vcf</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span> <span class="n">frq</span><span class="o">.</span><span class="n">freq_allele</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span> <span class="n">frq</span><span class="o">.</span><span class="n">freq_allele</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span> <span class="n">frq</span><span class="o">.</span><span class="n">freq_allele</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="go">2 3 1</span>
+</pre></div>
+</div>
+<p>We can see that <code class="xref py py-class docutils literal"><span class="pre">Site</span></code> from VCF extraction and <code class="xref py py-class docutils literal"><span class="pre">Freq</span></code> from VCF
+extraction are consistent.</p>
+</div>
+<div class="section" id="getting-a-variant-as-an-object">
+<h3>Getting a variant as an object<a class="headerlink" href="#getting-a-variant-as-an-object" title="Permalink to this headline">¶</a></h3>
+<p>To extract data manually for a given site, it is also possible to get all data
+at once. There is a <code class="xref py py-meth docutils literal"><span class="pre">get_variant()</span></code> method that returns an
+object of a special type (<code class="xref py py-class docutils literal"><span class="pre">stats.Variant</span></code>). This is a proxy class,
+just like <a class="reference internal" href="../py/toplevel.html#egglib.SampleView" title="egglib.SampleView"><code class="xref py py-class docutils literal"><span class="pre">SampleView</span></code></a> for <a class="reference internal" href="../py/toplevel.html#egglib.Align" title="egglib.Align"><code class="xref py py-class docutils literal"><span class="pre">Align</span></code></a> classes, and the same
+precautions must be taken while using it. Objects of the class <code class="xref py py-class docutils literal"><span class="pre">Variant</span></code>
+provide a number of attributes and methods that allow to read all desired data.
+We will just show a single example. The VCF file we use has a <code class="docutils literal"><span class="pre">HQ</span></code> FORMAT
+field (haplotype quality). We will extract it for each sample in a loop:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">vcf</span> <span class="o">=</span> <span class="n">egglib</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">VcfParser</span><span class="p">(</span><span class="s1">&#39;example.vcf&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">chrom</span><span class="p">,</span> <span class="n">pos</span><span class="p">,</span> <span class="n">nall</span> <span class="ow">in</span> <span class="n">vcf</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="n">v</span> <span class="o">=</span> <span class="n">vcf</span><span class="o">.</span><span class="n">last_variant</span><span class="p">()</span>
+<span class="gp">... </span>    <span class="k">if</span> <span class="s1">&#39;HQ&#39;</span> <span class="ow">in</span> <span class="n">v</span><span class="o">.</span><span class="n">format_fields</span><span class="p">:</span>
+<span class="gp">... </span>        <span class="nb">print</span> <span class="p">[</span><span class="n">i</span><span class="p">[</span><span class="s1">&#39;HQ&#39;</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">v</span><span class="o">.</span><span class="n">samples</span><span class="p">]</span>
+<span class="gp">... </span>    <span class="k">else</span><span class="p">:</span>
+<span class="gp">... </span>        <span class="nb">print</span> <span class="s1">&#39;no data&#39;</span>
+<span class="gp">...</span>
+<span class="go">[(51, 51), (51, 51), (None, None)]</span>
+<span class="go">[(58, 50), (65, 3), None]</span>
+<span class="go">[(23, 27), (18, 2), None]</span>
+<span class="go">[(56, 60), (51, 51), None]</span>
+<span class="go">no data</span>
+</pre></div>
+</div>
+<p>For each variant, we first tested that <code class="docutils literal"><span class="pre">HQ</span></code> is present in the FORMAT
+fields for this variant (in one instance, it is not the case). If so,
+it is extracted from the list of dictionaries provided as the attribute
+<a class="reference internal" href="../py/io.html#egglib.io.Variant.samples" title="egglib.io.Variant.samples"><code class="xref py py-attr docutils literal"><span class="pre">samples</span></code></a>.</p>
+</div>
+<div class="section" id="reading-compressed-files-or-arbitrary-data">
+<h3>Reading compressed files or arbitrary data<a class="headerlink" href="#reading-compressed-files-or-arbitrary-data" title="Permalink to this headline">¶</a></h3>
+<p>The class <code class="xref py py-class docutils literal"><span class="pre">VcfParser</span></code> is not able to read compressed files, requiring
+that you decompress them before you read them. This can be done “on the fly”
+using embedded facilities of the Python language.</p>
+<p>Let’s first contemplate the problem, where <code class="docutils literal"><span class="pre">example.vcf.gz</span></code> is a <cite>gunzip`</cite>-compressed
+version of the same example VCF file:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">vcf</span> <span class="o">=</span> <span class="n">egglib</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">VcfParser</span><span class="p">(</span><span class="s1">&#39;example.vcf.gz&#39;</span><span class="p">)</span>
+<span class="gt">Traceback (most recent call last):</span>
+  File <span class="nb">&quot;tutorial2.py&quot;</span>, line <span class="m">236</span>, in <span class="n">&lt;module&gt;</span>
+    <span class="n">vcf</span> <span class="o">=</span> <span class="n">egglib</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">VcfParser</span><span class="p">(</span><span class="s1">&#39;example.vcf.gz&#39;</span><span class="p">)</span>
+  File <span class="nb">&quot;/usr/lib64/python2.7/site-packages/egglib/io/_vcf.py&quot;</span>, line <span class="m">83</span>, in <span class="n">__init__</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_parser</span><span class="o">.</span><span class="n">open_file</span><span class="p">(</span><span class="n">fname</span><span class="p">)</span>
+<span class="gr">IOError</span>: <span class="n">cannot parse &quot;VCF&quot; data from &quot;example.vcf.gz&quot; (line 1): first character of file is not &quot;#&quot; as expected [char: ]</span>
+</pre></div>
+</div>
+<p>The strange character read at the first line is a direct consequence of providing
+compressed data when the parser expects uncompressed data. The solution, besides
+merely uncompressing the file and importing the resulting uncompressed files, is
+shown below:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">gzip</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">f</span> <span class="o">=</span> <span class="n">gzip</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s1">&#39;example.vcf.gz&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cache</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="n">line</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span>
+<span class="gp">... </span>    <span class="k">if</span> <span class="n">line</span><span class="p">[:</span><span class="mi">2</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;##&#39;</span><span class="p">:</span> <span class="n">cache</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
+<span class="gp">... </span>    <span class="k">elif</span> <span class="n">line</span><span class="p">[:</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;#&#39;</span><span class="p">:</span>
+<span class="gp">... </span>        <span class="n">cache</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
+<span class="gp">... </span>        <span class="k">break</span>
+<span class="gp">... </span>    <span class="k">else</span><span class="p">:</span> <span class="k">raise</span> <span class="ne">IOError</span><span class="p">,</span> <span class="s1">&#39;invalid file&#39;</span>
+<span class="gp">...</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">header</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">cache</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">vcf</span> <span class="o">=</span> <span class="n">egglib</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">VcfParser</span><span class="o">.</span><span class="n">from_header</span><span class="p">(</span><span class="n">header</span><span class="p">)</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">f</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="nb">print</span> <span class="n">vcf</span><span class="o">.</span><span class="n">read_line</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
+<span class="gp">... </span>    <span class="n">site</span><span class="o">.</span><span class="n">process_vcf</span><span class="p">(</span><span class="n">vcf</span><span class="p">,</span> <span class="n">reset</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">... </span>    <span class="nb">print</span> <span class="n">site</span><span class="o">.</span><span class="n">as_list</span><span class="p">(</span><span class="kc">False</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+<span class="gp">...</span>
+<span class="go">(&#39;20&#39;, 14369, 2)</span>
+<span class="go">[(0, 0), (1, 0), (1, 1)]</span>
+<span class="go">(&#39;20&#39;, 17329, 2)</span>
+<span class="go">[(0, 0), (0, 1), (0, 0)]</span>
+<span class="go">(&#39;20&#39;, 1110695, 3)</span>
+<span class="go">[(0, 1), (1, 0), (1, 1)]</span>
+<span class="go">(&#39;20&#39;, 1230236, 1)</span>
+<span class="go">[(0, 0), (0, 0), (0, 0)]</span>
+<span class="go">(&#39;20&#39;, 1234566, 3)</span>
+<span class="go">[(0, 1), (0, 2), (1, 1)]</span>
+</pre></div>
+</div>
+<p>The <a class="reference external" href="https://docs.python.org/2.7/library/gzip.html#module-gzip" title="(in Python v2.7)"><code class="xref py py-mod docutils literal"><span class="pre">gzip</span></code></a> module lets you read <code class="docutils literal"><span class="pre">gunzip</span></code>–compressed data using a <code class="xref py py-class docutils literal"><span class="pre">file</span></code>-like
+interface. The only tricky part is to import the header (all lines starting with <code class="docutils literal"><span class="pre">##</span></code> up to
+the one starting with a single <code class="docutils literal"><span class="pre">#</span></code>). The header line are stored in the
+<code class="docutils literal"><span class="pre">cache</span></code> list then concatenated back into a <a class="reference external" href="https://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">str</span></code></a>.</p>
+<p>The <a class="reference internal" href="../py/io.html#egglib.io.VcfParser.from_header" title="egglib.io.VcfParser.from_header"><code class="xref py py-meth docutils literal"><span class="pre">VcfParser.from_header()</span></code></a> method is a factory method (it is used to
+create a new object), which takes an header string as argument. This is
+useful in cases such as this—where the data are imported from a non-trivial source—or
+in cases where the user wants to generate a header dynamically.</p>
+<p>After that, each line can be provided as a string through <a class="reference internal" href="../py/io.html#egglib.io.VcfParser.read_line" title="egglib.io.VcfParser.read_line"><code class="xref py py-meth docutils literal"><span class="pre">read_line()</span></code></a>,
+which is identical to <a class="reference internal" href="../py/io.html#egglib.io.VcfParser.next" title="egglib.io.VcfParser.next"><code class="xref py py-meth docutils literal"><span class="pre">next()</span></code></a> (or an iteration step), except
+that the data are provided from the outside. Of course, it is required that the
+number of samples are constant throughout the data which are provided, and that
+all INFO or FORMAT fields are declared and properly used, as for any normal file.</p>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="coal.html" title="Coalescent simulations"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="stats-3.html" title="Missing data"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../contents.html">EggLib&#39;s documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../toc.html" >Contents</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="index.html" >Manual</a> &#187;</li>
+          <li class="nav-item nav-item-3"><a href="stats.html" >Computing diversity statistics</a> &#187;</li> 
+      </ul>
+    </div>
+<!--
+        <address style="text-align: right;"><small>Hosted by&nbsp;
+        <a href="http://sourceforge.net/projects/egglib"><img src="http://sflogo.sourceforge.net/sflogo.php?group_id=232965&amp;type=8" width="80" height="15" alt="Get EggLib at SourceForge.net. Fast, secure and Free Open Source software downloads" / ALIGN=RIGHT BORDER=0></a>
+        </address>
+-->
+
+  </body>
+</html>

@@ -1,0 +1,16 @@
+.. _egglib-py:
+
+*************
+Python Module
+*************
+
+.. toctree::
+    :maxdepth: 4
+
+    toplevel
+    tools
+    io
+    stats
+    coalesce
+    wrappers
+    misc

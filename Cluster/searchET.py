@@ -174,6 +174,10 @@ if __name__ == "__main__":
 										elif start > stop_ET> (start - 400) :
 											output_file.write(f"\t - {id} have a part of the  {id_ET} element transposable dans les 400 nucléotides en amont\n")
 											output_file_script.write(f"{id}\t1\n")
+										elif start < start_ET < end :
+											output_file.write(
+												f"\t - {id} have a part of the  {id_ET} element transposable dans les 400 nucléotides en amont\n")
+												output_file_script.write(f"{id}\t1\n")
 									if brin == '-' :
 										if stop < stop_ET < (stop + 400) :
 											output_file.write(f"\t - {id} have the {id_ET} element transposable dans les 400 nucléotides en amont\n")
@@ -181,6 +185,8 @@ if __name__ == "__main__":
 										elif stop < start_ET< (stop + 400) :
 											output_file.write(f"\t - {id} have a part of the  {id_ET} element transposable dans les 400 nucléotides en amont\n")
 											output_file_script.write(f"{id}\t1\n")
+
+
 							elif file_ET == False :
 								if start < 400  and brin == '+':
 									output_file.write(f"\t - {id} is in 400 first nucléotides of the contigs (brin +) \n")

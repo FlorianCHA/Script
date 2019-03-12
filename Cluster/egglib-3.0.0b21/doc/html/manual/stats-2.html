@@ -1,0 +1,592 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Accounting for structure &#8212; EggLib&#39;s documentation</title>
+    <link rel="stylesheet" href="../_static/egglibdoc.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '3.0.0b21',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="shortcut icon" href="../_static/icon.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Missing data" href="stats-3.html" />
+    <link rel="prev" title="The stats.ComputeStats class" href="stats-1.html" />
+    <script type="text/javascript">
+      // intelligent scrolling of the sidebar content
+      $(window).scroll(function() {
+        var sb = $('.sphinxsidebarwrapper');
+        var win = $(window);
+        var sbh = sb.height();
+        var offset = $('.sphinxsidebar').position()['top'];
+        var wintop = win.scrollTop();
+        var winbot = wintop + win.innerHeight();
+        var curtop = sb.position()['top'];
+        var curbot = curtop + sbh;
+        // does sidebar fit in window?
+        if (sbh < win.innerHeight()) {
+          // yes: easy case -- always keep at the top
+          sb.css('top', $u.min([$u.max([0, wintop - offset - 10]),
+                                $(document).height() - sbh - 200]));
+        } else {
+          // no: only scroll if top/bottom edge of sidebar is at
+          // top/bottom edge of window
+          if (curtop > wintop && curbot > winbot) {
+            sb.css('top', $u.max([wintop - offset - 10, 0]));
+          } else if (curtop < wintop && curbot < winbot) {
+            sb.css('top', $u.min([winbot - sbh - offset - 20,
+                                  $(document).height() - sbh - 200]));
+          }
+        }
+      });
+    </script>
+  </head>
+  <body>
+<div style="background-color: white; text-align: left; padding: 0px 0px 0px 0px">
+<a href="../index.html"><img src="../_static/banner.png" border="0" alt="EggLib"/></a>
+</div>
+
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="stats-3.html" title="Missing data"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="stats-1.html" title="The stats.ComputeStats class"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../contents.html">EggLib&#39;s documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../toc.html" >Contents</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="index.html" >Manual</a> &#187;</li>
+          <li class="nav-item nav-item-3"><a href="stats.html" accesskey="U">Computing diversity statistics</a> &#187;</li> 
+      </ul>
+    </div>
+
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../contents.html">
+              <img class="logo" src="../_static/egglib_small.bmp" alt="Logo"/>
+            </a></p>
+  <h3><a href="../contents.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Accounting for structure</a><ul>
+<li><a class="reference internal" href="#creating-a-structure-from-an-alignment">Creating a structure from an alignment</a><ul>
+<li><a class="reference internal" href="#dictionary-representation-of-structure-objects">Dictionary representation of <code class="docutils literal"><span class="pre">Structure</span></code> objects</a></li>
+<li><a class="reference internal" href="#alternative-structure">Alternative structure</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#creating-a-structure-manually">Creating a structure manually</a></li>
+<li><a class="reference internal" href="#using-the-structure">Using the structure</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#filters">Filters</a><ul>
+<li><a class="reference internal" href="#principle">Principle</a></li>
+<li><a class="reference internal" href="#pre-defined-filters-and-default">Pre-defined filters and default</a></li>
+<li><a class="reference internal" href="#the-case-of-simulated-data">The case of simulated data</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="stats-1.html"
+                        title="previous chapter">The <code class="docutils literal"><span class="pre">stats.ComputeStats</span></code> class</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="stats-3.html"
+                        title="next chapter">Missing data</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/manual/stats-2.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="accounting-for-structure">
+<h1>Accounting for structure<a class="headerlink" href="#accounting-for-structure" title="Permalink to this headline">¶</a></h1>
+<p>Many statistics, including <span class="math">F_{ST}</span>, require that a structure is defined.</p>
+<p>We have seen in <a class="reference internal" href="base-1.html#group-labels"><span class="std std-ref">Structure and group labels</span></a> that <code class="xref py py-class docutils literal"><span class="pre">Align</span></code> objects can have
+group labels useful to define one or several levels of structure. However,
+the structure of the sample is not formally embedded in objects holding
+genetic data. The reason for that is too allow processing the same data set
+assuming different structurations (in order to either compare the effect of different
+ways to group samples, or analyze different subsets of the data). The approach
+is to keep the data set static, and provide a separate object holding the
+description of the structure. Such objects are of the class <a class="reference internal" href="../py/stats.html#egglib.stats.Structure" title="egglib.stats.Structure"><code class="xref py py-class docutils literal"><span class="pre">stats.Structure</span></code></a>.</p>
+<p><code class="xref py py-class docutils literal"><span class="pre">Structure</span></code> objects are rather simple: they contain the list of
+individuals, populations, and clusters of populations, and the indexes of
+samples belonging to each of them and how they are organized with respect
+to each other. Although groups labels in <code class="xref py py-class docutils literal"><span class="pre">Align</span></code> objects are not
+required to be hierarchical, the structure contained in a single
+<code class="xref py py-class docutils literal"><span class="pre">Structure</span></code> object is necessarily hierarchical. If alternative,
+non-hierarchical, structures are defined by group labels, they should be
+represented by different <code class="xref py py-class docutils literal"><span class="pre">Structure</span></code> objects.</p>
+<p><code class="xref py py-class docutils literal"><span class="pre">Structure</span></code> objects define three hierarchical levels of structure:
+clusters, populations, and individuals. However, it is possible to represent
+data even if all those levels are not represented (using a single cluster
+for free populations, using a single population for non-structured individual,
+and using one-sample individuals for haploid samples).</p>
+<p>There are two ways of creating a <code class="xref py py-class docutils literal"><span class="pre">Structure</span></code> object: either based on
+group labels of an <code class="xref py py-class docutils literal"><span class="pre">Align</span></code> object, or from an user-provided explicit
+description of the structure as a <a class="reference external" href="https://docs.python.org/2.7/library/stdtypes.html#dict" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">dict</span></code></a> object. Those two approaches
+are described in the next paragraphs.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Outgroup data are not concerned by <code class="xref py py-class docutils literal"><span class="pre">Structure</span></code> instances.
+If the provided data (either <code class="xref py py-class docutils literal"><span class="pre">Align</span></code> or <code class="xref py py-class docutils literal"><span class="pre">Site</span></code>) have
+outgroup data, it will be recognized and processed accordingly. There
+is an exception for this: if individuals are defined, outgroup samples
+must be mapped to individuals consistently to the rest of the data
+(<em>i.e.</em> consistent ploidy), otherwise they are ignored.</p>
+</div>
+<div class="section" id="creating-a-structure-from-an-alignment">
+<h2>Creating a structure from an alignment<a class="headerlink" href="#creating-a-structure-from-an-alignment" title="Permalink to this headline">¶</a></h2>
+<p>To present the usage of the <code class="xref py py-class docutils literal"><span class="pre">Structure</span></code> class, we will use a
+complete, albeit over-simplified example. Consider the Fasta
+alignment below:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">&gt;</span><span class="n">sample01</span> <span class="nd">@1000</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">1</span>
+<span class="n">CTTCCGGGAAGCGCCAGCAGAAGGTTGCTGCTAAGGCCCGCACACGTCTGCAGCACTTCG</span>
+<span class="o">&gt;</span><span class="n">sample02</span> <span class="nd">@1000</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">1</span>
+<span class="n">CTTCCGCGCAGGGCCAGGAGCATGTAGCTTCTAAGGCTTGCACAGGTCTTCAGCACTACG</span>
+<span class="o">&gt;</span><span class="n">sample03</span> <span class="nd">@1000</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">2</span>
+<span class="n">CTTCCGCGCAGGGCCAGGAGCATGTAGCTTCTAAGGCTTGCACAGGTCTTCAGCACTACG</span>
+<span class="o">&gt;</span><span class="n">sample04</span> <span class="nd">@1000</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">2</span>
+<span class="n">CTTCCGCGCAGGGCCAGGAGCATGTAGCTTCTAAGGCTTGCACAGGTCTTCAGCACTACG</span>
+<span class="o">&gt;</span><span class="n">sample05</span> <span class="nd">@1000</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">3</span>
+<span class="n">CTACCGTGACGAGCTAGCCGAGCCTGACGCAGGGGGCGAGTAAGGGAGATTACGACTTGG</span>
+<span class="o">&gt;</span><span class="n">sample06</span> <span class="nd">@1000</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">3</span>
+<span class="n">CTTCCGCGCAGGGCCAGGAGAATGTTGCTTCTAAGGCTTGCACAGGTCTTCAGCACTAAG</span>
+<span class="o">&gt;</span><span class="n">sample07</span> <span class="nd">@1000</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="mi">4</span>
+<span class="n">CTGCTATGACGAACTACCCGAGCCTGGGGCATGGGGCGTGTATGGGAGCTTACAACTTGG</span>
+<span class="o">&gt;</span><span class="n">sample08</span> <span class="nd">@1000</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="mi">4</span>
+<span class="n">CTTACGCGACGTGCCAGCATAGGGAAGCTGCTAAGGCCTGCACACGTCCGCAGCACTACG</span>
+<span class="o">&gt;</span><span class="n">sample09</span> <span class="nd">@1000</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="mi">5</span>
+<span class="n">CTGCTATGACGAACTACCCGAGGCTGGGGCATGGGGCGTGTATGGGAGCTTACAACTTGG</span>
+<span class="o">&gt;</span><span class="n">sample10</span> <span class="nd">@1000</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="mi">5</span>
+<span class="n">CTGCTATGACGAACTACCCGAGGCTGGGGCATGGGGCGTGTATGGGAGCTTACAACTTGG</span>
+<span class="o">&gt;</span><span class="n">sample11</span> <span class="nd">@1000</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="mi">6</span>
+<span class="n">CTTACGCGACGCGCCAGCAGAGGGATGCTGCTAAGGCCTGCACACGTCCGCAGCACTACG</span>
+<span class="o">&gt;</span><span class="n">sample12</span> <span class="nd">@1000</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="mi">6</span>
+<span class="n">CTTACGCGACGCGCCAGCAGAGGGATGCTGCTAAGGCCTGCACACGTCCGCAGCACTACG</span>
+<span class="o">&gt;</span><span class="n">sample13</span> <span class="nd">@1000</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="mi">7</span>
+<span class="n">CTGCTATGACGAACTACCCGAGCCTGGGGCATGGGGCGTGTATGGGAGCTTACAACTTGG</span>
+<span class="o">&gt;</span><span class="n">sample14</span> <span class="nd">@1000</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="mi">7</span>
+<span class="n">CTGCTATGACGAACTACCCGAGGCTGGGGCATGGGGCGTGTATGGGAGCTTACAACTTGG</span>
+<span class="o">&gt;</span><span class="n">sample15</span> <span class="nd">@2000</span><span class="p">,</span><span class="mi">30</span><span class="p">,</span><span class="mi">8</span>
+<span class="n">CTCCGGGGCCGGTTTCGCATAACGTCGCGCAGGGGACGTGTAGGGGCGCATACACCTGGG</span>
+<span class="o">&gt;</span><span class="n">sample16</span> <span class="nd">@2000</span><span class="p">,</span><span class="mi">30</span><span class="p">,</span><span class="mi">8</span>
+<span class="n">CTCCGGGGCCGGTTTCGCATAACGTCGCGCAGGGGACGTGTAGGGGCGCATACACCTGGG</span>
+<span class="o">&gt;</span><span class="n">sample17</span> <span class="nd">@2000</span><span class="p">,</span><span class="mi">30</span><span class="p">,</span><span class="mi">9</span>
+<span class="n">TTGCCGGGTCGAACTAGCCGACCTTGGCGCAGGGGTCGTTTAAGGGTCCTTACAACTTGG</span>
+<span class="o">&gt;</span><span class="n">sample18</span> <span class="nd">@2000</span><span class="p">,</span><span class="mi">30</span><span class="p">,</span><span class="mi">9</span>
+<span class="n">TTGCCGGGTCGAACTAGCCGACCTTGGCGCAGGGGTCGTTTAAGGGTCCTTACAACTTGG</span>
+<span class="o">&gt;</span><span class="n">sample19</span> <span class="nd">@2000</span><span class="p">,</span><span class="mi">30</span><span class="p">,</span><span class="mi">10</span>
+<span class="n">CTCCGGCGCCGGTTTCGCATAACGTCGCGCAGGGGACGTGTAGGGGCGCATACACCTGGG</span>
+<span class="o">&gt;</span><span class="n">sample20</span> <span class="nd">@2000</span><span class="p">,</span><span class="mi">30</span><span class="p">,</span><span class="mi">10</span>
+<span class="n">TTGCCGGGTCGAACTAGCCGACCTTGGCGAAGGGGTCGTTTAAGGGACCTTACAACTTGG</span>
+<span class="o">&gt;</span><span class="n">sample21</span> <span class="nd">@2000</span><span class="p">,</span><span class="mi">40</span><span class="p">,</span><span class="mi">11</span>
+<span class="n">TTGCCAGGACGAACTAGCCGCGCCTGGCGCAGGGGTCGTTTAAGGGAGCTTACAACTTGG</span>
+<span class="o">&gt;</span><span class="n">sample22</span> <span class="nd">@2000</span><span class="p">,</span><span class="mi">40</span><span class="p">,</span><span class="mi">11</span>
+<span class="n">TTGCCAGGACGAACTAGCCGCGCCTGGCGCAGGGGTCGTTTAAGGGAGCTTACAACTTGG</span>
+<span class="o">&gt;</span><span class="n">sample23</span> <span class="nd">@2000</span><span class="p">,</span><span class="mi">40</span><span class="p">,</span><span class="mi">12</span>
+<span class="n">TTGCCGGGACGAACTAGCCGAGCCTGGCGCAGGGGTCGTTTAAGGGAGCTTACAACTTGG</span>
+<span class="o">&gt;</span><span class="n">sample24</span> <span class="nd">@2000</span><span class="p">,</span><span class="mi">40</span><span class="p">,</span><span class="mi">12</span>
+<span class="n">TTGCCGGGACGAACTAGCCGAGCCTGGCGCAGGGGTCGTTTAAGGGAGCTTACAACTTGG</span>
+<span class="o">&gt;</span><span class="n">sample25</span> <span class="nd">@2000</span><span class="p">,</span><span class="mi">50</span><span class="p">,</span><span class="mi">13</span>
+<span class="n">CTACCGTGACGAACTAGCCGAGCCTGGCGCAGGGGGCGAGTAAGGGAGAGTACAACTTGG</span>
+<span class="o">&gt;</span><span class="n">sample26</span> <span class="nd">@2000</span><span class="p">,</span><span class="mi">50</span><span class="p">,</span><span class="mi">13</span>
+<span class="n">CTACCGTGACGAACTAGCCGAGCCTGGCGCAGGGGGCGAGTAAGGGAGAGTACAACTTGG</span>
+<span class="o">&gt;</span><span class="n">sample27</span> <span class="nd">@2000</span><span class="p">,</span><span class="mi">50</span><span class="p">,</span><span class="mi">14</span>
+<span class="n">CTACCGTGACGAACTAGCCGAGCCTGGCGCAGGGGGCGAGTAAGGGAGAGTACAACTTGG</span>
+<span class="o">&gt;</span><span class="n">sample28</span> <span class="nd">@2000</span><span class="p">,</span><span class="mi">50</span><span class="p">,</span><span class="mi">14</span>
+<span class="n">CTACCGTGACGAACTAGCCGAGCCTGGCGCAGGGGGCGAGTAAGGGAGAGTACAACTTGG</span>
+<span class="o">&gt;</span><span class="n">sample29</span> <span class="nd">@2000</span><span class="p">,</span><span class="mi">50</span><span class="p">,</span><span class="mi">15</span>
+<span class="n">TTGCCGCGACGAACTAGCCGAGCCTGGCGCAGGGGTCGTTTAAGGGAGCTAACAACTTGG</span>
+<span class="o">&gt;</span><span class="n">sample30</span> <span class="nd">@2000</span><span class="p">,</span><span class="mi">50</span><span class="p">,</span><span class="mi">15</span>
+<span class="n">CTACCGTGACGAACTAGCCGAGCCTGGCGCAGGGGGCGAGTAAGGGAGAGTACAACTTGG</span>
+<span class="o">&gt;</span><span class="n">sample31</span> <span class="o">@</span><span class="c1">#98</span>
+<span class="n">CATACCACCTTGGCCCGGAGAGTGCGGAGTACCGGGCGTGGAAGGCTGCATGCAAATGGA</span>
+<span class="o">&gt;</span><span class="n">sample32</span> <span class="o">@</span><span class="c1">#98</span>
+<span class="n">CATACCACCTTGGCCCGGAGAGTGCGGAGTACCGGGCGTGGAAGGCTGCATGCAAATGGA</span>
+<span class="o">&gt;</span><span class="n">sample33</span> <span class="o">@</span><span class="c1">#99</span>
+<span class="n">CATACCACCTTGGCCCGGAGAGAGCGCAGTGCCGGGCGTGGAAGGCTGCATTCAAATGCG</span>
+<span class="o">&gt;</span><span class="n">sample34</span> <span class="o">@</span><span class="c1">#99</span>
+<span class="n">CATACCACCTTGGCCCGGAGAGAGCGCAGTGCCGGGCGTGGAAGGCTGCATTCAAATGCG</span>
+</pre></div>
+</div>
+<p>It has a total of 30 ingroup samples and 4 outgroup samples. These are
+actually respectively 15 and 2 individuals, and the ingroup is organized
+in two clusters of respectively two and three populations, themselves composed of two,
+three, or four individuals each. Remember the labels are arbitrary. In this case,
+individual labels are in the range 1-99 (and we picked large values for
+the outgroup individuals), population labels are multiples of 100,
+and cluster labels are multiples of 1000. This has been chosen for the
+sake of lisibility only (which is an excellent reason, by the way).</p>
+<p>Let use name this file <code class="docutils literal"><span class="pre">align5.fas</span></code> and import it with group labels:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">aln</span> <span class="o">=</span> <span class="n">egglib</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">from_fasta</span><span class="p">(</span><span class="s1">&#39;align5.fas&#39;</span><span class="p">,</span> <span class="n">groups</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="bp">cls</span><span class="o">=</span><span class="n">egglib</span><span class="o">.</span><span class="n">Align</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span> <span class="n">aln</span><span class="o">.</span><span class="n">ng</span>
+<span class="go">3</span>
+</pre></div>
+</div>
+<p>The attribute <a class="reference internal" href="../py/toplevel.html#egglib.Align.ng" title="egglib.Align.ng"><code class="xref py py-attr docutils literal"><span class="pre">ng</span></code></a> confirms that the three group levels have
+been detected. Now, let us create a <code class="xref py py-class docutils literal"><span class="pre">Structure</span></code> object incorporating
+all structure information:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">struct</span> <span class="o">=</span> <span class="n">egglib</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">get_structure</span><span class="p">(</span><span class="n">aln</span><span class="p">,</span> <span class="n">lvl_clust</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">lvl_pop</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">lvl_indiv</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span> <span class="n">struct</span><span class="o">.</span><span class="n">as_dict</span><span class="p">()</span>
+<span class="go">({1000: {10: {1: [0, 1], 2: [2, 3], 3: [4, 5]},</span>
+<span class="go">         20: {4: [6, 7], 5: [8, 9], 6: [10, 11], 7: [12, 13]}},</span>
+<span class="go">  2000: {40: {11: [20, 21], 12: [22, 23]},</span>
+<span class="go">         50: {13: [24, 25], 14: [26, 27], 15: [28, 29]},</span>
+<span class="go">         30: {8: [14, 15], 9: [16, 17], 10: [18, 19]}}},</span>
+<span class="go"> {98: [0, 1], 99: [2, 3]})</span>
+</pre></div>
+</div>
+<p>We used the function <a class="reference internal" href="../py/stats.html#egglib.stats.get_structure" title="egglib.stats.get_structure"><code class="xref py py-func docutils literal"><span class="pre">stats.get_structure()</span></code></a> that generates a new
+<code class="xref py py-class docutils literal"><span class="pre">Structure</span></code> object based on group labels of an <code class="xref py py-class docutils literal"><span class="pre">Align</span></code>
+(or <code class="xref py py-class docutils literal"><span class="pre">Container</span></code>). To use this method, it is necessary to tell
+which group level corresponds to the clusters, populations, and individuals
+in such a way that they are properly hierarchical. It is possible to skip
+any of these three levels of structure (see below).</p>
+<p>The method <a class="reference internal" href="../py/stats.html#egglib.stats.Structure.as_dict" title="egglib.stats.Structure.as_dict"><code class="xref py py-meth docutils literal"><span class="pre">as_dict()</span></code></a> is aimed to provide an intuitive
+representation of the structure held by the object. In practice, it is as
+intuitive as possible while being flexible enough to represent all possible cases.</p>
+<div class="section" id="dictionary-representation-of-structure-objects">
+<span id="structure-dict"></span><h3>Dictionary representation of <a class="reference internal" href="../py/stats.html#egglib.stats.Structure" title="egglib.stats.Structure"><code class="xref py py-class docutils literal"><span class="pre">Structure</span></code></a> objects<a class="headerlink" href="#dictionary-representation-of-structure-objects" title="Permalink to this headline">¶</a></h3>
+<p>It is a <code class="xref py py-class docutils literal"><span class="pre">tuple</span></code> containing two items,
+each being a <a class="reference external" href="https://docs.python.org/2.7/library/stdtypes.html#dict" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">dict</span></code></a>. The first one represents the ingroup and the second
+represents the outgroup.</p>
+<p>The ingroup dictionary is itself a dictionary holding more dictionaries, one
+for each cluster of populations. Each cluster dictionary is a dictionary of
+populations, populations being themselves represented by a dictionary. A
+population dictionary is, again, a dictionary of individuals. Fortunately,
+individuals are represented by lists.</p>
+<p>An individual list contains the index
+of all samples belonging to this individual. For haploid data, individuals
+will be one-item lists. In other cases, all individual lists are required to have
+the same number of items (consistent ploidy). Note that, if the ploidy is more
+than one, nothing enforces that samples of a given individual are grouped within
+the original data.</p>
+<p>The keys of the ingroup dictionary are the labels identifying each cluster.
+Within a cluster dictionary, the keys are population labels. Finally, within
+a population dictionary, the keys are individual labels.</p>
+<p>The second dictionary represents the outgroup. Its structure is simpler: it has
+individual labels as keys, and lists of corresponding sample indexes as values.
+The outgroup dictionary is similar to any ingroup population dictionary. The
+ploidy is required to match over all ingroup and outgroup individuals.</p>
+<p>If we go back to our example, we see that the returned dictionary for the
+ingroup has two items, with keys 1000 and 2000, respectively, and that
+the correct structure appears at lower levels, with two-item (diploid) individuals
+within populations withing clusters. Similarly, the two outgroup individuals,
+labelled 98 and 99, appeared as expected in the second dictionary returned by
+the <code class="xref py py-meth docutils literal"><span class="pre">as_dict()</span></code> method. Ultimately, the values contained by the
+lists are the lowest levels are the index referring to the original
+<code class="xref py py-class docutils literal"><span class="pre">Align</span></code> instance (from 0 to 29 in the ingroup, 0 to 3 in the
+outgroup).</p>
+</div>
+<div class="section" id="alternative-structure">
+<h3>Alternative structure<a class="headerlink" href="#alternative-structure" title="Permalink to this headline">¶</a></h3>
+<p>Occasionally, one will want to generate different <code class="xref py py-class docutils literal"><span class="pre">Structure</span></code> objects
+based on different levels of structure in group labels (for example if there are
+alternative structurations of the data). It is not required that all levels of
+a <code class="xref py py-class docutils literal"><span class="pre">Structure</span></code> objects are populated, and it is not necessary to import
+all structure levels of an <code class="xref py py-class docutils literal"><span class="pre">Align</span></code>. The example below demonstrate all
+this by importing the first level (previously, clusters) as populations in a new
+object, skipping all other information:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">struct2</span> <span class="o">=</span> <span class="n">egglib</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">get_structure</span><span class="p">(</span><span class="n">aln</span><span class="p">,</span> <span class="n">lvl_pop</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span> <span class="n">struct2</span><span class="o">.</span><span class="n">as_dict</span><span class="p">()</span>
+<span class="go">({0: {1000: {0: [0], 1: [1], 2: [2], 3: [3], 4: [4], 5: [5], 6: [6], 7: [7],</span>
+<span class="go">             8: [8], 9: [9], 10: [10], 11: [11], 12: [12], 13: [13]},</span>
+<span class="go">      2000: {14: [14], 15: [15], 16: [16], 17: [17], 18: [18], 19: [19],</span>
+<span class="go">             20: [20], 21: [21], 22: [22], 23: [23], 24: [24], 25: [25],</span>
+<span class="go">             26: [26], 27: [27], 28: [28], 29: [29]}}},</span>
+<span class="go"> {32: [2], 33: [3], 30: [0], 31: [1]})</span>
+</pre></div>
+</div>
+<p>Note that it is also possible to recycle an already existing <code class="xref py py-class docutils literal"><span class="pre">Structure</span></code>
+object instead creating a new one (with the method <a class="reference internal" href="../py/stats.html#egglib.stats.Structure.get_structure" title="egglib.stats.Structure.get_structure"><code class="xref py py-meth docutils literal"><span class="pre">get_structure()</span></code></a>).</p>
+<p>Since we did not specify any group label index for the cluster level, there is
+no information regarding clusters, and all populations are placed in a single
+clusters. The default label is 0 in that case. The two labels 1000 and 2000 are
+now considered as population labels. At the lowest level (also in the outgroup),
+all samples are placed in a single-item individuals because likewise, no index
+has been provided for the individual level. Then, haploidy is assumed, and the
+sample index is used as default value for individual labels (incremented in the
+outgroup).</p>
+<p>This example demonstrates that the group labels in <code class="xref py py-class docutils literal"><span class="pre">Align</span></code>
+instances have no particular meaning <em>per se</em> until they are interpreted
+while configuring a <code class="xref py py-class docutils literal"><span class="pre">Structure</span></code> object.</p>
+</div>
+</div>
+<div class="section" id="creating-a-structure-manually">
+<h2>Creating a structure manually<a class="headerlink" href="#creating-a-structure-manually" title="Permalink to this headline">¶</a></h2>
+<p>It is possible to create a <code class="xref py py-class docutils literal"><span class="pre">Structure</span></code> object from user-provided
+data formatted as dictionaries, using either the function <a class="reference internal" href="../py/stats.html#egglib.stats.make_structure" title="egglib.stats.make_structure"><code class="xref py py-func docutils literal"><span class="pre">stats.make_structure()</span></code></a>
+or the method <a class="reference internal" href="../py/stats.html#egglib.stats.Structure.make_structure" title="egglib.stats.Structure.make_structure"><code class="xref py py-meth docutils literal"><span class="pre">Structure.make_structure()</span></code></a> to recycle an existing object.
+This approach allows maximal flexibility but requires that you create a
+properly formatted dictionary. The functions take an <em>ingroup</em> and an <em>outgroup</em>
+arguments, which are formatted exactly as the output of <a class="reference internal" href="../py/stats.html#egglib.stats.Structure.as_dict" title="egglib.stats.Structure.as_dict"><code class="xref py py-meth docutils literal"><span class="pre">as_dict()</span></code></a>
+(see <a class="reference internal" href="#structure-dict"><span class="std std-ref">Dictionary representation of Structure objects</span></a>). This feature can be used to import structure
+information without relying on EggLib’s tag system of Fasta sequence names, but
+it can also be useful to edit the content of one <code class="xref py py-class docutils literal"><span class="pre">Structure</span></code> object.</p>
+</div>
+<div class="section" id="using-the-structure">
+<h2>Using the structure<a class="headerlink" href="#using-the-structure" title="Permalink to this headline">¶</a></h2>
+<p>Once a <code class="xref py py-class docutils literal"><span class="pre">Structure</span></code> has been configured to represent the structuration
+of the data set, it can be used as a descriptor while computing diversity
+statistics. This will make available a wide array of statistics requiring
+this type of information. For example, the statistics with codes
+<code class="docutils literal"><span class="pre">Fis</span></code>, <code class="docutils literal"><span class="pre">Snn</span></code>, <code class="docutils literal"><span class="pre">WCist</span></code>, and <code class="docutils literal"><span class="pre">WCisct</span></code> require individual and/or
+population structure information and won’t be computed if no structure
+is provided:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">cs</span> <span class="o">=</span> <span class="n">egglib</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">ComputeStats</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cs</span><span class="o">.</span><span class="n">add_stats</span><span class="p">(</span><span class="s1">&#39;Fis&#39;</span><span class="p">,</span> <span class="s1">&#39;WCist&#39;</span><span class="p">,</span> <span class="s1">&#39;WCisct&#39;</span><span class="p">,</span> <span class="s1">&#39;Snn&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span> <span class="n">cs</span><span class="o">.</span><span class="n">process_align</span><span class="p">(</span><span class="n">aln</span><span class="p">)</span>
+<span class="go">{&#39;Snn&#39;: None, &#39;Fis&#39;: None, &#39;WCisct&#39;: None, &#39;WCist&#39;: None}</span>
+</pre></div>
+</div>
+<p>To provide the <code class="xref py py-class docutils literal"><span class="pre">Structure</span></code> to <code class="xref py py-class docutils literal"><span class="pre">ComputeStats</span></code>, one just
+need to pass the object as a value for the <em>struct</em> argument of <code class="xref py py-meth docutils literal"><span class="pre">process_align()</span></code>:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span> <span class="n">cs</span><span class="o">.</span><span class="n">process_align</span><span class="p">(</span><span class="n">aln</span><span class="p">,</span> <span class="n">struct</span><span class="o">=</span><span class="n">struct</span><span class="p">)</span>
+<span class="go">{&#39;Snn&#39;: 0.9, &#39;Fis&#39;: 0.8180596011651353,</span>
+<span class="go"> &#39;WCisct&#39;: (0.39885944313988575, 0.49641427710648844, 0.23392344387305802, 0.6972741981129913),</span>
+<span class="go"> &#39;WCist&#39;: (0.39885944313988586, 0.44858711737026746, 0.6685233526761217)}</span>
+</pre></div>
+</div>
+<p>There is also a <em>struct</em> argument for <code class="xref py py-meth docutils literal"><span class="pre">process_site()</span></code> and <code class="xref py py-meth docutils literal"><span class="pre">process_sites()</span></code>.
+It is not the case for <code class="xref py py-meth docutils literal"><span class="pre">process_freq()</span></code>, because <a class="reference internal" href="../py/stats.html#egglib.stats.Freq" title="egglib.stats.Freq"><code class="xref py py-class docutils literal"><span class="pre">Freq</span></code></a> objects
+already require structure information to compute all frequencies. In that case
+the <code class="xref py py-class docutils literal"><span class="pre">Structure</span></code> must be provided to <a class="reference internal" href="../py/stats.html#egglib.stats.freq_from_site" title="egglib.stats.freq_from_site"><code class="xref py py-func docutils literal"><span class="pre">freq_from_site()</span></code></a> or
+<a class="reference internal" href="../py/stats.html#egglib.stats.Freq.process_site" title="egglib.stats.Freq.process_site"><code class="xref py py-meth docutils literal"><span class="pre">Freq.process_site()</span></code></a>. Note that the structure needs to be passed again
+to <a class="reference internal" href="../py/stats.html#egglib.stats.ComputeStats.results" title="egglib.stats.ComputeStats.results"><code class="xref py py-meth docutils literal"><span class="pre">ComputeStats.results()</span></code></a> if you use it and use a certain category of
+statistics.</p>
+<p>The code above shows that, with proper structure, we can compute statistics
+taken account the individual, population, and cluster levels. In particular,
+<code class="docutils literal"><span class="pre">WCisct</span></code> takes all levels into account. In comparison, <code class="docutils literal"><span class="pre">WCist</span></code> ignores
+the cluster level, but nothing prevents you from computing it at this point.
+The code below shows that we can analyse the same data with a different structure
+(using the second object we created before, using the clusters as populations
+and ignoring other levels):</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span> <span class="n">cs</span><span class="o">.</span><span class="n">process_align</span><span class="p">(</span><span class="n">aln</span><span class="p">,</span> <span class="n">struct</span><span class="o">=</span><span class="n">struct2</span><span class="p">)</span>
+<span class="go">{&#39;Snn&#39;: 0.9666666666666667, &#39;Fis&#39;: None, &#39;WCisct&#39;: None, &#39;WCist&#39;: None}</span>
+</pre></div>
+</div>
+<p>Since the individual level is not available, the statistics <code class="docutils literal"><span class="pre">Fis</span></code>,
+<code class="docutils literal"><span class="pre">WCist</span></code>, and <code class="docutils literal"><span class="pre">WCisct</span></code> (which also requires the cluster level) cannot
+be computed. Only <code class="docutils literal"><span class="pre">Snn</span></code> can. It is still possible to call for statistics
+that cannot be computed, but their value will be set to <code class="docutils literal"><span class="pre">None</span></code>.</p>
+</div>
+</div>
+<div class="section" id="filters">
+<span id="id1"></span><h1>Filters<a class="headerlink" href="#filters" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="principle">
+<h2>Principle<a class="headerlink" href="#principle" title="Permalink to this headline">¶</a></h2>
+<p>As mentioned before, EggLib is absolutely not restrictive regarding input
+data. However, filters are applied whenever analysing data. The concerned
+methods or functions are: <a class="reference internal" href="../py/stats.html#egglib.stats.ComputeStats.process_align" title="egglib.stats.ComputeStats.process_align"><code class="xref py py-meth docutils literal"><span class="pre">stats.ComputeStats.process_align()</span></code></a>,
+<a class="reference internal" href="../py/stats.html#egglib.stats.site_from_align" title="egglib.stats.site_from_align"><code class="xref py py-func docutils literal"><span class="pre">stats.site_from_align()</span></code></a> (and <a class="reference internal" href="../py/stats.html#egglib.stats.Site.process_align" title="egglib.stats.Site.process_align"><code class="xref py py-meth docutils literal"><span class="pre">stats.Site.process_align()</span></code></a>),
+<a class="reference internal" href="../py/stats.html#egglib.stats.ComputeStats.process_align" title="egglib.stats.ComputeStats.process_align"><code class="xref py py-meth docutils literal"><span class="pre">stats.ComputeStats.process_align()</span></code></a>, and other methods or functions
+that use an <code class="xref py py-class docutils literal"><span class="pre">Align</span></code> objects to compute diversity statistics.</p>
+<p>In practice, a filter is a list of allelic values that are recognized as
+valid for a type of data. It is useful to (to some extend) prevent typing
+errors and especially to avoid using symbols identifying missing data as
+valid allelic values.</p>
+<p>Filters are implemented in the class <a class="reference internal" href="../py/stats.html#egglib.stats.Filter" title="egglib.stats.Filter"><code class="xref py py-class docutils literal"><span class="pre">stats.Filter</span></code></a>. A given filter
+holds allelic values sorted in two categories:</p>
+<ul class="simple">
+<li>Exploitable values (valid and representing actual alleles in data).</li>
+<li>Missing (valid but considered as missing data).</li>
+</ul>
+<p>Both kind of values can be provided as a list of values, or as a continuous range.
+They both can also have synonyms (for example, the integer values corresponding
+to upper-case and lower-case letters can be considered as identical).</p>
+<p>If an item of data is outside of these two set of values, it is considered
+invalid and causes an error.</p>
+</div>
+<div class="section" id="pre-defined-filters-and-default">
+<h2>Pre-defined filters and default<a class="headerlink" href="#pre-defined-filters-and-default" title="Permalink to this headline">¶</a></h2>
+<p>A set of pre-defined objects are available to be used in common situations.
+Users can also define their own filters by creating a custom object of the
+<code class="xref py py-class docutils literal"><span class="pre">Filter</span></code> class. They can also edit pre-defined object to add values
+(but this will affect all later uses of those pre-defined objects).</p>
+<p>The table below lists the pre-defined <code class="xref py py-class docutils literal"><span class="pre">Filter</span></code> objects:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="37%" />
+<col width="31%" />
+<col width="23%" />
+<col width="8%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Filter</th>
+<th class="head">Exploitable</th>
+<th class="head">Missing</th>
+<th class="head">Notes</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><a class="reference internal" href="../py/stats.html#egglib.stats.filter_default" title="egglib.stats.filter_default"><code class="xref py py-data docutils literal"><span class="pre">stats.filter_default</span></code></a></td>
+<td>All</td>
+<td>—</td>
+<td>—</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="../py/stats.html#egglib.stats.filter_strict" title="egglib.stats.filter_strict"><code class="xref py py-data docutils literal"><span class="pre">stats.filter_strict</span></code></a></td>
+<td><code class="docutils literal"><span class="pre">ACGT</span></code></td>
+<td><code class="docutils literal"><span class="pre">N</span></code></td>
+<td>—</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="../py/stats.html#egglib.stats.filter_dna" title="egglib.stats.filter_dna"><code class="xref py py-data docutils literal"><span class="pre">stats.filter_dna</span></code></a></td>
+<td><code class="docutils literal"><span class="pre">ACGT</span></code></td>
+<td><code class="docutils literal"><span class="pre">RYSWKMBDHVN?-</span></code></td>
+<td>1,2</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="../py/stats.html#egglib.stats.filter_rna" title="egglib.stats.filter_rna"><code class="xref py py-data docutils literal"><span class="pre">stats.filter_rna</span></code></a></td>
+<td><code class="docutils literal"><span class="pre">ACGU</span></code></td>
+<td><code class="docutils literal"><span class="pre">RYSWKMBDHVN?-</span></code></td>
+<td>2</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="../py/stats.html#egglib.stats.filter_amino" title="egglib.stats.filter_amino"><code class="xref py py-data docutils literal"><span class="pre">stats.filter_amino</span></code></a></td>
+<td><code class="docutils literal"><span class="pre">ACDEFGHIKLMNPQRSTVWY</span></code></td>
+<td><code class="docutils literal"><span class="pre">X-</span></code></td>
+<td>2</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="../py/stats.html#egglib.stats.filter_codon" title="egglib.stats.filter_codon"><code class="xref py py-data docutils literal"><span class="pre">stats.filter_codon</span></code></a></td>
+<td>0–63</td>
+<td>64</td>
+<td>—</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="../py/stats.html#egglib.stats.filter_ssr" title="egglib.stats.filter_ssr"><code class="xref py py-data docutils literal"><span class="pre">stats.filter_ssr</span></code></a></td>
+<td>1–999</td>
+<td>-1</td>
+<td>—</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="../py/stats.html#egglib.stats.filter_num" title="egglib.stats.filter_num"><code class="xref py py-data docutils literal"><span class="pre">stats.filter_num</span></code></a></td>
+<td>-999–999</td>
+<td>—</td>
+<td>—</td>
+</tr>
+</tbody>
+</table>
+<dl class="docutils">
+<dt>Notes:</dt>
+<dd><ol class="first last arabic simple">
+<li>When a default value is implemented for the filter, this object is used as default.</li>
+<li>Lower-case version of characters representing letters are turned to upper-case.</li>
+</ol>
+</dd>
+</dl>
+</div>
+<div class="section" id="the-case-of-simulated-data">
+<h2>The case of simulated data<a class="headerlink" href="#the-case-of-simulated-data" title="Permalink to this headline">¶</a></h2>
+<p>The coalescence simulator (described in <a class="reference internal" href="coal.html#coalesce-manual"><span class="std std-ref">Coalescent simulations</span></a>) generates
+data sets in the form of <code class="xref py py-class docutils literal"><span class="pre">Align</span></code> objects containing numeric
+allelic values. The mutation model is flexible and can account for DNA
+sequence, SNP or SSR markers, and even type of variation. For the sake of generality
+and consistency, the allelic values are always integers (both positive and negative) and include the value of 0
+as a possible value. Users are supposed to configure parameters consistently
+to what kind of data they aim to simulate; for DNA sequences, allelic values
+will be either 0 or 1 (for the infinite site model, this is the default), or
+the range 0 to 4. In contrast, the DNA filter (<a class="reference internal" href="../py/stats.html#egglib.stats.filter_dna" title="egglib.stats.filter_dna"><code class="xref py py-data docutils literal"><span class="pre">filter_dna</span></code></a>)
+expects the ASCII codes of base letter (65 for A), and the SSR filter
+(<a class="reference internal" href="../py/stats.html#egglib.stats.filter_ssr" title="egglib.stats.filter_ssr"><code class="xref py py-data docutils literal"><span class="pre">filter_ssr</span></code></a>) does not support by default negative values.</p>
+<p>As a result, the filter <a class="reference internal" href="../py/stats.html#egglib.stats.filter_dna" title="egglib.stats.filter_dna"><code class="xref py py-data docutils literal"><span class="pre">filter_dna</span></code></a> does not work
+with data simulated with the coalescence simulator, and neither does
+<a class="reference internal" href="../py/stats.html#egglib.stats.filter_ssr" title="egglib.stats.filter_ssr"><code class="xref py py-data docutils literal"><span class="pre">filter_ssr</span></code></a>, even for SSR models.</p>
+<p>If we take the example of the default parameters of the coalescence
+simulator (two alleles, 0 and 1, with an infinite number of sites),
+we can see we cannot use <code class="xref py py-class docutils literal"><span class="pre">ComputeStats</span></code> with the default settings
+because it assumes nucleotide alleles (the integer equivalent for the bases
+A, C, G, and T, along with characters representing missing data):</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">coal</span> <span class="o">=</span> <span class="n">egglib</span><span class="o">.</span><span class="n">coalesce</span><span class="o">.</span><span class="n">Simulator</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">num_chrom</span><span class="o">=</span><span class="p">[</span><span class="mi">40</span><span class="p">],</span> <span class="n">theta</span><span class="o">=</span><span class="mf">5.0</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">aln</span> <span class="o">=</span> <span class="n">coal</span><span class="o">.</span><span class="n">simul</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cs</span> <span class="o">=</span> <span class="n">egglib</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">ComputeStats</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cs</span><span class="o">.</span><span class="n">add_stats</span><span class="p">(</span><span class="s1">&#39;S&#39;</span><span class="p">,</span> <span class="s1">&#39;Pi&#39;</span><span class="p">,</span> <span class="s1">&#39;thetaW&#39;</span><span class="p">,</span> <span class="s1">&#39;D&#39;</span><span class="p">,</span> <span class="s1">&#39;K&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cs</span><span class="o">.</span><span class="n">process_align</span><span class="p">(</span><span class="n">aln</span><span class="p">)</span>
+<span class="gt">Traceback (most recent call last):</span>
+  File <span class="nb">&quot;&lt;stdin&gt;&quot;</span>, line <span class="m">1</span>, in <span class="n">&lt;module&gt;</span>
+  File <span class="nb">&quot;/usr/lib64/python2.7/site-packages/egglib/stats/_cstats.py&quot;</span>, line <span class="m">644</span>, in <span class="n">process_align</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_site</span><span class="o">.</span><span class="n">process_align</span><span class="p">(</span><span class="n">align</span><span class="o">.</span><span class="n">_obj</span><span class="p">,</span> <span class="n">idx</span><span class="p">,</span> <span class="n">struct</span><span class="p">,</span> <span class="n">filtr</span><span class="o">.</span><span class="n">_obj</span><span class="p">,</span> <span class="n">max_missing_num</span><span class="p">,</span> <span class="n">otg_missing</span><span class="p">):</span>
+<span class="gr">ValueError</span>: <span class="n">invalid allele value found: 1 at position 1 for sample number 1</span>
+</pre></div>
+</div>
+<p>To solve this problem, the filter accepting all values is actually appropriate
+for any simulated data, because the coalescence simulator will only generate
+exploitable data:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span> <span class="n">cs</span><span class="o">.</span><span class="n">process_align</span><span class="p">(</span><span class="n">aln</span><span class="p">,</span> <span class="n">filtr</span><span class="o">=</span><span class="n">egglib</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">filter_default</span><span class="p">)</span>
+<span class="go">{&#39;K&#39;: 8, &#39;Pi&#39;: 2.0089743589743594, &#39;S&#39;: 11, &#39;D&#39;: -0.6771600803702927, &#39;thetaW&#39;: 2.586079392945467}</span>
+</pre></div>
+</div>
+<p>To be restrictive, one can easily define his or her own filter as in:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">filtr</span> <span class="o">=</span> <span class="n">egglib</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">Filter</span><span class="p">(</span><span class="n">exploitable</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span> <span class="n">cs</span><span class="o">.</span><span class="n">process_align</span><span class="p">(</span><span class="n">aln</span><span class="p">,</span> <span class="n">filtr</span><span class="o">=</span><span class="n">filtr</span><span class="p">)</span>
+<span class="go">{&#39;K&#39;: 8, &#39;Pi&#39;: 2.0089743589743594, &#39;S&#39;: 11, &#39;D&#39;: -0.6771600803702927, &#39;thetaW&#39;: 2.586079392945467}</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="stats-3.html" title="Missing data"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="stats-1.html" title="The stats.ComputeStats class"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../contents.html">EggLib&#39;s documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../toc.html" >Contents</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="index.html" >Manual</a> &#187;</li>
+          <li class="nav-item nav-item-3"><a href="stats.html" >Computing diversity statistics</a> &#187;</li> 
+      </ul>
+    </div>
+<!--
+        <address style="text-align: right;"><small>Hosted by&nbsp;
+        <a href="http://sourceforge.net/projects/egglib"><img src="http://sflogo.sourceforge.net/sflogo.php?group_id=232965&amp;type=8" width="80" height="15" alt="Get EggLib at SourceForge.net. Fast, secure and Free Open Source software downloads" / ALIGN=RIGHT BORDER=0></a>
+        </address>
+-->
+
+  </body>
+</html>

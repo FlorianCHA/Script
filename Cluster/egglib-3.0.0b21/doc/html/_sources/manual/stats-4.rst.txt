@@ -1,0 +1,328 @@
+.. _manual-vcf:
+
+---------------
+Using VCF files
+---------------
+
+Short description of the format
+===============================
+
+The Variant Call Format is designed to store information relative to genome-wide
+diversity data. The format consists in a header containing meta-information
+(in lines prefixed by ``##``) followed by a single header provided the list of
+samples included in the file, and by the bunch of the file which consists in,
+typically, a very large number of lines each describing variation for a given
+*variant* (a variant can be a single nucleotide polymorphism, an insertion/deletion,
+a microsatellite, or any form of genomic variation, including large rearrangements.
+
+An example appears below::
+
+    ##fileformat=VCFv4.1
+    ##fileDate=20090805
+    ##source=myImputationProgramV3.1
+    ##reference=file:///seq/references/1000GenomesPilot-NCBI36.fasta
+    ##contig=<ID=20,length=62435964,assembly=B36,md5=f126cdf8a6e0c7f379d618ff66beb2da,species="Homo sapiens",taxonomy=x>
+    ##phasing=partial
+    ##INFO=<ID=NS,Number=1,Type=Integer,Description="Number of Samples With Data">
+    ##INFO=<ID=DP,Number=1,Type=Integer,Description="Total Depth">
+    ##INFO=<ID=AF,Number=A,Type=Float,Description="Allele Frequency">
+    ##INFO=<ID=AA,Number=1,Type=String,Description="Ancestral Allele">
+    ##INFO=<ID=DB,Number=0,Type=Flag,Description="dbSNP membership, build 129">
+    ##INFO=<ID=H2,Number=0,Type=Flag,Description="HapMap2 membership">
+    ##FILTER=<ID=q10,Description="Quality below 10">
+    ##FILTER=<ID=s50,Description="Less than 50% of samples have data">
+    ##FORMAT=<ID=GT,Number=1,Type=String,Description="Genotype">
+    ##FORMAT=<ID=GQ,Number=1,Type=Integer,Description="Genotype Quality">
+    ##FORMAT=<ID=DP,Number=1,Type=Integer,Description="Read Depth">
+    ##FORMAT=<ID=HQ,Number=2,Type=Integer,Description="Haplotype Quality">
+    #CHROM POS	ID	REF	ALT	QUAL	FILTER	INFO	FORMAT	NA00001	NA00002	NA00003
+    20	14370	rs6054257 G	A	29	PASS	NS=3;DP=14;AF=0.5;DB;H2	GT:GQ:DP:HQ 0|0:48:1:51,51 1|0:48:8:51,51	1/1:43:5:.,.
+    20	17330	.	T	A	3	q10	NS=3;DP=11;AF=0.017	GT:GQ:DP:HQ	0|0:49:3:58,50	0|1:3:5:65,3	0/0:41:3
+    20	1110696	rs6040355	A	G,T	67	PASS	NS=2;DP=10;AF=0.333,0.667;AA=T;DB	GT:GQ:DP:HQ	1|2:21:6:23,27	2|1:2:0:18,2	2/2:35:4
+    20	1230237	.	T	.	47	PASS	NS=3;DP=13;AA=T	GT:GQ:DP:HQ	0|0:54:7:56,60	0|0:48:4:51,51	0/0:61:220	1234567	microsat1	GTC	G,GTCT	50	PASS	NS=3;DP=9;AA=G	GT:GQ:DP	0/1:35:4	0/2:17:2	1/1:40:3
+
+Pieces of information are attached to each variant (site) and, within a variant,
+to each sample. The former are denoted Info and the latter Format. In the
+example above, an example of Info field is ``NS`` (whose value is 3 for the first
+site), and an exemple of Format field is ``GT`` (whose value for the samples of
+the first sites are: ``0|0``, ``1|0``, and ``1|1``).
+
+A major difficulty posed by the VCF format is its very flexibility. Users have
+a wide liberty to define their own types of Info/Format fields, in addition to
+(or replacing) those who are supposed to be built-in by default in the format.
+Their are commonly used encoding conventions, but they remain conventions there is
+now guarantee about how data will be represented in VCF data (we'll be a little bit more
+explicit in a very short while).
+
+There is more information in the documentation of the class :class:`.io.VcfParser`,
+including the link to the formal description of the format.
+
+Reading VCF files
+=================
+
+Assuming the example VCF file above has been saved in an uncompressed file
+named ``example.vcf``, loading it won't be difficult. You just need to
+provide the class's constructor with the name of the file.
+
+Actually, the constructor of the class does not read further than the header.
+As a result, only the meta-information present in the header and the list of
+samples will be known to the object at this point. The attribute
+:attr:`~.io.VcfParser.num_samples` and the method :meth:`~.io.VcfParser.get_sample`
+let you get the list of sample names::
+
+    >>> vcf = egglib.io.VcfParser('example.vcf')
+    >>> print [vcf.get_sample(i) for i in xrange(vcf.num_samples)]
+    ['NA00001', 'NA00002', 'NA00003']
+
+The meta-information attributes attached to the file can be accessed using the
+same model as the sample names (one attribute and one getter method taking
+an index), as listed below for the different categories of meta-information:
+
++---------------+----------------------------+-----------------------------------+-----------------------------------+
+| Shortcut name | Type of meta-information   | Counter attribute                 | Accessor method                   |
++===============+============================+===================================+===================================+
+| Alt           | Alternative allele code    | :attr:`~.io.VcfParser.num_alt`    | :meth:`~.io.VcfParser.get_alt`    |
++---------------+----------------------------+-----------------------------------+-----------------------------------+
+| Filter        | Test used to filter files  | :attr:`~.io.VcfParser.num_filter` | :meth:`~.io.VcfParser.get_filter` |
++---------------+----------------------------+-----------------------------------+-----------------------------------+
+| Format        | Descriptor of sample data  | :attr:`~.io.VcfParser.num_format` | :meth:`~.io.VcfParser.get_format` |
++---------------+----------------------------+-----------------------------------+-----------------------------------+
+| Info          | Descriptor of variant data | :attr:`~.io.VcfParser.num_info`   | :meth:`~.io.VcfParser.get_info`   |
++---------------+----------------------------+-----------------------------------+-----------------------------------+
+| Meta          | Other meta-information     | :attr:`~.io.VcfParser.num_meta`   | :meth:`~.io.VcfParser.get_meta`   |
++---------------+----------------------------+-----------------------------------+-----------------------------------+
+
+The last category represents all meta-information lines with a custom key (other
+than ``ALT``, ``FILTER``, ``FORMAT``, and ``INFO``). To collect all user-defined
+Meta entries as a dictionary, use the following expression::
+
+    >>> print dict([vcf.get_meta(i) for i in xrange(vcf.num_meta)])
+    {'source': 'myImputationProgramV3.1', 'contig': '<ID=20,length=62435964,assembly=B36,md5=f126cdf8a6e0c7f379d618ff66beb2da,species="Homo sapiens",taxonomy=x>', 'reference': 'file:///seq/references/1000GenomesPilot-NCBI36.fasta', 'fileDate': '20090805', 'phasing': 'partial'}
+
+Iterating over variants
+***********************
+
+As said before, the loading of a file does not import any of the proper
+variant lines. Due to the potentially large size of VCF files, the VCF
+parser follows an iterative scheme where lines are read one after another.
+There are two ways of iterating over variants of a VCF file through an
+open :class:`!VcfParser` object: the ``for`` statement and the :meth:`~.io.VcfParser.next` method.
+These two ways are equivalent (the latter is only more handy to control iteration
+manually). We can observe that, at each step, they don't return the full data corresponding
+to the current variant::
+
+    >>>   for ret in vcf:
+    ...       print ret
+    ...
+    ('20', 14369, 2)
+    ('20', 17329, 2)
+    ('20', 1110695, 3)
+    ('20', 1230236, 1)
+    ('20', 1234566, 3)
+
+The three items of the iterator are, in order: the chromosome name, the
+position (0 being the first position of the chromosome), and the number
+of alleles (including the reference allele).
+
+Obviously, this system does not expose much of the actual data present on
+each line of the VCF file, but the aim is to avoid extracting (and converting
+to Python objects) the full data until explicitly requested.
+
+At any point during iteration, the :class:`.VcfParser` object (``vcf`` in
+the example above) can be used to extract data corresponding to the
+*current* site (the one read at the last iteration loop). There are three methods,
+presented in the following three paragraphs: extracting site, extracting frequencies,
+and getting the whole variant object.
+
+Besides, it is also possible to iterate manually (reading variants one by one
+without a ``for`` loop) using the :meth:`~.VcfParser.next` method::
+
+    >>> vcf = egglib.io.VcfParser('example.vcf')
+    >>> while True:
+    ...     print vcf.next()
+    ...
+    ('20', 14369, 2)
+    ('20', 17329, 2)
+    ('20', 1110695, 3)
+    ('20', 1230236, 1)
+    ('20', 1234566, 3)
+    ('20', 14369, 2)
+    ('20', 17329, 2)
+    ('20', 1110695, 3)
+    ('20', 1230236, 1)
+    ('20', 1234566, 3)
+    Traceback (most recent call last):
+      File "tutorial2.py", line 202, in <module>
+        print vcf.next()
+      File "/usr/lib64/python2.7/site-packages/egglib/io/_vcf.py", line 314, in next
+        if not self._parser.good(): raise StopIteration
+    StopIteration
+
+This exception is not a bug, but a normal signal that the iteration has completed. Of
+course, that is not what one would need to do.
+
+Extracting a site from a VCF
+****************************
+
+Data for the current site of a :class:`!VcfParser` object can be extracted
+as a :class:`.Site` object using either :func:`.stats.site_from_vcf` or
+:meth:`.stats.Site.process_vcf`, provided that the VCF file has
+called genotypes encoded using the ``GT`` FORMAT field::
+
+    >>> vcf = egglib.io.VcfParser('example.vcf')
+    >>> print vcf.next()
+    ('20', 14369, 2)
+    >>> site = egglib.stats.site_from_vcf(vcf)
+    >>> print site.as_list(False, True)
+    [(0, 0), (1, 0), (1, 1)]
+
+    >>> print vcf.next()
+    ('20', 17329, 2)
+    >>> print vcf.next()
+    ('20', 1110695, 3)
+    >>> print vcf.next()
+    ('20', 1230236, 1)
+    >>> print vcf.next()
+    ('20', 1234566, 3)
+    >>> site.process_vcf(vcf, reset=True)
+    >>> print site.as_list(False, True)
+    [(0, 1), (0, 2), (1, 1)]
+
+The ``reset=True`` argument is required in this case because, otherwise,
+it would add the data from this VCF to the data previously stored in the
+:class:`!Site` object.
+
+We used :meth:`!as_list` to show the site (with genotypes, but without the
+outgroup which is empty). We show the last site which has three alleles
+even among the called genotypes.
+
+Extracting frequencies from a VCF
+*********************************
+
+Similarly, one can extract allelic frequencies as a :class:`.stats.Freq`
+object using :func:`.stats.freq_from_vcf` or :meth:`.stats.Freq.process_vcf`,
+provided that the VCF file has frequency information encoded using the
+``AN`` and ``AC`` INFO fields::
+
+    >>> vcf = egglib.io.VcfParser('example.vcf')
+    >>> print vcf.next()
+    ('20', 14369, 2)
+    >>> frq = egglib.stats.freq_from_vcf(vcf)
+    >>> print frq.freq_allele(0), frq.freq_allele(1)
+    3 3
+
+    >>> print vcf.next()
+    ('20', 17329, 2)
+    >>> print vcf.next()
+    ('20', 1110695, 3)
+    >>> print vcf.next()
+    ('20', 1230236, 1)
+    >>> print vcf.next()
+    ('20', 1234566, 3)
+    >>> frq.process_vcf(vcf)
+    >>> print frq.freq_allele(0), frq.freq_allele(1), frq.freq_allele(2)
+    2 3 1
+
+We can see that :class:`!Site` from VCF extraction and :class:`!Freq` from VCF
+extraction are consistent.
+
+Getting a variant as an object
+******************************
+
+To extract data manually for a given site, it is also possible to get all data
+at once. There is a :meth:`~.VcfParser.get_variant` method that returns an
+object of a special type (:class:`.stats.Variant`). This is a proxy class,
+just like :class:`.SampleView` for :class:`.Align` classes, and the same
+precautions must be taken while using it. Objects of the class :class:`!Variant`
+provide a number of attributes and methods that allow to read all desired data.
+We will just show a single example. The VCF file we use has a ``HQ`` FORMAT
+field (haplotype quality). We will extract it for each sample in a loop::
+
+    >>> vcf = egglib.io.VcfParser('example.vcf')
+    >>> for chrom, pos, nall in vcf:
+    ...     v = vcf.last_variant()
+    ...     if 'HQ' in v.format_fields:
+    ...         print [i['HQ'] for i in v.samples]
+    ...     else:
+    ...         print 'no data'
+    ...
+    [(51, 51), (51, 51), (None, None)]
+    [(58, 50), (65, 3), None]
+    [(23, 27), (18, 2), None]
+    [(56, 60), (51, 51), None]
+    no data
+
+For each variant, we first tested that ``HQ`` is present in the FORMAT
+fields for this variant (in one instance, it is not the case). If so,
+it is extracted from the list of dictionaries provided as the attribute
+:attr:`~.Variant.samples`.
+
+Reading compressed files or arbitrary data
+******************************************
+
+The class :class:`!VcfParser` is not able to read compressed files, requiring
+that you decompress them before you read them. This can be done "on the fly"
+using embedded facilities of the Python language.
+
+Let's first contemplate the problem, where ``example.vcf.gz`` is a `gunzip``-compressed
+version of the same example VCF file::
+
+    >>> vcf = egglib.io.VcfParser('example.vcf.gz')
+    Traceback (most recent call last):
+      File "tutorial2.py", line 236, in <module>
+        vcf = egglib.io.VcfParser('example.vcf.gz')
+      File "/usr/lib64/python2.7/site-packages/egglib/io/_vcf.py", line 83, in __init__
+        self._parser.open_file(fname)
+    IOError: cannot parse "VCF" data from "example.vcf.gz" (line 1): first character of file is not "#" as expected [char: ]
+
+The strange character read at the first line is a direct consequence of providing
+compressed data when the parser expects uncompressed data. The solution, besides
+merely uncompressing the file and importing the resulting uncompressed files, is
+shown below::
+
+    >>> import gzip
+    >>> f = gzip.open('example.vcf.gz')
+    >>> cache = []
+    >>> while True:
+    ...     line = f.readline()
+    ...     if line[:2] == '##': cache.append(line)
+    ...     elif line[:1] == '#':
+    ...         cache.append(line)
+    ...         break
+    ...     else: raise IOError, 'invalid file'
+    ...
+
+    >>> header = ''.join(cache)
+    >>> vcf = egglib.io.VcfParser.from_header(header)
+
+    >>> for line in f:
+    ...     print vcf.read_line(line)
+    ...     site.process_vcf(vcf, reset=True)
+    ...     print site.as_list(False, True)
+    ...
+    ('20', 14369, 2)
+    [(0, 0), (1, 0), (1, 1)]
+    ('20', 17329, 2)
+    [(0, 0), (0, 1), (0, 0)]
+    ('20', 1110695, 3)
+    [(0, 1), (1, 0), (1, 1)]
+    ('20', 1230236, 1)
+    [(0, 0), (0, 0), (0, 0)]
+    ('20', 1234566, 3)
+    [(0, 1), (0, 2), (1, 1)]
+
+The :mod:`gzip` module lets you read ``gunzip``--compressed data using a :class:`file`-like
+interface. The only tricky part is to import the header (all lines starting with ``##`` up to
+the one starting with a single ``#``). The header line are stored in the
+``cache`` list then concatenated back into a :class:`str`.
+
+The :meth:`.VcfParser.from_header` method is a factory method (it is used to
+create a new object), which takes an header string as argument. This is
+useful in cases such as this---where the data are imported from a non-trivial source---or
+in cases where the user wants to generate a header dynamically.
+
+After that, each line can be provided as a string through :meth:`~.VcfParser.read_line`,
+which is identical to :meth:`~.VcfParser.next` (or an iteration step), except
+that the data are provided from the outside. Of course, it is required that the
+number of samples are constant throughout the data which are provided, and that
+all INFO or FORMAT fields are declared and properly used, as for any normal file.

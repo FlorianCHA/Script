@@ -1,0 +1,1639 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>History &mdash; EggLib</title>
+    
+    <link rel="stylesheet" href="_static/sphinxdoc.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '2.1.11',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="shortcut icon" href="_static/icon.ico"/>
+    <link rel="top" title="EggLib" href="index.html" />
+    <link rel="prev" title="Acknowledgments" href="acknowledgments.html" /> 
+  </head>
+  <body>
+
+<div style="background-color: white; text-align: left; padding: 0px 0px 0px 0px">
+<a href="index.html"><img src="_static/egglib_banniere5.png" border="0" alt="EggLib"/></a>
+</div>
+
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="acknowledgments.html" title="Acknowledgments"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">EggLib</a> &raquo;</li> 
+      </ul>
+    </div>
+<div style="background-color: grey; text-align: left; padding: 0px 0px 0px 10px; border-bottom: 1px solid #2d2e91">
+<font color="white" ><b>EggLib version 2.1 is archived.</b></font></div>
+
+
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="acknowledgments.html"
+                        title="previous chapter">Acknowledgments</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/history.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="history">
+<span id="id1"></span><h1>History<a class="headerlink" href="#history" title="Permalink to this headline">¶</a></h1>
+<p>Here is a complete history of EggLib tracing back to initial pure C++
+version.</p>
+<p><strong>2.1.11.</strong> 2016-03-04</p>
+<blockquote>
+<div>Fixed a bug in eggcoal that caused an exception, with error messages
+stating that EggLib was unable to open (actually, in that case,
+create) a file.</div></blockquote>
+<p><strong>2.1.10.</strong> 2015-03-23</p>
+<blockquote>
+<div><p>Ported to Bio++ 2.2.0. The new version is not compatible with
+previous versions of Bio++: the management of alphabets and genetic
+codes is modified.</p>
+<p>In <tt class="xref py py-class docutils literal"><span class="pre">ParamSet</span></tt> (of the C++ library): the method <tt class="xref py py-meth docutils literal"><span class="pre">reset()</span></tt>
+previously restored objects to 0 population (instead of 1).</p>
+</div></blockquote>
+<p><strong>2.1.9.</strong> 2014-10-04</p>
+<blockquote>
+<div>Bug fix: the <tt class="docutils literal"><span class="pre">staden()</span></tt> parser (and consequently the
+<tt class="docutils literal"><span class="pre">staden2fasta</span></tt> command) had an error that shifted sequences that
+would start <em>after</em> the first sequence finished.</div></blockquote>
+<p><strong>3.0.0a.</strong> 2014-09-23</p>
+<blockquote>
+<div>Preliminary (alpha, for testing purpose only) release of the version
+3. This package contains the C++ new library and a stub Python
+package providing the updated <tt class="docutils literal"><span class="pre">Align</span></tt> and <tt class="docutils literal"><span class="pre">Container</span></tt> classes
+and an executable module implementing the coalescence simulator
+<tt class="docutils literal"><span class="pre">coalesce</span></tt>.</div></blockquote>
+<p><strong>2.1.8.</strong> 2014-09-23</p>
+<blockquote>
+<div>This is bug fix release fixing the following major problem that
+affected everyone using the summary statistics sets TPS, TPF and TPK
+(chiefly using <tt class="docutils literal"><span class="pre">abc_sample</span></tt>). The error was that the program used
+population Pi for the last locus only (ignoring all previous ones).
+The three summary statistics sets are fixed.</div></blockquote>
+<p><strong>2.1.7.</strong> 2013-11-07</p>
+<blockquote>
+<div><p>This version fixes the following minor problems:</p>
+<blockquote>
+<div><ul class="simple">
+<li>eggstats: fixed two missing colons in program output (for Bio++ stats).</li>
+<li>The archive egglib-htmldoc-2.1.6.tar.gz was actually a bzip2 archive.</li>
+<li>egglib-cpp&#8217;s configure script has been modified to detect more consistently the GSL library. If you have trouble to get it detected, please contact us. (Thanks to Jérôme Gouzy.)</li>
+<li>The setup.py script takes clags=X and lflags=Y arguments to add X and Y as extra compile and link flags to compilation command lines.</li>
+</ul>
+</div></blockquote>
+<p>There was a more serious problem in tools and polymorphism analysis: there was a problem with genetic code specification&#8211;the code argument was ignored in some cases.</p>
+</div></blockquote>
+<p><strong>2.1.6.</strong> 2013-04-22</p>
+<blockquote>
+<div>egglib.cpp is modified to support Bio++ version 2.1.0.</div></blockquote>
+<p><strong>2.1.5.</strong> 2013-09-20</p>
+<blockquote>
+<div><p>This version makes the following minor changes:</p>
+<blockquote>
+<div><ul class="simple">
+<li>[backalign] tools.backalign() does not crop stop codons out of coding sequences any more.</li>
+<li>[codalign] the codalign command takes a flag to prevent cropping stop codons out of coding sequences.</li>
+<li>[fitmodel] the demographic models all accept a random object in order to control the random number chain (in the generate function)</li>
+</ul>
+</div></blockquote>
+<p>This version also corrects the following bugs or errors:</p>
+<blockquote>
+<div><ul class="simple">
+<li>[fitmodel] the documentation of the ABC model SM had incorrect parameter order THETA, DATE, MIGR, [RHO] (correct is THETA, MIGR, DATE, RHO)</li>
+<li>[utils] the seeds argument of ABC simulation commands did not control the random generator objects used by demographic models</li>
+</ul>
+</div></blockquote>
+</div></blockquote>
+<p><strong>2.1.4.</strong> 2013-09-04</p>
+<blockquote>
+<div><p>This version fixes the following serious bug:</p>
+<blockquote>
+<div><ul class="simple">
+<li>[diversity] the Fst/Kst/Gst/Hst/Snn statistics might be computed incorrectly if outgroup sequence were not placed at the end of the file (thanks to Emmanuel Reclus).</li>
+</ul>
+</div></blockquote>
+<p>This version fixes the following minor bugs:</p>
+<blockquote>
+<div><ul class="simple">
+<li>[Codeml] the wrapper was failing to import site probability for models M1a, M2a, M8a and M8 if the reference was a gap (if the first position reference was a gap, a crash occurred; otherwise, the site probability table was truncated from the first gap position and on) (thanks to Nathalie Chantret).</li>
+<li>[matcher] a ValueError was fixed.</li>
+</ul>
+</div></blockquote>
+<p>This version makes the following minor changes:</p>
+<blockquote>
+<div><ul class="simple">
+<li>[Random] the seed1 and seed2 getters become const.</li>
+<li>[Codeml] the wrapper now exports a <cite>np</cite> key (the number of parameters).</li>
+<li>[fitmodel] a new prior type is added (PriorParser).</li>
+</ul>
+</div></blockquote>
+</div></blockquote>
+<p><strong>2.1.3.</strong> 10/02/12</p>
+<blockquote>
+<div><p>This version fixes the following bugs:</p>
+<blockquote>
+<div><ul class="simple">
+<li>[fitmodel, abc_sample] the statistics set TPF was repaired (it is also modified compared to its previous definition).</li>
+<li>[Align.phylip, wrappers.nj] the phylip converter of Align had a bug and has been repaired and rewritten.</li>
+<li>[tools] a non-ASCII character was accidentally inserted in a comment in tools.py, preventing the package to load on at least some systems.</li>
+</ul>
+</div></blockquote>
+</div></blockquote>
+<p><strong>2.1.2.</strong> 08/02/12</p>
+<blockquote>
+<div><p>This version fixes the following bugs:</p>
+<blockquote>
+<div><blockquote>
+<div><ul class="simple">
+<li>[eggstats] the option <tt class="docutils literal"><span class="pre">groups</span></tt> was ignored (the default value was always used).</li>
+<li>[SitePolymorphism, data.Align.polymorphism, eggstats, etc.] non polymorphic sites were not considered as orientable: as a result, the number of orientable sites was always incorrectly reported as &lt;= S.</li>
+<li>[fitmodel, abc_sample] model AM was incorrectly implemented, leading to invalid results.</li>
+</ul>
+</div></blockquote>
+<p>This version incorporates the following improvements:</p>
+<blockquote>
+<div><ul class="simple">
+<li>[eggstats] the option <tt class="docutils literal"><span class="pre">outgroup</span></tt> is added, as well as a few statistics.</li>
+<li>[fitmodel, abc_sample] added summary statistics set SDZ</li>
+</ul>
+</div></blockquote>
+<p>Note on interface changes:</p>
+<blockquote>
+<div><ul class="simple">
+<li>[eggstats] one additional option.</li>
+<li>[eggstats] if you parse eggstats&#8217;s output, beware that statistics have been added, the order is changed and some statistics might be skipped if you set the <tt class="docutils literal"><span class="pre">groups</span></tt> option to <tt class="docutils literal"><span class="pre">no</span></tt>.</li>
+</ul>
+</div></blockquote>
+</div></blockquote>
+</div></blockquote>
+<p><strong>2.1.1.</strong> 26/01/12</p>
+<blockquote>
+<div>This version fixes a single bug: in eggcoal, the default number of threads could be smaller than the number of CPUs under some conditions. The links are updated following the move from the seqlib to egglib sourceforge project.</div></blockquote>
+<p><strong>2.1.0.</strong> 24/01/12</p>
+<blockquote>
+<div><p>Version 2.1.0 is a preliminary version of the 2.1 release that will include an additional round of interface-changing changes. The changes listed below are mostly bug-fixes.</p>
+<ul class="simple">
+<li><a class="reference internal" href="data.html#egglib.Align" title="egglib.Align"><tt class="xref py py-class docutils literal"><span class="pre">Align</span></tt></a> and <a class="reference internal" href="data.html#egglib.Container" title="egglib.Container"><tt class="xref py py-class docutils literal"><span class="pre">Container</span></tt></a> method <tt class="xref py py-meth docutils literal"><span class="pre">find()</span></tt> now returns <tt class="docutils literal"><span class="pre">None</span></tt> instead of -1 when the specified name is not found.</li>
+<li>There were a few mistakes in the documentation included in the file apps.conf.ini.</li>
+<li>In the documentation of the command <em>ungap</em>, the word &#8220;newick&#8221; was incorrectly used instead of &#8220;fasta&#8221; (when specifying the format of the input file).</li>
+<li>Some other minor documentation fixes.</li>
+<li>The documentation of the <a class="reference internal" href="data.html#egglib.Align" title="egglib.Align"><tt class="xref py py-class docutils literal"><span class="pre">Align</span></tt></a> method <tt class="xref py py-meth docutils literal"><span class="pre">matrixLD()</span></tt> has been completed.</li>
+<li>The method <a class="reference internal" href="simul.html#egglib.simul.coalesce" title="egglib.simul.coalesce"><tt class="xref py py-class docutils literal"><span class="pre">coalesce</span></tt></a> now returns <cite>~egglib.SSR</cite> instances instead of <cite>~egglib.Align</cite> if the number of alleles specified in the mutator if above 4.</li>
+<li>A flag <em>forceSSR</em> is added to the method <a class="reference internal" href="simul.html#egglib.simul.coalesce" title="egglib.simul.coalesce"><tt class="xref py py-class docutils literal"><span class="pre">coalesce</span></tt></a>.</li>
+<li>All classes of the <em>data</em> module are converted to new-style classes.</li>
+<li>In <cite>~egglib.SSR</cite>, when using the load method, population labels were not changed to strings.</li>
+<li><cite>~egglib.SSR</cite> improvements: addition of a <tt class="docutils literal"><span class="pre">str()</span></tt> method and <tt class="docutils literal"><span class="pre">str()</span></tt> support (string formatting), and addition of the <tt class="xref py py-attr docutils literal"><span class="pre">indiv2pop</span></tt> mapping data member.</li>
+<li>When <tt class="xref py py-meth docutils literal"><span class="pre">egglib.Align.polymorphism()</span></tt> and <tt class="xref py py-meth docutils literal"><span class="pre">egglib.Align.polymorphismBPP()</span></tt> are unable to compute a statistics, the corresponding key in the returned dictionary is given a <tt class="docutils literal"><span class="pre">None</span></tt> value (rather than not reporting the statistic at all).</li>
+<li>A check is added in ABC regression method to prevent attempting to fit data files containing model labels.</li>
+<li><tt class="xref py py-meth docutils literal"><span class="pre">Align.remove()</span></tt> in egglib-cpp was returning the length of the alignment instead of the new number of sequences.</li>
+<li>An error lied in the low-level Edge class of the coalescent simulator, potentially generating errors when formatting newick string from ancestral recombination graphs and, potentially, skipping some mutations.</li>
+<li>A tiny change is made to the error message shown by <tt class="xref py py-class docutils literal"><span class="pre">EggInvalidCharacterError</span></tt>.</li>
+<li>In the C++ library, <tt class="xref py py-meth docutils literal"><span class="pre">HaplotypeDiversity.haplotypeIndex()</span></tt> nows performs out of bound checking.</li>
+<li><tt class="xref py py-meth docutils literal"><span class="pre">LinkageDisequilibrium.correl()</span></tt> generated invalid results due to a bug.</li>
+<li>tMRCA values obtained by the <tt class="xref py py-class docutils literal"><span class="pre">Ms</span></tt> class of <em>egglib-cpp</em> are changed to double type (previously, they were float, what could cause rounding shifts when accessing them from Python).</li>
+<li><a class="reference internal" href="data.html#egglib.Align.shuffle" title="egglib.Align.shuffle"><tt class="xref py py-meth docutils literal"><span class="pre">shuffle()</span></tt></a> had a bug.</li>
+<li><tt class="xref py py-meth docutils literal"><span class="pre">simErrors()</span></tt> is not available for <a class="reference internal" href="data.html#egglib.Container" title="egglib.Container"><tt class="xref py py-class docutils literal"><span class="pre">Container</span></tt></a> instances anymore (for which it was not working).</li>
+<li>The stability of <tt class="xref py py-class docutils literal"><span class="pre">SSR</span></tt> is improved in case of empty data sets and when importing haploid data sets.</li>
+<li>The stability of the parser and extractor of <tt class="xref py py-class docutils literal"><span class="pre">TIGR</span></tt> has been improved.</li>
+<li>The stability of the parser of <tt class="xref py py-class docutils literal"><span class="pre">GenBank</span></tt> was improved.</li>
+<li>The meaning of <tt class="xref py py-meth docutils literal"><span class="pre">qualifiers()</span></tt> of <tt class="xref py py-class docutils literal"><span class="pre">egglib.GenBankFeature</span></tt> is changed (the previous version was incorrect).</li>
+<li><tt class="xref py py-meth docutils literal"><span class="pre">rc()</span></tt> of <tt class="xref py py-class docutils literal"><span class="pre">egglib.GenBankFeature.rc</span></tt> doesn&#8217;t require an argument anymore.</li>
+<li>Errors corrected in <tt class="xref py py-class docutils literal"><span class="pre">GenBankFeatureLocation</span></tt> methods to add sub-locations.</li>
+<li>Fixed a bug in <a class="reference internal" href="data.html#egglib.Tree" title="egglib.Tree"><tt class="xref py py-class docutils literal"><span class="pre">Tree</span></tt></a> method to set branch lengths.</li>
+<li>Error fixed in :class:~egglib.Tree.frequency_nodes`.</li>
+<li><tt class="xref py py-class docutils literal"><span class="pre">BLAST</span></tt> doesn&#8217;t accept containers with duplicated names anymore.</li>
+<li>Errors have been fixed in <tt class="xref py py-meth docutils literal"><span class="pre">egglib.Tree.get_nodes_re()</span></tt>, <tt class="xref py py-meth docutils literal"><span class="pre">egglib.TreeNode.set_branch_from()</span></tt> and <tt class="xref py py-meth docutils literal"><span class="pre">egglib.TreeNode.set_branch_to()</span></tt>.</li>
+<li>The Clustal alignment format parser in <tt class="xref py py-meth docutils literal"><span class="pre">aln2fas()</span></tt> has been fixed and improved.</li>
+<li>The <tt class="xref py py-meth docutils literal"><span class="pre">staden()</span></tt> was interpreting the fname as a Staden string. It is now possible to use both mode (read from file or from a string).</li>
+<li>An error was fixed in <tt class="xref py py-meth docutils literal"><span class="pre">get_fgenesh()</span></tt>.</li>
+<li>In <tt class="xref py py-class docutils literal"><span class="pre">Mase</span></tt>, only ingroup sequences are imported (previously, outgroup sequences were imported at the instance level but not in the internal <a class="reference internal" href="data.html#egglib.Align" title="egglib.Align"><tt class="xref py py-class docutils literal"><span class="pre">Align</span></tt></a> instance. The species name (<em>species</em> attribute) is stripped.</li>
+<li><a class="reference internal" href="tools.html#egglib.tools.longest_orf" title="egglib.tools.longest_orf"><tt class="xref py py-meth docutils literal"><span class="pre">longest_orf()</span></tt></a> now takes an option to specifies the minimal length of the returned ORFs. The default value is 1 codon, meaning that single stop codons are no longer returned by default.</li>
+<li>Error management in <a class="reference internal" href="tools.html#egglib.tools.rc" title="egglib.tools.rc"><tt class="xref py py-meth docutils literal"><span class="pre">rc()</span></tt></a> is slightly modified.</li>
+<li><a class="reference internal" href="tools.html#egglib.tools.ungap" title="egglib.tools.ungap"><tt class="xref py py-meth docutils literal"><span class="pre">ungap()</span></tt></a> now takes an option for ignoring gaps in the outgroup sequence(s).</li>
+<li>Bug fixed in <tt class="xref py py-meth docutils literal"><span class="pre">index()</span></tt>.</li>
+<li>There was a bug in <tt class="xref py py-meth docutils literal"><span class="pre">motifs()</span></tt>: the position of reverse hits was incorrect.</li>
+<li><tt class="xref py py-meth docutils literal"><span class="pre">locate()</span></tt> returns <tt class="docutils literal"><span class="pre">None</span></tt> (instead of -1) for motifs not found.</li>
+<li><tt class="xref py py-meth docutils literal"><span class="pre">exon()</span></tt> of <a class="reference internal" href="tools.html#egglib.tools.ReadingFrame" title="egglib.tools.ReadingFrame"><tt class="xref py py-class docutils literal"><span class="pre">ReadingFrame</span></tt></a> now returns <tt class="docutils literal"><span class="pre">None</span></tt> if the position is not in an exon.</li>
+<li><tt class="xref py py-class docutils literal"><span class="pre">Updater</span></tt> now always shows null remaining time when &#8220;done&#8221; gets larger than &#8220;expected&#8221;.</li>
+<li><tt class="xref py py-meth docutils literal"><span class="pre">wrap()</span></tt> is slightly improved.</li>
+<li>The ms wrapper support the &#8220;prob&#8221; line that appears in ms output when both theta and the number of segregating sites have been specified.</li>
+<li>The ms wrapper support the tree line(s) that appear in ms output when it has been requested, and adds a list of :class;`~egglib.Tree` instances to the returned instances under the name <tt class="docutils literal"><span class="pre">trees</span></tt>.</li>
+<li>BLAST wrappers are slightly improved.</li>
+<li>The clustalw wrapper and parser have been improved to support the current version of the program.</li>
+<li><a class="reference internal" href="wrappers.html#egglib.wrappers.clustal" title="egglib.wrappers.clustal"><tt class="xref py py-meth docutils literal"><span class="pre">clustal()</span></tt></a> and <a class="reference internal" href="wrappers.html#egglib.wrappers.muscle" title="egglib.wrappers.muscle"><tt class="xref py py-meth docutils literal"><span class="pre">muscle()</span></tt></a> now attempt to preserve group labels and as a result no longer support duplicates in continers. They now take a <em>nogroup</em> flap to disable this feature.</li>
+<li>The following stability issues have been fixed in <tt class="xref py py-class docutils literal"><span class="pre">Codeml</span></tt>: regular expressions sometimes failed to catch some beta parameters; the number of classes of M8a/M8 models was incorrectly reporter as incorect when the number of categories was not default; and, for models A0, A and nW, the class did not checked that the tree has labels beforehand.</li>
+<li>The following stability issues have been fixed in <tt class="xref py py-class docutils literal"><span class="pre">Primer3</span></tt>: &#8220;primer not found&#8221; messages could occur when lower-case sequences were passed (the comparison are case-dependent - now the sequence is automatically converted to upper case), and when modifying the primer3 parameter relative to the primer first base index (previously, the class did not take this into account when locating the primer).</li>
+<li>The member <em>nMutations</em> was missing from <a class="reference internal" href="binding.html#egglib.egglib_binding.DataMatrix" title="egglib.egglib_binding.DataMatrix"><tt class="xref py py-class docutils literal"><span class="pre">DataMatrix</span></tt></a> instances returned by <a class="reference internal" href="simul.html#egglib.simul.coalesce" title="egglib.simul.coalesce"><tt class="xref py py-meth docutils literal"><span class="pre">coalesce()</span></tt></a>.</li>
+<li>The option <em>randomAncestralState</em> of mutators of the <a class="reference internal" href="simul.html#module-egglib.simul" title="egglib.simul"><tt class="xref py py-mod docutils literal"><span class="pre">simul</span></tt></a> module was broken.</li>
+<li>Modification in eggcoal: the program takes a &#8220;suffix&#8221; option and the &#8220;prefix&#8221; option can be skipped using a backlash character. The underlying variable _fastaPath becomes _fastaPrefix for clarity.</li>
+<li>eggcoal is also parallelized an accept a max_threads option.</li>
+<li>The command <cite>abc_sample</cite> now supports parallel computing. See the <cite>max_threads</cite> option. The <cite>step</cite> option is removed.</li>
+<li>phyml (both function and utils command) allows to set the starting tree without fixing the topology.</li>
+<li>small bugs fixed in IMn, IMG, IMiG, IMiGn and DOM (with recombination) demographic models.</li>
+<li>The ABC summary statistics stats JFS yielded invalid results.</li>
+<li>The <cite>command</cite> abc_psimuls now manages simulations without mutations (they previously caused an error). Missing statistics (such as those that are undefined when no polymorphism, or those that are not available) are now replaced by &#8220;None&#8221;.</li>
+<li>The function <a class="reference internal" href="utils.html#egglib.utils.execute" title="egglib.utils.execute"><tt class="xref py py-meth docutils literal"><span class="pre">execute()</span></tt></a> of the <a class="reference internal" href="utils.html#module-egglib.utils" title="egglib.utils"><tt class="xref py py-mod docutils literal"><span class="pre">utils</span></tt></a> module can be run directly to execute utils commands from python (as normal functions).</li>
+<li>There was a bug in command <cite>concatgb</cite>&#8216;s default value for option &#8220;spacer&#8221;.</li>
+<li>Command <cite>consensus</cite> did not accept separator of length 1 (the separator must be a single character).</li>
+<li>The <a class="reference internal" href="data.html#egglib.Align.consensus" title="egglib.Align.consensus"><tt class="xref py py-meth docutils literal"><span class="pre">consensus()</span></tt></a> method of <a class="reference internal" href="data.html#egglib.Align" title="egglib.Align"><tt class="xref py py-meth docutils literal"><span class="pre">Align()</span></tt></a> is made more restrictive: only IUPAC characters are accepted. It returns an alignment gaps only if the gap is fixed (previously it returned a gap when there was at least one gap in the column).</li>
+<li>In <cite>extract_clade</cite> command, nodes that have a support value equal to the threshold were rejected instead of accepted.</li>
+<li>In <cite>extract_clade</cite> command, nodes that did not have labels were not supported when the threshold option is used.</li>
+<li>In the <cite>family</cite> command, BLAST failed when the source sequences were proteins (because the data were cleaned assuming they were nucleotides).</li>
+<li>In the <cite>interLD</cite> command, the output file had &#8220;file 1&#8221; twice.</li>
+<li><tt class="xref py py-meth docutils literal"><span class="pre">locate()</span></tt> is changed. Ambiguity characters are now allowed in the target sequence and, importantly, exact matches are found in priority (in order to fasten searches).</li>
+<li>Command <cite>staden2fasta</cite> had a bug that prevented it from reading any file.</li>
+<li>In the coalescence simulator, if the length of the tree is 0 (no samples), there will be no mutations regardless of the fixed number of mutations (previously, a bug occurred when a fixed number of mutations was requested with no samples).</li>
+<li>A copy constructor is added to Mutator (in egglib-cpp).</li>
+<li>A test subpackage is added to the Python package. It is included in the distributed version although it has not be designed to be routinely used by end-users (it has minimal documentation, a crude reporting system and generates local temporary files in the current directory, so it might deletes user&#8217;s files if they happen to have the same name as one of the temporary file names used). This test package helped detect most of the bugs listed above.</li>
+</ul>
+</div></blockquote>
+<p><strong>2.0.3.</strong> 07/10/11</p>
+<blockquote>
+<div><p>This version incorporates a number of minor changes:</p>
+<blockquote>
+<div><ul>
+<li><dl class="first docutils">
+<dt>Small changes:</dt>
+<dd><ul class="first last simple">
+<li>The utils command phyml accepted an option <tt class="docutils literal"><span class="pre">add_model</span></tt> that was meaningless (and ignored). It is now removed.</li>
+<li>eggstats and the egglib script (or <tt class="docutils literal"><span class="pre">python</span> <span class="pre">-m</span> <span class="pre">egglib.utils</span></tt>) now reports the version number in the default manual page.</li>
+<li>eggcoal takes a &#8211;version or -v option to print out the version number.</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>Implementation changes:</dt>
+<dd><ul class="first last simple">
+<li>The C++ Fasta parser now provides methods that append
+sequences to an existing <tt class="xref py py-class docutils literal"><span class="pre">Container</span></tt>.</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>Fixed bugs:</dt>
+<dd><ul class="first last simple">
+<li><tt class="xref py py-class docutils literal"><span class="pre">Container</span></tt> could not instanciate from strings.</li>
+<li>The <em>clean</em> command of egglib-py setup.py was broken and
+caused an error.</li>
+<li>The method <tt class="xref py py-meth docutils literal"><span class="pre">Convert.Align()</span></tt> and the program <em>eggcoal</em>, when running with a fixed alignment length and
+using default mutation positions, failed to sort the mutation positions leading to either incorrect positions
+(they were clustered to the right-hand end of the alignment) or an error.</li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+</div></blockquote>
+</div></blockquote>
+<p><strong>2.0.2.</strong> 16/09/11</p>
+<blockquote>
+<div><p>The change below fixes an error in the calculation of a statistic:</p>
+<ul class="simple">
+<li>Fixed an error in the calculation of <tt class="docutils literal"><span class="pre">triConfigurations</span></tt> (some patterns were counted several times).</li>
+<li><tt class="docutils literal"><span class="pre">triConfigurations</span></tt> now ignores sites that have 0 sequence in either of the populations.</li>
+</ul>
+<p>The changes below are fixes corresponding to crashes or errors:</p>
+<ul class="simple">
+<li>Fixed an error that prevented data.Align.polymorphismBPP from running.</li>
+<li>Added an inclusion to the SWIG interface that was necessary for compiling the Python module on a least one system.</li>
+<li><tt class="xref py py-class docutils literal"><span class="pre">tools.Primer3</span></tt> (and consequently the utils command sprimers) was broken with recent versions of the program. Now updated to primer3 version 2.2.3.</li>
+<li>Fixed an error that resulted in a crash when displaying help for utils commands (under Windows and source version only).</li>
+<li>The ABC class and the abc_fit commande were unable to compute threshold/perform rejection when at least one statistic was not variable; now they still are unable to do so, but report an informative message error.</li>
+<li>abc_sample (linked to a method of both Prior type) now takes an argument &#8220;force_positive&#8221; that enforces that drawn parameter values are &gt;=0 (an error is thrown if no positive value is found after a fixed number of tries).</li>
+<li>Documentation of executable commands (<tt class="docutils literal"><span class="pre">python</span> <span class="pre">-m</span> <span class="pre">egglib.utils</span> <span class="pre">concat</span></tt> for example) caused a crash on Windows installations.</li>
+<li>In the coalescent simulator, the case when M=0 preventing simulations to complete was not handled properly (an incorrect error message was issued).</li>
+<li>The stability of <tt class="xref py py-meth docutils literal"><span class="pre">wrappers.Primer3.find_primers()</span></tt> was improved (some errors occurred, typically with repetitive sequences where primers could be found at multiple positions in sequences).</li>
+</ul>
+<p>The changes below are minor improvements:</p>
+<ul class="simple">
+<li>The function for adding models to the ABC analysis is modified.
+Now the model must be specified as a class with the same name as the module.</li>
+</ul>
+<p>The changes below are corrections to the names of statistics reported by <tt class="xref py py-meth docutils literal"><span class="pre">polymorphism()</span></tt>:</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">Polymorphisms</span></tt> is renamed <tt class="docutils literal"><span class="pre">pop_Polymorphisms</span></tt>.</li>
+<li>The following statistics are reported: <tt class="docutils literal"><span class="pre">pair_CommonAlleles</span></tt>, <tt class="docutils literal"><span class="pre">pair_FixedDifferences</span></tt>, <tt class="docutils literal"><span class="pre">pair_SharedAlleles</span></tt>, <tt class="docutils literal"><span class="pre">pop_SpecificAlleles</span></tt>, <tt class="docutils literal"><span class="pre">pop_SpecificDerivedAlleles</span></tt>.</li>
+</ul>
+<p>Some statistics are now no longer returned by both <tt class="xref py py-meth docutils literal"><span class="pre">polymorphism()</span></tt> and <tt class="xref py py-meth docutils literal"><span class="pre">polymorphismBPP()</span></tt>
+depending on the values of other statistics. For example <tt class="docutils literal"><span class="pre">thetaW</span></tt> and <tt class="docutils literal"><span class="pre">Pi</span></tt> are no longer returned if <tt class="docutils literal"><span class="pre">lseff</span></tt> is 0
+and <tt class="docutils literal"><span class="pre">D</span></tt> if <tt class="docutils literal"><span class="pre">S</span></tt> is 0. This is clearly documented in the documentation of both methods.</p>
+<p>In addition, several typos were corrected in the documentation.</p>
+</div></blockquote>
+<p><strong>2.0.1. Windows pre-compiled modules</strong> - 11/04/11</p>
+<blockquote>
+<div><ul class="simple">
+<li>The code from the egglib script is moved to egglib.utils.execute.</li>
+<li>egglib.utils is executable (as an alias for the egglib script).</li>
+<li>egglib.utils.commands is created to hold all executable command
+classes.</li>
+</ul>
+</div></blockquote>
+<p><strong>2.0.1</strong> - 26/04/11</p>
+<p>New major release. The interface is modified in depth. A few of the
+many changes are higlighted below:</p>
+<blockquote>
+<div><ul class="simple">
+<li>The name of the package is changed from SeqLib to EggLib to
+avoid confusion with other seqlib packages in the same field.</li>
+<li>The C++ library is formally distinct (<tt class="docutils literal"><span class="pre">egglib-cpp</span></tt>).</li>
+<li>Two separate C++ programs (<tt class="docutils literal"><span class="pre">eggstats</span></tt> and <tt class="docutils literal"><span class="pre">eggcoal</span></tt>) are
+also separated from the rest.</li>
+<li>The remainder is the Python module, <tt class="docutils literal"><span class="pre">egglib-py</span></tt>, whose structure
+is slightly modified: <tt class="docutils literal"><span class="pre">toolkit</span></tt> becomes <tt class="docutils literal"><span class="pre">tools</span></tt> and <tt class="docutils literal"><span class="pre">utils</span></tt>
+functions cannot be called anymore from Python code (not easily
+at least).</li>
+<li>Classes <tt class="docutils literal"><span class="pre">Container</span></tt>, <tt class="docutils literal"><span class="pre">Align</span></tt>, <tt class="docutils literal"><span class="pre">Tree</span></tt> and <tt class="docutils literal"><span class="pre">GenBank</span></tt> are
+extended and improved (and their names take capitals). In
+particular, polymorphism analysis is performed though <tt class="docutils literal"><span class="pre">Align</span></tt>
+methods. They all have more powerful iteration methods. A <tt class="docutils literal"><span class="pre">SSR</span></tt>
+class is added.</li>
+<li>Additional genetic code are supported for translations.</li>
+<li>Ported to Bio++ version 2.</li>
+<li>The ABC module was rewritten, and made more easy to extend. The
+regression steps are performed at the C++ level and is more
+efficient (supports very large data files).</li>
+<li>Interactive commands are standardized under a common interface
+controlling parameter input and documentation.</li>
+<li>The C++ coalescent simulator is rewritten and now includes
+recombination, microsatellite and finite site mutation models.</li>
+<li>The Python interface to the C++ coalescent simulator is
+redesigned to make it more easy to handle.</li>
+<li>The extension module (binding to <tt class="docutils literal"><span class="pre">egglib-cpp</span></tt>) now uses SWIG and
+doesn&#8217;t require any external dynamic library.</li>
+<li>The building process is based on autotools for the C++ packages
+and on distutils for the Python package.</li>
+<li>Documentation using sphinx.</li>
+<li>Many more changes not documented: please refer to the
+documentation when migrating from seqlib to EggLib.</li>
+</ul>
+</div></blockquote>
+<p><strong>1.6</strong> - 02/07/10</p>
+<p>This version cumulates several bug fixes and additions. Rule H is
+modified (single backward compatibility change) and rule I is added.
+(These rules use the frequency spectrum; type
+<tt class="docutils literal"><span class="pre">$python</span> <span class="pre">-m</span> <span class="pre">seqlib.run</span> <span class="pre">abc_stats</span></tt> to know more. Note that rule I
+automatically implies a missing data threshold of 0.70.). Among bug
+fixes, a problem occurred with haplotype analysis when the outgroup was
+not at the last position (resulting in memory crashes and possibly in
+erroneous computation of statistics K, Hd and Fst estimators based on
+haplotypes).</p>
+<p><strong>1.5</strong> - 26/11/09</p>
+<p>More minor improvements and bug fixed. The change log is, unfortunately
+unavailable but notable changes are the addition of stat rule H to the
+ABC scheme (using the allele frequency spectrum as rejection/regression
+criteria) and the removal of a bug in the coalescent simulator (that led
+to the duplication of simulations without polymorphism under a certain
+combination of options).</p>
+<p><strong>1.4</strong> - 24/10/09</p>
+<p>Few minor improvements: The command <tt class="docutils literal"><span class="pre">abc_psimuls</span></tt> accepts an option
+&#8220;excludefixed&#8221; that allows discarding simulations with S=0 for computing
+the P-values of D, H and Z statistics. The rule G is changed.</p>
+<p><strong>1.3</strong> - 23/10/09</p>
+<p>One important bug fix and one addition.</p>
+<p>BUG FIX: Migration times were incorrectly drawn in the coalescent
+simulator. The source code line doing that was accidently deleted!</p>
+<p>ADDITION: addition of one set of statistics to the ABC system, allowing
+to use thetaW, Pi, Snn and their respective coefficient of variation in
+order to fit structure population models.</p>
+<p><strong>1.2</strong> - 06/10/09</p>
+<p>With respect to version 1.0, this version fixes bugs and introduces
+candidate features. The first bug listed led seqlib to output incorrect
+results. Thanks to Sonja Kujala and Thomas Källman for helping solving
+these problems.</p>
+<p>BUG FIXES:</p>
+<blockquote>
+<div><ul class="simple">
+<li>The statistics H, thetaH and Z (Fay and Wu&#8217;s test) were incorrect.
+H was incorrect since version 1.0 and Z was incorrect since the
+beginning. The error was causing a deviation or an order of ~0.1
+of statistics H and Z that was consistent between simulations and
+computations from real data.</li>
+<li>The method <tt class="docutils literal"><span class="pre">rempos</span></tt> (of Align and align) did not terminate
+correctly sequence strings.</li>
+<li>The coalescent simulator used population indices starting at 0
+when S was 0 and from 1 otherwise. Now indices always start at 0.</li>
+<li><tt class="docutils literal"><span class="pre">abc_stats</span></tt> didn&#8217;t support fixed parameters (when min=max).</li>
+<li>a &#8216;collinear matrix&#8217; error message was returned by <tt class="docutils literal"><span class="pre">abc_fit</span></tt>
+when one (or more) of the statistics where not variable within the
+local region. Now, abc_fit takes an argument force that forces it
+to proceeds to the analysis in such case (as long as at least one
+statistic is variable), although it is always preferable that at
+least as many independent statistics as the number of parameters
+to estimate are available.</li>
+<li>the pyinter class container had a method <tt class="docutils literal"><span class="pre">column()</span></tt> whose use
+led to a bug.</li>
+</ul>
+</div></blockquote>
+<p>ADDITIONS</p>
+<blockquote>
+<div><ul class="simple">
+<li>class <tt class="docutils literal"><span class="pre">tree</span></tt> (of toolkit) enhanced with new methods, including
+<tt class="docutils literal"><span class="pre">midroot()</span></tt> that performs automatic rooting using the midpoint
+method.</li>
+<li>creation of class <tt class="docutils literal"><span class="pre">codeml</span></tt>.</li>
+<li>creation of function <tt class="docutils literal"><span class="pre">phyml3</span></tt> (planned to replace the class phyml
+and using PHYML v. 3).</li>
+<li>creation of command <tt class="docutils literal"><span class="pre">picker</span></tt> to replace <tt class="docutils literal"><span class="pre">family</span></tt> (it is strongly
+advised to keep using <tt class="docutils literal"><span class="pre">family</span></tt>).</li>
+<li>new statistics in <tt class="docutils literal"><span class="pre">Polymorphism</span></tt> and <tt class="docutils literal"><span class="pre">polymorphism()</span></tt>,
+including singletons.</li>
+<li>member <tt class="docutils literal"><span class="pre">shuffle()</span></tt> in class <tt class="docutils literal"><span class="pre">container</span></tt>.</li>
+<li>argument &#8220;strict&#8221; of <tt class="docutils literal"><span class="pre">``container``</span></tt> classes&#8217; method <tt class="docutils literal"><span class="pre">find()</span></tt>.</li>
+<li><tt class="docutils literal"><span class="pre">clustal()</span></tt> uses temporary files, allowing its use in several
+parallel instances of Python.</li>
+<li>creation of the command <tt class="docutils literal"><span class="pre">interLD</span></tt>, allowing computing linkage
+disequilibrium between two loci (based on haplotypes, considering
+all alleles), and test it by random permutations.</li>
+</ul>
+</div></blockquote>
+<p><strong>1.1</strong></p>
+<p>No information available.</p>
+<p><strong>1.0</strong> - 07/06/09</p>
+<p>The changes from version 0.8 are listed below. The list is unfortunately
+non-exhaustive. In particular, many small interface changes and bug
+fixes are not listed. The changes are grouped by subpackage:</p>
+<blockquote>
+<div><ul>
+<li><dl class="first docutils">
+<dt><tt class="docutils literal"><span class="pre">seqlib</span></tt> (top-level)</dt>
+<dd><ul class="first last simple">
+<li>A user manual is now included.</li>
+<li>The utils commands must be launched through the had-oc module
+<tt class="docutils literal"><span class="pre">seqlib.run</span></tt>.</li>
+<li>The presence of external applications is monitored by the file
+<tt class="docutils literal"><span class="pre">config.py</span></tt> created by <tt class="docutils literal"><span class="pre">setup.py</span></tt> at installation.</li>
+<li>Ported to Python 2.6 (this is now the primary target).</li>
+<li>The structure is changed: the library is split into <tt class="docutils literal"><span class="pre">core</span></tt>,
+<tt class="docutils literal"><span class="pre">pyinter</span></tt>, <tt class="docutils literal"><span class="pre">toolkit</span></tt>, and <tt class="docutils literal"><span class="pre">utils</span></tt>.</li>
+<li>The contents of <tt class="docutils literal"><span class="pre">pyinter</span></tt> and <tt class="docutils literal"><span class="pre">toolkit</span></tt> are both loaded
+both in the top <tt class="docutils literal"><span class="pre">seqlib</span></tt> namespace.</li>
+<li>The doxygen documentation is fixed (but some formatting
+troubles remain).</li>
+<li>The package is reorganized to fit to a correct Python module.</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><tt class="docutils literal"><span class="pre">core</span></tt></dt>
+<dd><ul class="first last">
+<li><p class="first">Errors generated in seqlib.core&#8217;s code systematically raise
+<tt class="docutils literal"><span class="pre">SeqlibException</span></tt>.</p>
+</li>
+<li><p class="first">The previous <tt class="docutils literal"><span class="pre">error()</span></tt> flag system is removed.</p>
+</li>
+<li><dl class="first docutils">
+<dt><tt class="docutils literal"><span class="pre">Container</span></tt>/<tt class="docutils literal"><span class="pre">Align</span></tt>:</dt>
+<dd><ul class="first last simple">
+<li>All sequences have an integer label (supposed to indicate
+population membership).
+This modification is supported by <tt class="docutils literal"><span class="pre">IO</span></tt>, <tt class="docutils literal"><span class="pre">Polymorphism</span></tt>
+and <tt class="docutils literal"><span class="pre">Coalesce</span></tt>.</li>
+<li>The internals of both classes are reimplemented, allowing
+better performance for data access.</li>
+<li><tt class="docutils literal"><span class="pre">vslice(a,b)</span></tt> supports b&gt;a (returns an empty alignment)
+&amp; fixed bug : the groups were dismissed in all slices.</li>
+<li>The underlying class Sequence is removed.</li>
+<li>Accessors <tt class="docutils literal"><span class="pre">set()</span></tt> and <tt class="docutils literal"><span class="pre">get()</span></tt> for nucleotides.</li>
+<li>An undue error was raised when the last sequence was removed.</li>
+<li><tt class="docutils literal"><span class="pre">Align::Align(unsigned</span> <span class="pre">int,</span> <span class="pre">unsigned</span> <span class="pre">int,</span> <span class="pre">char**)</span></tt>: this
+function was not implemented</li>
+<li><tt class="docutils literal"><span class="pre">fget()</span></tt> replaces <tt class="docutils literal"><span class="pre">get()</span></tt>.</li>
+<li><tt class="docutils literal"><span class="pre">hlice()</span></tt>: the interface is changed to fix the one
+<tt class="docutils literal"><span class="pre">vslice()</span></tt>.</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><p class="first">Added reading modes &#8220;e&#8221; and &#8220;a&#8221;.</p>
+</li>
+<li><dl class="first docutils">
+<dt><tt class="docutils literal"><span class="pre">Site</span></tt>:</dt>
+<dd><ul class="first last simple">
+<li>is completely rewritten, with minor interface changes.</li>
+<li>The class reads the group information from the <tt class="docutils literal"><span class="pre">Align</span></tt>
+objects (passed by address).</li>
+<li>The header is now in <tt class="docutils literal"><span class="pre">Polymorphism.h</span></tt>.</li>
+<li>Did not compute <tt class="docutils literal"><span class="pre">pread()</span></tt> correctly.</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><tt class="docutils literal"><span class="pre">Polymorphism</span></tt>:</dt>
+<dd><ul class="first last simple">
+<li><tt class="docutils literal"><span class="pre">pairwise()</span></tt> is removed; one now needs to use
+<tt class="docutils literal"><span class="pre">analyze()</span></tt> with group labels.
+a bunch of group label stats (Fst, Kst, Hst, Gst, Snn and
+site pattern counters) are added.</li>
+<li>analyze&#8217;s option outgroup removed; one needs to specify an
+outgrup sequence using group label 999.</li>
+<li>Si is removed.</li>
+<li>as a general rule, stats that cannot be computed and stats
+are set to default values (0).
+That concerns per-site statistics (when no analyzable
+sites are available), stats that require an outgroup.</li>
+<li>Added <tt class="docutils literal"><span class="pre">haplotype()</span></tt>, <tt class="docutils literal"><span class="pre">LD()</span></tt>.</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><p class="first"><tt class="docutils literal"><span class="pre">VAlign</span></tt>: <tt class="docutils literal"><span class="pre">clear()</span></tt> function added to <tt class="docutils literal"><span class="pre">VAlign</span></tt>.</p>
+</li>
+<li><dl class="first docutils">
+<dt><tt class="docutils literal"><span class="pre">Coalesce</span></tt>:</dt>
+<dd><ul class="first last simple">
+<li>Options <tt class="docutils literal"><span class="pre">skipStatistics</span></tt> and <tt class="docutils literal"><span class="pre">saveAlignments</span></tt>. Storage
+of <tt class="docutils literal"><span class="pre">Align</span></tt> objects.</li>
+<li>Support for null mutation rate or FSS.</li>
+<li>Supports simulations with only 1 sample.</li>
+<li>Intercept null migraton rates as an error.</li>
+<li>By default, K is 1.</li>
+<li>Using &#8220;fusion&#8221; generated a bug.</li>
+<li>The generator of newick trees was unstable.</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><p class="first"><tt class="docutils literal"><span class="pre">Vdouble</span></tt>: added.</p>
+</li>
+<li><dl class="first docutils">
+<dt><tt class="docutils literal"><span class="pre">IO</span></tt>:</dt>
+<dd><ul class="first last simple">
+<li>Supports empty fasta files.</li>
+<li><tt class="docutils literal"><span class="pre">toPhyml()</span></tt>: the names are limited to 30 characters.</li>
+<li>Parser supports and ignores <tt class="docutils literal"><span class="pre">\r</span></tt> characters (in both
+sequences and names).</li>
+<li>Added flag delete_consensus.</li>
+<li>Possible to import termination (*) for proteins.</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><p class="first"><tt class="docutils literal"><span class="pre">Container</span></tt>/<tt class="docutils literal"><span class="pre">Align</span></tt>: <tt class="docutils literal"><span class="pre">ns()</span></tt> is reimplemented (using a
+class member) to speed up repetitive calls.</p>
+</li>
+<li><p class="first">in polymorphism analysis, a conceptual error led to
+inappropriate results of He when an outgroup or missing data
+were present.</p>
+</li>
+<li><p class="first">A couple of compilation errors are fixed (use of _N and _S symbols).</p>
+</li>
+<li><p class="first"><tt class="docutils literal"><span class="pre">BppWrapper</span></tt>: Ts/Tv is arbitrarily set to 0. if Tv=0.</p>
+</li>
+<li><p class="first">Added class <tt class="docutils literal"><span class="pre">LDContainer</span></tt>.</p>
+</li>
+<li><p class="first"><tt class="docutils literal"><span class="pre">Staden</span></tt>: supports for <tt class="docutils literal"><span class="pre">\r</span></tt> characters.</p>
+</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><tt class="docutils literal"><span class="pre">pyinter</span></tt></dt>
+<dd><ul class="first last">
+<li><dl class="first docutils">
+<dt><tt class="docutils literal"><span class="pre">container</span></tt>/<tt class="docutils literal"><span class="pre">align</span></tt>:</dt>
+<dd><ul class="first last simple">
+<li>All sequences have an integer label (supposed to indicate
+population membership).</li>
+<li>The sequence readers, writers, simulators and analyzers
+are modified accordingly.</li>
+<li>Added methods <tt class="docutils literal"><span class="pre">str()</span></tt>, <tt class="docutils literal"><span class="pre">missing()</span></tt>.</li>
+<li>added <tt class="docutils literal"><span class="pre">filter()</span></tt> method to <tt class="docutils literal"><span class="pre">align</span></tt>.</li>
+<li>An undue error was raised when the last sequence was removed.</li>
+<li>Long integers are supported for group labels.</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><tt class="docutils literal"><span class="pre">polymorphism()</span></tt>: interface change:</dt>
+<dd><ul class="first last simple">
+<li>no outgroup option anymore (the outrgroup should be one
+of the sequences of the <tt class="docutils literal"><span class="pre">align</span></tt> object, with group label
+999).</li>
+<li>interpop stats are automatically computed when several
+pops are defined in the object.</li>
+<li>added &#8220;haplotypes&#8221; key.</li>
+<li>(BPP) Ts/Tv is arbitrarily set to 0. if Tv=0.</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><p class="first"><tt class="docutils literal"><span class="pre">pairwise()</span></tt> is removed.</p>
+</li>
+<li><p class="first"><tt class="docutils literal"><span class="pre">consensus()</span></tt> is moved to <tt class="docutils literal"><span class="pre">utils</span></tt>.</p>
+</li>
+<li><p class="first">in polymorphism analysis, a conceptual error led to
+inappropriate results of He when an outgroup or missing data
+were present.</p>
+</li>
+<li><p class="first"><tt class="docutils literal"><span class="pre">dist()</span></tt> is removed.</p>
+</li>
+<li><p class="first"><tt class="docutils literal"><span class="pre">interface()</span></tt> is removed.</p>
+</li>
+<li><p class="first"><tt class="docutils literal"><span class="pre">align</span></tt>:</p>
+</li>
+<li><dl class="first docutils">
+<dt><tt class="docutils literal"><span class="pre">simfasta()</span></tt>:</dt>
+<dd><ul class="first last simple">
+<li>added argument simErrors.</li>
+<li>fasdir can be None/False.</li>
+<li>returns a list.</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><p class="first"><tt class="docutils literal"><span class="pre">xml</span></tt>: raises exceptions in case of error.</p>
+</li>
+<li><p class="first"><tt class="docutils literal"><span class="pre">xml</span></tt> ignore <tt class="docutils literal"><span class="pre">\r</span></tt> characters.</p>
+</li>
+<li><p class="first">Simulators had a conflict with the name He (used for both Hd and He).</p>
+</li>
+<li><p class="first"><tt class="docutils literal"><span class="pre">CoalesceSimulator</span></tt> renamed <tt class="docutils literal"><span class="pre">coalesceSimulator</span></tt>.</p>
+</li>
+<li><p class="first"><tt class="docutils literal"><span class="pre">msSimulator</span></tt>: can compute orientation-based statistics.</p>
+</li>
+<li><p class="first">Added <tt class="docutils literal"><span class="pre">SkipStats</span></tt> to simulators.</p>
+</li>
+<li><p class="first"><tt class="docutils literal"><span class="pre">rlen()</span></tt> moved to pyinter.</p>
+</li>
+<li><p class="first">Additions: <tt class="docutils literal"><span class="pre">nj()</span></tt>, <tt class="docutils literal"><span class="pre">staden_consensus()</span></tt>, <tt class="docutils literal"><span class="pre">muscle()</span></tt>.</p>
+</li>
+<li><p class="first"><tt class="docutils literal"><span class="pre">newick()</span></tt>: supports <tt class="docutils literal"><span class="pre">\r</span></tt>.</p>
+</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><tt class="docutils literal"><span class="pre">toolkit</span></tt></dt>
+<dd><ul class="first last">
+<li><p class="first"><tt class="docutils literal"><span class="pre">phyml</span></tt>: debugged.</p>
+</li>
+<li><p class="first"><tt class="docutils literal"><span class="pre">longest_orf()</span></tt> has been reimplemented - the external
+application getorf is no longer required. Faster.</p>
+</li>
+<li><p class="first">The function <tt class="docutils literal"><span class="pre">rlen()</span></tt> is moved from the module seqtools.py
+to tools.py.</p>
+</li>
+<li><p class="first"><tt class="docutils literal"><span class="pre">tree</span></tt>: bug fixed in <tt class="docutils literal"><span class="pre">frequency_nodes()</span></tt>.</p>
+</li>
+<li><dl class="first docutils">
+<dt><tt class="docutils literal"><span class="pre">gb</span></tt>:</dt>
+<dd><ul class="first last simple">
+<li>was sometimes unable to import TITLE.</li>
+<li>supports any carriage return.</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><p class="first">Added functions <tt class="docutils literal"><span class="pre">stats()</span></tt> and <tt class="docutils literal"><span class="pre">correl()</span></tt>, and classes
+<tt class="docutils literal"><span class="pre">paml</span></tt>, <tt class="docutils literal"><span class="pre">updater</span></tt> and <tt class="docutils literal"><span class="pre">timer</span></tt>.</p>
+</li>
+<li><p class="first">distribution.py is deleted.</p>
+</li>
+<li><p class="first"><tt class="docutils literal"><span class="pre">cprimers()</span></tt>, sprimers(): bug fixes and minor improvement of
+usability.</p>
+</li>
+<li><p class="first"><tt class="docutils literal"><span class="pre">rc()</span></tt>: faster implementation.</p>
+</li>
+<li><p class="first"><tt class="docutils literal"><span class="pre">backalign()</span></tt>: added option <tt class="docutils literal"><span class="pre">name_table</span></tt>.</p>
+</li>
+<li><p class="first"><tt class="docutils literal"><span class="pre">flocate()</span></tt> replaces <tt class="docutils literal"><span class="pre">locate()</span></tt>. Use <tt class="docutils literal"><span class="pre">locate()</span></tt> for the
+fast (and only available) implementation.</p>
+</li>
+<li><p class="first"><tt class="docutils literal"><span class="pre">ranges()</span></tt>: supports unsorted data.</p>
+</li>
+<li><p class="first"><tt class="docutils literal"><span class="pre">primer3</span></tt>: the fixed parameters are put into string_init and
+string is reinitialized at each call to <tt class="docutils literal"><span class="pre">find()</span></tt>.</p>
+</li>
+<li><p class="first"><tt class="docutils literal"><span class="pre">isstream</span></tt>: broken method <tt class="docutils literal"><span class="pre">read()</span></tt>.</p>
+</li>
+<li><p class="first"><tt class="docutils literal"><span class="pre">chisquare()</span></tt>: the function was broken, and returns the
+critical value for (n+1) ddl instead of n.</p>
+</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><tt class="docutils literal"><span class="pre">utils</span></tt></dt>
+<dd><ul class="first last">
+<li><p class="first">The module <tt class="docutils literal"><span class="pre">tools</span></tt> is removed. The classes implementing abc
+commands are now directly in the seqlib.utils namespace.</p>
+</li>
+<li><p class="first"><tt class="docutils literal"><span class="pre">rs</span></tt> (and other rs* commands) are removed and replaced by
+abc_* commands and a set of classes. Note that the behaviour
+of <tt class="docutils literal"><span class="pre">rs</span></tt> can be reproduced by <tt class="docutils literal"><span class="pre">abc_sample</span></tt> and <tt class="docutils literal"><span class="pre">abc_fit</span></tt>
+(with regress=False).</p>
+</li>
+<li><p class="first">Approximate Bayesian Computation: The commands <tt class="docutils literal"><span class="pre">abc_sample</span></tt>,
+<tt class="docutils literal"><span class="pre">abc_fit</span></tt>, <tt class="docutils literal"><span class="pre">abc_stats</span></tt> and <tt class="docutils literal"><span class="pre">abc_psimuls</span></tt> are introduced.
+<tt class="docutils literal"><span class="pre">rs</span></tt> and associated commands (<tt class="docutils literal"><span class="pre">rsplot</span></tt>, etc.) are removed
+and replaced by commands names <tt class="docutils literal"><span class="pre">abc_sample</span></tt>, <tt class="docutils literal"><span class="pre">abc_fit</span></tt>,
+etc. the abc family of commands extends the features
+previously incorporated in <tt class="docutils literal"><span class="pre">rs</span></tt>, but also incorporates a
+number of modifications from version 0.8.</p>
+</li>
+<li><p class="first">Faster implementation of the ABC discretization method.</p>
+</li>
+<li><p class="first">Added commands: <tt class="docutils literal"><span class="pre">fasta2phyml()</span></tt>, <tt class="docutils literal"><span class="pre">winphyml()</span></tt>,
+<tt class="docutils literal"><span class="pre">translate()</span></tt>, <tt class="docutils literal"><span class="pre">instruct()</span></tt>, <tt class="docutils literal"><span class="pre">extract_clade()</span></tt>,
+<tt class="docutils literal"><span class="pre">extract_nclade()</span></tt>, <tt class="docutils literal"><span class="pre">infos()</span></tt>.</p>
+</li>
+<li><p class="first"><tt class="docutils literal"><span class="pre">sprimers</span></tt>: significantly improved, with option additions
+and behavior change. In particular the blast check step was
+refined (with significantly improved stringency). The position
+score (3&#8217; preference) was wrong (reverted because of BLAST).
+Bug fixed (gaps were allowed in blast searches).</p>
+</li>
+<li><p class="first"><tt class="docutils literal"><span class="pre">analyser()</span></tt> and <tt class="docutils literal"><span class="pre">stats()</span></tt> outputs Gst (and so on) -
+<tt class="docutils literal"><span class="pre">stats()</span></tt> supports group labels in input fasta file.</p>
+</li>
+<li><p class="first"><tt class="docutils literal"><span class="pre">codalign()</span></tt>: changed to support longer file names, and
+doesn&#8217;t alter names anymore (spaces replaced by underscores).
+Added option &#8220;software&#8221; (can use <tt class="docutils literal"><span class="pre">muscle</span></tt> rather than
+<tt class="docutils literal"><span class="pre">clustalw</span></tt>).</p>
+</li>
+<li><p class="first"><tt class="docutils literal"><span class="pre">fasta2nexus()</span></tt>: generates valid protein nexus files.</p>
+</li>
+<li><p class="first"><tt class="docutils literal"><span class="pre">analyzer()</span></tt> becomes <tt class="docutils literal"><span class="pre">analyser()</span></tt>.</p>
+</li>
+<li><p class="first">input/output arguments syntax extended or modified for:
+<tt class="docutils literal"><span class="pre">clean_seq()</span></tt>, <tt class="docutils literal"><span class="pre">clean_tree()</span></tt>, <tt class="docutils literal"><span class="pre">codalign()</span></tt>,
+<tt class="docutils literal"><span class="pre">concat()</span></tt>, <tt class="docutils literal"><span class="pre">concatgb()</span></tt>, <tt class="docutils literal"><span class="pre">extract()</span></tt>, <tt class="docutils literal"><span class="pre">extract_clade()</span></tt>,
+<tt class="docutils literal"><span class="pre">fasta2nexus()</span></tt>, <tt class="docutils literal"><span class="pre">fasta2phyml()</span></tt>, <tt class="docutils literal"><span class="pre">fg2gb()</span></tt>, <tt class="docutils literal"><span class="pre">matcher()</span></tt>,
+<tt class="docutils literal"><span class="pre">rename()</span></tt>, <tt class="docutils literal"><span class="pre">select()</span></tt> (and others).</p>
+</li>
+<li><dl class="first docutils">
+<dt><tt class="docutils literal"><span class="pre">select()</span></tt>:</dt>
+<dd><ul class="first last simple">
+<li>removes the &#8220;*&#8221; wild-card.</li>
+<li>the list file must use newlines as item separators.</li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+</div></blockquote>
+<p><strong>0.8</strong>- 22.10.08</p>
+<blockquote>
+<div><ul>
+<li><p class="first"><tt class="docutils literal"><span class="pre">core</span></tt> now compiles successfully with GCC 4</p>
+</li>
+<li><dl class="first docutils">
+<dt><tt class="docutils literal"><span class="pre">tree</span></tt>:</dt>
+<dd><ul class="first last simple">
+<li>fixed: when several trees where imported, they were all
+accidentally merged (problem with superficial copy).</li>
+<li>added: <tt class="docutils literal"><span class="pre">rename_leaves</span></tt>, <tt class="docutils literal"><span class="pre">clades</span></tt>, <tt class="docutils literal"><span class="pre">frequency_nodes</span></tt> methods.</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><p class="first"><tt class="docutils literal"><span class="pre">Polymorphism</span></tt> and <tt class="docutils literal"><span class="pre">polymorphism</span></tt> provide the list of
+polymorphic sites</p>
+</li>
+<li><p class="first"><tt class="docutils literal"><span class="pre">discret</span></tt> becomes <tt class="docutils literal"><span class="pre">rs_analyse</span></tt> and now produces an output
+with stats.</p>
+</li>
+<li><p class="first"><tt class="docutils literal"><span class="pre">stats</span></tt> function added to <tt class="docutils literal"><span class="pre">utils</span></tt>.</p>
+</li>
+<li><p class="first"><tt class="docutils literal"><span class="pre">coalesce</span></tt> output was crappy (ie not supported by function ms)
+for simulations without polymorphic sites.</p>
+</li>
+</ul>
+</div></blockquote>
+<p><strong>(4.)0.7.2</strong> - 16.10.08</p>
+<p>A few improvments and bug fixes.</p>
+<p><strong>(4.)0.7.1</strong> - 16.09.08</p>
+<blockquote>
+<div><ul>
+<li><p class="first">pylab import generated crash when matplotlib was absent (fixed:
+the presence of matplotlib is no longer enforced)</p>
+</li>
+<li><p class="first">useless params output by sprimers was fixed</p>
+</li>
+<li><p class="first">Hnew of polymorphism renamed to Z</p>
+</li>
+<li><p class="first">default values of simulators changed</p>
+</li>
+<li><p class="first">added a trim option to discret</p>
+</li>
+<li><dl class="first docutils">
+<dt>sprimers has been improved:</dt>
+<dd><ul class="first last simple">
+<li>filter replaced by filter1 and filter2 (filter1 occurring before the blast step)</li>
+<li>both sorting steps (before and after the blast step) were wrong</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>additions:</dt>
+<dd><ul class="first last simple">
+<li>ranges, ungap, names and rename as utils commands</li>
+<li>names, duplicates, contains_duplicates  and no_duplicates as fasta methods</li>
+<li>translation in toolkit</li>
+<li>nexus method in fasta.align and fasta2nexus command</li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+</div></blockquote>
+<p><strong>(4.)0.7.0</strong> - 12.09.08</p>
+<blockquote>
+<div><ul>
+<li><p class="first">fasta string import extended to containers.</p>
+</li>
+<li><dl class="first docutils">
+<dt>plot is depreciated replaced by</dt>
+<dd><ul class="first last simple">
+<li>discret (doesn&#8217;t clean up empty classes any more)</li>
+<li>plot</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><p class="first">align is fixed to support alignments with length = 0</p>
+</li>
+<li><p class="first">Random seeds are now static: that means that seeds are set by the complete program.
+Previously (since 4.0.4), different objets created with less than 1 second of delay had the same seeds.
+As a result, rs simulated identical loci, resulting in increased variance of statistics and a very poor estimation.</p>
+</li>
+<li><dl class="first docutils">
+<dt>rs:</dt>
+<dd><ul class="first last simple">
+<li>error in time formatting after more than one day (fixed).</li>
+<li>incremental counting of time (a priori, transparent change)</li>
+<li>trims 0-frquency classes out of prior</li>
+<li>fixed bug cause by Random error (above)</li>
+<li>fixed error in SPM (M was ignored and errorly fixed at simul&#8217;s default value!)</li>
+<li>uses a harcoded (not in a separated file) very large prior distribution.</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>the setup.py script is radically modified:</dt>
+<dd><p class="first">clean: removes object files and cleans sip
+configure: only creates a Makefile
+sip: compiles sip
+install: same as before
+The installation process should go:</p>
+<div class="highlight-python"><div class="highlight"><pre>&gt; python setup.py sip
+&gt; python setup.py configure
+&gt; make
+&gt; python setup.py install
+</pre></div>
+</div>
+<p class="last">setup also accepts some arguments to modify a few system options</p>
+</dd>
+</dl>
+</li>
+<li><p class="first">sprimers check was so stringent that the step was completely removed</p>
+</li>
+<li><p class="first">gb: added method rc (reverse-complement)</p>
+</li>
+<li><p class="first">utils: added commands extractgb and gb2fas (no doc written yet)</p>
+</li>
+</ul>
+</div></blockquote>
+<p><strong>(4.)0.6</strong> - 27.08.08</p>
+<blockquote>
+<div><ul>
+<li><p class="first">added composition() method to fasta base class.</p>
+</li>
+<li><dl class="first docutils">
+<dt>additions to Toolkit:</dt>
+<dd><ul class="first last">
+<li><dl class="first docutils">
+<dt>genalys2fasta()</dt>
+<dd><ul class="first last simple">
+<li>this function is directly imported from a script &#8220;Genalys2Fasta&#8221; (version 05/07/06).</li>
+<li>the function has not been tested at all (more than the previous script).
+there may be a problem if initial files were not named .ab1.</li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><p class="first">blast hits are sorted according to e-values.</p>
+</li>
+<li><p class="first">codalign(): cds argument may be a container instance.</p>
+</li>
+<li><p class="first">primer3: check() is made a different function from pair() and find_and_pair() (both lose the argument check)</p>
+</li>
+<li><p class="first">created a function flocate() in Toolkit (faster implementation on the basis of a regular expression search).</p>
+</li>
+<li><p class="first">blast: inclusion of query-from, query-to and midline in hits entries.</p>
+</li>
+<li><p class="first">added fasta string import to IO (core) and to align (pyinter) constructor.</p>
+</li>
+<li><p class="first">ms parser draws nucleotides randomly.</p>
+</li>
+</ul>
+</div></blockquote>
+<p><strong>(4.)0.5</strong> - 19.08.08</p>
+<blockquote>
+<div><ul>
+<li><dl class="first docutils">
+<dt>additions to Utils:</dt>
+<dd><ul class="first last simple">
+<li>extract</li>
+<li>fasta2mase</li>
+<li>cprimers</li>
+<li>matcher</li>
+<li>staden2fasta
+This function re-implements part of the program tofasta. As
+of version 2.5 tofasta is now deprecated. Changes: (1) the
+interface changes, (2) CONSENSUS is always deleted, (3) dot
+(&#8216;.&#8217;) characters are supported and resolved using CONSENSUS
+(before deletion), (4) no generation of consensus sequences.</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><p class="first">bug fixed in mase parser.</p>
+</li>
+<li><p class="first">mase extended: copy from align instances, and writer function.</p>
+</li>
+</ul>
+</div></blockquote>
+<p><strong>(4.)0.4</strong> - 18.08.08</p>
+<blockquote>
+<div><ul class="simple">
+<li>created help page for utils direct calls.</li>
+<li>io.ms() IO.ms() both use (by default) standard input.</li>
+<li>Align and Container had a problem in copy constructors: an empty sequence (instead of no sequences at all) was added when copying from an empty object.</li>
+<li>Ms (and therefore IO.ms() and io.ms()) did not support an trailing empty null simulation.</li>
+<li>dist() function (in pyinter, manips) was fixed and the order of parameters in the output tuple was changed (to be compatible with polymorphism::pairwise())</li>
+<li>dist(): argument type added.</li>
+<li>slider() added to toolkit.</li>
+<li>introduced mode debug for running utils function through seqlib (shows full error message).</li>
+<li>extensions of rs: introduction of option rule and addition of model 6 (using ms).</li>
+<li>ms incorporated in the package.</li>
+<li>Random used to take its address on memory as second seed.
+This seemed to cause problems depending on the system and was changed to a constant second seed (0.).
+The first seed is still the system time, and it&#8217;s still possible to set arbitrary seeds.</li>
+<li>added import_posterior, clean_tree, clean_seq concatgb and concat functions to Utils.</li>
+<li>non-keyword arguments are passed to Utils functions (they may be ignored, as well as unknown keywords.</li>
+<li>primer3 default Tm range was much narrower than claimed (61-65 instead of 55-65).</li>
+<li>a problem with the function ranges of prior was fixed (appeared when using priors with more than 1 class).</li>
+<li>rs accepts a maxsim argument to stop simulations after a givennumber of simulations (by default, 1000000000).</li>
+</ul>
+</div></blockquote>
+<p><strong>(4.)0.3</strong> - 07.08.08</p>
+<blockquote>
+<div><ul>
+<li><p class="first">SIP is now included in the distribution.</p>
+</li>
+<li><dl class="first docutils">
+<dt>setup.py changes:</dt>
+<dd><ul class="first last simple">
+<li>options removed: pyinc, pylib, cpath and compiler</li>
+<li>compiles SIP</li>
+<li>enforces the use of g++</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>Toolkit/blast: each hit entry contains:</dt>
+<dd><ul class="first last simple">
+<li>&#8216;pos&#8217;, the positions of the first Hsp (individual hit fragment),</li>
+<li>the e-value (&#8216;e&#8217;),</li>
+<li>&#8216;identity&#8217;, the identity rate</li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+</div></blockquote>
+<p><strong>(4.)0.2</strong> - 05.08.08</p>
+<blockquote>
+<div><ul class="simple">
+<li>Polymorphism: Possible bug: count of segregating sites when MULTIPLE is true (sites may be missed).</li>
+<li>the names of some private members (such as _A) in Changes, Coalesce and Polymorphism have been changed to make Xcode compiler happy.</li>
+<li>two memory leaks have been fixed in Sequence and one in Site (causing problems to Polymorphism and Coalesce).</li>
+</ul>
+</div></blockquote>
+<dl class="docutils">
+<dt><strong>(4.)0.1</strong> - 04.08.08</dt>
+<dd><ul class="first last simple">
+<li>Coalesce: a significant memory leak was fixed (in the top-level class Coalesce).</li>
+<li>The version includes all changes of alpha versions of 4.0.0 (and possible bugs).</li>
+</ul>
+</dd>
+</dl>
+<p><strong>(4.)0.0.4</strong></p>
+<blockquote>
+<div><ul class="simple">
+<li>change in setup.py: now uses the sipconfig module to finds Python installation paths</li>
+</ul>
+</div></blockquote>
+<p><strong>(4.)0</strong> - 28.July.08 (alpha4)</p>
+<blockquote>
+<div><ul class="simple">
+<li>utils::rs::rs finished (not tested)</li>
+</ul>
+</div></blockquote>
+<p><strong>(4.)0</strong> - 24.July.2008 (alpha3)</p>
+<blockquote>
+<div><ul>
+<li><p class="first">SeqLib is released publicly and numbering is reset to 0.</p>
+</li>
+<li><dl class="first docutils">
+<dt>bugs fixed in setup.py:</dt>
+<dd><ul class="first last simple">
+<li>option BPP not processed correctly.</li>
+<li>inclusion not system independent.</li>
+<li>flush output during compilation (not a bug).</li>
+<li>determines itself python installation details.</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>incorportation of utils (preliminary)</dt>
+<dd><ul class="first last simple">
+<li>codalign</li>
+<li>rs (on-going)</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>misc.:</dt>
+<dd><ul class="first last simple">
+<li>gb parser temporarilly failed if &gt;1 &#8216;=&#8217; sign in feature (bug fixed)</li>
+<li>in seqtools, locate() used amb_compare instead of compare (bug fixed)</li>
+<li>addition of lfimport function in fasta</li>
+<li>compilation in optimization mode 3 (hopefully faster)</li>
+<li>missing imports in dataset and tools</li>
+<li>dataset&#8217;s select method extended and modified</li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+</div></blockquote>
+<p><strong>(4.)0</strong> - 08.July.208 (alpha2)</p>
+<blockquote>
+<div><ul class="simple">
+<li>formatting the release (license, readme, setup script).</li>
+<li>Bio++ is made optional</li>
+<li>toolkit is completely incorporated</li>
+<li>doxygen documentation</li>
+</ul>
+</div></blockquote>
+<p><strong>(4.)0</strong> - 23.May.2008 (alpha1)</p>
+<blockquote>
+<div><dl class="docutils">
+<dt>KNOWN ISSUES</dt>
+<dd><ul class="first last">
+<li><dl class="first docutils">
+<dt>IO/MS:</dt>
+<dd><ul class="first last simple">
+<li>mingw support is removed (has to be added in skip_line and next_line functions!)</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>Consensus/Polymorphism/Staden/IO:</dt>
+<dd><ul class="first last simple">
+<li>noted a possible problem(in consensus generation): example A+T+A (rigorous) -&gt;W+A -&gt; A ( = problem)</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><p class="first">newick is not stable, apparently (TODO: use standard libraries for XML and tree)</p>
+</li>
+<li><p class="first">reprogram XML using default python modules</p>
+</li>
+<li><p class="first">reprogram tree and newick</p>
+</li>
+<li><p class="first">memory leak in rs</p>
+</li>
+</ul>
+</dd>
+<dt>CHANGES</dt>
+<dd><ul class="first last">
+<li><p class="first">Lots of changes in the interface and the implementation.</p>
+</li>
+<li><p class="first">Not all changes are listed below.</p>
+</li>
+<li><p class="first">creation of the seqlib namespace</p>
+</li>
+<li><dl class="first docutils">
+<dt>added a simplified wrapper of vector for Align (VAlign) and unsigned int (Vuint) with no checking</dt>
+<dd><p class="first last">these classes provide a SIP interface and are designed for being used by a Python wrapper (never directly)</p>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>incorporation of the module coalesce</dt>
+<dd><ul class="first last">
+<li><p class="first">deletion of BaseCoalesce (classes are integrated in the Seqlib hierarchy)</p>
+</li>
+<li><p class="first">other classes are just ported with minor compatibility changes</p>
+</li>
+<li><dl class="first docutils">
+<dt>Coalesce:</dt>
+<dd><ul class="first last simple">
+<li>pi attribute of Coalesce changed to Pi</li>
+<li>uses new version of Polymorphism</li>
+<li>removed clear_error</li>
+<li>statistics of irrelavant data type are initialyzed</li>
+<li>in case of error: sets everything to 0/default</li>
+<li>apparently its impossible to set alpha&lt;0. the blocking is maintained.</li>
+<li>blank line added after header in data file, plus between simulations for microsats</li>
+<li>added tMRCA statistic</li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><p class="first">other former classes of the BaseCoalesce hierarchy are in a &#8220;coalesce&#8221; namespace</p>
+</li>
+<li><dl class="first docutils">
+<dt>creation of BppWrapper:</dt>
+<dd><ul class="first last simple">
+<li>available only with mode dna at the moment (translated as DNA for bpp)</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><p class="first">Pairwise: deleted and transfered to Polymorphism</p>
+</li>
+<li><dl class="first docutils">
+<dt>ReadingFrame:</dt>
+<dd><ul class="first last simple">
+<li>compatibility changes</li>
+<li>the constructor closes the input file after use</li>
+<li>return Vuint objects</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>Consensus (incorporated in Polymorphism):</dt>
+<dd><ul class="first last simple">
+<li>doesn&#8217;t write anything anywhere, except a report in an internal string</li>
+<li>note: some use of vector (check whether any other container may be better)</li>
+<li>missing: missing code in input (?)</li>
+<li>disagrement: code for disagreemnt in output (non rigorous mode) (Z)</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>Polymorphism:</dt>
+<dd><ul class="first last simple">
+<li>constructor calling directly analyze</li>
+<li>both take more arguments</li>
+<li>the same object can be used several times</li>
+<li>analyze returns the number of polymorphic sites or -1 in case of error</li>
+<li>site accessors are deleted (sites are not stored any more)</li>
+<li>sites with more than 2 alleles are accepted: always: eta</li>
+<li>consensus() function</li>
+<li>pairwise() function collecting Pairwise functionalities</li>
+<li>wrong data type leads to 0 polymorphism, not error (false characters are taken as missing)</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>Site:</dt>
+<dd><ul class="first last simple">
+<li>don&#8217;t store actual data anymore (no more get() accesser)</li>
+<li>carriers reimplemented as a pointer, and initialized at construction</li>
+<li>minor change in interface</li>
+<li>no destruction of the data pointer</li>
+<li>automatic conversion to upper case</li>
+<li>possible to set an outgroup with mode b - otherwise, 0 are taken to be ancestral</li>
+<li>the linked list feature is DELETED</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>ReadingFrame:</dt>
+<dd><ul class="first last">
+<li><dl class="first docutils">
+<dt>observations (these  are no change):</dt>
+<dd><ul class="first last simple">
+<li>the usage of newlines for separating exons is enforced in constructor but no in method import()</li>
+<li>the format is very sensitive to spaces, don&#8217;t add any other positions than specified</li>
+<li>the numbering of the input is not converted</li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>GetMS:</dt>
+<dd><ul class="first last simple">
+<li>renamed to Ms and linked to from IO</li>
+<li>copy is implicitely allowed</li>
+<li>the class manages a pointer to the stream</li>
+<li>size limits are removed</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>GetStadenAlign:</dt>
+<dd><ul class="first last simple">
+<li>renamed as Staden</li>
+<li>simplified interface: only import which returns an Align</li>
+<li>import uses CONSENSUS to resolve . characters</li>
+<li>import deletes CONSENSUS</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>SequenceContainerIO:</dt>
+<dd><ul class="first last simple">
+<li>renamed as IO</li>
+<li>significant changes of the interface: reading functions return an object and writing functions take an object as argument</li>
+<li>no longer length limit (use of queues)</li>
+<li>incorporates a call to Staden::convert (less efficient because of an additional object copy)</li>
+<li>incorporates Ms call</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>Seqlib:</dt>
+<dd><ul class="first last simple">
+<li>removed DATA_TYPE, MINIMUM_READ, SKIP_RM, SMALL_DIFF and MULTIPLE_HITS_ACCEPTED</li>
+<li>change interface of isValid() to accept type character</li>
+<li>isValid() is made case-insensitive</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>Sequence:</dt>
+<dd><ul class="first last simple">
+<li>add constructor Sequence(number, char) to initialize an empty sequence</li>
+<li>concatenating sequences with different names is no longer fatal</li>
+<li>oor errors for get(), set(), rem()</li>
+<li>suppress build_helper() helper function and lname, lseq members</li>
+<li>pname(), psequence() become name() and sequence()</li>
+<li>copy constructor supports overwriting</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>SequenceContainer:</dt>
+<dd><ul class="first last simple">
+<li>remSeq() now checks</li>
+<li>equalize() takes an optional padding character as argument</li>
+<li>pname, psequence, psequence2 renamed to name, sequence and getSequence (respectively)</li>
+<li>slice() becomes hslice()</li>
+<li>still doesn&#8217;t perform any test</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>SequenceAlignment:</dt>
+<dd><ul class="first last simple">
+<li>get() checks</li>
+<li>binSwitch() checks p and binary data</li>
+<li>subset() becomes vslice() (with an overloaded function vslice(a,b)</li>
+<li>vslice(vector&lt;&gt;) re-implemented (a bit) more efficiently, but now the order in the vector is strictly followed</li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+</dd>
+</dl>
+</div></blockquote>
+<p><strong>3.2.8</strong> - 28.04.08</p>
+<blockquote>
+<div><ul class="simple">
+<li>28/04/08: SequenceAlignment::getColumn returns NULL in case of invalid index (and error statements)</li>
+<li>13/03/08: slice now accepts a=b arguments</li>
+</ul>
+</div></blockquote>
+<p><strong>3.2.7</strong> - 12/03/08</p>
+<blockquote>
+<div><ul class="simple">
+<li>Pairwise: dist() was wrongly divided by the number of (overall) polymorphic sites</li>
+</ul>
+</div></blockquote>
+<p><strong>3.2.6</strong> - 04/03/08</p>
+<blockquote>
+<div><ul class="simple">
+<li>GetMs: reading buffer increase to 500000 (instead of 50000): support larger lines (ie simulations with many more sites)</li>
+<li>ReadingFrame: added function last()</li>
+<li>Polymorphism: change in D(): in case the variance is close to zero (compared to SMALL_DIFF) is catched and its set to zero
+this avoids taking the square root of a (slightly) negative number and having an indefinite #IND D (although it will stay infinite #INF)</li>
+<li>Added field SMALL_DIFF in Seqlib (used by Polymorphism:D() as stated above)</li>
+</ul>
+</div></blockquote>
+<p><strong>3.2.5</strong> - 28/02/08</p>
+<blockquote>
+<div><ul>
+<li><dl class="first docutils">
+<dt>Changes in SequenceContainer::slice()</dt>
+<dd><p class="first last">both arguments are made int, no default value
+checks are now performed and an error is set in case of any problem with indices
+upon such case, an empty container is return</p>
+</dd>
+</dl>
+</li>
+<li><p class="first">Bug in SequenceContainer - SequenceAlignment:
+error generated when the last sequence was removed in SequenceAlignment,
+lseq was not set to 0 because of missing virtual linking</p>
+</li>
+</ul>
+</div></blockquote>
+<p><strong>3.2.4</strong> - 25/02/08</p>
+<blockquote>
+<div><ul class="simple">
+<li>Bug fixed in GetStadenAlign: in getshift(), the rewind loop did not seem to work properly
+it has been replaced by a simple close+open operation
+required storage of the file name</li>
+</ul>
+</div></blockquote>
+<p><strong>3.2.3</strong> - 23/02/08</p>
+<blockquote>
+<div><ul class="simple">
+<li>Bug fixed in SequenceContainer::remseq(): the loop for renumbering did not consider the last step</li>
+<li>Iterators of SequenceAlignment are converted in SequenceAlignment*</li>
+<li>SequenceContainer::build_helper() is deleted and replaced by its actual loop in SequenceContainer and descendants</li>
+</ul>
+</div></blockquote>
+<p><strong>3.2.2</strong> - 14/02/08</p>
+<blockquote>
+<div><ul class="simple">
+<li>GetStadenAlign: bug fixed, a bug was generated by constructor GetStadenAlign(const char*)</li>
+</ul>
+</div></blockquote>
+<p><strong>3.2.1</strong> - 11/01/08</p>
+<blockquote>
+<div><ul>
+<li><dl class="first docutils">
+<dt>The SeqlibException&#8217;s have been abandonned for the moment.</dt>
+<dd><p class="first last">Check ::error() instead (should be an empty string)</p>
+</dd>
+</dl>
+</li>
+<li><p class="first">Changes in GetMS() (public functions added)</p>
+</li>
+<li><dl class="first docutils">
+<dt>void close():</dt>
+<dd><ul class="first last simple">
+<li>destroy the input stream</li>
+<li>good() will return false</li>
+<li>calls to import(bool) will generate errors</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>SequenceAlignment simul(bool binary = false):</dt>
+<dd><ul class="first last simple">
+<li>wraps import(bool) (useful for Python where import is reserved)</li>
+<li>its adviced to use import(bool) in C++</li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+</div></blockquote>
+<p><strong>3.2.0</strong> -27/10/07</p>
+<blockquote>
+<div><ul class="simple">
+<li>Each class has its own header file</li>
+<li>The library is compiled as a static archive</li>
+<li>All output goes through Seqlib::error( ) and generates a SeqlibException</li>
+<li>typedef uint removed</li>
+<li>Several bug fixes and changes (including in the interface)</li>
+</ul>
+</div></blockquote>
+<dl class="docutils">
+<dt>Polymorphism changes:</dt>
+<dd><ul class="first last simple">
+<li>site(int) returns the position of the site (no longer the Site object itself)</li>
+<li>getsite(int) returns the Site object</li>
+<li>sites( ) is removed</li>
+<li>Pi( ), tW( ), tH( ) and tHnew( ) return 0 if lseff is zero</li>
+</ul>
+</dd>
+</dl>
+<p><strong>3.1.1</strong> - 18/08/07</p>
+<blockquote>
+<div><ul class="simple">
+<li>Frame.h added with ReadingFrame and CodingSite (they are not incorporated in the Seqlib hierarchy)</li>
+</ul>
+</div></blockquote>
+<p><strong>3.1.0</strong> - 02/08/07</p>
+<blockquote>
+<div><ul class="simple">
+<li>GetStadenAlign.h becomes Import.h</li>
+<li>creation of GetMS added to Import.h</li>
+</ul>
+</div></blockquote>
+<p><strong>Unnumbered</strong> - 01/AUG/2007</p>
+<blockquote>
+<div>Polymorphism:
+- added access method site(int)
+- bug fixed in Site (see documentation of Site)
+- outgroup value checked</div></blockquote>
+<p><strong>3.0</strong> - 31/07/07</p>
+<blockquote>
+<div><ul>
+<li><p class="first">SequenceAlignment splitted into SequenceContainer (just a list of sequences) and SequenceAlignment (forced to be equalized)</p>
+</li>
+<li><p class="first">SequenceContainerIO replaces (with no notable changes) SequenceAlignmentI and O (note that it is a SequenceContainer)</p>
+</li>
+<li><p class="first">Creation of Pairwise comparing to SequenceAlignment (divergence-like class)</p>
+</li>
+<li><p class="first">GetStadenAlign is updated (more changes in header files)</p>
+</li>
+<li><dl class="first docutils">
+<dt>Classes are grouped following kinda logic</dt>
+<dd><ul class="first last simple">
+<li>Seqlib.h: Seqlib, Sequence, SequenceContainer, SequenceAlignment, SequenceContainerIO</li>
+<li>Polymorphism.h: Site, Polymorphism, Pairwise</li>
+<li>GetStadenAlign.h: GetStadenAlign</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><p class="first">Bug fixed in SequenceAlignment::build_helper(): initialization of rank</p>
+</li>
+</ul>
+<dl class="docutils">
+<dt><strong>Class hierarchy</strong></dt>
+<dd><ul class="first last">
+<li><dl class="first docutils">
+<dt>Seqlib</dt>
+<dd><ul class="first last">
+<li><p class="first">Sequence</p>
+</li>
+<li><dl class="first docutils">
+<dt>SequenceContainer (has Sequence)</dt>
+<dd><ul class="first last simple">
+<li>SequenceContainerIO</li>
+<li>SequenceAlignment</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><p class="first">Site</p>
+</li>
+<li><p class="first">Polymorphism (has Site, SequenceAlignment)</p>
+</li>
+<li><p class="first">GetStadenAlign (has Site, SequenceAlignment)</p>
+</li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+</dd>
+</dl>
+</div></blockquote>
+<p><strong>2.2</strong> - 25/MAY/07</p>
+<blockquote>
+<div>ReadingFrame: constructor accepts the index of an outgroup that will not be included</div></blockquote>
+<p><strong>2.1</strong> - 23/FEB/2007</p>
+<blockquote>
+<div>Polymorphism:
+- Create from a combination of code from previous classes Analyser and SequencePolymorphism (from Seqlib 1).</div></blockquote>
+<p><strong>2</strong> - 23/02/07</p>
+<blockquote>
+<div><ul class="simple">
+<li>The library is written on a c-like fashion, data storage is malloc (for sequences) and linked list (new) for sequence alignments</li>
+<li>Input and output are interfaced by two classes, SequenceAlignmentI and SequenceAlignmentO</li>
+<li>Seqlib is introduced as a general base class containing DATA_TYPE, MINIMUM_READ, SKIP_RM and FORCE_ALIGNMENT</li>
+</ul>
+</div></blockquote>
+<p><strong>1.2</strong> - 10/JUN/2006</p>
+<blockquote>
+<div>Changes in ReadingFrame:
+- allowing different codon start
+- good( ) function removed
+- reads into an open stream
+- frameQ created</div></blockquote>
+<p><strong>1.1</strong> - 16/MAY/2006</p>
+<blockquote>
+<div>ReadingFrame: corrected error in NS/S sites per codon: mutations to stops were not excluded, now they are</div></blockquote>
+<p><strong>1</strong></p>
+<blockquote>
+<div><ul class="simple">
+<li>SequenceContainer class hierarchy, data storage as vectors</li>
+</ul>
+</div></blockquote>
+<p><strong>0</strong></p>
+<blockquote>
+<div><ul class="simple">
+<li>no information</li>
+</ul>
+</div></blockquote>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="acknowledgments.html" title="Acknowledgments"
+             >previous</a> |</li>
+        <li><a href="index.html">EggLib</a> &raquo;</li> 
+      </ul>
+    </div>
+        <address style="text-align: right;"><small>Hosted by&nbsp;
+        <a href="http://sourceforge.net/projects/seqlib"><img src="http://sflogo.sourceforge.net/sflogo.php?group_id=232965&amp;type=8" width="80" height="15" alt="Get seqlib at SourceForge.net. Fast, secure and Free Open Source software downloads" / ALIGN=RIGHT BORDER=0></a>
+        </address>
+
+  </body>
+</html>

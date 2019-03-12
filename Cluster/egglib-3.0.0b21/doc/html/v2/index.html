@@ -1,0 +1,393 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>EggLib documentation &mdash; EggLib</title>
+    
+    <link rel="stylesheet" href="_static/sphinxdoc.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '2.1.11',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="shortcut icon" href="_static/icon.ico"/>
+    <link rel="top" title="EggLib" href="#" />
+    <link rel="next" title="Download and install" href="installation.html" /> 
+  </head>
+  <body>
+
+<div style="background-color: white; text-align: left; padding: 0px 0px 0px 0px">
+<a href="#"><img src="_static/egglib_banniere5.png" border="0" alt="EggLib"/></a>
+</div>
+
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="installation.html" title="Download and install"
+             accesskey="N">next</a> |</li>
+        <li><a href="#">EggLib</a> &raquo;</li> 
+      </ul>
+    </div>
+<div style="background-color: grey; text-align: left; padding: 0px 0px 0px 10px; border-bottom: 1px solid #2d2e91">
+<font color="white" ><b>EggLib version 2.1 is archived.</b></font></div>
+
+
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="#">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">EggLib documentation</a><ul>
+<li><a class="reference internal" href="#what-s-new">What&#8217;s new ?</a></li>
+<li><a class="reference internal" href="#synopsis">Synopsis</a></li>
+<li><a class="reference internal" href="#documentation">Documentation</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#detailed-contents">Detailed contents</a></li>
+<li><a class="reference internal" href="#indices-and-tables">Indices and tables</a></li>
+</ul>
+
+  <h4>Next topic</h4>
+  <p class="topless"><a href="installation.html"
+                        title="next chapter">Download and install</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/index.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="egglib-documentation">
+<h1>EggLib documentation<a class="headerlink" href="#egglib-documentation" title="Permalink to this headline">¶</a></h1>
+<p>EggLib is a C++/Python library and program package for evolutionary
+genetics and genomics. Main features are
+sequence data management, sequence polymorphism analysis, coalescent
+simulations and Approximate Bayesian Computation. EggLib is a flexible
+Python module with a performant underlying C++ library (which can be
+used independently), and allows fast and intuitive development of Python
+programs and scripts. A number of pre-programmed applications of EggLib
+possibilities are available interactively. To get an idea of the
+possibilities offered by EggLib, see the <a class="reference internal" href="manual.html#manual"><em>Manual</em></a> section.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>EggLib version 2.1 is now in archive mode while EggLib version 3.0
+is in beta. Bugs in EggLib 2.1 will be fixed if they are reported
+but we encourage users to try the new version of EggLib in order to
+report bugs or incorrect results.</p>
+<p class="last"><a class="reference external" href="http://mycor.nancy.inra.fr/egglib">Go to EggLib 3 web site</a>.</p>
+</div>
+<p><strong>Get EggLib:</strong> <a class="reference internal" href="installation.html#install"><em>instructions</em></a> &#8211; <a class="reference external" href="http://sourceforge.net/projects/egglib/files/">download</a>.</p>
+<p><strong>Citation:</strong> De Mita S. and M. Siol. 2012. EggLib: processing, analysis and simulation tools for population genetics and genomics. <em>BMC Genet.</em> <strong>13</strong>:27. <a class="reference external" href="http://www.biomedcentral.com/1471-2156/13/27/abstract">Open access</a>.</p>
+<div class="section" id="what-s-new">
+<h2>What&#8217;s new ?<a class="headerlink" href="#what-s-new" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div><ul>
+<li><p class="first">March 4, 2016: Release of version 2.1.11 (in which an occasional
+bug if eggcoal is fixed).</p>
+</li>
+<li><p class="first">March 23, 2014: Version 2.1.10 supports Bio++ 2.2.0 and higher but
+does not support earlier versions of Bio++. Note that this version
+also fix a minor problem with the coalescent simulator that only
+appears when you deal directly from low-level classes. Only the
+source code is released.</p>
+</li>
+<li><p class="first">October 04, 2014: Version 2.1.9 is out to fix a rather minor error
+affecting the Staden parser only (in particular <tt class="docutils literal"><span class="pre">staden2fasta</span></tt>).</p>
+</li>
+<li><p class="first">September 23, 2014: Version 2.1.8 is out to fix a heavy error
+affecting the <tt class="docutils literal"><span class="pre">abc_sample</span></tt> command and more precisely the
+<tt class="docutils literal"><span class="pre">TPS</span></tt>, <tt class="docutils literal"><span class="pre">TPF</span></tt> and <tt class="docutils literal"><span class="pre">TPK</span></tt> summary statistics sets. The error
+was that the program used only the last locus for computing
+per-population <img class="math" src="_images/math/c1bd4cb4e3647c6b2356b7ccf2f52aeffedd1b61.png" alt="\pi"/> (ignoring all previous ones). The three
+summary statistics sets are fixed. This error did not affect other
+summary statistics sets or the other statistics of those three
+summary statistics sets. Since this behaviour was consistent for
+both observed data sets and simulations, the consequence of the
+error was, in principle, a complete lack of resolution of these
+summary statistics sets rather than erroneous results, but it is
+much likely that results using these summary statistics sets were
+inaccurate.</p>
+<p>Also: version 2.2.0 has been elevated to version 3 due to
+large-scale changes in the interface. A preliminary package of
+version 3 is <a class="reference external" href="version3/index.html">out</a> (for testing purpose).</p>
+</li>
+<li><p class="first">November 20, 2013: The pre-compiled package of version 2.1.7 is
+available for Python 2.7 32 bits.</p>
+</li>
+<li><p class="first">November 7, 2013: Version 2.1.7 (source only, at the moment) is out
+to include minor changes. Warning: If you use non-standard genetic
+codes, you must update because there was an error preventing the code
+argument to be passed to underlying polymorphism analysis routines in
+egglib-py.</p>
+</li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div><ul>
+<li><p class="first">An underlying <a class="reference internal" href="egglib-cpp.html#egglib-cpp"><em>C++ library</em></a> which might be used independently.</p>
+</li>
+<li><dl class="first docutils">
+<dt>Two standalone programs:</dt>
+<dd><ul class="first last simple">
+<li><a class="reference internal" href="eggcoal.html#eggcoal"><em>eggcoal</em></a>: an extensive coalescent simulator.</li>
+<li><a class="reference internal" href="eggstats.html#eggstats"><em>eggstats</em></a>: a simple command line tool for analyzing
+diversity in fasta files.</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><p class="first">A flexible Python module bringing together the C++ library and
+additional high-level tools: <a class="reference internal" href="egglib-py.html#egglib-py"><em>Python module</em></a>.</p>
+</li>
+<li><p class="first">A script <tt class="docutils literal"><span class="pre">egglib</span></tt> providing a number of modular tools
+for processing and analyzing sequence data (and others). See <a class="reference internal" href="documentation-utils.html#apps"><em>Directly executable commands</em></a>.</p>
+</li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="documentation">
+<h2>Documentation<a class="headerlink" href="#documentation" title="Permalink to this headline">¶</a></h2>
+<p>These pages describe the Python module and the C++ library. They are
+available as an independent downloadable archive from the
+<a class="reference external" href="http://sourceforge.net/projects/egglib/files/current/">download site</a>.
+A pdf version of the general description of EggLib and reference manual
+of egglib-py is available
+<a class="reference external" href="http://sourceforge.net/projects/egglib/files/current/egglib.pdf/download">here</a>
+and a pdf version of the reference manual of the C++ library is available
+<a class="reference external" href="http://sourceforge.net/projects/egglib/files/current/egglib-cpp.pdf/download">there</a>.</p>
+</div>
+</div>
+<div class="section" id="detailed-contents">
+<h1>Detailed contents<a class="headerlink" href="#detailed-contents" title="Permalink to this headline">¶</a></h1>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Download and install</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#installation-from-source">Installation from source</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="installation.html#requirements">Requirements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="installation.html#download-source-code">Download source code</a></li>
+<li class="toctree-l3"><a class="reference internal" href="installation.html#installation-procedure">Installation procedure</a></li>
+<li class="toctree-l3"><a class="reference internal" href="installation.html#detection-of-external-applications">Detection of external applications</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#installation-of-pre-compiled-python-modules">Installation of pre-compiled Python modules</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="manual.html">Manual</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="manual.html#import-export-of-sequence-data">Import/export of sequence data</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="manual.html#import-from-fasta-formatted-files-or-strings">Import from FASTA-formatted files or strings</a></li>
+<li class="toctree-l3"><a class="reference internal" href="manual.html#import-population-information-as-group-label">Import population information as group label</a></li>
+<li class="toctree-l3"><a class="reference internal" href="manual.html#conversion-to-container-and-align-types">Conversion to Container and Align types</a></li>
+<li class="toctree-l3"><a class="reference internal" href="manual.html#exports-sequence-data">Exports sequence data</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="manual.html#manipulation-of-sequence-sets-and-alignments">Manipulation of sequence sets and alignments</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="manual.html#iteration">Iteration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="manual.html#sequence-data-edition">Sequence data edition</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="manual.html#manipulation-of-other-data-types-trees-annotated-sequences-ssr">Manipulation of other data types (trees, annotated sequences, SSR)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="manual.html#analysis-of-polymorphism">Analysis of polymorphism</a></li>
+<li class="toctree-l2"><a class="reference internal" href="manual.html#coalescent-simulations">Coalescent simulations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="manual.html#interactive-usage-and-approximate-bayesian-computation">Interactive usage and Approximate Bayesian Computation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="manual.html#the-egglib-script">The egglib script</a></li>
+<li class="toctree-l3"><a class="reference internal" href="manual.html#abc-sampling">ABC sampling</a></li>
+<li class="toctree-l3"><a class="reference internal" href="manual.html#abc-rejection-regression-procedure">ABC rejection-regression procedure</a></li>
+<li class="toctree-l3"><a class="reference internal" href="manual.html#comparing-abc-models">Comparing ABC models</a></li>
+<li class="toctree-l3"><a class="reference internal" href="manual.html#analyzing-posterior-distribution">Analyzing posterior distribution</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="eggcoal.html">eggcoal</a></li>
+<li class="toctree-l1"><a class="reference internal" href="eggstats.html">eggstats</a></li>
+<li class="toctree-l1"><a class="reference internal" href="egglib-cpp.html">C++ library</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="egglib-cpp.html#documentation">Documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="egglib-cpp.html#writing-c-programs-using-egglib-cpp">Writing C++ programs using egglib-cpp</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="egglib-py.html">Python module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="binding.html">Low-level binding of C++ library</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="binding.html#data-holders">Data holders</a></li>
+<li class="toctree-l3"><a class="reference internal" href="binding.html#conversion-and-parsing">Conversion and parsing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="binding.html#analysis-of-polymorphism">Analysis of polymorphism</a></li>
+<li class="toctree-l3"><a class="reference internal" href="binding.html#coalescent-simulator">Coalescent simulator</a></li>
+<li class="toctree-l3"><a class="reference internal" href="binding.html#approximate-bayesian-computation">Approximate Bayesian Computation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="binding.html#random-number-generator">Random number generator</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="data.html">Top-level Egglib components</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="data.html#class-container">Class Container</a></li>
+<li class="toctree-l3"><a class="reference internal" href="data.html#class-align">Class Align</a></li>
+<li class="toctree-l3"><a class="reference internal" href="data.html#class-sequenceitem">Class SequenceItem</a></li>
+<li class="toctree-l3"><a class="reference internal" href="data.html#ssr-class">SSR class</a></li>
+<li class="toctree-l3"><a class="reference internal" href="data.html#tigr-class">TIGR class</a></li>
+<li class="toctree-l3"><a class="reference internal" href="data.html#genbank-class">GenBank class</a></li>
+<li class="toctree-l3"><a class="reference internal" href="data.html#tree-class">Tree class</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="tools.html">tools</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="tools.html#specific-data-formats">Specific data formats</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tools.html#data-analysis">Data analysis</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tools.html#sequence-manipulation-tools">Sequence manipulation tools</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tools.html#sequence-comparison">Sequence comparison</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tools.html#tools-not-directly-related-to-sequence-data">Tools not (directly) related to sequence data</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="wrappers.html">wrappers</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="wrappers.html#hudson-s-coalescent-simulator">Hudson&#8217;s coalescent simulator</a></li>
+<li class="toctree-l3"><a class="reference internal" href="wrappers.html#ncbi-blast-tools">NCBI BLAST tools</a></li>
+<li class="toctree-l3"><a class="reference internal" href="wrappers.html#sequence-alignment">Sequence alignment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="wrappers.html#tree-building-and-analysis">Tree building and analysis</a></li>
+<li class="toctree-l3"><a class="reference internal" href="wrappers.html#primer-detection">Primer detection</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="simul.html">simul</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="simul.html#simulation-function">Simulation function</a></li>
+<li class="toctree-l3"><a class="reference internal" href="simul.html#parameter-holder-class">Parameter holder class</a></li>
+<li class="toctree-l3"><a class="reference internal" href="simul.html#specifying-mutation-model-using-dedicated-classes">Specifying mutation model using dedicated classes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="fitmodel.html">fitmodel</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="fitmodel.html#utilities">Utilities</a></li>
+<li class="toctree-l3"><a class="reference internal" href="fitmodel.html#prior-implementations">Prior implementations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="fitmodel.html#demographic-model-implementations">Demographic model implementations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="fitmodel.html#summary-statistics-implementations">Summary statistics implementations</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="utils.html">Utils module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="test.html">test</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="documentation-utils.html">Directly executable commands</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="documentation-utils.html#list-of-commands">List of commands</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="documentation-utils.html#abc-bin">abc_bin</a></li>
+<li class="toctree-l3"><a class="reference internal" href="documentation-utils.html#abc-compare">abc_compare</a></li>
+<li class="toctree-l3"><a class="reference internal" href="documentation-utils.html#abc-fit">abc_fit</a></li>
+<li class="toctree-l3"><a class="reference internal" href="documentation-utils.html#abc-plot1d">abc_plot1D</a></li>
+<li class="toctree-l3"><a class="reference internal" href="documentation-utils.html#abc-plot2d">abc_plot2D</a></li>
+<li class="toctree-l3"><a class="reference internal" href="documentation-utils.html#abc-psimuls">abc_psimuls</a></li>
+<li class="toctree-l3"><a class="reference internal" href="documentation-utils.html#abc-sample">abc_sample</a></li>
+<li class="toctree-l3"><a class="reference internal" href="documentation-utils.html#abc-sample-prior-specification">abc_sample: prior specification</a></li>
+<li class="toctree-l3"><a class="reference internal" href="documentation-utils.html#abc-sample-demographic-models">abc_sample: demographic models</a></li>
+<li class="toctree-l3"><a class="reference internal" href="documentation-utils.html#abc-sample-sets-of-summary-statistics">abc_sample: sets of summary statistics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="documentation-utils.html#abc-statsdisc">abc_statsdisc</a></li>
+<li class="toctree-l3"><a class="reference internal" href="documentation-utils.html#abc-statsmarg">abc_statsmarg</a></li>
+<li class="toctree-l3"><a class="reference internal" href="documentation-utils.html#analyzer">analyzer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="documentation-utils.html#blastgb">blastgb</a></li>
+<li class="toctree-l3"><a class="reference internal" href="documentation-utils.html#clean-seq">clean_seq</a></li>
+<li class="toctree-l3"><a class="reference internal" href="documentation-utils.html#clean-tree">clean_tree</a></li>
+<li class="toctree-l3"><a class="reference internal" href="documentation-utils.html#codalign">codalign</a></li>
+<li class="toctree-l3"><a class="reference internal" href="documentation-utils.html#concat">concat</a></li>
+<li class="toctree-l3"><a class="reference internal" href="documentation-utils.html#concatgb">concatgb</a></li>
+<li class="toctree-l3"><a class="reference internal" href="documentation-utils.html#consensus">consensus</a></li>
+<li class="toctree-l3"><a class="reference internal" href="documentation-utils.html#cprimers">cprimers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="documentation-utils.html#diffscan">diffscan</a></li>
+<li class="toctree-l3"><a class="reference internal" href="documentation-utils.html#extract">extract</a></li>
+<li class="toctree-l3"><a class="reference internal" href="documentation-utils.html#extract-clade">extract_clade</a></li>
+<li class="toctree-l3"><a class="reference internal" href="documentation-utils.html#family">family</a></li>
+<li class="toctree-l3"><a class="reference internal" href="documentation-utils.html#fasta2mase">fasta2mase</a></li>
+<li class="toctree-l3"><a class="reference internal" href="documentation-utils.html#fasta2nexus">fasta2nexus</a></li>
+<li class="toctree-l3"><a class="reference internal" href="documentation-utils.html#fasta2phyml">fasta2phyml</a></li>
+<li class="toctree-l3"><a class="reference internal" href="documentation-utils.html#fg2gb">fg2gb</a></li>
+<li class="toctree-l3"><a class="reference internal" href="documentation-utils.html#gb2fas">gb2fas</a></li>
+<li class="toctree-l3"><a class="reference internal" href="documentation-utils.html#infos">infos</a></li>
+<li class="toctree-l3"><a class="reference internal" href="documentation-utils.html#interld">interLD</a></li>
+<li class="toctree-l3"><a class="reference internal" href="documentation-utils.html#matcher">matcher</a></li>
+<li class="toctree-l3"><a class="reference internal" href="documentation-utils.html#names">names</a></li>
+<li class="toctree-l3"><a class="reference internal" href="documentation-utils.html#phyml">phyml</a></li>
+<li class="toctree-l3"><a class="reference internal" href="documentation-utils.html#rename">rename</a></li>
+<li class="toctree-l3"><a class="reference internal" href="documentation-utils.html#reroot">reroot</a></li>
+<li class="toctree-l3"><a class="reference internal" href="documentation-utils.html#select">select</a></li>
+<li class="toctree-l3"><a class="reference internal" href="documentation-utils.html#sprimers">sprimers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="documentation-utils.html#staden2fasta">staden2fasta</a></li>
+<li class="toctree-l3"><a class="reference internal" href="documentation-utils.html#translate">translate</a></li>
+<li class="toctree-l3"><a class="reference internal" href="documentation-utils.html#truncate">truncate</a></li>
+<li class="toctree-l3"><a class="reference internal" href="documentation-utils.html#ungap">ungap</a></li>
+<li class="toctree-l3"><a class="reference internal" href="documentation-utils.html#winphyml">winphyml</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="authors.html">Authors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="acknowledgments.html">Acknowledgments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="history.html">History</a></li>
+</ul>
+</div>
+</div>
+<div class="section" id="indices-and-tables">
+<h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this headline">¶</a></h1>
+<ul class="simple">
+<li><a class="reference internal" href="genindex.html"><em>Index</em></a></li>
+<li><a class="reference internal" href="py-modindex.html"><em>Module Index</em></a></li>
+<li><a class="reference internal" href="search.html"><em>Search Page</em></a></li>
+</ul>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="installation.html" title="Download and install"
+             >next</a> |</li>
+        <li><a href="#">EggLib</a> &raquo;</li> 
+      </ul>
+    </div>
+        <address style="text-align: right;"><small>Hosted by&nbsp;
+        <a href="http://sourceforge.net/projects/seqlib"><img src="http://sflogo.sourceforge.net/sflogo.php?group_id=232965&amp;type=8" width="80" height="15" alt="Get seqlib at SourceForge.net. Fast, secure and Free Open Source software downloads" / ALIGN=RIGHT BORDER=0></a>
+        </address>
+
+  </body>
+</html>

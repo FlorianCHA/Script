@@ -1,0 +1,636 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>wrappers &mdash; EggLib</title>
+    
+    <link rel="stylesheet" href="_static/sphinxdoc.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '2.1.11',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="shortcut icon" href="_static/icon.ico"/>
+    <link rel="top" title="EggLib" href="index.html" />
+    <link rel="up" title="Python module" href="egglib-py.html" />
+    <link rel="next" title="simul" href="simul.html" />
+    <link rel="prev" title="tools" href="tools.html" /> 
+  </head>
+  <body>
+
+<div style="background-color: white; text-align: left; padding: 0px 0px 0px 0px">
+<a href="index.html"><img src="_static/egglib_banniere5.png" border="0" alt="EggLib"/></a>
+</div>
+
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="simul.html" title="simul"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="tools.html" title="tools"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">EggLib</a> &raquo;</li>
+          <li><a href="egglib-py.html" accesskey="U">Python module</a> &raquo;</li> 
+      </ul>
+    </div>
+<div style="background-color: grey; text-align: left; padding: 0px 0px 0px 10px; border-bottom: 1px solid #2d2e91">
+<font color="white" ><b>EggLib version 2.1 is archived.</b></font></div>
+
+
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">wrappers</a><ul>
+<li><a class="reference internal" href="#hudson-s-coalescent-simulator">Hudson&#8217;s coalescent simulator</a></li>
+<li><a class="reference internal" href="#ncbi-blast-tools">NCBI BLAST tools</a></li>
+<li><a class="reference internal" href="#sequence-alignment">Sequence alignment</a></li>
+<li><a class="reference internal" href="#tree-building-and-analysis">Tree building and analysis</a></li>
+<li><a class="reference internal" href="#primer-detection">Primer detection</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="tools.html"
+                        title="previous chapter">tools</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="simul.html"
+                        title="next chapter">simul</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/wrappers.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="module-egglib.wrappers">
+<span id="wrappers"></span><h1>wrappers<a class="headerlink" href="#module-egglib.wrappers" title="Permalink to this headline">¶</a></h1>
+<p>This module contains wrappers to external applications. They must be
+available on the user&#8217;s system and detected properly at installation
+time. To detect a new application <em>a posteriori</em>, one needs to relaunch
+the detection procedure by typing <tt class="docutils literal"><span class="pre">python</span> <span class="pre">setup.py</span> <span class="pre">build_apps</span></tt> from
+the egglib-py directory, and then re-install the configuration file
+by typing <tt class="docutils literal"><span class="pre">python</span> <span class="pre">setup.py</span> <span class="pre">install</span></tt>.</p>
+<div class="section" id="hudson-s-coalescent-simulator">
+<h2>Hudson&#8217;s coalescent simulator<a class="headerlink" href="#hudson-s-coalescent-simulator" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="egglib.wrappers.ms">
+<tt class="descclassname">egglib.wrappers.</tt><tt class="descname">ms</tt><big>(</big><em>nsam</em>, <em>howmany</em>, <em>theta=None</em>, <em>segsites=None</em>, <em>T=False</em>, <em>F=False</em>, <em>r=False</em>, <em>c=False</em>, <em>G=False</em>, <em>I=False</em>, <em>n=False</em>, <em>g=False</em>, <em>m=False</em>, <em>ma=False</em>, <em>eG=False</em>, <em>eg=False</em>, <em>eM=False</em>, <em>em=False</em>, <em>ema=False</em>, <em>eN=False</em>, <em>en=False</em>, <em>es=False</em>, <em>ej=False</em>, <em>tMRCA=False</em><big>)</big><a class="headerlink" href="#egglib.wrappers.ms" title="Permalink to this definition">¶</a></dt>
+<dd><p>Runs the program <tt class="docutils literal"><span class="pre">ms</span></tt> to generate random datasets by coalescence.
+<tt class="docutils literal"><span class="pre">ms</span></tt> must be installed in the system. Arguments are for the
+command <tt class="docutils literal"><span class="pre">ms</span></tt> (refer to the program&#8217;s documentation for details).
+Note that all options starting by <tt class="docutils literal"><span class="pre">e</span></tt> (past demographic changes)
+as well a <tt class="docutils literal"><span class="pre">m</span></tt>, <tt class="docutils literal"><span class="pre">n</span></tt> and <tt class="docutils literal"><span class="pre">g</span></tt>
+expect a list of tuples (at least one), each tuple containing the
+appropriate number of arguments. Note also that the options are
+processed in the same order as in the function&#8217;s signature. Note
+that if the <em>tMRCA</em> argument is set to <tt class="docutils literal"><span class="pre">True</span></tt>, the returned
+alignments will contain a <tt class="docutils literal"><span class="pre">tMRCA</span></tt> member. If both <tt class="docutils literal"><span class="pre">theta</span></tt> and
+<tt class="docutils literal"><span class="pre">segsites</span></tt> are specified to positive values, the returned
+alignments will contain a <tt class="docutils literal"><span class="pre">prob</span></tt> member. If the <em>T</em> flag is sets,
+the returned alignments will contain a <tt class="docutils literal"><span class="pre">tree</span></tt> member (that will be
+a <a class="reference internal" href="data.html#egglib.Tree" title="egglib.Tree"><tt class="xref py py-class docutils literal"><span class="pre">Tree</span></tt></a> instance).</p>
+<div class="versionadded">
+<p><span class="versionmodified">New in version 0.1: </span>Created to provide a closer wrapper of <tt class="docutils literal"><span class="pre">ms</span></tt>.</p>
+</div>
+<div class="versionchanged">
+<p><span class="versionmodified">Changed in version 2.1.0: </span>Exported alignment might contain a <tt class="docutils literal"><span class="pre">prob</span></tt> and/or a <tt class="docutils literal"><span class="pre">trees</span></tt> member.</p>
+</div>
+</dd></dl>
+
+</div>
+<div class="section" id="ncbi-blast-tools">
+<h2>NCBI BLAST tools<a class="headerlink" href="#ncbi-blast-tools" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="egglib.wrappers.BLAST">
+<em class="property">class </em><tt class="descclassname">egglib.wrappers.</tt><tt class="descname">BLAST</tt><a class="headerlink" href="#egglib.wrappers.BLAST" title="Permalink to this definition">¶</a></dt>
+<dd><p>Provides NCBI Basic Local Alignment Search Tools for finding
+homologues of query sequences against a local database. All proposed
+methods return a dictionary of processed BLAST results. This
+dictionary stores the hits for each sequences, indexed by its name
+string. If only one sequence is passed as a string, the output
+dictionary will always one item indexed by an empty string. For a
+given sequences, the results are presented as a list of HSPs (there
+can be several HSPs on a single hit sequence), each hit being a
+dictionary storing the following information: <em>subject</em> (the name
+of the hit sequence), <em>bitScore</em> (the bit score value), <em>score</em>
+(the raw score value), <em>eValue</em> (the expectation value), <em>qstart</em>
+and <em>qend</em> (the start and end positions on the query sequence),
+<em>hstart</em> and <em>hend</em> (the start and end positions on the hit sequence,
+<em>qframe</em> and <em>hframe</em> (the frame in which is locate the hit in
+respectively the query and the hit sequence), <em>identity</em> (the number
+of matching positions), <em>gaps</em> (the number of gapped positions),
+<em>length (the length of the hit), *qseq</em> (the sequence of the query
+sequence at the HSP), <em>hseq</em> (the sequence of the hit sequence at
+the HSP) and <em>midline</em> (the string summarizing the quality of the
+local alignment, indicating matching positions). The full XML
+document is nonetheless accessible as instance&#8217;s member <em>xml_results</em>
+after each call to any of the method. <em>xml_results</em> is <tt class="docutils literal"><span class="pre">None</span></tt> by
+default.</p>
+<dl class="method">
+<dt id="egglib.wrappers.BLAST.blastn">
+<tt class="descname">blastn</tt><big>(</big><em>query</em>, <em>target</em>, <em>evalue=None</em>, <em>penalty=None</em>, <em>**params</em><big>)</big><a class="headerlink" href="#egglib.wrappers.BLAST.blastn" title="Permalink to this definition">¶</a></dt>
+<dd><p>Searches a nucleotide database using nucleotide queries. <em>query</em>
+can be a string, a <a class="reference internal" href="data.html#egglib.Container" title="egglib.Container"><tt class="xref py py-class docutils literal"><span class="pre">Container</span></tt></a> or <a class="reference internal" href="data.html#egglib.Align" title="egglib.Align"><tt class="xref py py-class docutils literal"><span class="pre">Align</span></tt></a> instance.
+In the latter cases, all sequences will be processed. <em>target</em>
+must refer to a valid database of the correct data type, either
+represented by its file system path or by a <a class="reference internal" href="#egglib.wrappers.BLASTdb" title="egglib.wrappers.BLASTdb"><tt class="xref py py-class docutils literal"><span class="pre">BLASTdb</span></tt></a>
+instance. <em>evalue</em> is the expectaction value (expected number of
+random hits by chance alone, depending on the database size).
+The default value is e<sup>-6</sup> (therefore much less, and more
+stringent, than <tt class="docutils literal"><span class="pre">blastn</span></tt>&#8216;s default value which is 10). <em>penalty</em>
+is the penalty to apply for nucleotide mismatch (the default
+reward for nucleotide match is +1). The default value is -2. The
+value must be negative, and should be increased to account for
+most distant homologies. &#8220;A ratio of 0.33 (1/-3) is appropriate
+for sequences that are about 99% conserved; a ratio of 0.5 (1/-2)
+is best for sequences that are 95% conserved; a ratio of about
+one (1/-1) is best for sequences that are 75% conserved&#8221; (from
+BLAST online documentation). All other BLAST parameters can be
+set as keywords arguments. Keyword arguments are passed as is to
+the <tt class="docutils literal"><span class="pre">blastn</span></tt> program and can overwrite arguments default values
+of <em>evalue</em> and <em>penalty</em>. For example it is possible to set
+<em>reward</em> as a keyword argument as in <tt class="docutils literal"><span class="pre">reward=5</span> <span class="pre">penalty=-4</span></tt>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.wrappers.BLAST.blastp">
+<tt class="descname">blastp</tt><big>(</big><em>query</em>, <em>target</em>, <em>evalue=None</em>, <em>**params</em><big>)</big><a class="headerlink" href="#egglib.wrappers.BLAST.blastp" title="Permalink to this definition">¶</a></dt>
+<dd><p>Searches a protein database using protein queries. Arguments are
+as for <a class="reference internal" href="#egglib.wrappers.BLAST.blastn" title="egglib.wrappers.BLAST.blastn"><tt class="xref py py-meth docutils literal"><span class="pre">blastn()</span></tt></a> with the exception that <em>reward</em> and
+<em>penalty</em> are not applicable. Parameters <em>matrix</em>, <em>gapopen</em> and
+<em>gapextend</em> are defined automatically based on the average
+length of query sequences. These automatic settings can be
+overriden by keyword arguments.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.wrappers.BLAST.blastx">
+<tt class="descname">blastx</tt><big>(</big><em>query</em>, <em>target</em>, <em>evalue=None</em>, <em>**params</em><big>)</big><a class="headerlink" href="#egglib.wrappers.BLAST.blastx" title="Permalink to this definition">¶</a></dt>
+<dd><p>Searches a protein database using translated nucleotide queries.
+Arguments are as for <a class="reference internal" href="#egglib.wrappers.BLAST.blastp" title="egglib.wrappers.BLAST.blastp"><tt class="xref py py-meth docutils literal"><span class="pre">blastp()</span></tt></a>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.wrappers.BLAST.tblastn">
+<tt class="descname">tblastn</tt><big>(</big><em>query</em>, <em>target</em>, <em>evalue=None</em>, <em>**params</em><big>)</big><a class="headerlink" href="#egglib.wrappers.BLAST.tblastn" title="Permalink to this definition">¶</a></dt>
+<dd><p>Searches a translated nucleotide database using protein queries.
+Arguments are as for <a class="reference internal" href="#egglib.wrappers.BLAST.blastp" title="egglib.wrappers.BLAST.blastp"><tt class="xref py py-meth docutils literal"><span class="pre">blastp()</span></tt></a>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.wrappers.BLAST.tblastx">
+<tt class="descname">tblastx</tt><big>(</big><em>query</em>, <em>target</em>, <em>evalue=None</em>, <em>**params</em><big>)</big><a class="headerlink" href="#egglib.wrappers.BLAST.tblastx" title="Permalink to this definition">¶</a></dt>
+<dd><p>Searches a translate nucleotide database using translated
+nucleotide queries. Arguments are as for <a class="reference internal" href="#egglib.wrappers.BLAST.blastp" title="egglib.wrappers.BLAST.blastp"><tt class="xref py py-meth docutils literal"><span class="pre">blastp()</span></tt></a>.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="egglib.wrappers.BL2SEQ">
+<em class="property">class </em><tt class="descclassname">egglib.wrappers.</tt><tt class="descname">BL2SEQ</tt><a class="headerlink" href="#egglib.wrappers.BL2SEQ" title="Permalink to this definition">¶</a></dt>
+<dd><p>Provides NCBI Basic Local Alignment Search Tools for aligning two
+sequences by local alignment. The proposed methods return all a list
+of dictionaries representing all HSPs. The items of the dictionaries
+corresponding to the following variables: <em>qstart</em>, <em>qend</em>, <em>sstart</em>,
+<em>send</em>, <em>evalue</em>, <em>bitscore</em>, <em>score</em>, <em>length</em>, <em>nident</em>, <em>qframe</em>,
+<em>sframe</em>, <em>gaps</em>, <em>qseq</em>, <em>sseq</em> and <em>midline</em>. The latest is given
+only as identity/mismatch marks. Parameters are defined as for
+<a class="reference internal" href="#egglib.wrappers.BLAST" title="egglib.wrappers.BLAST"><tt class="xref py py-class docutils literal"><span class="pre">BLAST</span></tt></a> except that <em>query</em> and <em>subject</em> must both be
+sequence strings.</p>
+<dl class="method">
+<dt id="egglib.wrappers.BL2SEQ.blastn">
+<tt class="descname">blastn</tt><big>(</big><em>query</em>, <em>subject</em>, <em>evalue=None</em>, <em>penalty=None</em>, <em>**params</em><big>)</big><a class="headerlink" href="#egglib.wrappers.BL2SEQ.blastn" title="Permalink to this definition">¶</a></dt>
+<dd><p>Align a nucleotide query to a nucleotide subject. Arguments are
+as for <a class="reference internal" href="#egglib.wrappers.BLAST.blastn" title="egglib.wrappers.BLAST.blastn"><tt class="xref py py-meth docutils literal"><span class="pre">BLAST.blastn()</span></tt></a> except that <em>query</em> and <em>subject</em> 
+must both be sequence strings.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.wrappers.BL2SEQ.blastp">
+<tt class="descname">blastp</tt><big>(</big><em>query</em>, <em>subject</em>, <em>evalue=None</em>, <em>**params</em><big>)</big><a class="headerlink" href="#egglib.wrappers.BL2SEQ.blastp" title="Permalink to this definition">¶</a></dt>
+<dd><p>Align a protein query to a protein subject. Arguments are
+as for <a class="reference internal" href="#egglib.wrappers.BLAST.blastp" title="egglib.wrappers.BLAST.blastp"><tt class="xref py py-meth docutils literal"><span class="pre">BLAST.blastp()</span></tt></a> except that <em>query</em> and <em>subject</em>
+must both be sequence strings.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.wrappers.BL2SEQ.blastx">
+<tt class="descname">blastx</tt><big>(</big><em>query</em>, <em>subject</em>, <em>evalue=None</em>, <em>**params</em><big>)</big><a class="headerlink" href="#egglib.wrappers.BL2SEQ.blastx" title="Permalink to this definition">¶</a></dt>
+<dd><p>Align a protein query to a translated nucleotide subject.
+Arguments are as for <a class="reference internal" href="#egglib.wrappers.BLAST.blastx" title="egglib.wrappers.BLAST.blastx"><tt class="xref py py-meth docutils literal"><span class="pre">BLAST.blastx()</span></tt></a> except that <em>query</em>
+and <em>subject</em> must both be sequence strings.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.wrappers.BL2SEQ.tblastn">
+<tt class="descname">tblastn</tt><big>(</big><em>query</em>, <em>subject</em>, <em>evalue=None</em>, <em>**params</em><big>)</big><a class="headerlink" href="#egglib.wrappers.BL2SEQ.tblastn" title="Permalink to this definition">¶</a></dt>
+<dd><p>Align a translated nucleotide query to a protein subject.
+Arguments are as for <a class="reference internal" href="#egglib.wrappers.BLAST.tblastn" title="egglib.wrappers.BLAST.tblastn"><tt class="xref py py-meth docutils literal"><span class="pre">BLAST.tblastn()</span></tt></a> except that <em>query</em>
+and <em>subject</em> must both be sequence strings.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.wrappers.BL2SEQ.tblastx">
+<tt class="descname">tblastx</tt><big>(</big><em>query</em>, <em>subject</em>, <em>evalue=None</em>, <em>**params</em><big>)</big><a class="headerlink" href="#egglib.wrappers.BL2SEQ.tblastx" title="Permalink to this definition">¶</a></dt>
+<dd><p>Align a translated nucleotide query to a translated nucleotide
+subject. Arguments are as for <a class="reference internal" href="#egglib.wrappers.BLAST.tblastx" title="egglib.wrappers.BLAST.tblastx"><tt class="xref py py-meth docutils literal"><span class="pre">BLAST.tblastx()</span></tt></a> except that
+<em>query</em> and <em>subject</em> must both be sequence strings.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="egglib.wrappers.BLASTdb">
+<em class="property">class </em><tt class="descclassname">egglib.wrappers.</tt><tt class="descname">BLASTdb</tt><big>(</big><em>container</em>, <em>type</em><big>)</big><a class="headerlink" href="#egglib.wrappers.BLASTdb" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<p>Handles a local BLAST database saved as temporary files. This class
+is most useful when a database is needed only temporarily. The
+database will be available for BLAST applications as long as
+the instance lives.</p>
+<p>The constructor expects two (mandatory) arguments: <em>container</em>
+must be a <a class="reference internal" href="data.html#egglib.Container" title="egglib.Container"><tt class="xref py py-class docutils literal"><span class="pre">Container</span></tt></a> or <a class="reference internal" href="data.html#egglib.Align" title="egglib.Align"><tt class="xref py py-class docutils literal"><span class="pre">Align</span></tt></a> instance and
+<em>type</em> must be either <tt class="docutils literal"><span class="pre">'nucl'</span></tt> (for nucleotides) or <tt class="docutils literal"><span class="pre">'prot'</span></tt>
+(for proteins) and specify the appropriate data type. For
+protein sequences, trailing stop codons are automatically
+trimmed.</p>
+<dl class="method">
+<dt id="egglib.wrappers.BLASTdb.path">
+<tt class="descname">path</tt><big>(</big><big>)</big><a class="headerlink" href="#egglib.wrappers.BLASTdb.path" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the full path name of the local database, as required
+by BLAST programs. It is usually not required to use this method
+directly.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="sequence-alignment">
+<h2>Sequence alignment<a class="headerlink" href="#sequence-alignment" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="egglib.wrappers.clustal">
+<tt class="descclassname">egglib.wrappers.</tt><tt class="descname">clustal</tt><big>(</big><em>container</em>, <em>quiet=True</em>, <em>nogroups=False</em><big>)</big><a class="headerlink" href="#egglib.wrappers.clustal" title="Permalink to this definition">¶</a></dt>
+<dd><p>Performs multiple alignment using CLUSTALW. <em>container</em> might be
+a <a class="reference internal" href="data.html#egglib.Container" title="egglib.Container"><tt class="xref py py-class docutils literal"><span class="pre">Container</span></tt></a> or <a class="reference internal" href="data.html#egglib.Align" title="egglib.Align"><tt class="xref py py-class docutils literal"><span class="pre">Align</span></tt></a> instance. If
+<em>quiet</em> is <tt class="docutils literal"><span class="pre">True</span></tt>, the standard output (but not standard error)
+of the wrapped program will be intercepted and discarded. Returns
+a <a class="reference internal" href="data.html#egglib.Align" title="egglib.Align"><tt class="xref py py-class docutils literal"><span class="pre">Align</span></tt></a> instance. By default, the function
+preserves group labels. However, if the container contains
+duplicates (even if they belong to the same group), this operation
+will fail (with a <tt class="xref py py-class docutils literal"><span class="pre">ValueError</span></tt>). To process containers
+containing duplicates and for which group label information is not
+important, set the flag <em>nogroups</em> to <tt class="docutils literal"><span class="pre">True</span></tt>.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="egglib.wrappers.muscle">
+<tt class="descclassname">egglib.wrappers.</tt><tt class="descname">muscle</tt><big>(</big><em>container</em>, <em>quiet=True</em>, <em>nogroups=False</em><big>)</big><a class="headerlink" href="#egglib.wrappers.muscle" title="Permalink to this definition">¶</a></dt>
+<dd><p>Performs multiple alignment using MUSCLE. <em>container</em> might be
+a <a class="reference internal" href="data.html#egglib.Container" title="egglib.Container"><tt class="xref py py-class docutils literal"><span class="pre">Container</span></tt></a> or <a class="reference internal" href="data.html#egglib.Align" title="egglib.Align"><tt class="xref py py-class docutils literal"><span class="pre">Align</span></tt></a> instance. If
+<em>quiet</em> is <tt class="docutils literal"><span class="pre">True</span></tt>, progress information will not be shown If
+<em>quiet</em> is <tt class="docutils literal"><span class="pre">False</span></tt>, progress information will be shown but the
+function might not be able to detect automatically errors reported
+by the wrapped program. Returns a <a class="reference internal" href="data.html#egglib.Align" title="egglib.Align"><tt class="xref py py-class docutils literal"><span class="pre">Align</span></tt></a> instance.
+By default, the function preserves group labels. However, if the
+container contains duplicates (even if they belong to the same
+group), this operation will fail (with a <tt class="xref py py-class docutils literal"><span class="pre">ValueError</span></tt>). To
+process containers containing duplicates and for which group label
+information is not important, set the flag <em>nogroups</em> to <tt class="docutils literal"><span class="pre">True</span></tt>.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="tree-building-and-analysis">
+<h2>Tree building and analysis<a class="headerlink" href="#tree-building-and-analysis" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="egglib.wrappers.phyml">
+<tt class="descclassname">egglib.wrappers.</tt><tt class="descname">phyml</tt><big>(</big><em>input</em>, <em>model='GTR'</em>, <em>rates=1</em>, <em>boot=0</em>, <em>topo=None</em>, <em>start=None</em>, <em>search='NNI'</em>, <em>quiet=True</em><big>)</big><a class="headerlink" href="#egglib.wrappers.phyml" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reconstructs phylogeny using maximum likelihood through the PhyML
+software. <em>input</em> should be a <a class="reference internal" href="data.html#egglib.Align" title="egglib.Align"><tt class="xref py py-class docutils literal"><span class="pre">Align</span></tt></a> instance. 
+<em>model</em> indicates the model to use. Accepted values are <tt class="docutils literal"><span class="pre">HKY85</span></tt>,
+<tt class="docutils literal"><span class="pre">JC69</span></tt>, <tt class="docutils literal"><span class="pre">K80</span></tt>, <tt class="docutils literal"><span class="pre">F81</span></tt>, <tt class="docutils literal"><span class="pre">F84</span></tt>, <tt class="docutils literal"><span class="pre">TN93</span></tt> and <tt class="docutils literal"><span class="pre">GTR</span></tt> for
+nucleotides and <tt class="docutils literal"><span class="pre">LG</span></tt>, <tt class="docutils literal"><span class="pre">WAG</span></tt>, <tt class="docutils literal"><span class="pre">JTT</span></tt>, <tt class="docutils literal"><span class="pre">MtREV</span></tt>, <tt class="docutils literal"><span class="pre">Dayhoff</span></tt>,
+<tt class="docutils literal"><span class="pre">DCMut</span></tt>, <tt class="docutils literal"><span class="pre">RtREV</span></tt>, <tt class="docutils literal"><span class="pre">CpREV</span></tt>, <tt class="docutils literal"><span class="pre">VT</span></tt>, <tt class="docutils literal"><span class="pre">Blosum62</span></tt>, <tt class="docutils literal"><span class="pre">MtMam</span></tt>,
+<tt class="docutils literal"><span class="pre">MtArt</span></tt>, <tt class="docutils literal"><span class="pre">HIVw</span></tt> and <tt class="docutils literal"><span class="pre">HIVb</span></tt> for protein sequences. <em>rates</em>
+gives the number of discrete categories of evolutionary rate. <em>boot</em>
+sets the number of bootstrap repetitions. Values of -1, -2 and -3
+activates one the test-based branch support evaluation methods that
+provide faster alternatives to bootstrap repetitions. A value of 0
+will provide no branch support at all. <em>topo</em> allows to fix the tree
+topology. <em>start</em> allows to set the starting topology (it is
+illegal to set both <em>topo</em> and <em>start</em> to non-<tt class="docutils literal"><span class="pre">None</span></tt> values.
+<em>search</em> can be <tt class="docutils literal"><span class="pre">NNI</span></tt> (fastest), <tt class="docutils literal"><span class="pre">SPR</span></tt> or <tt class="docutils literal"><span class="pre">BEST``(best</span> <span class="pre">of</span> <span class="pre">both</span>
+<span class="pre">methods).</span> <span class="pre">For</span> <span class="pre">*topo*</span> <span class="pre">or</span> <span class="pre">*start*,</span> <span class="pre">a</span> <span class="pre">:class:`~egglib.Tree`</span> <span class="pre">instance</span>
+<span class="pre">must</span> <span class="pre">be</span> <span class="pre">passed.</span> <span class="pre">If</span> <span class="pre">present,</span> <span class="pre">branch</span> <span class="pre">lengths</span> <span class="pre">and</span> <span class="pre">branch</span> <span class="pre">labels</span> <span class="pre">will</span>
+<span class="pre">be</span> <span class="pre">ignored.</span> <span class="pre">If</span> <span class="pre">*quiet*</span> <span class="pre">is</span> <span class="pre">``True</span></tt>, the standard output of the
+wrapped program will be intercepted and discarded. The function
+returns a tuple <tt class="docutils literal"><span class="pre">(tree,</span> <span class="pre">loglk)</span></tt> where <em>tree</em> is a
+<a class="reference internal" href="data.html#egglib.Tree" title="egglib.Tree"><tt class="xref py py-class docutils literal"><span class="pre">Tree</span></tt></a> instance and <em>loglk</em> the log-likelihood
+reported by PhyML.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="egglib.wrappers.nj">
+<tt class="descclassname">egglib.wrappers.</tt><tt class="descname">nj</tt><big>(</big><em>input</em>, <em>groups=False</em>, <em>quiet=True</em><big>)</big><a class="headerlink" href="#egglib.wrappers.nj" title="Permalink to this definition">¶</a></dt>
+<dd><p>Constructs a neighbor-joining tree using programs from the PHYLIP
+package (<tt class="docutils literal"><span class="pre">dnadist</span></tt> and <tt class="docutils literal"><span class="pre">neighbor</span></tt>). <em>input</em> should be a
+<a class="reference internal" href="data.html#egglib.Align" title="egglib.Align"><tt class="xref py py-class docutils literal"><span class="pre">Align</span></tt></a> instance containing DNA sequences only.
+If <em>group</em> is <tt class="docutils literal"><span class="pre">True</span></tt>, the group labels will be appended to
+sequence names and therefore will appear in the final tree. If
+<em>quiet</em> is <tt class="docutils literal"><span class="pre">True</span></tt>, the standard output of the wrapped program will
+be intercepted and discarded. The function returns a
+<a class="reference internal" href="data.html#egglib.Tree" title="egglib.Tree"><tt class="xref py py-class docutils literal"><span class="pre">Tree</span></tt></a> instance.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="egglib.wrappers.Codeml">
+<em class="property">class </em><tt class="descclassname">egglib.wrappers.</tt><tt class="descname">Codeml</tt><big>(</big><em>aln</em>, <em>tree=None</em><big>)</big><a class="headerlink" href="#egglib.wrappers.Codeml" title="Permalink to this definition">¶</a></dt>
+<dd><p>Interface to non-synonymous/synonymous substitution rate analyses
+available in the <tt class="docutils literal"><span class="pre">codeml</span></tt> program of the PAML package. The
+sequences and tree are loaded at construction time. The results can
+be accessed through the return value of <a class="reference internal" href="#egglib.wrappers.Codeml.fit" title="egglib.wrappers.Codeml.fit"><tt class="xref py py-meth docutils literal"><span class="pre">fit()</span></tt></a> or as a
+pre-formatted string by calling <tt class="docutils literal"><span class="pre">str(codeml)</span></tt> (where <em>codeml</em> is a
+<a class="reference internal" href="#egglib.wrappers.Codeml" title="egglib.wrappers.Codeml"><tt class="xref py py-class docutils literal"><span class="pre">Codeml</span></tt></a> instance). Default options of influencal parameters
+are: start omega value of 0.4, omega not fixed and 10 discrete omega
+categories. They can be changed using the appropriate accessors.
+After running <a class="reference internal" href="#egglib.wrappers.Codeml.fit" title="egglib.wrappers.Codeml.fit"><tt class="xref py py-meth docutils literal"><span class="pre">fit()</span></tt></a>, the instance caches the control file as
+<em>controlfile</em>, the <tt class="docutils literal"><span class="pre">codeml</span></tt> main output file as <em>outputfile</em> and
+<tt class="docutils literal"><span class="pre">codeml</span></tt> standard output (where you might be able to read error
+messages) as <em>standardoutput</em>. This is done to allow manual
+inspection in case of errors.</p>
+<p>Constructor arguments: <em>aln</em>, a <a class="reference internal" href="data.html#egglib.Align" title="egglib.Align"><tt class="xref py py-class docutils literal"><span class="pre">Align</span></tt></a> instance,
+<em>tree</em>, a <a class="reference internal" href="data.html#egglib.Tree" title="egglib.Tree"><tt class="xref py py-class docutils literal"><span class="pre">Tree</span></tt></a> instance. The names of <em>aln</em> and
+<em>tree</em> must match (except that <tt class="docutils literal"><span class="pre">$x</span></tt> and <tt class="docutils literal"><span class="pre">$x</span></tt> labels -where
+<em>x</em> is an integer- are ignored at the end of tree leaf names).
+If <em>tree</em> is <tt class="docutils literal"><span class="pre">None</span></tt>, a star topology will be used. Branch
+lengths from the tree are discarded.</p>
+<dl class="method">
+<dt id="egglib.wrappers.Codeml.fit">
+<tt class="descname">fit</tt><big>(</big><em>MODEL</em>, <em>quiet=True</em><big>)</big><a class="headerlink" href="#egglib.wrappers.Codeml.fit" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fits a given model and collects the result.</p>
+<dl class="docutils">
+<dt><em>MODEL</em> must be only of the following model specifications:</dt>
+<dd><ul class="first last simple">
+<li><tt class="docutils literal"><span class="pre">M0</span></tt>: fixed-omega model.</li>
+<li><tt class="docutils literal"><span class="pre">M1a</span></tt>: nearly-neutral model.</li>
+<li><tt class="docutils literal"><span class="pre">M2a</span></tt>: positive selection model.</li>
+<li><tt class="docutils literal"><span class="pre">M8a</span></tt>: nearly-neutral beta model.</li>
+<li><tt class="docutils literal"><span class="pre">M8</span></tt>: positive selection beta model.</li>
+<li><tt class="docutils literal"><span class="pre">A0</span></tt>: branch-site null model.</li>
+<li><tt class="docutils literal"><span class="pre">A</span></tt>: branch-site model.</li>
+<li><tt class="docutils literal"><span class="pre">nW</span></tt>: independent omegas in subtrees.</li>
+<li><tt class="docutils literal"><span class="pre">b</span></tt>: branch-independent model.</li>
+</ul>
+</dd>
+</dl>
+<p>The results are returned as a dictionary containing these keys
+(note that keys irrelevant to me fitted model will not be
+exported):</p>
+<blockquote>
+<div><ul class="simple">
+<li>model: the model fitted.</li>
+<li>lnL: the log-likelihood.</li>
+<li>np: number of parameters.</li>
+<li>kappa: the transition/transversion ratio.</li>
+<li>omega: omega estimate, as a single value M0, a list of two values for M1a, three values for M2a, eleven values for M8a and M8, k values for nW (where k is the number of clades in the tree), alist of four tuples of two values for A0 and A.</li>
+<li>freq: estimates of the frequency of the different categories, None for M0 and nW, a list of two values for M1a, three values for M2a, eleven values for M8a and M8 and four values for A0 and A.</li>
+<li>beta: a tuple for p and q (beta distribution parameters), None for all models but M1a and M2a.</li>
+<li>site_method: method used to estimate posterior site.</li>
+<li>trees: the trees found in the results (in order) as a list of tree instances.</li>
+<li>site_proba: list with one list per site, each list contains the posterior probability of the site under each omega category, for models M1, M1a, M2a, M8a, M8, A0, A.</li>
+<li>site_class: the list of highest probability class for each site, for models M1a, M2a, M8a, M8, A0, A.</li>
+<li>site_omega: the list of average posterior omega for each site, for models M1, M1a, M2a, M8a, M8.</li>
+<li>site_error: the standard deviation of posterior omega for each site, for models M2a and M8.</li>
+</ul>
+</div></blockquote>
+<p>If <em>quiet</em> is <tt class="docutils literal"><span class="pre">True</span></tt>, the standard output is intercepted and
+discarded.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.wrappers.Codeml.fix_omega">
+<tt class="descname">fix_omega</tt><big>(</big><em>value</em><big>)</big><a class="headerlink" href="#egglib.wrappers.Codeml.fix_omega" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fixes omega to <em>value</em>. It is not required to call this method for
+fitting models that require a fixed value of omega.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.wrappers.Codeml.number_of_categories">
+<tt class="descname">number_of_categories</tt><big>(</big><em>value</em><big>)</big><a class="headerlink" href="#egglib.wrappers.Codeml.number_of_categories" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets the number of discrete omega categories.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.wrappers.Codeml.start_omega">
+<tt class="descname">start_omega</tt><big>(</big><em>value</em><big>)</big><a class="headerlink" href="#egglib.wrappers.Codeml.start_omega" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets the start value of omega to <em>value</em>. It is not legal to call
+this method when omega is fixed.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.wrappers.Codeml.unfix_omega">
+<tt class="descname">unfix_omega</tt><big>(</big><em>value</em><big>)</big><a class="headerlink" href="#egglib.wrappers.Codeml.unfix_omega" title="Permalink to this definition">¶</a></dt>
+<dd><p>Releases omega from a previous call to <a class="reference internal" href="#egglib.wrappers.Codeml.fix_omega" title="egglib.wrappers.Codeml.fix_omega"><tt class="xref py py-meth docutils literal"><span class="pre">fix_omega()</span></tt></a> and set
+the start value to <em>value</em>.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="primer-detection">
+<h2>Primer detection<a class="headerlink" href="#primer-detection" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="egglib.wrappers.Primer3">
+<em class="property">class </em><tt class="descclassname">egglib.wrappers.</tt><tt class="descname">Primer3</tt><big>(</big><em>sequence</em>, <em>**params</em><big>)</big><a class="headerlink" href="#egglib.wrappers.Primer3" title="Permalink to this definition">¶</a></dt>
+<dd><p>Primer design using the program <tt class="docutils literal"><span class="pre">PRIMER3</span></tt>. The constructor takes a
+sequence and optional parameters. The list of parameters and default
+values can be accessed through the class-level attribute dictionary
+<a class="reference internal" href="#egglib.wrappers.Primer3.default_parameters" title="egglib.wrappers.Primer3.default_parameters"><tt class="xref py py-attr docutils literal"><span class="pre">default_parameters</span></tt></a>.</p>
+<p><em>sequence</em> must be a nucleotide sequence. Parameter values can
+be passed as keyword arguments. Parameter default values are
+taken from <em>Primer.default_parameters</em>. Parameters are restricted
+to the default list, such as spelling errors might result in a
+crash later, during primer search.</p>
+<dl class="method">
+<dt id="egglib.wrappers.Primer3.check_pairs">
+<tt class="descname">check_pairs</tt><big>(</big><big>)</big><a class="headerlink" href="#egglib.wrappers.Primer3.check_pairs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Checks primer pairs defined using <a class="reference internal" href="#egglib.wrappers.Primer3.find_pairs" title="egglib.wrappers.Primer3.find_pairs"><tt class="xref py py-meth docutils literal"><span class="pre">find_pairs()</span></tt></a> and discards
+the pairs that fail to pass the test. This method includes a
+second call to the <tt class="docutils literal"><span class="pre">PRIMER3</span></tt> application.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.wrappers.Primer3.clean_pair_ends">
+<tt class="descname">clean_pair_ends</tt><big>(</big><em>number</em><big>)</big><a class="headerlink" href="#egglib.wrappers.Primer3.clean_pair_ends" title="Permalink to this definition">¶</a></dt>
+<dd><p>Deletes all primer pairs that contain at least one invalid
+character (fully resolved, not missing). All primer pairs with
+a least one primer containing a character other than A, C, G and
+T (case-independent) close to the 3&#8217; end are removed. <em>number</em>
+gives the number of characters to consider. If the number of
+larger than the length of the primer, the complete sequence is
+considered. Returns the number of pairs.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.wrappers.Primer3.clean_primer_ends">
+<tt class="descname">clean_primer_ends</tt><big>(</big><em>number</em><big>)</big><a class="headerlink" href="#egglib.wrappers.Primer3.clean_primer_ends" title="Permalink to this definition">¶</a></dt>
+<dd><p>Similar to <a class="reference internal" href="#egglib.wrappers.Primer3.clean_pair_ends" title="egglib.wrappers.Primer3.clean_pair_ends"><tt class="xref py py-meth docutils literal"><span class="pre">clean_pair_ends()</span></tt></a> except that the lists of
+forward and reverse primers are considered. The pairs, if they
+were generated, are not affected. Returns a tuple <tt class="docutils literal"><span class="pre">(nf,</span> <span class="pre">nr)</span></tt>
+with <em>nf</em> and <em>nr</em> the numbers of forward and reverse primers,
+respectively.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="egglib.wrappers.Primer3.default_parameters">
+<tt class="descname">default_parameters</tt><em class="property"> = {'PRIMER_MAX_SIZE': 27, 'PRIMER_SALT_DIVALENT': 0.0, 'PRIMER_SALT_MONOVALENT': 50.0, 'PRIMER_OPT_GC_PERCENT': 50.0, 'PRIMER_MAX_GC': 80.0, 'PRIMER_OPT_TM': 60.0, 'PRIMER_PICK_ANYWAY': 1, 'PRIMER_MIN_GC': 30.0, 'PRIMER_GC_CLAMP': 1, 'PRIMER_OPT_SIZE': 20, 'PRIMER_MIN_SIZE': 18, 'PRIMER_FIRST_BASE_INDEX': 1, 'PRIMER_MAX_NS_ACCEPTED': 2, 'PRIMER_NUM_RETURN': 5, 'PRIMER_LIBERAL_BASE': 1, 'PRIMER_PAIR_MAX_DIFF_TM': 3, 'PRIMER_MIN_TM': 57.0, 'PRIMER_MAX_TM': 63.0, 'PRIMER_DNTP_CONC': 0.0}</em><a class="headerlink" href="#egglib.wrappers.Primer3.default_parameters" title="Permalink to this definition">¶</a></dt>
+<dd><p>Class-level dictionary holding default values for all run parameters.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.wrappers.Primer3.find_pairs">
+<tt class="descname">find_pairs</tt><big>(</big><em>mini=70</em>, <em>maxi=9999</em><big>)</big><a class="headerlink" href="#egglib.wrappers.Primer3.find_pairs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Finds primer pairs. Primers must have been previously designed.
+<em>mini</em> and <em>maxi</em> gives the range of accepted products. This
+method doesn&#8217;t involve any call to <tt class="docutils literal"><span class="pre">PRIMER3</span></tt>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.wrappers.Primer3.find_primers">
+<tt class="descname">find_primers</tt><big>(</big><big>)</big><a class="headerlink" href="#egglib.wrappers.Primer3.find_primers" title="Permalink to this definition">¶</a></dt>
+<dd><p>Finds primers. Returns a tuple <tt class="docutils literal"><span class="pre">(nf,</span> <span class="pre">nr)</span></tt> where <em>nf</em> is the
+number of forward primers found and <em>nr</em> the number of reverse
+primers found.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.wrappers.Primer3.forward_primers">
+<tt class="descname">forward_primers</tt><big>(</big><big>)</big><a class="headerlink" href="#egglib.wrappers.Primer3.forward_primers" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a reference to the list of forward primers (that must
+have been previously detected using <a class="reference internal" href="#egglib.wrappers.Primer3.find_primers" title="egglib.wrappers.Primer3.find_primers"><tt class="xref py py-meth docutils literal"><span class="pre">find_primers()</span></tt></a>). Each item of
+the list represents a primer as a dictionary containing the
+following keys: <em>seq</em> (the primer sequence, given in the 5&#8217; to
+3&#8217; orientation), <em>pos</em> (the position of nucleotide at the 5&#8217; end),
+<em>GC%</em>, <em>Tm</em>, <em>Q</em> (the quality value), <em>END</em> (not defined in
+<tt class="docutils literal"><span class="pre">PRIMER3</span></tt> documentation, might be the maximum secondary structure
+stability) and <em>ANY</em> (also not documented in <tt class="docutils literal"><span class="pre">PRIMER3</span></tt>, might be
+maximum misannealing stability with respect to the provided
+sequence). The last two parameters should be minimized, and their
+definition will be confirmed as soon as possible.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.wrappers.Primer3.pairs">
+<tt class="descname">pairs</tt><big>(</big><big>)</big><a class="headerlink" href="#egglib.wrappers.Primer3.pairs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the list of primer pairs found by <a class="reference internal" href="#egglib.wrappers.Primer3.find_pairs" title="egglib.wrappers.Primer3.find_pairs"><tt class="xref py py-meth docutils literal"><span class="pre">find_pairs()</span></tt></a>.
+Each item is a directory with the values: <em>F</em> (the forward
+primer), <em>R</em> (the reverse primer), <em>start</em>, <em>end</em> and <em>size</em>.
+The primers are the same as given by <a class="reference internal" href="#egglib.wrappers.Primer3.forward_primers" title="egglib.wrappers.Primer3.forward_primers"><tt class="xref py py-meth docutils literal"><span class="pre">forward_primers()</span></tt></a> and
+<a class="reference internal" href="#egglib.wrappers.Primer3.reverse_primers" title="egglib.wrappers.Primer3.reverse_primers"><tt class="xref py py-meth docutils literal"><span class="pre">reverse_primers()</span></tt></a>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.wrappers.Primer3.reverse_primers">
+<tt class="descname">reverse_primers</tt><big>(</big><big>)</big><a class="headerlink" href="#egglib.wrappers.Primer3.reverse_primers" title="Permalink to this definition">¶</a></dt>
+<dd><p>Equivalent to <a class="reference internal" href="#egglib.wrappers.Primer3.forward_primers" title="egglib.wrappers.Primer3.forward_primers"><tt class="xref py py-meth docutils literal"><span class="pre">forward_primers()</span></tt></a>, except that the <em>pos</em>
+value is the position of the nucleotide at the 3&#8217; end of the
+primer, therefore the first nucleotide when reading in the
+original orientation of the provided sequence.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.wrappers.Primer3.select">
+<tt class="descname">select</tt><big>(</big><em>number</em><big>)</big><a class="headerlink" href="#egglib.wrappers.Primer3.select" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sorts the list of primer pairs (based on the sum of primer
+qualities) and select best primers. <em>number</em> gives the number
+of primer pairs to retain. If there is less pairs, they will
+all be retained, but still be sorted. Returns the number of
+pairs retained. The lists of forward and reverse primers are not
+affected.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="egglib.wrappers.Primer3.sort">
+<tt class="descname">sort</tt><big>(</big><big>)</big><a class="headerlink" href="#egglib.wrappers.Primer3.sort" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sorts all class attributes (forward and reverse primers and
+primer pairs) based on quality (sum of both primer qualities for
+pairs).</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="simul.html" title="simul"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="tools.html" title="tools"
+             >previous</a> |</li>
+        <li><a href="index.html">EggLib</a> &raquo;</li>
+          <li><a href="egglib-py.html" >Python module</a> &raquo;</li> 
+      </ul>
+    </div>
+        <address style="text-align: right;"><small>Hosted by&nbsp;
+        <a href="http://sourceforge.net/projects/seqlib"><img src="http://sflogo.sourceforge.net/sflogo.php?group_id=232965&amp;type=8" width="80" height="15" alt="Get seqlib at SourceForge.net. Fast, secure and Free Open Source software downloads" / ALIGN=RIGHT BORDER=0></a>
+        </address>
+
+  </body>
+</html>

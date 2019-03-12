@@ -1,0 +1,10 @@
+=======
+Authors
+=======
+
+`Stéphane De Mita <http://mycor.nancy.inra.fr/EFPFteam/?page_id=19>`_
+and Mathieu Siol are both evolutionary biologists and population geneticists working at INRA institute in Nancy
+and Dijon (France), respectively. They partly developped EggLib as part of the
+`arcad <http://www.arcad-project.org/>`_ project.
+
+

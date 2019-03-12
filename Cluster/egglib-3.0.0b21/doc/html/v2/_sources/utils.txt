@@ -1,0 +1,15 @@
+.. _utils:
+
+============
+Utils module
+============
+
+.. automodule:: egglib.utils
+
+.. autoclass:: egglib.utils.BaseCommand
+    :members:
+
+.. autoclass:: egglib.utils.Option
+    :members:
+
+.. autofunction:: egglib.utils.execute

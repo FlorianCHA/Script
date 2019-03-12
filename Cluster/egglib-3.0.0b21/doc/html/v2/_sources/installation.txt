@@ -1,0 +1,180 @@
+.. _install:
+
+====================
+Download and install
+====================
+
+Installation from source
+========================
+
+Requirements
+------------
+
+To build EggLib from source, you need a **C++ compiler** supporting
+the **Standard Template Library** and a UNIX shell-compatible
+environment (known as *terminal*, and available through
+`cygwin <http://www.cygwin.com/>`_ on Windows). In addition, the Python
+development files are needed. These files should be available by default
+under Windows. In other systems, these files should be available as a
+separate package python-devel or python-header.
+
+There are two *optional* dependencies:
+
+* `Bio++ <http://biopp.univ-montp2.fr/>`_ (for egglib 2.1.5: version 2.0.x
+  or higher; for egglib 2.1.6 through 2.1.9: version 2.1.x;
+  for egglib 2.1.10 and higher: version 2.2.x).
+  Bio++ contains a set of C++  libraries for sequence
+  management, population genetics and  phylogenetics. If Bio++ is
+  present in the system, it will be
+  automatically used to extend the possibilities of the population
+  genetics functions of Egglib. A notable addition is the computation of
+  the McDonald and Kreitman test table. If Bio++ is not detected, it
+  will be skipped without generating errors.
+
+* The `GNU Scientific Library <http://www.gnu.org/software/gsl/>`_
+  is needed for the most crucial parts of the ABC features of Egglib
+  (namely the ABC class). If the GSL is not available, this class will
+  not be available, but the rest of the library will be available.
+
+The Python module (egglib-py) requires `Python <http://www.python.org>`_ version 2.6 or higher
+but doesn't function under Python version 3.0. On some platform,
+installing the development package of Python will be needed. Part of 
+EggLib functionalities require `matplotlib <http://matplotlib.sourceforge.net>`_
+or `numpy <http://numpy.scipy.org>`_. The presence of these modules are
+evaluated dynamically and an error is only reported when attempting to
+use the corresponding features.
+
+EggLib can use **external applications**, provided that they are
+installed and available in the system. If they are absent or not
+detected, some features might not be available. These programs must be
+installed independently and their presence is evaluated at build time.
+
+* The programs ``blastn``, ``blastp``, ``blastx``, ``tblastn``,
+  ``tblastx`` and ``makeblastdb`` of the `BLAST+ standalone package <ftp://ftp.ncbi.nlm.nih.gov/blast/executables/blast+/LATEST/>`_.
+* `clustalw <http://www.clustal.org>`_.
+* `muscle <http://www.drive5.com/muscle/>`_.
+* ``codeml`` from the `PAML package <http://abacus.gene.ucl.ac.uk/software/paml.html>`_.
+* `phyml <http://www.atgc-montpellier.fr/phyml/>`_ version 3.
+* `ms <http://home.uchicago.edu/~rhudson1/>`_.
+* `primer3 <http://primer3.sourceforge.net/>`_ version 2.2.3 (earlier alpha and beta 2.x.x versions should work).
+* ``dnadist``, ``neighbor`` and ``seqboot`` from the `PHYLIP package <http://evolution.genetics.washington.edu/phylip.html>`_.
+
+
+Download source code
+--------------------
+
+Download the following two archives (replace <version> by the actual 
+version number), from the `download site <http://sourceforge.net/projects/egglib/files/>`_:
+
+* ``egglib-cpp-<version>.tar.gz`` for the C++ library
+* ``egglib-py-<version>.tar.gz`` for the Python module
+
+
+Installation procedure
+----------------------
+
+Unpack the C++ library archive and move to the created directory
+(replace ``<version>`` by the actual version number)::
+
+    $gzip -d egglib-cpp-<version>.tar.gz
+    $tar xvf egglib-cpp-<version>.tar
+    $cd egglib-cpp-<version>
+    
+Configure the package::
+
+    $./configure [options]
+
+Type ``./configure --help`` to view the available options. The options
+allow you to use non-default tools or install libraries to non-default
+locations. (For example, ``./configure --prefix=$HOME`` will install the
+libraries in a *lib* directory, and the headers in a *header* directory
+of your home directory.) The script should exit without mentionning an
+error.
+
+Compile the libraries::
+
+    $make
+    
+This will compile all the source code in the current directory. Unless
+an error is reported, you can next install the libraries in you system
+directories (in most cases, this step requires super-user rights)::
+
+    $make install
+    
+Upon success and by default, you should have installed the C++ library.
+
+Next step is too install the Python module. Move out from the
+egglib-cpp directory, unpack the Python package and move in it::
+
+    $cd ..
+    $tar xvf egglib-py-<version>.tar
+    $cd egglib-py-<version>
+
+Compile it::
+
+    $python setup.py build
+    
+An option ``--prefix`` is provided to add an additional search path
+for headers and libraries of egglib-cpp. If you used ``--prefix=$HOME``
+to run egglib-cpp's ``configure`` script, you should also then run
+``python setup.py build --prefix=$HOME`` at this stage. The setup.py
+script accepts more options provided by Python's builtin distutils
+package.. Type ``python setup.py --help`` to see the manual page.
+
+If the compilation is successfull, install the package within you Python
+distribution (probably requires super-user rights)::
+
+    $python setup.py install
+
+You can use the (distutils builtin) option ``--home`` to install the
+module in a non-default location. Refer to Python's
+`documentation <http://docs.python.org/install/index.html>`_ for
+more details.
+
+.. note::
+    Don't run ``python setup.py install`` without running
+    ``python setup.py build`` because it would skip the ``build_app``
+    step and your EggLib installation would be broken.
+
+Detection of external applications
+----------------------------------
+
+The ``build_apps`` command of setup.py automatically detects external
+applications. In case you subsequently install a program and want to use
+it though Egglib, you can type at any time::
+
+    $python setup.py build_apps
+    $python setup.py install
+
+You should do the same when you remove a program, or attempting to use
+a function using this program would result in a message stating that the
+program in question failed or that output files could not be parsed.
+
+``build_apps`` generate an output like the following::
+
+    $running build_apps
+    ms[+] blastn[+] blastp[+] clustalw[+] muscle[+] tblastn[+] blastx[+]
+    tblastx[+] makeblastdb[+] phyml[+] dnadist[-] neighbor[-] codeml[+]
+    primer3[-]
+
+In this example, the *PHYLIP* package and *primer3* were not installed.
+Note that in any case EggLib will be functional, only some functions
+depending on the corresponding programs will not be available.
+``build_apps`` rely on default program names and location to detect
+their presence. In case they are installed in your system but not
+available in the standard search path you'll have to modify the file
+``apps.conf.in`` and rebuild to make EggLib aware of their presence
+(this file includes a short guideline section).
+
+
+Installation of pre-compiled Python modules
+===========================================
+
+Pre-compiled programs and Python modules are currently available for
+Windows operating systems. They are available from the
+`download <http://sourceforge.net/projects/egglib/files/>`_ page (refer
+to the included readme file for more details).
+
+
+
+

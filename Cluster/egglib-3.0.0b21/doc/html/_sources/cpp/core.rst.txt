@@ -1,0 +1,137 @@
+.. _core:
+
+---------------
+Core components
+---------------
+
+Constants
+=========
+
+These constant values have use to give special meaning to input
+parameters or return values of functions. Usually they mean "data not
+available" or "irrelevant value". Different names are given to the same
+value in order to make them more relevant to their context. Read the
+documentation carefully.
+
+.. doxygenvariable:: MISSINGDATA
+.. doxygenvariable:: MAX
+.. doxygenvariable:: UNKNOWN
+.. doxygenvariable:: MISSING
+.. doxygenvariable:: OUTGROUP
+.. doxygenvariable:: BEFORE
+.. doxygenvariable:: MAXCHAR
+.. doxygenvariable:: UNDEF
+
+Basic classes
+=============
+
+DataHolder
+**********
+
+.. doxygenclass:: egglib::DataHolder
+    :members:
+
+GeneticCode
+***********
+
+.. doxygenclass:: egglib::GeneticCode
+    :members:
+
+Random
+******
+
+.. doxygenclass:: egglib::Random
+    :members:
+
+Model fitting utilities
+=======================
+
+ABC
+***
+
+.. doxygenclass:: egglib::ABC
+    :members:
+
+Neutral networks
+****************
+
+.. doxygenclass:: egglib::nnet::Network
+    :members:
+
+.. doxygenclass:: egglib::nnet::Neuron
+    :members:
+
+.. doxygenclass:: egglib::nnet::Data
+    :members:
+
+Utilities
+=========
+
+IntersperseAlign
+****************
+
+.. doxygenclass:: egglib::IntersperseAlign
+    :members:
+
+VectorInt
+*********
+
+.. doxygenclass:: egglib::VectorInt
+    :members:
+
+Exceptions
+==========
+
+EggException
+************
+
+.. doxygenclass:: egglib::EggException
+    :members:
+
+EggArgumentValueError
+*********************
+
+.. doxygenclass:: egglib::EggArgumentValueError
+    :members:
+
+EggFormatError
+**************
+
+.. doxygenclass:: egglib::EggFormatError
+    :members:
+
+EggInvalidAlleleError
+*********************
+
+.. doxygenclass:: egglib::EggInvalidAlleleError
+    :members:
+
+EggMemoryError
+**************
+
+.. doxygenclass:: egglib::EggMemoryError
+    :members:
+
+EggOpenFileError
+****************
+
+.. doxygenclass:: egglib::EggOpenFileError
+    :members:
+
+EggPloidyError
+**************
+
+.. doxygenclass:: egglib::EggPloidyError
+    :members:
+ 
+EggRuntimeError
+***************
+
+.. doxygenclass:: egglib::EggRuntimeError
+    :members:
+ 
+EggUnalignedError
+*****************
+
+.. doxygenclass:: egglib::EggUnalignedError
+    :members:

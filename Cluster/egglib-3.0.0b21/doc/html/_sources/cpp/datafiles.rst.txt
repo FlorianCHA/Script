@@ -1,0 +1,106 @@
+.. _datafiles:
+
+-----------------
+Data file formats
+-----------------
+
+Exporting classes
+=================
+
+Base class
+**********
+
+.. doxygenclass:: egglib::BaseFormatter
+    :members:
+
+ms & newick
+***********
+
+.. doxygenclass:: egglib::Export
+    :members:
+
+Fasta
+*****
+ 
+.. doxygenclass:: egglib::FastaFormatter
+    :members:
+
+Fasta importing utilities
+=========================
+
+Fasta parsing class
+*******************
+
+.. doxygenclass:: egglib::FastaParser
+    :members:
+
+Helper functions
+****************
+
+.. doxygenfunction:: egglib::read_fasta_file(const char *fname, bool groups, DataHolder &dest)
+ 
+.. doxygenfunction:: egglib::read_fasta_string(const std::string str, bool groups, DataHolder &dest)
+
+VCF importing class
+===================
+
+VCF class
+*********
+
+.. doxygenclass:: egglib::VcfParser
+    :members:
+
+Helper classes
+**************
+
+.. doxygenclass:: egglib::vcf::Alt
+    :members:
+
+.. doxygenclass:: egglib::vcf::Filter
+    :members:
+
+.. doxygenclass:: egglib::vcf::FlagInfo
+    :members:
+
+.. doxygenclass:: egglib::vcf::Format
+    :members:
+
+.. doxygenclass:: egglib::vcf::Info
+    :members:
+
+.. doxygenclass:: egglib::vcf::Meta
+    :members:
+
+.. doxygenclass:: egglib::vcf::SampleInfo
+    :members:
+ 
+.. doxygenclass:: egglib::vcf::StringInfo
+    :members:
+ 
+.. doxygenclass:: egglib::vcf::TypeInfo
+    :members:
+
+VcfWindow class
+****************
+
+.. doxygenclass:: egglib::VcfWindow
+    :members:
+
+WSite class
+****************
+
+.. doxygenclass:: egglib::WSite
+    :members:
+
+
+Others
+======
+
+GFF3 class
+**********
+
+.. doxygenclass:: egglib::GFF3
+    :members:
+
+.. doxygenclass:: egglib::Feature
+    :members:
