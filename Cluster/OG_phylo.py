@@ -41,13 +41,7 @@
 						path of the output directory
 
 """
-filesreq.add_argument('-g', '--group', type=str, required=True, dest='group',
-					  help='Path of the result of orthofinder (format csv)')
-filesreq.add_argument('-c', '--count', type=str, required=True, dest='count',
-					  help='Path of the count result of orthofinder (format csv)')
-filesreq.add_argument('-f', '--fasta', type=str, required=True, dest='fasta',
-					  help='Path of the fasta which contains all sequence used for orthofinder')
-filesreq.add_argument('-o', '--outdir', type=str, required=True, dest='outdir', help='Path of the output directory')
+
 
 ##################################################
 ## Modules
@@ -115,25 +109,7 @@ if __name__ == "__main__":
 			if nbGenes.count('1') == (len(nbGenes) -1 ) :
 				nb += 1
 				listeOG.append(name)
-<<<<<<< HEAD
-	print(form(f'\t- {nb} groupe orthologue single copy core genome on été trouvé','white','bold'))
-	print()
-	print(form(f'\t- Traitement du fichier {group} pour récupérer les sequences','white','bold'))
-	# dico = fasta2dict(fasta)
-	# with open(group, 'r') as file_group:
-	# 	header = file_group.readline()
-	# 	for line in file_group :
-	# 		name = line.split(':')[0]
-	# 		if name in listeOG :
-	# 			Genes = line.split()[1:len(line.split())]
-	# 			with open(f'{outdir}{name}.fasta','w') as f :
-	# 				for gene in Genes :
-	# 					sequence = dico[gene].seq
-	# 					record = SeqRecord(sequence, id=str(gene), name=str(gene),description= dico[gene].description)
-	# 					SeqIO.write(record, f, "fasta")
-	print()
-	print(form(f'\t- Lancement de translatorX', 'white', 'bold'))
-=======
+
 
 	print(form(f'\t- {nb} groupe orthologue single copy core genome on été trouvé','white','bold'))
 	print()
@@ -149,24 +125,20 @@ if __name__ == "__main__":
 				with open(f'{outdir}{name}.fasta','w') as f :
 					for gene in Genes :
 						sequence = dico[gene].seq
-						record = SeqRecord(sequence, id=str(gene), name=str(gene),description= dico[gene].description)
+						record = SeqRecord(sequence, id=str(gene), name=str(gene),description='')
 						SeqIO.write(record, f, "fasta")
 	print()
 	print(form(f'\t- Lancement de transletorX', 'white', 'bold'))
->>>>>>> refs/remotes/origin/master
 	for elt in os.listdir(outdir) :
 		if elt.endswith('.fasta') :
 			print(f'{elt.replace(".fasta","")} in process')
-			os.system(f'translatorx_vLocal.pl -i {outdir}{elt} -o {tranDir}{elt.replace(".fasta","")}> stdout.txt')
-<<<<<<< HEAD
+			os.system(f'translatorx_vLocal.pl -i {outdir}{elt} -o {tranDir}{elt.replace(".fasta","")} -p F -g "-b2 55 -b3 8 -b4 5 -b5 half" > stdout.txt 2> stdout.txt')
 	print()
 	print(form(f'\t- Traitement des résultats de translatorX', 'white', 'bold'))
-=======
 
->>>>>>> refs/remotes/origin/master
 	dico_seq = {}
 	for file_name in os.listdir(tranDir):
-		if file_name.endswith('.nt_ali.fasta') :
+		if file_name.endswith('nt_cleanali.fasta') :
 			file_path = f'{tranDir}{file_name}'
 			dico = fasta2dict(file_path)
 			dico_species = {elt.replace('Mo_','').split('_')[0] : value for elt,value in dico.items()}
@@ -181,7 +153,7 @@ if __name__ == "__main__":
 	with open(f'{outdir}sequence_merged.fasta','w') as f :
 		for elt in sorted(dico_seq.keys(), key = sort_human) :
 			sequence = Seq(dico_seq[elt])
-			record = SeqRecord(sequence, id=str(elt), name=str(elt),description= f'| length : {len(sequence)}')
+			record = SeqRecord(sequence, id=str(elt), name=str(elt),description= '')
 			SeqIO.write(record, f, "fasta")
 ############## end message ###########################
 

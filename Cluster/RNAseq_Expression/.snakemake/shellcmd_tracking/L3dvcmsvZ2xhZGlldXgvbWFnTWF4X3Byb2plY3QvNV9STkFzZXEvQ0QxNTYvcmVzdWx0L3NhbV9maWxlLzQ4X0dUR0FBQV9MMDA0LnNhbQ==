@@ -1,0 +1,4 @@
+
+	module load bioinfo/hisat2/2.1.0
+	hisat2 -x /work/gladieux/magMax_project/5_RNAseq/CD156/Genome/CD0156 --summary-file -1 /work/gladieux/magMax_project/5_RNAseq/CD156/RNAseq/48_GTGAAA_L004_R1.fastq.gz -2  /work/gladieux/magMax_project/5_RNAseq/CD156/RNAseq/48_GTGAAA_L004_R2.fastq.gz -S /work/gladieux/magMax_project/5_RNAseq/CD156/result/sam_file/48_GTGAAA_L004.sam 2>/work/gladieux/magMax_project/5_RNAseq/CD156/result/sam_file/48_GTGAAA_L004_cufflinks.txt 
+	

@@ -1,0 +1,4 @@
+
+	module load bioinfo/hisat2/2.1.0
+	hisat2 -x /work/gladieux/magMax_project/5_RNAseq/TH16/Genome/TH0016 --summary-file -1 /work/gladieux/magMax_project/5_RNAseq/TH16/RNAseq/34_CAGATC_L005_R1.fastq.gz -2  /work/gladieux/magMax_project/5_RNAseq/TH16/RNAseq/34_CAGATC_L005_R2.fastq.gz -S /work/gladieux/magMax_project/5_RNAseq/TH16/result/sam_file/34_CAGATC_L005.sam 2>/work/gladieux/magMax_project/5_RNAseq/TH16/result/sam_file/34_CAGATC_L005_cufflinks.txt 
+	

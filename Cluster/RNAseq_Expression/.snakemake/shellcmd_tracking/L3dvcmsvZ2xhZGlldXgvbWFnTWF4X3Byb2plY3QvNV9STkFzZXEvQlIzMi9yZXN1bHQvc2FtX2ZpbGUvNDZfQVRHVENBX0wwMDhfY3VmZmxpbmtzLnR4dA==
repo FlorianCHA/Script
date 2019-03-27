@@ -1,0 +1,4 @@
+
+	module load bioinfo/hisat2/2.1.0
+	hisat2 -x /work/gladieux/magMax_project/5_RNAseq/BR32/Genome/BR0032 --summary-file -1 /work/gladieux/magMax_project/5_RNAseq/BR32/RNAseq/46_ATGTCA_L008_R1.fastq.gz -2  /work/gladieux/magMax_project/5_RNAseq/BR32/RNAseq/46_ATGTCA_L008_R2.fastq.gz -S /work/gladieux/magMax_project/5_RNAseq/BR32/result/sam_file/46_ATGTCA_L008.sam 2>/work/gladieux/magMax_project/5_RNAseq/BR32/result/sam_file/46_ATGTCA_L008_cufflinks.txt 
+	

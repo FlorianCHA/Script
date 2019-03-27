@@ -1,0 +1,3 @@
+
+	Script/Cufflinks2Count.py /work/gladieux/magMax_project/5_RNAseq/US71/result/cufflinks/43_TAGCTT_L005 43_TAGCTT_L005 > /work/gladieux/magMax_project/5_RNAseq/US71/result/cufflinks/43_TAGCTT_L005-count.txt
+	

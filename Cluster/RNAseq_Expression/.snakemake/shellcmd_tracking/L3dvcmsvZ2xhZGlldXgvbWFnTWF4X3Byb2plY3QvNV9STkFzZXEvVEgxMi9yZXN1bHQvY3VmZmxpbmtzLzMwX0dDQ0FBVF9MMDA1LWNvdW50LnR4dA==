@@ -1,0 +1,3 @@
+
+	Script/Cufflinks2Count.py /work/gladieux/magMax_project/5_RNAseq/TH12/result/cufflinks/30_GCCAAT_L005 30_GCCAAT_L005 > /work/gladieux/magMax_project/5_RNAseq/TH12/result/cufflinks/30_GCCAAT_L005-count.txt
+	

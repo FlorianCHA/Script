@@ -118,11 +118,9 @@ if __name__ == "__main__":
 		with open(f'{output}/fasta/{OG}.fasta','w') as output_file :
 			for seq in dico_OG[OG] :
 				name = seq
-				if 'Mo_' in seq :
-					name = seq.replace('Mo_','')
-				name = name.split('_')[0]
+				name = name.replace(',','').strip()
 				liste.append(name)
-				record = SeqRecord(seq= db_dico[seq].seq, id=name, name=name, description='')
+				record = SeqRecord(seq= db_dico[name].seq, id=name, name=name, description='')
 				SeqIO.write(record, output_file, "fasta")
 
 	liste = set(liste)

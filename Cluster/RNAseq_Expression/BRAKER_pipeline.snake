@@ -9,17 +9,18 @@ from os.path import join
 #--------------------------------------------------
 
 # fasta files
-ref='/work/gladieux/magMax_project/5_RNAseq/1_Alignement/CL367/genome/CH1908.fasta'
+ref='/work/gladieux/magMax_project/5_RNAseq/TH16/Genome/TH0016.fasta'
 # gff file
-gff='/work/gladieux/magMax_project/5_RNAseq/1_Alignement/CL367/genome/CH1908_merge.gff3'
+gff='/work/gladieux/magMax_project/5_RNAseq/TH16/Genome/TH0016_merge.gff3'
 # Out directory
-output = '/work/gladieux/magMax_project/5_RNAseq/1_Alignement/CL367/result/'
+output = '/work/gladieux/magMax_project/5_RNAseq/TH16/result/'
 
 # RNAseq directory
-directory='/work/gladieux/magMax_project/5_RNAseq/1_Alignement/CL367/RNAseq/'
+directory='/work/gladieux/magMax_project/5_RNAseq/TH16/RNAseq/'
 
 # file termination
-suffixFile = '.fastq.gz'
+suffixFile = '_R1.fastq.gz'
+
 if not os.path.exists(output):
 	os.mkdir(output)
 ################################################################################
@@ -46,12 +47,12 @@ rule hisat2_index :
 
 rule hisat2_summary :
 	threads : 1
-	input : reference = ref.replace('.fasta',''), rnaseq = directory + '{smp}'+ suffixFile 
+	input : reference = ref.replace('.fasta',''), R1 = directory + '{smp}'+ suffixFile , R2 = directory + '{smp}_R2.fastq.gz'
 	params : l_mem_free='4G'
 	output : sam =  output + 'sam_file/{smp}.sam', stdout =  output + 'sam_file/{smp}_cufflinks.txt'
 	shell :"""
 	module load bioinfo/hisat2/2.1.0
-	hisat2 -x {input.reference} --summary-file -U {input.rnaseq} -S {output.sam} 2>{output.stdout} 
+	hisat2 -x {input.reference} --summary-file -1 {input.R1} -2  {input.R2} -S {output.sam} 2>{output.stdout} 
 	"""
 
 
@@ -67,7 +68,7 @@ rule RNAseq_summary :
 rule samtools :
 	threads : 1
 	input : output + 'sam_file/{smp}.sam'
-	params : l_mem_free='4G'
+	params : l_mem_free='15G'
 	output : bam = output + 'bam_file/{smp}.bam', sort = output + 'bam_file/{smp}_sort.bam'
 	shell :"""
 	module load bioinfo/samtools/1.9
@@ -78,7 +79,7 @@ rule samtools :
 rule Cufflinks :
 	threads : 1
 	input : GFF = gff, bam = output + 'bam_file/{smp}_sort.bam'
-	params : l_mem_free='4G'
+	params : l_mem_free='15G'
 	output : output + 'cufflinks/{smp}'
 	shell :"""
 	module load bioinfo/cufflinks/2.2.1
@@ -89,14 +90,14 @@ rule Count :
 	threads : 1
 	input : output + 'cufflinks/{smp}'
 	params : l_mem_free='4G'
-	output : output + 'cufflinks/{smp}-count.txt'
+	output : output + 'cufflinks/{smp}' + '-count.txt'
 	shell :"""
 	Script/Cufflinks2Count.py {input} {wildcards.smp} > {output}
 	"""
 
 rule Rapport :
 	threads : 1	
-	input :  directory = output , lien = expand(output + 'cufflinks/{smp}-count.txt', smp = SAMPLES),lien2 = expand(output + 'sam_file/{smp}_cuff.txt', smp = SAMPLES)
+	input :  directory = output , lien = expand(output + 'cufflinks/{smp}'+ '-count.txt', smp = SAMPLES),lien2 = expand(output + 'sam_file/{smp}_cuff.txt', smp = SAMPLES)
 	params : l_mem_free='4G'
 	output : output + 'Rapport.html'
 	shell : """

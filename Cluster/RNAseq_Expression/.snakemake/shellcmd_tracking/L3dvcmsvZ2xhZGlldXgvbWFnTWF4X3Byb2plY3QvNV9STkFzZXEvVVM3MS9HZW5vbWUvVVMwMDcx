@@ -1,0 +1,5 @@
+
+	module load bioinfo/hisat2/2.1.0
+	hisat2-build /work/gladieux/magMax_project/5_RNAseq/US71/Genome/US0071.fasta /work/gladieux/magMax_project/5_RNAseq/US71/Genome/US0071
+	touch /work/gladieux/magMax_project/5_RNAseq/US71/Genome/US0071
+	

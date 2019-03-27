@@ -1,4 +1,4 @@
-#!/usr/local/bioinfo/python/3.4.3_build2/bin/python
+#!/usr/local/bioinfo/python/3.6.4/bin/python
 # -*- coding: utf-8 -*-
 # @package ABYSS_launch.py
 # @author Florian Charriat
@@ -58,20 +58,17 @@ if __name__ == "__main__":
 
 	filesreq = parser.add_argument_group('Input mandatory infos for running')
 	filesreq.add_argument('-d', '--directory',type = str, required=True, dest = 'dirPath', help = 'Path of directory that contains all the result of the repeatMasker_build.py (output + repeatMasker_result')
-	filesreq.add_argument('-o', '--outdir',type = str, required=True, dest = 'outdirPath', help = 'Path of the output directory')
+	filesreq.add_argument('-o', '--output',type = str, required=True, dest = 'outdirPath', help = 'Path of the output file')
 
 	
 ######### Recuperation arguments ###########
 	args = parser.parse_args()
 	directory = os.path.abspath(args.dirPath)
-	outDir= os.path.abspath(args.outdirPath)
+	output= os.path.abspath(args.outdirPath)
 
 
 ########### Gestion directory ##############
 	directory = verifDir(directory,True)
-	outDir = verifDir(outDir)
-	name_directory = [outDir]
-	createDir(name_directory)
 
 
 ############### start message ########################
@@ -88,26 +85,36 @@ if __name__ == "__main__":
 		listeID.append(ID)
 	listeID.sort()
 	nbAssemblage = 0
-	statAll = open(outDir+'stat_repeatMasker.txt','w')
-	statAll.write('Id souche'+'\t'+'Nombre séquence'+'\t'+'Longueur total'+'\t'+'Taux GC'+'\t'+'longueur bases masquée'+'\t'+ 'Pourcentage bases masquées'+'\n')
-	statAll.close()
-	for isolate in listeID :
-		nbAssemblage += 1
-		print(form("Récupération des statistique de l'assemblage : "+isolate,'green'))
-		for files in os.listdir(directory+isolate):	
-			if files.endswith('.fasta.tbl')==True :
-				filePath = directory+isolate+'/'+files
-				stat = open(filePath,'r')
-				stat = stat.readlines()
-				Nbseq = stat[2].split(':')
-				total_length = stat[3].split(':')
-				total_length = total_length[1].split('(')
-				GC_level = stat[4].split(':')
-				bases_masked = stat[5].split(':')
-				bases_masked = bases_masked[1].split('(')
-				statAll = open(outDir+'stat_repeatMasker.txt','a')
-				statAll.write(files.replace('.fasta.tbl','')+'\t'+ Nbseq[1].strip()+'\t'+total_length[0].strip()+'\t'+GC_level[1].strip()+'\t'+bases_masked[0].strip() +'\t'+bases_masked[1].replace(')','').strip()+'\n')
-				statAll.close()
+
+	with open(output, 'w') as output_file :
+		output_file.write('Id souche\tNombre séquence\tLongueur total\tTaux GC\tlongueur bases masquée\tPourcentage bases masquées\tlongueur ET\tPourcentage ET\n')
+
+
+		for isolate in listeID :
+			nbAssemblage += 1
+			print(form("Récupération des statistique de l'assemblage : "+isolate,'green'))
+			for files in os.listdir(directory+isolate):
+				if files.endswith('.fasta.tbl')==True :
+					filePath = directory+isolate+'/'+files
+
+					with  open(filePath,'r') as stat_file :
+						for line in stat_file :
+							line = line.replace('\n','')
+							if line[0:10] == 'sequences:' :
+								Nbseq = line.split(':')[1].strip()
+							if line[0:13] == 'total length:':
+								total_length = line.split(':')[1].split('(')[0].strip().replace(' bp','')
+							if line[0:9] == 'GC level:':
+								GC_level = line.split(':')[1].strip().replace(' %','')
+							if line[0:13] == 'bases masked:' :
+								bases_masked = line.split(':')[1].split('(')[0].strip().replace(' bp','')
+								pc_masked = line.split(':')[1].split('(')[1].strip().replace(' %)','')
+							if line[0:27] == 'Total interspersed repeats:' :
+								bases_masked_ET = line.split(':')[1].split('bp')[0].strip()
+								pc_masked_ET = line.split(':')[1].split('bp')[1].strip().replace(' %','')
+
+					# output_file.write(files.replace('.fasta.tbl','')+'\t'+ Nbseq[1].strip()+'\t'+total_length[0].strip()+'\t'+GC_level[1].strip()+'\t'+bases_masked[0].strip() +'\t'+bases_masked[1].replace(')','').strip()+'\n')
+					output_file.write(f"{files.replace('.fasta.tbl','')}\t{Nbseq}\t{total_length}\t{GC_level}\t{bases_masked}\t{pc_masked}\t{bases_masked_ET}\t{pc_masked_ET}\n")
 
 
 
@@ -121,7 +128,7 @@ if __name__ == "__main__":
 	print('\t\t- Repertoire des resultats de repeatMasker_build : '+directory[:-1])	
 	
 	print('\n\tOutput :')
-	print('\t\t- Résultat : '+outDir[:-1])
+	print('\t\t- Résultat : '+output[:-1])
 	
 	print('\n\tFichier de sortie :')
 	print("\t\t- stat_repeatMasker.txt : Fichier qui donne les statistiques de l'outils repeatMasker des"+str(nbAssemblage)+' assemblages\n')

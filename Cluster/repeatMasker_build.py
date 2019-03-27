@@ -1,4 +1,4 @@
-#!/usr/local/bioinfo/python/3.4.3_build2/bin/python
+#!/usr/local/bioinfo/python/3.6.4/bin/python
 # -*- coding: utf-8 -*-
 # @package repeatMasker_build.py
 # @author Florian Charriat
@@ -77,7 +77,7 @@ if __name__ == "__main__":
 	outDir = verifDir(outDir)
 	verifFichier(database)
 	bash = outDir+'script_bash'
-	name_directory = [outDir, bash, outDir+'result_repeatMasker', outDir+'sge_output',outDir+'sge_error']
+	name_directory = [outDir, bash, outDir+'result_repeatMasker',outDir+'result_repeatMasker_species', outDir+'sge_output',outDir+'sge_error']
 	for folder in name_directory: 
 		createDir(folder)
 		
@@ -96,9 +96,10 @@ if __name__ == "__main__":
 			filesName = recupId(files)
 			createDir(outDir +"result_repeatMasker/"+filesName)
 			SCRIPT = open(bash+'/'+filesName+ "_repeatMasker.sh","w")
-			SCRIPT.write('#$ -o '+outDir+'sge_output/'+filesName+'.out\n#$ -e '+outDir+'sge_error/'+filesName+'.err\nmodule load bioinfo/RepeatMasker/4.0.7;\n')
-			SCRIPT.write("RepeatMasker -gff -pa 4 -s -no_is "+directory+files+" -lib "+database+" -e ncbi -dir "+ outDir +"result_repeatMasker/"+filesName+";\n")
+			SCRIPT.write(f'#$ -o {outDir}sge_output/{filesName}.out\n#$ -e {outDir}sge_error/{filesName}.err\nmodule load bioinfo/RepeatMasker/4.0.7;\n')
+			SCRIPT.write(f"RepeatMasker -gff -pa 4 -s -no_is {directory+files} -lib {database} -e ncbi -dir {outDir}result_repeatMasker/{filesName}/;\n")
 			SCRIPT.close()
+			createDir(f"{outDir}result_repeatMasker/{filesName}")
 			os.system("chmod 755 "+outDir+'script_bash/'+filesName+ "_repeatMasker.sh")
 			runJob = open(outDir+"run_repeatMAskerJob.sh","a")
 			runJob.write("qsub -N "+filesName+"_repeatmasker -V -q long.q -pe parallel_smp 4 "+ outDir+'script_bash/'+filesName+ "_repeatMasker.sh\n")
@@ -120,7 +121,7 @@ if __name__ == "__main__":
 	print('\t\t- Resultat des Jobs : '+outDir +'result_repeatMasker')	
 	
 	print('\n Si vous souhaité lancer les '+str(nbScript)+' jobs veuillez taper la commande : ')
-	print(form('\n\t\t\t\tbash '+outDir+'run_job_mapping.sh\n','green','bold'))
+	print(form('\n\t\t\t\tbash '+outDir+'run_repeatMAskerJob.sh\n','green','bold'))
 	print(form('-------------------------------------------------------------------------------------------------------------------------','red','bold'))
 
 	

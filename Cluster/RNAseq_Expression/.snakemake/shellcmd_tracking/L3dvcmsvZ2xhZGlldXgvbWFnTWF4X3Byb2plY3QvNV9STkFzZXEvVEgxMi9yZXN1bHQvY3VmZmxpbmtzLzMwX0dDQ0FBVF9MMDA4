@@ -1,0 +1,4 @@
+
+	module load bioinfo/cufflinks/2.2.1
+	cufflinks -g /work/gladieux/magMax_project/5_RNAseq/TH12/Genome/TH0012-rn_merge.gff3 /work/gladieux/magMax_project/5_RNAseq/TH12/result/bam_file/30_GCCAAT_L008_sort.bam -o /work/gladieux/magMax_project/5_RNAseq/TH12/result/cufflinks/30_GCCAAT_L008
+	

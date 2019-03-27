@@ -46,9 +46,13 @@ import sys, os
 from module_Flo import verifDir, createDir, form, verifFichier, fasta2dict, openfile, sort_human,is_number
 
 ## Python modules
-import argparse,egglib
+import argparse, egglib
 from time import gmtime, strftime
+# Import BioPython
 
+from Bio import SeqIO
+from Bio.SeqRecord import SeqRecord
+from Bio.Seq import Seq
 
 ##################################################
 ## Functions
@@ -95,7 +99,7 @@ if __name__ == "__main__":
 ########### Gestion directory ##############
 	directory = verifDir(directory,True)
 	output = verifDir(output)
-	createDir([output,output+'/translatorX'])
+	createDir([output,output+'/translatorX',output+'/fastaByGroup'])
 ############### start message ########################
 
 	print(form("\n\t---------------------------------------------------------", 'yellow', 'bold'))
@@ -132,29 +136,50 @@ if __name__ == "__main__":
 
 	total = len([file for file in os.listdir(directory) if file.endswith('.fasta')])
 	count = 0
+
+
+
+
 	for file in os.listdir(directory):
 		count +=1
 		print('Traitement du fichier : %s (%s/%s)'%(file,count,total))
-		if translatorX :
-			file_aln = output + 'translatorX/' + file.replace('.fasta', '')
-			os.system('translatorx_vLocal.pl -i %s -o %s > stdout.txt 2> stdout.txt' % (directory + file,file_aln ))
-			file_aln = file_aln + '.nt_ali.fasta'
 
-		else :
-			file_aln = directory + file
+		#Ouverture du fichier fasta pour le mettre dans un dixo et le split par groupe
 		try :
-			dico_fasta = fasta2dict(file_aln)
+			dico_fasta_all = fasta2dict(directory + file)
 		except :
-			print('\t-The %s file have a many sequence for one isolat\n'%file)
+			print('\t-The %s file have two sequence with the same \n'%file)
 			continue
-
-		Isolate = list(dico_fasta.keys())
+		file_exist = False
 		i = 0
 		haplotype = {}
 		for gp in sorted(dico_group.keys()) :
+			fasta_group = output+'fastaByGroup/' + '%s_%s.fasta'%(file.replace(".fasta",""),gp)
+			with open(fasta_group,'w') as fasta_file :
+				for elt in dico_fasta_all.keys() :
+					name = elt.replace('Mo_','').split('_')[0]
+					if name in dico_group[gp] :
+						record = SeqRecord(dico_fasta_all[elt].seq, id=str(elt), name=str(elt), description='')
+						SeqIO.write(record, fasta_file, "fasta")
+						file_exist = True
+			if file_exist == False :
+				os.system('rm %s'%fasta_group)
+				continue
+			file_exist = False
+
+
+			if translatorX :
+				file_aln = output + 'translatorX/' + '%s_%s.fasta'%(file.replace(".fasta",""),gp)
+				os.system('translatorx_vLocal.pl -i %s -o %s  > stdout.txt 2> stdout.txt' % (fasta_group,file_aln ))
+				file_aln = file_aln + '.nt_ali.fasta'
+
+			else :
+				file_aln = directory + file
+
+			dico_fasta = fasta2dict(file_aln)
 			i += 1
-			haplotype[gp] = [[elt,str(dico_fasta[elt].seq),i] for elt in dico_fasta.keys() if elt in dico_group[gp]]
-			liste = [len(dico_fasta[elt].seq) for elt in dico_fasta.keys() if elt in dico_group[gp]]
+			haplotype[gp] = [[elt,str(dico_fasta[elt].seq),i] for elt in dico_fasta.keys() if elt.replace('Mo_','').split('_')[0] in dico_group[gp]]
+			liste = [len(dico_fasta[elt].seq) for elt in dico_fasta.keys() if elt.replace('Mo_','').split('_')[0] in dico_group[gp]]
 			aln = egglib.Align.create(haplotype[gp])
 			cs = egglib.stats.ComputeStats()
 			cs.add_stats('lseff', 'nseff', 'S', 'K', 'He', 'thetaW', 'Pi', 'D')

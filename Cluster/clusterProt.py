@@ -100,7 +100,7 @@ if __name__ == "__main__":
 						  help='Remove only redundant sequence')
 	files.add_argument('-q', '--quiet',action='store_true',
 					   dest='quiet', help='No stdout if you use this option')
-	files.add_argument('--intervalle', type=int,required=True, default = -1,
+	files.add_argument('--intervalle', type=int,required=False, default = -1,
 					   dest='inter', help='length of sequence')
 	######### Recuperation arguments ###########
 	args = parser.parse_args()
@@ -116,7 +116,7 @@ if __name__ == "__main__":
 
 	########### Main ###########################
 
-	if noredundant :
+	if noredundant and inter > 0 :
 		if quiet == False:
 			print('\nEliminate only redundant sequence\n')
 		fasta = fasta2dict(file)
@@ -131,6 +131,22 @@ if __name__ == "__main__":
 		print(f'This script kept {nb} % of sequence ( {nbe} % redundant)')
 		exit()
 
+
+
+	elif noredundant :
+		listeSequence = []
+		if quiet == False:
+			print('\nEliminate only redundant sequence\n')
+		fasta = fasta2dict(file)
+		with open(output, 'w') as f:
+			for elt in sorted(fasta.keys(), key=sort_human):
+				seq = str(fasta[elt].seq)
+				if seq not in listeSequence:
+					listeSequence.append(seq)
+					sequence = Seq(seq)
+					record = SeqRecord(sequence, id=str(elt), name=str(elt), description='length : ' + str(len(seq)))
+					SeqIO.write(record, f, "fasta")
+		exit()
 
 
 

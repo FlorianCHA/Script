@@ -1,0 +1,5 @@
+
+	module load bioinfo/samtools/1.9
+	samtools view -b /work/gladieux/magMax_project/5_RNAseq/TH16/result/sam_file/34_CAGATC_L004.sam > /work/gladieux/magMax_project/5_RNAseq/TH16/result/bam_file/34_CAGATC_L004.bam
+	samtools sort -o /work/gladieux/magMax_project/5_RNAseq/TH16/result/bam_file/34_CAGATC_L004_sort.bam /work/gladieux/magMax_project/5_RNAseq/TH16/result/bam_file/34_CAGATC_L004.bam
+	

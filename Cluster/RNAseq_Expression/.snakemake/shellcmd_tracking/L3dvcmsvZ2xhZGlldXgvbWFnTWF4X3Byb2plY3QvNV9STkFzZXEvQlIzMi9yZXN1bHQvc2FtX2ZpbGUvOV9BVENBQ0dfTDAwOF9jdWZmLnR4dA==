@@ -1,0 +1,3 @@
+
+	Script/SummaryHisat2.py /work/gladieux/magMax_project/5_RNAseq/BR32/result/sam_file/9_ATCACG_L008_cufflinks.txt 9_ATCACG_L008 > /work/gladieux/magMax_project/5_RNAseq/BR32/result/sam_file/9_ATCACG_L008_cuff.txt
+	
