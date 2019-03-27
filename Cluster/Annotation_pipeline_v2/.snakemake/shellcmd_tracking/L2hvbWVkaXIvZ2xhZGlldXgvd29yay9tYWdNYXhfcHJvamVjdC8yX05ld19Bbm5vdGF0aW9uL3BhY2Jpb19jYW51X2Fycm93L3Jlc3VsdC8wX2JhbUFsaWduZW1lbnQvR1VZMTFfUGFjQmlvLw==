@@ -1,6 +1,0 @@
-
-	module load bioinfo/TOGGLE/0.3.6
-	rm -r /homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/result/0_bamAlignement/GUY11_PacBio/
-	toggleGenerator.pl -d /work/gladieux/magMax_project/2_New_Annotation/rnaseq/ -r /homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/0_rawdata/GUY11_PacBio.fasta -c SupplementaryFile/tophatMapping.config.txt -o /homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/result/0_bamAlignement/GUY11_PacBio/
-	touch /homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/result/0_bamAlignement/GUY11_PacBio/finalResults/bamList
-	

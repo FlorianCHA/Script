@@ -1,4 +1,0 @@
-
-	module load bioinfo/ncbi-blast/2.6.0
-	tblastn -query /homedir/gladieux/work/magMax_project/4_Orthologie/3_correction/1_test_snakemake/tmp/0_OG-fasta/OG0000039.fasta -db /homedir/gladieux/work/magMax_project/4_Orthologie/3_correction/0_DB/All_genome_isolat -evalue 1e-4 > /homedir/gladieux/work/magMax_project/4_Orthologie/3_correction/1_test_snakemake/tmp/1_tblastn-result/OG0000039_blast.txt
-	

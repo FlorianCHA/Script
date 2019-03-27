@@ -1,4 +1,0 @@
-
-	module load bioinfo/hisat2/2.1.0
-	hisat2 -x /work/gladieux/magMax_project/5_RNAseq/TH12/Genome/TH0012-rn --summary-file -1 /work/gladieux/magMax_project/5_RNAseq/TH12/RNAseq/30_GCCAAT_L008_R1.fastq.gz -2  /work/gladieux/magMax_project/5_RNAseq/TH12/RNAseq/30_GCCAAT_L008_R2.fastq.gz -S /work/gladieux/magMax_project/5_RNAseq/TH12/result/sam_file/30_GCCAAT_L008.sam 2>/work/gladieux/magMax_project/5_RNAseq/TH12/result/sam_file/30_GCCAAT_L008_cufflinks.txt 
-	

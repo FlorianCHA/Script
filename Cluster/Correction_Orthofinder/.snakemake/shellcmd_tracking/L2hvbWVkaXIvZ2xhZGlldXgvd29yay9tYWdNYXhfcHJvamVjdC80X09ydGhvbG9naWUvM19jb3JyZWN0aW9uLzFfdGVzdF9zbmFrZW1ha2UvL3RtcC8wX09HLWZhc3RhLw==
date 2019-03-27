@@ -1,3 +1,0 @@
-
-	script/RecupFasta.py -do /homedir/gladieux/work/magMax_project/4_Orthologie/0_rawdata/Results_Jul10_1/ -fa /homedir/gladieux/work/magMax_project/6_EffecteurMax/3_psiblastAllprot/DB/all_protein.fasta -o /homedir/gladieux/work/magMax_project/4_Orthologie/3_correction/1_test_snakemake//tmp/0_OG-fasta/
-	

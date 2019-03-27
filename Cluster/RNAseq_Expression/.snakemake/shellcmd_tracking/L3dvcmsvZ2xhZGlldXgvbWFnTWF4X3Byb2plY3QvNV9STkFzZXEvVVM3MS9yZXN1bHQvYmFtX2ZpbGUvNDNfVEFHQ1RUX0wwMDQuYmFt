@@ -1,5 +1,0 @@
-
-	module load bioinfo/samtools/1.9
-	samtools view -b /work/gladieux/magMax_project/5_RNAseq/US71/result/sam_file/43_TAGCTT_L004.sam > /work/gladieux/magMax_project/5_RNAseq/US71/result/bam_file/43_TAGCTT_L004.bam
-	samtools sort -o /work/gladieux/magMax_project/5_RNAseq/US71/result/bam_file/43_TAGCTT_L004_sort.bam /work/gladieux/magMax_project/5_RNAseq/US71/result/bam_file/43_TAGCTT_L004.bam
-	

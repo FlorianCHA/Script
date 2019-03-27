@@ -1,4 +1,0 @@
-
-	module load bioinfo/cufflinks/2.2.1
-	cufflinks -g /work/gladieux/magMax_project/5_RNAseq/BR32/Genome/BR0032_merge.gff3 /work/gladieux/magMax_project/5_RNAseq/BR32/result/bam_file/46_ATGTCA_L005_sort.bam -o /work/gladieux/magMax_project/5_RNAseq/BR32/result/cufflinks/46_ATGTCA_L005
-	

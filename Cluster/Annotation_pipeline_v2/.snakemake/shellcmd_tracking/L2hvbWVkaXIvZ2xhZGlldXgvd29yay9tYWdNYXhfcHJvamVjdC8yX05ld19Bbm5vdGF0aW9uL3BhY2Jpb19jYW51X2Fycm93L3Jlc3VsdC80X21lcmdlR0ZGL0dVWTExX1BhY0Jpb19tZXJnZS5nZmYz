@@ -1,3 +1,0 @@
-
-	script/mergeBraker_augustus.py  --augustus /homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/result/3_augustus/GUY11_PacBio.gff3 --braker /homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/result/2_Braker/GUY11_PacBio//braker/magnaporthe_oryzae/augustus.gff3 -o /homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/result/4_mergeGFF/GUY11_PacBio_merge.gff3
-	

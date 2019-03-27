@@ -1,4 +1,0 @@
-
-	module load bioinfo/hisat2/2.1.0
-	hisat2 -x /work/gladieux/magMax_project/5_RNAseq/1_Alignement/CH49/Genome/GUY11_PacBio --summary-file -U /work/gladieux/magMax_project/5_RNAseq/1_Alignement/CH49/RNAseq/CH49_c_S13_L004_R1_001.fastq.gz -S //work/gladieux/magMax_project/5_RNAseq/1_Alignement/CH49/result/sam_file/CH49_c_S13_L004_R1_001.sam 2>//work/gladieux/magMax_project/5_RNAseq/1_Alignement/CH49/result/sam_file/CH49_c_S13_L004_R1_001_cufflinks.txt 
-	

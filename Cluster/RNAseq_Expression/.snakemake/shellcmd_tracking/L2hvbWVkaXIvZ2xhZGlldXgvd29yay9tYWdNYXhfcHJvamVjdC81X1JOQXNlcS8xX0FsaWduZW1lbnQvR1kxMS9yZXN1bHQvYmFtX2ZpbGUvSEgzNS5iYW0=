@@ -1,5 +1,0 @@
-
-	module load bioinfo/samtools/1.9
-	samtools view -b /homedir/gladieux/work/magMax_project/5_RNAseq/1_Alignement/GY11/result/sam_file/HH35.sam > /homedir/gladieux/work/magMax_project/5_RNAseq/1_Alignement/GY11/result/bam_file/HH35.bam
-	samtools sort -o /homedir/gladieux/work/magMax_project/5_RNAseq/1_Alignement/GY11/result/bam_file/HH35_sort.bam /homedir/gladieux/work/magMax_project/5_RNAseq/1_Alignement/GY11/result/bam_file/HH35.bam
-	

@@ -1,5 +1,0 @@
-
-	module load bioinfo/abyss/1.9.0
-	cd /homedir/gladieux/work/magMax_project/0_Assembly/4_test_result/1_ABySS/CM0028/CM0028_20/
-	/usr/local/bioinfo/abyss/1.9.0/bin/abyss-pe name=CM0028_20 k=20 in='/homedir/gladieux/work/magMax_project/0_Assembly/3_test/CM0028_R1.fastq.gz /homedir/gladieux/work/magMax_project/0_Assembly/3_test/CM0028_R2.fastq.gz' -o /homedir/gladieux/work/magMax_project/0_Assembly/4_test_result/1_ABySS/CM0028/CM0028_20/abyss_assembly_CM0028_20.fasta
-	

@@ -1,4 +1,0 @@
-
-	module load bioinfo/cufflinks/2.2.1
-	cufflinks -g /work/gladieux/magMax_project/5_RNAseq/US71/Genome/US0071_merge.gff3 /work/gladieux/magMax_project/5_RNAseq/US71/result/bam_file/43_TAGCTT_L005_sort.bam -o /work/gladieux/magMax_project/5_RNAseq/US71/result/cufflinks/43_TAGCTT_L005
-	

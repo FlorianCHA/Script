@@ -1,4 +1,0 @@
-
-	module load bioinfo/hisat2/2.1.0
-	hisat2 -x /work/gladieux/magMax_project/5_RNAseq/1_Alignement/IN0059/Genome/IN0059 --summary-file -U /work/gladieux/magMax_project/5_RNAseq/1_Alignement/IN0059/RNAseq/IN59_a_S18_L006_R1_001.fastq.gz -S /work/gladieux/magMax_project/5_RNAseq/1_Alignement/IN0059/result/summary_file/IN59_a_S18_L006_R1_001.sam 2>/work/gladieux/magMax_project/5_RNAseq/1_Alignement/IN0059/result/sam_file/IN59_a_S18_L006_R1_001_cufflinks.txt 
-	

@@ -1,4 +1,0 @@
-
-	module load bioinfo/hisat2/2.1.0
-	hisat2 -x /work/gladieux/magMax_project/5_RNAseq/US71/Genome/US0071 --summary-file -1 /work/gladieux/magMax_project/5_RNAseq/US71/RNAseq/11_CGATGT_L004_R1.fastq.gz -2  /work/gladieux/magMax_project/5_RNAseq/US71/RNAseq/11_CGATGT_L004_R2.fastq.gz -S /work/gladieux/magMax_project/5_RNAseq/US71/result/sam_file/11_CGATGT_L004.sam 2>/work/gladieux/magMax_project/5_RNAseq/US71/result/sam_file/11_CGATGT_L004_cufflinks.txt 
-	

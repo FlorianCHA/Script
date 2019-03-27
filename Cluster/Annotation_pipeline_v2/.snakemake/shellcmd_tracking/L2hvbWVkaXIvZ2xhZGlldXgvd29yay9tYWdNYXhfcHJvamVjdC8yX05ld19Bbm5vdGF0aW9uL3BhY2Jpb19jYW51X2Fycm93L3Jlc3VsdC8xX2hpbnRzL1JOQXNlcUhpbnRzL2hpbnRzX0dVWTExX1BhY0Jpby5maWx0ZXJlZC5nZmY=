@@ -1,4 +1,0 @@
-
-	module load bioinfo/braker/1.9
-	script/filterHintsSnake.r -s GUY11_PacBio -p /homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/result/0_bamAlignement/GUY11_PacBio//finalResults/ -o /homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/result/1_hints/RNAseqHints/hints_GUY11_PacBio.filtered.gff
-	

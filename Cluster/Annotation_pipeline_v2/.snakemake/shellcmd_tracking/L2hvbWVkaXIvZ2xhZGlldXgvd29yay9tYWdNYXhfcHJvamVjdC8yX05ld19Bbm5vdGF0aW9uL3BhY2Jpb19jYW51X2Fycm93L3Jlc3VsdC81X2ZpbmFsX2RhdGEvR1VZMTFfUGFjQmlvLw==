@@ -1,4 +1,0 @@
-
-	script/gff2fasta.pl --gff /homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/result/4_mergeGFF/GUY11_PacBio_merge.gff3 --fasta /homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/0_rawdata/GUY11_PacBio.fasta --prefix /homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/result/5_final_data/GUY11_PacBio/GUY11_PacBio
-	cp /homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/result/4_mergeGFF/GUY11_PacBio_merge.gff3 /homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/result/5_final_data/GUY11_PacBio/
-	

@@ -1,5 +1,0 @@
-
-	module load bioinfo/samtools/1.9
-	samtools view -b /work/gladieux/magMax_project/5_RNAseq/1_Alignement/CL367/result/sam_file/CL367_d_S17_L005_R1_001.sam > /work/gladieux/magMax_project/5_RNAseq/1_Alignement/CL367/result/bam_file/CL367_d_S17_L005_R1_001.bam
-	samtools sort -o /work/gladieux/magMax_project/5_RNAseq/1_Alignement/CL367/result/bam_file/CL367_d_S17_L005_R1_001_sort.bam /work/gladieux/magMax_project/5_RNAseq/1_Alignement/CL367/result/bam_file/CL367_d_S17_L005_R1_001.bam
-	

@@ -1,4 +1,0 @@
-
-	module load bioinfo/braker/1.9
-	braker.pl --cores 24 --fungus --gff3 --species=magnaporthe_oryzae --useexisting --genome=/homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/0_rawdata/GUY11_PacBio.fasta --hints=/homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/result/1_hints/MergeHints/RNAseq_protein.hints.intron_GUY11_PacBio.gff --overwrite --alternatives-from-evidence=false --workingdir=/homedir/gladieux/work/magMax_project/2_New_Annotation/pacbio_canu_arrow/result/2_Braker/GUY11_PacBio/
-		

@@ -1,4 +1,0 @@
-
-	module load bioinfo/cufflinks/2.2.1
-	cufflinks -g /work/gladieux/magMax_project/5_RNAseq/1_Alignement/CL367/genome/CH1908_merge.gff3 /work/gladieux/magMax_project/5_RNAseq/1_Alignement/CL367/result/bam_file/CL367_d_S17_L005_R1_001_sort.bam -o /work/gladieux/magMax_project/5_RNAseq/1_Alignement/CL367/result/cufflinks/CL367_d_S17_L005_R1_001
-	

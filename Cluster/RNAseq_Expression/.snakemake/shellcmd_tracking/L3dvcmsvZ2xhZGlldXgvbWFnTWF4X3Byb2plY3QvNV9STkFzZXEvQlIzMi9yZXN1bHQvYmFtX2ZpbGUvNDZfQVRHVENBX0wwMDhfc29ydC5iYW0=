@@ -1,5 +1,0 @@
-
-	module load bioinfo/samtools/1.9
-	samtools view -b /work/gladieux/magMax_project/5_RNAseq/BR32/result/sam_file/46_ATGTCA_L008.sam > /work/gladieux/magMax_project/5_RNAseq/BR32/result/bam_file/46_ATGTCA_L008.bam
-	samtools sort -o /work/gladieux/magMax_project/5_RNAseq/BR32/result/bam_file/46_ATGTCA_L008_sort.bam /work/gladieux/magMax_project/5_RNAseq/BR32/result/bam_file/46_ATGTCA_L008.bam
-	

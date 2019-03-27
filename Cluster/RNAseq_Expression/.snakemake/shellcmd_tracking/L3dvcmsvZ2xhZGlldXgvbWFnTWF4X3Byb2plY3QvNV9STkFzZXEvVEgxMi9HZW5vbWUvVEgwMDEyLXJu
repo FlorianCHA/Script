@@ -1,5 +1,0 @@
-
-	module load bioinfo/hisat2/2.1.0
-	hisat2-build /work/gladieux/magMax_project/5_RNAseq/TH12/Genome/TH0012-rn.fasta /work/gladieux/magMax_project/5_RNAseq/TH12/Genome/TH0012-rn
-	touch /work/gladieux/magMax_project/5_RNAseq/TH12/Genome/TH0012-rn
-	

@@ -1,4 +1,0 @@
-
-	module load bioinfo/cufflinks/2.2.1
-	cufflinks -g /work/gladieux/magMax_project/5_RNAseq/TH16/Genome/TH0016_merge.gff3 /work/gladieux/magMax_project/5_RNAseq/TH16/result/bam_file/34_CAGATC_L008_sort.bam -o /work/gladieux/magMax_project/5_RNAseq/TH16/result/cufflinks/34_CAGATC_L008
-	
