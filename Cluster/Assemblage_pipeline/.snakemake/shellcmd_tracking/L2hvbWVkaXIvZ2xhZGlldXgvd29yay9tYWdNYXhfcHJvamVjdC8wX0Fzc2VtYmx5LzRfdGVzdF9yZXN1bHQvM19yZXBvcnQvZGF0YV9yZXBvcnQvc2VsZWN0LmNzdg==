@@ -1,0 +1,4 @@
+
+	module load bioinfo/R/3.4.3
+	Rscript -e 'rmarkdown::render("script/report.Rmd", output_file="/homedir/gladieux/work/magMax_project/0_Assembly/4_test_result/3_report/report.html", quiet=TRUE, params = list(quality = "/homedir/gladieux/work/magMax_project/0_Assembly/4_test_result/3_report/data_report/Quality.txt"))'
+	

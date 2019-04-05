@@ -2,7 +2,7 @@
 title: "Report of Assembly with ABySS"
 date: "`r format(Sys.time(), '%d %B, %Y')`"
 params:
-  quality: 'None'
+  quality: ''
 output:
   html_document:
     fig_caption: yes
@@ -14,7 +14,6 @@ output:
 ---
 ```{r knitr setup, include=FALSE,  eval=TRUE, echo=FALSE, warning=FALSE}
 # knitr::opts_chunk$set(echo=TRUE, eval=TRUE, cache=TRUE, message=FALSE, warning=FALSE, comment="")
-
 library(knitr)
 options(width=300)
 knitr::opts_chunk$set(
@@ -74,8 +73,8 @@ max          | Taille maximale d'un scaffold dans l'assemblage
 
 ```{r Importation des données, echo=FALSE}
 dataQuality <-c()
-file <- strsplit(params$quality,'/')
-file <- file[[1]](length(file[[1]]))
+file <- strsplit( params$quality,'/')
+file <- file[[1]][length(file[[1]])]
 pathDir <- params$quality
 pathDir <- str_replace(pathDir,file,'')
 dataQ <- read.table(file=params$quality, sep="\t", header=TRUE)
@@ -253,7 +252,7 @@ plotn.500 + theme(axis.text.x = element_text(face="bold", size = 6, angle=90))
 
 
 ```{r tableau donné filtré}
-write.table(selection, file = paste(pathDir,'data_report/select.csv',sep=''), append = FALSE, quote = FALSE, sep = "\t", na = "-",col.names = FALSE)
+write.table(selection, file = paste(pathDir,'select.csv',sep=''), append = FALSE, quote = FALSE, sep = "\t", na = "-",col.names = FALSE)
 red <- rgb(red=1,blue=0,green = 0, alpha = 0.5)
 datatable(selection, caption =" Tableau n°2: Données de qualité des meilleurs assemblages selectionnés", colnames = c('Id', colnames(selection)),extensions = 'Buttons', options = list(dom = 'Blfrtip',buttons = c('copy', 'csv', 'excel', 'pdf', 'print')))%>%
   formatStyle(colnames(selection),'N50',backgroundColor = styleInterval(c(25000,50000), c('red', 'orange','green')),color= styleInterval(25000, c('white', 'white')))

@@ -1,0 +1,100 @@
+Provided cluster nodes: 30
+Job counts:
+	count	jobs
+	8	ABySS_Launch
+	1	final
+	1	recup_stat
+	1	report
+	1	select_assemblage
+	12
+
+rule ABySS_Launch:
+    input: /homedir/gladieux/work/magMax_project/0_Assembly/0_rawdata/souche_adel/AG0004_R1.fastq.gz, /homedir/gladieux/work/magMax_project/0_Assembly/0_rawdata/souche_adel/AG0004_R2.fastq.gz
+    output: /homedir/gladieux/work/magMax_project/0_Assembly/4_test_result/1_ABySS/AG0004/AG0004_30/
+    jobid: 11
+    wildcards: smp=AG0004, km=30
+
+
+rule ABySS_Launch:
+    input: /homedir/gladieux/work/magMax_project/0_Assembly/0_rawdata/souche_adel/AG0004_R1.fastq.gz, /homedir/gladieux/work/magMax_project/0_Assembly/0_rawdata/souche_adel/AG0004_R2.fastq.gz
+    output: /homedir/gladieux/work/magMax_project/0_Assembly/4_test_result/1_ABySS/AG0004/AG0004_70/
+    jobid: 4
+    wildcards: smp=AG0004, km=70
+
+
+rule ABySS_Launch:
+    input: /homedir/gladieux/work/magMax_project/0_Assembly/0_rawdata/souche_adel/AG0004_R1.fastq.gz, /homedir/gladieux/work/magMax_project/0_Assembly/0_rawdata/souche_adel/AG0004_R2.fastq.gz
+    output: /homedir/gladieux/work/magMax_project/0_Assembly/4_test_result/1_ABySS/AG0004/AG0004_60/
+    jobid: 5
+    wildcards: smp=AG0004, km=60
+
+
+rule ABySS_Launch:
+    input: /homedir/gladieux/work/magMax_project/0_Assembly/0_rawdata/souche_adel/AG0004_R1.fastq.gz, /homedir/gladieux/work/magMax_project/0_Assembly/0_rawdata/souche_adel/AG0004_R2.fastq.gz
+    output: /homedir/gladieux/work/magMax_project/0_Assembly/4_test_result/1_ABySS/AG0004/AG0004_40/
+    jobid: 6
+    wildcards: smp=AG0004, km=40
+
+
+rule ABySS_Launch:
+    input: /homedir/gladieux/work/magMax_project/0_Assembly/0_rawdata/souche_adel/AG0004_R1.fastq.gz, /homedir/gladieux/work/magMax_project/0_Assembly/0_rawdata/souche_adel/AG0004_R2.fastq.gz
+    output: /homedir/gladieux/work/magMax_project/0_Assembly/4_test_result/1_ABySS/AG0004/AG0004_90/
+    jobid: 7
+    wildcards: smp=AG0004, km=90
+
+
+rule ABySS_Launch:
+    input: /homedir/gladieux/work/magMax_project/0_Assembly/0_rawdata/souche_adel/AG0004_R1.fastq.gz, /homedir/gladieux/work/magMax_project/0_Assembly/0_rawdata/souche_adel/AG0004_R2.fastq.gz
+    output: /homedir/gladieux/work/magMax_project/0_Assembly/4_test_result/1_ABySS/AG0004/AG0004_20/
+    jobid: 8
+    wildcards: smp=AG0004, km=20
+
+
+rule ABySS_Launch:
+    input: /homedir/gladieux/work/magMax_project/0_Assembly/0_rawdata/souche_adel/AG0004_R1.fastq.gz, /homedir/gladieux/work/magMax_project/0_Assembly/0_rawdata/souche_adel/AG0004_R2.fastq.gz
+    output: /homedir/gladieux/work/magMax_project/0_Assembly/4_test_result/1_ABySS/AG0004/AG0004_50/
+    jobid: 10
+    wildcards: smp=AG0004, km=50
+
+
+rule ABySS_Launch:
+    input: /homedir/gladieux/work/magMax_project/0_Assembly/0_rawdata/souche_adel/AG0004_R1.fastq.gz, /homedir/gladieux/work/magMax_project/0_Assembly/0_rawdata/souche_adel/AG0004_R2.fastq.gz
+    output: /homedir/gladieux/work/magMax_project/0_Assembly/4_test_result/1_ABySS/AG0004/AG0004_80/
+    jobid: 9
+    wildcards: smp=AG0004, km=80
+
+Finished job 7.
+1 of 12 steps (8%) done
+Finished job 6.
+2 of 12 steps (17%) done
+Finished job 11.
+3 of 12 steps (25%) done
+Finished job 9.
+4 of 12 steps (33%) done
+Finished job 4.
+5 of 12 steps (42%) done
+Finished job 5.
+6 of 12 steps (50%) done
+Finished job 8.
+7 of 12 steps (58%) done
+Finished job 10.
+8 of 12 steps (67%) done
+
+rule recup_stat:
+    input: /homedir/gladieux/work/magMax_project/0_Assembly/4_test_result/, /homedir/gladieux/work/magMax_project/0_Assembly/4_test_result/1_ABySS/AG0004/AG0004_20/, /homedir/gladieux/work/magMax_project/0_Assembly/4_test_result/1_ABySS/AG0004/AG0004_30/, /homedir/gladieux/work/magMax_project/0_Assembly/4_test_result/1_ABySS/AG0004/AG0004_40/, /homedir/gladieux/work/magMax_project/0_Assembly/4_test_result/1_ABySS/AG0004/AG0004_50/, /homedir/gladieux/work/magMax_project/0_Assembly/4_test_result/1_ABySS/AG0004/AG0004_60/, /homedir/gladieux/work/magMax_project/0_Assembly/4_test_result/1_ABySS/AG0004/AG0004_70/, /homedir/gladieux/work/magMax_project/0_Assembly/4_test_result/1_ABySS/AG0004/AG0004_80/, /homedir/gladieux/work/magMax_project/0_Assembly/4_test_result/1_ABySS/AG0004/AG0004_90/
+    output: /homedir/gladieux/work/magMax_project/0_Assembly/4_test_result/3_report/data_report/Quality.txt
+    jobid: 3
+
+Finished job 3.
+9 of 12 steps (75%) done
+
+rule report:
+    input: /homedir/gladieux/work/magMax_project/0_Assembly/4_test_result/3_report/data_report/Quality.txt
+    output: /homedir/gladieux/work/magMax_project/0_Assembly/4_test_result/3_report/data_report/select.csv, /homedir/gladieux/work/magMax_project/0_Assembly/4_test_result/3_report/report.html
+    jobid: 2
+
+Error in job report while creating output files /homedir/gladieux/work/magMax_project/0_Assembly/4_test_result/3_report/data_report/select.csv, /homedir/gladieux/work/magMax_project/0_Assembly/4_test_result/3_report/report.html.
+ClusterJobException in line 54 of /gs7k1/home/gladieux/data_flo/Script/Cluster/Assemblage_pipeline/ABySS_pipeline.snake:
+Error executing rule report on cluster (jobid: 2, external: Your job 7887916 ("snakejob.report.2.sh") has been submitted, jobscript: /gs7k1/home/gladieux/data_flo/Script/Cluster/Assemblage_pipeline/.snakemake/tmp.438l174g/snakejob.report.2.sh). For detailed error see the cluster log.
+Will exit after finishing currently running jobs.
+Exiting because a job execution failed. Look above for error message

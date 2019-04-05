@@ -9,7 +9,7 @@ from os.path import join
 #--------------------------------------------------
 
 # directory contained sequencing data files
-datadir="/homedir/gladieux/work/magMax_project/0_Assembly/3_test/"
+datadir="/homedir/gladieux/work/magMax_project/0_Assembly/0_rawdata/souche_adel/"
 
 # Out directory
 OutDir = '/homedir/gladieux/work/magMax_project/0_Assembly/4_test_result/'
@@ -19,6 +19,8 @@ OutDir = '/homedir/gladieux/work/magMax_project/0_Assembly/4_test_result/'
 suffixFileR1 = '_R1.fastq.gz'
 suffixFileR2 = '_R2.fastq.gz'
 
+if not os.path.exists(OutDir):
+	os.makedirs(OutDir)
 ################################################################################
 ################################################################################
 
@@ -27,7 +29,6 @@ kmere = [20,30,40,50,60,70,80,90]
 	
 rule final:
 	input: 
-		expand( OutDir + '3_report/report.html'),
 		expand( OutDir + '2_data-final/')
 		
 		
@@ -39,15 +40,15 @@ rule select_assemblage :
 	input : file = OutDir + '3_report/data_report/select.csv'
 	output : OutDir + '2_data-final/'
 	run : 
-		directory = '/'.join(input.file[0:-3])+'1_ABySS'
+		directory = input.file[0:-31] + '1_ABySS/'
 		f = open(input.file,'r')
 		lines = f.readlines()
 		f.close()
 		for line in lines : 
 			select = line.split('\t')[0]
-			path_old = '%s/abyss_assembly_%s/%s-8.fa'%(directory + select,select,select)
-			path_New = '%s.fasta'%(output+select)
-			os.sysem('mv %s %s'%(path_old,path_New))
+			path_old = '%s/%s/%s-8.fa'%(directory + select.split('_')[0],select,select)
+			path_New = '%s.fasta'%(output[0]+select)
+			os.system('mv %s %s'%(path_old,path_New))
 	
 	
 rule report:
@@ -56,7 +57,7 @@ rule report:
 	output : report = OutDir + '3_report/report.html', select = OutDir + '3_report/data_report/select.csv'
 	shell : """
 	module load bioinfo/R/3.4.3
-	Rscript -e 'rmarkdown::render("script/report.Rmd", output_file="{output}", quiet=TRUE, params = list(quality = "{input}"))'
+	Rscript -e 'rmarkdown::render("script/report.Rmd", output_file="{output.report}", quiet=TRUE, params = list(quality = "{input}"))'
 	"""
 		
 rule recup_stat :

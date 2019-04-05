@@ -106,7 +106,7 @@ if __name__ == "__main__":
 	listeID.sort()
 	
 	qualityR = quality = open(outFile,"w")
-	qualityR.write("n\tn:500\tL50\tmin\tN80\tN50\tN20\tE-size\tmax\tsum\tname\t\n")
+	qualityR.write("n\tn:500\tL50\tmin\tN80\tN50\tN20\tE-size\tmax\tsum\tname\n")
 	for isolate in listeID : 	
 		for kmers in [20,30,40,50,60,70,80,90]:
 			for file in os.listdir(directory+isolate+"/"+isolate+"_"+str(kmers)):	
